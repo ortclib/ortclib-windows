@@ -93,6 +93,16 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hfservicesTest.WindowsPhone
 		{869C57F3-67AF-4B32-ABCB-E42A072E9271} = {869C57F3-67AF-4B32-ABCB-E42A072E9271}
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ortc-lib", "ortc-lib", "{44243A6D-994D-4F4D-8CB9-B6B3F96082A5}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortc-lib.Shared", "..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortc-lib.Shared\ortc-lib.Shared.vcxitems", "{C9CE65F1-DF3E-47D2-95B8-6CDDC789849C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortc-lib.WindowsPhone", "..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortc-lib.WindowsPhone\ortc-lib.WindowsPhone.vcxproj", "{16FA42A6-7215-4B22-B939-0D98040F00F1}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortc-lib.Win32", "..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortc-lib.Win32\ortc-lib.Win32.vcxproj", "{96D33368-1468-463B-82D9-C5D50BD7A4B2}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortc-lib.Windows", "..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortc-lib.Windows\ortc-lib.Windows.vcxproj", "{5F43B342-F389-4968-8330-8CD7F5F633B7}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		..\..\..\libs\zsLib\projects\vs2013\zsLib\zsLibTest_Universal.Shared\zsLibTest_Universal.Shared.vcxitems*{907b1c51-64cc-41a3-a6a4-77a9ea8b18f2}*SharedItemsImports = 4
@@ -111,14 +121,18 @@ Global
 		..\..\..\libs\op-services-cpp\projects\vs2013\hfservices\hfservicesTest.Shared\hfservicesTest.Shared.vcxitems*{ee9c0311-770c-41ea-87d5-8a62abe676c9}*SharedItemsImports = 4
 		..\..\..\libs\zsLib\projects\vs2013\zsLib\zsLib.Shared\zsLib.Shared.vcxitems*{5df1d5b9-5a44-46ef-a4f9-10c718f31f41}*SharedItemsImports = 4
 		..\..\..\libs\udns\projects\vs2013\udns\udns.Shared\udns.Shared.vcxitems*{356b3bbc-30c4-45fd-9270-1aa6b32ad553}*SharedItemsImports = 4
+		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortc-lib.Shared\ortc-lib.Shared.vcxitems*{5f43b342-f389-4968-8330-8cd7f5f633b7}*SharedItemsImports = 4
 		..\..\..\libs\op-services-cpp\projects\vs2013\hfservices\hfservices.Shared\hfservices.Shared.vcxitems*{b510e402-e901-4cf0-9073-76984ac9fdc7}*SharedItemsImports = 9
 		..\..\..\libs\zsLib\projects\vs2013\zsLib\zsLib.Shared\zsLib.Shared.vcxitems*{aa3e6a72-1080-4430-9921-8eba6652ba3a}*SharedItemsImports = 9
 		..\..\..\libs\idnkit\projects\vs2013\idnkit\idnkit.Shared\idnkit.Shared.vcxitems*{bfd348b9-016f-43bd-b92f-88da057b8fa8}*SharedItemsImports = 4
 		..\..\..\libs\op-services-cpp\projects\vs2013\hfservices\hfservices.Shared\hfservices.Shared.vcxitems*{55c55370-b836-41fe-9d17-db2095363dad}*SharedItemsImports = 4
 		..\..\..\libs\idnkit\projects\vs2013\idnkit\idnkit.Shared\idnkit.Shared.vcxitems*{ea7f7b95-2bea-43f4-b456-f8d740f9c9c8}*SharedItemsImports = 4
 		..\..\..\libs\cryptopp\projects\vs2013\cryptopp\cryptopp.Shared\cryptopp.Shared.vcxitems*{57718455-f1cd-468c-b888-9c5814bb5f4e}*SharedItemsImports = 4
+		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortc-lib.Shared\ortc-lib.Shared.vcxitems*{96d33368-1468-463b-82d9-c5d50bd7a4b2}*SharedItemsImports = 4
 		..\..\..\libs\op-services-cpp\projects\vs2013\hfservices\hfservices.Shared\hfservices.Shared.vcxitems*{0a6ae9cf-97f5-466b-a49b-cedb0c74b0f8}*SharedItemsImports = 4
 		..\..\..\libs\cryptopp\projects\vs2013\cryptopp\cryptopp.Shared\cryptopp.Shared.vcxitems*{f73d1443-6e8d-4b5b-9f0a-cab724692a5a}*SharedItemsImports = 4
+		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortc-lib.Shared\ortc-lib.Shared.vcxitems*{16fa42a6-7215-4b22-b939-0d98040f00f1}*SharedItemsImports = 4
+		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortc-lib.Shared\ortc-lib.Shared.vcxitems*{c9ce65f1-df3e-47d2-95b8-6cddc789849c}*SharedItemsImports = 9
 		..\..\..\libs\udns\projects\vs2013\udns\udns.Shared\udns.Shared.vcxitems*{d66b52bd-7915-49ba-9cbd-d409bca40c55}*SharedItemsImports = 9
 		..\..\..\libs\cryptopp\projects\vs2013\cryptopp\cryptopp.Shared\cryptopp.Shared.vcxitems*{cb408c66-7391-49fd-a718-c5a04862c9ca}*SharedItemsImports = 9
 	EndGlobalSection
@@ -361,6 +375,36 @@ Global
 		{11CDD8B4-78B5-4234-B8F2-C6916EF9B221}.Release|Win32.Build.0 = Release|Win32
 		{11CDD8B4-78B5-4234-B8F2-C6916EF9B221}.Release|Win32.Deploy.0 = Release|Win32
 		{11CDD8B4-78B5-4234-B8F2-C6916EF9B221}.Release|x64.ActiveCfg = Release|Win32
+		{16FA42A6-7215-4B22-B939-0D98040F00F1}.Debug|ARM.ActiveCfg = Debug|ARM
+		{16FA42A6-7215-4B22-B939-0D98040F00F1}.Debug|ARM.Build.0 = Debug|ARM
+		{16FA42A6-7215-4B22-B939-0D98040F00F1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{16FA42A6-7215-4B22-B939-0D98040F00F1}.Debug|Win32.Build.0 = Debug|Win32
+		{16FA42A6-7215-4B22-B939-0D98040F00F1}.Debug|x64.ActiveCfg = Debug|Win32
+		{16FA42A6-7215-4B22-B939-0D98040F00F1}.Release|ARM.ActiveCfg = Release|ARM
+		{16FA42A6-7215-4B22-B939-0D98040F00F1}.Release|ARM.Build.0 = Release|ARM
+		{16FA42A6-7215-4B22-B939-0D98040F00F1}.Release|Win32.ActiveCfg = Release|Win32
+		{16FA42A6-7215-4B22-B939-0D98040F00F1}.Release|Win32.Build.0 = Release|Win32
+		{16FA42A6-7215-4B22-B939-0D98040F00F1}.Release|x64.ActiveCfg = Release|Win32
+		{96D33368-1468-463B-82D9-C5D50BD7A4B2}.Debug|ARM.ActiveCfg = Debug|Win32
+		{96D33368-1468-463B-82D9-C5D50BD7A4B2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{96D33368-1468-463B-82D9-C5D50BD7A4B2}.Debug|Win32.Build.0 = Debug|Win32
+		{96D33368-1468-463B-82D9-C5D50BD7A4B2}.Debug|x64.ActiveCfg = Debug|Win32
+		{96D33368-1468-463B-82D9-C5D50BD7A4B2}.Release|ARM.ActiveCfg = Release|Win32
+		{96D33368-1468-463B-82D9-C5D50BD7A4B2}.Release|Win32.ActiveCfg = Release|Win32
+		{96D33368-1468-463B-82D9-C5D50BD7A4B2}.Release|Win32.Build.0 = Release|Win32
+		{96D33368-1468-463B-82D9-C5D50BD7A4B2}.Release|x64.ActiveCfg = Release|Win32
+		{5F43B342-F389-4968-8330-8CD7F5F633B7}.Debug|ARM.ActiveCfg = Debug|ARM
+		{5F43B342-F389-4968-8330-8CD7F5F633B7}.Debug|ARM.Build.0 = Debug|ARM
+		{5F43B342-F389-4968-8330-8CD7F5F633B7}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5F43B342-F389-4968-8330-8CD7F5F633B7}.Debug|Win32.Build.0 = Debug|Win32
+		{5F43B342-F389-4968-8330-8CD7F5F633B7}.Debug|x64.ActiveCfg = Debug|x64
+		{5F43B342-F389-4968-8330-8CD7F5F633B7}.Debug|x64.Build.0 = Debug|x64
+		{5F43B342-F389-4968-8330-8CD7F5F633B7}.Release|ARM.ActiveCfg = Release|ARM
+		{5F43B342-F389-4968-8330-8CD7F5F633B7}.Release|ARM.Build.0 = Release|ARM
+		{5F43B342-F389-4968-8330-8CD7F5F633B7}.Release|Win32.ActiveCfg = Release|Win32
+		{5F43B342-F389-4968-8330-8CD7F5F633B7}.Release|Win32.Build.0 = Release|Win32
+		{5F43B342-F389-4968-8330-8CD7F5F633B7}.Release|x64.ActiveCfg = Release|x64
+		{5F43B342-F389-4968-8330-8CD7F5F633B7}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -396,5 +440,9 @@ Global
 		{7D81A210-B4C8-4DEB-8A50-E720503016E1} = {2BE9ACDB-8219-4A0C-AB73-BD5A7B5BE7C4}
 		{EE9C0311-770C-41EA-87D5-8A62ABE676C9} = {2BE9ACDB-8219-4A0C-AB73-BD5A7B5BE7C4}
 		{11CDD8B4-78B5-4234-B8F2-C6916EF9B221} = {2BE9ACDB-8219-4A0C-AB73-BD5A7B5BE7C4}
+		{C9CE65F1-DF3E-47D2-95B8-6CDDC789849C} = {44243A6D-994D-4F4D-8CB9-B6B3F96082A5}
+		{16FA42A6-7215-4B22-B939-0D98040F00F1} = {44243A6D-994D-4F4D-8CB9-B6B3F96082A5}
+		{96D33368-1468-463B-82D9-C5D50BD7A4B2} = {44243A6D-994D-4F4D-8CB9-B6B3F96082A5}
+		{5F43B342-F389-4968-8330-8CD7F5F633B7} = {44243A6D-994D-4F4D-8CB9-B6B3F96082A5}
 	EndGlobalSection
 EndGlobal
