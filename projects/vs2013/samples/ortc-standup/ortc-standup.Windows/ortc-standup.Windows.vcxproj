@@ -555,14 +555,6 @@
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\webrtc\system_wrappers\system_wrappers_default.vcxproj">
-      <Project>{c63f1d92-47f7-f24b-0304-53a3fb0198ca}</Project>
-      <Private>false</Private>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
-      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\webrtc\test\channel_transport.vcxproj">
       <Project>{9cf57aa7-66a5-104f-82e2-ba58218b8957}</Project>
       <Private>false</Private>

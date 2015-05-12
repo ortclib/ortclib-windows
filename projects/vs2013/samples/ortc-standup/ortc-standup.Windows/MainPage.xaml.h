@@ -30,6 +30,8 @@
 
 namespace ortc_standup
 {
+  class MediaElementWrapper;
+
 	/// <summary>
 	/// An empty page that can be used on its own or navigated to within a Frame.
 	/// </summary>
@@ -53,6 +55,9 @@ namespace ortc_standup
     int audioPort_;
     int videoPort_;
     std::string remoteIpAddress_;
+
+    MediaElementWrapper* localMediaWrapper_;
+    MediaElementWrapper* remoteMediaWrapper_;
 
     int voiceChannel_;
     webrtc::test::VoiceChannelTransport* voiceTransport_;

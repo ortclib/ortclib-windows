@@ -9,6 +9,7 @@
 #include <ppltasks.h>
 
 #include "webrtc/modules/video_capture/include/video_capture_factory.h"
+#include "webrtc/modules/video_render/windows/video_render_winrt.h"
 
 using namespace ortc_standup;
 
@@ -42,6 +43,27 @@ using namespace Windows::UI::Xaml::Navigation;
 
 Windows::UI::Core::CoreDispatcher^ g_windowDispatcher;
 
+namespace ortc_standup
+{
+  class MediaElementWrapper : public webrtc::IWinRTMediaElement
+  {
+  public:
+
+    MediaElementWrapper(MediaElement^ mediaElement) :_mediaElement(mediaElement){};
+    virtual void Play(){
+      _mediaElement->Play();
+    };
+    virtual void SetMediaStreamSource(Windows::Media::Core::IMediaSource^ mss){
+      _mediaElement->SetMediaStreamSource(mss);
+    };
+
+    MediaElement^ getMediaElement(){ return _mediaElement; }
+
+  private:
+    MediaElement^ _mediaElement;
+  };
+}
+
 class TestTraceCallback : public webrtc::TraceCallback
 {
 public:
@@ -62,11 +84,16 @@ MainPage::MainPage() :
   traceCallback_(new TestTraceCallback()),
   started_(false),
   startedVideo_(false),
+  audioPort_(20000),
+  videoPort_(20010),
+  remoteIpAddress_("127.0.0.1"),
   voiceTransport_(NULL),
   videoTransport_(NULL),
   voiceChannel_(-1),
   captureId_(-1),
-  videoChannel_(-1)
+  videoChannel_(-1),
+  localMediaWrapper_(NULL),
+  remoteMediaWrapper_(NULL)
 {
 	InitializeComponent();
 
@@ -365,7 +392,9 @@ ortc_standup::MainPage::~MainPage()
 
 void ortc_standup::MainPage::Page_Loaded(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
-  dispatcher_ = Window::Current->Dispatcher;
+  g_windowDispatcher = dispatcher_ = Window::Current->Dispatcher;
+  localMediaWrapper_ = new MediaElementWrapper(LocalVideoMediaElement);
+  remoteMediaWrapper_ = new MediaElementWrapper(RemoteVideoMediaElement);
 }
 
 void ortc_standup::MainPage::StartStopButton_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
@@ -609,9 +638,7 @@ void ortc_standup::MainPage::StartStopButton_Click(Platform::Object^ sender, Win
         return Concurrency::create_task([](){});
       }
 
-      IInspectable* captureRendererPtr = reinterpret_cast<IInspectable*>(LocalVideoMediaElement);
-
-      error = videoRender_->AddRenderer(captureId_, captureRendererPtr, 0, 0.0F, 0.0F, 1.0F, 1.0F);
+      error = videoRender_->AddRenderer(captureId_, localMediaWrapper_, 0, 0.0F, 0.0F, 1.0F, 1.0F);
       if (0 != error) {
         webrtc::WEBRTC_TRACE(webrtc::kTraceError, webrtc::kTraceVideo, -1,
           "Failed to add renderer for video capture. Error: %d", videoBase_->LastError());
@@ -631,6 +658,15 @@ void ortc_standup::MainPage::StartStopButton_Click(Platform::Object^ sender, Win
           "Could not create video channel. Error: %d", videoBase_->LastError());
         return Concurrency::create_task([](){});
       }
+
+#if defined(VOICE)
+      error = videoBase_->ConnectAudioChannel(videoChannel_, voiceChannel_);
+      if (error != 0) {
+        webrtc::WEBRTC_TRACE(webrtc::kTraceError, webrtc::kTraceVideo, -1,
+          "Could not connect audio channel. Error: %d", videoBase_->LastError());
+        return Concurrency::create_task([](){});
+      }
+#endif
 
       videoTransport_ = new webrtc::test::VideoChannelTransport(videoNetwork_, videoChannel_);
       if (videoTransport_ == NULL) {
@@ -719,9 +755,7 @@ void ortc_standup::MainPage::StartStopButton_Click(Platform::Object^ sender, Win
         return Concurrency::create_task([](){});
       }
 
-      IInspectable* channelRendererPtr = reinterpret_cast<IInspectable*>(RemoteVideoMediaElement);
-
-      error = videoRender_->AddRenderer(videoChannel_, channelRendererPtr, 0, 0.0F, 0.0F, 1.0F, 1.0F);
+      error = videoRender_->AddRenderer(videoChannel_, remoteMediaWrapper_, 0, 0.0F, 0.0F, 1.0F, 1.0F);
       if (0 != error) {
         webrtc::WEBRTC_TRACE(webrtc::kTraceError, webrtc::kTraceVideo, -1,
           "Failed to add renderer for video channel. Error: %d", videoBase_->LastError());
