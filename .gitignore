@@ -1,4 +1,7 @@
 [Dd]ebug/
 *.opensdf
 *.sdf
+*.suo
 [Rr]elease/
+projects/vs2013/ipch
+projects/vs2013/samples/ortc-standup/**/Generated Files
