@@ -19,11 +19,17 @@ using namespace Windows::UI::Xaml::Input;
 using namespace Windows::UI::Xaml::Media;
 using namespace Windows::UI::Xaml::Navigation;
 
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
+Windows::UI::Core::CoreDispatcher^ g_windowDispatcher;
 
-MainPage::MainPage()
+MainPage::MainPage() : mediaEngine_(NULL)
 {
 	InitializeComponent();
+}
+
+ortc_standup::MainPage::~MainPage()
+{
+  if (mediaEngine_)
+    delete mediaEngine_;
 }
 
 /// <summary>
@@ -42,4 +48,18 @@ void MainPage::OnNavigatedTo(NavigationEventArgs^ e)
 	// Windows::Phone::UI::Input::HardwareButtons.BackPressed event.
 	// If you are using the NavigationHelper provided by some templates,
 	// this event is handled for you.
+}
+
+void ortc_standup::MainPage::Page_Loaded(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+  g_windowDispatcher = Window::Current->Dispatcher;
+  mediaEngine_ = new MediaEngine();
+  mediaEngine_->SetStartStopButton(StartStopButton);
+  mediaEngine_->SetLocalMediaElement(LocalVideoMediaElement);
+  mediaEngine_->SetRemoteMediaElement(RemoteVideoMediaElement);
+}
+
+void ortc_standup::MainPage::StartStopButton_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+  mediaEngine_->StartStopMedia();
 }

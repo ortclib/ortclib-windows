@@ -2,6 +2,7 @@
 *.opensdf
 *.sdf
 *.suo
+*.user
 [Rr]elease/
 projects/vs2013/ipch
 projects/vs2013/samples/ortc-standup/**/Generated Files

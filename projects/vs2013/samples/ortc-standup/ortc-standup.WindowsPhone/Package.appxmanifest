@@ -1,44 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
-
-  <Identity Name="c850fe57-50b3-49b1-a099-b8be525ef8a9"
-            Publisher="CN=morosev"
-            Version="1.0.0.0" />
-
-  <mp:PhoneIdentity PhoneProductId="c850fe57-50b3-49b1-a099-b8be525ef8a9" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
-
+  <Identity Name="c850fe57-50b3-49b1-a099-b8be525ef8a9" Publisher="CN=hookflash" Version="1.0.0.0" />
+  <mp:PhoneIdentity PhoneProductId="c850fe57-50b3-49b1-a099-b8be525ef8a9" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>ortc-standup.WindowsPhone</DisplayName>
-    <PublisherDisplayName>morosev</PublisherDisplayName>
+    <PublisherDisplayName>hookflash</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
-
   <Prerequisites>
     <OSMinVersion>6.3.1</OSMinVersion>
     <OSMaxVersionTested>6.3.1</OSMaxVersionTested>
   </Prerequisites>
-  
   <Resources>
-    <Resource Language="x-generate"/>
+    <Resource Language="x-generate" />
   </Resources>
-
   <Applications>
-    <Application Id="App"
-        Executable="$targetnametoken$.exe"
-        EntryPoint="ortc_standup_WindowsPhone.App">
-        <m3:VisualElements
-            DisplayName="ortc-standup.WindowsPhone"
-            Square150x150Logo="Assets\Logo.png"
-            Square44x44Logo="Assets\SmallLogo.png"
-            Description="ortc-standup.WindowsPhone"
-            ForegroundText="light"
-            BackgroundColor="transparent">
-            <m3:DefaultTile Wide310x150Logo="Assets\WideLogo.png" Square71x71Logo="Assets\Square71x71Logo.png"/>
-            <m3:SplashScreen Image="Assets\SplashScreen.png"/>
-        </m3:VisualElements>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="ortc_standup_WindowsPhone.App">
+      <m3:VisualElements DisplayName="ortc-standup.WindowsPhone" Square150x150Logo="Assets\Logo.png" Square44x44Logo="Assets\SmallLogo.png" Description="ortc-standup.WindowsPhone" ForegroundText="light" BackgroundColor="transparent">
+        <m3:DefaultTile Wide310x150Logo="Assets\WideLogo.png" Square71x71Logo="Assets\Square71x71Logo.png">
+        </m3:DefaultTile>
+        <m3:SplashScreen Image="Assets\SplashScreen.png" />
+      </m3:VisualElements>
     </Application>
   </Applications>
   <Capabilities>
     <Capability Name="internetClientServer" />
+    <DeviceCapability Name="microphone" />
+    <DeviceCapability Name="webcam" />
   </Capabilities>
 </Package>

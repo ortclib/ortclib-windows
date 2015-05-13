@@ -7,6 +7,8 @@
 
 #include "MainPage.g.h"
 
+#include "MediaEngine.h"
+
 namespace ortc_standup
 {
 	/// <summary>
@@ -16,8 +18,15 @@ namespace ortc_standup
 	{
 	public:
 		MainPage();
+    virtual ~MainPage();
 
 	protected:
 		virtual void OnNavigatedTo(Windows::UI::Xaml::Navigation::NavigationEventArgs^ e) override;
-	};
+
+  private:
+    void Page_Loaded(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
+    void StartStopButton_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
+
+    MediaEngine* mediaEngine_;
+  };
 }
