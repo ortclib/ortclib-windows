@@ -163,6 +163,14 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\testing\gtest.vcxproj">
+      <Project>{e72f768a-94c5-f56d-6d09-2d6bbcc1c711}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\third_party\libjpeg_turbo\libjpeg.vcxproj">
       <Project>{7adfbd3a-4972-6013-57ff-fc245e80e675}</Project>
       <Private>false</Private>
