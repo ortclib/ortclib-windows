@@ -72,7 +72,6 @@ MediaEngine::MediaEngine() :
   startedVideo_(false),
   audioPort_(20000),
   videoPort_(20010),
-  remoteIpAddress_("127.0.0.1"),
   voiceTransport_(NULL),
   videoTransport_(NULL),
   voiceChannel_(-1),
@@ -389,8 +388,12 @@ void MediaEngine::SetStartStopButton(Button^ button)
   startStopButton_ = button;
 }
 
-void MediaEngine::StartStopMedia()
+void MediaEngine::StartStopMedia(Platform::String^ remoteIPAddress)
 {
+  int remoteIpAddressSize = WideCharToMultiByte(CP_UTF8, 0, remoteIPAddress->Data(), wcslen(remoteIPAddress->Data()), NULL, 0, NULL, NULL);
+  remoteIpAddress_.resize(remoteIpAddressSize);
+  WideCharToMultiByte(CP_UTF8, 0, remoteIPAddress->Data(), wcslen(remoteIPAddress->Data()), &remoteIpAddress_[0], remoteIpAddressSize, NULL, NULL);
+
   if (started_) {
     stopEvent_.set();
     started_ = false;

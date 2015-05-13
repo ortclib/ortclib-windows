@@ -6,13 +6,15 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Loaded="Page_Loaded">
 
   <Grid>
     <Grid.ColumnDefinitions>
       <ColumnDefinition/>
     </Grid.ColumnDefinitions>
     <Button x:Name="StartStopButton" Content="Start" HorizontalAlignment="Left" Margin="80,40,0,0" VerticalAlignment="Top" Width="120" Height="60" FontSize="20" Click="StartStopButton_Click"/>
+    <TextBox x:Name="RemoteIPAddressTextBox" HorizontalAlignment="Left" Margin="247,50,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="199" Height="40" FontSize="20" TextAlignment="Center"/>
     <Border HorizontalAlignment="Left" Height="120" Margin="83,117,0,0" VerticalAlignment="Top" Width="160" BorderBrush="{ThemeResource TextBoxBorderThemeBrush}" BorderThickness="2">
       <MediaElement x:Name="LocalVideoMediaElement"/>
     </Border>

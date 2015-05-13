@@ -33,7 +33,7 @@ namespace ortc_standup
     void SetLocalMediaElement(Windows::UI::Xaml::Controls::MediaElement^ element);
     void SetRemoteMediaElement(Windows::UI::Xaml::Controls::MediaElement^ element);
     void SetStartStopButton(Windows::UI::Xaml::Controls::Button^ button);
-    void StartStopMedia();
+    void StartStopMedia(Platform::String^ remoteIPAddress);
 
   private:
     std::string GetRawVideoFormatString(webrtc::RawVideoType videoType);
