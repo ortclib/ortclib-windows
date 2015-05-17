@@ -131,6 +131,22 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\testing\gtest.vcxproj">
+      <Project>{e72f768a-94c5-f56d-6d09-2d6bbcc1c711}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\third_party\jsoncpp\jsoncpp.vcxproj">
+      <Project>{6f671c55-9f91-d8a2-c8a2-29244b3477b4}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\third_party\libjpeg_turbo\libjpeg.vcxproj">
       <Project>{7adfbd3a-4972-6013-57ff-fc245e80e675}</Project>
       <Private>false</Private>
@@ -157,6 +173,14 @@
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\third_party\opus\opus.vcxproj">
       <Project>{272e163a-1206-8f4f-2e7a-4b12b331ce77}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\webrtc\base\rtc_base.vcxproj">
+      <Project>{93f855f4-ee6f-f00d-f4a3-35577b1d5f76}</Project>
       <Private>false</Private>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>

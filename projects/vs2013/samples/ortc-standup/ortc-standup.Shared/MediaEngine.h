@@ -1,5 +1,6 @@
 #pragma once
 
+#include "webrtc/base/thread.h"
 #include "webrtc/system_wrappers/interface/trace.h"
 
 #include "webrtc/voice_engine/include/voe_base.h"
@@ -77,5 +78,7 @@ namespace ortc_standup
     webrtc::ViECapture* videoCapture_;
     webrtc::ViERTP_RTCP* videoRtpRtcp_;
     webrtc::ViECodec* videoCodec_;
+
+    rtc::Thread workerThread_;
   };
 }
