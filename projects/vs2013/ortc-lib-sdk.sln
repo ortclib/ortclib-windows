@@ -277,6 +277,34 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "opus", "opus", "{5FDD5538-7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "protobuf", "protobuf", "{C41CC48E-655D-42DB-B38A-CFE99520967F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{E98794F9-0E77-4F00-B22D-933680F10A5F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclibTest.Console", "..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Console\ortclibTest.Console.vcxproj", "{230126E0-3B22-4FE4-BAAF-2646453B88B1}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclibTest.Shared", "..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Shared\ortclibTest.Shared.vcxitems", "{C2F7BB00-C8A4-4459-9BE0-F58F67A1EE4D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclibTest.Windows", "..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Windows\ortclibTest.Windows.vcxproj", "{5FF4DB7C-2406-46E1-A54C-B73B8AEEC6A2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5F43B342-F389-4968-8330-8CD7F5F633B7} = {5F43B342-F389-4968-8330-8CD7F5F633B7}
+		{156EE8B0-C403-4262-A55C-54A81DC2C1FC} = {156EE8B0-C403-4262-A55C-54A81DC2C1FC}
+		{BFD348B9-016F-43BD-B92F-88DA057B8FA8} = {BFD348B9-016F-43BD-B92F-88DA057B8FA8}
+		{5DF1D5B9-5A44-46EF-A4F9-10C718F31F41} = {5DF1D5B9-5A44-46EF-A4F9-10C718F31F41}
+		{81D2EEEC-2D4C-4225-824B-A7DE05BB6557} = {81D2EEEC-2D4C-4225-824B-A7DE05BB6557}
+		{3C9C21F5-54BE-4C18-AC96-F28A43EF2844} = {3C9C21F5-54BE-4C18-AC96-F28A43EF2844}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclibTest.WindowsPhone", "..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.WindowsPhone\ortclibTest.WindowsPhone.vcxproj", "{FAEBB8E2-46A8-43AF-8CAC-FB5511BBA11E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9F611411-F4BD-4687-BE22-B16AF16C62FD} = {9F611411-F4BD-4687-BE22-B16AF16C62FD}
+		{0CC26E42-E162-478C-8CCB-FC81A7776450} = {0CC26E42-E162-478C-8CCB-FC81A7776450}
+		{907B1C51-64CC-41A3-A6A4-77A9EA8B18F2} = {907B1C51-64CC-41A3-A6A4-77A9EA8B18F2}
+		{57718455-F1CD-468C-B888-9C5814BB5F4E} = {57718455-F1CD-468C-B888-9C5814BB5F4E}
+		{16FA42A6-7215-4B22-B939-0D98040F00F1} = {16FA42A6-7215-4B22-B939-0D98040F00F1}
+		{0A6AE9CF-97F5-466B-A49B-CEDB0C74B0F8} = {0A6AE9CF-97F5-466B-A49B-CEDB0C74B0F8}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclibTestUnitTests", "..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems", "{73373DB6-8059-4671-ACBD-47219A769922}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		..\..\..\libs\zsLib\projects\vs2013\zsLib\zsLibTest_Universal.Shared\zsLibTest_Universal.Shared.vcxitems*{907b1c51-64cc-41a3-a6a4-77a9ea8b18f2}*SharedItemsImports = 4
@@ -284,12 +312,16 @@ Global
 		..\..\..\libs\op-services-cpp\projects\vs2013\hfservices\hfservicesTest.Shared\hfservicesTest.Shared.vcxitems*{b53f4474-1ed7-42a2-8cc8-3a7f7d996a5d}*SharedItemsImports = 9
 		..\..\..\libs\udns\projects\vs2013\udns\udns.Shared\udns.Shared.vcxitems*{3c9c21f5-54be-4c18-ac96-f28a43ef2844}*SharedItemsImports = 4
 		..\..\..\libs\op-services-cpp\projects\vs2013\hfservices\hfservicesTest.Shared\hfservicesTest.Shared.vcxitems*{11cdd8b4-78b5-4234-b8f2-c6916ef9b221}*SharedItemsImports = 4
+		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems*{73373db6-8059-4671-acbd-47219a769922}*SharedItemsImports = 9
+		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems*{5ff4db7c-2406-46e1-a54c-b73b8aeec6a2}*SharedItemsImports = 4
+		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Shared\ortclibTest.Shared.vcxitems*{5ff4db7c-2406-46e1-a54c-b73b8aeec6a2}*SharedItemsImports = 4
 		..\..\..\libs\zsLib\projects\vs2013\zsLib\zsLibTest_Universal.Shared\zsLibTest_Universal.Shared.vcxitems*{0dd0e22d-1d72-44aa-8ef3-c93c2d9bd395}*SharedItemsImports = 4
 		..\..\..\libs\idnkit\projects\vs2013\idnkit\idnkit.Shared\idnkit.Shared.vcxitems*{9f611411-f4bd-4687-be22-b16af16c62fd}*SharedItemsImports = 4
 		..\..\..\libs\zsLib\projects\vs2013\zsLib\zsLib.Shared\zsLib.Shared.vcxitems*{d4990072-586d-43e3-9973-51092bd9226f}*SharedItemsImports = 4
 		..\..\..\libs\idnkit\projects\vs2013\idnkit\idnkit.Shared\idnkit.Shared.vcxitems*{de21ecb4-5a23-43b0-8313-6cd7bf6e3b37}*SharedItemsImports = 9
 		samples\ortc-standup\ortc-standup.Shared\ortc-standup.Shared.vcxitems*{196f4e37-9186-4991-99d3-67f5e1f012b6}*SharedItemsImports = 9
 		..\..\..\libs\zsLib\projects\vs2013\zsLib\zsLibTest_Universal.Shared\zsLibTest_Universal.Shared.vcxitems*{45daa8ac-7dbd-4182-b99a-cd929c80d60d}*SharedItemsImports = 9
+		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Shared\ortclibTest.Shared.vcxitems*{c2f7bb00-c8a4-4459-9be0-f58f67a1ee4d}*SharedItemsImports = 9
 		..\..\..\libs\zsLib\projects\vs2013\zsLib\zsLib.Shared\zsLib.Shared.vcxitems*{869c57f3-67af-4b32-abcb-e42a072e9271}*SharedItemsImports = 4
 		..\..\..\libs\cryptopp\projects\vs2013\cryptopp\cryptopp.Shared\cryptopp.Shared.vcxitems*{81d2eeec-2d4c-4225-824b-a7de05bb6557}*SharedItemsImports = 4
 		..\..\..\libs\udns\projects\vs2013\udns\udns.Shared\udns.Shared.vcxitems*{0cc26e42-e162-478c-8ccb-fc81a7776450}*SharedItemsImports = 4
@@ -304,6 +336,9 @@ Global
 		..\..\..\libs\op-services-cpp\projects\vs2013\hfservices\hfservices.Shared\hfservices.Shared.vcxitems*{55c55370-b836-41fe-9d17-db2095363dad}*SharedItemsImports = 4
 		..\..\..\libs\idnkit\projects\vs2013\idnkit\idnkit.Shared\idnkit.Shared.vcxitems*{ea7f7b95-2bea-43f4-b456-f8d740f9c9c8}*SharedItemsImports = 4
 		..\..\..\libs\cryptopp\projects\vs2013\cryptopp\cryptopp.Shared\cryptopp.Shared.vcxitems*{57718455-f1cd-468c-b888-9c5814bb5f4e}*SharedItemsImports = 4
+		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems*{230126e0-3b22-4fe4-baaf-2646453b88b1}*SharedItemsImports = 4
+		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems*{faebb8e2-46a8-43af-8cac-fb5511bba11e}*SharedItemsImports = 4
+		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Shared\ortclibTest.Shared.vcxitems*{faebb8e2-46a8-43af-8cac-fb5511bba11e}*SharedItemsImports = 4
 		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortc-lib.Shared\ortc-lib.Shared.vcxitems*{96d33368-1468-463b-82d9-c5d50bd7a4b2}*SharedItemsImports = 4
 		..\..\..\libs\op-services-cpp\projects\vs2013\hfservices\hfservices.Shared\hfservices.Shared.vcxitems*{0a6ae9cf-97f5-466b-a49b-cedb0c74b0f8}*SharedItemsImports = 4
 		..\..\..\libs\cryptopp\projects\vs2013\cryptopp\cryptopp.Shared\cryptopp.Shared.vcxitems*{f73d1443-6e8d-4b5b-9f0a-cab724692a5a}*SharedItemsImports = 4
@@ -1234,6 +1269,46 @@ Global
 		{6F671C55-9F91-D8A2-C8A2-29244B3477B4}.Release|Win32.ActiveCfg = Release|Win32
 		{6F671C55-9F91-D8A2-C8A2-29244B3477B4}.Release|Win32.Build.0 = Release|Win32
 		{6F671C55-9F91-D8A2-C8A2-29244B3477B4}.Release|x64.ActiveCfg = Release|Win32
+		{230126E0-3B22-4FE4-BAAF-2646453B88B1}.Debug|ARM.ActiveCfg = Debug|Win32
+		{230126E0-3B22-4FE4-BAAF-2646453B88B1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{230126E0-3B22-4FE4-BAAF-2646453B88B1}.Debug|Win32.Build.0 = Debug|Win32
+		{230126E0-3B22-4FE4-BAAF-2646453B88B1}.Debug|x64.ActiveCfg = Debug|Win32
+		{230126E0-3B22-4FE4-BAAF-2646453B88B1}.Release|ARM.ActiveCfg = Release|Win32
+		{230126E0-3B22-4FE4-BAAF-2646453B88B1}.Release|Win32.ActiveCfg = Release|Win32
+		{230126E0-3B22-4FE4-BAAF-2646453B88B1}.Release|Win32.Build.0 = Release|Win32
+		{230126E0-3B22-4FE4-BAAF-2646453B88B1}.Release|x64.ActiveCfg = Release|Win32
+		{5FF4DB7C-2406-46E1-A54C-B73B8AEEC6A2}.Debug|ARM.ActiveCfg = Debug|ARM
+		{5FF4DB7C-2406-46E1-A54C-B73B8AEEC6A2}.Debug|ARM.Build.0 = Debug|ARM
+		{5FF4DB7C-2406-46E1-A54C-B73B8AEEC6A2}.Debug|ARM.Deploy.0 = Debug|ARM
+		{5FF4DB7C-2406-46E1-A54C-B73B8AEEC6A2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5FF4DB7C-2406-46E1-A54C-B73B8AEEC6A2}.Debug|Win32.Build.0 = Debug|Win32
+		{5FF4DB7C-2406-46E1-A54C-B73B8AEEC6A2}.Debug|Win32.Deploy.0 = Debug|Win32
+		{5FF4DB7C-2406-46E1-A54C-B73B8AEEC6A2}.Debug|x64.ActiveCfg = Debug|x64
+		{5FF4DB7C-2406-46E1-A54C-B73B8AEEC6A2}.Debug|x64.Build.0 = Debug|x64
+		{5FF4DB7C-2406-46E1-A54C-B73B8AEEC6A2}.Debug|x64.Deploy.0 = Debug|x64
+		{5FF4DB7C-2406-46E1-A54C-B73B8AEEC6A2}.Release|ARM.ActiveCfg = Release|ARM
+		{5FF4DB7C-2406-46E1-A54C-B73B8AEEC6A2}.Release|ARM.Build.0 = Release|ARM
+		{5FF4DB7C-2406-46E1-A54C-B73B8AEEC6A2}.Release|ARM.Deploy.0 = Release|ARM
+		{5FF4DB7C-2406-46E1-A54C-B73B8AEEC6A2}.Release|Win32.ActiveCfg = Release|Win32
+		{5FF4DB7C-2406-46E1-A54C-B73B8AEEC6A2}.Release|Win32.Build.0 = Release|Win32
+		{5FF4DB7C-2406-46E1-A54C-B73B8AEEC6A2}.Release|Win32.Deploy.0 = Release|Win32
+		{5FF4DB7C-2406-46E1-A54C-B73B8AEEC6A2}.Release|x64.ActiveCfg = Release|x64
+		{5FF4DB7C-2406-46E1-A54C-B73B8AEEC6A2}.Release|x64.Build.0 = Release|x64
+		{5FF4DB7C-2406-46E1-A54C-B73B8AEEC6A2}.Release|x64.Deploy.0 = Release|x64
+		{FAEBB8E2-46A8-43AF-8CAC-FB5511BBA11E}.Debug|ARM.ActiveCfg = Debug|ARM
+		{FAEBB8E2-46A8-43AF-8CAC-FB5511BBA11E}.Debug|ARM.Build.0 = Debug|ARM
+		{FAEBB8E2-46A8-43AF-8CAC-FB5511BBA11E}.Debug|ARM.Deploy.0 = Debug|ARM
+		{FAEBB8E2-46A8-43AF-8CAC-FB5511BBA11E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FAEBB8E2-46A8-43AF-8CAC-FB5511BBA11E}.Debug|Win32.Build.0 = Debug|Win32
+		{FAEBB8E2-46A8-43AF-8CAC-FB5511BBA11E}.Debug|Win32.Deploy.0 = Debug|Win32
+		{FAEBB8E2-46A8-43AF-8CAC-FB5511BBA11E}.Debug|x64.ActiveCfg = Debug|Win32
+		{FAEBB8E2-46A8-43AF-8CAC-FB5511BBA11E}.Release|ARM.ActiveCfg = Release|ARM
+		{FAEBB8E2-46A8-43AF-8CAC-FB5511BBA11E}.Release|ARM.Build.0 = Release|ARM
+		{FAEBB8E2-46A8-43AF-8CAC-FB5511BBA11E}.Release|ARM.Deploy.0 = Release|ARM
+		{FAEBB8E2-46A8-43AF-8CAC-FB5511BBA11E}.Release|Win32.ActiveCfg = Release|Win32
+		{FAEBB8E2-46A8-43AF-8CAC-FB5511BBA11E}.Release|Win32.Build.0 = Release|Win32
+		{FAEBB8E2-46A8-43AF-8CAC-FB5511BBA11E}.Release|Win32.Deploy.0 = Release|Win32
+		{FAEBB8E2-46A8-43AF-8CAC-FB5511BBA11E}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1358,5 +1433,11 @@ Global
 		{D962CF90-56B7-4402-B774-C1A8222B66DE} = {CC558BA0-97C4-4DDD-9E13-1D1BCE3B770D}
 		{5FDD5538-7191-4664-906C-385F1D26A422} = {CC558BA0-97C4-4DDD-9E13-1D1BCE3B770D}
 		{C41CC48E-655D-42DB-B38A-CFE99520967F} = {CC558BA0-97C4-4DDD-9E13-1D1BCE3B770D}
+		{E98794F9-0E77-4F00-B22D-933680F10A5F} = {44243A6D-994D-4F4D-8CB9-B6B3F96082A5}
+		{230126E0-3B22-4FE4-BAAF-2646453B88B1} = {E98794F9-0E77-4F00-B22D-933680F10A5F}
+		{C2F7BB00-C8A4-4459-9BE0-F58F67A1EE4D} = {E98794F9-0E77-4F00-B22D-933680F10A5F}
+		{5FF4DB7C-2406-46E1-A54C-B73B8AEEC6A2} = {E98794F9-0E77-4F00-B22D-933680F10A5F}
+		{FAEBB8E2-46A8-43AF-8CAC-FB5511BBA11E} = {E98794F9-0E77-4F00-B22D-933680F10A5F}
+		{73373DB6-8059-4671-ACBD-47219A769922} = {E98794F9-0E77-4F00-B22D-933680F10A5F}
 	EndGlobalSection
 EndGlobal
