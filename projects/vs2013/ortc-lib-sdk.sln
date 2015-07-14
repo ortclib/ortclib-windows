@@ -314,6 +314,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "boringssl", "boringssl", "{
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "boringssl", "..\..\..\libs\webrtc\third_party\boringssl\boringssl.vcxproj", "{23D79827-E423-BA46-5AD6-622B0828F65C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libsrtp", "..\..\..\libs\webrtc\third_party\libsrtp\libsrtp.vcxproj", "{7F9A1B1F-D1D7-872F-CE15-A6CAB15CA0D5}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		..\..\..\libs\zsLib\projects\vs2013\zsLib\zsLibTest_Universal.Shared\zsLibTest_Universal.Shared.vcxitems*{907b1c51-64cc-41a3-a6a4-77a9ea8b18f2}*SharedItemsImports = 4
@@ -1330,6 +1332,18 @@ Global
 		{23D79827-E423-BA46-5AD6-622B0828F65C}.Release|Win32.Build.0 = Release|Win32
 		{23D79827-E423-BA46-5AD6-622B0828F65C}.Release|x64.ActiveCfg = Release|x64
 		{23D79827-E423-BA46-5AD6-622B0828F65C}.Release|x64.Build.0 = Release|x64
+		{7F9A1B1F-D1D7-872F-CE15-A6CAB15CA0D5}.Debug|ARM.ActiveCfg = Debug|ARM
+		{7F9A1B1F-D1D7-872F-CE15-A6CAB15CA0D5}.Debug|ARM.Build.0 = Debug|ARM
+		{7F9A1B1F-D1D7-872F-CE15-A6CAB15CA0D5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7F9A1B1F-D1D7-872F-CE15-A6CAB15CA0D5}.Debug|Win32.Build.0 = Debug|Win32
+		{7F9A1B1F-D1D7-872F-CE15-A6CAB15CA0D5}.Debug|x64.ActiveCfg = Debug|x64
+		{7F9A1B1F-D1D7-872F-CE15-A6CAB15CA0D5}.Debug|x64.Build.0 = Debug|x64
+		{7F9A1B1F-D1D7-872F-CE15-A6CAB15CA0D5}.Release|ARM.ActiveCfg = Release|ARM
+		{7F9A1B1F-D1D7-872F-CE15-A6CAB15CA0D5}.Release|ARM.Build.0 = Release|ARM
+		{7F9A1B1F-D1D7-872F-CE15-A6CAB15CA0D5}.Release|Win32.ActiveCfg = Release|Win32
+		{7F9A1B1F-D1D7-872F-CE15-A6CAB15CA0D5}.Release|Win32.Build.0 = Release|Win32
+		{7F9A1B1F-D1D7-872F-CE15-A6CAB15CA0D5}.Release|x64.ActiveCfg = Release|x64
+		{7F9A1B1F-D1D7-872F-CE15-A6CAB15CA0D5}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1462,5 +1476,6 @@ Global
 		{73373DB6-8059-4671-ACBD-47219A769922} = {E98794F9-0E77-4F00-B22D-933680F10A5F}
 		{E4CBC302-DDE3-434F-A699-8BDB37910AC1} = {CC558BA0-97C4-4DDD-9E13-1D1BCE3B770D}
 		{23D79827-E423-BA46-5AD6-622B0828F65C} = {E4CBC302-DDE3-434F-A699-8BDB37910AC1}
+		{7F9A1B1F-D1D7-872F-CE15-A6CAB15CA0D5} = {CC558BA0-97C4-4DDD-9E13-1D1BCE3B770D}
 	EndGlobalSection
 EndGlobal
