@@ -96,6 +96,7 @@ namespace ortc_standup
       constraintSet->mDeviceID.mValue.value().mValue.value() = device.mDeviceID;
       constraintSet->mWidth.mValue.value() = 800;
       constraintSet->mHeight.mValue.value() = 600;
+      constraintSet->mFrameRate.mValue.value() = 30;
       ConstraintsPtr constraints = Constraints::create();
       constraints->mVideo = ortc::IMediaStreamTrackTypes::TrackConstraints::create();
       constraints->mVideo->mAdvanced.push_back(constraintSet);
