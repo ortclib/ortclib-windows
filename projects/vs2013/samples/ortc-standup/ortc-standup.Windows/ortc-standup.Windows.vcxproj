@@ -120,6 +120,8 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>mfplat.lib;mfuuid.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -172,6 +174,23 @@
     <ClCompile Include="MainPage.xaml.cpp">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\libs\cryptopp\projects\vs2013\cryptopp\cryptopp.Windows\cryptopp.Windows.vcxproj">
+      <Project>{81d2eeec-2d4c-4225-824b-a7de05bb6557}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\libs\idnkit\projects\vs2013\idnkit\idnkit.Windows\idnkit.Windows.vcxproj">
+      <Project>{bfd348b9-016f-43bd-b92f-88da057b8fa8}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\libs\op-services-cpp\projects\vs2013\hfservices\hfservices.Windows\hfservices.Windows.vcxproj">
+      <Project>{156ee8b0-c403-4262-a55c-54a81dc2c1fc}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortc-lib.Windows\ortc-lib.Windows.vcxproj">
+      <Project>{5f43b342-f389-4968-8330-8cd7f5f633b7}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\libs\zsLib\projects\vs2013\zsLib\zsLib.Windows\zsLib.Windows.vcxproj">
+      <Project>{5df1d5b9-5a44-46ef-a4f9-10c718f31f41}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
