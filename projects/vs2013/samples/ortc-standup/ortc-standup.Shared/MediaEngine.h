@@ -33,5 +33,6 @@ namespace ortc_standup
     MediaElementWrapper* mLocalMediaWrapper;
     PromiseWithDeviceListPtr mPromiseWithDeviceList;
     PromiseWithMediaStreamTrackListPtr mPromiseWithMediaStreamTrackList;
+    ortc::IMediaStreamTrackPtr mVideoMediaStreamTrack;
   };
 }

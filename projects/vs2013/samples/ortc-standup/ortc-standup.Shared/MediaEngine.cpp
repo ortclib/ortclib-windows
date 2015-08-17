@@ -7,6 +7,7 @@
 
 using namespace ortc_standup;
 
+using namespace Windows::UI::Xaml;
 using namespace Windows::UI::Xaml::Controls;
 
 using zsLib::IPromiseResolutionDelegate;
@@ -61,6 +62,10 @@ namespace ortc_standup
       ortc::IMediaDevicesTypes::MediaStreamTrackListPtr trackList = promise->value<ortc::IMediaDevicesTypes::MediaStreamTrackList>();
       ortc::IMediaStreamTrackPtr track = *trackList->begin();
       track->setMediaElement(mMediaEngine->mLocalMediaWrapper);
+      mMediaEngine->mVideoMediaStreamTrack = track;
+      mMediaEngine->mStarted = true;
+      mMediaEngine->mStartStopButton->Content = "Stop";
+      mMediaEngine->mStartStopButton->IsEnabled = true;
     }
 
     virtual void onPromiseRejected(PromisePtr promise)
@@ -140,5 +145,13 @@ void MediaEngine::SetStartStopButton(Button^ button)
 void MediaEngine::StartStopMedia()
 {
   mPromiseWithDeviceList = IMediaDevices::enumerateDevices();
-  mPromiseWithDeviceList->then(PromiseWithDeviceListCallback::create(this));
+  if (!mStarted) {
+    mStartStopButton->IsEnabled = false;
+    mPromiseWithDeviceList->then(PromiseWithDeviceListCallback::create(this));
+  } else {
+    if (mVideoMediaStreamTrack)
+      mVideoMediaStreamTrack->stop();
+    mStarted = false;
+    mStartStopButton->Content = "Start";
+  }
 }
