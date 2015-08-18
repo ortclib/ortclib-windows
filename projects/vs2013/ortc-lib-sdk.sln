@@ -199,11 +199,22 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclibTest.Windows", "..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Windows\ortclibTest.Windows.vcxproj", "{5FF4DB7C-2406-46E1-A54C-B73B8AEEC6A2}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A836AF04-DA07-EAFE-9D32-475C4A86D2DA} = {A836AF04-DA07-EAFE-9D32-475C4A86D2DA}
+		{F013CF0C-8B7E-9DCD-CEDA-7DC6006B4520} = {F013CF0C-8B7E-9DCD-CEDA-7DC6006B4520}
+		{DE813719-CDBA-B7D4-9786-E1EA2588FC37} = {DE813719-CDBA-B7D4-9786-E1EA2588FC37}
 		{FAA3AF2E-D09E-399D-6A3B-F44E0AA2B7FB} = {FAA3AF2E-D09E-399D-6A3B-F44E0AA2B7FB}
+		{842CC23E-23E9-3698-9B6A-856ADF075045} = {842CC23E-23E9-3698-9B6A-856ADF075045}
 		{5F43B342-F389-4968-8330-8CD7F5F633B7} = {5F43B342-F389-4968-8330-8CD7F5F633B7}
+		{9F228764-DB77-FCDA-F4BD-2E3DEAD3EA31} = {9F228764-DB77-FCDA-F4BD-2E3DEAD3EA31}
+		{3BE2D264-1EC4-5C41-720C-C1D01435E5B7} = {3BE2D264-1EC4-5C41-720C-C1D01435E5B7}
+		{2395856B-126E-06BB-4752-02F8DD47DB0F} = {2395856B-126E-06BB-4752-02F8DD47DB0F}
+		{5AFBCCA4-E15A-96ED-708E-E0AC1FE92DB6} = {5AFBCCA4-E15A-96ED-708E-E0AC1FE92DB6}
 		{156EE8B0-C403-4262-A55C-54A81DC2C1FC} = {156EE8B0-C403-4262-A55C-54A81DC2C1FC}
+		{B5B43CB3-BDFF-011B-6472-9D3C49C4AF6E} = {B5B43CB3-BDFF-011B-6472-9D3C49C4AF6E}
+		{E75CB8B7-B49B-C3C1-664C-440620FEE81B} = {E75CB8B7-B49B-C3C1-664C-440620FEE81B}
 		{BFD348B9-016F-43BD-B92F-88DA057B8FA8} = {BFD348B9-016F-43BD-B92F-88DA057B8FA8}
 		{5DF1D5B9-5A44-46EF-A4F9-10C718F31F41} = {5DF1D5B9-5A44-46EF-A4F9-10C718F31F41}
+		{3C866CD8-7528-C7FA-EC81-FB597BE5296A} = {3C866CD8-7528-C7FA-EC81-FB597BE5296A}
+		{8F78F5DB-515F-0544-01DF-BE37E5905743} = {8F78F5DB-515F-0544-01DF-BE37E5905743}
 		{81D2EEEC-2D4C-4225-824B-A7DE05BB6557} = {81D2EEEC-2D4C-4225-824B-A7DE05BB6557}
 		{3C9C21F5-54BE-4C18-AC96-F28A43EF2844} = {3C9C21F5-54BE-4C18-AC96-F28A43EF2844}
 	EndProjectSection
@@ -472,8 +483,8 @@ Global
 		..\..\..\libs\udns\projects\vs2013\udns\udns.Shared\udns.Shared.vcxitems*{3c9c21f5-54be-4c18-ac96-f28a43ef2844}*SharedItemsImports = 4
 		..\..\..\libs\op-services-cpp\projects\vs2013\hfservices\hfservicesTest.Shared\hfservicesTest.Shared.vcxitems*{11cdd8b4-78b5-4234-b8f2-c6916ef9b221}*SharedItemsImports = 4
 		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems*{73373db6-8059-4671-acbd-47219a769922}*SharedItemsImports = 9
-		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems*{5ff4db7c-2406-46e1-a54c-b73b8aeec6a2}*SharedItemsImports = 4
 		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Shared\ortclibTest.Shared.vcxitems*{5ff4db7c-2406-46e1-a54c-b73b8aeec6a2}*SharedItemsImports = 4
+		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems*{5ff4db7c-2406-46e1-a54c-b73b8aeec6a2}*SharedItemsImports = 4
 		..\..\..\libs\zsLib\projects\vs2013\zsLib\zsLibTest_Universal.Shared\zsLibTest_Universal.Shared.vcxitems*{0dd0e22d-1d72-44aa-8ef3-c93c2d9bd395}*SharedItemsImports = 4
 		..\..\..\libs\idnkit\projects\vs2013\idnkit\idnkit.Shared\idnkit.Shared.vcxitems*{9f611411-f4bd-4687-be22-b16af16c62fd}*SharedItemsImports = 4
 		..\..\..\libs\zsLib\projects\vs2013\zsLib\zsLib.Shared\zsLib.Shared.vcxitems*{d4990072-586d-43e3-9973-51092bd9226f}*SharedItemsImports = 4
@@ -496,8 +507,8 @@ Global
 		..\..\..\libs\idnkit\projects\vs2013\idnkit\idnkit.Shared\idnkit.Shared.vcxitems*{ea7f7b95-2bea-43f4-b456-f8d740f9c9c8}*SharedItemsImports = 4
 		..\..\..\libs\cryptopp\projects\vs2013\cryptopp\cryptopp.Shared\cryptopp.Shared.vcxitems*{57718455-f1cd-468c-b888-9c5814bb5f4e}*SharedItemsImports = 4
 		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems*{230126e0-3b22-4fe4-baaf-2646453b88b1}*SharedItemsImports = 4
-		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems*{faebb8e2-46a8-43af-8cac-fb5511bba11e}*SharedItemsImports = 4
 		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Shared\ortclibTest.Shared.vcxitems*{faebb8e2-46a8-43af-8cac-fb5511bba11e}*SharedItemsImports = 4
+		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems*{faebb8e2-46a8-43af-8cac-fb5511bba11e}*SharedItemsImports = 4
 		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortc-lib.Shared\ortc-lib.Shared.vcxitems*{96d33368-1468-463b-82d9-c5d50bd7a4b2}*SharedItemsImports = 4
 		..\..\..\libs\op-services-cpp\projects\vs2013\hfservices\hfservices.Shared\hfservices.Shared.vcxitems*{0a6ae9cf-97f5-466b-a49b-cedb0c74b0f8}*SharedItemsImports = 4
 		..\..\..\libs\cryptopp\projects\vs2013\cryptopp\cryptopp.Shared\cryptopp.Shared.vcxitems*{f73d1443-6e8d-4b5b-9f0a-cab724692a5a}*SharedItemsImports = 4
