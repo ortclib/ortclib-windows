@@ -90,7 +90,7 @@
     <ClCompile>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <PreprocessorDefinitions>WIN32;WINRT;WEBRTC_WIN;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;WINRT;WEBRTC_WIN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>../../../../../../libs;../../../../../../libs/op-services-cpp;../../../../../../libs/ortc-lib;../../../../../../libs/zsLib;../../../../../../libs/webrtc;../../../../../../libs/webrtc/webrtc;%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -149,80 +149,80 @@
     <ProjectReference Include="..\..\..\..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortc-lib.WindowsPhone\ortc-lib.WindowsPhone.vcxproj">
       <Project>{16fa42a6-7215-4b22-b939-0d98040f00f1}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\third_party\libjpeg_turbo\libjpeg.vcxproj">
-      <Project>{7adfbd3a-4972-6013-57ff-fc245e80e675}</Project>
+    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\third_party\libjpeg_turbo\libjpeg_win_phone.vcxproj">
+      <Project>{767f56f8-0614-c592-a687-f612265e8381}</Project>
       <Private>false</Private>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\third_party\libyuv\libyuv.vcxproj">
-      <Project>{e4505a22-7591-fedf-6b9f-4ff8ab727ff9}</Project>
+    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\third_party\libyuv\libyuv_win_phone.vcxproj">
+      <Project>{cd13f206-68c5-a1e1-2e9f-3e999e6ea5d9}</Project>
       <Private>false</Private>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\webrtc\base\rtc_base_approved.vcxproj">
-      <Project>{510deddc-ed2f-0a3b-abe1-f7f1e6d75cf8}</Project>
+    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\webrtc\base\rtc_base_approved_win_phone.vcxproj">
+      <Project>{cd2bb815-a28e-7aae-6820-03e97f602515}</Project>
       <Private>false</Private>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\webrtc\common_video\common_video.vcxproj">
-      <Project>{ac613f26-3b4f-2df0-f78c-52b6d0770c2d}</Project>
+    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\webrtc\common_video\common_video_win_phone.vcxproj">
+      <Project>{27444253-9c25-7eef-f6d3-e84099af6759}</Project>
       <Private>false</Private>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\webrtc\modules\video_capture_module.vcxproj">
-      <Project>{bd794cba-b6ac-1a8f-784e-89f56fda8b8d}</Project>
+    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\webrtc\modules\video_capture_module_internal_impl_win_phone.vcxproj">
+      <Project>{1498fa5e-2b09-94bc-7311-02ee36041985}</Project>
       <Private>false</Private>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\webrtc\modules\video_capture_module_internal_impl.vcxproj">
-      <Project>{58c4e66e-f613-82e0-c039-7a453bcac1e4}</Project>
+    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\webrtc\modules\video_capture_module_win_phone.vcxproj">
+      <Project>{0788c397-08f9-f538-7475-a13453c35b88}</Project>
       <Private>false</Private>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\webrtc\modules\video_render_module.vcxproj">
-      <Project>{e291967e-06cd-3cc7-3566-8077d89b4a9b}</Project>
+    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\webrtc\modules\video_render_module_internal_impl_win_phone.vcxproj">
+      <Project>{4478b349-7ff8-4a21-ca93-a1b897ae26b2}</Project>
       <Private>false</Private>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\webrtc\modules\video_render_module_internal_impl.vcxproj">
-      <Project>{c907b16b-732f-7333-f526-518ee17b9dc3}</Project>
+    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\webrtc\modules\video_render_module_win_phone.vcxproj">
+      <Project>{d4d989e9-c400-6e51-81b9-4ff7f14f41cf}</Project>
       <Private>false</Private>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\webrtc\system_wrappers\system_wrappers.vcxproj">
-      <Project>{16fe3fd5-aa01-bd2a-2bff-7785ffededec}</Project>
+    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\webrtc\system_wrappers\system_wrappers_win_phone.vcxproj">
+      <Project>{3fb8240e-2ab0-6397-7306-50626415e080}</Project>
       <Private>false</Private>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\webrtc\webrtc_common.vcxproj">
-      <Project>{4e00d9e2-1f74-8d2e-1878-dcfe215138f5}</Project>
+    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\webrtc\webrtc_common_win_phone.vcxproj">
+      <Project>{2b037d34-af68-9f62-dff7-47d1cafb43a3}</Project>
       <Private>false</Private>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
