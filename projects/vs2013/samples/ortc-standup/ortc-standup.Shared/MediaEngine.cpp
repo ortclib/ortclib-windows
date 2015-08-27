@@ -60,12 +60,27 @@ namespace ortc_standup
     virtual void onPromiseResolved(PromisePtr promise)
     {
       ortc::IMediaDevicesTypes::MediaStreamTrackListPtr trackList = promise->value<ortc::IMediaDevicesTypes::MediaStreamTrackList>();
-      ortc::IMediaStreamTrackPtr track = *trackList->begin();
-      track->setMediaElement(mMediaEngine->mLocalMediaWrapper);
-      mMediaEngine->mVideoMediaStreamTrack = track;
+      ortc::IMediaStreamTrackPtr localVideoTrack = *trackList->begin();
+      localVideoTrack->setMediaElement(mMediaEngine->mLocalMediaWrapper);
+      mMediaEngine->mLocalVideoMediaStreamTrack = localVideoTrack;
       mMediaEngine->mStarted = true;
       mMediaEngine->mStartStopButton->Content = "Stop";
       mMediaEngine->mStartStopButton->IsEnabled = true;
+
+      ortc::IRTPSenderPtr videoSender = ortc::IRTPSender::create(ortc::IRTPSenderDelegatePtr(mMediaEngine), localVideoTrack, NULL);
+      ortc::IRTPReceiverPtr videoReceiver = ortc::IRTPReceiver::create(ortc::IRTPReceiverDelegatePtr(mMediaEngine), NULL);
+
+      ortc::IRTPTypes::CapabilitiesPtr sendVideoCaps = videoSender->getCapabilities(ortc::IRTPReceiverTypes::Kinds::Kind_Video);
+      ortc::IRTPTypes::CapabilitiesPtr recvVideoCaps = videoReceiver->getCapabilities(ortc::IRTPReceiverTypes::Kinds::Kind_Video);
+
+      ortc::IRTPTypes::ParametersPtr videoSendParams = ortc::IRTPTypes::ParametersPtr();
+      ortc::IRTPTypes::ParametersPtr videoRecvParams = ortc::IRTPTypes::ParametersPtr();
+
+      videoSender->send(*videoSendParams);
+      videoReceiver->receive(*videoRecvParams);
+
+      ortc::IMediaStreamTrackPtr remoteVideoTrack = videoReceiver->track();
+      remoteVideoTrack->setMediaElement(mMediaEngine->mRemoteMediaWrapper);
     }
 
     virtual void onPromiseRejected(PromisePtr promise)
@@ -124,7 +139,8 @@ namespace ortc_standup
 
 MediaEngine::MediaEngine() :
   mStarted(false),
-  mLocalMediaWrapper(NULL)
+  mLocalMediaWrapper(NULL),
+  mRemoteMediaWrapper(NULL)
 {
 }
 
@@ -135,6 +151,11 @@ MediaEngine::~MediaEngine()
 void MediaEngine::SetLocalMediaElement(MediaElement^ element)
 {
   mLocalMediaWrapper = new MediaElementWrapper(element);
+}
+
+void MediaEngine::SetRemoteMediaElement(MediaElement^ element)
+{
+  mRemoteMediaWrapper = new MediaElementWrapper(element);
 }
 
 void MediaEngine::SetStartStopButton(Button^ button)
@@ -149,9 +170,34 @@ void MediaEngine::StartStopMedia()
     mStartStopButton->IsEnabled = false;
     mPromiseWithDeviceList->then(PromiseWithDeviceListCallback::create(this));
   } else {
-    if (mVideoMediaStreamTrack)
-      mVideoMediaStreamTrack->stop();
+    if (mLocalVideoMediaStreamTrack)
+      mLocalVideoMediaStreamTrack->stop();
     mStarted = false;
     mStartStopButton->Content = "Start";
   }
+}
+
+void MediaEngine::onRTPSenderError(
+                                   ortc::IRTPSenderPtr sender,
+                                   IRTPSenderDelegate::ErrorCode errorCode,
+                                   zsLib::String errorReason
+                                   ) 
+{
+}
+
+void MediaEngine::onRTPSenderSSRCConflict(
+                                          ortc::IRTPSenderPtr sender,
+                                          SSRCType ssrc
+                                          )
+{
+
+}
+
+void  MediaEngine::onRTPReceiverError(
+                                      ortc::IRTPReceiverPtr sender,
+                                      IRTPReceiverDelegate::ErrorCode errorCode,
+                                      zsLib::String errorReason
+                                      )
+{
+
 }

@@ -15,5 +15,8 @@
     <Border HorizontalAlignment="Left" Height="240" Margin="83,147,0,0" VerticalAlignment="Top" Width="320" BorderBrush="{ThemeResource TextBoxBorderThemeBrush}" BorderThickness="2">
       <MediaElement x:Name="LocalVideoMediaElement"/>
     </Border>
+    <Border HorizontalAlignment="Left" Height="240" Margin="486,147,0,0" VerticalAlignment="Top" Width="320" BorderBrush="{ThemeResource TextBoxBorderThemeBrush}" BorderThickness="2">
+      <MediaElement x:Name="RemoteVideoMediaElement"/>
+    </Border>
   </Grid>
 </Page>

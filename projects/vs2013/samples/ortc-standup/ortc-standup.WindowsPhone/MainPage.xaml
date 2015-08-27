@@ -13,9 +13,12 @@
     <Grid.ColumnDefinitions>
       <ColumnDefinition/>
     </Grid.ColumnDefinitions>
-    <Button x:Name="StartStopButton" Content="Start" HorizontalAlignment="Left" Margin="80,40,0,0" VerticalAlignment="Top" Width="120" Height="60" FontSize="20" Click="StartStopButton_Click"/>
-    <Border HorizontalAlignment="Left" Height="120" Margin="83,117,0,0" VerticalAlignment="Top" Width="160" BorderBrush="{ThemeResource TextBoxBorderThemeBrush}" BorderThickness="2">
+    <Button x:Name="StartStopButton" Content="Start" HorizontalAlignment="Left" Margin="26,18,0,0" VerticalAlignment="Top" Width="120" Height="60" FontSize="20" Click="StartStopButton_Click"/>
+    <Border HorizontalAlignment="Left" Height="120" Margin="29,95,0,0" VerticalAlignment="Top" Width="160" BorderBrush="{ThemeResource TextBoxBorderThemeBrush}" BorderThickness="2">
       <MediaElement x:Name="LocalVideoMediaElement"/>
+    </Border>
+    <Border HorizontalAlignment="Left" Height="120" Margin="217,95,0,0" VerticalAlignment="Top" Width="160" BorderBrush="{ThemeResource TextBoxBorderThemeBrush}" BorderThickness="2">
+      <MediaElement x:Name="RemoteVideoMediaElement"/>
     </Border>
   </Grid>
 </Page>
