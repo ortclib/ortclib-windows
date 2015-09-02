@@ -188,8 +188,27 @@
     <ProjectReference Include="..\..\..\..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortc-lib.Windows\ortc-lib.Windows.vcxproj">
       <Project>{5f43b342-f389-4968-8330-8cd7f5f633b7}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\libs\udns\projects\vs2013\udns\udns.Windows\udns.Windows.vcxproj">
+      <Project>{3c9c21f5-54be-4c18-ac96-f28a43ef2844}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\third_party\boringssl\boringssl_win.vcxproj">
+      <Project>{faa3af2e-d09e-399d-6a3b-f44e0aa2b7fb}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\third_party\libjpeg_turbo\libjpeg_win.vcxproj">
       <Project>{5afbcca4-e15a-96ed-708e-e0ac1fe92db6}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\third_party\libsrtp\libsrtp_win.vcxproj">
+      <Project>{2395856b-126e-06bb-4752-02f8dd47db0f}</Project>
       <Private>false</Private>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
@@ -270,6 +289,14 @@
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\third_party\protobuf\protobuf_lite_win.vcxproj">
       <Project>{1be762e1-b899-37c9-9bbb-800b941d427b}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\third_party\usrsctp\usrsctplib_win.vcxproj">
+      <Project>{a836af04-da07-eafe-9d32-475c4a86d2da}</Project>
       <Private>false</Private>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
