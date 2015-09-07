@@ -44,76 +44,195 @@ namespace ortc_standup
     MediaElement^ mMediaElement;
   };
 
-  class PromiseWithCertificateCallback : public IPromiseResolutionDelegate
+  class Signaller
   {
   private:
-    PromiseWithCertificateCallback(MediaEngine* mediaEngine) : mMediaEngine(mediaEngine)
+    Signaller(MediaEnginePtr mediaEngine) : mMediaEngine(mediaEngine)
     {
     }
 
   public:
-    static PromiseWithCertificateCallbackPtr create(MediaEngine* mediaEngine)
+    static SignallerPtr create(MediaEnginePtr mediaEngine)
     {
-      return PromiseWithCertificateCallbackPtr(new PromiseWithCertificateCallback(mediaEngine));
+      return SignallerPtr(new Signaller(mediaEngine));
+    }
+
+    void sendLocalSendCandidate(ortc::IICETypes::CandidatePtr candidate)
+    {
+      mMediaEngine.lock()->mSendVideoICETransport->addRemoteCandidate(*candidate);
+    }
+
+    void sendLocalSendCandidate(ortc::IICETypes::CandidateCompletePtr candidate)
+    {
+      mMediaEngine.lock()->mSendVideoICETransport->addRemoteCandidate(*candidate);
+    }
+
+    void sendLocalReceiveCandidate(ortc::IICETypes::CandidatePtr candidate)
+    {
+      mMediaEngine.lock()->mReceiveVideoICETransport->addRemoteCandidate(*candidate);
+    }
+
+    void sendLocalReceiveCandidate(ortc::IICETypes::CandidateCompletePtr candidate)
+    {
+      mMediaEngine.lock()->mReceiveVideoICETransport->addRemoteCandidate(*candidate);
+    }
+
+    void sendOffer(
+                   ortc::IICETypes::ParametersPtr localVideoICEParameters,
+                   ortc::IDTLSTransportTypes::ParametersPtr localVideoDTLSParameters,
+                   ortc::IRTPTypes::CapabilitiesPtr localSendVideoCaps,
+                   ortc::IRTPTypes::CapabilitiesPtr localRecvVideoCaps
+                   )
+    {
+      onOfferReceived(
+                      localVideoICEParameters,
+                      localVideoDTLSParameters,
+                      localSendVideoCaps,
+                      localRecvVideoCaps
+                      );
+    }
+
+    void sendAnswer(
+                    ortc::IICETypes::ParametersPtr localVideoICEParameters,
+                    ortc::IDTLSTransportTypes::ParametersPtr localVideoDTLSParameters,
+                    ortc::IRTPTypes::CapabilitiesPtr localSendVideoCaps,
+                    ortc::IRTPTypes::CapabilitiesPtr localRecvVideoCaps
+                    )
+    {
+      onAnswerReceived(
+                       localVideoICEParameters,
+                       localVideoDTLSParameters,
+                       localSendVideoCaps,
+                       localRecvVideoCaps
+                       );
+    }
+
+    void onOfferReceived(
+                         ortc::IICETypes::ParametersPtr remoteVideoICEParameters,
+                         ortc::IDTLSTransportTypes::ParametersPtr remoteVideoDTLSParameters,
+                         ortc::IRTPTypes::CapabilitiesPtr remoteSendVideoCaps,
+                         ortc::IRTPTypes::CapabilitiesPtr remoteRecvVideoCaps
+                         )
+    {
+      mMediaEngine.lock()->onIncomingCall(
+                                          remoteVideoICEParameters,
+                                          remoteVideoDTLSParameters,
+                                          remoteSendVideoCaps,
+                                          remoteRecvVideoCaps
+                                          );
+    }
+
+    void onAnswerReceived(
+                          ortc::IICETypes::ParametersPtr remoteVideoICEParameters,
+                          ortc::IDTLSTransportTypes::ParametersPtr remoteVideoDTLSParameters,
+                          ortc::IRTPTypes::CapabilitiesPtr remoteSendVideoCaps,
+                          ortc::IRTPTypes::CapabilitiesPtr remoteRecvVideoCaps
+                          )
+    {
+      mMediaEngine.lock()->onCallAccepted(
+                                          remoteVideoICEParameters,
+                                          remoteVideoDTLSParameters,
+                                          remoteSendVideoCaps,
+                                          remoteRecvVideoCaps
+                                          );
+    }
+
+  private:
+    MediaEngineWeakPtr mMediaEngine;
+  };
+
+  class PromiseWithCertificateCallback : public IPromiseResolutionDelegate
+  {
+  private:
+    PromiseWithCertificateCallback(MediaEnginePtr mediaEngine, bool sender) : 
+      mMediaEngine(mediaEngine), mSender(sender)
+    {
+    }
+
+  public:
+    static PromiseWithCertificateCallbackPtr create(MediaEnginePtr mediaEngine, bool sender)
+    {
+      return PromiseWithCertificateCallbackPtr(new PromiseWithCertificateCallback(mediaEngine, sender));
     }
 
     virtual void onPromiseResolved(PromisePtr promise)
     {
-      ortc::ICertificatePtr certificate = promise->value<ortc::ICertificate>();
-      mMediaEngine->mVideoDTLSTransport = ortc::IDTLSTransport::create(
-                                                                       mMediaEngine->mThisWeak.lock(),
-                                                                       mMediaEngine->mVideoICETransport,
-                                                                       certificate
-                                                                       );
+      if (mSender) {
+        ortc::ICertificatePtr certificate = promise->value<ortc::ICertificate>();
+        mMediaEngine.lock()->mSendVideoDTLSTransport = ortc::IDTLSTransport::create(
+                                                                                    mMediaEngine.lock(),
+                                                                                    mMediaEngine.lock()->mSendVideoICETransport,
+                                                                                    certificate
+                                                                                    );
 
-      ortc::IICETypes::Parameters iceParameters;
-      iceParameters.mUseCandidateFreezePriority = false;
-      iceParameters.mUsernameFragment = "";
-      iceParameters.mPassword = "";
-      ortc::IICETransport::Options iceOptions;
-      iceOptions.mAggressiveICE = false;
-      iceOptions.mRole = ortc::IICETypes::Role_Controlling;
+        mMediaEngine.lock()->mVideoRTPSender = ortc::IRTPSender::create(
+                                                                        mMediaEngine.lock(),
+                                                                        mMediaEngine.lock()->mLocalVideoMediaStreamTrack,
+                                                                        mMediaEngine.lock()->mSendVideoDTLSTransport
+                                                                        );
 
-      mMediaEngine->mVideoICETransport->start(mMediaEngine->mICEGatherer, iceParameters, iceOptions);
+        mMediaEngine.lock()->mLocalSendVideoICEParameters =
+          mMediaEngine.lock()->mSendVideoICEGatherer->getLocalParameters();
+        mMediaEngine.lock()->mLocalSendVideoDTLSParameters =
+          mMediaEngine.lock()->mSendVideoDTLSTransport->getLocalParameters();
+        mMediaEngine.lock()->mLocalSendVideoCapabilities =
+          mMediaEngine.lock()->mVideoRTPSender->getCapabilities(ortc::IRTPReceiverTypes::Kinds::Kind_Video);
 
-      ortc::IDTLSTransportTypes::Parameters dtlsParameters;
-      dtlsParameters.mRole = ortc::IDTLSTransportTypes::Roles::Role_Auto;
-      ortc::ICertificateTypes::Fingerprint fingerprint;
-      fingerprint.mAlgorithm = "";
-      fingerprint.mValue = "";
-      dtlsParameters.mFingerprints.push_back(fingerprint);
+        mMediaEngine.lock()->mSignaller->sendOffer(
+                                                   mMediaEngine.lock()->mLocalSendVideoICEParameters,
+                                                   mMediaEngine.lock()->mLocalSendVideoDTLSParameters,
+                                                   mMediaEngine.lock()->mLocalSendVideoCapabilities,
+                                                   NULL
+                                                   );
+      } else {
+        ortc::ICertificatePtr certificate = promise->value<ortc::ICertificate>();
+        mMediaEngine.lock()->mReceiveVideoDTLSTransport = ortc::IDTLSTransport::create(
+                                                                                       mMediaEngine.lock(),
+                                                                                       mMediaEngine.lock()->mReceiveVideoICETransport,
+                                                                                       certificate
+                                                                                       );
 
-      mMediaEngine->mVideoDTLSTransport->start(dtlsParameters);
+        mMediaEngine.lock()->mVideoRTPReceiver = ortc::IRTPReceiver::create(
+                                                                            mMediaEngine.lock(),
+                                                                            mMediaEngine.lock()->mReceiveVideoDTLSTransport
+                                                                            );
 
-      mMediaEngine->mVideoRTPSender = ortc::IRTPSender::create(
-                                                               ortc::IRTPSenderDelegatePtr(mMediaEngine),
-                                                               mMediaEngine->mLocalVideoMediaStreamTrack,
-                                                               NULL
-                                                               );
+        mMediaEngine.lock()->mLocalReceiveVideoICEParameters =
+          mMediaEngine.lock()->mReceiveVideoICEGatherer->getLocalParameters();
+        mMediaEngine.lock()->mLocalReceiveVideoDTLSParameters =
+          mMediaEngine.lock()->mReceiveVideoDTLSTransport->getLocalParameters();
+        mMediaEngine.lock()->mLocalReceiveVideoCapabilities =
+          mMediaEngine.lock()->mVideoRTPReceiver->getCapabilities(ortc::IRTPReceiverTypes::Kinds::Kind_Video);
 
-      mMediaEngine->mVideoRTPReceiver = ortc::IRTPReceiver::create(
-                                                                   ortc::IRTPReceiverDelegatePtr(mMediaEngine),
-                                                                   NULL
-                                                                   );
+        ortc::IICETransport::Options videoICEOptions;
+        videoICEOptions.mAggressiveICE = false;
+        videoICEOptions.mRole = ortc::IICETypes::Role_Controlled;
 
-      ortc::IRTPTypes::CapabilitiesPtr sendVideoCaps =
-        mMediaEngine->mVideoRTPSender->getCapabilities(ortc::IRTPReceiverTypes::Kinds::Kind_Video);
-      ortc::IRTPTypes::CapabilitiesPtr recvVideoCaps =
-        mMediaEngine->mVideoRTPReceiver->getCapabilities(ortc::IRTPReceiverTypes::Kinds::Kind_Video);
+        mMediaEngine.lock()->mReceiveVideoICETransport->start(
+                                                              mMediaEngine.lock()->mReceiveVideoICEGatherer,
+                                                              *(mMediaEngine.lock()->mRemoteSendVideoICEParameters),
+                                                              videoICEOptions
+                                                              );
 
-      ortc::IRTPTypes::Parameters videoSendParams;
-      ortc::IRTPTypes::Parameters videoRecvParams;
+        mMediaEngine.lock()->mReceiveVideoDTLSTransport->start(*(mMediaEngine.lock()->mRemoteSendVideoDTLSParameters));
 
-      ortc::IMediaStreamTrackPtr remoteVideoTrack = mMediaEngine->mVideoRTPReceiver->track();
-      remoteVideoTrack->setMediaElement(mMediaEngine->mRemoteMediaWrapper);
+        ortc::IRTPTypes::ParametersPtr videoRecvParams = MediaEngine::capabilitiesToReceiveParameters(
+                                                                                                      mMediaEngine.lock()->mLocalReceiveVideoCapabilities,
+                                                                                                      mMediaEngine.lock()->mRemoteSendVideoCapabilities
+                                                                                                      );
 
-      mMediaEngine->mVideoRTPSender->send(videoSendParams);
+        ortc::IMediaStreamTrackPtr remoteVideoTrack = mMediaEngine.lock()->mVideoRTPReceiver->track();
+        remoteVideoTrack->setMediaElement(mMediaEngine.lock()->mRemoteMediaWrapper);
 
-      mMediaEngine->mVideoRTPReceiver->receive(videoRecvParams);
+        mMediaEngine.lock()->mVideoRTPReceiver->receive(*videoRecvParams);
 
-      mMediaEngine->mStarted = true;
-      mMediaEngine->mStartStopButton->Content = "Stop";
-      mMediaEngine->mStartStopButton->IsEnabled = true;
+        mMediaEngine.lock()->mSignaller->sendAnswer(
+                                                    mMediaEngine.lock()->mLocalReceiveVideoICEParameters,
+                                                    mMediaEngine.lock()->mLocalReceiveVideoDTLSParameters,
+                                                    NULL,
+                                                    mMediaEngine.lock()->mLocalReceiveVideoCapabilities
+                                                    );
+      }
     }
 
     virtual void onPromiseRejected(PromisePtr promise)
@@ -125,18 +244,19 @@ namespace ortc_standup
     }
 
   private:
-    MediaEngine* mMediaEngine;
+    MediaEngineWeakPtr mMediaEngine;
+    bool mSender;
   };
 
   class PromiseWithMediaStreamTrackListCallback : public IPromiseResolutionDelegate
   {
   private:
-    PromiseWithMediaStreamTrackListCallback(MediaEngine* mediaEngine) : mMediaEngine(mediaEngine)
+    PromiseWithMediaStreamTrackListCallback(MediaEnginePtr mediaEngine) : mMediaEngine(mediaEngine)
     {
     }
 
   public:
-    static PromiseWithMediaStreamTrackListCallbackPtr create(MediaEngine* mediaEngine)
+    static PromiseWithMediaStreamTrackListCallbackPtr create(MediaEnginePtr mediaEngine)
     {
       return PromiseWithMediaStreamTrackListCallbackPtr(new PromiseWithMediaStreamTrackListCallback(mediaEngine));
     }
@@ -144,23 +264,22 @@ namespace ortc_standup
     virtual void onPromiseResolved(PromisePtr promise)
     {
       ortc::IMediaDevicesTypes::MediaStreamTrackListPtr trackList = promise->value<ortc::IMediaDevicesTypes::MediaStreamTrackList>();
-      ortc::IMediaStreamTrackPtr localVideoTrack = *trackList->begin();
-      localVideoTrack->setMediaElement(mMediaEngine->mLocalMediaWrapper);
-      mMediaEngine->mLocalVideoMediaStreamTrack = localVideoTrack;
+      mMediaEngine.lock()->mLocalVideoMediaStreamTrack = *trackList->begin();
+      mMediaEngine.lock()->mLocalVideoMediaStreamTrack->setMediaElement(mMediaEngine.lock()->mLocalMediaWrapper);
 
-      ortc::IICEGathererTypes::Options options;
+      ortc::IICEGathererTypes::Options gathererOptions;
       ortc::IICEGathererTypes::InterfacePolicy interfacePolicy;
       interfacePolicy.mGatherPolicy = ortc::IICEGathererTypes::FilterPolicy_None;
-      options.mInterfacePolicy.push_back(interfacePolicy);
+      gathererOptions.mInterfacePolicy.push_back(interfacePolicy);
       ortc::IICEGathererTypes::Server iceServer;
       zsLib::String url = zsLib::String("stun:stun.l.google.com:19302");
       iceServer.mURLs.push_back(url);
-      options.mICEServers.push_back(iceServer);
-      mMediaEngine->mICEGatherer = ortc::IICEGatherer::create(mMediaEngine->mThisWeak.lock(), options);
-      mMediaEngine->mVideoICETransport = ortc::IICETransport::create(mMediaEngine->mThisWeak.lock(), mMediaEngine->mICEGatherer);
+      gathererOptions.mICEServers.push_back(iceServer);
+      mMediaEngine.lock()->mSendVideoICEGatherer = ortc::IICEGatherer::create(mMediaEngine.lock(), gathererOptions);
+      mMediaEngine.lock()->mSendVideoICETransport = ortc::IICETransport::create(mMediaEngine.lock(), mMediaEngine.lock()->mSendVideoICEGatherer);
 
-      mMediaEngine->mPromiseWithCertificate = ortc::ICertificate::generateCertificate();
-      mMediaEngine->mPromiseWithCertificate->then(PromiseWithCertificateCallback::create(mMediaEngine));
+      mMediaEngine.lock()->mSendVideoPromiseWithCertificate = ortc::ICertificate::generateCertificate();
+      mMediaEngine.lock()->mSendVideoPromiseWithCertificate->then(PromiseWithCertificateCallback::create(mMediaEngine.lock(), true));
     }
 
     virtual void onPromiseRejected(PromisePtr promise)
@@ -172,18 +291,18 @@ namespace ortc_standup
     }
 
   private:
-    MediaEngine* mMediaEngine;
+    MediaEngineWeakPtr mMediaEngine;
   };
 
   class PromiseWithDeviceListCallback : public IPromiseResolutionDelegate
   {
   private:
-    PromiseWithDeviceListCallback(MediaEngine* mediaEngine) : mMediaEngine(mediaEngine)
+    PromiseWithDeviceListCallback(MediaEnginePtr mediaEngine) : mMediaEngine(mediaEngine)
     {
     }
 
   public:
-    static PromiseWithDeviceListCallbackPtr create(MediaEngine* mediaEngine)
+    static PromiseWithDeviceListCallbackPtr create(MediaEnginePtr mediaEngine)
     {
       return PromiseWithDeviceListCallbackPtr(new PromiseWithDeviceListCallback(mediaEngine));
     }
@@ -200,8 +319,8 @@ namespace ortc_standup
       ConstraintsPtr constraints = Constraints::create();
       constraints->mVideo = ortc::IMediaStreamTrackTypes::TrackConstraints::create();
       constraints->mVideo->mAdvanced.push_back(constraintSet);
-      mMediaEngine->mPromiseWithMediaStreamTrackList = IMediaDevices::getUserMedia(*constraints);
-      mMediaEngine->mPromiseWithMediaStreamTrackList->then(PromiseWithMediaStreamTrackListCallback::create(mMediaEngine));
+      mMediaEngine.lock()->mVideoPromiseWithMediaStreamTrackList = IMediaDevices::getUserMedia(*constraints);
+      mMediaEngine.lock()->mVideoPromiseWithMediaStreamTrackList->then(PromiseWithMediaStreamTrackListCallback::create(mMediaEngine.lock()));
     }
 
     virtual void onPromiseRejected(PromisePtr promise)
@@ -213,7 +332,7 @@ namespace ortc_standup
     }
 
   private:
-    MediaEngine* mMediaEngine;
+    MediaEngineWeakPtr mMediaEngine;
   };
 }
 
@@ -240,29 +359,30 @@ MediaEngine::~MediaEngine()
 
 void MediaEngine::init()
 {
+  mSignaller = Signaller::create(mThisWeak.lock());
 }
 
-void MediaEngine::SetLocalMediaElement(MediaElement^ element)
+void MediaEngine::setLocalMediaElement(MediaElement^ element)
 {
   mLocalMediaWrapper = new MediaElementWrapper(element);
 }
 
-void MediaEngine::SetRemoteMediaElement(MediaElement^ element)
+void MediaEngine::setRemoteMediaElement(MediaElement^ element)
 {
   mRemoteMediaWrapper = new MediaElementWrapper(element);
 }
 
-void MediaEngine::SetStartStopButton(Button^ button)
+void MediaEngine::setStartStopButton(Button^ button)
 {
   mStartStopButton = button;
 }
 
-void MediaEngine::StartStopMedia()
+void MediaEngine::makeCall()
 {
-  mPromiseWithDeviceList = IMediaDevices::enumerateDevices();
+  mVideoPromiseWithDeviceList = IMediaDevices::enumerateDevices();
   if (!mStarted) {
     mStartStopButton->IsEnabled = false;
-    mPromiseWithDeviceList->then(PromiseWithDeviceListCallback::create(this));
+    mVideoPromiseWithDeviceList->then(PromiseWithDeviceListCallback::create(mThisWeak.lock()));
   } else {
     if (mLocalVideoMediaStreamTrack)
       mLocalVideoMediaStreamTrack->stop();
@@ -316,7 +436,12 @@ void MediaEngine::onICEGathererLocalCandidate(
                                               CandidatePtr candidate
                                               )
 {
+  zsLib::AutoRecursiveLock lock(*this);
 
+  if (gatherer == mSendVideoICEGatherer)
+    mSignaller->sendLocalSendCandidate(candidate);
+  else if (gatherer == mReceiveVideoICEGatherer)
+    mSignaller->sendLocalReceiveCandidate(candidate);
 }
 
 void MediaEngine::onICEGathererLocalCandidateComplete(
@@ -324,7 +449,12 @@ void MediaEngine::onICEGathererLocalCandidateComplete(
                                                       CandidateCompletePtr candidate
                                                       )
 {
+  zsLib::AutoRecursiveLock lock(*this);
 
+  if (gatherer == mSendVideoICEGatherer)
+    mSignaller->sendLocalSendCandidate(candidate);
+  else if (gatherer == mReceiveVideoICEGatherer)
+    mSignaller->sendLocalReceiveCandidate(candidate);
 }
 
 void MediaEngine::onICEGathererLocalCandidateGone(
@@ -384,4 +514,74 @@ void MediaEngine::onRTPReceiverError(
                                      )
 {
 
+}
+
+ortc::IRTPTypes::ParametersPtr MediaEngine::capabilitiesToSendParameters(
+                                                                         ortc::IRTPTypes::CapabilitiesPtr localSendVideoCaps,
+                                                                         ortc::IRTPTypes::CapabilitiesPtr remoteRecvVideoCaps
+                                                                         )
+{
+  return ortc::IRTPTypes::ParametersPtr();
+}
+
+ortc::IRTPTypes::ParametersPtr MediaEngine::capabilitiesToReceiveParameters(
+                                                                            ortc::IRTPTypes::CapabilitiesPtr localRecvVideoCaps,
+                                                                            ortc::IRTPTypes::CapabilitiesPtr remoteSendVideoCaps
+                                                                            )
+{
+  return ortc::IRTPTypes::ParametersPtr();
+}
+
+void MediaEngine::onIncomingCall(
+                                 ortc::IICETypes::ParametersPtr remoteVideoICEParameters,
+                                 ortc::IDTLSTransportTypes::ParametersPtr remoteVideoDTLSParameters,
+                                 ortc::IRTPTypes::CapabilitiesPtr remoteSendVideoCaps,
+                                 ortc::IRTPTypes::CapabilitiesPtr remoteRecvVideoCaps
+                                 )
+{
+  mRemoteSendVideoICEParameters = remoteVideoICEParameters;
+  mRemoteSendVideoDTLSParameters = remoteVideoDTLSParameters;
+  mRemoteSendVideoCapabilities = remoteSendVideoCaps;
+
+  ortc::IICEGathererTypes::Options gathererOptions;
+  ortc::IICEGathererTypes::InterfacePolicy interfacePolicy;
+  interfacePolicy.mGatherPolicy = ortc::IICEGathererTypes::FilterPolicy_None;
+  gathererOptions.mInterfacePolicy.push_back(interfacePolicy);
+  ortc::IICEGathererTypes::Server iceServer;
+  zsLib::String url = zsLib::String("stun:stun.l.google.com:19302");
+  iceServer.mURLs.push_back(url);
+  gathererOptions.mICEServers.push_back(iceServer);
+  mReceiveVideoICEGatherer = ortc::IICEGatherer::create(mThisWeak.lock(), gathererOptions);
+  mReceiveVideoICETransport = ortc::IICETransport::create(mThisWeak.lock(), mReceiveVideoICEGatherer);
+
+  mReceiveVideoPromiseWithCertificate = ortc::ICertificate::generateCertificate();
+  mReceiveVideoPromiseWithCertificate->then(PromiseWithCertificateCallback::create(mThisWeak.lock(), false));
+}
+
+void MediaEngine::onCallAccepted(
+                                 ortc::IICETypes::ParametersPtr remoteVideoICEParameters,
+                                 ortc::IDTLSTransportTypes::ParametersPtr remoteVideoDTLSParameters,
+                                 ortc::IRTPTypes::CapabilitiesPtr remoteSendVideoCaps,
+                                 ortc::IRTPTypes::CapabilitiesPtr remoteRecvVideoCaps
+                                 )
+{
+  mRemoteReceiveVideoICEParameters = remoteVideoICEParameters;
+  mRemoteReceiveVideoDTLSParameters = remoteVideoDTLSParameters;
+  mRemoteReceiveVideoCapabilities = remoteSendVideoCaps;
+
+  ortc::IICETransport::Options videoICEOptions;
+  videoICEOptions.mAggressiveICE = false;
+  videoICEOptions.mRole = ortc::IICETypes::Role_Controlling;
+
+  mReceiveVideoICETransport->start(mSendVideoICEGatherer, *mRemoteReceiveVideoICEParameters, videoICEOptions);
+
+  mReceiveVideoDTLSTransport->start(*mRemoteReceiveVideoDTLSParameters);
+
+  ortc::IRTPTypes::ParametersPtr videoSendParams = capabilitiesToSendParameters(mLocalSendVideoCapabilities, mRemoteReceiveVideoCapabilities);
+
+  mVideoRTPSender->send(*videoSendParams);
+
+  mStarted = true;
+  mStartStopButton->Content = "Stop";
+  mStartStopButton->IsEnabled = true;
 }

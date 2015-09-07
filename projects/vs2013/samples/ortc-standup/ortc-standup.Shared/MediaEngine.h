@@ -18,6 +18,7 @@ namespace ortc_standup
 {
   class MediaElementWrapper;
   ZS_DECLARE_CLASS_PTR(MediaEngine)
+  ZS_DECLARE_CLASS_PTR(Signaller)
   ZS_DECLARE_CLASS_PTR(PromiseWithCertificateCallback)
   ZS_DECLARE_CLASS_PTR(PromiseWithMediaStreamTrackListCallback)
   ZS_DECLARE_CLASS_PTR(PromiseWithDeviceListCallback)
@@ -30,6 +31,7 @@ namespace ortc_standup
                       public ortc::IRTPSenderDelegate,
                       public ortc::IRTPReceiverDelegate
   {
+    friend Signaller;
     friend PromiseWithCertificateCallback;
     friend PromiseWithMediaStreamTrackListCallback;
     friend PromiseWithDeviceListCallback;
@@ -40,10 +42,10 @@ namespace ortc_standup
     MediaEngine(zsLib::IMessageQueuePtr queue);
     ~MediaEngine();
     void init();
-    void SetLocalMediaElement(Windows::UI::Xaml::Controls::MediaElement^ element);
-    void SetRemoteMediaElement(Windows::UI::Xaml::Controls::MediaElement^ element);
-    void SetStartStopButton(Windows::UI::Xaml::Controls::Button^ button);
-    void StartStopMedia();
+    void setLocalMediaElement(Windows::UI::Xaml::Controls::MediaElement^ element);
+    void setRemoteMediaElement(Windows::UI::Xaml::Controls::MediaElement^ element);
+    void setStartStopButton(Windows::UI::Xaml::Controls::Button^ button);
+    void makeCall();
 
   protected:
     //-----------------------------------------------------------------------
@@ -145,8 +147,40 @@ namespace ortc_standup
                                     zsLib::String errorReason
                                     );
 
+    //-----------------------------------------------------------------------
+    #pragma mark
+    #pragma mark MediaEngine => (internal)
+    #pragma mark
+
+    static ortc::IRTPTypes::ParametersPtr capabilitiesToSendParameters(
+                                                                       ortc::IRTPTypes::CapabilitiesPtr localSendVideoCaps,
+                                                                       ortc::IRTPTypes::CapabilitiesPtr remoteRecvVideoCaps
+                                                                       );
+
+    static ortc::IRTPTypes::ParametersPtr capabilitiesToReceiveParameters(
+                                                                          ortc::IRTPTypes::CapabilitiesPtr localRecvVideoCaps,
+                                                                          ortc::IRTPTypes::CapabilitiesPtr remoteSendVideoCaps
+                                                                          );
+
+    virtual void onIncomingCall(
+                                ortc::IICETypes::ParametersPtr remoteVideoICEParameters,
+                                ortc::IDTLSTransportTypes::ParametersPtr remoteVideoDTLSParameters,
+                                ortc::IRTPTypes::CapabilitiesPtr remoteSendVideoCaps,
+                                ortc::IRTPTypes::CapabilitiesPtr remoteRecvVideoCaps
+                                );
+
+    virtual void onCallAccepted(
+                                ortc::IICETypes::ParametersPtr remoteVideoICEParameters,
+                                ortc::IDTLSTransportTypes::ParametersPtr remoteVideoDTLSParameters,
+                                ortc::IRTPTypes::CapabilitiesPtr remoteSendVideoCaps,
+                                ortc::IRTPTypes::CapabilitiesPtr remoteRecvVideoCaps
+                                );
+
   protected:
     //-----------------------------------------------------------------------
+    #pragma mark
+    #pragma mark MediaEngine => (data)
+    #pragma mark
 
     Windows::UI::Core::CoreDispatcher^ mDispatcher;
     bool mStarted;
@@ -156,15 +190,32 @@ namespace ortc_standup
     Windows::UI::Xaml::Controls::Button^ mStartStopButton;
     MediaElementWrapper* mLocalMediaWrapper;
     MediaElementWrapper* mRemoteMediaWrapper;
-    PromiseWithCertificatePtr mPromiseWithCertificate;
-    PromiseWithMediaStreamTrackListPtr mPromiseWithMediaStreamTrackList;
-    PromiseWithDeviceListPtr mPromiseWithDeviceList;
+    SignallerPtr mSignaller;
+    PromiseWithCertificatePtr mSendVideoPromiseWithCertificate;
+    PromiseWithCertificatePtr mReceiveVideoPromiseWithCertificate;
+    PromiseWithMediaStreamTrackListPtr mVideoPromiseWithMediaStreamTrackList;
+    PromiseWithDeviceListPtr mVideoPromiseWithDeviceList;
     ortc::IMediaStreamTrackPtr mLocalVideoMediaStreamTrack;
     ortc::IMediaStreamTrackPtr mRemoteVideoMediaStreamTrack;
-    ortc::IICEGathererPtr mICEGatherer;
-    ortc::IICETransportPtr mVideoICETransport;
-    ortc::IDTLSTransportPtr mVideoDTLSTransport;
+    ortc::IICEGathererPtr mSendVideoICEGatherer;
+    ortc::IICEGathererPtr mReceiveVideoICEGatherer;
+    ortc::IICETransportPtr mSendVideoICETransport;
+    ortc::IICETransportPtr mReceiveVideoICETransport;
+    ortc::IDTLSTransportPtr mSendVideoDTLSTransport;
+    ortc::IDTLSTransportPtr mReceiveVideoDTLSTransport;
     ortc::IRTPSenderPtr mVideoRTPSender;
     ortc::IRTPReceiverPtr mVideoRTPReceiver;
+    ortc::IICETypes::ParametersPtr mLocalSendVideoICEParameters;
+    ortc::IICETypes::ParametersPtr mRemoteSendVideoICEParameters;
+    ortc::IICETypes::ParametersPtr mLocalReceiveVideoICEParameters;
+    ortc::IICETypes::ParametersPtr mRemoteReceiveVideoICEParameters;
+    ortc::IDTLSTransportTypes::ParametersPtr mLocalSendVideoDTLSParameters;
+    ortc::IDTLSTransportTypes::ParametersPtr mRemoteSendVideoDTLSParameters;
+    ortc::IDTLSTransportTypes::ParametersPtr mLocalReceiveVideoDTLSParameters;
+    ortc::IDTLSTransportTypes::ParametersPtr mRemoteReceiveVideoDTLSParameters;
+    ortc::IRTPTypes::CapabilitiesPtr mLocalSendVideoCapabilities;
+    ortc::IRTPTypes::CapabilitiesPtr mRemoteSendVideoCapabilities;
+    ortc::IRTPTypes::CapabilitiesPtr mLocalReceiveVideoCapabilities;
+    ortc::IRTPTypes::CapabilitiesPtr mRemoteReceiveVideoCapabilities;
   };
 }

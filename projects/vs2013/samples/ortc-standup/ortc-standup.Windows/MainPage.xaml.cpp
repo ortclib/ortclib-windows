@@ -36,11 +36,11 @@ void ortc_standup::MainPage::Page_Loaded(Platform::Object^ sender, Windows::UI::
 {
   g_windowDispatcher = Window::Current->Dispatcher;
   mediaEngine_ = MediaEngine::create(NULL).get();
-  mediaEngine_->SetStartStopButton(StartStopButton);
-  mediaEngine_->SetLocalMediaElement(RemoteVideoMediaElement);
+  mediaEngine_->setStartStopButton(StartStopButton);
+  mediaEngine_->setLocalMediaElement(RemoteVideoMediaElement);
 }
 
 void ortc_standup::MainPage::StartStopButton_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
-  mediaEngine_->StartStopMedia();
+  mediaEngine_->makeCall();
 }
