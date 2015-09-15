@@ -6,6 +6,8 @@
 #include "pch.h"
 #include "MainPage.xaml.h"
 
+#include <ortc/internal/ortc_ORTC.h>
+
 using namespace ortc_standup;
 
 using namespace Platform;
@@ -21,26 +23,25 @@ using namespace Windows::UI::Xaml::Navigation;
 
 Windows::UI::Core::CoreDispatcher^ g_windowDispatcher;
 
-MainPage::MainPage() : mediaEngine_(NULL)
+MainPage::MainPage()
 {
 	InitializeComponent();
 }
 
 ortc_standup::MainPage::~MainPage()
 {
-  if (mediaEngine_)
-    delete mediaEngine_;
 }
 
 void ortc_standup::MainPage::Page_Loaded(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
   g_windowDispatcher = Window::Current->Dispatcher;
-  mediaEngine_ = MediaEngine::create(NULL).get();
-  mediaEngine_->setStartStopButton(StartStopButton);
-  mediaEngine_->setLocalMediaElement(RemoteVideoMediaElement);
+  mMediaEngine = MediaEngine::create(ortc::internal::IORTCForInternal::queueORTC());
+  mMediaEngine->setStartStopButton(StartStopButton);
+  mMediaEngine->setLocalMediaElement(LocalVideoMediaElement);
+  mMediaEngine->setRemoteMediaElement(RemoteVideoMediaElement);
 }
 
 void ortc_standup::MainPage::StartStopButton_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
-  mediaEngine_->makeCall();
+  mMediaEngine->makeCall();
 }

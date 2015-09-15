@@ -3,6 +3,10 @@
 
 #include <ppltasks.h>
 
+#include <zsLib/XML.h>
+
+#include <openpeer/services/ILogger.h>
+
 #include <webrtc/modules/video_render/windows/video_render_winrt.h>
 
 using namespace ortc_standup;
@@ -13,6 +17,9 @@ using namespace Windows::UI::Xaml::Controls;
 using zsLib::IPromiseResolutionDelegate;
 
 using ortc::IMediaDevices;
+
+namespace ortc_standup { ZS_IMPLEMENT_SUBSYSTEM(ortc_standup) }
+namespace ortc_standup { ZS_DECLARE_SUBSYSTEM(ortc_standup) }
 
 ZS_DECLARE_TYPEDEF_PTR(zsLib::Promise, Promise)
 ZS_DECLARE_TYPEDEF_PTR(ortc::IMediaDevicesTypes::Constraints, Constraints)
@@ -59,22 +66,60 @@ namespace ortc_standup
 
     void sendLocalSendCandidate(ortc::IICETypes::CandidatePtr candidate)
     {
-      mMediaEngine.lock()->mSendVideoICETransport->addRemoteCandidate(*candidate);
+      if (mMediaEngine.lock()->mReceiveVideoICETransport) {
+        MediaEngine::CandidateMap::iterator iter = mMediaEngine.lock()->mRemoteReceiveVideoCandidates.begin();
+        while (iter != mMediaEngine.lock()->mRemoteReceiveVideoCandidates.end()) {
+          mMediaEngine.lock()->mReceiveVideoICETransport->addRemoteCandidate(*iter->second);
+          iter++;
+        }
+        mMediaEngine.lock()->mRemoteReceiveVideoCandidates.clear();
+        mMediaEngine.lock()->mReceiveVideoICETransport->addRemoteCandidate(*candidate);
+      } else {
+        auto hash = candidate->hash();
+        mMediaEngine.lock()->mRemoteReceiveVideoCandidates[hash] = candidate;
+      }
     }
 
     void sendLocalSendCandidate(ortc::IICETypes::CandidateCompletePtr candidate)
     {
-      mMediaEngine.lock()->mSendVideoICETransport->addRemoteCandidate(*candidate);
+      if (mMediaEngine.lock()->mReceiveVideoICETransport) {
+        MediaEngine::CandidateMap::iterator iter = mMediaEngine.lock()->mRemoteReceiveVideoCandidates.begin();
+        while (iter != mMediaEngine.lock()->mRemoteReceiveVideoCandidates.end()) {
+          mMediaEngine.lock()->mReceiveVideoICETransport->addRemoteCandidate(*iter->second);
+          iter++;
+        }
+        mMediaEngine.lock()->mRemoteReceiveVideoCandidates.clear();
+        mMediaEngine.lock()->mReceiveVideoICETransport->addRemoteCandidate(*candidate);
+      }
     }
 
     void sendLocalReceiveCandidate(ortc::IICETypes::CandidatePtr candidate)
     {
-      mMediaEngine.lock()->mReceiveVideoICETransport->addRemoteCandidate(*candidate);
+      if (mMediaEngine.lock()->mSendVideoICETransport) {
+        MediaEngine::CandidateMap::iterator iter = mMediaEngine.lock()->mRemoteSendVideoCandidates.begin();
+        while (iter != mMediaEngine.lock()->mRemoteSendVideoCandidates.end()) {
+          mMediaEngine.lock()->mSendVideoICETransport->addRemoteCandidate(*iter->second);
+          iter++;
+        }
+        mMediaEngine.lock()->mRemoteSendVideoCandidates.clear();
+        mMediaEngine.lock()->mSendVideoICETransport->addRemoteCandidate(*candidate);
+      } else {
+        auto hash = candidate->hash();
+        mMediaEngine.lock()->mRemoteSendVideoCandidates[hash] = candidate;
+      }
     }
 
     void sendLocalReceiveCandidate(ortc::IICETypes::CandidateCompletePtr candidate)
     {
-      mMediaEngine.lock()->mReceiveVideoICETransport->addRemoteCandidate(*candidate);
+      if (mMediaEngine.lock()->mSendVideoICETransport) {
+        MediaEngine::CandidateMap::iterator iter = mMediaEngine.lock()->mRemoteSendVideoCandidates.begin();
+        while (iter != mMediaEngine.lock()->mRemoteSendVideoCandidates.end()) {
+          mMediaEngine.lock()->mSendVideoICETransport->addRemoteCandidate(*iter->second);
+          iter++;
+        }
+        mMediaEngine.lock()->mRemoteSendVideoCandidates.clear();
+        mMediaEngine.lock()->mSendVideoICETransport->addRemoteCandidate(*candidate);
+      }
     }
 
     void sendOffer(
@@ -272,11 +317,23 @@ namespace ortc_standup
       interfacePolicy.mGatherPolicy = ortc::IICEGathererTypes::FilterPolicy_None;
       gathererOptions.mInterfacePolicy.push_back(interfacePolicy);
       ortc::IICEGathererTypes::Server iceServer;
-      zsLib::String url = zsLib::String("stun:stun.l.google.com:19302");
+//      zsLib::String url = zsLib::String("stun:stun.l.google.com:19302");
+      zsLib::String url = zsLib::String("stun:stun.vline.com");
       iceServer.mURLs.push_back(url);
       gathererOptions.mICEServers.push_back(iceServer);
       mMediaEngine.lock()->mSendVideoICEGatherer = ortc::IICEGatherer::create(mMediaEngine.lock(), gathererOptions);
       mMediaEngine.lock()->mSendVideoICETransport = ortc::IICETransport::create(mMediaEngine.lock(), mMediaEngine.lock()->mSendVideoICEGatherer);
+
+      {
+        zsLib::AutoRecursiveLock lock(*mMediaEngine.lock());
+
+        MediaEngine::CandidateMap::iterator iter = mMediaEngine.lock()->mRemoteSendVideoCandidates.begin();
+        while (iter != mMediaEngine.lock()->mRemoteSendVideoCandidates.end()) {
+          mMediaEngine.lock()->mSendVideoICETransport->addRemoteCandidate(*iter->second);
+          iter++;
+        }
+        mMediaEngine.lock()->mRemoteSendVideoCandidates.clear();
+      }
 
       mMediaEngine.lock()->mSendVideoPromiseWithCertificate = ortc::ICertificate::generateCertificate();
       mMediaEngine.lock()->mSendVideoPromiseWithCertificate->then(PromiseWithCertificateCallback::create(mMediaEngine.lock(), true));
@@ -360,6 +417,14 @@ MediaEngine::~MediaEngine()
 void MediaEngine::init()
 {
   mSignaller = Signaller::create(mThisWeak.lock());
+  openpeer::services::ILogger::setLogLevel(zsLib::Log::Trace);
+  openpeer::services::ILogger::setLogLevel("zsLib", zsLib::Log::Trace);
+  openpeer::services::ILogger::setLogLevel("openpeer_services", zsLib::Log::Trace);
+  openpeer::services::ILogger::setLogLevel("openpeer_services_http", zsLib::Log::Trace);
+  openpeer::services::ILogger::setLogLevel("ortclib", zsLib::Log::Insane);
+  openpeer::services::ILogger::setLogLevel("ortc_standup", zsLib::Log::Insane);
+  
+  openpeer::services::ILogger::installDebuggerLogger();
 }
 
 void MediaEngine::setLocalMediaElement(MediaElement^ element)
@@ -437,6 +502,8 @@ void MediaEngine::onICEGathererLocalCandidate(
                                               )
 {
   zsLib::AutoRecursiveLock lock(*this);
+
+  ZS_LOG_BASIC(log("gatherer local candidate") + ortc::IICEGatherer::toDebug(gatherer) + (candidate ? candidate->toDebug() : ortc::ElementPtr()))
 
   if (gatherer == mSendVideoICEGatherer)
     mSignaller->sendLocalSendCandidate(candidate);
@@ -548,11 +615,23 @@ void MediaEngine::onIncomingCall(
   interfacePolicy.mGatherPolicy = ortc::IICEGathererTypes::FilterPolicy_None;
   gathererOptions.mInterfacePolicy.push_back(interfacePolicy);
   ortc::IICEGathererTypes::Server iceServer;
-  zsLib::String url = zsLib::String("stun:stun.l.google.com:19302");
+//  zsLib::String url = zsLib::String("stun:stun.l.google.com:19302");
+  zsLib::String url = zsLib::String("stun:stun.vline.com");
   iceServer.mURLs.push_back(url);
   gathererOptions.mICEServers.push_back(iceServer);
   mReceiveVideoICEGatherer = ortc::IICEGatherer::create(mThisWeak.lock(), gathererOptions);
   mReceiveVideoICETransport = ortc::IICETransport::create(mThisWeak.lock(), mReceiveVideoICEGatherer);
+
+  {
+    zsLib::AutoRecursiveLock lock(*this);
+
+    MediaEngine::CandidateMap::iterator iter = mRemoteReceiveVideoCandidates.begin();
+    while (iter != mRemoteReceiveVideoCandidates.end()) {
+      mReceiveVideoICETransport->addRemoteCandidate(*iter->second);
+      iter++;
+    }
+    mRemoteReceiveVideoCandidates.clear();
+  }
 
   mReceiveVideoPromiseWithCertificate = ortc::ICertificate::generateCertificate();
   mReceiveVideoPromiseWithCertificate->then(PromiseWithCertificateCallback::create(mThisWeak.lock(), false));
@@ -584,4 +663,10 @@ void MediaEngine::onCallAccepted(
   mStarted = true;
   mStartStopButton->Content = "Stop";
   mStartStopButton->IsEnabled = true;
+}
+
+zsLib::Log::Params MediaEngine::log(const char *message) const
+{
+  ortc::ElementPtr objectEl = ortc::Element::create("ortc_standup::MediaEngine");
+  return zsLib::Log::Params(message, objectEl);
 }

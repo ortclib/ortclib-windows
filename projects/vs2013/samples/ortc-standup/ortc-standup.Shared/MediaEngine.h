@@ -36,6 +36,9 @@ namespace ortc_standup
     friend PromiseWithMediaStreamTrackListCallback;
     friend PromiseWithDeviceListCallback;
 
+    typedef zsLib::String Hash;
+    typedef std::map<Hash, CandidatePtr> CandidateMap;
+
   public:
     //---------------------------------------------------------------------
     static MediaEnginePtr create(zsLib::IMessageQueuePtr queue);
@@ -176,6 +179,8 @@ namespace ortc_standup
                                 ortc::IRTPTypes::CapabilitiesPtr remoteRecvVideoCaps
                                 );
 
+    zsLib::Log::Params log(const char *message) const;
+
   protected:
     //-----------------------------------------------------------------------
     #pragma mark
@@ -205,6 +210,8 @@ namespace ortc_standup
     ortc::IDTLSTransportPtr mReceiveVideoDTLSTransport;
     ortc::IRTPSenderPtr mVideoRTPSender;
     ortc::IRTPReceiverPtr mVideoRTPReceiver;
+    CandidateMap mRemoteSendVideoCandidates;
+    CandidateMap mRemoteReceiveVideoCandidates;
     ortc::IICETypes::ParametersPtr mLocalSendVideoICEParameters;
     ortc::IICETypes::ParametersPtr mRemoteSendVideoICEParameters;
     ortc::IICETypes::ParametersPtr mLocalReceiveVideoICEParameters;
