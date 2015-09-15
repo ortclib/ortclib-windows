@@ -14,6 +14,11 @@ ZS_DECLARE_TYPEDEF_PTR(ortc::ICertificateTypes::PromiseWithCertificate, PromiseW
 ZS_DECLARE_TYPEDEF_PTR(ortc::IMediaDevicesTypes::PromiseWithDeviceList, PromiseWithDeviceList)
 ZS_DECLARE_TYPEDEF_PTR(ortc::IMediaDevicesTypes::PromiseWithMediaStreamTrackList, PromiseWithMediaStreamTrackList)
 
+namespace webrtc
+{
+  class TraceCallback;
+}
+
 namespace ortc_standup
 {
   class MediaElementWrapper;
@@ -195,6 +200,7 @@ namespace ortc_standup
     Windows::UI::Xaml::Controls::Button^ mStartStopButton;
     MediaElementWrapper* mLocalMediaWrapper;
     MediaElementWrapper* mRemoteMediaWrapper;
+    webrtc::TraceCallback* mTraceCallback;
     SignallerPtr mSignaller;
     PromiseWithCertificatePtr mSendVideoPromiseWithCertificate;
     PromiseWithCertificatePtr mReceiveVideoPromiseWithCertificate;

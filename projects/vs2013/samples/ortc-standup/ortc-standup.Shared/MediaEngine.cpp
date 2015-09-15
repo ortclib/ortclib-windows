@@ -7,7 +7,11 @@
 
 #include <openpeer/services/ILogger.h>
 
+#include <ortc/ISettings.h>
+
+#include <webrtc/base/logging.h>
 #include <webrtc/modules/video_render/windows/video_render_winrt.h>
+#include <webrtc/system_wrappers/interface/trace.h>
 
 using namespace ortc_standup;
 
@@ -49,6 +53,34 @@ namespace ortc_standup
 
   private:
     MediaElement^ mMediaElement;
+  };
+
+  class StandupTraceCallback : public webrtc::TraceCallback
+  {
+  public:
+
+    virtual void Print(webrtc::TraceLevel level, const char* message, int length)
+    {
+      rtc::LoggingSeverity sev = rtc::LS_VERBOSE;
+      if (level == webrtc::kTraceError || level == webrtc::kTraceCritical)
+        sev = rtc::LS_ERROR;
+      else if (level == webrtc::kTraceWarning)
+        sev = rtc::LS_WARNING;
+      else if (level == webrtc::kTraceStateInfo || level == webrtc::kTraceInfo)
+        sev = rtc::LS_INFO;
+      else if (level == webrtc::kTraceTerseInfo)
+        sev = rtc::LS_INFO;
+
+      // Skip past boilerplate prefix text
+      if (length < 72) {
+        std::string msg(message, length);
+        LOG(LS_ERROR) << "Malformed webrtc log message: ";
+        LOG_V(sev) << msg;
+      } else {
+        std::string msg(message + 71, length - 72);
+        LOG_V(sev) << "webrtc: " << msg;
+      }
+    }
   };
 
   class Signaller
@@ -406,7 +438,8 @@ MediaEngine::MediaEngine(zsLib::IMessageQueuePtr queue) :
   MessageQueueAssociator(queue),
   mStarted(false),
   mLocalMediaWrapper(NULL),
-  mRemoteMediaWrapper(NULL)
+  mRemoteMediaWrapper(NULL),
+  mTraceCallback(new StandupTraceCallback())
 {
 }
 
@@ -425,6 +458,14 @@ void MediaEngine::init()
   openpeer::services::ILogger::setLogLevel("ortc_standup", zsLib::Log::Insane);
   
   openpeer::services::ILogger::installDebuggerLogger();
+
+  rtc::LogMessage::LogToDebug(rtc::LS_SENSITIVE);
+
+  webrtc::Trace::CreateTrace();
+  webrtc::Trace::SetTraceCallback(mTraceCallback);
+  webrtc::Trace::set_level_filter(webrtc::kTraceAll);
+
+  ortc::ISettings::applyDefaults();
 }
 
 void MediaEngine::setLocalMediaElement(MediaElement^ element)
@@ -588,7 +629,7 @@ ortc::IRTPTypes::ParametersPtr MediaEngine::capabilitiesToSendParameters(
                                                                          ortc::IRTPTypes::CapabilitiesPtr remoteRecvVideoCaps
                                                                          )
 {
-  return ortc::IRTPTypes::ParametersPtr();
+  return ortc::IRTPTypes::ParametersPtr(new ortc::IRTPTypes::Parameters());
 }
 
 ortc::IRTPTypes::ParametersPtr MediaEngine::capabilitiesToReceiveParameters(
@@ -596,7 +637,7 @@ ortc::IRTPTypes::ParametersPtr MediaEngine::capabilitiesToReceiveParameters(
                                                                             ortc::IRTPTypes::CapabilitiesPtr remoteSendVideoCaps
                                                                             )
 {
-  return ortc::IRTPTypes::ParametersPtr();
+  return ortc::IRTPTypes::ParametersPtr(new ortc::IRTPTypes::Parameters());
 }
 
 void MediaEngine::onIncomingCall(
@@ -652,9 +693,9 @@ void MediaEngine::onCallAccepted(
   videoICEOptions.mAggressiveICE = false;
   videoICEOptions.mRole = ortc::IICETypes::Role_Controlling;
 
-  mReceiveVideoICETransport->start(mSendVideoICEGatherer, *mRemoteReceiveVideoICEParameters, videoICEOptions);
+  mSendVideoICETransport->start(mSendVideoICEGatherer, *mRemoteReceiveVideoICEParameters, videoICEOptions);
 
-  mReceiveVideoDTLSTransport->start(*mRemoteReceiveVideoDTLSParameters);
+  mSendVideoDTLSTransport->start(*mRemoteReceiveVideoDTLSParameters);
 
   ortc::IRTPTypes::ParametersPtr videoSendParams = capabilitiesToSendParameters(mLocalSendVideoCapabilities, mRemoteReceiveVideoCapabilities);
 
