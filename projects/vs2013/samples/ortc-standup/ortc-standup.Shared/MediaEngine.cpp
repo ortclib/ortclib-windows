@@ -32,29 +32,6 @@ extern Windows::UI::Core::CoreDispatcher^ g_windowDispatcher;
 
 namespace ortc_standup
 {
-  class MediaElementWrapper : public webrtc::IWinRTMediaElement
-  {
-  public:
-    MediaElementWrapper(MediaElement^ mediaElement) :mMediaElement(mediaElement){};
-
-    virtual void Play(){
-      mMediaElement->Play();
-    };
-
-    virtual void Stop(){
-      mMediaElement->Stop();
-    };
-
-    virtual void SetMediaStreamSource(Windows::Media::Core::IMediaSource^ mss){
-      mMediaElement->SetMediaStreamSource(mss);
-    };
-
-    MediaElement^ getMediaElement(){ return mMediaElement; }
-
-  private:
-    MediaElement^ mMediaElement;
-  };
-
   class StandupTraceCallback : public webrtc::TraceCallback
   {
   public:
@@ -299,7 +276,8 @@ namespace ortc_standup
                                                                                                       );
 
         ortc::IMediaStreamTrackPtr remoteVideoTrack = mMediaEngine.lock()->mVideoRTPReceiver->track();
-        remoteVideoTrack->setMediaElement(mMediaEngine.lock()->mRemoteMediaWrapper);
+		IInspectable* remoteMediaElementPtr = reinterpret_cast<IInspectable*>(mMediaEngine.lock()->mRemoteMediaElement);
+		remoteVideoTrack->setMediaElement(remoteMediaElementPtr);
 
         mMediaEngine.lock()->mVideoRTPReceiver->receive(*videoRecvParams);
 
@@ -342,7 +320,8 @@ namespace ortc_standup
     {
       ortc::IMediaDevicesTypes::MediaStreamTrackListPtr trackList = promise->value<ortc::IMediaDevicesTypes::MediaStreamTrackList>();
       mMediaEngine.lock()->mLocalVideoMediaStreamTrack = *trackList->begin();
-      mMediaEngine.lock()->mLocalVideoMediaStreamTrack->setMediaElement(mMediaEngine.lock()->mLocalMediaWrapper);
+	  IInspectable* localMediaElementPtr = reinterpret_cast<IInspectable*>(mMediaEngine.lock()->mLocalMediaElement);
+	  mMediaEngine.lock()->mLocalVideoMediaStreamTrack->setMediaElement(localMediaElementPtr);
 
       ortc::IICEGathererTypes::Options gathererOptions;
       ortc::IICEGathererTypes::InterfacePolicy interfacePolicy;
@@ -437,8 +416,6 @@ MediaEngine::MediaEngine(zsLib::IMessageQueuePtr queue) :
   SharedRecursiveLock(SharedRecursiveLock::create()),
   MessageQueueAssociator(queue),
   mStarted(false),
-  mLocalMediaWrapper(NULL),
-  mRemoteMediaWrapper(NULL),
   mTraceCallback(new StandupTraceCallback())
 {
 }
@@ -470,12 +447,12 @@ void MediaEngine::init()
 
 void MediaEngine::setLocalMediaElement(MediaElement^ element)
 {
-  mLocalMediaWrapper = new MediaElementWrapper(element);
+  mLocalMediaElement = element;
 }
 
 void MediaEngine::setRemoteMediaElement(MediaElement^ element)
 {
-  mRemoteMediaWrapper = new MediaElementWrapper(element);
+  mRemoteMediaElement = element;
 }
 
 void MediaEngine::setStartStopButton(Button^ button)
