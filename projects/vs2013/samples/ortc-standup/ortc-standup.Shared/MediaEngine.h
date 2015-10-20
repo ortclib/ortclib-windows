@@ -198,8 +198,8 @@ namespace ortc_standup
     MediaEngineWeakPtr mThisWeak;
 
     Windows::UI::Xaml::Controls::Button^ mStartStopButton;
-	Windows::UI::Xaml::Controls::MediaElement^ mLocalMediaElement;
-	Windows::UI::Xaml::Controls::MediaElement^ mRemoteMediaElement;
+    Windows::UI::Xaml::Controls::MediaElement^ mLocalMediaElement;
+    Windows::UI::Xaml::Controls::MediaElement^ mRemoteMediaElement;
     webrtc::TraceCallback* mTraceCallback;
     SignallerPtr mSignaller;
     PromiseWithCertificatePtr mSendVideoPromiseWithCertificate;
