@@ -427,6 +427,7 @@ MediaEngine::~MediaEngine()
 void MediaEngine::init()
 {
   mSignaller = Signaller::create(mThisWeak.lock());
+  
   openpeer::services::ILogger::setLogLevel(zsLib::Log::Trace);
   openpeer::services::ILogger::setLogLevel("zsLib", zsLib::Log::Trace);
   openpeer::services::ILogger::setLogLevel("openpeer_services", zsLib::Log::Trace);
@@ -434,7 +435,15 @@ void MediaEngine::init()
   openpeer::services::ILogger::setLogLevel("ortclib", zsLib::Log::Insane);
   openpeer::services::ILogger::setLogLevel("ortc_standup", zsLib::Log::Insane);
   
-  openpeer::services::ILogger::installDebuggerLogger();
+  //openpeer::services::ILogger::installDebuggerLogger();
+  openpeer::services::ILogger::installTelnetLogger(59999, 60, true);
+  for (int tries = 0; tries < 60; ++tries)
+  {
+    if (openpeer::services::ILogger::isTelnetLoggerListening()) {
+      break;
+    }
+    Sleep(1000);
+  }
 
   rtc::LogMessage::LogToDebug(rtc::LS_SENSITIVE);
 
