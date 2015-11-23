@@ -8,37 +8,47 @@ using namespace ortc;
 namespace ortc_winrt_api
 {
 
-  //public class IIceGathererDelegateWrapper
-  //{
-  //public:
+  public delegate void RTCIceGathererStateChangedDelegate();
+    //RTCIceGatherer^, RTCIceGathererState);
 
-  //  virtual void onICEGathererStateChanged(
-  //    IICEGathererPtr gatherer,
-  //    IICEGatherer::States state
-  //    );
+  ZS_DECLARE_CLASS_PTR(RTCIceGathererDelegate)
 
-  //  //virtual void onICEGathererLocalCandidate(
-  //  //  IICEGathererPtr gatherer,
-  //  //  CandidatePtr candidate
-  //  //  );
+  ref class RTCIceGatherer;
 
-  //  //virtual void onICEGathererLocalCandidateComplete(
-  //  //  IICEGathererPtr gatherer,
-  //  //  CandidateCompletePtr candidate
-  //  //  );
+  class RTCIceGathererDelegate : public IICEGathererDelegate
+  {
+  public:
+     virtual void onICEGathererStateChanged(
+      IICEGathererPtr gatherer,
+      IICEGatherer::States state
+      );
 
-  //  //virtual void onICEGathererLocalCandidateGone(
-  //  //  IICEGathererPtr gatherer,
-  //  //  CandidatePtr candidate
-  //  //  );
+    virtual void onICEGathererLocalCandidate(
+      IICEGathererPtr gatherer,
+      CandidatePtr candidate
+      );
 
-  //  //virtual void onICEGathererError(
-  //  //  IICEGathererPtr gatherer,
-  //  //  ErrorCode errorCode,
-  //  //  String errorReason
-  //  //  );
+    virtual void onICEGathererLocalCandidateComplete(
+      IICEGathererPtr gatherer,
+      CandidateCompletePtr candidate
+      );
 
-  //};
+    virtual void onICEGathererLocalCandidateGone(
+      IICEGathererPtr gatherer,
+      CandidatePtr candidate
+      );
+
+    virtual void onICEGathererError(
+      IICEGathererPtr gatherer,
+      ErrorCode errorCode,
+      zsLib::String errorReason
+      );
+
+    RTCIceGatherer^ _gatherer;
+
+    void SetOwnerObject(RTCIceGatherer^ owner) { _gatherer = owner; }
+
+  };
   public ref class RTCIceServer sealed
   {
     std::vector<Platform::String^> mURLs;
@@ -53,6 +63,13 @@ namespace ortc_winrt_api
     IceGatherPolicy_Relay
   };
 
+  public enum class RTCIceGathererState {
+    State_New,
+    State_Gathering,
+    State_Complete,
+    State_Closed,
+  };
+
   public ref class RTCIceGatherOptions sealed
   {
     RTCIceGatherPolicy     gatherPolicy;
@@ -61,17 +78,18 @@ namespace ortc_winrt_api
 
 	public ref class RTCIceGatherer sealed
 	{
-
-    //friend class RTCIceGathererDelegateWrapper;
+    friend class RTCIceGathererDelegate;
 	public:
     RTCIceGatherer(RTCIceGatherOptions^ options);
     RTCIceGatherer^ createAssociatedGatherer();
 
   private:
-    IICEGathererPtr* mNativePointer;
-    IICEGathererDelegatePtr* mNativeDelegatePointer;
+    IICEGathererPtr mNativePointer;
+    RTCIceGathererDelegatePtr mNativeDelegatePointer;
 
   public:
+
+    event RTCIceGathererStateChangedDelegate^ OnICEGathererStateChanged;
     ///// <summary>
     ///// A remote peer has opened a data channel.
     ///// </summary>

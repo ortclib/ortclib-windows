@@ -32,7 +32,18 @@ namespace ortc_api_test
         private void Button_Click(object sender, RoutedEventArgs e)
         {
           RTCIceGatherOptions options = new RTCIceGatherOptions();
-          RTCIceGatherer _peerConnection = new RTCIceGatherer(options);
+          
+          _iceGatherer = new RTCIceGatherer(options);
+
+          _iceGatherer.OnICEGathererStateChanged += this.RTCIceGatherer_onICEGathererStateChanged;
         }
+
+        private void RTCIceGatherer_onICEGathererStateChanged()
+        {
+          int i = 0;
+          i++;
+        }
+
+        RTCIceGatherer _iceGatherer;
     }
 }
