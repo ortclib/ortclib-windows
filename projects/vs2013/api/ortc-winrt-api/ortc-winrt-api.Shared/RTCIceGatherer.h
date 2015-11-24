@@ -2,8 +2,11 @@
 
 #include <ortc/types.h>
 #include <ortc/IICEGatherer.h>
+#include <collection.h>
 
 using namespace ortc;
+
+using Windows::Foundation::Collections::IVector;
 
 namespace ortc_winrt_api
 {
@@ -45,10 +48,8 @@ namespace ortc_winrt_api
     RTCIceGatherer^ _gatherer;
 
     void SetOwnerObject(RTCIceGatherer^ owner) { _gatherer = owner; }
-
-  private:
-    RTCIceCandidate^ toCX(CandidatePtr candidate);
   };
+
   public ref class RTCIceServer sealed
   {
     std::vector<Platform::String^> mURLs;
@@ -118,6 +119,13 @@ namespace ortc_winrt_api
     property Platform::String^ ErrorReason;
   };
 
+  public ref class RTCIceParameters sealed
+  {
+  public:
+    property Platform::String^ UsernameFragment;
+    property Platform::String^ Password;
+  };
+
   //------------------------------------------
   // Events and Delegates
   //------------------------------------------
@@ -185,9 +193,14 @@ namespace ortc_winrt_api
 	{
     friend class RTCIceGathererDelegate;
 	public:
+    RTCIceGatherer();
     RTCIceGatherer(RTCIceGatherOptions^ options);
+
+    RTCIceParameters^ getLocalParameters();
+    IVector<RTCIceCandidate^>^ getLocalCandidates();
     RTCIceGatherer^ createAssociatedGatherer();
 
+    void close();
   private:
     IICEGathererPtr mNativePointer;
     RTCIceGathererDelegatePtr mNativeDelegatePointer;

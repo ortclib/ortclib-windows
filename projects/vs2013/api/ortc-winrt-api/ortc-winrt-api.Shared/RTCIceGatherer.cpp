@@ -9,6 +9,8 @@ using namespace Platform;
 
 using namespace zsLib;
 
+using Platform::Collections::Vector;
+
 Windows::UI::Core::CoreDispatcher^ g_windowDispatcher;
 
 std::string FromCx(Platform::String^ inObj) {
@@ -19,6 +21,30 @@ Platform::String^ ToCx(std::string const& inObj) {
   return ref new Platform::String(rtc::ToUtf16(inObj).c_str());
 }
 
+RTCIceCandidate^ ToCx(ortc::IICETypes::CandidatePtr candidate)
+{
+  RTCIceCandidate^ ret = ref new RTCIceCandidate();
+
+  ret->CandidateType = (RTCIceCandidateType)candidate->mCandidateType;
+  ret->Foundation = ToCx(candidate->mFoundation);
+  ret->InterfaceType = ToCx(candidate->mInterfaceType);
+  ret->IP = ToCx(candidate->mIP);
+  ret->Port = candidate->mPort;
+  ret->Priority = candidate->mPriority;
+  ret->Protocol = (RTCIceProtocol)candidate->mProtocol;
+  ret->RelatedAddress = ToCx(candidate->mRelatedAddress);
+  ret->RelatedPort = candidate->mRelatedPort;
+  ret->TCPType = (RTCIceTcpCandidateType)candidate->mTCPType;
+  ret->UnfreezePriority = candidate->mUnfreezePriority;
+
+  return ret;
+}
+
+RTCIceGatherer::RTCIceGatherer() :
+mNativeDelegatePointer(nullptr),
+mNativePointer(nullptr)
+{
+}
 
 RTCIceGatherer::RTCIceGatherer(RTCIceGatherOptions^ options) :
 mNativeDelegatePointer(new RTCIceGathererDelegate())
@@ -44,11 +70,61 @@ mNativeDelegatePointer(new RTCIceGathererDelegate())
   mNativePointer = IICEGatherer::create(mNativeDelegatePointer, optionsNative);
 }
 
-RTCIceGatherer^ RTCIceGatherer::createAssociatedGatherer()
+RTCIceParameters^ RTCIceGatherer::getLocalParameters()
 {
-  RTCIceGatherer^ ret = nullptr;
+  RTCIceParameters^ ret = ref new RTCIceParameters();
+  if (mNativePointer)
+  {
+    IICETypes::ParametersPtr params = mNativePointer->getLocalParameters();
+    if (params)
+    {
+      ret->UsernameFragment = ToCx(params->mUsernameFragment);
+      ret->Password = ToCx(params->mPassword);
+    }
+  }
+
   return ret;
 }
+
+IVector<RTCIceCandidate^>^ RTCIceGatherer::getLocalCandidates()
+{
+  auto ret = ref new Vector<RTCIceCandidate^>();
+
+  if (mNativePointer)
+  {
+    auto candidates = mNativePointer->getLocalCandidates();
+    for (IICEGatherer::CandidateList::iterator it = candidates->begin(); it != candidates->end(); ++it) {
+      ret->Append(ToCx(make_shared<IICEGatherer::Candidate>(*it)));
+    }
+  }
+
+  return ret;
+
+}
+
+
+RTCIceGatherer^ RTCIceGatherer::createAssociatedGatherer()
+{
+  RTCIceGatherer^ ret = ref new RTCIceGatherer();
+
+  if (mNativePointer)
+  {
+    ret->mNativeDelegatePointer = make_shared<RTCIceGathererDelegate>(RTCIceGathererDelegate());
+    ret->mNativePointer = mNativePointer->createAssociatedGatherer(ret->mNativeDelegatePointer);
+    ret->mNativeDelegatePointer->SetOwnerObject(ret);
+  }
+  return ret;
+}
+
+void RTCIceGatherer::close()
+{
+  if (mNativePointer)
+    mNativePointer->close();
+}
+
+//-----------------------------------------------------------------
+#pragma mark RTCIceGathererDelegate
+//-----------------------------------------------------------------
 
 // Triggered when media is received on a new stream from remote peer.
 void RTCIceGathererDelegate::onICEGathererStateChanged(
@@ -67,7 +143,7 @@ void RTCIceGathererDelegate::onICEGathererLocalCandidate(
   ) 
 {
   auto evt = ref new RTCIceGathererCandidateEvent();
-  evt->Candidate = toCX(candidate);
+  evt->Candidate = ToCx(candidate);
   _gatherer->OnICEGathererLocalCandidate(evt);
 }
 
@@ -87,7 +163,7 @@ void RTCIceGathererDelegate::onICEGathererLocalCandidateGone(
   )
 {
   auto evt = ref new RTCIceGathererCandidateEvent();
-  evt->Candidate = toCX(candidate);
+  evt->Candidate = ToCx(candidate);
   _gatherer->OnICEGathererLocalCandidateGone(evt);
 }
 
@@ -101,23 +177,4 @@ void RTCIceGathererDelegate::onICEGathererError(
   evt->Error->ErrorCode = errorCode;
   evt->Error->ErrorReason = ToCx(errorReason);
   _gatherer->OnICEGathererError(evt);
-}
-
-RTCIceCandidate^ RTCIceGathererDelegate::toCX(CandidatePtr candidate)
-{
-  RTCIceCandidate^ ret = ref new RTCIceCandidate();
-
-  ret->CandidateType = (RTCIceCandidateType)candidate->mCandidateType;
-  ret->Foundation = ToCx(candidate->mFoundation);
-  ret->InterfaceType = ToCx(candidate->mInterfaceType);
-  ret->IP = ToCx(candidate->mIP);
-  ret->Port = candidate->mPort;
-  ret->Priority = candidate->mPriority;
-  ret->Protocol = (RTCIceProtocol)candidate->mProtocol;
-  ret->RelatedAddress = ToCx(candidate->mRelatedAddress);
-  ret->RelatedPort = candidate->mRelatedPort;
-  ret->TCPType = (RTCIceTcpCandidateType)candidate->mTCPType;
-  ret->UnfreezePriority = candidate->mUnfreezePriority;
-  
-  return ret;
 }
