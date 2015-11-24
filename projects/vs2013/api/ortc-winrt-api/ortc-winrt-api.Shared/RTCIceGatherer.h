@@ -96,6 +96,7 @@ namespace ortc_winrt_api
     TCPCandidateType_SO,
   };
 
+
   public ref class RTCIceCandidate sealed
   {
   public:
@@ -110,6 +111,12 @@ namespace ortc_winrt_api
     property RTCIceTcpCandidateType       TCPType;
     property Platform::String^            RelatedAddress;
     property uint16                       RelatedPort;
+  };
+
+  public ref class RTCIceCandidateComplete sealed
+  {
+  public:
+    property bool Complete;
   };
 
   public ref class RTCIceGathererError sealed
@@ -163,9 +170,10 @@ namespace ortc_winrt_api
   public delegate void RTCIceGathererLocalCandidateGoneDelegate(RTCIceGathererCandidateEvent^ evt);
 
   // Candidate complete event and delegate
+
   public ref class RTCIceGathererCandidateCompleteEvent sealed {
   public:
-    property bool Complete;
+    property RTCIceCandidateComplete^ Complete;
   };
 
   public delegate void RTCIceGathererCandidateCompleteDelegate(RTCIceGathererCandidateCompleteEvent^ evt);

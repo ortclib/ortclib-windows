@@ -102,7 +102,6 @@ IVector<RTCIceCandidate^>^ RTCIceGatherer::getLocalCandidates()
 
 }
 
-
 RTCIceGatherer^ RTCIceGatherer::createAssociatedGatherer()
 {
   RTCIceGatherer^ ret = ref new RTCIceGatherer();
@@ -153,7 +152,7 @@ void RTCIceGathererDelegate::onICEGathererLocalCandidateComplete(
   )
 {
   auto evt = ref new RTCIceGathererCandidateCompleteEvent();
-  evt->Complete = true;
+  evt->Complete->Complete = true;
   _gatherer->OnICEGathererCandidateComplete(evt);
 }
 
