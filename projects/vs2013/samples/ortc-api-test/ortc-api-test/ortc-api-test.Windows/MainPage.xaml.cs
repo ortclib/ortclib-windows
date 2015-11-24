@@ -36,9 +36,37 @@ namespace ortc_api_test
           _iceGatherer = new RTCIceGatherer(options);
 
           _iceGatherer.OnICEGathererStateChanged += this.RTCIceGatherer_onICEGathererStateChanged;
+          _iceGatherer.OnICEGathererLocalCandidate += this.RTCIceGatherer_onICEGathererLocalCandidate;
+          _iceGatherer.OnICEGathererCandidateComplete += this.RTCIceGatherer_onICEGathererCandidateComplete;
+          _iceGatherer.OnICEGathererLocalCandidateGone += this.RTCIceGatherer_onICEGathererLocalCandidateGone;
+          _iceGatherer.OnICEGathererError += this.RTCIceGatherer_onICEGathererError;
         }
 
-        private void RTCIceGatherer_onICEGathererStateChanged()
+        private void RTCIceGatherer_onICEGathererStateChanged(RTCIceGathererStateChangeEvent evt)
+        {
+          int i = 0;
+          i++;
+        }
+
+        private void RTCIceGatherer_onICEGathererLocalCandidate(RTCIceGathererCandidateEvent evt)
+        {
+          int i = 0;
+          i++;
+        }
+
+        private void RTCIceGatherer_onICEGathererCandidateComplete(RTCIceGathererCandidateCompleteEvent evt)
+        {
+          int i = 0;
+          i++;
+        }
+
+        private void RTCIceGatherer_onICEGathererLocalCandidateGone(RTCIceGathererCandidateEvent evt)
+        {
+          int i = 0;
+          i++;
+        }
+
+        private void RTCIceGatherer_onICEGathererError(RTCIceGathererErrorEvent evt)
         {
           int i = 0;
           i++;

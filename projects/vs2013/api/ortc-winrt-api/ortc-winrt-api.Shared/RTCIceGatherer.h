@@ -8,12 +8,10 @@ using namespace ortc;
 namespace ortc_winrt_api
 {
 
-  public delegate void RTCIceGathererStateChangedDelegate();
-    //RTCIceGatherer^, RTCIceGathererState);
-
   ZS_DECLARE_CLASS_PTR(RTCIceGathererDelegate)
 
   ref class RTCIceGatherer;
+  ref class RTCIceCandidate;
 
   class RTCIceGathererDelegate : public IICEGathererDelegate
   {
@@ -48,6 +46,8 @@ namespace ortc_winrt_api
 
     void SetOwnerObject(RTCIceGatherer^ owner) { _gatherer = owner; }
 
+  private:
+    RTCIceCandidate^ toCX(CandidatePtr candidate);
   };
   public ref class RTCIceServer sealed
   {
@@ -76,6 +76,111 @@ namespace ortc_winrt_api
     std::vector<RTCIceServer^> iceServers;
   };
 
+  public enum class RTCIceProtocol
+  {
+    Protocol_UDP,
+    Protocol_TCP
+  };
+
+  public enum class RTCIceCandidateType {
+    CandidateType_Host,
+    CandidateType_Srflex,
+    CandidateType_Prflx,
+    CandidateType_Relay,
+  };
+
+  public enum class RTCIceTcpCandidateType {
+    TCPCandidateType_Active,
+    TCPCandidateType_Passive,
+    TCPCandidateType_SO,
+  };
+
+  public ref class RTCIceCandidate sealed
+  {
+  public:
+    property Platform::String^            InterfaceType;
+    property Platform::String^            Foundation;
+    property uint32                       Priority;
+    property uint32                       UnfreezePriority;
+    property RTCIceProtocol               Protocol;
+    property Platform::String^            IP;
+    property uint16                       Port;
+    property RTCIceCandidateType          CandidateType;
+    property RTCIceTcpCandidateType       TCPType;
+    property Platform::String^            RelatedAddress;
+    property uint16                       RelatedPort;
+  };
+
+  public ref class RTCIceGathererError sealed
+  {
+  public:
+    property uint16 ErrorCode;
+    property Platform::String^ ErrorReason;
+  };
+
+  //------------------------------------------
+  // Events and Delegates
+  //------------------------------------------
+  
+  // State change event and delegate
+  public ref class RTCIceGathererStateChangeEvent sealed {
+  public:
+    property RTCIceGathererState State
+    {
+      RTCIceGathererState  get(){ return m_state; }
+      void  set(RTCIceGathererState value){ m_state = value; }
+    }
+
+  private:
+    RTCIceGathererState m_state;
+  };
+
+  public delegate void RTCIceGathererStateChangedDelegate(RTCIceGathererStateChangeEvent^ evt);
+
+
+  // Candidate event and delegate
+  public ref class RTCIceGathererCandidateEvent sealed {
+  public:
+    property RTCIceCandidate^ Candidate
+    {
+      RTCIceCandidate^  get(){ return m_candidate; }
+      void  set(RTCIceCandidate^ value){ m_candidate = value; }
+    }
+
+  private:
+    RTCIceCandidate^ m_candidate;
+  };
+
+  public delegate void RTCIceGathererLocalCandidateDelegate(RTCIceGathererCandidateEvent^ evt);
+  public delegate void RTCIceGathererLocalCandidateGoneDelegate(RTCIceGathererCandidateEvent^ evt);
+
+  // Candidate complete event and delegate
+  public ref class RTCIceGathererCandidateCompleteEvent sealed {
+  public:
+    property bool Complete;
+  };
+
+  public delegate void RTCIceGathererCandidateCompleteDelegate(RTCIceGathererCandidateCompleteEvent^ evt);
+
+  // Error event and delegate
+  public ref class RTCIceGathererErrorEvent sealed {
+  public:
+    property RTCIceGathererError^ Error
+    {
+      RTCIceGathererError^  get(){ return m_error; }
+      void  set(RTCIceGathererError^ value){ m_error = value; }
+    }
+
+  private:
+    RTCIceGathererError^ m_error;
+  };
+
+  public delegate void RTCIceGathererErrorDelegate(RTCIceGathererErrorEvent^ evt);
+
+  //------------------------------------------
+  // End Events and Delegates
+  //------------------------------------------
+
 	public ref class RTCIceGatherer sealed
 	{
     friend class RTCIceGathererDelegate;
@@ -89,20 +194,10 @@ namespace ortc_winrt_api
 
   public:
 
-    event RTCIceGathererStateChangedDelegate^ OnICEGathererStateChanged;
-    ///// <summary>
-    ///// A remote peer has opened a data channel.
-    ///// </summary>
-    //event onICEGathererStateChanged^ onICEGathererStateChanged;
-
-    ///// <summary>
-    ///// New connection health stats are available.
-    ///// </summary>
-    //event RTCPeerConnectionHealthStatsDelegate^ OnConnectionHealthStats;
-
-    ///// <summary>
-    ///// Webrtc statistics report is ready <see cref="RTCStatsReports"/>.
-    ///// </summary>
-    //event RTCStatsReportsReadyEventDelegate^  OnRTCStatsReportsReady;
+    event RTCIceGathererStateChangedDelegate^       OnICEGathererStateChanged;
+    event RTCIceGathererLocalCandidateDelegate^     OnICEGathererLocalCandidate;
+    event RTCIceGathererCandidateCompleteDelegate^  OnICEGathererCandidateComplete;
+    event RTCIceGathererLocalCandidateGoneDelegate^ OnICEGathererLocalCandidateGone;
+    event RTCIceGathererErrorDelegate^              OnICEGathererError;
 	};
 }
