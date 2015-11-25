@@ -51,24 +51,49 @@ IVector<RTCIceCandidate^>^ RTCIceTransport::getRemoteCandidates()
 RTCIceCandidatePair^ RTCIceTransport::getSelectedCandidatePair()
 {
   auto ret = ref new RTCIceCandidatePair();
+  if (mNativePointer)
+  {
+    auto candidatePair = mNativePointer->getNominatedCandidatePair(); // should it be getSelectedCandidatePair???
+    ret->Local = ToCx(candidatePair->mLocal);
+    ret->Remote = ToCx(candidatePair->mRemote);
+  }
 
   return ret;
 }
 
 void RTCIceTransport::start(RTCIceGatherer^ gatherer, RTCIceParameters^ remoteParameters, RTCIceRole role)
 {
+  if (mNativePointer && FetchNativePointer::fromIceGatherer(gatherer))
+  {
 
+    IIceTransport::Parameters params;
+    params.mUsernameFragment = FromCx(remoteParameters->UsernameFragment);
+    params.mPassword = FromCx(remoteParameters->Password);
+
+    IIceTransport::Options options;
+    options.mRole = (IICETypes::Roles)role;
+
+    mNativePointer->start(FetchNativePointer::fromIceGatherer(gatherer), params, options);
+  }
 }
 
 void RTCIceTransport::stop()
 {
-
+  if (mNativePointer)
+  {
+    mNativePointer->stop();
+  }
 }
 
 RTCIceParameters^ RTCIceTransport::getRemoteParameters()
 {
   auto ret = ref new RTCIceParameters();
-
+  if (mNativePointer)
+  {
+    auto params = mNativePointer->getRemoteParameters();
+    ret->UsernameFragment = ToCx(params->mUsernameFragment);
+    ret->Password = ToCx(params->mPassword);
+  }
   return ret;
 }
 
@@ -81,17 +106,20 @@ RTCIceTransport^ RTCIceTransport::createAssociatedTransport()
 
 void RTCIceTransport::addRemoteCandidate(RTCIceCandidate^ remoteCandidate)
 {
-
+  if (mNativePointer)
+  {
+    mNativePointer->addRemoteCandidate(FromCx(remoteCandidate));
+  }
 }
 
 void RTCIceTransport::addRemoteCandidate(RTCIceCandidateComplete^ remoteCandidate)
 {
-
+  // TBD
 }
 
 void RTCIceTransport::setRemoteCandidates(IVector<RTCIceCandidate^>^ remoteCandidates)
 {
-
+  // TBD
 }
 
 //-----------------------------------------------------------------
@@ -104,9 +132,9 @@ void RTCIceTransportDelegate::onICETransportStateChanged(
   IICETransport::States state
   )
 {
-  //auto evt = ref new RTCIceGathererStateChangeEvent();
-  //evt->State = (RTCIceGathererState)state;
-  //_gatherer->OnICEGathererStateChanged(evt);
+  auto evt = ref new RTCIceTransportStateChangeEvent();
+  evt->State = (RTCIceTransportState)state;
+  _transport->OnICETransportStateChanged(evt);
 }
 
 void RTCIceTransportDelegate::onICETransportCandidatePairAvailable(
@@ -114,9 +142,12 @@ void RTCIceTransportDelegate::onICETransportCandidatePairAvailable(
   CandidatePairPtr candidatePair
   )
 {
-  //auto evt = ref new RTCIceGathererCandidateEvent();
-  //evt->Candidate = ToCx(candidate);
-  //_gatherer->OnICEGathererLocalCandidate(evt);
+  auto evt = ref new RTCIceTransportCandidatePairEvent();
+  RTCIceCandidatePair^ pair = ref new RTCIceCandidatePair();
+  pair->Local = ToCx(candidatePair->mLocal);
+  pair->Remote = ToCx(candidatePair->mRemote);
+  evt->CandidatePair = pair;
+  _transport->OnICETransportCandidatePairAvailable(evt);
 }
 
 void RTCIceTransportDelegate::onICETransportCandidatePairGone(
@@ -124,9 +155,12 @@ void RTCIceTransportDelegate::onICETransportCandidatePairGone(
   CandidatePairPtr candidatePair
   )
 {
-  //auto evt = ref new RTCIceGathererCandidateCompleteEvent();
-  //evt->Complete->Complete = true;
-  //_gatherer->OnICEGathererCandidateComplete(evt);
+  auto evt = ref new RTCIceTransportCandidatePairEvent();
+  RTCIceCandidatePair^ pair = ref new RTCIceCandidatePair();
+  pair->Local = ToCx(candidatePair->mLocal);
+  pair->Remote = ToCx(candidatePair->mRemote);
+  evt->CandidatePair = pair;
+  _transport->OnICETransportCandidatePairGone(evt);
 }
 
 void RTCIceTransportDelegate::onICETransportCandidatePairChanged(
@@ -134,7 +168,10 @@ void RTCIceTransportDelegate::onICETransportCandidatePairChanged(
   CandidatePairPtr candidatePair
   )
 {
-  //auto evt = ref new RTCIceGathererCandidateEvent();
-  //evt->Candidate = ToCx(candidate);
-  //_gatherer->OnICEGathererLocalCandidateGone(evt);
+  auto evt = ref new RTCIceTransportCandidatePairEvent();
+  RTCIceCandidatePair^ pair = ref new RTCIceCandidatePair();
+  pair->Local = ToCx(candidatePair->mLocal);
+  pair->Remote = ToCx(candidatePair->mRemote);
+  evt->CandidatePair = pair;
+  _transport->OnICETransportCandidatePairChanged(evt);
 }

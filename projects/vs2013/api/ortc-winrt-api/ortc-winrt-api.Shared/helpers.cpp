@@ -21,6 +21,25 @@ namespace ortc_winrt_api
     return ref new Platform::String(rtc::ToUtf16(inObj).c_str());
   }
 
+  IICETypes::Candidate FromCx(RTCIceCandidate^ candidate)
+  {
+    IICETypes::Candidate ret;
+
+    ret.mCandidateType = (IICETypes::CandidateTypes)candidate->CandidateType;
+    ret.mFoundation = FromCx(candidate->Foundation);
+    ret.mInterfaceType = FromCx(candidate->InterfaceType);
+    ret.mIP = FromCx(candidate->IP);
+    ret.mPort = candidate->Port;
+    ret.mPriority = candidate->Priority;
+    ret.mProtocol = (IICETypes::Protocols)candidate->Protocol;
+    ret.mRelatedAddress = FromCx(candidate->RelatedAddress);
+    ret.mRelatedPort = candidate->RelatedPort;
+    ret.mTCPType = (IICETypes::TCPCandidateTypes)candidate->TCPType;
+    ret.mUnfreezePriority = candidate->UnfreezePriority;
+
+    return ret;
+  }
+
   RTCIceCandidate^ ToCx(ortc::IICETypes::CandidatePtr candidate)
   {
     RTCIceCandidate^ ret = ref new RTCIceCandidate();

@@ -12,6 +12,8 @@ namespace ortc_winrt_api
 {
   std::string FromCx(Platform::String^ inObj);
   Platform::String^ ToCx(std::string const& inObj);
+
+  IICETypes::Candidate FromCx(RTCIceCandidate^ candidate);
   RTCIceCandidate^ ToCx(IICETypes::CandidatePtr candidate);
 
   class FetchNativePointer
