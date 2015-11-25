@@ -200,6 +200,7 @@ namespace ortc_winrt_api
 	public ref class RTCIceGatherer sealed
 	{
     friend class RTCIceGathererDelegate;
+    friend class FetchNativePointer;
 	public:
     RTCIceGatherer();
     RTCIceGatherer(RTCIceGatherOptions^ options);
@@ -209,6 +210,7 @@ namespace ortc_winrt_api
     RTCIceGatherer^ createAssociatedGatherer();
 
     void close();
+
   private:
     IICEGathererPtr mNativePointer;
     RTCIceGathererDelegatePtr mNativeDelegatePointer;

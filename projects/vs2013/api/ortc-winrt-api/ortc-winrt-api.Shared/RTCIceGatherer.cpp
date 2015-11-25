@@ -1,6 +1,6 @@
 ﻿#include "pch.h"
 #include "RTCIceGatherer.h"
-
+#include "helpers.h"
 #include <openpeer/services/ILogger.h>
 #include "webrtc/base/win32.h"
 
@@ -11,34 +11,7 @@ using namespace zsLib;
 
 using Platform::Collections::Vector;
 
-Windows::UI::Core::CoreDispatcher^ g_windowDispatcher;
-
-std::string FromCx(Platform::String^ inObj) {
-  return rtc::ToUtf8(inObj->Data());
-}
-
-Platform::String^ ToCx(std::string const& inObj) {
-  return ref new Platform::String(rtc::ToUtf16(inObj).c_str());
-}
-
-RTCIceCandidate^ ToCx(ortc::IICETypes::CandidatePtr candidate)
-{
-  RTCIceCandidate^ ret = ref new RTCIceCandidate();
-
-  ret->CandidateType = (RTCIceCandidateType)candidate->mCandidateType;
-  ret->Foundation = ToCx(candidate->mFoundation);
-  ret->InterfaceType = ToCx(candidate->mInterfaceType);
-  ret->IP = ToCx(candidate->mIP);
-  ret->Port = candidate->mPort;
-  ret->Priority = candidate->mPriority;
-  ret->Protocol = (RTCIceProtocol)candidate->mProtocol;
-  ret->RelatedAddress = ToCx(candidate->mRelatedAddress);
-  ret->RelatedPort = candidate->mRelatedPort;
-  ret->TCPType = (RTCIceTcpCandidateType)candidate->mTCPType;
-  ret->UnfreezePriority = candidate->mUnfreezePriority;
-
-  return ret;
-}
+extern Windows::UI::Core::CoreDispatcher^ g_windowDispatcher;
 
 RTCIceGatherer::RTCIceGatherer() :
 mNativeDelegatePointer(nullptr),
