@@ -101,6 +101,13 @@ RTCIceTransport^ RTCIceTransport::createAssociatedTransport()
 {
   auto ret = ref new RTCIceTransport();
 
+  if (mNativePointer)
+  {
+    ret->mNativeDelegatePointer = make_shared<RTCIceTransportDelegate>(RTCIceTransportDelegate());
+    ret->mNativePointer = mNativePointer->createAssociatedTransport();
+    ret->mNativeDelegatePointer->SetOwnerObject(ret);
+  }
+
   return ret;
 }
 
@@ -114,12 +121,25 @@ void RTCIceTransport::addRemoteCandidate(RTCIceCandidate^ remoteCandidate)
 
 void RTCIceTransport::addRemoteCandidate(RTCIceCandidateComplete^ remoteCandidate)
 {
-  // TBD
+  if (mNativePointer)
+  {
+    IICETypes::CandidateComplete complete;
+    mNativePointer->addRemoteCandidate(complete);
+  }
 }
 
 void RTCIceTransport::setRemoteCandidates(IVector<RTCIceCandidate^>^ remoteCandidates)
 {
-  // TBD
+  if (mNativePointer)
+  {
+    IICETypes::CandidateList list;
+    for (RTCIceCandidate^ candidate : remoteCandidates)
+    {
+      list.push_back(FromCx(candidate));
+    }
+
+    mNativePointer->setRemoteCandidates(list);
+  }
 }
 
 //-----------------------------------------------------------------
