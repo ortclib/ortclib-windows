@@ -3,6 +3,7 @@
 #include <openpeer/services/ILogger.h>
 #include "webrtc/base/win32.h"
 #include "helpers.h"
+#include <ortc/ISettings.h>
 
 using namespace Platform;
 
@@ -12,6 +13,22 @@ Windows::UI::Core::CoreDispatcher^ g_windowDispatcher;
 
 namespace ortc_winrt_api
 {
+
+  ConfigureOrtcEngine::ConfigureOrtcEngine()
+  {
+    openpeer::services::ILogger::setLogLevel(zsLib::Log::Trace);
+    openpeer::services::ILogger::setLogLevel("zsLib", zsLib::Log::Trace);
+    openpeer::services::ILogger::setLogLevel("openpeer_services", zsLib::Log::Trace);
+    openpeer::services::ILogger::setLogLevel("openpeer_services_http", zsLib::Log::Trace);
+    openpeer::services::ILogger::setLogLevel("ortclib", zsLib::Log::Insane);
+    openpeer::services::ILogger::setLogLevel("ortc_standup", zsLib::Log::Insane);
+
+    //openpeer::services::ILogger::installDebuggerLogger();
+    openpeer::services::ILogger::installTelnetLogger(59999, 60, true);
+
+    ortc::ISettings::applyDefaults();
+  }
+    
 
   std::string FromCx(Platform::String^ inObj) {
     return rtc::ToUtf8(inObj->Data());
@@ -56,6 +73,38 @@ namespace ortc_winrt_api
     ret->TCPType = (RTCIceTcpCandidateType)candidate->mTCPType;
     ret->UnfreezePriority = candidate->mUnfreezePriority;
 
+    return ret;
+  }
+
+  IICEGatherer::Options FromCx(RTCIceGatherOptions^ options)
+  {
+    IICEGatherer::Options ret;
+
+    if (options)
+    {
+      IICEGatherer::InterfacePolicy interfacePolicy;
+      interfacePolicy.mGatherPolicy = (IICEGatherer::FilterPolicies)options->GatherPolicy;
+      ret.mInterfacePolicy.push_back(interfacePolicy);
+
+      if (options->IceServers->Size > 0)
+      {
+        for (RTCIceServer^ srv : options->IceServers)
+        {
+          ortc::IICEGatherer::Server server;
+          server.mUserName = FromCx(srv->UserName);
+          server.mCredential = FromCx(srv->Credential);
+          if (srv->URLs->Size > 0)
+          {
+            for (Platform::String^ url : srv->URLs)
+            {
+              server.mURLs.push_back(FromCx(url));
+            }
+          }
+          ret.mICEServers.push_back(server);
+        }
+
+      }
+    }
     return ret;
   }
 }

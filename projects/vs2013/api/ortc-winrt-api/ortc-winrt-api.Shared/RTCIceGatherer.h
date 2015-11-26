@@ -52,16 +52,33 @@ namespace ortc_winrt_api
 
   public ref class RTCIceServer sealed
   {
-    std::vector<Platform::String^> mURLs;
-    Platform::String^     mUserName;
-    Platform::String^     mCredential;
+  public:
+    property IVector<Platform::String^>^ URLs;
+    property Platform::String^           UserName;
+    property Platform::String^           Credential;
   };
 
   public enum class RTCIceGatherPolicy
   {
-    IceGatherPolicy_All,
-    IceGatherPolicy_Nohost,
-    IceGatherPolicy_Relay
+    IceGatherPolicy_None = 0,
+    IceGatherPolicy_NoIPv4Host = 0x00000001,
+    IceGatherPolicy_NoIPv4Srflx = 0x00000002,
+    IceGatherPolicy_NoIPv4Prflx = 0x00000004,
+    IceGatherPolicy_NoIPv4Relay = 0x00000008,
+    IceGatherPolicy_NoIPv4 = 0x000000FF,
+    IceGatherPolicy_NoIPv6Host = 0x00000100,
+    IceGatherPolicy_NoIPv6Srflx = 0x00000200,
+    IceGatherPolicy_NoIPv6Prflx = 0x00000400,
+    IceGatherPolicy_NoIPv6Relay = 0x00000800,
+    IceGatherPolicy_NoIPv6Tunnel = 0x00001000,
+    IceGatherPolicy_NoIPv6Permanent = 0x00002000,
+    IceGatherPolicy_NoIPv6 = 0x0000FF00,
+    IceGatherPolicy_NoHost = (IceGatherPolicy_NoIPv4Host | IceGatherPolicy_NoIPv6Host),
+    IceGatherPolicy_NoSrflx = (IceGatherPolicy_NoIPv4Srflx | IceGatherPolicy_NoIPv4Srflx),
+    IceGatherPolicy_NoPrflx = (IceGatherPolicy_NoIPv4Prflx | IceGatherPolicy_NoIPv6Prflx),
+    IceGatherPolicy_NoRelay = (IceGatherPolicy_NoIPv4Relay | IceGatherPolicy_NoIPv6Relay),
+    IceGatherPolicy_RelayOnly = (IceGatherPolicy_NoIPv4Host | IceGatherPolicy_NoSrflx | IceGatherPolicy_NoPrflx),
+    IceGatherPolicy_NoCandidates = (0xFFFFFFFF)
   };
 
   public enum class RTCIceGathererState {
@@ -73,8 +90,9 @@ namespace ortc_winrt_api
 
   public ref class RTCIceGatherOptions sealed
   {
-    RTCIceGatherPolicy     gatherPolicy;
-    std::vector<RTCIceServer^> iceServers;
+  public:
+    property RTCIceGatherPolicy      GatherPolicy;
+    property IVector<RTCIceServer^>^ IceServers;
   };
 
   public enum class RTCIceProtocol
@@ -116,7 +134,7 @@ namespace ortc_winrt_api
   public ref class RTCIceCandidateComplete sealed
   {
   public:
-    property bool Complete;
+    property Platform::Boolean Complete;
   };
 
   public ref class RTCIceGathererError sealed
@@ -173,7 +191,7 @@ namespace ortc_winrt_api
 
   public ref class RTCIceGathererCandidateCompleteEvent sealed {
   public:
-    property RTCIceCandidateComplete^ Complete;
+    property RTCIceCandidateComplete^ Completed;
   };
 
   public delegate void RTCIceGathererCandidateCompleteDelegate(RTCIceGathererCandidateCompleteEvent^ evt);

@@ -10,11 +10,19 @@ using namespace ortc;
 
 namespace ortc_winrt_api
 {
+  public ref class ConfigureOrtcEngine sealed
+  {
+  public:
+    ConfigureOrtcEngine();
+  };
+
   std::string FromCx(Platform::String^ inObj);
   Platform::String^ ToCx(std::string const& inObj);
 
   IICETypes::Candidate FromCx(RTCIceCandidate^ candidate);
   RTCIceCandidate^ ToCx(IICETypes::CandidatePtr candidate);
+
+  IICEGatherer::Options FromCx(RTCIceGatherOptions^ options);
 
   class FetchNativePointer
   {

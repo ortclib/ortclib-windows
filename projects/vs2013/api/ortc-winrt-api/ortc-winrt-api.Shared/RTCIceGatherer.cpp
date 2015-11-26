@@ -3,6 +3,7 @@
 #include "helpers.h"
 #include <openpeer/services/ILogger.h>
 #include "webrtc/base/win32.h"
+#include <ortc/ISettings.h>
 
 using namespace ortc_winrt_api;
 using namespace Platform;
@@ -22,25 +23,9 @@ mNativePointer(nullptr)
 RTCIceGatherer::RTCIceGatherer(RTCIceGatherOptions^ options) :
 mNativeDelegatePointer(new RTCIceGathererDelegate())
 {
-  openpeer::services::ILogger::setLogLevel(zsLib::Log::Trace);
-  openpeer::services::ILogger::setLogLevel("zsLib", zsLib::Log::Trace);
-  openpeer::services::ILogger::setLogLevel("openpeer_services", zsLib::Log::Trace);
-  openpeer::services::ILogger::setLogLevel("openpeer_services_http", zsLib::Log::Trace);
-  openpeer::services::ILogger::setLogLevel("ortclib", zsLib::Log::Insane);
-  openpeer::services::ILogger::setLogLevel("ortc_standup", zsLib::Log::Insane);
-
-  //openpeer::services::ILogger::installDebuggerLogger();
-  openpeer::services::ILogger::installTelnetLogger(59999, 60, true);
-  zsLib::String url = zsLib::String("stun:") + "stun.vline.com";
-
-  ortc::IICEGatherer::Server server;
-  server.mURLs.push_back(url);
-  ortc::IICEGatherer::Options optionsNative;
-  optionsNative.mICEServers.push_back(server);
-
   mNativeDelegatePointer->SetOwnerObject(this);
 
-  mNativePointer = IICEGatherer::create(mNativeDelegatePointer, optionsNative);
+  mNativePointer = IICEGatherer::create(mNativeDelegatePointer, FromCx(options));
 }
 
 RTCIceParameters^ RTCIceGatherer::getLocalParameters()
@@ -125,7 +110,9 @@ void RTCIceGathererDelegate::onICEGathererLocalCandidateComplete(
   )
 {
   auto evt = ref new RTCIceGathererCandidateCompleteEvent();
-  evt->Complete->Complete = true;
+  RTCIceCandidateComplete^ temp = ref new RTCIceCandidateComplete();
+  temp->Complete = true;
+  evt->Completed = temp;
   _gatherer->OnICEGathererCandidateComplete(evt);
 }
 

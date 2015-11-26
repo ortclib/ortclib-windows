@@ -143,7 +143,7 @@ void RTCIceTransport::setRemoteCandidates(IVector<RTCIceCandidate^>^ remoteCandi
 }
 
 //-----------------------------------------------------------------
-#pragma mark RTCIceGathererDelegate
+#pragma mark RTCIceTransportDelegate
 //-----------------------------------------------------------------
 
 // Triggered when media is received on a new stream from remote peer.
