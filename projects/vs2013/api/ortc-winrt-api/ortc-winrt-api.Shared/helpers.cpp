@@ -7,8 +7,6 @@
 
 using namespace Platform;
 
-using namespace zsLib;
-
 Windows::UI::Core::CoreDispatcher^ g_windowDispatcher;
 
 namespace ortc_winrt_api
@@ -28,7 +26,7 @@ namespace ortc_winrt_api
 
     ortc::ISettings::applyDefaults();
   }
-    
+
 
   std::string FromCx(Platform::String^ inObj) {
     return rtc::ToUtf8(inObj->Data());
@@ -105,6 +103,48 @@ namespace ortc_winrt_api
 
       }
     }
+    return ret;
+  }
+
+  IDTLSTransportTypes::Parameters FromCx(RTCDtlsParameters^ parameters)
+  {
+    IDTLSTransportTypes::Parameters ret;
+
+    if (parameters)
+    {
+      if (parameters->Fingerprints->Size > 0)
+      {
+        for (RTCDtlsFingerprint^ fingerprint : parameters->Fingerprints)
+        {
+          ICertificate::Fingerprint fing;
+          fing.mAlgorithm = FromCx(fingerprint->Algorithm);
+          fing.mValue = FromCx(fingerprint->Value);
+          ret.mFingerprints.push_back(fing);
+        }
+
+        ret.mRole = (IDTLSTransportTypes::Roles)parameters->Role;
+      }
+    }
+    return ret;
+  }
+
+  RTCDtlsParameters^ ToCx(IDTLSTransportTypes::ParametersPtr parameters)
+  {
+    auto ret = ref new RTCDtlsParameters();
+
+    if (parameters)
+    {
+      RTCDtlsFingerprint^ fingerprint = ref new RTCDtlsFingerprint();
+      for (ICertificateTypes::FingerprintList::iterator it = parameters->mFingerprints.begin(); it != parameters->mFingerprints.end(); ++it)
+      {
+        fingerprint->Algorithm = ToCx((*it).mAlgorithm);
+        fingerprint->Value = ToCx((*it).mValue);
+        ret->Fingerprints->Append(fingerprint);
+      }
+
+      ret->Role = (RTCDtlsRole)parameters->mRole;
+    }
+
     return ret;
   }
 }

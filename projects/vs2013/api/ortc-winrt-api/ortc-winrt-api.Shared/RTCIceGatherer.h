@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-#include <ortc/types.h>
 #include <ortc/IICEGatherer.h>
 #include <collection.h>
 

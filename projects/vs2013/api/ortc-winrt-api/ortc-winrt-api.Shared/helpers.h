@@ -1,12 +1,10 @@
 #pragma once
 
-#include <ortc/types.h>
 #include "RTCIceGatherer.h"
-//#include <collection.h>
+#include "RTCIceTransport.h"
+#include "RTCDtlsTransport.h"
 
 using namespace ortc;
-
-//using Windows::Foundation::Collections::IVector;
 
 namespace ortc_winrt_api
 {
@@ -22,11 +20,17 @@ namespace ortc_winrt_api
   IICETypes::Candidate FromCx(RTCIceCandidate^ candidate);
   RTCIceCandidate^ ToCx(IICETypes::CandidatePtr candidate);
 
+  IDTLSTransportTypes::Parameters FromCx(RTCDtlsParameters^ parameters);
+  RTCDtlsParameters^ ToCx(IDTLSTransportTypes::ParametersPtr parameters);
+
   IICEGatherer::Options FromCx(RTCIceGatherOptions^ options);
 
   class FetchNativePointer
   {
   public:
     static IIceGathererPtr fromIceGatherer(RTCIceGatherer^ gatherer) { return gatherer->mNativePointer; }
+    static IIceTransportPtr fromIceTransport(RTCIceTransport^ transport) { return transport->mNativePointer; }
+    static IDtlsTransportPtr fromDtlsTransport(RTCDtlsTransport^ transport) { return transport->mNativePointer; }
+    static ICertificatePtr fromCertificate(RTCCertificate^ certificate) { return certificate->mNativePointer; }
   };
 }

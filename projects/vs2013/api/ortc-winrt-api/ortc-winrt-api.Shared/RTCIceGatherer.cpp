@@ -1,14 +1,9 @@
 ﻿#include "pch.h"
 #include "RTCIceGatherer.h"
 #include "helpers.h"
-#include <openpeer/services/ILogger.h>
-#include "webrtc/base/win32.h"
 #include <ortc/ISettings.h>
 
 using namespace ortc_winrt_api;
-using namespace Platform;
-
-using namespace zsLib;
 
 using Platform::Collections::Vector;
 

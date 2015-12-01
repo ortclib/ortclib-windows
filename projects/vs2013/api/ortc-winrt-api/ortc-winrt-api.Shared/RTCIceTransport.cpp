@@ -1,13 +1,8 @@
 #include "pch.h"
 #include "RTCIceTransport.h"
 #include "helpers.h"
-#include <openpeer/services/ILogger.h>
-#include "webrtc/base/win32.h"
 
 using namespace ortc_winrt_api;
-using namespace Platform;
-
-using namespace zsLib;
 
 using Platform::Collections::Vector;
 
