@@ -6,6 +6,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCIceTransport.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)helpers.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCDtlsTransport.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTCRtpReceiver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)pch.cpp">
@@ -15,5 +16,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCIceTransport.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)helpers.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCDtlsTransport.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RTCRtpReceiver.cpp" />
   </ItemGroup>
 </Project>
