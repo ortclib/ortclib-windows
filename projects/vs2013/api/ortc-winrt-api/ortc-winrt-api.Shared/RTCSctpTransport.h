@@ -4,16 +4,16 @@
 #include <collection.h>
 
 #include "RTCDtlsTransport.h"
+#include "RTCDataChannel.h"
 
 using namespace ortc;
-
-using Windows::Foundation::Collections::IVector;
 
 namespace ortc_winrt_api
 {
   ZS_DECLARE_CLASS_PTR(RTCSctpTransportDelegate)
 
   ref class RTCSctpTransport;
+  ref class RTCDataChannel;
 
   class RTCSctpTransportDelegate : public ISCTPTransportDelegate
   {
@@ -31,11 +31,6 @@ namespace ortc_winrt_api
   //--------------------------------------------------------------------
   // Helper classes
   //--------------------------------------------------------------------
-
-  public ref class RTCDataChannel sealed
-  {
-  public:
-  };
 
   public ref class RTCSctpCapabilities sealed
   {
@@ -82,8 +77,5 @@ namespace ortc_winrt_api
   public:
 
     event RTCSctpTransportDataChannelDelegate^            OnSCTPTransportDataChannel;
-    /*event RTCIceTransportCandidatePairAvailableDelegate^  OnICETransportCandidatePairAvailable;
-    event RTCIceTransportCandidatePairGoneDelegate^       OnICETransportCandidatePairGone;
-    event RTCIceTransportCandidatePairChangedDelegate^    OnICETransportCandidatePairChanged;*/
   };
 }

@@ -62,6 +62,12 @@ void RTCSctpTransportDelegate::onSCTPTransportDataChannel(
   )
 {
   auto evt = ref new RTCDataChannelEvent();
-  //evt->DataChannel = ToCx(channel);
+  RTCDataChannelDelegatePtr delegate(new RTCDataChannelDelegate());
+  RTCDataChannel^ dataChannel = ref new RTCDataChannel();
+  delegate->SetOwnerObject(dataChannel);
+  dataChannel->mNativeDelegatePointer = delegate;
+  dataChannel->mNativePointer = channel;
+
+  evt->DataChannel = dataChannel;
   _transport->OnSCTPTransportDataChannel(evt);
 }

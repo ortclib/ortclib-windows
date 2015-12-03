@@ -147,4 +147,34 @@ namespace ortc_winrt_api
 
     return ret;
   }
-}
+
+  IDataChannelTypes::Parameters FromCx(RTCDataChannelParameters^ parameters)
+  {
+    IDataChannelTypes::Parameters ret;
+
+    ret.mLabel = FromCx(parameters->Label);
+    ret.mOrdered = parameters->Ordered;
+    ret.mMaxPacketLifetime = Milliseconds(parameters->MaxPacketLifetime);
+    ret.mMaxRetransmits = parameters->MaxRetransmits;
+    ret.mProtocol = FromCx(parameters->Protocol);
+    ret.mNegotiated = parameters->Negotiated;
+    ret.mID = parameters->Id;
+
+    return ret;
+  }
+
+  RTCDataChannelParameters^ ToCx(IDataChannelTypes::ParametersPtr parameters)
+  {
+    RTCDataChannelParameters^ ret = ref new RTCDataChannelParameters();
+
+    ret->Label = ToCx(parameters->mLabel);
+    ret->Ordered = parameters->mOrdered;
+    ret->MaxPacketLifetime = parameters->mMaxPacketLifetime.count();
+    ret->MaxRetransmits = parameters->mMaxRetransmits;
+    ret->Protocol = ToCx(parameters->mProtocol);
+    ret->Negotiated = parameters->mNegotiated;
+    ret->Id = parameters->mID;
+
+    return ret;
+  }
+} // namespace ortc_winrt_api
