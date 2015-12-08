@@ -308,6 +308,7 @@ Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		..\..\..\libs\udns\projects\vs2013\udns\udns.Shared\udns.Shared.vcxitems*{577f12ab-3473-4a93-8ee4-eeed2ce5dc61}*SharedItemsImports = 4
 		..\..\..\libs\op-services-cpp\projects\vs2013\hfservices\hfservicesTest.Shared\hfservicesTest.Shared.vcxitems*{b53f4474-1ed7-42a2-8cc8-3a7f7d996a5d}*SharedItemsImports = 9
+		api\ortc-winrt-api\ortc-winrt-api.Shared\ortc-winrt-api.Shared.vcxitems*{747b7f0d-d2af-4f70-9578-334dcc8a6fee}*SharedItemsImports = 9
 		..\..\..\libs\op-services-cpp\projects\vs2013\hfservices\hfservices.Shared\hfservices.Shared.vcxitems*{6ccc9220-9334-4601-821d-5f55bc397003}*SharedItemsImports = 4
 		api\ortc-winrt-api\ortc-winrt-api.Shared\ortc-winrt-api.Shared.vcxitems*{f12c67f3-12a0-4532-bdde-4be043dbc140}*SharedItemsImports = 4
 		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems*{73373db6-8059-4671-acbd-47219a769922}*SharedItemsImports = 9
