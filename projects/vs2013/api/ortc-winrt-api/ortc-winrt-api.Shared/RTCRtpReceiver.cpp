@@ -49,7 +49,7 @@ static RTCRtpCodecCapability^ toCx(IRTPTypes::CodecCapabilityPtr codecCapability
 	
 	ret->rtcpFeedback = ref new Vector<RTCRtcpFeedback^>();
 
-	for (IRTPTypes::RtcpFeedbackList::iterator it = codecCapabilityPtr->mFeedback.begin(); it != codecCapabilityPtr->mFeedback.end(); ++it) 
+	for (IRTPTypes::RTCPFeedbackList::iterator it = codecCapabilityPtr->mFeedback.begin(); it != codecCapabilityPtr->mFeedback.end(); ++it)
 	{
 		auto feedback = ref new RTCRtcpFeedback();
 		feedback->parameter = ToCx(it->mParameter);

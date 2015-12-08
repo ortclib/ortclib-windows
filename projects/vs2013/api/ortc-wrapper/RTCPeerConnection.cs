@@ -10,9 +10,9 @@ namespace OrtcWrapper
     public class RTCPeerConnection
     {
         private RTCIceGatherOptions options { get; set; }
-        private ortc_winrt_api::RTCIceGatherer iceGatherer { get; set; }
+        private RTCIceGatherer iceGatherer { get; set; }
 
-        private ortc_winrt_api::RTCIceTransport iceTransport { get; set; }
+        private RTCIceTransport iceTransport { get; set; }
 
         static public void SetPreferredVideoCaptureFormat(int frame_width,
                                             int frame_height, int fps)
@@ -32,11 +32,11 @@ namespace OrtcWrapper
         public RTCPeerConnection(RTCConfiguration configuration)
         {
             options = new RTCIceGatherOptions();
-            options.IceServers = new List<RTCIceServer>();
+            options.IceServers = new List<ortc_winrt_api.RTCIceServer>();
 
             foreach (RTCIceServer server in configuration.IceServers)
             {
-                ortc_winrt_api::RTCIceServer ortcServer = new ortc_winrt_api::RTCIceServer();
+                ortc_winrt_api.RTCIceServer ortcServer = new ortc_winrt_api.RTCIceServer();
 
                 if (!string.IsNullOrEmpty(server.Credential))
                 {
@@ -52,10 +52,10 @@ namespace OrtcWrapper
                 options.IceServers.Add(ortcServer);
             }
 
-            iceGatherer = new ortc_winrt_api::RTCIceGatherer(options);
+            iceGatherer = new ortc_winrt_api.RTCIceGatherer(options);
             iceGatherer.OnICEGathererStateChanged += OnICEGathererStateChanged;
 
-            iceTransport = new ortc_winrt_api::RTCIceTransport(iceGatherer);
+            iceTransport = new ortc_winrt_api.RTCIceTransport(iceGatherer);
         }
 
         /// <summary>
@@ -160,11 +160,13 @@ namespace OrtcWrapper
 
             //------------- Media lines START -------------
             //m = audio 9 UDP / TLS / RTP / SAVPF 111 103 104 9 102 0 8 106 105 13 127 126
+
+            return sb.ToString();
         }
         public Task<RTCSessionDescription> CreateOffer()//async
         {
-            RTCSessionDescription ret = new RTCSessionDescription();
-            ret.Type = Offer;
+            //RTCSessionDescription ret = new RTCSessionDescription();
+            //ret.Type = Offer;
 
             return null;
         }
@@ -182,13 +184,13 @@ namespace OrtcWrapper
         {
             if (evt.State == RTCIceGathererState.State_Complete)
             {
-                _iceTransport.start(_iceGatherer, _iceGatherer2.getLocalParameters(), RTCIceRole.Role_Controlled);
+                
             }
         }
 
         private void RTCIceGatherer_onICEGathererLocalCandidate(RTCIceGathererCandidateEvent evt)
         {
-            _iceTransport2.addRemoteCandidate(evt.Candidate);
+
         }
 
         private void RTCIceGatherer_onICEGathererCandidateComplete(RTCIceGathererCandidateCompleteEvent evt)

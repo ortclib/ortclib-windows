@@ -48,7 +48,7 @@ RTCIceCandidatePair^ RTCIceTransport::getSelectedCandidatePair()
   auto ret = ref new RTCIceCandidatePair();
   if (mNativePointer)
   {
-    auto candidatePair = mNativePointer->getNominatedCandidatePair(); // should it be getSelectedCandidatePair???
+    auto candidatePair = mNativePointer->getSelectedCandidatePair(); // should it be getSelectedCandidatePair???
     ret->Local = ToCx(candidatePair->mLocal);
     ret->Remote = ToCx(candidatePair->mRemote);
   }
@@ -142,7 +142,7 @@ void RTCIceTransport::setRemoteCandidates(IVector<RTCIceCandidate^>^ remoteCandi
 //-----------------------------------------------------------------
 
 // Triggered when media is received on a new stream from remote peer.
-void RTCIceTransportDelegate::onICETransportStateChanged(
+void RTCIceTransportDelegate::onICETransportStateChange(
   IICETransportPtr transport,
   IICETransport::States state
   )

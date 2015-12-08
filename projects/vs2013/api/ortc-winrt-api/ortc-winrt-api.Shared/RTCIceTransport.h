@@ -19,7 +19,7 @@ namespace ortc_winrt_api
   class RTCIceTransportDelegate : public IICETransportDelegate
   {
   public:
-    virtual void onICETransportStateChanged(
+    virtual void onICETransportStateChange(
       IICETransportPtr transport,
       IICETransport::States state
       );

@@ -18,7 +18,7 @@ namespace ortc_winrt_api
   class RTCIceGathererDelegate : public IICEGathererDelegate
   {
   public:
-     virtual void onICEGathererStateChanged(
+     virtual void onICEGathererStateChange(
       IICEGathererPtr gatherer,
       IICEGatherer::States state
       );

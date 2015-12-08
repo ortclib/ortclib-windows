@@ -100,7 +100,7 @@ void RTCDtlsTransport::stop()
   }
 }
 
-void RTCDtlsTransportDelegate::onDTLSTransportStateChanged(
+void RTCDtlsTransportDelegate::onDTLSTransportStateChange(
   IDTLSTransportPtr transport,
   IDTLSTransport::States state
   )

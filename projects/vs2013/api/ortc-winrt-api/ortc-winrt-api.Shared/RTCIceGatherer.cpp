@@ -79,7 +79,7 @@ void RTCIceGatherer::close()
 //-----------------------------------------------------------------
 
 // Triggered when media is received on a new stream from remote peer.
-void RTCIceGathererDelegate::onICEGathererStateChanged(
+void RTCIceGathererDelegate::onICEGathererStateChange(
   IICEGathererPtr gatherer,
   IICEGatherer::States state
   )

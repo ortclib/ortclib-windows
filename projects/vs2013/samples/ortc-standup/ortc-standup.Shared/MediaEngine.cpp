@@ -483,7 +483,7 @@ void MediaEngine::makeCall()
   }
 }
 
-void MediaEngine::onICETransportStateChanged(
+void MediaEngine::onICETransportStateChange(
                                              ortc::IICETransportPtr transport,
                                              ortc::IICETransport::States state
                                              )
@@ -515,7 +515,7 @@ void MediaEngine::onICETransportCandidatePairChanged(
 
 }
 
-void MediaEngine::onICEGathererStateChanged(
+void MediaEngine::onICEGathererStateChange(
                                             ortc::IICEGathererPtr gatherer,
                                             ortc::IICEGatherer::States state
                                             )
@@ -568,7 +568,7 @@ void MediaEngine::onICEGathererError(
 
 }
 
-void MediaEngine::onDTLSTransportStateChanged(
+void MediaEngine::onDTLSTransportStateChange(
                                               ortc::IDTLSTransportPtr transport,
                                               ortc::IDTLSTransport::States state
                                               )

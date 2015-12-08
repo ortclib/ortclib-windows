@@ -61,7 +61,7 @@ namespace ortc_standup
     #pragma mark MediaEngine => IICETransportDelegate
     #pragma mark
 
-    virtual void onICETransportStateChanged(
+    virtual void onICETransportStateChange(
                                             ortc::IICETransportPtr transport,
                                             ortc::IICETransport::States state
                                             );
@@ -86,7 +86,7 @@ namespace ortc_standup
     #pragma mark MediaEngine => IICEGathererDelegate
     #pragma mark
 
-    virtual void onICEGathererStateChanged(
+    virtual void onICEGathererStateChange(
                                            ortc::IICEGathererPtr gatherer,
                                            ortc::IICEGatherer::States state
                                            );
@@ -117,7 +117,7 @@ namespace ortc_standup
     #pragma mark MediaEngine => IDTLSTransportDelegate
     #pragma mark
 
-    virtual void onDTLSTransportStateChanged(
+    virtual void onDTLSTransportStateChange(
                                              ortc::IDTLSTransportPtr transport,
                                              ortc::IDTLSTransport::States state
                                              );

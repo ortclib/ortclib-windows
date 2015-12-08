@@ -24,7 +24,7 @@ namespace ortc_winrt_api
   class RTCDtlsTransportDelegate : public IDtlsTransportDelegate
   {
   public:
-    virtual void onDTLSTransportStateChanged(
+    virtual void onDTLSTransportStateChange(
       IDTLSTransportPtr transport,
       IDTLSTransport::States state
       );
