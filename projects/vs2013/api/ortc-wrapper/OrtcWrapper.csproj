@@ -42,6 +42,7 @@
     <Compile Include="CaptureCapability.cs" />
     <Compile Include="CodecInfo.cs" />
     <Compile Include="Defs.cs" />
+    <Compile Include="Helper.cs" />
     <Compile Include="IMediaStreamTrack.cs" />
     <Compile Include="Media.cs" />
     <Compile Include="MediaAudioTrack.cs" />

@@ -351,9 +351,8 @@
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\webrtc\modules\video_capture_module_internal_impl_win.vcxproj">
       <Project>{3be2d264-1ec4-5c41-720c-c1d01435e5b7}</Project>
-      <Private>false</Private>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
       <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+      <Private>false</Private>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\webrtc\modules\video_capture_module_win.vcxproj">
@@ -400,9 +399,8 @@
     <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\webrtc\modules\video_render_module_internal_impl_win.vcxproj">
       <Project>{b5b43cb3-bdff-011b-6472-9d3c49c4af6e}</Project>
       <Private>false</Private>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
-      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\webrtc\modules\video_render_module_win.vcxproj">
       <Project>{e75cb8b7-b49b-c3c1-664c-440620fee81b}</Project>
@@ -516,7 +514,7 @@
     <ProjectGuid>{f12c67f3-12a0-4532-bdde-4be043dbc140}</ProjectGuid>
     <Keyword>WindowsRuntimeComponent</Keyword>
     <ProjectName>ortc-winrt-api.Windows.Universal</ProjectName>
-    <RootNamespace>ortc_winrt_api_Windows_Universal</RootNamespace>
+    <RootNamespace>ortc_winrt_api</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
     <AppContainerApplication>true</AppContainerApplication>
