@@ -156,6 +156,10 @@ namespace OrtcWrapper
             sb.Append("streamID");
             sb.Append("\r\n");
             //------------- Global lines END -------------
+
+
+            //------------- Media lines START -------------
+            //m = audio 9 UDP / TLS / RTP / SAVPF 111 103 104 9 102 0 8 106 105 13 127 126
         }
         public Task<RTCSessionDescription> CreateOffer()//async
         {

@@ -58,9 +58,10 @@
     <Compile Include="RTCSessionDescription.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="webrtc_winrt_api">
-      <HintPath>..\..\..\..\..\..\..\..\01122015\master\RTC_Tools\SampleApplications\PeerConnectionClient\packages\WebRTC.1.1.191\build\netcore45\x86\webrtc_winrt_api.winmd</HintPath>
-    </Reference>
+    <ProjectReference Include="..\ortc-winrt-api\ortc-winrt-api.Windows.Universal\ortc-winrt-api.Windows.Universal.vcxproj">
+      <Project>{f12c67f3-12a0-4532-bdde-4be043dbc140}</Project>
+      <Name>ortc-winrt-api.Windows.Universal</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
