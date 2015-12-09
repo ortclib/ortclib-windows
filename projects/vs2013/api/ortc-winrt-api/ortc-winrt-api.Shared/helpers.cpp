@@ -177,4 +177,16 @@ namespace ortc_winrt_api
 
     return ret;
   }
+  //***********************************************************************
+  // ConvertObjectToCx class methods
+  //***********************************************************************
+
+  RTCIceTransport^ ConvertObjectToCx::iceTransport(IIceTransportPtr iceTransport)
+  {
+    RTCIceTransport^ ret = ref new RTCIceTransport();
+    ret->mNativePointer = iceTransport;
+    return ret;
+  }
+
+
 } // namespace ortc_winrt_api

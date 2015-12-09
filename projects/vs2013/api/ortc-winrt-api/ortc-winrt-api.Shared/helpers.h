@@ -39,4 +39,10 @@ namespace ortc_winrt_api
     static ICertificatePtr fromCertificate(RTCCertificate^ certificate) { return certificate->mNativePointer; }
     static ISctpTransportPtr fromSctpTransport(RTCSctpTransport^ transport) { return transport->mNativePointer; }
   };
+
+  class ConvertObjectToCx
+  {
+  public:
+    static RTCIceTransport^ iceTransport(IIceTransportPtr iceTransport);
+  };
 }
