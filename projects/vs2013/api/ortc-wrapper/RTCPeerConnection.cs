@@ -190,7 +190,9 @@ namespace OrtcWrapper
 
         private void RTCIceGatherer_onICEGathererLocalCandidate(RTCIceGathererCandidateEvent evt)
         {
-
+            var iceEvent = new RTCPeerConnectionIceEvent();
+            iceEvent.Candidate = Helper.ToWrapperIceCandidate(evt.Candidate);
+            this.OnIceCandidate(iceEvent);
         }
 
         private void RTCIceGatherer_onICEGathererCandidateComplete(RTCIceGathererCandidateCompleteEvent evt)

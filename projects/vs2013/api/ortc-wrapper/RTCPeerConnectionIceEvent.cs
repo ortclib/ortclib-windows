@@ -8,6 +8,6 @@ namespace OrtcWrapper
 {
     public class RTCPeerConnectionIceEvent
     {
-        public RTCIceCandidate Candidate;
+        public RTCIceCandidate Candidate { get; set; }
     }
 }

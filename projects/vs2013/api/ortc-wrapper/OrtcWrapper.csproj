@@ -34,6 +34,24 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <TargetPlatform Include="Windows, Version=8.1" />
     <TargetPlatform Include="WindowsPhoneApp, Version=8.1" />
@@ -42,14 +60,17 @@
     <Compile Include="CaptureCapability.cs" />
     <Compile Include="CodecInfo.cs" />
     <Compile Include="Defs.cs" />
+    <Compile Include="FrameCounterHelper.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="IMediaStreamTrack.cs" />
     <Compile Include="Media.cs" />
     <Compile Include="MediaAudioTrack.cs" />
+    <Compile Include="MediaDevice.cs" />
     <Compile Include="MediaStream.cs" />
     <Compile Include="MediaStreamEvent.cs" />
     <Compile Include="MediaVideoTrack.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResolutionHelper.cs" />
     <Compile Include="RTCConfiguration.cs" />
     <Compile Include="RTCIceCandidate.cs" />
     <Compile Include="RTCIceServer.cs" />
@@ -58,6 +79,7 @@
     <Compile Include="RTCPeerConnectionHealthStats.cs" />
     <Compile Include="RTCPeerConnectionIceEvent.cs" />
     <Compile Include="RTCSessionDescription.cs" />
+    <Compile Include="WebRTC.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ortc-winrt-api\ortc-winrt-api.Windows.Universal\ortc-winrt-api.Windows.Universal.vcxproj">

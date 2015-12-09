@@ -8,12 +8,12 @@ namespace OrtcWrapper
 {
     public class CaptureCapability
     {
-        public uint Width;
-        public uint Height;
-        public uint FrameRate;
-        //public String FullDescription;
-        //public String ResolutionDescription;
-        //public String FrameRateDescription;
+        public uint Width { get; set; }
+        public uint Height { get; set; }
+        public uint FrameRate { get; set; }
+        //public String FullDescription { get; set; }
+        public String ResolutionDescription { get; set; }
+        //public String FrameRateDescription { get; set; }
         //public Windows.Media.MediaProperties.MediaRatio PixelAspectRatio;
     }
 }
