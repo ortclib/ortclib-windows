@@ -24,19 +24,34 @@ namespace OrtcWrapper
         public delegate void MediaStreamEventEventDelegate(MediaStreamEvent evt);
         public delegate void RTCPeerConnectionHealthStatsDelegate(RTCPeerConnectionHealthStats stats);
 
-        public event RTCPeerConnectionIceEventDelegate OnIceCandidate;
+        public event RTCPeerConnectionIceEventDelegate _OnIceCandidate;
+        public event RTCPeerConnectionIceEventDelegate OnIceCandidate
+        {
+            add
+            {
+                _OnIceCandidate += value;
+                iceGatherer.OnICEGathererLocalCandidate += this.RTCIceGatherer_onICEGathererLocalCandidate;
+            }
+            remove
+            {
+                _OnIceCandidate -= value; iceGatherer.OnICEGathererLocalCandidate -= this.RTCIceGatherer_onICEGathererLocalCandidate;
+            }
+        }
         public event MediaStreamEventEventDelegate OnAddStream;
         public event MediaStreamEventEventDelegate OnRemoveStream;
         public event RTCPeerConnectionHealthStatsDelegate OnConnectionHealthStats;
 
         public RTCPeerConnection(RTCConfiguration configuration)
         {
+            ConfigureOrtcEngine conf = new ConfigureOrtcEngine();
+
             options = new RTCIceGatherOptions();
             options.IceServers = new List<ortc_winrt_api.RTCIceServer>();
 
             foreach (RTCIceServer server in configuration.IceServers)
             {
                 ortc_winrt_api.RTCIceServer ortcServer = new ortc_winrt_api.RTCIceServer();
+                ortcServer.URLs = new List<string>();
 
                 if (!string.IsNullOrEmpty(server.Credential))
                 {
@@ -52,9 +67,19 @@ namespace OrtcWrapper
                 options.IceServers.Add(ortcServer);
             }
 
-            iceGatherer = new ortc_winrt_api.RTCIceGatherer(options);
-            iceGatherer.OnICEGathererStateChanged += OnICEGathererStateChanged;
-
+            try
+            {
+                iceGatherer = new ortc_winrt_api.RTCIceGatherer(options);
+                iceGatherer.OnICEGathererStateChanged += OnICEGathererStateChanged;
+                //iceGatherer.OnICEGathererLocalCandidate += this.RTCIceGatherer_onICEGathererLocalCandidate;
+                iceGatherer.OnICEGathererCandidateComplete += this.RTCIceGatherer_onICEGathererCandidateComplete;
+                iceGatherer.OnICEGathererLocalCandidateGone += this.RTCIceGatherer_onICEGathererLocalCandidateGone;
+                iceGatherer.OnICEGathererError += this.RTCIceGatherer_onICEGathererError;
+            }
+            catch (Exception e)
+            {
+                return;
+            }
             iceTransport = new ortc_winrt_api.RTCIceTransport(iceGatherer);
         }
 
@@ -192,7 +217,8 @@ namespace OrtcWrapper
         {
             var iceEvent = new RTCPeerConnectionIceEvent();
             iceEvent.Candidate = Helper.ToWrapperIceCandidate(evt.Candidate);
-            this.OnIceCandidate(iceEvent);
+            if (_OnIceCandidate != null)
+                _OnIceCandidate(iceEvent);
         }
 
         private void RTCIceGatherer_onICEGathererCandidateComplete(RTCIceGathererCandidateCompleteEvent evt)

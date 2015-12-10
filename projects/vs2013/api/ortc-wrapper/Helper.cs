@@ -34,7 +34,7 @@ namespace OrtcWrapper
 
             return ret;
         }
-        public static RTCIceCandidate ToWrapperIceCandidate(ortc_winrt_api.RTCIceCandidate iceCandidate)
+        public static RTCIceCandidate ToWrapperIceCandidate(ortc_winrt_api.RTCIceCandidate iceCandidate, int sdpComponentId)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -43,7 +43,7 @@ namespace OrtcWrapper
             sb.Append("candidate:");
             sb.Append(iceCandidate.Foundation);
             sb.Append(' ');
-            sb.Append(1); //TODO check how to determine is is RTP or RTCP
+            sb.Append(sdpComponentId);
             sb.Append(' ');
             sb.Append(iceCandidate.Protocol == RTCIceProtocol.Protocol_UDP ? "udp" : "tcp");
             sb.Append(' ');

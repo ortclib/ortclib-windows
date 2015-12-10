@@ -113,6 +113,11 @@ namespace ortc_winrt_api
     TCPCandidateType_SO,
   };
 
+  public enum class RTCIceComponent 
+  {
+	  RTP,
+	  RTCP
+  };
 
   public ref class RTCIceCandidate sealed
   {
@@ -216,28 +221,51 @@ namespace ortc_winrt_api
 
 	public ref class RTCIceGatherer sealed
 	{
-    friend class RTCIceGathererDelegate;
-    friend class FetchNativePointer;
+		friend class RTCIceGathererDelegate;
+		friend class FetchNativePointer;
+
 	public:
-    RTCIceGatherer();
-    RTCIceGatherer(RTCIceGatherOptions^ options);
+		RTCIceGatherer();
+		RTCIceGatherer(RTCIceGatherOptions^ options);
+		
+		RTCIceParameters^ getLocalParameters();
+		IVector<RTCIceCandidate^>^ getLocalCandidates();
+		RTCIceGatherer^ createAssociatedGatherer();
 
-    RTCIceParameters^ getLocalParameters();
-    IVector<RTCIceCandidate^>^ getLocalCandidates();
-    RTCIceGatherer^ createAssociatedGatherer();
+		void close();
 
-    void close();
+	private:
+		IICEGathererPtr mNativePointer;
+		RTCIceGathererDelegatePtr mNativeDelegatePointer;
 
-  private:
-    IICEGathererPtr mNativePointer;
-    RTCIceGathererDelegatePtr mNativeDelegatePointer;
+	public:
 
-  public:
+		property RTCIceComponent Component
+		{
+			RTCIceComponent get() 
+			{ 
+				if (mNativePointer)
+					return (RTCIceComponent)mNativePointer->component;
+				else
+					return RTCIceComponent::RTP;
+			}
+		}
 
-    event RTCIceGathererStateChangedDelegate^       OnICEGathererStateChanged;
-    event RTCIceGathererLocalCandidateDelegate^     OnICEGathererLocalCandidate;
-    event RTCIceGathererCandidateCompleteDelegate^  OnICEGathererCandidateComplete;
-    event RTCIceGathererLocalCandidateGoneDelegate^ OnICEGathererLocalCandidateGone;
-    event RTCIceGathererErrorDelegate^              OnICEGathererError;
+		property RTCIceGathererState State
+		{
+			RTCIceGathererState get()
+			{
+				if (mNativePointer)
+					return (RTCIceGathererState)mNativePointer->state;
+				else
+					return RTCIceGathererState::State_Closed;
+			}
+		}
+
+		event RTCIceGathererStateChangedDelegate^       OnICEGathererStateChanged;
+		event RTCIceGathererLocalCandidateDelegate^     OnICEGathererLocalCandidate;
+		event RTCIceGathererCandidateCompleteDelegate^  OnICEGathererCandidateComplete;
+		event RTCIceGathererLocalCandidateGoneDelegate^ OnICEGathererLocalCandidateGone;
+		event RTCIceGathererErrorDelegate^              OnICEGathererError;
 	};
 }

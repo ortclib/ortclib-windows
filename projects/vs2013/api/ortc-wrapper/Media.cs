@@ -17,7 +17,9 @@ namespace OrtcWrapper
 
         static public Media CreateMedia()
         {
-            return null;
+            var ret = new Media();
+
+            return ret;
         }
         static public IAsyncOperation<Media> CreateMediaAsync() //async
         {

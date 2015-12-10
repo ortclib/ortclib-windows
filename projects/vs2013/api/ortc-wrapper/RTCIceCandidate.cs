@@ -14,7 +14,9 @@ namespace OrtcWrapper
 
         public RTCIceCandidate(String candidate, String sdpMid, UInt16 sdpMLineIndex)
         {
-
+            Candidate = candidate;
+            SdpMid = sdpMid;
+            SdpMLineIndex = sdpMLineIndex;
         }
     }
 }
