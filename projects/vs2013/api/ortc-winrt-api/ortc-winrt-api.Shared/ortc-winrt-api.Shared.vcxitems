@@ -15,6 +15,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)helpers.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MediaStreamTrack.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCDataChannel.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCDtlsTransport.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCIceGatherer.h" />
@@ -27,6 +28,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)helpers.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)MediaStreamTrack.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCDataChannel.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCDtlsTransport.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCIceGatherer.cpp" />
