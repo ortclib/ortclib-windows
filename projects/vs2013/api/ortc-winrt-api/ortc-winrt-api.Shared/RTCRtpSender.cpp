@@ -118,3 +118,29 @@ void RTCRtpSender::stop()
     mNativePointer->stop();
   }
 }
+
+//-----------------------------------------------------------------
+#pragma mark RTCRtpSenderDelegate
+//-----------------------------------------------------------------
+
+void RTCRtpSenderDelegate::onRTPSenderError(
+		IRTPSenderPtr sender,
+		ErrorCode errorCode,
+		String errorReason
+		)
+{
+	auto evt = ref new RTCRtpSenderErrorEvent();
+	evt->Error->ErrorCode = errorCode;
+	evt->Error->ErrorReason = ToCx(errorReason);
+	_sender->OnRTCRtpSenderError(evt);
+}
+
+void RTCRtpSenderDelegate::onRTPSenderSSRCConflict(
+		IRTPSenderPtr sender,
+		SSRCType ssrc
+		)
+{
+	auto evt = ref new RTCRtpSenderSSRCConflictEvent();
+	evt->SSRCConflict = ssrc;
+	_sender->OnRTCRtpSenderSSRCConflict(evt);
+}
