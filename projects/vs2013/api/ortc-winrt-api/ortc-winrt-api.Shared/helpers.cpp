@@ -6,6 +6,7 @@
 #include <ortc/ISettings.h>
 
 using namespace Platform;
+using Platform::Collections::Vector;
 
 Windows::UI::Core::CoreDispatcher^ g_windowDispatcher;
 
@@ -174,6 +175,48 @@ namespace ortc_winrt_api
     ret->Protocol = ToCx(parameters->mProtocol);
     ret->Negotiated = parameters->mNegotiated;
     ret->Id = parameters->mID;
+
+    return ret;
+  }
+
+  RTCRtpCodecCapability^ toCx(IRTPTypes::CodecCapabilityPtr codecCapabilityPtr)
+  {
+    auto ret = ref new RTCRtpCodecCapability();
+
+    ret->name = ToCx(codecCapabilityPtr->mName);
+    ret->kind = ToCx(codecCapabilityPtr->mKind);
+    ret->clockRate = codecCapabilityPtr->mClockRate;
+    //ret->preferredPayloadType = codecCapabilityPtr->mPreferredPayloadType;
+    ret->maxptime = codecCapabilityPtr->mMaxPTime;
+    ret->numChannels = codecCapabilityPtr->mNumChannels;
+
+    ret->rtcpFeedback = ref new Vector<RTCRtcpFeedback^>();
+
+    for (IRTPTypes::RTCPFeedbackList::iterator it = codecCapabilityPtr->mFeedback.begin(); it != codecCapabilityPtr->mFeedback.end(); ++it)
+    {
+      auto feedback = ref new RTCRtcpFeedback();
+      feedback->parameter = ToCx(it->mParameter);
+      feedback->type = ToCx(it->mType);
+      ret->rtcpFeedback->Append(feedback);
+    }
+
+    //ret->parameters = codecCapabilityPtr->mParameters;
+    //ret->options = codecCapabilityPtr->mOptions;
+    ret->maxTemporalLayers = codecCapabilityPtr->mMaxTemporalLayers; //default = 0;
+    ret->maxSpatialLayers = codecCapabilityPtr->mMaxSpatialLayers; //default = 0;
+    ret->svcMultiStreamSupport = codecCapabilityPtr->mSVCMultiStreamSupport;
+
+    return ret;
+  }
+
+  RTCRtpHeaderExtensions^ toCx(IRTPTypes::HeaderExtensionsPtr headerExtensions)
+  {
+    auto ret = ref new RTCRtpHeaderExtensions();
+
+    ret->kind = ToCx(headerExtensions->mKind);
+    ret->uri = ToCx(headerExtensions->mURI);
+    ret->preferredEncrypt = headerExtensions->mPreferredEncrypt;
+    ret->preferredId = headerExtensions->mPreferredID;
 
     return ret;
   }

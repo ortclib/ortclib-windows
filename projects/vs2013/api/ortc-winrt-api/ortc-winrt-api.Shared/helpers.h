@@ -5,6 +5,9 @@
 #include "RTCDtlsTransport.h"
 #include "RTCSctpTransport.h"
 #include "RTCDataChannel.h"
+#include "RTCIceTransportController.h"
+#include "RTCRtpSender.h"
+#include "RTCRtpReceiver.h"
 
 using namespace ortc;
 
@@ -29,6 +32,9 @@ namespace ortc_winrt_api
   RTCDataChannelParameters^ ToCx(IDataChannelTypes::ParametersPtr parameters);
 
   IICEGatherer::Options FromCx(RTCIceGatherOptions^ options);
+
+  RTCRtpCodecCapability^ toCx(IRTPTypes::CodecCapabilityPtr codecCapabilityPtr);
+  RTCRtpHeaderExtensions^ toCx(IRTPTypes::HeaderExtensionsPtr headerExtensions);
 
   class FetchNativePointer
   {

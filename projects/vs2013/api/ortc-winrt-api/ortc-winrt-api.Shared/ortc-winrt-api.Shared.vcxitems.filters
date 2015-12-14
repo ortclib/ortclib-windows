@@ -10,6 +10,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCSctpTransport.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCDataChannel.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCIceTransportController.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTCRtpSender.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)pch.cpp">
@@ -23,5 +24,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCSctpTransport.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCDataChannel.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCIceTransportController.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RTCRtpSender.cpp" />
   </ItemGroup>
 </Project>
