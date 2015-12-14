@@ -5,6 +5,7 @@
 #include <ppltasks.h>
 #include "RTCDtlsTransport.h"
 #include "RTCRtpReceiver.h"
+#include "MediaStreamTrack.h"
 
 using namespace ortc;
 
@@ -14,10 +15,6 @@ namespace ortc_winrt_api
 {
   ZS_DECLARE_CLASS_PTR(RTCRtpSenderDelegate)
 
-  public ref class MediaStreamTrack sealed
-  {
-
-  };
   ref class RTCRtpSender;
 
 
