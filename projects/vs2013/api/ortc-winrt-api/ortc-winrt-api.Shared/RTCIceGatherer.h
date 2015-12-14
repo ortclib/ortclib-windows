@@ -245,7 +245,7 @@ namespace ortc_winrt_api
 			RTCIceComponent get() 
 			{ 
 				if (mNativePointer)
-					return (RTCIceComponent)mNativePointer->component;
+					return (RTCIceComponent)mNativePointer->component();
 				else
 					return RTCIceComponent::RTP;
 			}
@@ -256,7 +256,7 @@ namespace ortc_winrt_api
 			RTCIceGathererState get()
 			{
 				if (mNativePointer)
-					return (RTCIceGathererState)mNativePointer->state;
+					return (RTCIceGathererState)mNativePointer->state();
 				else
 					return RTCIceGathererState::State_Closed;
 			}
