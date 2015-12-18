@@ -7,18 +7,22 @@ namespace ortc_winrt_api
 	{
 		return nullptr;
 	}
-	void						MediaStreamTrack::stop()
+	void MediaStreamTrack::stop()
 	{
-
+		if (mNativePointer)
+			mNativePointer->stop();
 	}
+
 	MediaTrackCapabilities^		MediaStreamTrack::getCapabilities()
 	{
 		return nullptr;
 	}
+
 	MediaTrackConstraints^		MediaStreamTrack::getConstraints()
 	{
 		return nullptr;
 	}
+
 	MediaTrackSettings^			MediaStreamTrack::getSettings()
 	{
 		return nullptr;

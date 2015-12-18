@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Media.Core;
+using ortc_winrt_api;
 
 namespace OrtcWrapper
 {
@@ -28,7 +29,19 @@ namespace OrtcWrapper
 
         public IAsyncOperation<MediaStream> GetUserMedia(RTCMediaStreamConstraints mediaStreamConstraints) //async
         {
-            return null; 
+            MediaStream ret = new MediaStream();
+
+            if (mediaStreamConstraints.audioEnabled)
+            {
+                MediaAudioTrack track = new MediaAudioTrack();
+                ret.AddTrack(track);
+            }
+
+            if (mediaStreamConstraints.videoEnabled)
+            {
+                MediaVideoTrack track = new MediaVideoTrack();
+                ret.AddTrack(track);
+            }
         }
 
 

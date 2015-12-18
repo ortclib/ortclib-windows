@@ -8,6 +8,7 @@
 #include "RTCIceTransportController.h"
 #include "RTCRtpSender.h"
 #include "RTCRtpReceiver.h"
+#include "MediaStreamTrack.h"
 
 using namespace ortc;
 
@@ -36,6 +37,9 @@ namespace ortc_winrt_api
   RTCRtpCodecCapability^ toCx(IRTPTypes::CodecCapabilityPtr codecCapabilityPtr);
   RTCRtpHeaderExtensions^ toCx(IRTPTypes::HeaderExtensionsPtr headerExtensions);
 
+  static MediaTrackCapabilities^ toCx(IMediaStreamTrackTypes::CapabilitiesPtr capabilitiesPtr);
+  static MediaTrackConstraintSet^ toCx(IMediaStreamTrackTypes::ConstraintSetPtr constraintSetPtr);
+  static MediaTrackConstraints^ toCx(IMediaStreamTrackTypes::TrackConstraintsPtr trackConstraintsPtr);
   class FetchNativePointer
   {
   public:
@@ -50,5 +54,11 @@ namespace ortc_winrt_api
   {
   public:
     static RTCIceTransport^ iceTransport(IIceTransportPtr iceTransport);
+
+	static MediaStreamTrack^ mediaStreamTrack(IMediaStreamTrackPtr mediaStreamTrackPtr);
+	
+	static MediaTrackConstraints^ mediaTrackConstraints(IMediaStreamTrackTypes::TrackConstraintsPtr trackConstraintsPtr);
+	static MediaTrackSettings^ mediaTrackSettings(IMediaStreamTrackTypes::SettingsPtr settingsPtr);
   };
+
 }

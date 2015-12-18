@@ -16,6 +16,7 @@
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)helpers.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MediaStreamTrack.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MediaTypes.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCDataChannel.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCDtlsTransport.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCIceGatherer.h" />

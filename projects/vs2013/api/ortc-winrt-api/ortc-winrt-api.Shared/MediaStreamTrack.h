@@ -1,7 +1,9 @@
 #pragma once
 #include <collection.h>
+#include <MediaTypes.h>
+#include <ortc/IMediaStreamTrack.h>
 
-
+using namespace ortc;
 
 using Windows::Foundation::Collections::IVector;
 
@@ -12,36 +14,42 @@ namespace ortc_winrt_api
 		TrackState_Live,
 		TrackState_Ended
 	};
+
+	public enum class MediaStreamTrackKind
+	{
+		TrackKind_Audio,
+		TrackKind_Video
+	};
 	public ref class MediaTrackCapabilities sealed
 	{
 	public:
-		property uint32					width;
-		property uint32					height;
-		property double					aspectRatio;
-		property double					frameRate;
-		property Platform::String^      facingMode;
-		property double					volume;
-		property uint32					sampleRate;
-		property uint32					sampleSize;
-		property IVector<boolean>^      echoCancellation;
-		property Platform::String^      deviceId;
-		property Platform::String^      groupId;
+		property LongRange^					width;
+		property LongRange^					height;
+		property DoubleRange^				aspectRatio;
+		property DoubleRange^				frameRate;
+		property Platform::String^			facingMode;
+		property DoubleRange^				volume;
+		property LongRange^					sampleRate;
+		property LongRange^					sampleSize;
+		property boolean					echoCancellation;
+		property Platform::String^			deviceId;
+		property Platform::String^			groupId;
 	};
 
 	public ref class MediaTrackConstraintSet sealed
 	{
 	public:
-		property uint32				width;
-		property uint32				height;
-		property double				aspectRatio;
-		property double				frameRate;
-		property Platform::String^	facingMode;
-		property double				volume;
-		property uint32				sampleRate;
-		property uint32				sampleSize;
-		property boolean			echoCancellation;
-		property Platform::String^	deviceId;
-		property Platform::String^	groupId;
+		property ConstrainLong^				width;
+		property ConstrainLong^				height;
+		property ConstrainDouble^			aspectRatio;
+		property ConstrainDouble^			frameRate;
+		property ConstrainString^			facingMode;
+		property ConstrainDouble^			volume;
+		property ConstrainLong^				sampleRate;
+		property ConstrainLong^				sampleSize;
+		property ConstrainBool^				echoCancellation;
+		property ConstrainString^			deviceId;
+		property ConstrainString^			groupId;
 	};
 
 	public ref class MediaTrackConstraints sealed
@@ -96,7 +104,9 @@ namespace ortc_winrt_api
 		event MediaStreamTrackOverConstrainedDelegate^*/
 	public ref class MediaStreamTrack sealed
 	{
-		Platform::String^		_kind;
+		friend class ConvertObjectToCx;
+
+		MediaStreamTrackKind		_kind;
 		Platform::String^		_id;
 		Platform::String^		_label;
 		boolean					_enabled;
@@ -104,10 +114,12 @@ namespace ortc_winrt_api
 		boolean					_readonly;
 		boolean					_remote;
 		MediaStreamTrackState	_readyState;
+	private:
+		IMediaStreamTrackPtr mNativePointer;
 	public:
-		property Platform::String^ Kind
+		property MediaStreamTrackKind Kind
 		{
-			Platform::String^  get() { return _kind; }
+			MediaStreamTrackKind  get() { return (MediaStreamTrackKind)mNativePointer->kind(); }
 		}
 
 		property Platform::String^ Id

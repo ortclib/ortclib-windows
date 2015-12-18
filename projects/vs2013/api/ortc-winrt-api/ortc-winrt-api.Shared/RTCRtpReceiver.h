@@ -199,12 +199,28 @@ namespace ortc_winrt_api
 	public  ref  class  RTCRtpReceiver sealed
 	{
 		friend class RTCRtpReceiverDelegate;
-
+		/*    readonly        attribute MediaStreamTrack? track;
+    readonly        attribute RTCDtlsTransport  transport;
+    readonly        attribute RTCDtlsTransport  rtcpTransport;*/
 	private:
 		IRTPReceiverPtr mNativePointer;
 		RTCRtpReceiverDelegatePtr mNativeDelegatePointer;
-
+		RTCDtlsTransport^ _transport;
 	public:
+		/*property RTCDtlsTransport^ Transport
+		{
+			RTCDtlsTransport^ get()
+			{
+				if (mNativePointer)
+				{
+					if (!_transport)
+						_transport = ref new RTCDtlsTransport();
+
+					mNativePointer->ge
+
+				}
+			}
+		}*/
 		RTCRtpReceiver();
 		RTCRtpReceiver(RTCDtlsTransport^ transport);
 		RTCRtpReceiver(RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);

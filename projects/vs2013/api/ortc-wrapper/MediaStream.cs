@@ -8,14 +8,22 @@ namespace OrtcWrapper
 {
     public class MediaStream
     {
+        IList<MediaAudioTrack> _audioTracks;
+        IList<MediaVideoTrack> _videoTracks;
+
+        MediaStream()
+        {
+            _audioTracks = new List<MediaAudioTrack>();
+            _videoTracks = new List<MediaVideoTrack>();
+        }
         public IList<MediaAudioTrack> GetAudioTracks()
         {
-            return null;
+            return _audioTracks;
         }
 
         public IList<MediaVideoTrack> GetVideoTracks()
         {
-            return null;
+            return _videoTracks;
         }
 
         public IList<IMediaStreamTrack> GetTracks()
@@ -28,5 +36,16 @@ namespace OrtcWrapper
 
         }
 
+        private void AddAudioTrack(MediaAudioTrack track)
+        {
+            if (track != null)
+                _audioTracks.Add(track);
+        }
+
+        private void AddVideoTrack(MediaVideoTrack track)
+        {
+            if (track != null)
+                _videoTracks.Add(track);
+        }
     }
 }

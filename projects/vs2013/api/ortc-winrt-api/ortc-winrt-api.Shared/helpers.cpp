@@ -220,6 +220,7 @@ namespace ortc_winrt_api
 
     return ret;
   }
+ 
   //***********************************************************************
   // ConvertObjectToCx class methods
   //***********************************************************************
@@ -231,5 +232,138 @@ namespace ortc_winrt_api
     return ret;
   }
 
+  MediaStreamTrack^ ConvertObjectToCx::mediaStreamTrack(IMediaStreamTrackPtr mediaStreamTrackPtr)
+  {
+	  auto ret = ref new MediaStreamTrack();
 
+	  ret->_kind = (MediaStreamTrackKind)mediaStreamTrackPtr->kind();
+	  ret->_id = ToCx(mediaStreamTrackPtr->id());
+	  ret->_label = ToCx(mediaStreamTrackPtr->label());
+	  ret->_enabled = mediaStreamTrackPtr->enabled();
+	  ret->_muted = mediaStreamTrackPtr->muted();
+	  ret->_readonly = mediaStreamTrackPtr->readOnly();
+	  ret->_remote = mediaStreamTrackPtr->remote();
+	  ret->_readyState = (MediaStreamTrackState)mediaStreamTrackPtr->readyState();
+
+	  return ret;
+  }
+
+  MediaTrackCapabilities^ toCx(IMediaStreamTrackTypes::CapabilitiesPtr capabilitiesPtr)
+  {
+	  auto ret = ref new MediaTrackCapabilities();
+
+	  /*ret->width = capabilitiesPtr->mWidth;
+	  ret->height = capabilitiesPtr->mHeight;
+	  ret->aspectRatio = capabilitiesPtr->mAspectRatio;
+	  ret->frameRate = capabilitiesPtr->mFrameRate;
+	  ret->facingMode = ToCx(capabilitiesPtr->mFacingMode);
+	  ret->volume = capabilitiesPtr->mVolume;
+	  ret->sampleRate = capabilitiesPtr->mSampleRate;
+	  ret->sampleSize = capabilitiesPtr->mSampleSize;
+	  ret->echoCancellation = capabilitiesPtr->mEchoCancellation;
+	  ret->deviceId = ToCx(capabilitiesPtr->mDeviceID);
+	  ret->groupId = ToCx(capabilitiesPtr->mGroupID);
+	  */
+	  return ret;
+  }
+
+  LongRange^ toCX(IMediaStreamTrackTypes::CapabilityLong input)
+  {
+	  auto ret = ref new LongRange();
+
+	  ret->max = input.mMax;
+	  ret->min = input.mMin;
+
+	  return ret;
+  }
+
+
+  template <typename  From, typename To> To^ convertConstrainToCx(From from)
+  {
+	  auto ret = ref new To();
+
+	  ret->max = from.mRange.value().mMax;
+	  ret->min = from.mRange.value().mMin;
+	  ret->exact = from.mRange.value().mExact;
+	  ret->ideal = from.mRange.value().mIdeal;
+	  ret->value = from.mValue;
+
+	  return ret;
+  }
+
+  StringOrStringList^ toCX(ortc::IConstraints::StringOrStringList from)
+  {
+	  auto ret = ref new StringOrStringList();
+
+	  if (from.mValue.hasValue())
+		  ret->value = ToCx(from.mValue.value());
+
+	  if (from.mValues.hasValue())
+	  {
+		  ret->values = ref new Vector<Platform::String^>();
+
+		  for (IConstraints::StringList::iterator it = from.mValues.value().begin(); it != from.mValues.value().end(); ++it)
+			  ret->values->Append(ToCx(*it));
+	  }
+	  return ret;
+  }
+  ConstrainString^ convertConstrainToCx(ortc::IConstraints::ConstrainString from)
+  {
+	  auto ret = ref new ConstrainString();
+	  ret->value = toCX(from.mValue);
+	  ret->parameters = ref new ConstrainStringParameters();
+	  if (from.mParameters.hasValue())
+	  {
+		  ret->parameters->exact = toCX(from.mParameters.value().mExact);
+		  ret->parameters->ideal = toCX(from.mParameters.value().mIdeal);
+	  }
+	  return ret;
+  }
+
+  ConstrainBool^ convertConstrainToCx(ortc::IConstraints::ConstrainBool from)
+  {
+	  auto ret = ref new ConstrainBool();
+	  ret->value = from.mValue;
+	  ret->parameters = ref new ConstrainBoolParameters();
+	  if (from.mParameters.hasValue())
+	  {
+		  ret->parameters->exact = from.mParameters.value().mExact;
+		  ret->parameters->ideal = from.mParameters.value().mIdeal;
+	  }
+	  return ret;
+  }
+
+  MediaTrackConstraintSet^ toCx(IMediaStreamTrackTypes::ConstraintSetPtr constraintSetPtr)
+  {
+	  auto ret = ref new MediaTrackConstraintSet();
+
+	  ret->width = convertConstrainToCx<ortc::IConstraints::ConstrainLong,ConstrainLong>(constraintSetPtr->mWidth);
+	  ret->height = convertConstrainToCx<ortc::IConstraints::ConstrainLong, ConstrainLong>(constraintSetPtr->mHeight);
+	  ret->aspectRatio = convertConstrainToCx<ortc::IConstraints::ConstrainDouble, ConstrainDouble>(constraintSetPtr->mAspectRatio);
+	  ret->frameRate = convertConstrainToCx<ortc::IConstraints::ConstrainDouble, ConstrainDouble>(constraintSetPtr->mFrameRate);
+
+	  ret->facingMode = convertConstrainToCx(constraintSetPtr->mFacingMode);
+	  ret->volume = convertConstrainToCx<ortc::IConstraints::ConstrainDouble, ConstrainDouble>(constraintSetPtr->mVolume);
+	  ret->sampleRate = convertConstrainToCx<ortc::IConstraints::ConstrainLong, ConstrainLong>(constraintSetPtr->mSampleRate);
+	  ret->sampleSize = convertConstrainToCx<ortc::IConstraints::ConstrainLong, ConstrainLong>(constraintSetPtr->mSampleSize);
+
+	  ret->echoCancellation = convertConstrainToCx(constraintSetPtr->mEchoCancellation);
+	  ret->deviceId = convertConstrainToCx(constraintSetPtr->mDeviceID);
+	  ret->groupId = convertConstrainToCx(constraintSetPtr->mGroupID);
+
+	  return ret;
+  }
+
+  MediaTrackConstraints^ toCx(IMediaStreamTrackTypes::TrackConstraintsPtr trackConstraintsPtr)
+  {
+	  auto ret = ref new MediaTrackConstraints();
+
+	  for (IMediaStreamTrackTypes::ConstraintSetList::iterator it = trackConstraintsPtr->mAdvanced.begin(); it != trackConstraintsPtr->mAdvanced.end(); ++it)
+	  {
+		  //MediaTrackConstraintSet mediaTrackConstraintSet = toCx(it*);
+		  //ret->advanced->Append(mediaTrackConstraintSet);
+	  }
+
+	  return ret;
+  }
 } // namespace ortc_winrt_api
