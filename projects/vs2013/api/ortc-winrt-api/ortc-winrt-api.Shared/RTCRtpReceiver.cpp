@@ -16,24 +16,46 @@ RTCRtpReceiver::RTCRtpReceiver() : mNativeDelegatePointer(nullptr), mNativePoint
 
 RTCRtpReceiver::RTCRtpReceiver(RTCDtlsTransport ^ transport) : mNativeDelegatePointer(new RTCRtpReceiverDelegate())
 {
-	mNativeDelegatePointer->SetOwnerObject(this);
-	//mNativePointer = IRtpReceiver::create(mNativeDelegatePointer,transport);
+	if (!transport)
+	{
+		return;
+	}
+
+	if (FetchNativePointer::fromDtlsTransport(transport)) // add mediaStreamTrack too
+	{
+		mNativeDelegatePointer->SetOwnerObject(this);
+		mNativePointer = IRtpReceiver::create(mNativeDelegatePointer, FetchNativePointer::fromDtlsTransport(transport));
+	}
 }
 
 RTCRtpReceiver::RTCRtpReceiver(RTCDtlsTransport ^ transport, RTCDtlsTransport^ rtcpTransport)
 {
-	mNativeDelegatePointer->SetOwnerObject(this);
-	//mNativePointer = IRtpReceiver::create(mNativeDelegatePointer,transport,rtcpTransport);
+	if (!transport && !rtcpTransport)
+	{
+		return;
+	}
+
+	if (FetchNativePointer::fromDtlsTransport(transport) && FetchNativePointer::fromDtlsTransport(rtcpTransport)) // add mediaStreamTrack too
+	{
+		mNativeDelegatePointer->SetOwnerObject(this);
+		mNativePointer = IRtpReceiver::create(mNativeDelegatePointer, FetchNativePointer::fromDtlsTransport(transport), FetchNativePointer::fromDtlsTransport(rtcpTransport));
+	}
 }
 
 void RTCRtpReceiver::setTransport(RTCDtlsTransport ^ transport)
 {
-	//if (mNativePointer)
-	//	mNativePointer->setTransporttransport();
+	if (mNativePointer)
+	{
+		mNativePointer->setTransport(FetchNativePointer::fromDtlsTransport(transport));
+	}
 }
 
 void RTCRtpReceiver::setTransport(RTCDtlsTransport ^ transport, RTCDtlsTransport ^ rtcpTransport)
 {
+	if (mNativePointer)
+	{
+		mNativePointer->setTransport(FetchNativePointer::fromDtlsTransport(transport), FetchNativePointer::fromDtlsTransport(rtcpTransport));
+	}
 }
 
 
@@ -56,13 +78,13 @@ RTCRtpCapabilities ^ RTCRtpReceiver::getCapabilities(Platform::String^ kind)
 		for (IRTPTypes::CodecCapabilitiesList::iterator it = capabilitiesPtr->mCodecs.begin(); it != capabilitiesPtr->mCodecs.end(); ++it)
 		{
 			auto codec = toCx((make_shared<IRTPTypes::CodecCapability>(*it)));
-			ret->codecs->Append(codec);
+			//ret->codecs->Append(codec);
 		}
 
 		for (IRTPTypes::HeaderExtensionsList::iterator it = capabilitiesPtr->mHeaderExtensions.begin(); it != capabilitiesPtr->mHeaderExtensions.end(); ++it)
 		{
 			auto codec = toCx((make_shared<IRTPTypes::HeaderExtensions>(*it)));
-			ret->headerExtensions->Append(codec);
+			//ret->headerExtensions->Append(codec);
 		}
 
 		for (std::list<zsLib::String>::iterator it = capabilitiesPtr->mFECMechanisms.begin(); it != capabilitiesPtr->mFECMechanisms.end(); ++it)
@@ -105,7 +127,16 @@ void RTCRtpReceiver::stop()
 	if (mNativePointer)
 		mNativePointer->stop();
 }
-
+MediaStreamTrack^ RTCRtpReceiver::Track::get()
+{
+	if (mNativePointer)
+	{
+		IMediaStreamTrackPtr temp = mNativePointer->track();
+		if (temp)
+			return ConvertObjectToCx::mediaStreamTrack(temp);
+	}
+	return nullptr;
+}
 //-----------------------------------------------------------------
 #pragma mark RTCRtpReceiverDelegate
 //-----------------------------------------------------------------

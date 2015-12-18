@@ -190,14 +190,14 @@ namespace ortc_winrt_api
     ret->maxptime = codecCapabilityPtr->mMaxPTime;
     ret->numChannels = codecCapabilityPtr->mNumChannels;
 
-    ret->rtcpFeedback = ref new Vector<RTCRtcpFeedback^>();
+    //ret->rtcpFeedback = ref new Vector<RTCRtcpFeedback^>();
 
     for (IRTPTypes::RTCPFeedbackList::iterator it = codecCapabilityPtr->mFeedback.begin(); it != codecCapabilityPtr->mFeedback.end(); ++it)
     {
       auto feedback = ref new RTCRtcpFeedback();
       feedback->parameter = ToCx(it->mParameter);
       feedback->type = ToCx(it->mType);
-      ret->rtcpFeedback->Append(feedback);
+      //ret->rtcpFeedback->Append(feedback);
     }
 
     //ret->parameters = codecCapabilityPtr->mParameters;

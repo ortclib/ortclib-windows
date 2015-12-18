@@ -26,6 +26,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCRtpReceiver.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCRtpSender.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCSctpTransport.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTPTypes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)helpers.cpp" />

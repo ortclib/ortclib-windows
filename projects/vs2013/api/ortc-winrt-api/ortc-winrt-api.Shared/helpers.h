@@ -7,8 +7,9 @@
 #include "RTCDataChannel.h"
 #include "RTCIceTransportController.h"
 #include "RTCRtpSender.h"
-#include "RTCRtpReceiver.h"
+#include "RTPTypes.h"
 #include "MediaStreamTrack.h"
+#include <ortc/IMediaStreamTrack.h>
 
 using namespace ortc;
 
@@ -57,8 +58,8 @@ namespace ortc_winrt_api
 
 	static MediaStreamTrack^ mediaStreamTrack(IMediaStreamTrackPtr mediaStreamTrackPtr);
 	
-	static MediaTrackConstraints^ mediaTrackConstraints(IMediaStreamTrackTypes::TrackConstraintsPtr trackConstraintsPtr);
-	static MediaTrackSettings^ mediaTrackSettings(IMediaStreamTrackTypes::SettingsPtr settingsPtr);
+	//static MediaTrackConstraints^ mediaTrackConstraints(IMediaStreamTrackTypes::TrackConstraintsPtr trackConstraintsPtr);
+	//static MediaTrackSettings^ mediaTrackSettings(IMediaStreamTrackTypes::SettingsPtr settingsPtr);
   };
 
 }

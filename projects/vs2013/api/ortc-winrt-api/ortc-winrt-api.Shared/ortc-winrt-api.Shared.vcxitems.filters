@@ -13,6 +13,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCRtpSender.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MediaStreamTrack.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MediaTypes.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTPTypes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)pch.cpp">
