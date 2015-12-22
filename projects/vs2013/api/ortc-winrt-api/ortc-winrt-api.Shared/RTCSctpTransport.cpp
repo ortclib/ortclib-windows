@@ -21,10 +21,10 @@ mNativeDelegatePointer(new RTCSctpTransportDelegate())
     return;
   }
 
-  if (FetchNativePointer::fromDtlsTransport(dtlsTransport))
+  if (FetchNativePointer::FromDtlsTransport(dtlsTransport))
   {
     mNativeDelegatePointer->SetOwnerObject(this);
-    mNativePointer = ISCTPTransport::create(mNativeDelegatePointer, FetchNativePointer::fromDtlsTransport(dtlsTransport), port);
+    mNativePointer = ISCTPTransport::create(mNativeDelegatePointer, FetchNativePointer::FromDtlsTransport(dtlsTransport), port);
   }
 }
 

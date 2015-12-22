@@ -41,7 +41,6 @@ namespace ortc_winrt_api
 	public ref class RTCRtpCapabilities sealed
 	{
 	public:
-		property RTCRtpCodecCapability^ kuraac;
 		property IVector<RTCRtpCodecCapability^>^			codecs;
 		property IVector<RTCRtpHeaderExtensions^>^			headerExtensions;
 		property IVector<Platform::String^>^					fecMechanisms;
@@ -62,6 +61,7 @@ namespace ortc_winrt_api
 
 	public ref class  RTCRtpHeaderExtensionParameters sealed
 	{
+	public:
 		property Platform::String^      uri;
 		property uint16					id;
 		property boolean				encrypt; //default = false;
@@ -85,18 +85,21 @@ namespace ortc_winrt_api
 
 	public ref class RTCRtpFecParameters sealed
 	{
+	public:
 		property uint32								ssrc;
 		property Platform::String^					mechanism;
 	};
 
 	public ref class RTCRtpRtxParameters sealed
 	{
+	public:
 		property uint32								ssrc;
 		property uint8							payloadType;
 	};
 
 	public enum class  RTCPriorityType
 	{
+		Priority_Unknown,
 		Priority_Very_Low,
 		Priority_Low,
 		Priority_Medium,
@@ -105,18 +108,19 @@ namespace ortc_winrt_api
 
 	public ref class RTCRtpEncodingParameters sealed
 	{
+	public:
 		property uint32							ssrc;
-		property uint8						codecPayloadType;
-		RTCRtpFecParameters fec;
-		RTCRtpRtxParameters rtx;
-		RTCPriorityType							priority;
+		property uint8							codecPayloadType;
+		property RTCRtpFecParameters^ fec;
+		property RTCRtpRtxParameters^ rtx;
+		property RTCPriorityType							priority;
 		property uint32							maxBitrate;
 		property float64						minQuality; //default = 0;
 		property float64						resolutionScale;
 		property float64						framerateScale;
 		property boolean						active; //default = true;
 		property Platform::String^				encodingId;
-		IVector<Platform::String^>^				dependencyEncodingIds;
+		property IVector<Platform::String^>^				dependencyEncodingIds;
 	};
 
 	public  ref  class RTCRtpParameters sealed

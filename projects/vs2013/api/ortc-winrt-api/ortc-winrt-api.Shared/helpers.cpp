@@ -179,7 +179,7 @@ namespace ortc_winrt_api
     return ret;
   }
 
-  RTCRtpCodecCapability^ toCx(IRTPTypes::CodecCapabilityPtr codecCapabilityPtr)
+  RTCRtpCodecCapability^ ToCx(IRTPTypes::CodecCapabilityPtr codecCapabilityPtr)
   {
     auto ret = ref new RTCRtpCodecCapability();
 
@@ -209,7 +209,7 @@ namespace ortc_winrt_api
     return ret;
   }
 
-  RTCRtpHeaderExtensions^ toCx(IRTPTypes::HeaderExtensionsPtr headerExtensions)
+  RTCRtpHeaderExtensions^ ToCx(IRTPTypes::HeaderExtensionsPtr headerExtensions)
   {
     auto ret = ref new RTCRtpHeaderExtensions();
 
@@ -225,14 +225,14 @@ namespace ortc_winrt_api
   // ConvertObjectToCx class methods
   //***********************************************************************
 
-  RTCIceTransport^ ConvertObjectToCx::iceTransport(IIceTransportPtr iceTransport)
+  RTCIceTransport^ ConvertObjectToCx::ToIceTransport(IIceTransportPtr iceTransport)
   {
     RTCIceTransport^ ret = ref new RTCIceTransport();
     ret->mNativePointer = iceTransport;
     return ret;
   }
 
-  MediaStreamTrack^ ConvertObjectToCx::mediaStreamTrack(IMediaStreamTrackPtr mediaStreamTrackPtr)
+  MediaStreamTrack^ ConvertObjectToCx::ToMediaStreamTrack(IMediaStreamTrackPtr mediaStreamTrackPtr)
   {
 	  auto ret = ref new MediaStreamTrack();
 
@@ -248,7 +248,7 @@ namespace ortc_winrt_api
 	  return ret;
   }
 
-  MediaTrackCapabilities^ toCx(IMediaStreamTrackTypes::CapabilitiesPtr capabilitiesPtr)
+  MediaTrackCapabilities^ ToCx(IMediaStreamTrackTypes::CapabilitiesPtr capabilitiesPtr)
   {
 	  auto ret = ref new MediaTrackCapabilities();
 
@@ -267,7 +267,7 @@ namespace ortc_winrt_api
 	  return ret;
   }
 
-  LongRange^ toCX(IMediaStreamTrackTypes::CapabilityLong input)
+  LongRange^ ToCx(IMediaStreamTrackTypes::CapabilityLong input)
   {
 	  auto ret = ref new LongRange();
 
@@ -291,7 +291,7 @@ namespace ortc_winrt_api
 	  return ret;
   }
 
-  StringOrStringList^ toCX(ortc::IConstraints::StringOrStringList from)
+  StringOrStringList^ ToCx(ortc::IConstraints::StringOrStringList from)
   {
 	  auto ret = ref new StringOrStringList();
 
@@ -310,12 +310,12 @@ namespace ortc_winrt_api
   ConstrainString^ convertConstrainToCx(ortc::IConstraints::ConstrainString from)
   {
 	  auto ret = ref new ConstrainString();
-	  ret->value = toCX(from.mValue);
+	  ret->value = ToCx(from.mValue);
 	  ret->parameters = ref new ConstrainStringParameters();
 	  if (from.mParameters.hasValue())
 	  {
-		  ret->parameters->exact = toCX(from.mParameters.value().mExact);
-		  ret->parameters->ideal = toCX(from.mParameters.value().mIdeal);
+		  ret->parameters->exact = ToCx(from.mParameters.value().mExact);
+		  ret->parameters->ideal = ToCx(from.mParameters.value().mIdeal);
 	  }
 	  return ret;
   }
@@ -333,7 +333,7 @@ namespace ortc_winrt_api
 	  return ret;
   }
 
-  MediaTrackConstraintSet^ toCx(IMediaStreamTrackTypes::ConstraintSetPtr constraintSetPtr)
+  MediaTrackConstraintSet^ ToCx(IMediaStreamTrackTypes::ConstraintSetPtr constraintSetPtr)
   {
 	  auto ret = ref new MediaTrackConstraintSet();
 
@@ -354,16 +354,106 @@ namespace ortc_winrt_api
 	  return ret;
   }
 
-  MediaTrackConstraints^ toCx(IMediaStreamTrackTypes::TrackConstraintsPtr trackConstraintsPtr)
+  MediaTrackConstraints^ ToCx(IMediaStreamTrackTypes::TrackConstraintsPtr trackConstraintsPtr)
   {
 	  auto ret = ref new MediaTrackConstraints();
 
 	  for (IMediaStreamTrackTypes::ConstraintSetList::iterator it = trackConstraintsPtr->mAdvanced.begin(); it != trackConstraintsPtr->mAdvanced.end(); ++it)
 	  {
-		  //MediaTrackConstraintSet mediaTrackConstraintSet = toCx(it*);
-		  //ret->advanced->Append(mediaTrackConstraintSet);
+		  MediaTrackConstraintSet^ mediaTrackConstraintSet = ToCx(*it);
+		  ret->advanced->Append(mediaTrackConstraintSet);
 	  }
 
 	  return ret;
   }
+
+  MediaTrackSettings^ ToCx(IMediaStreamTrackTypes::SettingsPtr settingsPtr)
+  {
+	  auto ret = ref new MediaTrackSettings();
+
+	  ret->width = settingsPtr->mWidth.value();
+	  ret->height = settingsPtr->mHeight.value();
+	  ret->aspectRatio = settingsPtr->mAspectRatio.value();
+	  ret->frameRate = settingsPtr->mFrameRate.value();
+	  ret->facingMode = ToCx(settingsPtr->mFacingMode.value());
+	  ret->volume = settingsPtr->mVolume.value();
+	  ret->sampleRate = settingsPtr->mSampleRate.value();
+	  ret->sampleSize = settingsPtr->mSampleSize.value();
+	  ret->echoCancellation = settingsPtr->mEchoCancellation.value();
+	  ret->deviceId = ToCx(settingsPtr->mDeviceID.value());
+	  ret->groupId = ToCx(settingsPtr->mGroupID.value());
+	  
+	  return ret;
+  }
+  IRTPTypes::Parameters FromCx(RTCRtpParameters^ parameters)
+  {
+	  IRTPTypes::Parameters ret;
+
+	  ret.mMuxID = FromCx(parameters->muxId);
+
+	  for (RTCRtpCodecParameters^ codec : parameters->codecs)
+	  {
+		  IRTPTypes::CodecParameters codecCore;
+		  codecCore.mName = FromCx(codec->name);
+		  codecCore.mPayloadType = codec->payloadType;
+		  codecCore.mClockRate = codec->clockRate;
+		  codecCore.mMaxPTime = codec->maxptime;
+		  codecCore.mNumChannels = codec->numChannels;
+
+		  for (RTCRtcpFeedback^ feedback : codec->rtcpFeedback)
+		  {
+			  IRTPTypes::RTCPFeedback feedbackCore;
+			  feedbackCore.mParameter = FromCx(feedback->parameter);
+			  feedbackCore.mType = FromCx(feedback->type);
+			  codecCore.mRTCPFeedback.push_back(feedbackCore);
+		  }
+
+		  //TODO: AnyPtr            mParameters;
+
+		  ret.mCodecs.push_back(codecCore);
+	  }
+
+	  for (RTCRtpHeaderExtensionParameters^ headerExtension : parameters->headerExtensions)
+	  {
+		  IRTPTypes::HeaderExtensionParameters extensionCore;
+		  extensionCore.mEncrypt = headerExtension->encrypt;
+		  extensionCore.mID = headerExtension->id;
+		  extensionCore.mURI = FromCx(headerExtension->uri);
+
+		  ret.mHeaderExtensions.push_back(extensionCore);
+	  }
+
+	  for (RTCRtpEncodingParameters^ encodingParameters : parameters->encodings)
+	  {
+		  IRTPTypes::EncodingParameters encodingParametersCore;
+
+		  encodingParametersCore.mSSRC = encodingParameters->ssrc;
+		  encodingParametersCore.mCodecPayloadType = encodingParameters->codecPayloadType;
+		  encodingParametersCore.mFEC.value().mSSRC = encodingParameters->fec->ssrc;
+		  encodingParametersCore.mFEC.value().mMechanism = FromCx(encodingParameters->fec->mechanism);
+		  encodingParametersCore.mRTX.value().mSSRC = encodingParameters->rtx->ssrc;
+		  encodingParametersCore.mRTX.value().mPayloadType = encodingParameters->rtx->payloadType;
+		  encodingParametersCore.mPriority = (IRTPTypes::PriorityTypes)encodingParameters->priority;
+		  encodingParametersCore.mMaxBitrate = encodingParameters->maxBitrate;
+		  encodingParametersCore.mMinQuality = encodingParameters->minQuality;
+		  encodingParametersCore.mActive = encodingParameters->active;
+		  encodingParametersCore.mEncodingID = FromCx(encodingParameters->encodingId);
+
+		  for (Platform::String^ dependencyEncodingID : encodingParameters->dependencyEncodingIds)
+		  {
+			  encodingParametersCore.mDependencyEncodingIDs.push_back(FromCx(dependencyEncodingID));
+		  }
+		  ret.mEncodingParameters.push_back(encodingParametersCore);
+	  }
+
+	  ret.mRTCP.mCName = FromCx(parameters->rtcp->cname);
+	  ret.mRTCP.mMux = parameters->rtcp->mux;
+	  ret.mRTCP.mReducedSize = parameters->rtcp->reducedSize;
+	  ret.mRTCP.mSSRC = parameters->rtcp->ssrc;
+
+	  ret.mDegredationPreference = (IRTPTypes::DegradationPreferences)parameters->degradationPreference;
+
+	  return ret;
+  }
+
 } // namespace ortc_winrt_api

@@ -35,31 +35,35 @@ namespace ortc_winrt_api
 
   IICEGatherer::Options FromCx(RTCIceGatherOptions^ options);
 
-  RTCRtpCodecCapability^ toCx(IRTPTypes::CodecCapabilityPtr codecCapabilityPtr);
-  RTCRtpHeaderExtensions^ toCx(IRTPTypes::HeaderExtensionsPtr headerExtensions);
+  RTCRtpCodecCapability^ ToCx(IRTPTypes::CodecCapabilityPtr codecCapabilityPtr);
+  RTCRtpHeaderExtensions^ ToCx(IRTPTypes::HeaderExtensionsPtr headerExtensions);
 
-  static MediaTrackCapabilities^ toCx(IMediaStreamTrackTypes::CapabilitiesPtr capabilitiesPtr);
-  static MediaTrackConstraintSet^ toCx(IMediaStreamTrackTypes::ConstraintSetPtr constraintSetPtr);
-  static MediaTrackConstraints^ toCx(IMediaStreamTrackTypes::TrackConstraintsPtr trackConstraintsPtr);
+  MediaTrackCapabilities^ ToCx(IMediaStreamTrackTypes::CapabilitiesPtr capabilitiesPtr);
+  MediaTrackConstraintSet^ ToCx(IMediaStreamTrackTypes::ConstraintSetPtr constraintSetPtr);
+  MediaTrackConstraints^ ToCx(IMediaStreamTrackTypes::TrackConstraintsPtr trackConstraintsPtr);
+  MediaTrackSettings^ ToCx(IMediaStreamTrackTypes::SettingsPtr settingsPtr);
   class FetchNativePointer
   {
   public:
-    static IIceGathererPtr fromIceGatherer(RTCIceGatherer^ gatherer) { return gatherer->mNativePointer; }
-    static IIceTransportPtr fromIceTransport(RTCIceTransport^ transport) { return transport->mNativePointer; }
-    static IDtlsTransportPtr fromDtlsTransport(RTCDtlsTransport^ transport) { return transport->mNativePointer; }
-    static ICertificatePtr fromCertificate(RTCCertificate^ certificate) { return certificate->mNativePointer; }
-    static ISctpTransportPtr fromSctpTransport(RTCSctpTransport^ transport) { return transport->mNativePointer; }
+    static IIceGathererPtr FromIceGatherer(RTCIceGatherer^ gatherer) { return gatherer->mNativePointer; }
+    static IIceTransportPtr FromIceTransport(RTCIceTransport^ transport) { return transport->mNativePointer; }
+    static IDtlsTransportPtr FromDtlsTransport(RTCDtlsTransport^ transport) { return transport->mNativePointer; }
+    static ICertificatePtr FromCertificate(RTCCertificate^ certificate) { return certificate->mNativePointer; }
+    static ISctpTransportPtr FromSctpTransport(RTCSctpTransport^ transport) { return transport->mNativePointer; }
+	static IMediaStreamTrackPtr FromMediaTrack(MediaStreamTrack^ track) { return track->mNativePointer; }
   };
 
   class ConvertObjectToCx
   {
   public:
-    static RTCIceTransport^ iceTransport(IIceTransportPtr iceTransport);
+    static RTCIceTransport^ ToIceTransport(IIceTransportPtr iceTransport);
 
-	static MediaStreamTrack^ mediaStreamTrack(IMediaStreamTrackPtr mediaStreamTrackPtr);
+	static MediaStreamTrack^ ToMediaStreamTrack(IMediaStreamTrackPtr mediaStreamTrackPtr);
 	
-	//static MediaTrackConstraints^ mediaTrackConstraints(IMediaStreamTrackTypes::TrackConstraintsPtr trackConstraintsPtr);
+
 	//static MediaTrackSettings^ mediaTrackSettings(IMediaStreamTrackTypes::SettingsPtr settingsPtr);
   };
+
+  IRTPTypes::Parameters FromCx(RTCRtpParameters^ parameters);
 
 }

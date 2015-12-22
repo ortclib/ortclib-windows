@@ -1,14 +1,13 @@
 #pragma once
 
 #include <ortc/IRTPSender.h>
-#include <collection.h>
-#include <ppltasks.h>
 #include "RTCDtlsTransport.h"
 #include "RTCRtpReceiver.h"
 #include "MediaStreamTrack.h"
 
 using namespace ortc;
 
+using Windows::Foundation::IAsyncAction;
 using Windows::Foundation::Collections::IVector;
 
 namespace ortc_winrt_api
@@ -37,19 +36,6 @@ namespace ortc_winrt_api
     void SetOwnerObject(RTCRtpSender^ owner) { _sender = owner; }
   };
 
-  //--------------------------------------------------------------------
-  // Helper classes
-  //--------------------------------------------------------------------
-
-  //public ref class RTCRtpCapabilities sealed
-  //{
-  //public:
-  //};
-
-  //public ref class RTCRtpParameters sealed
-  //{
-  //public:
-  //};
 
   public ref class RTCRtpSenderError sealed
   {
@@ -89,6 +75,18 @@ namespace ortc_winrt_api
   //------------------------------------------
 
 
+  class RTCGenerateSenderPromiseObserver : public zsLib::IPromiseResolutionDelegate
+  {
+  public:
+	  RTCGenerateSenderPromiseObserver(Concurrency::task_completion_event<void> tce);
+
+	  virtual void onPromiseResolved(PromisePtr promise);
+	  virtual void onPromiseRejected(PromisePtr promise);
+
+  private:
+	  Concurrency::task_completion_event<void> mTce;
+  };
+
   public  ref  class  RTCRtpSender sealed
   {
     friend class RTCRtpSenderDelegate;
@@ -123,7 +121,7 @@ namespace ortc_winrt_api
     RTCRtpSender(MediaStreamTrack^ track, RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
 
     void setTransport(RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
-    //IAsyncAction^   setTrack(MediaStreamTrack^ track);
+    IAsyncAction^   setTrack(MediaStreamTrack^ track);
     static RTCRtpCapabilities^          getCapabilities(Platform::String^ kind);
     void                                send(RTCRtpParameters^ parameters);
     void                                stop();

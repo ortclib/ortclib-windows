@@ -30,10 +30,10 @@ mNativeDelegatePointer(new RTCDtlsTransportDelegate())
     return;
   }
 
-  if (FetchNativePointer::fromIceTransport(transport))
+  if (FetchNativePointer::FromIceTransport(transport))
   {
     mNativeDelegatePointer->SetOwnerObject(this);
-    mNativePointer = IDTLSTransport::create(mNativeDelegatePointer, FetchNativePointer::fromIceTransport(transport), FetchNativePointer::fromCertificate(certificate));
+    mNativePointer = IDTLSTransport::create(mNativeDelegatePointer, FetchNativePointer::FromIceTransport(transport), FetchNativePointer::FromCertificate(certificate));
   }
 }
 

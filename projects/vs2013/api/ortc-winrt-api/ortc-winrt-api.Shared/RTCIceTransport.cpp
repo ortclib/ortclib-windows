@@ -23,10 +23,10 @@ mNativeDelegatePointer(new RTCIceTransportDelegate())
     return;
   }
 
-  if (FetchNativePointer::fromIceGatherer(gatherer))
+  if (FetchNativePointer::FromIceGatherer(gatherer))
   {
     mNativeDelegatePointer->SetOwnerObject(this);
-    mNativePointer = IICETransport::create(mNativeDelegatePointer, FetchNativePointer::fromIceGatherer(gatherer));
+    mNativePointer = IICETransport::create(mNativeDelegatePointer, FetchNativePointer::FromIceGatherer(gatherer));
   }
 }
 
@@ -58,7 +58,7 @@ RTCIceCandidatePair^ RTCIceTransport::getSelectedCandidatePair()
 
 void RTCIceTransport::start(RTCIceGatherer^ gatherer, RTCIceParameters^ remoteParameters, RTCIceRole role)
 {
-  if (mNativePointer && FetchNativePointer::fromIceGatherer(gatherer))
+  if (mNativePointer && FetchNativePointer::FromIceGatherer(gatherer))
   {
 
     IIceTransport::Parameters params;
@@ -68,7 +68,7 @@ void RTCIceTransport::start(RTCIceGatherer^ gatherer, RTCIceParameters^ remotePa
     IIceTransport::Options options;
     options.mRole = (IICETypes::Roles)role;
 
-    mNativePointer->start(FetchNativePointer::fromIceGatherer(gatherer), params, options);
+    mNativePointer->start(FetchNativePointer::FromIceGatherer(gatherer), params, options);
   }
 }
 

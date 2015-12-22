@@ -105,6 +105,7 @@ namespace ortc_winrt_api
 	public ref class MediaStreamTrack sealed
 	{
 		friend class ConvertObjectToCx;
+		friend class FetchNativePointer;
 
 		MediaStreamTrackKind		_kind;
 		Platform::String^		_id;

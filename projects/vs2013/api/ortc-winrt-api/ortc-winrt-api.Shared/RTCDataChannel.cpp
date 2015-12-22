@@ -22,10 +22,10 @@ mNativeDelegatePointer(new RTCDataChannelDelegate())
     return;
   }
 
-  if (FetchNativePointer::fromSctpTransport(dataTransport))
+  if (FetchNativePointer::FromSctpTransport(dataTransport))
   {
     mNativeDelegatePointer->SetOwnerObject(this);
-    mNativePointer = IDataChannel::create(mNativeDelegatePointer, FetchNativePointer::fromSctpTransport(dataTransport), FromCx(params));
+    mNativePointer = IDataChannel::create(mNativeDelegatePointer, FetchNativePointer::FromSctpTransport(dataTransport), FromCx(params));
   }
 }
 
