@@ -17,6 +17,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)helpers.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MediaStreamTrack.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MediaTypes.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)OrtcMediaDevices.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCDataChannel.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCDtlsTransport.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCIceGatherer.h" />
@@ -31,6 +32,7 @@
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)helpers.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MediaStreamTrack.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)OrtcMediaDevices.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCDataChannel.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCDtlsTransport.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCIceGatherer.cpp" />

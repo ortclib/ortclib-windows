@@ -385,6 +385,42 @@ namespace ortc_winrt_api
 	  
 	  return ret;
   }
+
+  SupportedConstraints^ ToCx(IMediaDevicesTypes::SupportedConstraints constraints)
+  {
+	  auto ret = ref new SupportedConstraints();
+
+	  ret->Width = constraints.mWidth;
+	  ret->Height = constraints.mHeight;
+	  ret->AspectRatio = constraints.mAspectRatio;
+	  ret->FrameRate = constraints.mFrameRate;
+	  ret->FacingMode = constraints.mFacingMode;
+	  ret->Volume = constraints.mVolume;
+	  ret->SampleRate = constraints.mSampleRate;
+	  ret->SampleSize = constraints.mSampleSize;
+	  ret->EchoCancellation = constraints.mEchoCancellation;
+	  ret->Latency = constraints.mLatency;
+	  ret->DeviceID = constraints.mDeviceID;
+	  ret->GroupID = constraints.mGroupID;
+
+	  return ret;
+  }
+
+  MediaDeviceInfo^ ToCx(IMediaDevicesTypes::Device device)
+  {
+	  auto ret = ref new MediaDeviceInfo();
+
+	  ret->Kind = (MediaDeviceKinds)device.mKind;
+
+	  ret->Label = ToCx(device.mLabel);
+	  ret->DeviceID = ToCx(device.mDeviceID);
+	  ret->GroupID = ToCx(device.mGroupID);
+
+	  ret->SupportedConstraints = ToCx(device.mSupportedConstraints);
+
+	  return ret;
+  }
+
   IRTPTypes::Parameters FromCx(RTCRtpParameters^ parameters)
   {
 	  IRTPTypes::Parameters ret;

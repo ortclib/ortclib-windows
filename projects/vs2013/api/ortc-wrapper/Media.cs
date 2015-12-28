@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Media.Core;
 using ortc_winrt_api;
+using System.ComponentModel;
 
 namespace OrtcWrapper
 {
-
     public class Media
     {
         public delegate void OnMediaCaptureDeviceFoundDelegate(MediaDevice __param0);
@@ -29,19 +29,31 @@ namespace OrtcWrapper
 
         public IAsyncOperation<MediaStream> GetUserMedia(RTCMediaStreamConstraints mediaStreamConstraints) //async
         {
-            MediaStream ret = new MediaStream();
 
-            if (mediaStreamConstraints.audioEnabled)
+            Task<MediaStream> t = Task.Run<MediaStream>(() => 
             {
-                MediaAudioTrack track = new MediaAudioTrack();
-                ret.AddTrack(track);
-            }
+                IAsyncOperation<IList<MediaStreamTrack>> async = OrtcMediaDevices.getUserMedia(Helper.ToApiConstraints(mediaStreamConstraints));
+                MediaStream stream = new MediaStream();
 
-            if (mediaStreamConstraints.videoEnabled)
-            {
-                MediaVideoTrack track = new MediaVideoTrack();
-                ret.AddTrack(track);
-            }
+                if (mediaStreamConstraints.audioEnabled)
+                {
+                    MediaAudioTrack track = new MediaAudioTrack();
+                    stream.AddAudioTrack(track);
+                }
+
+                if (mediaStreamConstraints.videoEnabled)
+                {
+                    MediaVideoTrack track = new MediaVideoTrack();
+                    stream.AddVideoTrack(track);
+                }
+
+                var constraint = new Constraints();
+                var tracks = OrtcMediaDevices.getUserMedia(constraint);
+
+                return stream;
+            });
+
+            return t.AsAsyncOperation<MediaStream>();
         }
 
 

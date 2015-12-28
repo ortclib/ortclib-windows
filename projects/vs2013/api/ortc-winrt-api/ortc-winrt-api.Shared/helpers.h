@@ -10,6 +10,7 @@
 #include "RTPTypes.h"
 #include "MediaStreamTrack.h"
 #include <ortc/IMediaStreamTrack.h>
+#include <ortc/IMediaDevices.h>
 
 using namespace ortc;
 
@@ -42,6 +43,11 @@ namespace ortc_winrt_api
   MediaTrackConstraintSet^ ToCx(IMediaStreamTrackTypes::ConstraintSetPtr constraintSetPtr);
   MediaTrackConstraints^ ToCx(IMediaStreamTrackTypes::TrackConstraintsPtr trackConstraintsPtr);
   MediaTrackSettings^ ToCx(IMediaStreamTrackTypes::SettingsPtr settingsPtr);
+  SupportedConstraints^ ToCx(IMediaDevicesTypes::SupportedConstraints constraints);
+
+  MediaDeviceInfo^ ToCx(IMediaDevicesTypes::Device device);
+  MediaDeviceInfo^ ToCx(IMediaDevicesTypes::Device device);
+
   class FetchNativePointer
   {
   public:

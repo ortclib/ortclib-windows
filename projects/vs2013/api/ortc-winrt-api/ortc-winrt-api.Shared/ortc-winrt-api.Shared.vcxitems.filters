@@ -14,6 +14,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)MediaStreamTrack.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MediaTypes.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTPTypes.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)OrtcMediaDevices.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)pch.cpp">
@@ -29,5 +30,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCIceTransportController.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCRtpSender.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MediaStreamTrack.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)OrtcMediaDevices.cpp" />
   </ItemGroup>
 </Project>

@@ -248,5 +248,15 @@ namespace OrtcWrapper
                 line = reader.ReadLine();
             }
         }
+
+        public static Constraints ToApiConstraints(RTCMediaStreamConstraints mediaStreamConstraints)
+        {
+            Constraints ret = new Constraints();
+
+            ret.Audio = mediaStreamConstraints.audioEnabled ? new MediaTrackConstraints() : null;
+            ret.Video = mediaStreamConstraints.videoEnabled ? new MediaTrackConstraints() : null;
+
+            return ret;
+        }
     }
 }

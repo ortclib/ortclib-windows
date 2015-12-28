@@ -85,4 +85,38 @@ namespace ortc_winrt_api
 		property bool			value;
 		property ConstrainBoolParameters^	parameters;
 	};
+
+	public ref struct SupportedConstraints sealed
+	{
+		property bool Width;
+		property bool Height;
+		property bool AspectRatio;
+		property bool FrameRate;
+		property bool FacingMode;
+		property bool Volume;
+		property bool SampleRate;
+		property bool SampleSize;
+		property bool EchoCancellation;
+		property bool Latency;
+		property bool DeviceID;
+		property bool GroupID;
+	};
+
+	public enum class MediaDeviceKinds
+	{
+		DeviceKind_AudioInput,
+		DeviceKind_AudioOutput,
+		DeviceKind_Video,
+	};
+
+	public ref struct MediaDeviceInfo sealed 
+	{
+		property MediaDeviceKinds Kind;
+
+		property Platform::String^ Label;
+		property Platform::String^ DeviceID;
+		property Platform::String^ GroupID;
+
+		property SupportedConstraints^ SupportedConstraints;
+	};
 }
