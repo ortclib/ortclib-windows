@@ -109,6 +109,9 @@
       <AdditionalIncludeDirectories>../../../../../../libs;../../../../../../libs/op-services-cpp;../../../../../../libs/ortc-lib;../../../../../../libs/zsLib;../../../../../../libs/webrtc;../../../../../../libs/webrtc/webrtc;%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;WINRT;WEBRTC_WIN;_UNICODE;UNICODE;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>kernel32.lib;WindowsApp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
     <ClCompile>
@@ -117,14 +120,20 @@
       <AdditionalIncludeDirectories>../../../../../../libs;../../../../../../libs/op-services-cpp;../../../../../../libs/ortc-lib;../../../../../../libs/zsLib;../../../../../../libs/webrtc;../../../../../../libs/webrtc/webrtc;%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;WINRT;WEBRTC_WIN;_UNICODE;UNICODE;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>kernel32.lib;WindowsApp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204;4068;4290</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>../../../../../../libs;../../../../../../libs/op-services-cpp;../../../../../../libs/ortc-lib;../../../../../../libs/zsLib;../../../../../../libs/webrtc;../../../../../../libs/webrtc/webrtc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;WINRT;WEBRTC_WIN;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_UNICODE;UNICODE;WIN32;WINRT;WEBRTC_WIN;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>kernel32.lib;mfplat.lib;mfuuid.lib;Ws2_32.lib;WindowsApp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -133,6 +142,9 @@
       <AdditionalIncludeDirectories>../../../../../../libs;../../../../../../libs/op-services-cpp;../../../../../../libs/ortc-lib;../../../../../../libs/zsLib;../../../../../../libs/webrtc;../../../../../../libs/webrtc/webrtc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;WINRT;WEBRTC_WIN;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>mfplat.lib;mfuuid.lib;Ws2_32.lib;kernel32.lib;WindowsApp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -140,8 +152,11 @@
       <DisableSpecificWarnings>4453;28204;4068;4290</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>../../../../../../libs;../../../../../../libs/op-services-cpp;../../../../../../libs/ortc-lib;../../../../../../libs/zsLib;../../../../../../libs/webrtc;../../../../../../libs/webrtc/webrtc;%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;WINRT;WEBRTC_WIN;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>kernel32.lib;WindowsApp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -150,6 +165,9 @@
       <AdditionalIncludeDirectories>../../../../../../libs;../../../../../../libs/op-services-cpp;../../../../../../libs/ortc-lib;../../../../../../libs/zsLib;../../../../../../libs/webrtc;../../../../../../libs/webrtc/webrtc;%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;WINRT;WEBRTC_WIN;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>kernel32.lib;WindowsApp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -517,6 +535,11 @@
     <ProjectReference Include="..\..\..\..\..\..\libs\zsLib\projects\vs2013\zsLib\zsLib.Windows.Universal\zsLib.Windows.Universal.vcxproj">
       <Project>{e7265f01-f993-44f6-889c-24a62ab171a0}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="Microsoft.NET.Native.Runtime.1.1, Version=1.1" />
+    <SDKReference Include="Microsoft.UniversalCRT.Debug, Version=10.0.10586.0" />
+    <SDKReference Include="Microsoft.VCLibs.120, Version=14.0" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
