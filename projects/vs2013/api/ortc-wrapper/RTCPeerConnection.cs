@@ -175,17 +175,24 @@ namespace OrtcWrapper
 
             return sb.ToString();
         }
-        public Task<RTCSessionDescription> CreateOffer()//async
+        public async Task<RTCSessionDescription> CreateOffer()
         {
-            PrepareGatherer();
-            //RTCSessionDescription ret = new RTCSessionDescription();
-            //ret.Type = Offer;
+            Task<RTCSessionDescription> ret = Task.Run<RTCSessionDescription>(() =>
+            {
+                PrepareGatherer();
+                RTCSessionDescription sd = new RTCSessionDescription(RTCSdpType.Offer, this.createSDP());
+                return sd;
+            });
 
             return null;
         }
         public Task SetLocalDescription(RTCSessionDescription description) //async
         {
-            return null;
+            Task ret = Task.Run(() =>
+            {
+                //TODO update modifications
+            });
+            return ret;
         }
 
         public Task AddIceCandidate(RTCIceCandidate candidate) //async

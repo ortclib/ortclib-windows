@@ -13,7 +13,8 @@ namespace OrtcWrapper
 
         public RTCSessionDescription(RTCSdpType type, String sdp)
         {
-
+            Type = type;
+            Sdp = sdp;
         }
     }
 }

@@ -8,16 +8,23 @@ namespace OrtcWrapper
 {
     public class MediaAudioTrack : IMediaStreamTrack
     {
+        private string _id;
+        private bool _enabled;
+        public MediaAudioTrack(string id, bool enabled = true)
+        {
+            _id = id;
+            _enabled = enabled;
+        }
         public bool Enabled
         {
             get
             {
-                throw new NotImplementedException();
+                return _enabled;
             }
 
             set
             {
-                throw new NotImplementedException();
+                _enabled = value;
             }
         }
 
@@ -25,7 +32,7 @@ namespace OrtcWrapper
         {
             get
             {
-                throw new NotImplementedException();
+                return _id;
             }
         }
 
@@ -33,13 +40,13 @@ namespace OrtcWrapper
         {
             get
             {
-                throw new NotImplementedException();
+                return "audio";
             }
         }
 
         public void Stop()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }

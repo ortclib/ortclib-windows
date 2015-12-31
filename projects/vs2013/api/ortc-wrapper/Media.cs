@@ -7,6 +7,7 @@ using Windows.Foundation;
 using Windows.Media.Core;
 using ortc_winrt_api;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace OrtcWrapper
 {
@@ -27,30 +28,51 @@ namespace OrtcWrapper
             return null;
         }
 
-        public IAsyncOperation<MediaStream> GetUserMedia(RTCMediaStreamConstraints mediaStreamConstraints) //async
+        static public IAsyncOperation<MediaDeviceInfo> EnumerateDevices() //async
         {
-
-            Task<MediaStream> t = Task.Run<MediaStream>(() => 
+            Task<MediaDeviceInfo> t = Task.Run<MediaDeviceInfo>(() =>
             {
-                IAsyncOperation<IList<MediaStreamTrack>> async = OrtcMediaDevices.getUserMedia(Helper.ToApiConstraints(mediaStreamConstraints));
-                MediaStream stream = new MediaStream();
-
-                if (mediaStreamConstraints.audioEnabled)
+                Task<IList<MediaDeviceInfo>> task = OrtcMediaDevices.enumerateDevices().AsTask();
+                
+                return task.ContinueWith<MediaDeviceInfo>((temp) =>
                 {
-                    MediaAudioTrack track = new MediaAudioTrack();
-                    stream.AddAudioTrack(track);
-                }
+                    MediaDeviceInfo test = temp.Result[0];
 
-                if (mediaStreamConstraints.videoEnabled)
+                    return test;
+                });
+            });
+
+            return t.AsAsyncOperation<MediaDeviceInfo>();
+        }
+
+        public IAsyncOperation<MediaStream> GetUserMedia(RTCMediaStreamConstraints mediaStreamConstraints)
+        {
+            Task<MediaStream> t = Task.Run<MediaStream>(() =>
+            {
+                Task<IList<MediaStreamTrack>> task = OrtcMediaDevices.getUserMedia(Helper.ToApiConstraints(mediaStreamConstraints)).AsTask();
+                
+                return task.ContinueWith<MediaStream>((temp) =>
                 {
-                    MediaVideoTrack track = new MediaVideoTrack();
-                    stream.AddVideoTrack(track);
-                }
+                    MediaStream stream = new MediaStream();
+                    List<MediaStreamTrack> test = new List<MediaStreamTrack>(temp.Result);
+                    
+                    foreach (MediaStreamTrack track in test)
+                    {
 
-                var constraint = new Constraints();
-                var tracks = OrtcMediaDevices.getUserMedia(constraint);
-
-                return stream;
+                        if (track.Kind == MediaStreamTrackKind.TrackKind_Audio)
+                        {
+                            MediaAudioTrack audio = new MediaAudioTrack(track.Id);
+                            stream.AddAudioTrack(audio);
+                        }
+                        else if (track.Kind == MediaStreamTrackKind.TrackKind_Video)
+                        {
+                            MediaVideoTrack audio = new MediaVideoTrack(track.Id);
+                            stream.AddVideoTrack(audio);
+                        }
+                    }
+                    
+                    return stream;
+                });
             });
 
             return t.AsAsyncOperation<MediaStream>();

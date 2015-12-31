@@ -300,8 +300,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PeerCC", "PeerCC", "{5AC03E
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortc-standup.Windows.Universal", "samples\ortc-standup\ortc-standup.Windows.Universal\ortc-standup.Windows.Universal.vcxproj", "{C5AB382C-505A-4A6F-8577-F82145A34075}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortc-standup.Windows", "samples\ortc-standup\ortc-standup.Windows\ortc-standup.Windows.vcxproj", "{AE99AD05-5F08-41C4-86A3-89196A22200D}"
-EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		..\..\..\libs\udns\projects\vs2013\udns\udns.Shared\udns.Shared.vcxitems*{577f12ab-3473-4a93-8ee4-eeed2ce5dc61}*SharedItemsImports = 4
@@ -329,7 +327,6 @@ Global
 		samples\ortc-api-test\ortc-api-test\ortc-api-test.Shared\ortc-api-test.Shared.projitems*{a43ceb90-34f0-459b-898b-d1b66c0ab1e2}*SharedItemsImports = 4
 		..\..\..\samples\PeerCC\PeerConnectionClient.Shared\PeerConnectionClient.Shared.projitems*{1c529fe5-1d52-4bc1-881c-59dc0afee4b3}*SharedItemsImports = 13
 		samples\ortc-standup\ortc-standup.Shared\ortc-standup.Shared.vcxitems*{c5ab382c-505a-4a6f-8577-f82145a34075}*SharedItemsImports = 4
-		samples\ortc-standup\ortc-standup.Shared\ortc-standup.Shared.vcxitems*{ae99ad05-5f08-41c4-86a3-89196a22200d}*SharedItemsImports = 4
 		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortc-lib.Shared\ortc-lib.Shared.vcxitems*{c9ce65f1-df3e-47d2-95b8-6cddc789849c}*SharedItemsImports = 9
 		..\..\..\libs\udns\projects\vs2013\udns\udns.Shared\udns.Shared.vcxitems*{d66b52bd-7915-49ba-9cbd-d409bca40c55}*SharedItemsImports = 9
 		..\..\..\libs\cryptopp\projects\vs2013\cryptopp\cryptopp.Shared\cryptopp.Shared.vcxitems*{cb408c66-7391-49fd-a718-c5a04862c9ca}*SharedItemsImports = 9
@@ -1909,32 +1906,6 @@ Global
 		{C5AB382C-505A-4A6F-8577-F82145A34075}.Release|x86.ActiveCfg = Release|Win32
 		{C5AB382C-505A-4A6F-8577-F82145A34075}.Release|x86.Build.0 = Release|Win32
 		{C5AB382C-505A-4A6F-8577-F82145A34075}.Release|x86.Deploy.0 = Release|Win32
-		{AE99AD05-5F08-41C4-86A3-89196A22200D}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{AE99AD05-5F08-41C4-86A3-89196A22200D}.Debug|ARM.ActiveCfg = Debug|ARM
-		{AE99AD05-5F08-41C4-86A3-89196A22200D}.Debug|ARM.Build.0 = Debug|ARM
-		{AE99AD05-5F08-41C4-86A3-89196A22200D}.Debug|ARM.Deploy.0 = Debug|ARM
-		{AE99AD05-5F08-41C4-86A3-89196A22200D}.Debug|Win32.ActiveCfg = Debug|Win32
-		{AE99AD05-5F08-41C4-86A3-89196A22200D}.Debug|Win32.Build.0 = Debug|Win32
-		{AE99AD05-5F08-41C4-86A3-89196A22200D}.Debug|Win32.Deploy.0 = Debug|Win32
-		{AE99AD05-5F08-41C4-86A3-89196A22200D}.Debug|x64.ActiveCfg = Debug|x64
-		{AE99AD05-5F08-41C4-86A3-89196A22200D}.Debug|x64.Build.0 = Debug|x64
-		{AE99AD05-5F08-41C4-86A3-89196A22200D}.Debug|x64.Deploy.0 = Debug|x64
-		{AE99AD05-5F08-41C4-86A3-89196A22200D}.Debug|x86.ActiveCfg = Debug|Win32
-		{AE99AD05-5F08-41C4-86A3-89196A22200D}.Debug|x86.Build.0 = Debug|Win32
-		{AE99AD05-5F08-41C4-86A3-89196A22200D}.Debug|x86.Deploy.0 = Debug|Win32
-		{AE99AD05-5F08-41C4-86A3-89196A22200D}.Release|Any CPU.ActiveCfg = Release|Win32
-		{AE99AD05-5F08-41C4-86A3-89196A22200D}.Release|ARM.ActiveCfg = Release|ARM
-		{AE99AD05-5F08-41C4-86A3-89196A22200D}.Release|ARM.Build.0 = Release|ARM
-		{AE99AD05-5F08-41C4-86A3-89196A22200D}.Release|ARM.Deploy.0 = Release|ARM
-		{AE99AD05-5F08-41C4-86A3-89196A22200D}.Release|Win32.ActiveCfg = Release|Win32
-		{AE99AD05-5F08-41C4-86A3-89196A22200D}.Release|Win32.Build.0 = Release|Win32
-		{AE99AD05-5F08-41C4-86A3-89196A22200D}.Release|Win32.Deploy.0 = Release|Win32
-		{AE99AD05-5F08-41C4-86A3-89196A22200D}.Release|x64.ActiveCfg = Release|x64
-		{AE99AD05-5F08-41C4-86A3-89196A22200D}.Release|x64.Build.0 = Release|x64
-		{AE99AD05-5F08-41C4-86A3-89196A22200D}.Release|x64.Deploy.0 = Release|x64
-		{AE99AD05-5F08-41C4-86A3-89196A22200D}.Release|x86.ActiveCfg = Release|Win32
-		{AE99AD05-5F08-41C4-86A3-89196A22200D}.Release|x86.Build.0 = Release|Win32
-		{AE99AD05-5F08-41C4-86A3-89196A22200D}.Release|x86.Deploy.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2070,6 +2041,5 @@ Global
 		{1C529FE5-1D52-4BC1-881C-59DC0AFEE4B3} = {5AC03EE7-BA0F-4E74-97BD-C8C2294237A6}
 		{5AC03EE7-BA0F-4E74-97BD-C8C2294237A6} = {9E10CFE8-14EF-4F71-94F6-0D07EEF82F64}
 		{C5AB382C-505A-4A6F-8577-F82145A34075} = {A326F21A-98A2-492E-B804-BEB423C93B31}
-		{AE99AD05-5F08-41C4-86A3-89196A22200D} = {A326F21A-98A2-492E-B804-BEB423C93B31}
 	EndGlobalSection
 EndGlobal

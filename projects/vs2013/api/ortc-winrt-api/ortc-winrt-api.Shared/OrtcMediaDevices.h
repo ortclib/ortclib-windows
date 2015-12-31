@@ -6,11 +6,14 @@
 
 
 using Platform::Array;
+using Platform::Collections::Vector;
 using Windows::Foundation::Collections::IVector;
 using Windows::Foundation::IAsyncOperation;
 
 namespace ortc_winrt_api
 {
+	ZS_DECLARE_CLASS_PTR(OrtcMediaStreamTrackPromiseObserver)
+	ZS_DECLARE_CLASS_PTR(OrtcMediaDevicesPromiseObserver)
 	public ref struct Constraints sealed
 	{
 		property MediaTrackConstraints^ Video;
@@ -45,6 +48,7 @@ namespace ortc_winrt_api
 	private:
 		Concurrency::task_completion_event<IVector<MediaStreamTrack^>^> mTce;
 	};
+
 
 	public ref class OrtcMediaDevices sealed
 	{
