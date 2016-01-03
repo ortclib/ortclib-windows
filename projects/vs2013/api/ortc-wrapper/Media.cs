@@ -58,7 +58,6 @@ namespace OrtcWrapper
                     
                     foreach (MediaStreamTrack track in test)
                     {
-
                         if (track.Kind == MediaStreamTrackKind.TrackKind_Audio)
                         {
                             MediaAudioTrack audio = new MediaAudioTrack(track.Id);

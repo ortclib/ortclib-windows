@@ -111,15 +111,20 @@ void OrtcMediaStreamTrackPromiseObserver::onPromiseResolved(PromisePtr promise)
 {
 	auto ret = ref new Vector<MediaStreamTrack^>();
 
-	ortc::IMediaDevicesTypes::MediaStreamTrackListPtr mediaStreamTrackListPtr = promise->value<ortc::IMediaDevicesTypes::MediaStreamTrackList>();
+	IMediaDevicesTypes::MediaStreamTrackListPtr mediaStreamTrackListPtr = ZS_DYNAMIC_PTR_CAST(IMediaDevicesTypes::MediaStreamTrackList, promise);
 
-	for (IMediaDevicesTypes::MediaStreamTrackList::iterator it = mediaStreamTrackListPtr->begin(); it != mediaStreamTrackListPtr->end(); ++it)
+	//test
+	ortc::IMediaDevicesTypes::MediaStreamTrackListPtr mediaStreamTrackListPtr2 = promise->value<ortc::IMediaDevicesTypes::MediaStreamTrackList>();
+
+	if (mediaStreamTrackListPtr != nullptr)
 	{
-		MediaStreamTrack^ track = ConvertObjectToCx::ToMediaStreamTrack(*it);
+		for (IMediaDevicesTypes::MediaStreamTrackList::iterator it = mediaStreamTrackListPtr->begin(); it != mediaStreamTrackListPtr->end(); ++it)
+		{
+			MediaStreamTrack^ track = ConvertObjectToCx::ToMediaStreamTrack(*it);
 
-		ret->Append(track);
+			ret->Append(track);
+		}
 	}
-	
 	mTce.set(ret);
 }
 void OrtcMediaStreamTrackPromiseObserver::onPromiseRejected(PromisePtr promise)

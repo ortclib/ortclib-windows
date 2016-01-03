@@ -13,7 +13,8 @@ using Windows::Foundation::Collections::IVector;
 namespace ortc_winrt_api
 {
   ZS_DECLARE_CLASS_PTR(RTCRtpSenderDelegate)
-
+  ZS_DECLARE_CLASS_PTR(RTCSenderPromiseObserver)
+  
   ref class RTCRtpSender;
 
 
@@ -75,10 +76,10 @@ namespace ortc_winrt_api
   //------------------------------------------
 
 
-  class RTCGenerateSenderPromiseObserver : public zsLib::IPromiseResolutionDelegate
+  class RTCSenderPromiseObserver : public zsLib::IPromiseResolutionDelegate
   {
   public:
-	  RTCGenerateSenderPromiseObserver(Concurrency::task_completion_event<void> tce);
+	  RTCSenderPromiseObserver(Concurrency::task_completion_event<void> tce);
 
 	  virtual void onPromiseResolved(PromisePtr promise);
 	  virtual void onPromiseRejected(PromisePtr promise);
@@ -91,7 +92,7 @@ namespace ortc_winrt_api
   {
     friend class RTCRtpSenderDelegate;
     friend class FetchNativePointer;
-
+	friend class ConvertObjectToCx;
   private:
     IRTPSenderPtr mNativePointer;
     RTCRtpSenderDelegatePtr mNativeDelegatePointer;
@@ -103,17 +104,7 @@ namespace ortc_winrt_api
 
 	  property MediaStreamTrack^ Track
 	  {
-		  MediaStreamTrack^ get()
-		  {
-			  if (_track == nullptr)
-			  {
-				  if (mNativePointer)
-				  {
-					  mNativePointer->track();
-				  }
-			  }
-			  return _track;
-		  }
+		  MediaStreamTrack^ get();
 	  }
 
     RTCRtpSender();

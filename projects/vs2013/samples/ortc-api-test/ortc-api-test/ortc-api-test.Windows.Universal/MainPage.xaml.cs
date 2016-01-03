@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using System.Diagnostics;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -70,14 +71,48 @@ namespace ortc_api_test
           _iceTransport2.OnICETransportCandidatePairGone += RTCIceTransport_onICETransportCandidatePairGone2;
           _iceTransport2.OnICETransportCandidatePairChanged += RTCIceTransport_onICETransportCandidatePairChanged2;
 
-          RTCCertificate.generateCertificate("").AsTask<RTCCertificate>().ContinueWith((cert) => {
+          RTCCertificate.generateCertificate("").AsTask<RTCCertificate>().ContinueWith((cert) => 
+          {
             _dtlsTransport = new RTCDtlsTransport(_iceTransport, cert.Result);
+              Constraints constraints = new Constraints();
+
+              constraints.Audio = new MediaTrackConstraints();
+              constraints.Video = new MediaTrackConstraints();
+
+              OrtcMediaDevices.getUserMedia(constraints).AsTask().ContinueWith<IList<MediaStreamTrack>>((temp) =>
+              {
+                  if (temp.Result != null && temp.Result.Count() > 0)
+                  {
+                      List<MediaStreamTrack> ret = new List<MediaStreamTrack>(temp.Result);
+                      List<RTCRtpSender> senders = new List<RTCRtpSender>();
+                      foreach (MediaStreamTrack track in temp.Result)
+                      {
+                          RTCRtpSender rtpSender = new RTCRtpSender(track, _dtlsTransport);
+                          senders.Add(rtpSender);
+                      }
+
+                      return ret;
+                  }
+
+                  return null;
+              });
           });
 
           RTCCertificate.generateCertificate("").AsTask<RTCCertificate>().ContinueWith((cert) =>
           {
             _dtlsTransport2 = new RTCDtlsTransport(_iceTransport2, cert.Result);
-          }); 
+          });
+
+            /*OrtcMediaDevices.enumerateDevices().AsTask().ContinueWith<MediaDeviceInfo>((temp) =>
+            {
+                foreach(MediaDeviceInfo info in temp.Result)
+                {
+                    if (info.DeviceID != null)
+                        System.Diagnostics.Debug.WriteLine("DeviceID: {0}",info.DeviceID);
+                }
+                return null;
+            });*/
+
         }
 
         //----------------------------------------------------------------------------------

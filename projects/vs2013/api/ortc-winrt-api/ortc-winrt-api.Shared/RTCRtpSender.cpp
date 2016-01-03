@@ -7,7 +7,7 @@
 using namespace ortc_winrt_api;
 
 using Platform::Collections::Vector;
-
+using Windows::Foundation::IAsyncAction;
 namespace Concurrency
 {
 	using ::LONG;
@@ -51,6 +51,18 @@ mNativeDelegatePointer(new RTCRtpSenderDelegate())
   }
 }
 
+MediaStreamTrack^ RTCRtpSender::Track::get()
+{
+	if (_track == nullptr)
+	{
+		if (mNativePointer)
+		{
+			_track = ConvertObjectToCx::ToMediaStreamTrack(mNativePointer->track());
+		}
+	}
+	return _track;
+}
+
 void RTCRtpSender::setTransport(RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport)
 {
   if (mNativePointer)
@@ -61,30 +73,26 @@ void RTCRtpSender::setTransport(RTCDtlsTransport^ transport, RTCDtlsTransport^ r
 
 IAsyncAction^ RTCRtpSender::setTrack(MediaStreamTrack^ track)
 {
-  return Concurrency::create_async([this,track]
-  {
-	  if (!track)
-	  {
+	IAsyncAction^ ret = Concurrency::create_async([this,track]()
+	{
+		Concurrency::task_completion_event<void> tce;
 
-	  }
+		if (track == nullptr || mNativePointer == nullptr)
+		{
+			tce.set();
+			return;
+		}
+		PromisePtr promise = mNativePointer->setTrack(FetchNativePointer::FromMediaTrack(track));
+		RTCSenderPromiseObserverPtr pDelegate(make_shared<RTCSenderPromiseObserver>(tce));
 
-	  Concurrency::task_completion_event<void> tce;
-	  
-	  if (this->mNativePointer)
-	  {
-		 zsLib::PromisePtr promise = this->mNativePointer->setTrack(FetchNativePointer::FromMediaTrack(track));
-		 
-		 //promise->then
-	     
-	  }
-    /*
-    RTCGenerateCertificatePromiseObserverPtr pDelegate(make_shared<RTCGenerateCertificatePromiseObserver>(tce));
+		promise->then(pDelegate);
+		promise->background();
+		auto tceTask = Concurrency::task<void>(tce);
 
-    promise->then(pDelegate);
-    promise->background();
-    auto tceTask = Concurrency::task<RTCCertificate^>(tce);*/
-
-  });
+		return tceTask.get();
+	});
+	
+	return ret;
 }
 
 RTCRtpCapabilities^ RTCRtpSender::getCapabilities(Platform::String^ kind)
@@ -167,17 +175,17 @@ void RTCRtpSenderDelegate::onRTPSenderSSRCConflict(
 	_sender->OnRTCRtpSenderSSRCConflict(evt);
 }
 
-RTCGenerateSenderPromiseObserver::RTCGenerateSenderPromiseObserver(Concurrency::task_completion_event<void> tce) : mTce(tce)
+RTCSenderPromiseObserver::RTCSenderPromiseObserver(Concurrency::task_completion_event<void> tce) : mTce(tce)
 {
 
 }
 
-void RTCGenerateSenderPromiseObserver::onPromiseResolved(PromisePtr promise)
+void RTCSenderPromiseObserver::onPromiseResolved(PromisePtr promise)
 {
-
+	mTce.set();
 }
 	
-void RTCGenerateSenderPromiseObserver::onPromiseRejected(PromisePtr promise)
+void RTCSenderPromiseObserver::onPromiseRejected(PromisePtr promise)
 {
 
 }
