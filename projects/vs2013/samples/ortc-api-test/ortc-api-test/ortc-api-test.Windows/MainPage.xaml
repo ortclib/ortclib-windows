@@ -8,7 +8,11 @@
     mc:Ignorable="d">
 
   <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <Button Content="Start IceGatherer" HorizontalAlignment="Left" Margin="204,185,0,0" VerticalAlignment="Top" Width="212" Click="Button_Click"/>
+    <Button Content="Start Engine" HorizontalAlignment="Left" Margin="204,185,0,0" VerticalAlignment="Top" Width="212" Click="Button_Click" x:Name="btnStart"/>
+    <Button Content="Send File" HorizontalAlignment="Left" Margin="829,185,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.378,-0.144" Width="238" Click="Button_Click_1" x:Name="btnSendFile"/>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Column="0" Margin="207,296,302,51" Name="Scroller">
+      <TextBlock Foreground="White" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Please Start ORTC Engine !" VerticalAlignment="Top" x:Name="tbLog" Width="{Binding ElementName=Scroller, Path=ViewportWidth}"/>
+    </ScrollViewer>
 
   </Grid>
 </Page>

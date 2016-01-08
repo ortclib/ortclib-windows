@@ -16,11 +16,11 @@ namespace ortc_winrt_api
   ConfigureOrtcEngine::ConfigureOrtcEngine()
   {
     openpeer::services::ILogger::setLogLevel(zsLib::Log::Trace);
-    openpeer::services::ILogger::setLogLevel("zsLib", zsLib::Log::Trace);
-    openpeer::services::ILogger::setLogLevel("openpeer_services", zsLib::Log::Trace);
-    openpeer::services::ILogger::setLogLevel("openpeer_services_http", zsLib::Log::Trace);
-    openpeer::services::ILogger::setLogLevel("ortclib", zsLib::Log::Insane);
-    openpeer::services::ILogger::setLogLevel("ortc_standup", zsLib::Log::Insane);
+    openpeer::services::ILogger::setLogLevel("zsLib", zsLib::Log::Debug);
+    openpeer::services::ILogger::setLogLevel("openpeer_services", zsLib::Log::Debug);
+    openpeer::services::ILogger::setLogLevel("openpeer_services_http", zsLib::Log::Debug);
+    openpeer::services::ILogger::setLogLevel("ortclib", zsLib::Log::Debug);
+    openpeer::services::ILogger::setLogLevel("ortc_standup", zsLib::Log::Debug);
 
     //openpeer::services::ILogger::installDebuggerLogger();
     openpeer::services::ILogger::installTelnetLogger(59999, 60, true);
@@ -84,24 +84,26 @@ namespace ortc_winrt_api
       IICEGatherer::InterfacePolicy interfacePolicy;
       interfacePolicy.mGatherPolicy = (IICEGatherer::FilterPolicies)options->GatherPolicy;
       ret.mInterfacePolicy.push_back(interfacePolicy);
-
-      if (options->IceServers->Size > 0)
+      if (options->IceServers)
       {
-        for (RTCIceServer^ srv : options->IceServers)
+        if (options->IceServers->Size > 0)
         {
-          ortc::IICEGatherer::Server server;
-          server.mUserName = FromCx(srv->UserName);
-          server.mCredential = FromCx(srv->Credential);
-          if (srv->URLs->Size > 0)
+          for (RTCIceServer^ srv : options->IceServers)
           {
-            for (Platform::String^ url : srv->URLs)
+            ortc::IICEGatherer::Server server;
+            server.mUserName = FromCx(srv->UserName);
+            server.mCredential = FromCx(srv->Credential);
+            if (srv->URLs->Size > 0)
             {
-              server.mURLs.push_back(FromCx(url));
+              for (Platform::String^ url : srv->URLs)
+              {
+                server.mURLs.push_back(FromCx(url));
+              }
             }
+            ret.mICEServers.push_back(server);
           }
-          ret.mICEServers.push_back(server);
-        }
 
+        }
       }
     }
     return ret;
@@ -136,6 +138,7 @@ namespace ortc_winrt_api
     if (parameters)
     {
       RTCDtlsFingerprint^ fingerprint = ref new RTCDtlsFingerprint();
+      ret->Fingerprints = ref new Vector<RTCDtlsFingerprint^>();
       for (ICertificateTypes::FingerprintList::iterator it = parameters->mFingerprints.begin(); it != parameters->mFingerprints.end(); ++it)
       {
         fingerprint->Algorithm = ToCx((*it).mAlgorithm);
@@ -155,8 +158,9 @@ namespace ortc_winrt_api
 
     ret.mLabel = FromCx(parameters->Label);
     ret.mOrdered = parameters->Ordered;
-    ret.mMaxPacketLifetime = Milliseconds(parameters->MaxPacketLifetime);
-    ret.mMaxRetransmits = parameters->MaxRetransmits;
+    //ret.mMaxPacketLifetime = Milliseconds(parameters->MaxPacketLifetime);
+    //ret.mMaxRetransmits
+    //ret.mMaxRetransmits = parameters->MaxRetransmits;
     ret.mProtocol = FromCx(parameters->Protocol);
     ret.mNegotiated = parameters->Negotiated;
     ret.mID = parameters->Id;

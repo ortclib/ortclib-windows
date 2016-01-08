@@ -42,6 +42,7 @@ void RTCDataChannel::send(Platform::String^ data)
   if (mNativePointer)
   {
     mNativePointer->send(FromCx(data));
+    ++sentPackets;
   }
 }
 
@@ -51,6 +52,7 @@ void RTCDataChannel::send(const Platform::Array<byte>^ data)
   {
     SecureByteBlockPtr bytes = openpeer::services::IHelper::convertToBuffer(data->Data, data->Length);
     mNativePointer->send(*bytes.get());
+    ++sentPackets;
   }
 }
 
@@ -58,7 +60,8 @@ void RTCDataChannel::send(const Platform::Array<byte>^ data, uint16 bufferSizeIn
 {
   if (mNativePointer)
   {
-    mNativePointer->send(data->Data, data->Length);
+    mNativePointer->send(data->Data, bufferSizeInBytes);
+    ++sentPackets;
   }
 }
 
@@ -79,6 +82,7 @@ void RTCDataChannelDelegate::onDataChannelError(
   )
 {
   auto evt = ref new RTCDataChannelErrorEvent();
+  evt->Error = ref new RTCDataChannelError();
   evt->Error->ErrorCode = errorCode;
   evt->Error->ErrorReason = ToCx(errorReason);
   _channel->OnDataChannelError(evt);
@@ -89,8 +93,16 @@ void RTCDataChannelDelegate::onDataChannelMessage(
   MessageEventDataPtr data
   )
 {
+  ++numberOfPackets;
   auto evt = ref new RTCMessageEventDataEvent();
-  evt->MessageData->Binary = ref new Array<byte>(data->mBinary->BytePtr(), data->mBinary->SizeInBytes());
-  evt->MessageData->Text = ToCx(data->mText);
+  evt->MessageData = ref new RTCMessageEventData();
+  if (data->mBinary)
+  {
+    evt->MessageData->Binary = ref new Array<byte>(data->mBinary->BytePtr(), data->mBinary->SizeInBytes());
+  }
+  if (data->mText)
+  {
+    evt->MessageData->Text = ToCx(data->mText);
+  }
   _channel->OnDataChannelMessage(evt);
 }

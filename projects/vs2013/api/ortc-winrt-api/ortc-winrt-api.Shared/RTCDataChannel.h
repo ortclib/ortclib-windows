@@ -32,6 +32,7 @@ namespace ortc_winrt_api
       );
 
     RTCDataChannel^ _channel;
+    int numberOfPackets = 0;
 
     void SetOwnerObject(RTCDataChannel^ owner) { _channel = owner; }
   };
@@ -43,11 +44,11 @@ namespace ortc_winrt_api
   {
   public:
     property Platform::String^   Label;
-    property boolean             Ordered;
+    property bool                Ordered;
     property uint64              MaxPacketLifetime;
     property uint64              MaxRetransmits;
     property Platform::String^   Protocol;
-    property boolean             Negotiated;
+    property bool                Negotiated;
     property uint16              Id;
   };
 
@@ -143,6 +144,7 @@ namespace ortc_winrt_api
   private:
     IDataChannelPtr mNativePointer;
     RTCDataChannelDelegatePtr mNativeDelegatePointer;
+    int sentPackets = 0;
 
   public:
 
