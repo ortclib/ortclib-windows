@@ -300,6 +300,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PeerCC", "PeerCC", "{5AC03E
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortc-standup.Windows.Universal", "samples\ortc-standup\ortc-standup.Windows.Universal\ortc-standup.Windows.Universal.vcxproj", "{C5AB382C-505A-4A6F-8577-F82145A34075}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclibTest.Windows.Universal", "..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Windows.Universal\ortclibTest.Windows.Universal.vcxproj", "{D9B5EE71-1E35-4D73-BDE5-0F7A5CAA9E00}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		..\..\..\libs\udns\projects\vs2013\udns\udns.Shared\udns.Shared.vcxitems*{577f12ab-3473-4a93-8ee4-eeed2ce5dc61}*SharedItemsImports = 4
@@ -309,6 +311,8 @@ Global
 		api\ortc-winrt-api\ortc-winrt-api.Shared\ortc-winrt-api.Shared.vcxitems*{f12c67f3-12a0-4532-bdde-4be043dbc140}*SharedItemsImports = 4
 		samples\ortc-api-test\ortc-api-test\ortc-api-test.Shared\ortc-api-test.Shared.projitems*{68a80fda-4c2d-4a4d-8394-883f324e0bd4}*SharedItemsImports = 13
 		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems*{73373db6-8059-4671-acbd-47219a769922}*SharedItemsImports = 9
+		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems*{d9b5ee71-1e35-4d73-bde5-0f7a5caa9e00}*SharedItemsImports = 4
+		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Shared\ortclibTest.Shared.vcxitems*{d9b5ee71-1e35-4d73-bde5-0f7a5caa9e00}*SharedItemsImports = 4
 		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems*{5ff4db7c-2406-46e1-a54c-b73b8aeec6a2}*SharedItemsImports = 4
 		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Shared\ortclibTest.Shared.vcxitems*{5ff4db7c-2406-46e1-a54c-b73b8aeec6a2}*SharedItemsImports = 4
 		..\..\..\libs\idnkit\projects\vs2013\idnkit\idnkit.Shared\idnkit.Shared.vcxitems*{0b940009-c54f-4932-8d03-03141dcc9a50}*SharedItemsImports = 4
@@ -1906,6 +1910,32 @@ Global
 		{C5AB382C-505A-4A6F-8577-F82145A34075}.Release|x86.ActiveCfg = Release|Win32
 		{C5AB382C-505A-4A6F-8577-F82145A34075}.Release|x86.Build.0 = Release|Win32
 		{C5AB382C-505A-4A6F-8577-F82145A34075}.Release|x86.Deploy.0 = Release|Win32
+		{D9B5EE71-1E35-4D73-BDE5-0F7A5CAA9E00}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{D9B5EE71-1E35-4D73-BDE5-0F7A5CAA9E00}.Debug|ARM.ActiveCfg = Debug|ARM
+		{D9B5EE71-1E35-4D73-BDE5-0F7A5CAA9E00}.Debug|ARM.Build.0 = Debug|ARM
+		{D9B5EE71-1E35-4D73-BDE5-0F7A5CAA9E00}.Debug|ARM.Deploy.0 = Debug|ARM
+		{D9B5EE71-1E35-4D73-BDE5-0F7A5CAA9E00}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D9B5EE71-1E35-4D73-BDE5-0F7A5CAA9E00}.Debug|Win32.Build.0 = Debug|Win32
+		{D9B5EE71-1E35-4D73-BDE5-0F7A5CAA9E00}.Debug|Win32.Deploy.0 = Debug|Win32
+		{D9B5EE71-1E35-4D73-BDE5-0F7A5CAA9E00}.Debug|x64.ActiveCfg = Debug|x64
+		{D9B5EE71-1E35-4D73-BDE5-0F7A5CAA9E00}.Debug|x64.Build.0 = Debug|x64
+		{D9B5EE71-1E35-4D73-BDE5-0F7A5CAA9E00}.Debug|x64.Deploy.0 = Debug|x64
+		{D9B5EE71-1E35-4D73-BDE5-0F7A5CAA9E00}.Debug|x86.ActiveCfg = Debug|Win32
+		{D9B5EE71-1E35-4D73-BDE5-0F7A5CAA9E00}.Debug|x86.Build.0 = Debug|Win32
+		{D9B5EE71-1E35-4D73-BDE5-0F7A5CAA9E00}.Debug|x86.Deploy.0 = Debug|Win32
+		{D9B5EE71-1E35-4D73-BDE5-0F7A5CAA9E00}.Release|Any CPU.ActiveCfg = Release|Win32
+		{D9B5EE71-1E35-4D73-BDE5-0F7A5CAA9E00}.Release|ARM.ActiveCfg = Release|ARM
+		{D9B5EE71-1E35-4D73-BDE5-0F7A5CAA9E00}.Release|ARM.Build.0 = Release|ARM
+		{D9B5EE71-1E35-4D73-BDE5-0F7A5CAA9E00}.Release|ARM.Deploy.0 = Release|ARM
+		{D9B5EE71-1E35-4D73-BDE5-0F7A5CAA9E00}.Release|Win32.ActiveCfg = Release|Win32
+		{D9B5EE71-1E35-4D73-BDE5-0F7A5CAA9E00}.Release|Win32.Build.0 = Release|Win32
+		{D9B5EE71-1E35-4D73-BDE5-0F7A5CAA9E00}.Release|Win32.Deploy.0 = Release|Win32
+		{D9B5EE71-1E35-4D73-BDE5-0F7A5CAA9E00}.Release|x64.ActiveCfg = Release|x64
+		{D9B5EE71-1E35-4D73-BDE5-0F7A5CAA9E00}.Release|x64.Build.0 = Release|x64
+		{D9B5EE71-1E35-4D73-BDE5-0F7A5CAA9E00}.Release|x64.Deploy.0 = Release|x64
+		{D9B5EE71-1E35-4D73-BDE5-0F7A5CAA9E00}.Release|x86.ActiveCfg = Release|Win32
+		{D9B5EE71-1E35-4D73-BDE5-0F7A5CAA9E00}.Release|x86.Build.0 = Release|Win32
+		{D9B5EE71-1E35-4D73-BDE5-0F7A5CAA9E00}.Release|x86.Deploy.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2041,5 +2071,6 @@ Global
 		{1C529FE5-1D52-4BC1-881C-59DC0AFEE4B3} = {5AC03EE7-BA0F-4E74-97BD-C8C2294237A6}
 		{5AC03EE7-BA0F-4E74-97BD-C8C2294237A6} = {9E10CFE8-14EF-4F71-94F6-0D07EEF82F64}
 		{C5AB382C-505A-4A6F-8577-F82145A34075} = {A326F21A-98A2-492E-B804-BEB423C93B31}
+		{D9B5EE71-1E35-4D73-BDE5-0F7A5CAA9E00} = {E98794F9-0E77-4F00-B22D-933680F10A5F}
 	EndGlobalSection
 EndGlobal
