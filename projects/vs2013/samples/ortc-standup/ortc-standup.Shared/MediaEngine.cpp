@@ -326,7 +326,7 @@ namespace ortc_standup
       ortc::IICEGathererTypes::Options gathererOptions;
       ortc::IICEGathererTypes::InterfacePolicy interfacePolicy;
       interfacePolicy.mGatherPolicy = ortc::IICEGathererTypes::FilterPolicy_None;
-      gathererOptions.mInterfacePolicy.push_back(interfacePolicy);
+      gathererOptions.mInterfacePolicies.push_back(interfacePolicy);
       ortc::IICEGathererTypes::Server iceServer;
 //      zsLib::String url = zsLib::String("stun:stun.l.google.com:19302");
       zsLib::String url = zsLib::String("stun:stun.vline.com");
@@ -569,9 +569,9 @@ void MediaEngine::onICEGathererError(
 }
 
 void MediaEngine::onDTLSTransportStateChange(
-                                              ortc::IDTLSTransportPtr transport,
-                                              ortc::IDTLSTransport::States state
-                                              )
+                                             ortc::IDTLSTransportPtr transport,
+                                             ortc::IDTLSTransport::States state
+                                             )
 {
 
 }
@@ -640,7 +640,7 @@ void MediaEngine::onIncomingCall(
   ortc::IICEGathererTypes::Options gathererOptions;
   ortc::IICEGathererTypes::InterfacePolicy interfacePolicy;
   interfacePolicy.mGatherPolicy = ortc::IICEGathererTypes::FilterPolicy_None;
-  gathererOptions.mInterfacePolicy.push_back(interfacePolicy);
+  gathererOptions.mInterfacePolicies.push_back(interfacePolicy);
   ortc::IICEGathererTypes::Server iceServer;
 //  zsLib::String url = zsLib::String("stun:stun.l.google.com:19302");
   zsLib::String url = zsLib::String("stun:stun.vline.com");

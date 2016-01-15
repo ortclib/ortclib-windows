@@ -62,24 +62,24 @@ namespace ortc_standup
     #pragma mark
 
     virtual void onICETransportStateChange(
-                                            ortc::IICETransportPtr transport,
-                                            ortc::IICETransport::States state
-                                            );
+                                           ortc::IICETransportPtr transport,
+                                           ortc::IICETransport::States state
+                                           ) override;
 
     virtual void onICETransportCandidatePairAvailable(
                                                       ortc::IICETransportPtr transport,
                                                       CandidatePairPtr candidatePair
-                                                      );
+                                                      ) override;
 
     virtual void onICETransportCandidatePairGone(
                                                  ortc::IICETransportPtr transport,
                                                  CandidatePairPtr candidatePair
-                                                 );
+                                                 ) override;
 
     virtual void onICETransportCandidatePairChanged(
                                                     ortc::IICETransportPtr transport,
                                                     CandidatePairPtr candidatePair
-                                                    );
+                                                    ) override;
 
     //-----------------------------------------------------------------------
     #pragma mark
@@ -87,30 +87,30 @@ namespace ortc_standup
     #pragma mark
 
     virtual void onICEGathererStateChange(
-                                           ortc::IICEGathererPtr gatherer,
-                                           ortc::IICEGatherer::States state
-                                           );
+                                          ortc::IICEGathererPtr gatherer,
+                                          ortc::IICEGatherer::States state
+                                          ) override;
 
     virtual void onICEGathererLocalCandidate(
                                              ortc::IICEGathererPtr gatherer,
                                              CandidatePtr candidate
-                                             );
+                                             ) override;
 
     virtual void onICEGathererLocalCandidateComplete(
                                                      ortc::IICEGathererPtr gatherer,
                                                      CandidateCompletePtr candidate
-                                                     );
+                                                     ) override;
 
     virtual void onICEGathererLocalCandidateGone(
                                                  ortc::IICEGathererPtr gatherer,
                                                  CandidatePtr candidate
-                                                 );
+                                                 ) override;
 
     virtual void onICEGathererError(
                                     ortc::IICEGathererPtr gatherer,
                                     ortc::IICEGathererDelegate::ErrorCode errorCode,
                                     zsLib::String errorReason
-                                    );
+                                    ) override;
 
     //-----------------------------------------------------------------------
     #pragma mark
@@ -118,15 +118,15 @@ namespace ortc_standup
     #pragma mark
 
     virtual void onDTLSTransportStateChange(
-                                             ortc::IDTLSTransportPtr transport,
-                                             ortc::IDTLSTransport::States state
-                                             );
+                                            ortc::IDTLSTransportPtr transport,
+                                            ortc::IDTLSTransport::States state
+                                            ) override;
 
     virtual void onDTLSTransportError(
                                       ortc::IDTLSTransportPtr transport,
                                       IDTLSTransportDelegate::ErrorCode errorCode,
                                       zsLib::String errorReason
-                                      );
+                                      ) override;
 
     //-----------------------------------------------------------------------
     #pragma mark
@@ -137,12 +137,12 @@ namespace ortc_standup
                                   ortc::IRTPSenderPtr sender,
                                   IRTPSenderDelegate::ErrorCode errorCode,
                                   zsLib::String errorReason
-                                  );
+                                  ) override;
 
     virtual void onRTPSenderSSRCConflict(
                                          ortc::IRTPSenderPtr sender,
                                          SSRCType ssrc
-                                         );
+                                         ) override;
 
     //-----------------------------------------------------------------------
     #pragma mark
@@ -153,7 +153,7 @@ namespace ortc_standup
                                     ortc::IRTPReceiverPtr sender,
                                     IRTPReceiverDelegate::ErrorCode errorCode,
                                     zsLib::String errorReason
-                                    );
+                                    ) override;
 
     //-----------------------------------------------------------------------
     #pragma mark
