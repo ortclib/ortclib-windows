@@ -83,7 +83,7 @@ namespace ortc_winrt_api
     {
       IICEGatherer::InterfacePolicy interfacePolicy;
       interfacePolicy.mGatherPolicy = (IICEGatherer::FilterPolicies)options->GatherPolicy;
-      ret.mInterfacePolicy.push_back(interfacePolicy);
+      ret.mInterfacePolicies.push_back(interfacePolicy);
 
       if (options->IceServers->Size > 0)
       {
@@ -192,7 +192,7 @@ namespace ortc_winrt_api
 
     //ret->rtcpFeedback = ref new Vector<RTCRtcpFeedback^>();
 
-    for (IRTPTypes::RTCPFeedbackList::iterator it = codecCapabilityPtr->mFeedback.begin(); it != codecCapabilityPtr->mFeedback.end(); ++it)
+    for (IRTPTypes::RTCPFeedbackList::iterator it = codecCapabilityPtr->mRTCPFeedback.begin(); it != codecCapabilityPtr->mRTCPFeedback.end(); ++it)
     {
       auto feedback = ref new RTCRtcpFeedback();
       feedback->parameter = ToCx(it->mParameter);
@@ -209,7 +209,7 @@ namespace ortc_winrt_api
     return ret;
   }
 
-  RTCRtpHeaderExtensions^ ToCx(IRTPTypes::HeaderExtensionsPtr headerExtensions)
+  RTCRtpHeaderExtensions^ ToCx(IRTPTypes::HeaderExtensionPtr headerExtensions)
   {
     auto ret = ref new RTCRtpHeaderExtensions();
 

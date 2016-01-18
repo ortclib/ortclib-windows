@@ -119,7 +119,7 @@ RTCRtpCapabilities^ RTCRtpSender::getCapabilities(Platform::String^ kind)
 
     for (IRTPTypes::HeaderExtensionsList::iterator it = capabilitiesPtr->mHeaderExtensions.begin(); it != capabilitiesPtr->mHeaderExtensions.end(); ++it)
     {
-      auto codec = ToCx((make_shared<IRTPTypes::HeaderExtensions>(*it)));
+      auto codec = ToCx((make_shared<IRTPTypes::HeaderExtension>(*it)));
       ret->headerExtensions->Append(codec);
     }
 

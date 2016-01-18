@@ -37,7 +37,7 @@ namespace ortc_winrt_api
   IICEGatherer::Options FromCx(RTCIceGatherOptions^ options);
 
   RTCRtpCodecCapability^ ToCx(IRTPTypes::CodecCapabilityPtr codecCapabilityPtr);
-  RTCRtpHeaderExtensions^ ToCx(IRTPTypes::HeaderExtensionsPtr headerExtensions);
+  RTCRtpHeaderExtensions^ ToCx(IRTPTypes::HeaderExtensionPtr headerExtensions);
 
   MediaTrackCapabilities^ ToCx(IMediaStreamTrackTypes::CapabilitiesPtr capabilitiesPtr);
   MediaTrackConstraintSet^ ToCx(IMediaStreamTrackTypes::ConstraintSetPtr constraintSetPtr);
