@@ -11,7 +11,7 @@
 
 #include <webrtc/base/logging.h>
 #include <webrtc/modules/video_render/windows/video_render_winrt.h>
-#include <webrtc/system_wrappers/interface/trace.h>
+#include <webrtc/system_wrappers/include/trace.h>
 
 using namespace ortc_standup;
 
