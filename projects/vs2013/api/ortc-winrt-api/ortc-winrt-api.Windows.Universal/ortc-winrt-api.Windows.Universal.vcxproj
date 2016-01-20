@@ -79,47 +79,41 @@
       <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\third_party\libvpx\libvpx_intrinsics_avx2_win.vcxproj">
-      <Project>{4aae6027-74ae-73a7-a3cd-9a9ce605f30a}</Project>
+    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\third_party\libvpx_new\libvpx_intrinsics_avx2_win.vcxproj">
+      <Project>{e8d4c87c-a541-1cb2-ffa7-58f3415cc8db}</Project>
       <Private>false</Private>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
-      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\third_party\libvpx\libvpx_intrinsics_mmx_win.vcxproj">
-      <Project>{3182cc65-dc02-24d0-f7dc-85f30a9a83e8}</Project>
-      <Private>false</Private>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
       <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\third_party\libvpx\libvpx_intrinsics_sse2_win.vcxproj">
-      <Project>{7e7c1e43-ed3f-732f-d374-f52c758b0414}</Project>
+    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\third_party\libvpx_new\libvpx_intrinsics_mmx_win.vcxproj">
+      <Project>{5513ed92-8639-9e68-9a72-5f130fe5f837}</Project>
       <Private>false</Private>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\third_party\libvpx\libvpx_intrinsics_sse4_1_win.vcxproj">
-      <Project>{4dea0aaa-1b35-7d93-d6da-7c54ea51cbf7}</Project>
+    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\third_party\libvpx_new\libvpx_intrinsics_sse2_win.vcxproj">
+      <Project>{45272aef-3731-f25f-c6fd-b5bcfe7ac440}</Project>
       <Private>false</Private>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\third_party\libvpx\libvpx_intrinsics_ssse3_win.vcxproj">
-      <Project>{89c0e6b9-7788-a846-b3fb-32d785c4ee0e}</Project>
+    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\third_party\libvpx_new\libvpx_intrinsics_sse4_1_win.vcxproj">
+      <Project>{dc42b52d-e8a2-d70d-7c1e-e7757009e49d}</Project>
       <Private>false</Private>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\third_party\libvpx\libvpx_win.vcxproj">
-      <Project>{eb602516-5820-9649-6ed0-ed63d5d477fc}</Project>
+    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\third_party\libvpx_new\libvpx_intrinsics_ssse3_win.vcxproj">
+      <Project>{fd184083-5655-0a47-3ab1-bdc5e732f89f}</Project>
       <Private>false</Private>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\third_party\libvpx_new\libvpx_new_win.vcxproj">
+      <Project>{08883fab-c3f5-870d-d2d1-eb616213135d}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\third_party\libyuv\libyuv_win.vcxproj">
       <Project>{de813719-cdba-b7d4-9786-e1ea2588fc37}</Project>
@@ -340,6 +334,11 @@
       <Private>false</Private>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
       <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\webrtc\modules\rent_a_codec_win.vcxproj">
+      <Project>{28681006-4195-6cd3-156d-41abeb2bb824}</Project>
+      <Private>false</Private>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\libs\webrtc\webrtc\modules\rtp_rtcp_win.vcxproj">
