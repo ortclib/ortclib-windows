@@ -7,43 +7,43 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "zsLib", "zsLib", "{0C48D872
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{2E835D6D-A406-47C0-BD6B-A6B4ABE95B5C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zsLib.Shared", "..\..\..\libs\zsLib\projects\vs2013\zsLib\zsLib.Shared\zsLib.Shared.vcxitems", "{AA3E6A72-1080-4430-9921-8EBA6652BA3A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zsLib.Shared", "..\..\libs\zsLib\projects\msvs\zsLib\zsLib.Shared\zsLib.Shared.vcxitems", "{AA3E6A72-1080-4430-9921-8EBA6652BA3A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zsLibTest_Universal.Shared", "..\..\..\libs\zsLib\projects\vs2013\zsLib\zsLibTest_Universal.Shared\zsLibTest_Universal.Shared.vcxitems", "{45DAA8AC-7DBD-4182-B99A-CD929C80D60D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zsLibTest_Universal.Shared", "..\..\libs\zsLib\projects\msvs\zsLib\zsLibTest_Universal.Shared\zsLibTest_Universal.Shared.vcxitems", "{45DAA8AC-7DBD-4182-B99A-CD929C80D60D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zsLib.WindowsPhone", "..\..\..\libs\zsLib\projects\vs2013\zsLib\zsLib.WindowsPhone\zsLib.WindowsPhone.vcxproj", "{869C57F3-67AF-4B32-ABCB-E42A072E9271}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zsLib.WindowsPhone", "..\..\libs\zsLib\projects\msvs\zsLib\zsLib.WindowsPhone\zsLib.WindowsPhone.vcxproj", "{869C57F3-67AF-4B32-ABCB-E42A072E9271}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zsLibTest_Universal.WindowsPhone", "..\..\..\libs\zsLib\projects\vs2013\zsLib\zsLibTest_Universal.WindowsPhone\zsLibTest_Universal.WindowsPhone.vcxproj", "{907B1C51-64CC-41A3-A6A4-77A9EA8B18F2}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zsLibTest_Universal.WindowsPhone", "..\..\libs\zsLib\projects\msvs\zsLib\zsLibTest_Universal.WindowsPhone\zsLibTest_Universal.WindowsPhone.vcxproj", "{907B1C51-64CC-41A3-A6A4-77A9EA8B18F2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "udns", "udns", "{AD5D74FC-F573-4542-B3A9-1A1C0B5989B3}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "udns.Shared", "..\..\..\libs\udns\projects\vs2013\udns\udns.Shared\udns.Shared.vcxitems", "{D66B52BD-7915-49BA-9CBD-D409BCA40C55}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "udns.Shared", "..\..\libs\udns\projects\msvs\udns\udns.Shared\udns.Shared.vcxitems", "{D66B52BD-7915-49BA-9CBD-D409BCA40C55}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "udns.WindowsPhone", "..\..\..\libs\udns\projects\vs2013\udns\udns.WindowsPhone\udns.WindowsPhone.vcxproj", "{0CC26E42-E162-478C-8CCB-FC81A7776450}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "udns.WindowsPhone", "..\..\libs\udns\projects\msvs\udns\udns.WindowsPhone\udns.WindowsPhone.vcxproj", "{0CC26E42-E162-478C-8CCB-FC81A7776450}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "idnkit", "idnkit", "{C5BB26FB-9AFF-493F-B443-0C8F8F2134BF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "idnkit.Shared", "..\..\..\libs\idnkit\projects\vs2013\idnkit\idnkit.Shared\idnkit.Shared.vcxitems", "{DE21ECB4-5A23-43B0-8313-6CD7BF6E3B37}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "idnkit.Shared", "..\..\libs\idnkit\projects\msvs\idnkit\idnkit.Shared\idnkit.Shared.vcxitems", "{DE21ECB4-5A23-43B0-8313-6CD7BF6E3B37}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "idnkit.WindowsPhone", "..\..\..\libs\idnkit\projects\vs2013\idnkit\idnkit.WindowsPhone\idnkit.WindowsPhone.vcxproj", "{9F611411-F4BD-4687-BE22-B16AF16C62FD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "idnkit.WindowsPhone", "..\..\libs\idnkit\projects\msvs\idnkit\idnkit.WindowsPhone\idnkit.WindowsPhone.vcxproj", "{9F611411-F4BD-4687-BE22-B16AF16C62FD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cryptopp", "cryptopp", "{A1B9C462-0078-4428-8537-DE7551D3EA6A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cryptopp.Shared", "..\..\..\libs\cryptopp\projects\vs2013\cryptopp\cryptopp.Shared\cryptopp.Shared.vcxitems", "{CB408C66-7391-49FD-A718-C5A04862C9CA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cryptopp.Shared", "..\..\libs\cryptopp\projects\msvs\cryptopp\cryptopp.Shared\cryptopp.Shared.vcxitems", "{CB408C66-7391-49FD-A718-C5A04862C9CA}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cryptopp.WindowsPhone", "..\..\..\libs\cryptopp\projects\vs2013\cryptopp\cryptopp.WindowsPhone\cryptopp.WindowsPhone.vcxproj", "{57718455-F1CD-468C-B888-9C5814BB5F4E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cryptopp.WindowsPhone", "..\..\libs\cryptopp\projects\msvs\cryptopp\cryptopp.WindowsPhone\cryptopp.WindowsPhone.vcxproj", "{57718455-F1CD-468C-B888-9C5814BB5F4E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "op-services-cpp", "op-services-cpp", "{0DE58935-2033-4854-9735-809D2C1AEC1F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{2BE9ACDB-8219-4A0C-AB73-BD5A7B5BE7C4}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hfservices.Shared", "..\..\..\libs\op-services-cpp\projects\vs2013\hfservices\hfservices.Shared\hfservices.Shared.vcxitems", "{B510E402-E901-4CF0-9073-76984AC9FDC7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hfservices.Shared", "..\..\libs\op-services-cpp\projects\msvs\hfservices\hfservices.Shared\hfservices.Shared.vcxitems", "{B510E402-E901-4CF0-9073-76984AC9FDC7}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hfservices.WindowsPhone", "..\..\..\libs\op-services-cpp\projects\vs2013\hfservices\hfservices.WindowsPhone\hfservices.WindowsPhone.vcxproj", "{0A6AE9CF-97F5-466B-A49B-CEDB0C74B0F8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hfservices.WindowsPhone", "..\..\libs\op-services-cpp\projects\msvs\hfservices\hfservices.WindowsPhone\hfservices.WindowsPhone.vcxproj", "{0A6AE9CF-97F5-466B-A49B-CEDB0C74B0F8}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hfservicesTest.Shared", "..\..\..\libs\op-services-cpp\projects\vs2013\hfservices\hfservicesTest.Shared\hfservicesTest.Shared.vcxitems", "{B53F4474-1ED7-42A2-8CC8-3A7F7D996A5D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hfservicesTest.Shared", "..\..\libs\op-services-cpp\projects\msvs\hfservices\hfservicesTest.Shared\hfservicesTest.Shared.vcxitems", "{B53F4474-1ED7-42A2-8CC8-3A7F7D996A5D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hfservicesTest.WindowsPhone", "..\..\..\libs\op-services-cpp\projects\vs2013\hfservices\hfservicesTest.WindowsPhone\hfservicesTest.WindowsPhone.vcxproj", "{11CDD8B4-78B5-4234-B8F2-C6916EF9B221}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hfservicesTest.WindowsPhone", "..\..\libs\op-services-cpp\projects\msvs\hfservices\hfservicesTest.WindowsPhone\hfservicesTest.WindowsPhone.vcxproj", "{11CDD8B4-78B5-4234-B8F2-C6916EF9B221}"
 	ProjectSection(ProjectDependencies) = postProject
 		{9F611411-F4BD-4687-BE22-B16AF16C62FD} = {9F611411-F4BD-4687-BE22-B16AF16C62FD}
 		{0CC26E42-E162-478C-8CCB-FC81A7776450} = {0CC26E42-E162-478C-8CCB-FC81A7776450}
@@ -54,9 +54,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hfservicesTest.WindowsPhone
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ortc-lib", "ortc-lib", "{44243A6D-994D-4F4D-8CB9-B6B3F96082A5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortc-lib.Shared", "..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortc-lib.Shared\ortc-lib.Shared.vcxitems", "{C9CE65F1-DF3E-47D2-95B8-6CDDC789849C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortc-lib.Shared", "..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortc-lib.Shared\ortc-lib.Shared.vcxitems", "{C9CE65F1-DF3E-47D2-95B8-6CDDC789849C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortc-lib.WindowsPhone", "..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortc-lib.WindowsPhone\ortc-lib.WindowsPhone.vcxproj", "{16FA42A6-7215-4B22-B939-0D98040F00F1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortc-lib.WindowsPhone", "..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortc-lib.WindowsPhone\ortc-lib.WindowsPhone.vcxproj", "{16FA42A6-7215-4B22-B939-0D98040F00F1}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A24A8EF5-A244-4B81-AF6C-FAF95D233102} = {A24A8EF5-A244-4B81-AF6C-FAF95D233102}
 	EndProjectSection
@@ -131,9 +131,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "opus", "opus", "{5FDD5538-7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{E98794F9-0E77-4F00-B22D-933680F10A5F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclibTest.Shared", "..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Shared\ortclibTest.Shared.vcxitems", "{C2F7BB00-C8A4-4459-9BE0-F58F67A1EE4D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclibTest.Shared", "..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortclibTest.Shared\ortclibTest.Shared.vcxitems", "{C2F7BB00-C8A4-4459-9BE0-F58F67A1EE4D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclibTest.WindowsPhone", "..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.WindowsPhone\ortclibTest.WindowsPhone.vcxproj", "{FAEBB8E2-46A8-43AF-8CAC-FB5511BBA11E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclibTest.WindowsPhone", "..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortclibTest.WindowsPhone\ortclibTest.WindowsPhone.vcxproj", "{FAEBB8E2-46A8-43AF-8CAC-FB5511BBA11E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{CD13F206-68C5-A1E1-2E9F-3E999E6EA5D9} = {CD13F206-68C5-A1E1-2E9F-3E999E6EA5D9}
 		{3FB8240E-2AB0-6397-7306-50626415E080} = {3FB8240E-2AB0-6397-7306-50626415E080}
@@ -155,101 +155,101 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclibTest.WindowsPhone", 
 		{767F56F8-0614-C592-A687-F612265E8381} = {767F56F8-0614-C592-A687-F612265E8381}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclibTestUnitTests", "..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems", "{73373DB6-8059-4671-ACBD-47219A769922}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclibTestUnitTests", "..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems", "{73373DB6-8059-4671-ACBD-47219A769922}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "boringssl", "boringssl", "{E4CBC302-DDE3-434F-A699-8BDB37910AC1}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gtest_win_phone", "..\..\..\libs\webrtc\testing\gtest_win_phone.vcxproj", "{BFAB9AC1-619C-4E01-02BD-65D4DA27118D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gtest_win_phone", "..\..\libs\webrtc\testing\gtest_win_phone.vcxproj", "{BFAB9AC1-619C-4E01-02BD-65D4DA27118D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "boringssl_win_phone", "..\..\..\libs\webrtc\third_party\boringssl\boringssl_win_phone.vcxproj", "{1A7EA66A-E03B-095A-417E-8CF49C39ED97}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "boringssl_win_phone", "..\..\libs\webrtc\third_party\boringssl\boringssl_win_phone.vcxproj", "{1A7EA66A-E03B-095A-417E-8CF49C39ED97}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libjpeg_win_phone", "..\..\..\libs\webrtc\third_party\libjpeg_turbo\libjpeg_win_phone.vcxproj", "{767F56F8-0614-C592-A687-F612265E8381}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libjpeg_win_phone", "..\..\libs\webrtc\third_party\libjpeg_turbo\libjpeg_win_phone.vcxproj", "{767F56F8-0614-C592-A687-F612265E8381}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_win_phone", "..\..\..\libs\webrtc\third_party\libvpx\libvpx_win_phone.vcxproj", "{184D4136-4BDB-86FA-255A-C86CA9346AA8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_win_phone", "..\..\libs\webrtc\third_party\libvpx\libvpx_win_phone.vcxproj", "{184D4136-4BDB-86FA-255A-C86CA9346AA8}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "openmax_dl_win_phone", "..\..\..\libs\webrtc\third_party\openmax_dl\dl\openmax_dl_win_phone.vcxproj", "{A02AC890-28E4-1D7F-2B11-11E2066B44E7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "openmax_dl_win_phone", "..\..\libs\webrtc\third_party\openmax_dl\dl\openmax_dl_win_phone.vcxproj", "{A02AC890-28E4-1D7F-2B11-11E2066B44E7}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "openmax_dl_neon_win_phone", "..\..\..\libs\webrtc\third_party\openmax_dl\dl\openmax_dl_neon_win_phone.vcxproj", "{185BEB0E-BBEE-39FB-988D-4D107914B61F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "openmax_dl_neon_win_phone", "..\..\libs\webrtc\third_party\openmax_dl\dl\openmax_dl_neon_win_phone.vcxproj", "{185BEB0E-BBEE-39FB-988D-4D107914B61F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "openmax_dl_armv7_win_phone", "..\..\..\libs\webrtc\third_party\openmax_dl\dl\openmax_dl_armv7_win_phone.vcxproj", "{788C604D-70C3-96EB-D8D9-5159CEC8625E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "openmax_dl_armv7_win_phone", "..\..\libs\webrtc\third_party\openmax_dl\dl\openmax_dl_armv7_win_phone.vcxproj", "{788C604D-70C3-96EB-D8D9-5159CEC8625E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "opus_win_phone", "..\..\..\libs\webrtc\third_party\opus\opus_win_phone.vcxproj", "{C8660B82-849C-E4BC-2449-B4B192C14C34}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "opus_win_phone", "..\..\libs\webrtc\third_party\opus\opus_win_phone.vcxproj", "{C8660B82-849C-E4BC-2449-B4B192C14C34}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jsoncpp_win_phone", "..\..\..\libs\webrtc\third_party\jsoncpp\jsoncpp_win_phone.vcxproj", "{E345FAE8-5F42-EA3A-0DEC-D0259B545D30}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jsoncpp_win_phone", "..\..\libs\webrtc\third_party\jsoncpp\jsoncpp_win_phone.vcxproj", "{E345FAE8-5F42-EA3A-0DEC-D0259B545D30}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libsrtp_win_phone", "..\..\..\libs\webrtc\third_party\libsrtp\libsrtp_win_phone.vcxproj", "{D93717E1-6103-4387-C194-F0F509597912}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libsrtp_win_phone", "..\..\libs\webrtc\third_party\libsrtp\libsrtp_win_phone.vcxproj", "{D93717E1-6103-4387-C194-F0F509597912}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libyuv_win_phone", "..\..\..\libs\webrtc\third_party\libyuv\libyuv_win_phone.vcxproj", "{CD13F206-68C5-A1E1-2E9F-3E999E6EA5D9}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libyuv_win_phone", "..\..\libs\webrtc\third_party\libyuv\libyuv_win_phone.vcxproj", "{CD13F206-68C5-A1E1-2E9F-3E999E6EA5D9}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "usrsctplib_win_phone", "..\..\..\libs\webrtc\third_party\usrsctp\usrsctplib_win_phone.vcxproj", "{A24A8EF5-A244-4B81-AF6C-FAF95D233102}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "usrsctplib_win_phone", "..\..\libs\webrtc\third_party\usrsctp\usrsctplib_win_phone.vcxproj", "{A24A8EF5-A244-4B81-AF6C-FAF95D233102}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_base_win_phone", "..\..\..\libs\webrtc\webrtc\base\rtc_base_win_phone.vcxproj", "{DD5ADBE3-3F05-1703-D928-31BEFC33F96D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_base_win_phone", "..\..\libs\webrtc\webrtc\base\rtc_base_win_phone.vcxproj", "{DD5ADBE3-3F05-1703-D928-31BEFC33F96D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_base_approved_win_phone", "..\..\..\libs\webrtc\webrtc\base\rtc_base_approved_win_phone.vcxproj", "{CD2BB815-A28E-7AAE-6820-03E97F602515}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_base_approved_win_phone", "..\..\libs\webrtc\webrtc\base\rtc_base_approved_win_phone.vcxproj", "{CD2BB815-A28E-7AAE-6820-03E97F602515}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common_audio_win_phone", "..\..\..\libs\webrtc\webrtc\common_audio\common_audio_win_phone.vcxproj", "{2475DC35-00CA-BD87-0C22-D0DE39A6468E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common_audio_win_phone", "..\..\libs\webrtc\webrtc\common_audio\common_audio_win_phone.vcxproj", "{2475DC35-00CA-BD87-0C22-D0DE39A6468E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common_video_win_phone", "..\..\..\libs\webrtc\webrtc\common_video\common_video_win_phone.vcxproj", "{27444253-9C25-7EEF-F6D3-E84099AF6759}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common_video_win_phone", "..\..\libs\webrtc\webrtc\common_video\common_video_win_phone.vcxproj", "{27444253-9C25-7EEF-F6D3-E84099AF6759}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "field_trial_default_win_phone", "..\..\..\libs\webrtc\webrtc\system_wrappers\field_trial_default_win_phone.vcxproj", "{A00EB87A-74D2-4748-101B-1CB13F6B2258}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "field_trial_default_win_phone", "..\..\libs\webrtc\webrtc\system_wrappers\field_trial_default_win_phone.vcxproj", "{A00EB87A-74D2-4748-101B-1CB13F6B2258}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "metrics_default_win_phone", "..\..\..\libs\webrtc\webrtc\system_wrappers\metrics_default_win_phone.vcxproj", "{5D144EC2-7A31-3516-B0E2-37132A631A19}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "metrics_default_win_phone", "..\..\libs\webrtc\webrtc\system_wrappers\metrics_default_win_phone.vcxproj", "{5D144EC2-7A31-3516-B0E2-37132A631A19}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "system_wrappers_win_phone", "..\..\..\libs\webrtc\webrtc\system_wrappers\system_wrappers_win_phone.vcxproj", "{3FB8240E-2AB0-6397-7306-50626415E080}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "system_wrappers_win_phone", "..\..\libs\webrtc\webrtc\system_wrappers\system_wrappers_win_phone.vcxproj", "{3FB8240E-2AB0-6397-7306-50626415E080}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "field_trial_win_phone", "..\..\..\libs\webrtc\webrtc\test\field_trial_win_phone.vcxproj", "{A0A86EEF-7ED9-A794-2AFD-7682ED18F9C4}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "field_trial_win_phone", "..\..\libs\webrtc\webrtc\test\field_trial_win_phone.vcxproj", "{A0A86EEF-7ED9-A794-2AFD-7682ED18F9C4}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "voice_engine_win_phone", "..\..\..\libs\webrtc\webrtc\voice_engine\voice_engine_win_phone.vcxproj", "{AF4F3C26-4C98-2ACA-463A-6A149729325E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "voice_engine_win_phone", "..\..\libs\webrtc\webrtc\voice_engine\voice_engine_win_phone.vcxproj", "{AF4F3C26-4C98-2ACA-463A-6A149729325E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_common_win_phone", "..\..\..\libs\webrtc\webrtc\webrtc_common_win_phone.vcxproj", "{2B037D34-AF68-9F62-DFF7-47D1CAFB43A3}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_common_win_phone", "..\..\libs\webrtc\webrtc\webrtc_common_win_phone.vcxproj", "{2B037D34-AF68-9F62-DFF7-47D1CAFB43A3}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_vp8_win_phone", "..\..\..\libs\webrtc\webrtc\modules\video_coding\codecs\vp8\webrtc_vp8_win_phone.vcxproj", "{8364F04C-07B8-A7CD-DFE1-D395F02F15D8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_vp8_win_phone", "..\..\libs\webrtc\webrtc\modules\video_coding\codecs\vp8\webrtc_vp8_win_phone.vcxproj", "{8364F04C-07B8-A7CD-DFE1-D395F02F15D8}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_coding_utility_win_phone", "..\..\..\libs\webrtc\webrtc\modules\video_coding\utility\video_coding_utility_win_phone.vcxproj", "{61E429DA-7A8F-1E8E-DCB0-1C879B872B5E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_coding_utility_win_phone", "..\..\libs\webrtc\webrtc\modules\video_coding\utility\video_coding_utility_win_phone.vcxproj", "{61E429DA-7A8F-1E8E-DCB0-1C879B872B5E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_coding_module_win_phone", "..\..\..\libs\webrtc\webrtc\modules\audio_coding_module_win_phone.vcxproj", "{71838DF2-8A53-CE86-D155-A20CB2B757E8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_coding_module_win_phone", "..\..\libs\webrtc\webrtc\modules\audio_coding_module_win_phone.vcxproj", "{71838DF2-8A53-CE86-D155-A20CB2B757E8}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_conference_mixer_win_phone", "..\..\..\libs\webrtc\webrtc\modules\audio_conference_mixer_win_phone.vcxproj", "{03B57E54-3161-099E-FBF9-BE9CD941924D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_conference_mixer_win_phone", "..\..\libs\webrtc\webrtc\modules\audio_conference_mixer_win_phone.vcxproj", "{03B57E54-3161-099E-FBF9-BE9CD941924D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_decoder_interface_win_phone", "..\..\..\libs\webrtc\webrtc\modules\audio_decoder_interface_win_phone.vcxproj", "{B8BE7610-8D03-980F-24C8-F77E5C26B73E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_decoder_interface_win_phone", "..\..\libs\webrtc\webrtc\modules\audio_decoder_interface_win_phone.vcxproj", "{B8BE7610-8D03-980F-24C8-F77E5C26B73E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_device_win_phone", "..\..\..\libs\webrtc\webrtc\modules\audio_device_win_phone.vcxproj", "{DAA585A3-F276-5FCE-2FA2-74D7F115C71D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_device_win_phone", "..\..\libs\webrtc\webrtc\modules\audio_device_win_phone.vcxproj", "{DAA585A3-F276-5FCE-2FA2-74D7F115C71D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_encoder_interface_win_phone", "..\..\..\libs\webrtc\webrtc\modules\audio_encoder_interface_win_phone.vcxproj", "{D220B3D0-B5D0-DE9A-B7A6-955AEE6AFE8A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_encoder_interface_win_phone", "..\..\libs\webrtc\webrtc\modules\audio_encoder_interface_win_phone.vcxproj", "{D220B3D0-B5D0-DE9A-B7A6-955AEE6AFE8A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_processing_win_phone", "..\..\..\libs\webrtc\webrtc\modules\audio_processing_win_phone.vcxproj", "{CF8B6087-AEAC-A379-708E-E8680D140DB6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_processing_win_phone", "..\..\libs\webrtc\webrtc\modules\audio_processing_win_phone.vcxproj", "{CF8B6087-AEAC-A379-708E-E8680D140DB6}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bitrate_controller_win_phone", "..\..\..\libs\webrtc\webrtc\modules\bitrate_controller_win_phone.vcxproj", "{13760942-B7FA-39F2-8361-B0368782DB7D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bitrate_controller_win_phone", "..\..\libs\webrtc\webrtc\modules\bitrate_controller_win_phone.vcxproj", "{13760942-B7FA-39F2-8361-B0368782DB7D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "media_file_win_phone", "..\..\..\libs\webrtc\webrtc\modules\media_file_win_phone.vcxproj", "{CD3D9911-EEC4-4EFF-6742-518926DD292E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "media_file_win_phone", "..\..\libs\webrtc\webrtc\modules\media_file_win_phone.vcxproj", "{CD3D9911-EEC4-4EFF-6742-518926DD292E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "neteq_win_phone", "..\..\..\libs\webrtc\webrtc\modules\neteq_win_phone.vcxproj", "{52279F56-69ED-8A0B-9075-14D4ABADE2B4}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "neteq_win_phone", "..\..\libs\webrtc\webrtc\modules\neteq_win_phone.vcxproj", "{52279F56-69ED-8A0B-9075-14D4ABADE2B4}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "paced_sender_win_phone", "..\..\..\libs\webrtc\webrtc\modules\paced_sender_win_phone.vcxproj", "{5DCFAF24-2733-FCF1-BC7B-69DCCA771333}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "paced_sender_win_phone", "..\..\libs\webrtc\webrtc\modules\paced_sender_win_phone.vcxproj", "{5DCFAF24-2733-FCF1-BC7B-69DCCA771333}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "red_win_phone", "..\..\..\libs\webrtc\webrtc\modules\red_win_phone.vcxproj", "{DDA4EE7B-E574-1382-FFEE-29F827BCF0B6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "red_win_phone", "..\..\libs\webrtc\webrtc\modules\red_win_phone.vcxproj", "{DDA4EE7B-E574-1382-FFEE-29F827BCF0B6}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "remote_bitrate_estimator_win_phone", "..\..\..\libs\webrtc\webrtc\modules\remote_bitrate_estimator_win_phone.vcxproj", "{B43A4448-437E-A4B3-0F34-ED50BD815F3E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "remote_bitrate_estimator_win_phone", "..\..\libs\webrtc\webrtc\modules\remote_bitrate_estimator_win_phone.vcxproj", "{B43A4448-437E-A4B3-0F34-ED50BD815F3E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtp_rtcp_win_phone", "..\..\..\libs\webrtc\webrtc\modules\rtp_rtcp_win_phone.vcxproj", "{3AC13745-4E43-69B7-7391-7C5EF92E9BF7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtp_rtcp_win_phone", "..\..\libs\webrtc\webrtc\modules\rtp_rtcp_win_phone.vcxproj", "{3AC13745-4E43-69B7-7391-7C5EF92E9BF7}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_capture_module_win_phone", "..\..\..\libs\webrtc\webrtc\modules\video_capture_module_win_phone.vcxproj", "{0788C397-08F9-F538-7475-A13453C35B88}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_capture_module_win_phone", "..\..\libs\webrtc\webrtc\modules\video_capture_module_win_phone.vcxproj", "{0788C397-08F9-F538-7475-A13453C35B88}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_capture_module_internal_impl_win_phone", "..\..\..\libs\webrtc\webrtc\modules\video_capture_module_internal_impl_win_phone.vcxproj", "{1498FA5E-2B09-94BC-7311-02EE36041985}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_capture_module_internal_impl_win_phone", "..\..\libs\webrtc\webrtc\modules\video_capture_module_internal_impl_win_phone.vcxproj", "{1498FA5E-2B09-94BC-7311-02EE36041985}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_processing_win_phone", "..\..\..\libs\webrtc\webrtc\modules\video_processing_win_phone.vcxproj", "{7FF23796-9AAB-49D0-3DBD-3AAE260066E0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_processing_win_phone", "..\..\libs\webrtc\webrtc\modules\video_processing_win_phone.vcxproj", "{7FF23796-9AAB-49D0-3DBD-3AAE260066E0}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_render_module_win_phone", "..\..\..\libs\webrtc\webrtc\modules\video_render_module_win_phone.vcxproj", "{D4D989E9-C400-6E51-81B9-4FF7F14F41CF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_render_module_win_phone", "..\..\libs\webrtc\webrtc\modules\video_render_module_win_phone.vcxproj", "{D4D989E9-C400-6E51-81B9-4FF7F14F41CF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_render_module_internal_impl_win_phone", "..\..\..\libs\webrtc\webrtc\modules\video_render_module_internal_impl_win_phone.vcxproj", "{4478B349-7FF8-4A21-CA93-A1B897AE26B2}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_render_module_internal_impl_win_phone", "..\..\libs\webrtc\webrtc\modules\video_render_module_internal_impl_win_phone.vcxproj", "{4478B349-7FF8-4A21-CA93-A1B897AE26B2}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_i420_win_phone", "..\..\..\libs\webrtc\webrtc\modules\webrtc_i420_win_phone.vcxproj", "{C4E5AB52-9A45-2FE0-859E-59AA6F71B206}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_i420_win_phone", "..\..\libs\webrtc\webrtc\modules\webrtc_i420_win_phone.vcxproj", "{C4E5AB52-9A45-2FE0-859E-59AA6F71B206}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_opus_win_phone", "..\..\..\libs\webrtc\webrtc\modules\webrtc_opus_win_phone.vcxproj", "{EA9CC2D7-2275-BE06-541F-2BFE7E78C2FB}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_opus_win_phone", "..\..\libs\webrtc\webrtc\modules\webrtc_opus_win_phone.vcxproj", "{EA9CC2D7-2275-BE06-541F-2BFE7E78C2FB}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_utility_win_phone", "..\..\..\libs\webrtc\webrtc\modules\webrtc_utility_win_phone.vcxproj", "{070B0513-9478-F3A5-611E-263899CF7236}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_utility_win_phone", "..\..\libs\webrtc\webrtc\modules\webrtc_utility_win_phone.vcxproj", "{070B0513-9478-F3A5-611E-263899CF7236}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_video_coding_win_phone", "..\..\..\libs\webrtc\webrtc\modules\webrtc_video_coding_win_phone.vcxproj", "{04A80FAB-BB4F-5C03-8C78-11C5555786AA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_video_coding_win_phone", "..\..\libs\webrtc\webrtc\modules\webrtc_video_coding_win_phone.vcxproj", "{04A80FAB-BB4F-5C03-8C78-11C5555786AA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "jsoncpp", "jsoncpp", "{5F7946C2-B3A8-409B-9CB8-713125F9B0EA}"
 EndProject
@@ -259,64 +259,64 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libyuv", "libyuv", "{B3C6D0
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "usrsctplib", "usrsctplib", "{A02014A9-9224-457F-8C3D-78AA08D2B874}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libyuv_neon_win_phone", "..\..\..\libs\webrtc\third_party\libyuv\libyuv_neon_win_phone.vcxproj", "{FC846571-692A-A671-D75E-2D19BC91BB36}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libyuv_neon_win_phone", "..\..\libs\webrtc\third_party\libyuv\libyuv_neon_win_phone.vcxproj", "{FC846571-692A-A671-D75E-2D19BC91BB36}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "vp9", "vp9", "{6FF675A8-0C34-406E-9120-531D8B27E03A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_vp9_win_phone", "..\..\..\libs\webrtc\webrtc\modules\video_coding\codecs\vp9\webrtc_vp9_win_phone.vcxproj", "{DC48F5F8-EDAB-CB38-7FBE-793D4D4BD8C2}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_vp9_win_phone", "..\..\libs\webrtc\webrtc\modules\video_coding\codecs\vp9\webrtc_vp9_win_phone.vcxproj", "{DC48F5F8-EDAB-CB38-7FBE-793D4D4BD8C2}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_h264_win_phone", "..\..\..\libs\webrtc\webrtc\modules\webrtc_h264_win_phone.vcxproj", "{9FC9EFDF-453A-8ADB-A567-FBE6C59DA550}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_h264_win_phone", "..\..\libs\webrtc\webrtc\modules\webrtc_h264_win_phone.vcxproj", "{9FC9EFDF-453A-8ADB-A567-FBE6C59DA550}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_win_phone", "..\..\..\libs\webrtc\webrtc\webrtc_win_phone.vcxproj", "{3A1F68EE-AAB8-7842-D81F-6058D7D75DA7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_win_phone", "..\..\libs\webrtc\webrtc\webrtc_win_phone.vcxproj", "{3A1F68EE-AAB8-7842-D81F-6058D7D75DA7}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_processing_neon_win_phone", "..\..\..\libs\webrtc\webrtc\modules\audio_processing_neon_win_phone.vcxproj", "{8CBBF294-2E83-04D7-07C4-5CFE4488407B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_processing_neon_win_phone", "..\..\libs\webrtc\webrtc\modules\audio_processing_neon_win_phone.vcxproj", "{8CBBF294-2E83-04D7-07C4-5CFE4488407B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "isac_fix_win_phone", "..\..\..\libs\webrtc\webrtc\modules\isac_fix_win_phone.vcxproj", "{A76A0121-636E-FA5A-48D0-05C3A2CC9741}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "isac_fix_win_phone", "..\..\libs\webrtc\webrtc\modules\isac_fix_win_phone.vcxproj", "{A76A0121-636E-FA5A-48D0-05C3A2CC9741}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "isac_neon_win_phone", "..\..\..\libs\webrtc\webrtc\modules\isac_neon_win_phone.vcxproj", "{A3BB03C7-460B-BF9A-CDAE-ABD465B8F2F2}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "isac_neon_win_phone", "..\..\libs\webrtc\webrtc\modules\isac_neon_win_phone.vcxproj", "{A3BB03C7-460B-BF9A-CDAE-ABD465B8F2F2}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common_audio_neon_win_phone", "..\..\..\libs\webrtc\webrtc\common_audio\common_audio_neon_win_phone.vcxproj", "{60D1CF8D-FED8-2292-9341-B42732FFE57D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common_audio_neon_win_phone", "..\..\libs\webrtc\webrtc\common_audio\common_audio_neon_win_phone.vcxproj", "{60D1CF8D-FED8-2292-9341-B42732FFE57D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_event_log_win_phone", "..\..\..\libs\webrtc\webrtc\rtc_event_log_win_phone.vcxproj", "{47348B2C-8504-138D-630E-CB416E21D24C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_event_log_win_phone", "..\..\libs\webrtc\webrtc\rtc_event_log_win_phone.vcxproj", "{47348B2C-8504-138D-630E-CB416E21D24C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "isac_win_phone", "..\..\..\libs\webrtc\webrtc\modules\isac_win_phone.vcxproj", "{92DF14DC-9784-7C1E-B6C9-10273ADEFA78}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "isac_win_phone", "..\..\libs\webrtc\webrtc\modules\isac_win_phone.vcxproj", "{92DF14DC-9784-7C1E-B6C9-10273ADEFA78}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "isac_common_win_phone", "..\..\..\libs\webrtc\webrtc\modules\isac_common_win_phone.vcxproj", "{CB8EBBD1-7F74-8AAF-12F8-07B4CCDC1706}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "isac_common_win_phone", "..\..\libs\webrtc\webrtc\modules\isac_common_win_phone.vcxproj", "{CB8EBBD1-7F74-8AAF-12F8-07B4CCDC1706}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cng_win_phone", "..\..\..\libs\webrtc\webrtc\modules\cng_win_phone.vcxproj", "{5898DB25-044E-B45E-7702-957BFB00727A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cng_win_phone", "..\..\libs\webrtc\webrtc\modules\cng_win_phone.vcxproj", "{5898DB25-044E-B45E-7702-957BFB00727A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "g711_win_phone", "..\..\..\libs\webrtc\webrtc\modules\g711_win_phone.vcxproj", "{248E4546-6112-EBEC-7A1B-705353B122E0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "g711_win_phone", "..\..\libs\webrtc\webrtc\modules\g711_win_phone.vcxproj", "{248E4546-6112-EBEC-7A1B-705353B122E0}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "g722_win_phone", "..\..\..\libs\webrtc\webrtc\modules\g722_win_phone.vcxproj", "{4CFF2A7F-1B46-F601-9173-17440A429742}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "g722_win_phone", "..\..\libs\webrtc\webrtc\modules\g722_win_phone.vcxproj", "{4CFF2A7F-1B46-F601-9173-17440A429742}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ilbc_win_phone", "..\..\..\libs\webrtc\webrtc\modules\ilbc_win_phone.vcxproj", "{D273DC13-02A4-4A21-5626-AB105645C8E1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ilbc_win_phone", "..\..\libs\webrtc\webrtc\modules\ilbc_win_phone.vcxproj", "{D273DC13-02A4-4A21-5626-AB105645C8E1}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pcm16b_win_phone", "..\..\..\libs\webrtc\webrtc\modules\pcm16b_win_phone.vcxproj", "{15678891-D9FC-8CA8-AF4D-329FE0599B8F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pcm16b_win_phone", "..\..\libs\webrtc\webrtc\modules\pcm16b_win_phone.vcxproj", "{15678891-D9FC-8CA8-AF4D-329FE0599B8F}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		..\..\..\libs\zsLib\projects\vs2013\zsLib\zsLibTest_Universal.Shared\zsLibTest_Universal.Shared.vcxitems*{907b1c51-64cc-41a3-a6a4-77a9ea8b18f2}*SharedItemsImports = 4
-		..\..\..\libs\op-services-cpp\projects\vs2013\hfservices\hfservicesTest.Shared\hfservicesTest.Shared.vcxitems*{b53f4474-1ed7-42a2-8cc8-3a7f7d996a5d}*SharedItemsImports = 9
-		..\..\..\libs\op-services-cpp\projects\vs2013\hfservices\hfservicesTest.Shared\hfservicesTest.Shared.vcxitems*{11cdd8b4-78b5-4234-b8f2-c6916ef9b221}*SharedItemsImports = 4
-		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems*{73373db6-8059-4671-acbd-47219a769922}*SharedItemsImports = 9
-		..\..\..\libs\idnkit\projects\vs2013\idnkit\idnkit.Shared\idnkit.Shared.vcxitems*{9f611411-f4bd-4687-be22-b16af16c62fd}*SharedItemsImports = 4
-		..\..\..\libs\idnkit\projects\vs2013\idnkit\idnkit.Shared\idnkit.Shared.vcxitems*{de21ecb4-5a23-43b0-8313-6cd7bf6e3b37}*SharedItemsImports = 9
+		..\..\libs\zsLib\projects\msvs\zsLib\zsLibTest_Universal.Shared\zsLibTest_Universal.Shared.vcxitems*{907b1c51-64cc-41a3-a6a4-77a9ea8b18f2}*SharedItemsImports = 4
+		..\..\libs\op-services-cpp\projects\msvs\hfservices\hfservicesTest.Shared\hfservicesTest.Shared.vcxitems*{b53f4474-1ed7-42a2-8cc8-3a7f7d996a5d}*SharedItemsImports = 9
+		..\..\libs\op-services-cpp\projects\msvs\hfservices\hfservicesTest.Shared\hfservicesTest.Shared.vcxitems*{11cdd8b4-78b5-4234-b8f2-c6916ef9b221}*SharedItemsImports = 4
+		..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems*{73373db6-8059-4671-acbd-47219a769922}*SharedItemsImports = 9
+		..\..\libs\idnkit\projects\msvs\idnkit\idnkit.Shared\idnkit.Shared.vcxitems*{9f611411-f4bd-4687-be22-b16af16c62fd}*SharedItemsImports = 4
+		..\..\libs\idnkit\projects\msvs\idnkit\idnkit.Shared\idnkit.Shared.vcxitems*{de21ecb4-5a23-43b0-8313-6cd7bf6e3b37}*SharedItemsImports = 9
 		samples\ortc-standup\ortc-standup.Shared\ortc-standup.Shared.vcxitems*{196f4e37-9186-4991-99d3-67f5e1f012b6}*SharedItemsImports = 9
-		..\..\..\libs\zsLib\projects\vs2013\zsLib\zsLibTest_Universal.Shared\zsLibTest_Universal.Shared.vcxitems*{45daa8ac-7dbd-4182-b99a-cd929c80d60d}*SharedItemsImports = 9
-		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Shared\ortclibTest.Shared.vcxitems*{c2f7bb00-c8a4-4459-9be0-f58f67a1ee4d}*SharedItemsImports = 9
-		..\..\..\libs\zsLib\projects\vs2013\zsLib\zsLib.Shared\zsLib.Shared.vcxitems*{869c57f3-67af-4b32-abcb-e42a072e9271}*SharedItemsImports = 4
-		..\..\..\libs\udns\projects\vs2013\udns\udns.Shared\udns.Shared.vcxitems*{0cc26e42-e162-478c-8ccb-fc81a7776450}*SharedItemsImports = 4
+		..\..\libs\zsLib\projects\msvs\zsLib\zsLibTest_Universal.Shared\zsLibTest_Universal.Shared.vcxitems*{45daa8ac-7dbd-4182-b99a-cd929c80d60d}*SharedItemsImports = 9
+		..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortclibTest.Shared\ortclibTest.Shared.vcxitems*{c2f7bb00-c8a4-4459-9be0-f58f67a1ee4d}*SharedItemsImports = 9
+		..\..\libs\zsLib\projects\msvs\zsLib\zsLib.Shared\zsLib.Shared.vcxitems*{869c57f3-67af-4b32-abcb-e42a072e9271}*SharedItemsImports = 4
+		..\..\libs\udns\projects\msvs\udns\udns.Shared\udns.Shared.vcxitems*{0cc26e42-e162-478c-8ccb-fc81a7776450}*SharedItemsImports = 4
 		samples\ortc-standup\ortc-standup.Shared\ortc-standup.Shared.vcxitems*{e0801327-09c8-4e9a-801a-fe581cc54485}*SharedItemsImports = 4
-		..\..\..\libs\op-services-cpp\projects\vs2013\hfservices\hfservices.Shared\hfservices.Shared.vcxitems*{b510e402-e901-4cf0-9073-76984ac9fdc7}*SharedItemsImports = 9
-		..\..\..\libs\zsLib\projects\vs2013\zsLib\zsLib.Shared\zsLib.Shared.vcxitems*{aa3e6a72-1080-4430-9921-8eba6652ba3a}*SharedItemsImports = 9
-		..\..\..\libs\cryptopp\projects\vs2013\cryptopp\cryptopp.Shared\cryptopp.Shared.vcxitems*{57718455-f1cd-468c-b888-9c5814bb5f4e}*SharedItemsImports = 4
-		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems*{faebb8e2-46a8-43af-8cac-fb5511bba11e}*SharedItemsImports = 4
-		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Shared\ortclibTest.Shared.vcxitems*{faebb8e2-46a8-43af-8cac-fb5511bba11e}*SharedItemsImports = 4
-		..\..\..\libs\op-services-cpp\projects\vs2013\hfservices\hfservices.Shared\hfservices.Shared.vcxitems*{0a6ae9cf-97f5-466b-a49b-cedb0c74b0f8}*SharedItemsImports = 4
-		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortc-lib.Shared\ortc-lib.Shared.vcxitems*{16fa42a6-7215-4b22-b939-0d98040f00f1}*SharedItemsImports = 4
-		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortc-lib.Shared\ortc-lib.Shared.vcxitems*{c9ce65f1-df3e-47d2-95b8-6cddc789849c}*SharedItemsImports = 9
-		..\..\..\libs\udns\projects\vs2013\udns\udns.Shared\udns.Shared.vcxitems*{d66b52bd-7915-49ba-9cbd-d409bca40c55}*SharedItemsImports = 9
-		..\..\..\libs\cryptopp\projects\vs2013\cryptopp\cryptopp.Shared\cryptopp.Shared.vcxitems*{cb408c66-7391-49fd-a718-c5a04862c9ca}*SharedItemsImports = 9
+		..\..\libs\op-services-cpp\projects\msvs\hfservices\hfservices.Shared\hfservices.Shared.vcxitems*{b510e402-e901-4cf0-9073-76984ac9fdc7}*SharedItemsImports = 9
+		..\..\libs\zsLib\projects\msvs\zsLib\zsLib.Shared\zsLib.Shared.vcxitems*{aa3e6a72-1080-4430-9921-8eba6652ba3a}*SharedItemsImports = 9
+		..\..\libs\cryptopp\projects\msvs\cryptopp\cryptopp.Shared\cryptopp.Shared.vcxitems*{57718455-f1cd-468c-b888-9c5814bb5f4e}*SharedItemsImports = 4
+		..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems*{faebb8e2-46a8-43af-8cac-fb5511bba11e}*SharedItemsImports = 4
+		..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortclibTest.Shared\ortclibTest.Shared.vcxitems*{faebb8e2-46a8-43af-8cac-fb5511bba11e}*SharedItemsImports = 4
+		..\..\libs\op-services-cpp\projects\msvs\hfservices\hfservices.Shared\hfservices.Shared.vcxitems*{0a6ae9cf-97f5-466b-a49b-cedb0c74b0f8}*SharedItemsImports = 4
+		..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortc-lib.Shared\ortc-lib.Shared.vcxitems*{16fa42a6-7215-4b22-b939-0d98040f00f1}*SharedItemsImports = 4
+		..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortc-lib.Shared\ortc-lib.Shared.vcxitems*{c9ce65f1-df3e-47d2-95b8-6cddc789849c}*SharedItemsImports = 9
+		..\..\libs\udns\projects\msvs\udns\udns.Shared\udns.Shared.vcxitems*{d66b52bd-7915-49ba-9cbd-d409bca40c55}*SharedItemsImports = 9
+		..\..\libs\cryptopp\projects\msvs\cryptopp\cryptopp.Shared\cryptopp.Shared.vcxitems*{cb408c66-7391-49fd-a718-c5a04862c9ca}*SharedItemsImports = 9
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
