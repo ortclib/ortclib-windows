@@ -279,6 +279,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hfservicesTest.Windows.Univ
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zsLibTest.Windows.Universal", "..\..\libs\zsLib\projects\msvs\zsLib\zsLibTest.Windows.Universal\zsLibTest.Windows.Universal.vcxproj", "{753F1936-D5E5-4F37-8A65-537D06F0C8D2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ortc-wrapper", "ortc-wrapper", "{13282AB3-48CB-4CDC-8938-4FE5FECC4AF9}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ortc-wrapper.Shared", "api\ortc-wrapper\ortc-wrapper.Shared\ortc-wrapper.Shared.shproj", "{0A3C4D1F-04DC-4331-A3A2-19FF43C7DD4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ortc-wrapper.Windows.Universal", "api\ortc-wrapper\ortc-wrapper.Windows.Universal\ortc-wrapper.Windows.Universal.csproj", "{7D09A933-37B7-4192-AC97-F88D139B70CD}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		..\..\libs\udns\projects\msvs\udns\udns.Shared\udns.Shared.vcxitems*{577f12ab-3473-4a93-8ee4-eeed2ce5dc61}*SharedItemsImports = 4
@@ -287,6 +293,7 @@ Global
 		..\..\libs\op-services-cpp\projects\msvs\hfservices\hfservices.Shared\hfservices.Shared.vcxitems*{6ccc9220-9334-4601-821d-5f55bc397003}*SharedItemsImports = 4
 		api\ortc-winrt-api\ortc-winrt-api.Shared\ortc-winrt-api.Shared.vcxitems*{f12c67f3-12a0-4532-bdde-4be043dbc140}*SharedItemsImports = 4
 		samples\ortc-api-test\ortc-api-test\ortc-api-test.Shared\ortc-api-test.Shared.projitems*{68a80fda-4c2d-4a4d-8394-883f324e0bd4}*SharedItemsImports = 13
+		api\ortc-wrapper\ortc-wrapper.Shared\ortc-wrapper.Shared.projitems*{7d09a933-37b7-4192-ac97-f88d139b70cd}*SharedItemsImports = 4
 		..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems*{73373db6-8059-4671-acbd-47219a769922}*SharedItemsImports = 9
 		..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems*{d9b5ee71-1e35-4d73-bde5-0f7a5caa9e00}*SharedItemsImports = 4
 		..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortclibTest.Shared\ortclibTest.Shared.vcxitems*{d9b5ee71-1e35-4d73-bde5-0f7a5caa9e00}*SharedItemsImports = 4
@@ -298,6 +305,7 @@ Global
 		..\..\libs\zsLib\projects\msvs\zsLib\zsLibTest_Universal.Shared\zsLibTest_Universal.Shared.vcxitems*{45daa8ac-7dbd-4182-b99a-cd929c80d60d}*SharedItemsImports = 9
 		..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortclibTest.Shared\ortclibTest.Shared.vcxitems*{c2f7bb00-c8a4-4459-9be0-f58f67a1ee4d}*SharedItemsImports = 9
 		..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortc-lib.Shared\ortc-lib.Shared.vcxitems*{f4ef2e27-727c-4cf8-b727-81583b864265}*SharedItemsImports = 4
+		api\ortc-wrapper\ortc-wrapper.Shared\ortc-wrapper.Shared.projitems*{0a3c4d1f-04dc-4331-a3a2-19ff43c7dd4b}*SharedItemsImports = 13
 		..\..\libs\op-services-cpp\projects\msvs\hfservices\hfservices.Shared\hfservices.Shared.vcxitems*{b510e402-e901-4cf0-9073-76984ac9fdc7}*SharedItemsImports = 9
 		..\..\libs\op-services-cpp\projects\msvs\hfservices\hfservicesTest.Shared\hfservicesTest.Shared.vcxitems*{4bb8ae83-85cb-4654-966f-e29b7543b262}*SharedItemsImports = 4
 		..\..\libs\zsLib\projects\msvs\zsLib\zsLib.Shared\zsLib.Shared.vcxitems*{aa3e6a72-1080-4430-9921-8eba6652ba3a}*SharedItemsImports = 9
@@ -1864,6 +1872,26 @@ Global
 		{753F1936-D5E5-4F37-8A65-537D06F0C8D2}.Release|x86.ActiveCfg = Release|Win32
 		{753F1936-D5E5-4F37-8A65-537D06F0C8D2}.Release|x86.Build.0 = Release|Win32
 		{753F1936-D5E5-4F37-8A65-537D06F0C8D2}.Release|x86.Deploy.0 = Release|Win32
+		{7D09A933-37B7-4192-AC97-F88D139B70CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D09A933-37B7-4192-AC97-F88D139B70CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D09A933-37B7-4192-AC97-F88D139B70CD}.Debug|ARM.ActiveCfg = Debug|ARM
+		{7D09A933-37B7-4192-AC97-F88D139B70CD}.Debug|ARM.Build.0 = Debug|ARM
+		{7D09A933-37B7-4192-AC97-F88D139B70CD}.Debug|Win32.ActiveCfg = Debug|x86
+		{7D09A933-37B7-4192-AC97-F88D139B70CD}.Debug|Win32.Build.0 = Debug|x86
+		{7D09A933-37B7-4192-AC97-F88D139B70CD}.Debug|x64.ActiveCfg = Debug|x64
+		{7D09A933-37B7-4192-AC97-F88D139B70CD}.Debug|x64.Build.0 = Debug|x64
+		{7D09A933-37B7-4192-AC97-F88D139B70CD}.Debug|x86.ActiveCfg = Debug|x86
+		{7D09A933-37B7-4192-AC97-F88D139B70CD}.Debug|x86.Build.0 = Debug|x86
+		{7D09A933-37B7-4192-AC97-F88D139B70CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D09A933-37B7-4192-AC97-F88D139B70CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D09A933-37B7-4192-AC97-F88D139B70CD}.Release|ARM.ActiveCfg = Release|ARM
+		{7D09A933-37B7-4192-AC97-F88D139B70CD}.Release|ARM.Build.0 = Release|ARM
+		{7D09A933-37B7-4192-AC97-F88D139B70CD}.Release|Win32.ActiveCfg = Release|x86
+		{7D09A933-37B7-4192-AC97-F88D139B70CD}.Release|Win32.Build.0 = Release|x86
+		{7D09A933-37B7-4192-AC97-F88D139B70CD}.Release|x64.ActiveCfg = Release|x64
+		{7D09A933-37B7-4192-AC97-F88D139B70CD}.Release|x64.Build.0 = Release|x64
+		{7D09A933-37B7-4192-AC97-F88D139B70CD}.Release|x86.ActiveCfg = Release|x86
+		{7D09A933-37B7-4192-AC97-F88D139B70CD}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1998,5 +2026,8 @@ Global
 		{28681006-4195-6CD3-156D-41ABEB2BB824} = {9053BD60-C8C4-42F3-B9AB-28C16D99BAE6}
 		{4BB8AE83-85CB-4654-966F-E29B7543B262} = {2BE9ACDB-8219-4A0C-AB73-BD5A7B5BE7C4}
 		{753F1936-D5E5-4F37-8A65-537D06F0C8D2} = {2E835D6D-A406-47C0-BD6B-A6B4ABE95B5C}
+		{13282AB3-48CB-4CDC-8938-4FE5FECC4AF9} = {0732A704-D869-4D52-9814-E36F8F2F8086}
+		{0A3C4D1F-04DC-4331-A3A2-19FF43C7DD4B} = {13282AB3-48CB-4CDC-8938-4FE5FECC4AF9}
+		{7D09A933-37B7-4192-AC97-F88D139B70CD} = {13282AB3-48CB-4CDC-8938-4FE5FECC4AF9}
 	EndGlobalSection
 EndGlobal
