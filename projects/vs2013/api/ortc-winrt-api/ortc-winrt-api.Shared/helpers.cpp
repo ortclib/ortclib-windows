@@ -225,10 +225,38 @@ namespace ortc_winrt_api
   // ConvertObjectToCx class methods
   //***********************************************************************
 
+  RTCIceGatherer^ ConvertObjectToCx::ToIceGatherer(IIceGathererPtr iceGatherer)
+  {
+    RTCIceGatherer^ ret = ref new RTCIceGatherer();
+    ret->mNativePointer = iceGatherer;
+    return ret;
+  }
+
   RTCIceTransport^ ConvertObjectToCx::ToIceTransport(IIceTransportPtr iceTransport)
   {
     RTCIceTransport^ ret = ref new RTCIceTransport();
     ret->mNativePointer = iceTransport;
+    return ret;
+  }
+
+  RTCCertificate^ ConvertObjectToCx::ToCertificate(ICertificatePtr certificate)
+  {
+    RTCCertificate^ ret = ref new RTCCertificate();
+    ret->mNativePointer = certificate;
+    return ret;
+  }
+
+  RTCDtlsTransport^ ConvertObjectToCx::ToDtlsTransport(IDtlsTransportPtr dtlsTransport)
+  {
+    RTCDtlsTransport^ ret = ref new RTCDtlsTransport();
+    ret->mNativePointer = dtlsTransport;
+    return ret;
+  }
+
+  RTCSctpTransport^ ConvertObjectToCx::ToSctpTransport(ISctpTransportPtr sctpTransport)
+  {
+    RTCSctpTransport^ ret = ref new RTCSctpTransport();
+    ret->mNativePointer = sctpTransport;
     return ret;
   }
 

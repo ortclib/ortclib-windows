@@ -137,6 +137,11 @@ void RTCIceTransport::setRemoteCandidates(IVector<RTCIceCandidate^>^ remoteCandi
   }
 }
 
+RTCIceGatherer^ RTCIceTransport::GetIceGatherer()
+{
+  return ConvertObjectToCx::ToIceGatherer(mNativePointer->iceGatherer());
+}
+
 //-----------------------------------------------------------------
 #pragma mark RTCIceTransportDelegate
 //-----------------------------------------------------------------

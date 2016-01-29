@@ -135,6 +135,7 @@ namespace ortc_winrt_api
   {
     friend class RTCGenerateCertificatePromiseObserver;
     friend class FetchNativePointer;
+    friend class ConvertObjectToCx;
   public:
     static IAsyncOperation<RTCCertificate^>^ generateCertificate(Platform::String^ algorithmIdentifier);
   private:
@@ -149,6 +150,7 @@ namespace ortc_winrt_api
   {
     friend class RTCDtlsTransportDelegate;
     friend class FetchNativePointer;
+    friend class ConvertObjectToCx;
   public:
     RTCDtlsTransport();
     RTCDtlsTransport(RTCIceTransport^ transport, RTCCertificate^ certificate);
@@ -162,8 +164,45 @@ namespace ortc_winrt_api
     IDtlsTransportPtr mNativePointer;
     RTCDtlsTransportDelegatePtr mNativeDelegatePointer;
 
-  public:
 
+  private:
+    RTCIceTransport^ GetIceTransport();
+    IVector<RTCCertificate^>^ GetCertificates();
+
+  public:
+    property IVector<RTCCertificate^>^ Certificates
+    {
+      IVector<RTCCertificate^>^ get()
+      {
+        if (mNativePointer)
+          return GetCertificates();
+        else
+          return nullptr;
+      }
+    }
+
+    property RTCIceTransport^ IceTransport
+    {
+      RTCIceTransport^ get()
+      {
+        if (mNativePointer)
+          return GetIceTransport();
+        else
+          return nullptr;
+      }
+    }
+
+    property RTCDtlsTransportState State
+    {
+      RTCDtlsTransportState get()
+      {
+        if (mNativePointer)
+          return (RTCDtlsTransportState)mNativePointer->state();
+        else
+          return RTCDtlsTransportState::State_Closed;
+      }
+    }
+  public:
     event RTCDtlsTransportStateChangedDelegate^           OnDtlsTransportStateChanged;
     event RTCDtlsTransportErrorDelegate^                  OnDtlsTransportError;
   };

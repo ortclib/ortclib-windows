@@ -62,7 +62,11 @@ namespace ortc_winrt_api
   class ConvertObjectToCx
   {
   public:
+    static RTCIceGatherer^ ToIceGatherer(IIceGathererPtr iceGatherer);
     static RTCIceTransport^ ToIceTransport(IIceTransportPtr iceTransport);
+    static RTCCertificate^ ToCertificate(ICertificatePtr certificate);
+    static RTCDtlsTransport^ ToDtlsTransport(IDtlsTransportPtr dtlsTransport);
+    static RTCSctpTransport^ ToSctpTransport(ISctpTransportPtr sctpTransport);
 
 	static MediaStreamTrack^ ToMediaStreamTrack(IMediaStreamTrackPtr mediaStreamTrackPtr);
 	

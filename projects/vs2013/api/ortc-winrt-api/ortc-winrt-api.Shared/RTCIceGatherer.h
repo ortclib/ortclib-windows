@@ -224,6 +224,7 @@ namespace ortc_winrt_api
 	{
 		friend class RTCIceGathererDelegate;
 		friend class FetchNativePointer;
+    friend class ConvertObjectToCx;
 
 	public:
 		RTCIceGatherer();
