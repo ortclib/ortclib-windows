@@ -74,7 +74,7 @@ namespace OrtcWrapper
         {
             return null;
         }
-        public static async Task<bool> RequestAccessForMediaCapture() //async
+        private static async Task<bool> RequestAccessForMediaCapturePrivate() //async
         {
             MediaCapture mediaAccessRequester = new MediaCapture();
             MediaCaptureInitializationSettings  mediaSettings = new MediaCaptureInitializationSettings();
@@ -91,6 +91,10 @@ namespace OrtcWrapper
             }
 
             return false;
+        }
+        public static IAsyncOperation<bool> RequestAccessForMediaCapture()
+        {
+            return RequestAccessForMediaCapturePrivate().AsAsyncOperation();
         }
         //[Overload("SaveTrace2")]
         //public static bool SaveTrace(string filename);

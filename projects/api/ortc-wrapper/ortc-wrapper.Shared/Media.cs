@@ -91,7 +91,7 @@ namespace OrtcWrapper
         //public IList<MediaDevice> GetAudioCaptureDevices();
         //public IAsyncOperation<MediaStream> GetUserMedia(RTCMediaStreamConstraints mediaStreamConstraints);
         //public IList<MediaDevice> GetVideoCaptureDevices();
-        public void OnAppSuspending()
+        static public void OnAppSuspending()
         {
 
         }
@@ -104,5 +104,14 @@ namespace OrtcWrapper
 
         }
         //public void SetDisplayOrientation(DisplayOrientations display_orientation);
+        public bool SelectAudioPlayoutDevice(MediaDevice device)
+        {
+            return false;
+        }
+
+        public IList<MediaDevice> GetAudioPlayoutDevices()
+        {
+            return null;
+        }
     }
 }
