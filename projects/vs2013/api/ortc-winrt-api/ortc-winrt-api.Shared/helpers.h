@@ -39,6 +39,8 @@ namespace ortc_winrt_api
   RTCRtpCodecCapability^ ToCx(IRTPTypes::CodecCapabilityPtr codecCapabilityPtr);
   RTCRtpHeaderExtensions^ ToCx(IRTPTypes::HeaderExtensionPtr headerExtensions);
 
+  IRTPTypes::HeaderExtensionParameters FromCx(RTCRtpHeaderExtensionParameters^ headerExtensions);
+
   MediaTrackCapabilities^ ToCx(IMediaStreamTrackTypes::CapabilitiesPtr capabilitiesPtr);
   MediaTrackConstraintSet^ ToCx(IMediaStreamTrackTypes::ConstraintSetPtr constraintSetPtr);
   MediaTrackConstraints^ ToCx(IMediaStreamTrackTypes::TrackConstraintsPtr trackConstraintsPtr);

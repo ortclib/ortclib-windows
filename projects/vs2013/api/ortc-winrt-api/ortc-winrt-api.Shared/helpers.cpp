@@ -220,6 +220,17 @@ namespace ortc_winrt_api
 
     return ret;
   }
+
+  IRTPTypes::HeaderExtensionParameters FromCx(RTCRtpHeaderExtensionParameters^ headerExtensions)
+  {
+    IRTPTypes::HeaderExtensionParameters ret;
+
+    ret.mURI = FromCx(headerExtensions->uri);
+    ret.mEncrypt = headerExtensions->encrypt;
+    ret.mID = headerExtensions->id;
+
+    return ret;
+  }
  
   //***********************************************************************
   // ConvertObjectToCx class methods
