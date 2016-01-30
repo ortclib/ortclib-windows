@@ -135,6 +135,55 @@ namespace ortc_winrt_api
     IICETransportPtr mNativePointer;
     RTCIceTransportDelegatePtr mNativeDelegatePointer;
 
+  private:
+    RTCIceGatherer^ GetIceGatherer();
+    
+  public:
+
+    property RTCIceGatherer^ IceGatherer
+    {
+      RTCIceGatherer^ get()
+      {
+        if (mNativePointer)
+          return GetIceGatherer();
+        else
+          return nullptr;
+      }
+    }
+
+    property RTCIceComponent Component
+    {
+      RTCIceComponent get()
+      {
+        if (mNativePointer)
+          return (RTCIceComponent)mNativePointer->component();
+        else
+          return RTCIceComponent::RTP;
+      }
+    }
+
+    property RTCIceRole Role
+    {
+      RTCIceRole get()
+      {
+        if (mNativePointer)
+          return (RTCIceRole)mNativePointer->role();
+        else
+          return RTCIceRole::Role_Controlled;
+      }
+    }
+
+    property RTCIceTransportState State
+    {
+      RTCIceTransportState get()
+      {
+        if (mNativePointer)
+          return (RTCIceTransportState)mNativePointer->state();
+        else
+          return RTCIceTransportState::State_Closed;
+      }
+    }
+
   public:
 
     event RTCIceTransportStateChangedDelegate^            OnICETransportStateChanged;

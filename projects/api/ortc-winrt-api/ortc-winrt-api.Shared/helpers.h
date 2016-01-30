@@ -39,6 +39,8 @@ namespace ortc_winrt_api
   RTCRtpCodecCapability^ ToCx(IRTPTypes::CodecCapabilityPtr codecCapabilityPtr);
   RTCRtpHeaderExtensions^ ToCx(IRTPTypes::HeaderExtensionPtr headerExtensions);
 
+  IRTPTypes::HeaderExtensionParameters FromCx(RTCRtpHeaderExtensionParameters^ headerExtensions);
+
   MediaTrackCapabilities^ ToCx(IMediaStreamTrackTypes::CapabilitiesPtr capabilitiesPtr);
   MediaTrackConstraintSet^ ToCx(IMediaStreamTrackTypes::ConstraintSetPtr constraintSetPtr);
   MediaTrackConstraints^ ToCx(IMediaStreamTrackTypes::TrackConstraintsPtr trackConstraintsPtr);
@@ -62,7 +64,11 @@ namespace ortc_winrt_api
   class ConvertObjectToCx
   {
   public:
+    static RTCIceGatherer^ ToIceGatherer(IIceGathererPtr iceGatherer);
     static RTCIceTransport^ ToIceTransport(IIceTransportPtr iceTransport);
+    static RTCCertificate^ ToCertificate(ICertificatePtr certificate);
+    static RTCDtlsTransport^ ToDtlsTransport(IDtlsTransportPtr dtlsTransport);
+    static RTCSctpTransport^ ToSctpTransport(ISctpTransportPtr sctpTransport);
 
 	static MediaStreamTrack^ ToMediaStreamTrack(IMediaStreamTrackPtr mediaStreamTrackPtr);
 	

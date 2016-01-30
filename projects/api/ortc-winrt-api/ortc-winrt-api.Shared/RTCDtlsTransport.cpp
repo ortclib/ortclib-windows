@@ -100,6 +100,27 @@ void RTCDtlsTransport::stop()
   }
 }
 
+RTCIceTransport^ RTCDtlsTransport::GetIceTransport()
+{
+  return ConvertObjectToCx::ToIceTransport(mNativePointer->transport());
+}
+
+IVector<RTCCertificate^>^ RTCDtlsTransport::GetCertificates()
+{
+
+#define WRAP_ENTIRE_LIST_OF_CERTIFICATES_ONCE_SUPPORTED_FROM_CORE_IMPLEMENTATION 1
+#define WRAP_ENTIRE_LIST_OF_CERTIFICATES_ONCE_SUPPORTED_FROM_CORE_IMPLEMENTATION 2
+
+  auto ret = ref new Vector<RTCCertificate^>();
+
+  if (mNativePointer)
+  {
+    ret->Append(ConvertObjectToCx::ToCertificate(mNativePointer->certificate()));
+  }
+
+  return ret;
+}
+
 void RTCDtlsTransportDelegate::onDTLSTransportStateChange(
   IDTLSTransportPtr transport,
   IDTLSTransport::States state

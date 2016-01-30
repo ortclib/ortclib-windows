@@ -62,6 +62,26 @@ void RTCDataChannel::send(const Platform::Array<byte>^ data, uint16 bufferSizeIn
   }
 }
 
+RTCSctpTransport^ RTCDataChannel::GetSctpTransport()
+{
+  return ConvertObjectToCx::ToSctpTransport(ISctpTransport::convert(mNativePointer->transport()));
+}
+
+RTCDataChannelParameters^ RTCDataChannel::GetParameters()
+{
+  return ToCx(mNativePointer->parameters());
+}
+
+Platform::String^ RTCDataChannel::GetBinaryType()
+{
+  return ToCx(mNativePointer->binaryType());
+}
+
+void RTCDataChannel::SetBinaryType(Platform::String^ binaryType)
+{
+  mNativePointer->binaryType(FromCx(binaryType).c_str());
+}
+
 void RTCDataChannelDelegate::onDataChannelStateChanged(
   IDataChannelPtr channel,
   States state

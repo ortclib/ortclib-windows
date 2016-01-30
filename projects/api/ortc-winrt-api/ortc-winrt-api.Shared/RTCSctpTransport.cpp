@@ -56,6 +56,11 @@ void RTCSctpTransport::stop()
   }
 }
 
+RTCDtlsTransport^ RTCSctpTransport::GetDtlsTransport()
+{
+  return ConvertObjectToCx::ToDtlsTransport(mNativePointer->transport());
+}
+
 void RTCSctpTransportDelegate::onSCTPTransportDataChannel(
   ISCTPTransportPtr transport,
   IDataChannelPtr channel

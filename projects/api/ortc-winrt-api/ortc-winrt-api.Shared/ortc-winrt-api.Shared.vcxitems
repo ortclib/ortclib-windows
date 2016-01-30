@@ -24,6 +24,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)pch.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCIceTransport.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCIceTransportController.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTCRtpListener.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCRtpReceiver.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCRtpSender.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCSctpTransport.h" />
@@ -41,6 +42,7 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCIceTransport.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCIceTransportController.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RTCRtpListener.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCRtpReceiver.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCRtpSender.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCSctpTransport.cpp" />

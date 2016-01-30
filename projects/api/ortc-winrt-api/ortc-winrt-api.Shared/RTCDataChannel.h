@@ -23,7 +23,7 @@ namespace ortc_winrt_api
     virtual void onDataChannelError(
       IDataChannelPtr channel,
       ErrorCode errorCode,
-      String errorReason
+      zsLib::String errorReason
       );
 
     virtual void onDataChannelMessage(
@@ -143,6 +143,91 @@ namespace ortc_winrt_api
   private:
     IDataChannelPtr mNativePointer;
     RTCDataChannelDelegatePtr mNativeDelegatePointer;
+
+  private:
+    RTCSctpTransport^ GetSctpTransport();
+    RTCDataChannelParameters^ GetParameters();
+    Platform::String^ GetBinaryType();
+    void SetBinaryType(Platform::String^ binaryType);
+
+  public:
+    property RTCSctpTransport^ Transport
+    {
+      RTCSctpTransport^ get()
+      {
+        if (mNativePointer)
+          return GetSctpTransport();
+        else
+          return nullptr;
+      }
+    }
+
+    property RTCDataChannelParameters^ Parameters
+    {
+      RTCDataChannelParameters^ get()
+      {
+        if (mNativePointer)
+          return GetParameters();
+        else
+          return nullptr;
+      }
+    }
+
+    property RTCDataChannelState State
+    {
+      RTCDataChannelState get()
+      {
+        if (mNativePointer)
+          return (RTCDataChannelState)mNativePointer->readyState();
+        else
+          return RTCDataChannelState::State_Closed;
+      }
+    }
+
+    property uint64 BufferedAmount
+    {
+      uint64 get()
+      {
+        if (mNativePointer)
+          return mNativePointer->bufferedAmount();
+        else
+          return -1;
+      }
+    }
+
+    property uint64 BufferedAmountLowThreshold
+    {
+#define ORTC_CORE_IMPLEMENTATION_NOT_SUPPORTED_IN_THIS_VERSION 1
+#define ORTC_CORE_IMPLEMENTATION_NOT_SUPPORTED_IN_THIS_VERSION 2
+      uint64 get()
+      {
+          return -1;
+      }
+
+      void set(uint64 threshold)
+      {
+        return;
+      }
+    }
+
+    property Platform::String^ BinaryType
+    {
+      Platform::String^ get()
+      {
+        if (mNativePointer)
+          return GetBinaryType();
+        else
+          return nullptr;
+      }
+
+      void set(Platform::String^ binaryType)
+      {
+        if (mNativePointer)
+          return SetBinaryType(binaryType);
+        else
+          return;
+      }
+    }
 
   public:
 
