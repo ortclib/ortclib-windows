@@ -7,43 +7,43 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "zsLib", "zsLib", "{0C48D872
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{2E835D6D-A406-47C0-BD6B-A6B4ABE95B5C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zsLib.Shared", "..\..\..\libs\zsLib\projects\vs2013\zsLib\zsLib.Shared\zsLib.Shared.vcxitems", "{AA3E6A72-1080-4430-9921-8EBA6652BA3A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zsLib.Shared", "..\..\libs\zsLib\projects\msvs\zsLib\zsLib.Shared\zsLib.Shared.vcxitems", "{AA3E6A72-1080-4430-9921-8EBA6652BA3A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zsLibTest_Universal.Shared", "..\..\..\libs\zsLib\projects\vs2013\zsLib\zsLibTest_Universal.Shared\zsLibTest_Universal.Shared.vcxitems", "{45DAA8AC-7DBD-4182-B99A-CD929C80D60D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zsLibTest_Universal.Shared", "..\..\libs\zsLib\projects\msvs\zsLib\zsLibTest_Universal.Shared\zsLibTest_Universal.Shared.vcxitems", "{45DAA8AC-7DBD-4182-B99A-CD929C80D60D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zsLib.Win32", "..\..\..\libs\zsLib\projects\vs2013\zsLib\zsLib.Win32\zsLib.Win32.vcxproj", "{D4990072-586D-43E3-9973-51092BD9226F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zsLib.Win32", "..\..\libs\zsLib\projects\msvs\zsLib\zsLib.Win32\zsLib.Win32.vcxproj", "{D4990072-586D-43E3-9973-51092BD9226F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zsLibTest_Console", "..\..\..\libs\zsLib\projects\vs2013\zsLib\zsLibTest_Console\zsLibTest_Console.vcxproj", "{B2838D1B-A3E1-4FCF-99C7-152398F54030}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zsLibTest_Console", "..\..\libs\zsLib\projects\msvs\zsLib\zsLibTest_Console\zsLibTest_Console.vcxproj", "{B2838D1B-A3E1-4FCF-99C7-152398F54030}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "udns", "udns", "{AD5D74FC-F573-4542-B3A9-1A1C0B5989B3}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "udns.Shared", "..\..\..\libs\udns\projects\vs2013\udns\udns.Shared\udns.Shared.vcxitems", "{D66B52BD-7915-49BA-9CBD-D409BCA40C55}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "udns.Shared", "..\..\libs\udns\projects\msvs\udns\udns.Shared\udns.Shared.vcxitems", "{D66B52BD-7915-49BA-9CBD-D409BCA40C55}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "udns.Win32", "..\..\..\libs\udns\projects\vs2013\udns\udns.Win32\udns.Win32.vcxproj", "{356B3BBC-30C4-45FD-9270-1AA6B32AD553}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "udns.Win32", "..\..\libs\udns\projects\msvs\udns\udns.Win32\udns.Win32.vcxproj", "{356B3BBC-30C4-45FD-9270-1AA6B32AD553}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "idnkit", "idnkit", "{C5BB26FB-9AFF-493F-B443-0C8F8F2134BF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "idnkit.Shared", "..\..\..\libs\idnkit\projects\vs2013\idnkit\idnkit.Shared\idnkit.Shared.vcxitems", "{DE21ECB4-5A23-43B0-8313-6CD7BF6E3B37}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "idnkit.Shared", "..\..\libs\idnkit\projects\msvs\idnkit\idnkit.Shared\idnkit.Shared.vcxitems", "{DE21ECB4-5A23-43B0-8313-6CD7BF6E3B37}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "idnkit.Win32", "..\..\..\libs\idnkit\projects\vs2013\idnkit\idnkit.Win32\idnkit.Win32.vcxproj", "{EA7F7B95-2BEA-43F4-B456-F8D740F9C9C8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "idnkit.Win32", "..\..\libs\idnkit\projects\msvs\idnkit\idnkit.Win32\idnkit.Win32.vcxproj", "{EA7F7B95-2BEA-43F4-B456-F8D740F9C9C8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cryptopp", "cryptopp", "{A1B9C462-0078-4428-8537-DE7551D3EA6A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cryptopp.Shared", "..\..\..\libs\cryptopp\projects\vs2013\cryptopp\cryptopp.Shared\cryptopp.Shared.vcxitems", "{CB408C66-7391-49FD-A718-C5A04862C9CA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cryptopp.Shared", "..\..\libs\cryptopp\projects\msvs\cryptopp\cryptopp.Shared\cryptopp.Shared.vcxitems", "{CB408C66-7391-49FD-A718-C5A04862C9CA}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cryptopp.Win32", "..\..\..\libs\cryptopp\projects\vs2013\cryptopp\cryptopp.Win32\cryptopp.Win32.vcxproj", "{F73D1443-6E8D-4B5B-9F0A-CAB724692A5A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cryptopp.Win32", "..\..\libs\cryptopp\projects\msvs\cryptopp\cryptopp.Win32\cryptopp.Win32.vcxproj", "{F73D1443-6E8D-4B5B-9F0A-CAB724692A5A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "op-services-cpp", "op-services-cpp", "{0DE58935-2033-4854-9735-809D2C1AEC1F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{2BE9ACDB-8219-4A0C-AB73-BD5A7B5BE7C4}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hfservices.Shared", "..\..\..\libs\op-services-cpp\projects\vs2013\hfservices\hfservices.Shared\hfservices.Shared.vcxitems", "{B510E402-E901-4CF0-9073-76984AC9FDC7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hfservices.Shared", "..\..\libs\op-services-cpp\projects\msvs\hfservices\hfservices.Shared\hfservices.Shared.vcxitems", "{B510E402-E901-4CF0-9073-76984AC9FDC7}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hfservices.Win32", "..\..\..\libs\op-services-cpp\projects\vs2013\hfservices\hfservices.Win32\hfservices.Win32.vcxproj", "{55C55370-B836-41FE-9D17-DB2095363DAD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hfservices.Win32", "..\..\libs\op-services-cpp\projects\msvs\hfservices\hfservices.Win32\hfservices.Win32.vcxproj", "{55C55370-B836-41FE-9D17-DB2095363DAD}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hfservicesTest.Shared", "..\..\..\libs\op-services-cpp\projects\vs2013\hfservices\hfservicesTest.Shared\hfservicesTest.Shared.vcxitems", "{B53F4474-1ED7-42A2-8CC8-3A7F7D996A5D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hfservicesTest.Shared", "..\..\libs\op-services-cpp\projects\msvs\hfservices\hfservicesTest.Shared\hfservicesTest.Shared.vcxitems", "{B53F4474-1ED7-42A2-8CC8-3A7F7D996A5D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hfservicesTest.Console", "..\..\..\libs\op-services-cpp\projects\vs2013\hfservices\hfservicesTest.Console\hfservicesTest.Console.vcxproj", "{7D81A210-B4C8-4DEB-8A50-E720503016E1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hfservicesTest.Console", "..\..\libs\op-services-cpp\projects\msvs\hfservices\hfservicesTest.Console\hfservicesTest.Console.vcxproj", "{7D81A210-B4C8-4DEB-8A50-E720503016E1}"
 	ProjectSection(ProjectDependencies) = postProject
 		{55C55370-B836-41FE-9D17-DB2095363DAD} = {55C55370-B836-41FE-9D17-DB2095363DAD}
 		{D4990072-586D-43E3-9973-51092BD9226F} = {D4990072-586D-43E3-9973-51092BD9226F}
@@ -53,9 +53,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hfservicesTest.Console", ".
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ortc-lib", "ortc-lib", "{44243A6D-994D-4F4D-8CB9-B6B3F96082A5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortc-lib.Shared", "..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortc-lib.Shared\ortc-lib.Shared.vcxitems", "{C9CE65F1-DF3E-47D2-95B8-6CDDC789849C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortc-lib.Shared", "..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortc-lib.Shared\ortc-lib.Shared.vcxitems", "{C9CE65F1-DF3E-47D2-95B8-6CDDC789849C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortc-lib.Win32", "..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortc-lib.Win32\ortc-lib.Win32.vcxproj", "{96D33368-1468-463B-82D9-C5D50BD7A4B2}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortc-lib.Win32", "..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortc-lib.Win32\ortc-lib.Win32.vcxproj", "{96D33368-1468-463B-82D9-C5D50BD7A4B2}"
 	ProjectSection(ProjectDependencies) = postProject
 		{F2A6B502-E789-7D12-61F4-7D038E5F8351} = {F2A6B502-E789-7D12-61F4-7D038E5F8351}
 	EndProjectSection
@@ -108,7 +108,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "protobuf", "protobuf", "{C4
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{E98794F9-0E77-4F00-B22D-933680F10A5F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclibTest.Console", "..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Console\ortclibTest.Console.vcxproj", "{230126E0-3B22-4FE4-BAAF-2646453B88B1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclibTest.Console", "..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortclibTest.Console\ortclibTest.Console.vcxproj", "{230126E0-3B22-4FE4-BAAF-2646453B88B1}"
 	ProjectSection(ProjectDependencies) = postProject
 		{F2A6B502-E789-7D12-61F4-7D038E5F8351} = {F2A6B502-E789-7D12-61F4-7D038E5F8351}
 		{7F9A1B1F-D1D7-872F-CE15-A6CAB15CA0D5} = {7F9A1B1F-D1D7-872F-CE15-A6CAB15CA0D5}
@@ -125,47 +125,47 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclibTest.Console", "..\.
 		{4E00D9E2-1F74-8D2E-1878-DCFE215138F5} = {4E00D9E2-1F74-8D2E-1878-DCFE215138F5}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclibTest.Shared", "..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Shared\ortclibTest.Shared.vcxitems", "{C2F7BB00-C8A4-4459-9BE0-F58F67A1EE4D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclibTest.Shared", "..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortclibTest.Shared\ortclibTest.Shared.vcxitems", "{C2F7BB00-C8A4-4459-9BE0-F58F67A1EE4D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclibTestUnitTests", "..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems", "{73373DB6-8059-4671-ACBD-47219A769922}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclibTestUnitTests", "..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems", "{73373DB6-8059-4671-ACBD-47219A769922}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "boringssl", "boringssl", "{E4CBC302-DDE3-434F-A699-8BDB37910AC1}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "boringssl", "..\..\..\libs\webrtc\third_party\boringssl\boringssl.vcxproj", "{23D79827-E423-BA46-5AD6-622B0828F65C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "boringssl", "..\..\libs\webrtc\third_party\boringssl\boringssl.vcxproj", "{23D79827-E423-BA46-5AD6-622B0828F65C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libjpeg", "..\..\..\libs\webrtc\third_party\libjpeg_turbo\libjpeg.vcxproj", "{7ADFBD3A-4972-6013-57FF-FC245E80E675}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libjpeg", "..\..\libs\webrtc\third_party\libjpeg_turbo\libjpeg.vcxproj", "{7ADFBD3A-4972-6013-57FF-FC245E80E675}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_avx2", "..\..\..\libs\webrtc\third_party\libvpx\libvpx_intrinsics_avx2.vcxproj", "{D69C4B83-DB63-5A50-87E2-99CA862BA328}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_avx2", "..\..\libs\webrtc\third_party\libvpx\libvpx_intrinsics_avx2.vcxproj", "{D69C4B83-DB63-5A50-87E2-99CA862BA328}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_mmx", "..\..\..\libs\webrtc\third_party\libvpx\libvpx_intrinsics_mmx.vcxproj", "{2425A135-9D6E-6B3B-C76C-44C47D034A53}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_mmx", "..\..\libs\webrtc\third_party\libvpx\libvpx_intrinsics_mmx.vcxproj", "{2425A135-9D6E-6B3B-C76C-44C47D034A53}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_sse2", "..\..\..\libs\webrtc\third_party\libvpx\libvpx_intrinsics_sse2.vcxproj", "{AB4E022E-FE75-25FB-4EAD-3B84AF093F86}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_sse2", "..\..\libs\webrtc\third_party\libvpx\libvpx_intrinsics_sse2.vcxproj", "{AB4E022E-FE75-25FB-4EAD-3B84AF093F86}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_sse4_1", "..\..\..\libs\webrtc\third_party\libvpx\libvpx_intrinsics_sse4_1.vcxproj", "{A53CC979-B01D-03C5-9D9C-6D4FF29CD31C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_sse4_1", "..\..\libs\webrtc\third_party\libvpx\libvpx_intrinsics_sse4_1.vcxproj", "{A53CC979-B01D-03C5-9D9C-6D4FF29CD31C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_ssse3", "..\..\..\libs\webrtc\third_party\libvpx\libvpx_intrinsics_ssse3.vcxproj", "{3782ADF6-24A5-1A88-561C-2D921787C007}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_ssse3", "..\..\libs\webrtc\third_party\libvpx\libvpx_intrinsics_ssse3.vcxproj", "{3782ADF6-24A5-1A88-561C-2D921787C007}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx", "..\..\..\libs\webrtc\third_party\libvpx\libvpx.vcxproj", "{3FE665A9-10FC-35B8-531A-D51E97F02E43}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx", "..\..\libs\webrtc\third_party\libvpx\libvpx.vcxproj", "{3FE665A9-10FC-35B8-531A-D51E97F02E43}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "openmax_dl", "..\..\..\libs\webrtc\third_party\openmax_dl\dl\openmax_dl.vcxproj", "{0E8DC429-AA74-1515-F004-DC6870B9E429}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "openmax_dl", "..\..\libs\webrtc\third_party\openmax_dl\dl\openmax_dl.vcxproj", "{0E8DC429-AA74-1515-F004-DC6870B9E429}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "opus", "..\..\..\libs\webrtc\third_party\opus\opus.vcxproj", "{272E163A-1206-8F4F-2E7A-4B12B331CE77}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "opus", "..\..\libs\webrtc\third_party\opus\opus.vcxproj", "{272E163A-1206-8F4F-2E7A-4B12B331CE77}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protobuf_full_do_not_use", "..\..\..\libs\webrtc\third_party\protobuf\protobuf_full_do_not_use.vcxproj", "{675E25D5-A4CD-586E-B0E9-A1093F2CBA32}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protobuf_full_do_not_use", "..\..\libs\webrtc\third_party\protobuf\protobuf_full_do_not_use.vcxproj", "{675E25D5-A4CD-586E-B0E9-A1093F2CBA32}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protobuf_lite", "..\..\..\libs\webrtc\third_party\protobuf\protobuf_lite.vcxproj", "{37B318DB-BCD8-3CC4-D824-0F21DC4500B6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protobuf_lite", "..\..\libs\webrtc\third_party\protobuf\protobuf_lite.vcxproj", "{37B318DB-BCD8-3CC4-D824-0F21DC4500B6}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protoc", "..\..\..\libs\webrtc\third_party\protobuf\protoc.vcxproj", "{19DB3105-D0A0-AF1C-C7B6-D51DFED26AD5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protoc", "..\..\libs\webrtc\third_party\protobuf\protoc.vcxproj", "{19DB3105-D0A0-AF1C-C7B6-D51DFED26AD5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gtest", "..\..\..\libs\webrtc\testing\gtest.vcxproj", "{E72F768A-94C5-F56D-6D09-2D6BBCC1C711}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gtest", "..\..\libs\webrtc\testing\gtest.vcxproj", "{E72F768A-94C5-F56D-6D09-2D6BBCC1C711}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jsoncpp", "..\..\..\libs\webrtc\third_party\jsoncpp\jsoncpp.vcxproj", "{6F671C55-9F91-D8A2-C8A2-29244B3477B4}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jsoncpp", "..\..\libs\webrtc\third_party\jsoncpp\jsoncpp.vcxproj", "{6F671C55-9F91-D8A2-C8A2-29244B3477B4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "jsoncpp", "jsoncpp", "{5F7946C2-B3A8-409B-9CB8-713125F9B0EA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libsrtp", "libsrtp", "{849AFACB-E3AE-438E-91E0-A2BF7F84E95A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libsrtp", "..\..\..\libs\webrtc\third_party\libsrtp\libsrtp.vcxproj", "{7F9A1B1F-D1D7-872F-CE15-A6CAB15CA0D5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libsrtp", "..\..\libs\webrtc\third_party\libsrtp\libsrtp.vcxproj", "{7F9A1B1F-D1D7-872F-CE15-A6CAB15CA0D5}"
 	ProjectSection(ProjectDependencies) = postProject
 		{23D79827-E423-BA46-5AD6-622B0828F65C} = {23D79827-E423-BA46-5AD6-622B0828F65C}
 	EndProjectSection
@@ -174,139 +174,139 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libyuv", "libyuv", "{B3C6D0
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "usrsctplib", "usrsctplib", "{A02014A9-9224-457F-8C3D-78AA08D2B874}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libyuv", "..\..\..\libs\webrtc\third_party\libyuv\libyuv.vcxproj", "{E4505A22-7591-FEDF-6B9F-4FF8AB727FF9}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libyuv", "..\..\libs\webrtc\third_party\libyuv\libyuv.vcxproj", "{E4505A22-7591-FEDF-6B9F-4FF8AB727FF9}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "usrsctplib", "..\..\..\libs\webrtc\third_party\usrsctp\usrsctplib.vcxproj", "{F2A6B502-E789-7D12-61F4-7D038E5F8351}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "usrsctplib", "..\..\libs\webrtc\third_party\usrsctp\usrsctplib.vcxproj", "{F2A6B502-E789-7D12-61F4-7D038E5F8351}"
 	ProjectSection(ProjectDependencies) = postProject
 		{7F9A1B1F-D1D7-872F-CE15-A6CAB15CA0D5} = {7F9A1B1F-D1D7-872F-CE15-A6CAB15CA0D5}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_base", "..\..\..\libs\webrtc\webrtc\base\rtc_base.vcxproj", "{93F855F4-EE6F-F00D-F4A3-35577B1D5F76}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_base", "..\..\libs\webrtc\webrtc\base\rtc_base.vcxproj", "{93F855F4-EE6F-F00D-F4A3-35577B1D5F76}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_base_approved", "..\..\..\libs\webrtc\webrtc\base\rtc_base_approved.vcxproj", "{510DEDDC-ED2F-0A3B-ABE1-F7F1E6D75CF8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_base_approved", "..\..\libs\webrtc\webrtc\base\rtc_base_approved.vcxproj", "{510DEDDC-ED2F-0A3B-ABE1-F7F1E6D75CF8}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common_audio_sse2", "..\..\..\libs\webrtc\webrtc\common_audio\common_audio_sse2.vcxproj", "{B6B37B26-252C-247D-DBA3-D03511AC9509}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common_audio_sse2", "..\..\libs\webrtc\webrtc\common_audio\common_audio_sse2.vcxproj", "{B6B37B26-252C-247D-DBA3-D03511AC9509}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common_audio", "..\..\..\libs\webrtc\webrtc\common_audio\common_audio.vcxproj", "{39FE2BB0-C2E7-DB9C-D514-19B221F3CA00}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common_audio", "..\..\libs\webrtc\webrtc\common_audio\common_audio.vcxproj", "{39FE2BB0-C2E7-DB9C-D514-19B221F3CA00}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common_video", "..\..\..\libs\webrtc\webrtc\common_video\common_video.vcxproj", "{AC613F26-3B4F-2DF0-F78C-52B6D0770C2D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common_video", "..\..\libs\webrtc\webrtc\common_video\common_video.vcxproj", "{AC613F26-3B4F-2DF0-F78C-52B6D0770C2D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_vp8", "..\..\..\libs\webrtc\webrtc\modules\video_coding\codecs\vp8\webrtc_vp8.vcxproj", "{49724B5A-B74A-CC62-B1A0-04C1F9795A18}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_vp8", "..\..\libs\webrtc\webrtc\modules\video_coding\codecs\vp8\webrtc_vp8.vcxproj", "{49724B5A-B74A-CC62-B1A0-04C1F9795A18}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_coding_utility", "..\..\..\libs\webrtc\webrtc\modules\video_coding\utility\video_coding_utility.vcxproj", "{E3CC8540-9E4F-66F9-D430-EFDAE52DEDAC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_coding_utility", "..\..\libs\webrtc\webrtc\modules\video_coding\utility\video_coding_utility.vcxproj", "{E3CC8540-9E4F-66F9-D430-EFDAE52DEDAC}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_coding_module", "..\..\..\libs\webrtc\webrtc\modules\audio_coding_module.vcxproj", "{1DEAC0D1-003D-95F6-6693-EF0F1A5C733A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_coding_module", "..\..\libs\webrtc\webrtc\modules\audio_coding_module.vcxproj", "{1DEAC0D1-003D-95F6-6693-EF0F1A5C733A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_conference_mixer", "..\..\..\libs\webrtc\webrtc\modules\audio_conference_mixer.vcxproj", "{4F4686D2-D54D-340D-C56B-9726C2F88ACB}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_conference_mixer", "..\..\libs\webrtc\webrtc\modules\audio_conference_mixer.vcxproj", "{4F4686D2-D54D-340D-C56B-9726C2F88ACB}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_decoder_interface", "..\..\..\libs\webrtc\webrtc\modules\audio_decoder_interface.vcxproj", "{E0D5D60F-9FC0-7FEC-01E0-1F16AEFFE6A5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_decoder_interface", "..\..\libs\webrtc\webrtc\modules\audio_decoder_interface.vcxproj", "{E0D5D60F-9FC0-7FEC-01E0-1F16AEFFE6A5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_device", "..\..\..\libs\webrtc\webrtc\modules\audio_device.vcxproj", "{E7E494C8-F0D0-4376-4006-C691BB4233EF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_device", "..\..\libs\webrtc\webrtc\modules\audio_device.vcxproj", "{E7E494C8-F0D0-4376-4006-C691BB4233EF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_encoder_interface", "..\..\..\libs\webrtc\webrtc\modules\audio_encoder_interface.vcxproj", "{DB3AFA15-63EA-E717-86CF-0A1340C8EADC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_encoder_interface", "..\..\libs\webrtc\webrtc\modules\audio_encoder_interface.vcxproj", "{DB3AFA15-63EA-E717-86CF-0A1340C8EADC}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_processing_sse2", "..\..\..\libs\webrtc\webrtc\modules\audio_processing_sse2.vcxproj", "{209CE4F8-C42B-46A4-8E96-C4744CAC9F03}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_processing_sse2", "..\..\libs\webrtc\webrtc\modules\audio_processing_sse2.vcxproj", "{209CE4F8-C42B-46A4-8E96-C4744CAC9F03}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_processing", "..\..\..\libs\webrtc\webrtc\modules\audio_processing.vcxproj", "{7368DA7D-86E9-FCA1-6DED-7084D6530B89}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_processing", "..\..\libs\webrtc\webrtc\modules\audio_processing.vcxproj", "{7368DA7D-86E9-FCA1-6DED-7084D6530B89}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audioproc_debug_proto", "..\..\..\libs\webrtc\webrtc\modules\audioproc_debug_proto.vcxproj", "{AB034157-C366-A2A1-B66F-0A5087508DEC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audioproc_debug_proto", "..\..\libs\webrtc\webrtc\modules\audioproc_debug_proto.vcxproj", "{AB034157-C366-A2A1-B66F-0A5087508DEC}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bitrate_controller", "..\..\..\libs\webrtc\webrtc\modules\bitrate_controller.vcxproj", "{5045F80C-CB03-8FEF-CB6A-39C9DB75840B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bitrate_controller", "..\..\libs\webrtc\webrtc\modules\bitrate_controller.vcxproj", "{5045F80C-CB03-8FEF-CB6A-39C9DB75840B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cng", "..\..\..\libs\webrtc\webrtc\modules\cng.vcxproj", "{766ED9F0-F961-B512-F126-10F295A22C61}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cng", "..\..\libs\webrtc\webrtc\modules\cng.vcxproj", "{766ED9F0-F961-B512-F126-10F295A22C61}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "g711", "..\..\..\libs\webrtc\webrtc\modules\g711.vcxproj", "{D0E3E134-3654-E159-8B38-5D49813CDE33}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "g711", "..\..\libs\webrtc\webrtc\modules\g711.vcxproj", "{D0E3E134-3654-E159-8B38-5D49813CDE33}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "g722", "..\..\..\libs\webrtc\webrtc\modules\g722.vcxproj", "{E3CFF96B-1A3D-B391-68F3-E37AA9CCB267}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "g722", "..\..\libs\webrtc\webrtc\modules\g722.vcxproj", "{E3CFF96B-1A3D-B391-68F3-E37AA9CCB267}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_capture_module", "..\..\..\libs\webrtc\webrtc\modules\video_capture_module.vcxproj", "{BD794CBA-B6AC-1A8F-784E-89F56FDA8B8D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_capture_module", "..\..\libs\webrtc\webrtc\modules\video_capture_module.vcxproj", "{BD794CBA-B6AC-1A8F-784E-89F56FDA8B8D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_processing", "..\..\..\libs\webrtc\webrtc\modules\video_processing.vcxproj", "{8A6BDCAD-8F23-2F1C-52DC-3B8079585C70}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_processing", "..\..\libs\webrtc\webrtc\modules\video_processing.vcxproj", "{8A6BDCAD-8F23-2F1C-52DC-3B8079585C70}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_processing_sse2", "..\..\..\libs\webrtc\webrtc\modules\video_processing_sse2.vcxproj", "{05065105-0FA9-5EB6-3321-8EDD8FDADFFF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_processing_sse2", "..\..\libs\webrtc\webrtc\modules\video_processing_sse2.vcxproj", "{05065105-0FA9-5EB6-3321-8EDD8FDADFFF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_render_module", "..\..\..\libs\webrtc\webrtc\modules\video_render_module.vcxproj", "{E291967E-06CD-3CC7-3566-8077D89B4A9B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_render_module", "..\..\libs\webrtc\webrtc\modules\video_render_module.vcxproj", "{E291967E-06CD-3CC7-3566-8077D89B4A9B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_render_module_internal_impl", "..\..\..\libs\webrtc\webrtc\modules\video_render_module_internal_impl.vcxproj", "{C907B16B-732F-7333-F526-518EE17B9DC3}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_render_module_internal_impl", "..\..\libs\webrtc\webrtc\modules\video_render_module_internal_impl.vcxproj", "{C907B16B-732F-7333-F526-518EE17B9DC3}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_i420", "..\..\..\libs\webrtc\webrtc\modules\webrtc_i420.vcxproj", "{33BC69A0-1870-EFC9-CA1E-CAFA2EE60EE2}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_i420", "..\..\libs\webrtc\webrtc\modules\webrtc_i420.vcxproj", "{33BC69A0-1870-EFC9-CA1E-CAFA2EE60EE2}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_opus", "..\..\..\libs\webrtc\webrtc\modules\webrtc_opus.vcxproj", "{366854DC-2112-460B-7AF6-CD6357223F5A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_opus", "..\..\libs\webrtc\webrtc\modules\webrtc_opus.vcxproj", "{366854DC-2112-460B-7AF6-CD6357223F5A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_utility", "..\..\..\libs\webrtc\webrtc\modules\webrtc_utility.vcxproj", "{FD13189F-4037-1A90-3F67-3CA74542A87B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_utility", "..\..\libs\webrtc\webrtc\modules\webrtc_utility.vcxproj", "{FD13189F-4037-1A90-3F67-3CA74542A87B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_video_coding", "..\..\..\libs\webrtc\webrtc\modules\webrtc_video_coding.vcxproj", "{2AA3DB2C-E02D-39A9-DAD1-D01271A774B6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_video_coding", "..\..\libs\webrtc\webrtc\modules\webrtc_video_coding.vcxproj", "{2AA3DB2C-E02D-39A9-DAD1-D01271A774B6}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ilbc", "..\..\..\libs\webrtc\webrtc\modules\ilbc.vcxproj", "{C206E668-DFE5-38C1-7F06-965AD9DABA16}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ilbc", "..\..\libs\webrtc\webrtc\modules\ilbc.vcxproj", "{C206E668-DFE5-38C1-7F06-965AD9DABA16}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "isac", "..\..\..\libs\webrtc\webrtc\modules\isac.vcxproj", "{A297933D-6306-B45D-7DC9-B44CD98BBE51}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "isac", "..\..\libs\webrtc\webrtc\modules\isac.vcxproj", "{A297933D-6306-B45D-7DC9-B44CD98BBE51}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "media_file", "..\..\..\libs\webrtc\webrtc\modules\media_file.vcxproj", "{B0E00D28-2A97-C655-673E-89D1B2B176BA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "media_file", "..\..\libs\webrtc\webrtc\modules\media_file.vcxproj", "{B0E00D28-2A97-C655-673E-89D1B2B176BA}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "neteq", "..\..\..\libs\webrtc\webrtc\modules\neteq.vcxproj", "{AB2A4430-966D-CEA1-E7E8-EB99806E8F42}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "neteq", "..\..\libs\webrtc\webrtc\modules\neteq.vcxproj", "{AB2A4430-966D-CEA1-E7E8-EB99806E8F42}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "paced_sender", "..\..\..\libs\webrtc\webrtc\modules\paced_sender.vcxproj", "{A07C9726-2362-5111-EA42-F68BE933A199}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "paced_sender", "..\..\libs\webrtc\webrtc\modules\paced_sender.vcxproj", "{A07C9726-2362-5111-EA42-F68BE933A199}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pcm16b", "..\..\..\libs\webrtc\webrtc\modules\pcm16b.vcxproj", "{CBFC513E-1E82-BDF2-8831-883BE6C0713B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pcm16b", "..\..\libs\webrtc\webrtc\modules\pcm16b.vcxproj", "{CBFC513E-1E82-BDF2-8831-883BE6C0713B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "red", "..\..\..\libs\webrtc\webrtc\modules\red.vcxproj", "{1FDDB700-0F6F-58FA-B9DA-646141204613}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "red", "..\..\libs\webrtc\webrtc\modules\red.vcxproj", "{1FDDB700-0F6F-58FA-B9DA-646141204613}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "remote_bitrate_estimator", "..\..\..\libs\webrtc\webrtc\modules\remote_bitrate_estimator.vcxproj", "{1266D2F9-61EE-08B6-7F20-FB188AA8F8BF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "remote_bitrate_estimator", "..\..\libs\webrtc\webrtc\modules\remote_bitrate_estimator.vcxproj", "{1266D2F9-61EE-08B6-7F20-FB188AA8F8BF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtp_rtcp", "..\..\..\libs\webrtc\webrtc\modules\rtp_rtcp.vcxproj", "{0BC8B254-96AD-24C4-86E3-6D7F5796AA19}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtp_rtcp", "..\..\libs\webrtc\webrtc\modules\rtp_rtcp.vcxproj", "{0BC8B254-96AD-24C4-86E3-6D7F5796AA19}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "field_trial_default", "..\..\..\libs\webrtc\webrtc\system_wrappers\field_trial_default.vcxproj", "{362C78A5-EFDF-FC91-F112-B13A3FDAE8A0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "field_trial_default", "..\..\libs\webrtc\webrtc\system_wrappers\field_trial_default.vcxproj", "{362C78A5-EFDF-FC91-F112-B13A3FDAE8A0}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "metrics_default", "..\..\..\libs\webrtc\webrtc\system_wrappers\metrics_default.vcxproj", "{5569B280-3A89-5837-BD37-C3A976C6F597}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "metrics_default", "..\..\libs\webrtc\webrtc\system_wrappers\metrics_default.vcxproj", "{5569B280-3A89-5837-BD37-C3A976C6F597}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "system_wrappers", "..\..\..\libs\webrtc\webrtc\system_wrappers\system_wrappers.vcxproj", "{16FE3FD5-AA01-BD2A-2BFF-7785FFEDEDEC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "system_wrappers", "..\..\libs\webrtc\webrtc\system_wrappers\system_wrappers.vcxproj", "{16FE3FD5-AA01-BD2A-2BFF-7785FFEDEDEC}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "field_trial", "..\..\..\libs\webrtc\webrtc\test\field_trial.vcxproj", "{70D0C577-EE1A-1784-0562-171BFB04F7C3}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "field_trial", "..\..\libs\webrtc\webrtc\test\field_trial.vcxproj", "{70D0C577-EE1A-1784-0562-171BFB04F7C3}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "voice_engine", "..\..\..\libs\webrtc\webrtc\voice_engine\voice_engine.vcxproj", "{D8A82102-EFAF-908D-DBC8-454C36431DE0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "voice_engine", "..\..\libs\webrtc\webrtc\voice_engine\voice_engine.vcxproj", "{D8A82102-EFAF-908D-DBC8-454C36431DE0}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_common", "..\..\..\libs\webrtc\webrtc\webrtc_common.vcxproj", "{4E00D9E2-1F74-8D2E-1878-DCFE215138F5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_common", "..\..\libs\webrtc\webrtc\webrtc_common.vcxproj", "{4E00D9E2-1F74-8D2E-1878-DCFE215138F5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_capture_module_internal_impl", "..\..\..\libs\webrtc\webrtc\modules\video_capture_module_internal_impl.vcxproj", "{58C4E66E-F613-82E0-C039-7A453BCAC1E4}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_capture_module_internal_impl", "..\..\libs\webrtc\webrtc\modules\video_capture_module_internal_impl.vcxproj", "{58C4E66E-F613-82E0-C039-7A453BCAC1E4}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "directshow_baseclasses", "..\..\..\libs\webrtc\third_party\winsdk_samples\directshow_baseclasses.vcxproj", "{B49DE8DD-F78D-F7CF-052D-8F9AED62D088}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "directshow_baseclasses", "..\..\libs\webrtc\third_party\winsdk_samples\directshow_baseclasses.vcxproj", "{B49DE8DD-F78D-F7CF-052D-8F9AED62D088}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "vp9", "vp9", "{2037BDE1-2D52-43CF-B18F-DA64E3651C41}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_vp9", "..\..\..\libs\webrtc\webrtc\modules\video_coding\codecs\vp9\webrtc_vp9.vcxproj", "{8D1A4B3A-2470-E83E-BEC7-08395F98C755}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_vp9", "..\..\libs\webrtc\webrtc\modules\video_coding\codecs\vp9\webrtc_vp9.vcxproj", "{8D1A4B3A-2470-E83E-BEC7-08395F98C755}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_h264", "..\..\..\libs\webrtc\webrtc\modules\webrtc_h264.vcxproj", "{C93CB6A3-741A-2433-10D3-FC2CE462281B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_h264", "..\..\libs\webrtc\webrtc\modules\webrtc_h264.vcxproj", "{C93CB6A3-741A-2433-10D3-FC2CE462281B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc", "..\..\..\libs\webrtc\webrtc\webrtc.vcxproj", "{6A84C71C-99A5-0EB5-4684-082255418225}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc", "..\..\libs\webrtc\webrtc\webrtc.vcxproj", "{6A84C71C-99A5-0EB5-4684-082255418225}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_event_log", "..\..\..\libs\webrtc\webrtc\rtc_event_log.vcxproj", "{22E64358-4021-07DE-287B-4AA671A0529C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_event_log", "..\..\libs\webrtc\webrtc\rtc_event_log.vcxproj", "{22E64358-4021-07DE-287B-4AA671A0529C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_event_log_proto", "..\..\..\libs\webrtc\webrtc\rtc_event_log_proto.vcxproj", "{2B87CCFF-53C3-1EC9-1547-26050F8EFF7F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_event_log_proto", "..\..\libs\webrtc\webrtc\rtc_event_log_proto.vcxproj", "{2B87CCFF-53C3-1EC9-1547-26050F8EFF7F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "isac_common", "..\..\..\libs\webrtc\webrtc\modules\isac_common.vcxproj", "{F592FE45-4D65-C545-ABD7-7525FB74CC39}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "isac_common", "..\..\libs\webrtc\webrtc\modules\isac_common.vcxproj", "{F592FE45-4D65-C545-ABD7-7525FB74CC39}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "isac_fix", "..\..\..\libs\webrtc\webrtc\modules\isac_fix.vcxproj", "{C8382F35-C727-07B8-F2C5-F3B62FA30EB1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "isac_fix", "..\..\libs\webrtc\webrtc\modules\isac_fix.vcxproj", "{C8382F35-C727-07B8-F2C5-F3B62FA30EB1}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		..\..\..\libs\op-services-cpp\projects\vs2013\hfservices\hfservicesTest.Shared\hfservicesTest.Shared.vcxitems*{b53f4474-1ed7-42a2-8cc8-3a7f7d996a5d}*SharedItemsImports = 9
-		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems*{73373db6-8059-4671-acbd-47219a769922}*SharedItemsImports = 9
-		..\..\..\libs\zsLib\projects\vs2013\zsLib\zsLib.Shared\zsLib.Shared.vcxitems*{d4990072-586d-43e3-9973-51092bd9226f}*SharedItemsImports = 4
-		..\..\..\libs\idnkit\projects\vs2013\idnkit\idnkit.Shared\idnkit.Shared.vcxitems*{de21ecb4-5a23-43b0-8313-6cd7bf6e3b37}*SharedItemsImports = 9
+		..\..\libs\op-services-cpp\projects\msvs\hfservices\hfservicesTest.Shared\hfservicesTest.Shared.vcxitems*{b53f4474-1ed7-42a2-8cc8-3a7f7d996a5d}*SharedItemsImports = 9
+		..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems*{73373db6-8059-4671-acbd-47219a769922}*SharedItemsImports = 9
+		..\..\libs\zsLib\projects\msvs\zsLib\zsLib.Shared\zsLib.Shared.vcxitems*{d4990072-586d-43e3-9973-51092bd9226f}*SharedItemsImports = 4
+		..\..\libs\idnkit\projects\msvs\idnkit\idnkit.Shared\idnkit.Shared.vcxitems*{de21ecb4-5a23-43b0-8313-6cd7bf6e3b37}*SharedItemsImports = 9
 		samples\ortc-standup\ortc-standup.Shared\ortc-standup.Shared.vcxitems*{196f4e37-9186-4991-99d3-67f5e1f012b6}*SharedItemsImports = 9
-		..\..\..\libs\zsLib\projects\vs2013\zsLib\zsLibTest_Universal.Shared\zsLibTest_Universal.Shared.vcxitems*{45daa8ac-7dbd-4182-b99a-cd929c80d60d}*SharedItemsImports = 9
-		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Shared\ortclibTest.Shared.vcxitems*{c2f7bb00-c8a4-4459-9be0-f58f67a1ee4d}*SharedItemsImports = 9
-		..\..\..\libs\udns\projects\vs2013\udns\udns.Shared\udns.Shared.vcxitems*{356b3bbc-30c4-45fd-9270-1aa6b32ad553}*SharedItemsImports = 4
-		..\..\..\libs\op-services-cpp\projects\vs2013\hfservices\hfservices.Shared\hfservices.Shared.vcxitems*{b510e402-e901-4cf0-9073-76984ac9fdc7}*SharedItemsImports = 9
-		..\..\..\libs\zsLib\projects\vs2013\zsLib\zsLib.Shared\zsLib.Shared.vcxitems*{aa3e6a72-1080-4430-9921-8eba6652ba3a}*SharedItemsImports = 9
-		..\..\..\libs\op-services-cpp\projects\vs2013\hfservices\hfservices.Shared\hfservices.Shared.vcxitems*{55c55370-b836-41fe-9d17-db2095363dad}*SharedItemsImports = 4
-		..\..\..\libs\idnkit\projects\vs2013\idnkit\idnkit.Shared\idnkit.Shared.vcxitems*{ea7f7b95-2bea-43f4-b456-f8d740f9c9c8}*SharedItemsImports = 4
-		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems*{230126e0-3b22-4fe4-baaf-2646453b88b1}*SharedItemsImports = 4
-		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortc-lib.Shared\ortc-lib.Shared.vcxitems*{96d33368-1468-463b-82d9-c5d50bd7a4b2}*SharedItemsImports = 4
-		..\..\..\libs\cryptopp\projects\vs2013\cryptopp\cryptopp.Shared\cryptopp.Shared.vcxitems*{f73d1443-6e8d-4b5b-9f0a-cab724692a5a}*SharedItemsImports = 4
-		..\..\..\libs\ortc-lib\projects\vs2013\ortc-lib\ortc-lib.Shared\ortc-lib.Shared.vcxitems*{c9ce65f1-df3e-47d2-95b8-6cddc789849c}*SharedItemsImports = 9
-		..\..\..\libs\udns\projects\vs2013\udns\udns.Shared\udns.Shared.vcxitems*{d66b52bd-7915-49ba-9cbd-d409bca40c55}*SharedItemsImports = 9
-		..\..\..\libs\cryptopp\projects\vs2013\cryptopp\cryptopp.Shared\cryptopp.Shared.vcxitems*{cb408c66-7391-49fd-a718-c5a04862c9ca}*SharedItemsImports = 9
+		..\..\libs\zsLib\projects\msvs\zsLib\zsLibTest_Universal.Shared\zsLibTest_Universal.Shared.vcxitems*{45daa8ac-7dbd-4182-b99a-cd929c80d60d}*SharedItemsImports = 9
+		..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortclibTest.Shared\ortclibTest.Shared.vcxitems*{c2f7bb00-c8a4-4459-9be0-f58f67a1ee4d}*SharedItemsImports = 9
+		..\..\libs\udns\projects\msvs\udns\udns.Shared\udns.Shared.vcxitems*{356b3bbc-30c4-45fd-9270-1aa6b32ad553}*SharedItemsImports = 4
+		..\..\libs\op-services-cpp\projects\msvs\hfservices\hfservices.Shared\hfservices.Shared.vcxitems*{b510e402-e901-4cf0-9073-76984ac9fdc7}*SharedItemsImports = 9
+		..\..\libs\zsLib\projects\msvs\zsLib\zsLib.Shared\zsLib.Shared.vcxitems*{aa3e6a72-1080-4430-9921-8eba6652ba3a}*SharedItemsImports = 9
+		..\..\libs\op-services-cpp\projects\msvs\hfservices\hfservices.Shared\hfservices.Shared.vcxitems*{55c55370-b836-41fe-9d17-db2095363dad}*SharedItemsImports = 4
+		..\..\libs\idnkit\projects\msvs\idnkit\idnkit.Shared\idnkit.Shared.vcxitems*{ea7f7b95-2bea-43f4-b456-f8d740f9c9c8}*SharedItemsImports = 4
+		..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems*{230126e0-3b22-4fe4-baaf-2646453b88b1}*SharedItemsImports = 4
+		..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortc-lib.Shared\ortc-lib.Shared.vcxitems*{96d33368-1468-463b-82d9-c5d50bd7a4b2}*SharedItemsImports = 4
+		..\..\libs\cryptopp\projects\msvs\cryptopp\cryptopp.Shared\cryptopp.Shared.vcxitems*{f73d1443-6e8d-4b5b-9f0a-cab724692a5a}*SharedItemsImports = 4
+		..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortc-lib.Shared\ortc-lib.Shared.vcxitems*{c9ce65f1-df3e-47d2-95b8-6cddc789849c}*SharedItemsImports = 9
+		..\..\libs\udns\projects\msvs\udns\udns.Shared\udns.Shared.vcxitems*{d66b52bd-7915-49ba-9cbd-d409bca40c55}*SharedItemsImports = 9
+		..\..\libs\cryptopp\projects\msvs\cryptopp\cryptopp.Shared\cryptopp.Shared.vcxitems*{cb408c66-7391-49fd-a718-c5a04862c9ca}*SharedItemsImports = 9
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM

@@ -4,6 +4,6 @@
 *.suo
 *.user
 [Rr]elease/
-projects/vs2013/ipch
-projects/vs2013/samples/ortc-standup/**/Generated Files
-projects/vs2013/ortc-lib-sdk-win.vs2015.VC.opendb
+projects/ipch
+projects/samples/ortc-standup/**/Generated Files
+projects/ortc-lib-sdk-win.vs2015.VC.opendb
