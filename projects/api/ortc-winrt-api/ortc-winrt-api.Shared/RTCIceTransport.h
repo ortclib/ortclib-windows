@@ -50,19 +50,19 @@ namespace ortc_winrt_api
 
   public enum class RTCIceTransportState
   {
-    State_New,
-    State_Checking,
-    State_Connected,
-    State_Completed,
-    State_Disconnected,
-    State_Failed,
-    State_Closed,
+    New,
+    Checking,
+    Connected,
+    Completed,
+    Disconnected,
+    Failed,
+    Closed,
   };
 
   public enum class RTCIceRole
   {
-    Role_Controlling,
-    Role_Controlled,
+    Controlling,
+    Controlled
   };
 
   public ref class RTCIceCandidatePair sealed
@@ -120,19 +120,19 @@ namespace ortc_winrt_api
     friend class ConvertObjectToCx;
   public:
     RTCIceTransport();
-    RTCIceTransport(RTCIceGatherer^ gatherer);
+    RTCIceTransport(RTCIceGatherer^ Gatherer);
 
-    IVector<RTCIceCandidate^>^ getRemoteCandidates();
-    RTCIceCandidatePair^       getSelectedCandidatePair();
-    void                       start(RTCIceGatherer^ gatherer, RTCIceParameters^ remoteParameters, RTCIceRole role);
-    void                       stop();
-    RTCIceParameters^          getRemoteParameters();
-    RTCIceTransport^           createAssociatedTransport();
+    IVector<RTCIceCandidate^>^ GetRemoteCandidates();
+    RTCIceCandidatePair^       GetSelectedCandidatePair();
+    void                       Start(RTCIceGatherer^ gatherer, RTCIceParameters^ remoteParameters, RTCIceRole role);
+    void                       Stop();
+    RTCIceParameters^          GetRemoteParameters();
+    RTCIceTransport^           CreateAssociatedTransport();
     [Windows::Foundation::Metadata::DefaultOverloadAttribute]
-    void                       addRemoteCandidate(RTCIceCandidate^ remoteCandidate);
+    void                       AddRemoteCandidate(RTCIceCandidate^ remoteCandidate);
     [Windows::Foundation::Metadata::OverloadAttribute("AddRemoteCandidateComplete")]
-    void                       addRemoteCandidate(RTCIceCandidateComplete^ remoteCandidate);
-    void                       setRemoteCandidates(IVector<RTCIceCandidate^>^ remoteCandidates);
+    void                       AddRemoteCandidate(RTCIceCandidateComplete^ remoteCandidate);
+    void                       SetRemoteCandidates(IVector<RTCIceCandidate^>^ remoteCandidates);
   private:
     IICETransportPtr mNativePointer;
     RTCIceTransportDelegatePtr mNativeDelegatePointer;
@@ -171,7 +171,7 @@ namespace ortc_winrt_api
         if (mNativePointer)
           return (RTCIceRole)mNativePointer->role();
         else
-          return RTCIceRole::Role_Controlled;
+          return RTCIceRole::Controlled;
       }
     }
 
@@ -182,7 +182,7 @@ namespace ortc_winrt_api
         if (mNativePointer)
           return (RTCIceTransportState)mNativePointer->state();
         else
-          return RTCIceTransportState::State_Closed;
+          return RTCIceTransportState::Closed;
       }
     }
 

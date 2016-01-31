@@ -68,7 +68,7 @@ RTCDtlsTransport^ RTCRtpSender::GetDtlsTransport(Platform::Boolean isRtcp)
   }
 }
 
-void RTCRtpSender::setTransport(RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport)
+void RTCRtpSender::SetTransport(RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport)
 {
   if (mNativePointer)
   {
@@ -76,7 +76,7 @@ void RTCRtpSender::setTransport(RTCDtlsTransport^ transport, RTCDtlsTransport^ r
   }
 }
 
-IAsyncAction^ RTCRtpSender::setTrack(MediaStreamTrack^ track)
+IAsyncAction^ RTCRtpSender::SetTrack(MediaStreamTrack^ track)
 {
 	IAsyncAction^ ret = Concurrency::create_async([this,track]()
 	{
@@ -100,7 +100,7 @@ IAsyncAction^ RTCRtpSender::setTrack(MediaStreamTrack^ track)
 	return ret;
 }
 
-RTCRtpCapabilities^ RTCRtpSender::getCapabilities(Platform::String^ kind)
+RTCRtpCapabilities^ RTCRtpSender::GetCapabilities(Platform::String^ kind)
 {
   auto ret = ref new RTCRtpCapabilities();
   IRTPTypes::CapabilitiesPtr capabilitiesPtr;
@@ -119,18 +119,18 @@ RTCRtpCapabilities^ RTCRtpSender::getCapabilities(Platform::String^ kind)
     for (IRTPTypes::CodecCapabilitiesList::iterator it = capabilitiesPtr->mCodecs.begin(); it != capabilitiesPtr->mCodecs.end(); ++it)
     {
       auto codec = ToCx((make_shared<IRTPTypes::CodecCapability>(*it)));
-      ret->codecs->Append(codec);
+      ret->Codecs->Append(codec);
     }
 
     for (IRTPTypes::HeaderExtensionsList::iterator it = capabilitiesPtr->mHeaderExtensions.begin(); it != capabilitiesPtr->mHeaderExtensions.end(); ++it)
     {
       auto codec = ToCx((make_shared<IRTPTypes::HeaderExtension>(*it)));
-      ret->headerExtensions->Append(codec);
+      ret->HeaderExtensions->Append(codec);
     }
 
     for (std::list<zsLib::String>::iterator it = capabilitiesPtr->mFECMechanisms.begin(); it != capabilitiesPtr->mFECMechanisms.end(); ++it)
     {
-      ret->fecMechanisms->Append(ToCx(*it));
+      ret->FecMechanisms->Append(ToCx(*it));
     }
 
   }
@@ -138,7 +138,7 @@ RTCRtpCapabilities^ RTCRtpSender::getCapabilities(Platform::String^ kind)
   return ret;
 }
 
-void RTCRtpSender::send(RTCRtpParameters^ parameters)
+void RTCRtpSender::Send(RTCRtpParameters^ parameters)
 {
 	if (mNativePointer)
 	{
@@ -146,7 +146,7 @@ void RTCRtpSender::send(RTCRtpParameters^ parameters)
 	}
 }
 
-void RTCRtpSender::stop()
+void RTCRtpSender::Stop()
 {
   if (mNativePointer)
   {

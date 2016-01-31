@@ -32,7 +32,7 @@ namespace OrtcWrapper
         {
             Task<MediaDeviceInfo> t = Task.Run<MediaDeviceInfo>(() =>
             {
-                Task<IList<MediaDeviceInfo>> task = OrtcMediaDevices.enumerateDevices().AsTask();
+                Task<IList<MediaDeviceInfo>> task = MediaDevices.EnumerateDevices().AsTask();
                 
                 return task.ContinueWith<MediaDeviceInfo>((temp) =>
                 {
@@ -49,7 +49,7 @@ namespace OrtcWrapper
         {
             Task<MediaStream> t = Task.Run<MediaStream>(() =>
             {
-                Task<IList<MediaStreamTrack>> task = OrtcMediaDevices.getUserMedia(Helper.ToApiConstraints(mediaStreamConstraints)).AsTask();
+                Task<IList<MediaStreamTrack>> task = MediaDevices.GetUserMedia(Helper.ToApiConstraints(mediaStreamConstraints)).AsTask();
                 
                 return task.ContinueWith<MediaStream>((temp) =>
                 {

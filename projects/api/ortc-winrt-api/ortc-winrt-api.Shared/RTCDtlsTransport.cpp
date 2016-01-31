@@ -37,7 +37,7 @@ mNativeDelegatePointer(new RTCDtlsTransportDelegate())
   }
 }
 
-RTCDtlsParameters^ RTCDtlsTransport::getLocalParameters()
+RTCDtlsParameters^ RTCDtlsTransport::GetLocalParameters()
 {
   auto ret = ref new RTCDtlsParameters();
 
@@ -50,7 +50,7 @@ RTCDtlsParameters^ RTCDtlsTransport::getLocalParameters()
   return ret;
 }
 
-RTCDtlsParameters^ RTCDtlsTransport::getRemoteParameters()
+RTCDtlsParameters^ RTCDtlsTransport::GetRemoteParameters()
 {
   auto ret = ref new RTCDtlsParameters();
 
@@ -63,7 +63,7 @@ RTCDtlsParameters^ RTCDtlsTransport::getRemoteParameters()
   return ret;
 }
 
-IVector<Object^>^ RTCDtlsTransport::getRemoteCertificates()
+IVector<Object^>^ RTCDtlsTransport::GetRemoteCertificates()
 {
   auto ret = ref new Vector<Object^>();
 
@@ -84,7 +84,7 @@ IVector<Object^>^ RTCDtlsTransport::getRemoteCertificates()
   return ret;
 }
 
-void RTCDtlsTransport::start(RTCDtlsParameters^ remoteParameters)
+void RTCDtlsTransport::Start(RTCDtlsParameters^ remoteParameters)
 {
   if (mNativePointer)
   {
@@ -92,7 +92,7 @@ void RTCDtlsTransport::start(RTCDtlsParameters^ remoteParameters)
   }
 }
 
-void RTCDtlsTransport::stop()
+void RTCDtlsTransport::Stop()
 {
   if (mNativePointer)
   {

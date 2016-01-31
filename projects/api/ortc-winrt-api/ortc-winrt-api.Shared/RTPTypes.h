@@ -8,138 +8,138 @@ namespace ortc_winrt_api
   public ref class  RTCRtcpFeedback sealed
   {
   public:
-    property Platform::String^ type;
-    property Platform::String^ parameter;
+    property Platform::String^ Type;
+    property Platform::String^ Parameter;
   };
 
   public ref class RTCRtpCodecCapability sealed
   {
   public:
-    property Platform::String^          name;
-    property Platform::String^          kind;
-    property uint32                     clockRate;
-    property uint8                      preferredPayloadType;
-    property uint32                     maxptime;
-    property uint32                     numChannels;
-    property IVector<RTCRtcpFeedback^>^ rtcpFeedback;
-    property Object^                    parameters;
-    property Object^                    options;
-    property uint16                     maxTemporalLayers; //default = 0;
-    property uint16                     maxSpatialLayers; //default = 0;
-    property Platform::Boolean          svcMultiStreamSupport;
+    property Platform::String^          Name;
+    property Platform::String^          Kind;
+    property uint32                     ClockRate;
+    property uint8                      PreferredPayloadType;
+    property uint32                     Maxptime;
+    property uint32                     NumChannels;
+    property IVector<RTCRtcpFeedback^>^ RtcpFeedback;
+    property Object^                    Parameters;
+    property Object^                    Options;
+    property uint16                     MaxTemporalLayers; //default = 0;
+    property uint16                     MaxSpatialLayers; //default = 0;
+    property Platform::Boolean          SvcMultiStreamSupport;
   };
 
   public ref class RTCRtpHeaderExtensions sealed
   {
   public:
-    property Platform::String^    kind;
-    property Platform::String^    uri;
-    property uint16               preferredId;
-    property Platform::Boolean    preferredEncrypt; //default = false;
+    property Platform::String^    Kind;
+    property Platform::String^    Uri;
+    property uint16               PreferredId;
+    property Platform::Boolean    PreferredEncrypt; //default = false;
   };
 
   //public ref class RTCRtpHeaderExtensionParameters sealed
   //{
   //public:
-  //  property Platform::String^    uri;
-  //  property uint16               id;
-  //  property Platform::Boolean    encrypt; //default = false;
+  //  property Platform::String^    Uri;
+  //  property uint16               Id;
+  //  property Platform::Boolean    Encrypt; //default = false;
   //};
 
   public ref class RTCRtpCapabilities sealed
   {
   public:
-    property IVector<RTCRtpCodecCapability^>^     codecs;
-    property IVector<RTCRtpHeaderExtensions^>^    headerExtensions;
-    property IVector<Platform::String^>^          fecMechanisms;
+    property IVector<RTCRtpCodecCapability^>^     Codecs;
+    property IVector<RTCRtpHeaderExtensions^>^    HeaderExtensions;
+    property IVector<Platform::String^>^          FecMechanisms;
   };
 
 
   public ref class RTCRtpCodecParameters sealed
   {
   public:
-    property Platform::String^          name;
-    property uint8                      payloadType;
-    property uint32                     clockRate;
-    property uint32                     maxptime;
-    property uint32                     numChannels;
-    property IVector<RTCRtcpFeedback^>^ rtcpFeedback;
-    property Object^                    parameters;
+    property Platform::String^          Name;
+    property uint8                      PayloadType;
+    property uint32                     ClockRate;
+    property uint32                     Maxptime;
+    property uint32                     NumChannels;
+    property IVector<RTCRtcpFeedback^>^ RtcpFeedback;
+    property Object^                    Parameters;
   };
 
   public ref class  RTCRtpHeaderExtensionParameters sealed
   {
   public:
-    property Platform::String^  uri;
-    property uint16             id;
-    property Platform::Boolean  encrypt; //default = false;
+    property Platform::String^  Uri;
+    property uint16             Id;
+    property Platform::Boolean  Encrypt; //default = false;
   };
 
   public ref class  RTCRtcpParameters sealed
   {
   public:
-    property uint32               ssrc;
-    property Platform::String^    cname;
-    property Platform::Boolean    reducedSize; //default = false
-    property Platform::Boolean    mux; //default = true
+    property uint32               Ssrc;
+    property Platform::String^    CName;
+    property Platform::Boolean    ReducedSize; //default = false
+    property Platform::Boolean    Mux; //default = true
   };
 
   public enum class RTCDegradationPreference
   {
-    Degradation_Preference_Maintain_Framerate,
-    Degradation_Preference_Maintain_Resolution,
-    Degradation_Preference_Maintain_Balanced
+    MaintainFramerate,
+    MaintainResolution,
+    MaintainBalanced
   };
 
   public ref class RTCRtpFecParameters sealed
   {
   public:
-    property uint32                ssrc;
-    property Platform::String^     mechanism;
+    property uint32                Ssrc;
+    property Platform::String^     Mechanism;
   };
 
   public ref class RTCRtpRtxParameters sealed
   {
   public:
-    property uint32             ssrc;
-    property uint8              payloadType;
+    property uint32             Ssrc;
+    property uint8              PayloadType;
   };
 
   public enum class  RTCPriorityType
   {
-    Priority_Unknown,
-    Priority_Very_Low,
-    Priority_Low,
-    Priority_Medium,
-    Priority_High
+    Unknown,
+    Very_Low,
+    Low,
+    Medium,
+    High
   };
 
   public ref class RTCRtpEncodingParameters sealed
   {
   public:
-    property uint32                       ssrc;
-    property uint8                        codecPayloadType;
-    property RTCRtpFecParameters^         fec;
-    property RTCRtpRtxParameters^         rtx;
-    property RTCPriorityType              priority;
-    property uint32                       maxBitrate;
-    property float64                      minQuality; //default = 0;
-    property float64                      resolutionScale;
-    property float64                      framerateScale;
-    property Platform::Boolean            active; //default = true;
-    property Platform::String^            encodingId;
-    property IVector<Platform::String^>^  dependencyEncodingIds;
+    property uint32                       Ssrc;
+    property uint8                        CodecPayloadType;
+    property RTCRtpFecParameters^         Fec;
+    property RTCRtpRtxParameters^         Rtx;
+    property RTCPriorityType              Priority;
+    property uint32                       MaxBitrate;
+    property float64                      MinQuality; //default = 0;
+    property float64                      ResolutionScale;
+    property float64                      FramerateScale;
+    property Platform::Boolean            Active; //default = true;
+    property Platform::String^            EncodingId;
+    property IVector<Platform::String^>^  DependencyEncodingIds;
   };
 
   public  ref  class RTCRtpParameters sealed
   {
   public:
-    property Platform::String^                muxId;  //default = ""
-    property IVector<RTCRtpCodecParameters^>^        codecs;
-    property IVector<RTCRtpHeaderExtensionParameters^>^    headerExtensions;
-    property IVector<RTCRtpEncodingParameters^>^      encodings;
-    property RTCRtcpParameters^                rtcp;
-    property RTCDegradationPreference            degradationPreference;  //default = Degradation_Preference_Maintain_Balanced
+    property Platform::String^                          MuxId;  //default = ""
+    property IVector<RTCRtpCodecParameters^>^           Codecs;
+    property IVector<RTCRtpHeaderExtensionParameters^>^ HeaderExtensions;
+    property IVector<RTCRtpEncodingParameters^>^        Encodings;
+    property RTCRtcpParameters^                         Rtcp;
+    property RTCDegradationPreference                   DegradationPreference;  //default = MaintainBalanced
   };
 
 }

@@ -134,15 +134,15 @@ namespace ortc_api_test
 
         private void RTCIceGatherer_onICEGathererStateChanged(RTCIceGathererStateChangeEvent evt)
         {
-          if(evt.State == RTCIceGathererState.State_Complete)
+          if(evt.State == RTCIceGathererState.Complete)
           {
-            _iceTransport.start(_iceGatherer, _iceGatherer2.getLocalParameters(), RTCIceRole.Role_Controlled);
+            _iceTransport.Start(_iceGatherer, _iceGatherer2.GetLocalParameters(), RTCIceRole.Controlled);
           }
         }
 
         private void RTCIceGatherer_onICEGathererLocalCandidate(RTCIceGathererCandidateEvent evt)
         {
-          _iceTransport2.addRemoteCandidate(evt.Candidate);
+          _iceTransport2.AddRemoteCandidate(evt.Candidate);
         }
 
         private void RTCIceGatherer_onICEGathererCandidateComplete(RTCIceGathererCandidateCompleteEvent evt)
@@ -167,14 +167,14 @@ namespace ortc_api_test
 
         private void RTCIceGatherer_onICEGathererStateChanged2(RTCIceGathererStateChangeEvent evt)
         {
-          if (evt.State == RTCIceGathererState.State_Complete)
+          if (evt.State == RTCIceGathererState.Complete)
           {
-            _iceTransport2.start(_iceGatherer2, _iceGatherer.getLocalParameters(), RTCIceRole.Role_Controlling);
+            _iceTransport2.Start(_iceGatherer2, _iceGatherer.GetLocalParameters(), RTCIceRole.Controlling);
           }
         }
         private void RTCIceGatherer_onICEGathererLocalCandidate2(RTCIceGathererCandidateEvent evt)
         {
-          _iceTransport.addRemoteCandidate(evt.Candidate);
+          _iceTransport.AddRemoteCandidate(evt.Candidate);
 
         }
 

@@ -13,7 +13,7 @@ RTCIceTransportController::RTCIceTransportController()
   mNativePointer = IICETransportController::create();
 }
 
-IVector<RTCIceTransport^>^ RTCIceTransportController::getTransports()
+IVector<RTCIceTransport^>^ RTCIceTransportController::GetTransports()
 {
   auto ret = ref new Vector<RTCIceTransport^>();
   if (mNativePointer)
@@ -27,7 +27,7 @@ IVector<RTCIceTransport^>^ RTCIceTransportController::getTransports()
   return ret;
 }
 
-void RTCIceTransportController::addTransport(RTCIceTransport^ transport, size_t index)
+void RTCIceTransportController::AddTransport(RTCIceTransport^ transport, size_t index)
 {
   if (mNativePointer)
   {

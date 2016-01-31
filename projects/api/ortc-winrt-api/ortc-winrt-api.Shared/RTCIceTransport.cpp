@@ -30,7 +30,7 @@ mNativeDelegatePointer(new RTCIceTransportDelegate())
   }
 }
 
-IVector<RTCIceCandidate^>^ RTCIceTransport::getRemoteCandidates()
+IVector<RTCIceCandidate^>^ RTCIceTransport::GetRemoteCandidates()
 {
   auto ret = ref new Vector<RTCIceCandidate^>();
   if (mNativePointer)
@@ -43,7 +43,7 @@ IVector<RTCIceCandidate^>^ RTCIceTransport::getRemoteCandidates()
   return ret;
 }
 
-RTCIceCandidatePair^ RTCIceTransport::getSelectedCandidatePair()
+RTCIceCandidatePair^ RTCIceTransport::GetSelectedCandidatePair()
 {
   auto ret = ref new RTCIceCandidatePair();
   if (mNativePointer)
@@ -56,7 +56,7 @@ RTCIceCandidatePair^ RTCIceTransport::getSelectedCandidatePair()
   return ret;
 }
 
-void RTCIceTransport::start(RTCIceGatherer^ gatherer, RTCIceParameters^ remoteParameters, RTCIceRole role)
+void RTCIceTransport::Start(RTCIceGatherer^ gatherer, RTCIceParameters^ remoteParameters, RTCIceRole role)
 {
   if (mNativePointer && FetchNativePointer::FromIceGatherer(gatherer))
   {
@@ -72,7 +72,7 @@ void RTCIceTransport::start(RTCIceGatherer^ gatherer, RTCIceParameters^ remotePa
   }
 }
 
-void RTCIceTransport::stop()
+void RTCIceTransport::Stop()
 {
   if (mNativePointer)
   {
@@ -80,7 +80,7 @@ void RTCIceTransport::stop()
   }
 }
 
-RTCIceParameters^ RTCIceTransport::getRemoteParameters()
+RTCIceParameters^ RTCIceTransport::GetRemoteParameters()
 {
   auto ret = ref new RTCIceParameters();
   if (mNativePointer)
@@ -92,7 +92,7 @@ RTCIceParameters^ RTCIceTransport::getRemoteParameters()
   return ret;
 }
 
-RTCIceTransport^ RTCIceTransport::createAssociatedTransport()
+RTCIceTransport^ RTCIceTransport::CreateAssociatedTransport()
 {
   auto ret = ref new RTCIceTransport();
 
@@ -106,7 +106,7 @@ RTCIceTransport^ RTCIceTransport::createAssociatedTransport()
   return ret;
 }
 
-void RTCIceTransport::addRemoteCandidate(RTCIceCandidate^ remoteCandidate)
+void RTCIceTransport::AddRemoteCandidate(RTCIceCandidate^ remoteCandidate)
 {
   if (mNativePointer)
   {
@@ -114,7 +114,7 @@ void RTCIceTransport::addRemoteCandidate(RTCIceCandidate^ remoteCandidate)
   }
 }
 
-void RTCIceTransport::addRemoteCandidate(RTCIceCandidateComplete^ remoteCandidate)
+void RTCIceTransport::AddRemoteCandidate(RTCIceCandidateComplete^ remoteCandidate)
 {
   if (mNativePointer)
   {
@@ -123,7 +123,7 @@ void RTCIceTransport::addRemoteCandidate(RTCIceCandidateComplete^ remoteCandidat
   }
 }
 
-void RTCIceTransport::setRemoteCandidates(IVector<RTCIceCandidate^>^ remoteCandidates)
+void RTCIceTransport::SetRemoteCandidates(IVector<RTCIceCandidate^>^ remoteCandidates)
 {
   if (mNativePointer)
   {

@@ -58,18 +58,18 @@ namespace ortc_winrt_api
 
   public enum class RTCDtlsTransportState
   {
-    State_New,
-    State_Connecting,
-    State_Connected,
-    State_Validated,
-    State_Closed,
+    New,
+    Connecting,
+    Connected,
+    Validated,
+    Closed,
   };
 
   public enum class RTCDtlsRole
   {
-    Role_Auto,
-    Role_Client,
-    Role_Server,
+    Auto,
+    Client,
+    Server,
   };
 
   public ref class RTCDtlsFingerprint sealed
@@ -155,15 +155,15 @@ namespace ortc_winrt_api
     RTCDtlsTransport();
     RTCDtlsTransport(RTCIceTransport^ transport, RTCCertificate^ certificate);
 
-    RTCDtlsParameters^      getLocalParameters();
-    RTCDtlsParameters^      getRemoteParameters();
-    IVector<Object^>^       getRemoteCertificates();
-    void                    start(RTCDtlsParameters^ remoteParameters);
-    void                    stop();
+    RTCDtlsParameters^      GetLocalParameters();
+    RTCDtlsParameters^      GetRemoteParameters();
+    IVector<Object^>^       GetRemoteCertificates();
+    void                    Start(RTCDtlsParameters^ remoteParameters);
+    void                    Stop();
+
   private:
     IDtlsTransportPtr mNativePointer;
     RTCDtlsTransportDelegatePtr mNativeDelegatePointer;
-
 
   private:
     RTCIceTransport^ GetIceTransport();
@@ -199,7 +199,7 @@ namespace ortc_winrt_api
         if (mNativePointer)
           return (RTCDtlsTransportState)mNativePointer->state();
         else
-          return RTCDtlsTransportState::State_Closed;
+          return RTCDtlsTransportState::Closed;
       }
     }
   public:

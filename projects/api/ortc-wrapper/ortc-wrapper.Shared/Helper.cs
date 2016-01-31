@@ -16,16 +16,16 @@ namespace OrtcWrapper
 
             switch (type)
             {
-                case RTCIceCandidateType.CandidateType_Host:
+                case RTCIceCandidateType.Host:
                     ret = "host";
                     break;
-                case RTCIceCandidateType.CandidateType_Prflx:
+                case RTCIceCandidateType.Prflx:
                     ret = "prflx";
                     break;
-                case RTCIceCandidateType.CandidateType_Relay:
+                case RTCIceCandidateType.Relay:
                     ret = "relay";
                     break;
-                case RTCIceCandidateType.CandidateType_Srflex:
+                case RTCIceCandidateType.Srflex:
                     ret = "srflex";
                     break;
 
@@ -37,25 +37,25 @@ namespace OrtcWrapper
         }
         public static RTCIceCandidateType ToIceCandidateType(string type)
         {
-            RTCIceCandidateType ret = RTCIceCandidateType.CandidateType_Host;
+            RTCIceCandidateType ret = RTCIceCandidateType.Host;
 
             switch (type)
             {
                 case "host":
-                    ret = RTCIceCandidateType.CandidateType_Host;
+                    ret = RTCIceCandidateType.Host;
                 break;
                 case "prflx":
-                    ret = RTCIceCandidateType.CandidateType_Prflx;
+                    ret = RTCIceCandidateType.Prflx;
                     break;
                 case "relay":
-                    ret = RTCIceCandidateType.CandidateType_Relay;
+                    ret = RTCIceCandidateType.Relay;
                     break;
                 case "srflex":
-                    ret = RTCIceCandidateType.CandidateType_Srflex;
+                    ret = RTCIceCandidateType.Srflex;
                     break;
 
                 default:
-                    ret = RTCIceCandidateType.CandidateType_Host;
+                    ret = RTCIceCandidateType.Host;
                     break;
             }
             return ret;
@@ -72,7 +72,7 @@ namespace OrtcWrapper
             sb.Append(' ');
             sb.Append(sdpComponentId);
             sb.Append(' ');
-            sb.Append(iceCandidate.Protocol == RTCIceProtocol.Protocol_UDP ? "udp" : "tcp");
+            sb.Append(iceCandidate.Protocol == RTCIceProtocol.UDP ? "udp" : "tcp");
             sb.Append(' ');
             sb.Append(iceCandidate.Priority);
             sb.Append(' ');
@@ -112,7 +112,7 @@ namespace OrtcWrapper
                 if (substrings.Length == 10)
                 {
                     ice.Foundation = substrings[0];
-                    ice.Protocol = String.Equals(substrings[2],"udp") ? RTCIceProtocol.Protocol_UDP : RTCIceProtocol.Protocol_TCP;
+                    ice.Protocol = String.Equals(substrings[2],"udp") ? RTCIceProtocol.UDP : RTCIceProtocol.TCP;
                     ice.Priority = uint.Parse(substrings[3]);
                     ice.IP = substrings[4];
                     ice.Port = ushort.Parse(substrings[5]);

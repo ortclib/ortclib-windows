@@ -166,28 +166,28 @@ namespace ortc_winrt_api
   {
     auto ret = ref new RTCRtpCodecCapability();
 
-    ret->name = ToCx(codecCapabilityPtr->mName);
-    ret->kind = ToCx(codecCapabilityPtr->mKind);
-    ret->clockRate = codecCapabilityPtr->mClockRate;
+    ret->Name = ToCx(codecCapabilityPtr->mName);
+    ret->Kind = ToCx(codecCapabilityPtr->mKind);
+    ret->ClockRate = codecCapabilityPtr->mClockRate;
     //ret->preferredPayloadType = codecCapabilityPtr->mPreferredPayloadType;
-    ret->maxptime = codecCapabilityPtr->mMaxPTime;
-    ret->numChannels = codecCapabilityPtr->mNumChannels;
+    ret->Maxptime = codecCapabilityPtr->mMaxPTime;
+    ret->NumChannels = codecCapabilityPtr->mNumChannels;
 
     //ret->rtcpFeedback = ref new Vector<RTCRtcpFeedback^>();
 
     for (IRTPTypes::RTCPFeedbackList::iterator it = codecCapabilityPtr->mRTCPFeedback.begin(); it != codecCapabilityPtr->mRTCPFeedback.end(); ++it)
     {
       auto feedback = ref new RTCRtcpFeedback();
-      feedback->parameter = ToCx(it->mParameter);
-      feedback->type = ToCx(it->mType);
+      feedback->Parameter = ToCx(it->mParameter);
+      feedback->Type = ToCx(it->mType);
       //ret->rtcpFeedback->Append(feedback);
     }
 
     //ret->parameters = codecCapabilityPtr->mParameters;
     //ret->options = codecCapabilityPtr->mOptions;
-    ret->maxTemporalLayers = codecCapabilityPtr->mMaxTemporalLayers; //default = 0;
-    ret->maxSpatialLayers = codecCapabilityPtr->mMaxSpatialLayers; //default = 0;
-    ret->svcMultiStreamSupport = codecCapabilityPtr->mSVCMultiStreamSupport;
+    ret->MaxTemporalLayers = codecCapabilityPtr->mMaxTemporalLayers; //default = 0;
+    ret->MaxSpatialLayers = codecCapabilityPtr->mMaxSpatialLayers; //default = 0;
+    ret->SvcMultiStreamSupport = codecCapabilityPtr->mSVCMultiStreamSupport;
 
     return ret;
   }
@@ -196,10 +196,10 @@ namespace ortc_winrt_api
   {
     auto ret = ref new RTCRtpHeaderExtensions();
 
-    ret->kind = ToCx(headerExtensions->mKind);
-    ret->uri = ToCx(headerExtensions->mURI);
-    ret->preferredEncrypt = headerExtensions->mPreferredEncrypt;
-    ret->preferredId = headerExtensions->mPreferredID;
+    ret->Kind = ToCx(headerExtensions->mKind);
+    ret->Uri = ToCx(headerExtensions->mURI);
+    ret->PreferredEncrypt = headerExtensions->mPreferredEncrypt;
+    ret->PreferredId = headerExtensions->mPreferredID;
 
     return ret;
   }
@@ -208,9 +208,9 @@ namespace ortc_winrt_api
   {
     IRTPTypes::HeaderExtensionParameters ret;
 
-    ret.mURI = FromCx(headerExtensions->uri);
-    ret.mEncrypt = headerExtensions->encrypt;
-    ret.mID = headerExtensions->id;
+    ret.mURI = FromCx(headerExtensions->Uri);
+    ret.mEncrypt = headerExtensions->Encrypt;
+    ret.mID = headerExtensions->Id;
 
     return ret;
   }
@@ -439,22 +439,22 @@ namespace ortc_winrt_api
   {
 	  IRTPTypes::Parameters ret;
 
-	  ret.mMuxID = FromCx(parameters->muxId);
+	  ret.mMuxID = FromCx(parameters->MuxId);
 
-	  for (RTCRtpCodecParameters^ codec : parameters->codecs)
+	  for (RTCRtpCodecParameters^ codec : parameters->Codecs)
 	  {
 		  IRTPTypes::CodecParameters codecCore;
-		  codecCore.mName = FromCx(codec->name);
-		  codecCore.mPayloadType = codec->payloadType;
-		  codecCore.mClockRate = codec->clockRate;
-		  codecCore.mMaxPTime = codec->maxptime;
-		  codecCore.mNumChannels = codec->numChannels;
+		  codecCore.mName = FromCx(codec->Name);
+		  codecCore.mPayloadType = codec->PayloadType;
+		  codecCore.mClockRate = codec->ClockRate;
+		  codecCore.mMaxPTime = codec->Maxptime;
+		  codecCore.mNumChannels = codec->NumChannels;
 
-		  for (RTCRtcpFeedback^ feedback : codec->rtcpFeedback)
+		  for (RTCRtcpFeedback^ feedback : codec->RtcpFeedback)
 		  {
 			  IRTPTypes::RTCPFeedback feedbackCore;
-			  feedbackCore.mParameter = FromCx(feedback->parameter);
-			  feedbackCore.mType = FromCx(feedback->type);
+			  feedbackCore.mParameter = FromCx(feedback->Parameter);
+			  feedbackCore.mType = FromCx(feedback->Type);
 			  codecCore.mRTCPFeedback.push_back(feedbackCore);
 		  }
 
@@ -463,45 +463,45 @@ namespace ortc_winrt_api
 		  ret.mCodecs.push_back(codecCore);
 	  }
 
-	  for (RTCRtpHeaderExtensionParameters^ headerExtension : parameters->headerExtensions)
+	  for (RTCRtpHeaderExtensionParameters^ headerExtension : parameters->HeaderExtensions)
 	  {
 		  IRTPTypes::HeaderExtensionParameters extensionCore;
-		  extensionCore.mEncrypt = headerExtension->encrypt;
-		  extensionCore.mID = headerExtension->id;
-		  extensionCore.mURI = FromCx(headerExtension->uri);
+		  extensionCore.mEncrypt = headerExtension->Encrypt;
+		  extensionCore.mID = headerExtension->Id;
+		  extensionCore.mURI = FromCx(headerExtension->Uri);
 
 		  ret.mHeaderExtensions.push_back(extensionCore);
 	  }
 
-	  for (RTCRtpEncodingParameters^ encodingParameters : parameters->encodings)
+	  for (RTCRtpEncodingParameters^ encodingParameters : parameters->Encodings)
 	  {
 		  IRTPTypes::EncodingParameters encodingParametersCore;
 
-		  encodingParametersCore.mSSRC = encodingParameters->ssrc;
-		  encodingParametersCore.mCodecPayloadType = encodingParameters->codecPayloadType;
-		  encodingParametersCore.mFEC.value().mSSRC = encodingParameters->fec->ssrc;
-		  encodingParametersCore.mFEC.value().mMechanism = FromCx(encodingParameters->fec->mechanism);
-		  encodingParametersCore.mRTX.value().mSSRC = encodingParameters->rtx->ssrc;
-		  encodingParametersCore.mRTX.value().mPayloadType = encodingParameters->rtx->payloadType;
-		  encodingParametersCore.mPriority = (IRTPTypes::PriorityTypes)encodingParameters->priority;
-		  encodingParametersCore.mMaxBitrate = encodingParameters->maxBitrate;
-		  encodingParametersCore.mMinQuality = encodingParameters->minQuality;
-		  encodingParametersCore.mActive = encodingParameters->active;
-		  encodingParametersCore.mEncodingID = FromCx(encodingParameters->encodingId);
+		  encodingParametersCore.mSSRC = encodingParameters->Ssrc;
+		  encodingParametersCore.mCodecPayloadType = encodingParameters->CodecPayloadType;
+		  encodingParametersCore.mFEC.value().mSSRC = encodingParameters->Fec->Ssrc;
+		  encodingParametersCore.mFEC.value().mMechanism = FromCx(encodingParameters->Fec->Mechanism);
+		  encodingParametersCore.mRTX.value().mSSRC = encodingParameters->Rtx->Ssrc;
+		  encodingParametersCore.mRTX.value().mPayloadType = encodingParameters->Rtx->PayloadType;
+		  encodingParametersCore.mPriority = (IRTPTypes::PriorityTypes)encodingParameters->Priority;
+		  encodingParametersCore.mMaxBitrate = encodingParameters->MaxBitrate;
+		  encodingParametersCore.mMinQuality = encodingParameters->MinQuality;
+		  encodingParametersCore.mActive = encodingParameters->Active;
+		  encodingParametersCore.mEncodingID = FromCx(encodingParameters->EncodingId);
 
-		  for (Platform::String^ dependencyEncodingID : encodingParameters->dependencyEncodingIds)
+		  for (Platform::String^ dependencyEncodingID : encodingParameters->DependencyEncodingIds)
 		  {
 			  encodingParametersCore.mDependencyEncodingIDs.push_back(FromCx(dependencyEncodingID));
 		  }
 		  ret.mEncodingParameters.push_back(encodingParametersCore);
 	  }
 
-	  ret.mRTCP.mCName = FromCx(parameters->rtcp->cname);
-	  ret.mRTCP.mMux = parameters->rtcp->mux;
-	  ret.mRTCP.mReducedSize = parameters->rtcp->reducedSize;
-	  ret.mRTCP.mSSRC = parameters->rtcp->ssrc;
+	  ret.mRTCP.mCName = FromCx(parameters->Rtcp->CName);
+	  ret.mRTCP.mMux = parameters->Rtcp->Mux;
+	  ret.mRTCP.mReducedSize = parameters->Rtcp->ReducedSize;
+	  ret.mRTCP.mSSRC = parameters->Rtcp->Ssrc;
 
-	  ret.mDegredationPreference = (IRTPTypes::DegradationPreferences)parameters->degradationPreference;
+	  ret.mDegredationPreference = (IRTPTypes::DegradationPreferences)parameters->DegradationPreference;
 
 	  return ret;
   }

@@ -131,12 +131,12 @@ namespace ortc_winrt_api
 		RTCRtpReceiver(RTCDtlsTransport^ transport);
 		RTCRtpReceiver(RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
 
-		void setTransport(RTCDtlsTransport^ transport);
-		void setTransport(RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
-		static RTCRtpCapabilities ^ getCapabilities(Platform::String^ kind);
-		void receive(RTCRtpParameters^ parameters);
-		IVector<RTCRtpContributingSource^>^ getContributingSource();
-		void stop();
+		void SetTransport(RTCDtlsTransport^ transport);
+		void SetTransport(RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
+		static RTCRtpCapabilities ^ GetCapabilities(Platform::String^ kind);
+		void Receive(RTCRtpParameters^ parameters);
+		IVector<RTCRtpContributingSource^>^ GetContributingSource();
+		void Stop();
 
 		event RTCRtpReceiverErrorDelegate^              OnRTCRtpReceiverError;
 	};

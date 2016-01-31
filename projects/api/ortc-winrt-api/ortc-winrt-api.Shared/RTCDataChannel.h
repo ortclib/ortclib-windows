@@ -53,10 +53,10 @@ namespace ortc_winrt_api
 
   public enum class RTCDataChannelState
   {
-    State_Connecting,
-    State_Open,
-    State_Closing,
-    State_Closed,
+    Connecting,
+    Open,
+    Closing,
+    Closed,
   };
 
   public ref class RTCDataChannelError sealed
@@ -183,7 +183,7 @@ namespace ortc_winrt_api
         if (mNativePointer)
           return (RTCDataChannelState)mNativePointer->readyState();
         else
-          return RTCDataChannelState::State_Closed;
+          return RTCDataChannelState::Closed;
       }
     }
 

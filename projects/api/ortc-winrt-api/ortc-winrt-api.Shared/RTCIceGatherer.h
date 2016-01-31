@@ -60,32 +60,34 @@ namespace ortc_winrt_api
 
   public enum class RTCIceGatherPolicy
   {
-    IceGatherPolicy_None = 0,
-    IceGatherPolicy_NoIPv4Host = 0x00000001,
-    IceGatherPolicy_NoIPv4Srflx = 0x00000002,
-    IceGatherPolicy_NoIPv4Prflx = 0x00000004,
-    IceGatherPolicy_NoIPv4Relay = 0x00000008,
-    IceGatherPolicy_NoIPv4 = 0x000000FF,
-    IceGatherPolicy_NoIPv6Host = 0x00000100,
-    IceGatherPolicy_NoIPv6Srflx = 0x00000200,
-    IceGatherPolicy_NoIPv6Prflx = 0x00000400,
-    IceGatherPolicy_NoIPv6Relay = 0x00000800,
-    IceGatherPolicy_NoIPv6Tunnel = 0x00001000,
-    IceGatherPolicy_NoIPv6Permanent = 0x00002000,
-    IceGatherPolicy_NoIPv6 = 0x0000FF00,
-    IceGatherPolicy_NoHost = (IceGatherPolicy_NoIPv4Host | IceGatherPolicy_NoIPv6Host),
-    IceGatherPolicy_NoSrflx = (IceGatherPolicy_NoIPv4Srflx | IceGatherPolicy_NoIPv4Srflx),
-    IceGatherPolicy_NoPrflx = (IceGatherPolicy_NoIPv4Prflx | IceGatherPolicy_NoIPv6Prflx),
-    IceGatherPolicy_NoRelay = (IceGatherPolicy_NoIPv4Relay | IceGatherPolicy_NoIPv6Relay),
-    IceGatherPolicy_RelayOnly = (IceGatherPolicy_NoIPv4Host | IceGatherPolicy_NoSrflx | IceGatherPolicy_NoPrflx),
-    IceGatherPolicy_NoCandidates = (0xFFFFFFFF)
+    None = 0,
+    NoIPv4Host = 0x00000001,
+    NoIPv4Srflx = 0x00000002,
+    NoIPv4Prflx = 0x00000004,
+    NoIPv4Relay = 0x00000008,
+    NoIPv4 = 0x000000FF,
+    NoIPv6Host = 0x00000100,
+    NoIPv6Srflx = 0x00000200,
+    NoIPv6Prflx = 0x00000400,
+    NoIPv6Relay = 0x00000800,
+    NoIPv6Tunnel = 0x00001000,
+    NoIPv6Permanent = 0x00002000,
+    NoIPv6 = 0x0000FF00,
+    NoHost = (NoIPv4Host | NoIPv6Host),
+    NoSrflx = (NoIPv4Srflx | NoIPv4Srflx),
+    NoPrflx = (NoIPv4Prflx | NoIPv6Prflx),
+    NoRelay = (NoIPv4Relay | NoIPv6Relay),
+    RelayOnly = (NoIPv4Host | NoSrflx | NoPrflx),
+    NoCandidates = (0xFFFFFFFF)
+#define WARNING_MISSING_FEW_ENTRIES 1
+#define WARNING_MISSING_FEW_ENTRIES 2
   };
 
   public enum class RTCIceGathererState {
-    State_New,
-    State_Gathering,
-    State_Complete,
-    State_Closed,
+    New,
+    Gathering,
+    Complete,
+    Closed,
   };
 
   public ref class RTCIceGatherOptions sealed
@@ -97,21 +99,21 @@ namespace ortc_winrt_api
 
   public enum class RTCIceProtocol
   {
-    Protocol_UDP,
-    Protocol_TCP
+    UDP,
+    TCP
   };
 
   public enum class RTCIceCandidateType {
-    CandidateType_Host,
-    CandidateType_Srflex,
-    CandidateType_Prflx,
-    CandidateType_Relay,
+    Host,
+    Srflex,
+    Prflx,
+    Relay,
   };
 
   public enum class RTCIceTcpCandidateType {
-    TCPCandidateType_Active,
-    TCPCandidateType_Passive,
-    TCPCandidateType_SO,
+    Active,
+    Passive,
+    SO,
   };
 
   public enum class RTCIceComponent 
@@ -230,11 +232,11 @@ namespace ortc_winrt_api
 		RTCIceGatherer();
 		RTCIceGatherer(RTCIceGatherOptions^ options);
 		
-		RTCIceParameters^ getLocalParameters();
-		IVector<RTCIceCandidate^>^ getLocalCandidates();
-		RTCIceGatherer^ createAssociatedGatherer();
+		RTCIceParameters^ GetLocalParameters();
+		IVector<RTCIceCandidate^>^ GetLocalCandidates();
+		RTCIceGatherer^ CreateAssociatedGatherer();
 
-		void close();
+		void Close();
 
 	private:
 		IICEGathererPtr mNativePointer;
@@ -260,7 +262,7 @@ namespace ortc_winrt_api
 				if (mNativePointer)
 					return (RTCIceGathererState)mNativePointer->state();
 				else
-					return RTCIceGathererState::State_Closed;
+					return RTCIceGathererState::Closed;
 			}
 		}
 

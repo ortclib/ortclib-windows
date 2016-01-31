@@ -24,7 +24,7 @@ namespace ortc_winrt_api
     virtual void onRTPSenderError(
       IRTPSenderPtr sender,
       ErrorCode errorCode,
-      String errorReason
+      zsLib::String errorReason
       );
 
     virtual void onRTPSenderSSRCConflict(
@@ -139,11 +139,11 @@ namespace ortc_winrt_api
     RTCRtpSender(MediaStreamTrack^ track, RTCDtlsTransport^ transport);
     RTCRtpSender(MediaStreamTrack^ track, RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
 
-    void setTransport(RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
-    IAsyncAction^   setTrack(MediaStreamTrack^ track);
-    static RTCRtpCapabilities^          getCapabilities(Platform::String^ kind);
-    void                                send(RTCRtpParameters^ parameters);
-    void                                stop();
+    void SetTransport(RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
+    IAsyncAction^   SetTrack(MediaStreamTrack^ track);
+    static RTCRtpCapabilities^          GetCapabilities(Platform::String^ kind);
+    void                                Send(RTCRtpParameters^ parameters);
+    void                                Stop();
 
     event RTCRtpSenderErrorDelegate^              OnRTCRtpSenderError;
     event RTCRtpSenderSSRCConflictDelegate^       OnRTCRtpSenderSSRCConflict;

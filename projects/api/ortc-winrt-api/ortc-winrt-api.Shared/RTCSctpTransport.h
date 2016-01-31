@@ -68,9 +68,9 @@ namespace ortc_winrt_api
     RTCSctpTransport();
     RTCSctpTransport(RTCDtlsTransport^ dtlsTransport, uint16 port);
 
-    static RTCSctpCapabilities^ getCapabilities();
-    void                       start(RTCSctpCapabilities^ remoteCaps);
-    void                       stop();
+    static RTCSctpCapabilities^ GetCapabilities();
+    void                       Start(RTCSctpCapabilities^ remoteCaps);
+    void                       Stop();
   private:
     ISCTPTransportPtr mNativePointer;
     RTCSctpTransportDelegatePtr mNativeDelegatePointer;

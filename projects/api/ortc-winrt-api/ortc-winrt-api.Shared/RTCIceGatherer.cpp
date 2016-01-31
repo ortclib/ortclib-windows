@@ -23,7 +23,7 @@ mNativeDelegatePointer(new RTCIceGathererDelegate())
   mNativePointer = IICEGatherer::create(mNativeDelegatePointer, FromCx(options));
 }
 
-RTCIceParameters^ RTCIceGatherer::getLocalParameters()
+RTCIceParameters^ RTCIceGatherer::GetLocalParameters()
 {
   RTCIceParameters^ ret = ref new RTCIceParameters();
   if (mNativePointer)
@@ -39,7 +39,7 @@ RTCIceParameters^ RTCIceGatherer::getLocalParameters()
   return ret;
 }
 
-IVector<RTCIceCandidate^>^ RTCIceGatherer::getLocalCandidates()
+IVector<RTCIceCandidate^>^ RTCIceGatherer::GetLocalCandidates()
 {
   auto ret = ref new Vector<RTCIceCandidate^>();
 
@@ -55,7 +55,7 @@ IVector<RTCIceCandidate^>^ RTCIceGatherer::getLocalCandidates()
 
 }
 
-RTCIceGatherer^ RTCIceGatherer::createAssociatedGatherer()
+RTCIceGatherer^ RTCIceGatherer::CreateAssociatedGatherer()
 {
   RTCIceGatherer^ ret = ref new RTCIceGatherer();
 
@@ -68,7 +68,7 @@ RTCIceGatherer^ RTCIceGatherer::createAssociatedGatherer()
   return ret;
 }
 
-void RTCIceGatherer::close()
+void RTCIceGatherer::Close()
 {
   if (mNativePointer)
     mNativePointer->close();

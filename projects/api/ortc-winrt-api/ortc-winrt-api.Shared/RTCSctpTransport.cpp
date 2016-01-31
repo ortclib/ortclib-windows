@@ -28,7 +28,7 @@ mNativeDelegatePointer(new RTCSctpTransportDelegate())
   }
 }
 
-RTCSctpCapabilities^ RTCSctpTransport::getCapabilities()
+RTCSctpCapabilities^ RTCSctpTransport::GetCapabilities()
 {
   RTCSctpCapabilities^ ret = ref new RTCSctpCapabilities();
 
@@ -38,7 +38,7 @@ RTCSctpCapabilities^ RTCSctpTransport::getCapabilities()
   return ret;
 }
 
-void RTCSctpTransport::start(RTCSctpCapabilities^ remoteCaps)
+void RTCSctpTransport::Start(RTCSctpCapabilities^ remoteCaps)
 {
   if (mNativePointer)
   {
@@ -48,7 +48,7 @@ void RTCSctpTransport::start(RTCSctpCapabilities^ remoteCaps)
   }
 }
 
-void RTCSctpTransport::stop()
+void RTCSctpTransport::Stop()
 {
   if (mNativePointer)
   {
