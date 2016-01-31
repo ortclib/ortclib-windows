@@ -12,23 +12,6 @@ Windows::UI::Core::CoreDispatcher^ g_windowDispatcher;
 
 namespace ortc_winrt_api
 {
-
-  ConfigureOrtcEngine::ConfigureOrtcEngine()
-  {
-    openpeer::services::ILogger::setLogLevel(zsLib::Log::Trace);
-    openpeer::services::ILogger::setLogLevel("zsLib", zsLib::Log::Trace);
-    openpeer::services::ILogger::setLogLevel("openpeer_services", zsLib::Log::Trace);
-    openpeer::services::ILogger::setLogLevel("openpeer_services_http", zsLib::Log::Trace);
-    openpeer::services::ILogger::setLogLevel("ortclib", zsLib::Log::Insane);
-    openpeer::services::ILogger::setLogLevel("ortc_standup", zsLib::Log::Insane);
-
-    //openpeer::services::ILogger::installDebuggerLogger();
-    openpeer::services::ILogger::installTelnetLogger(59999, 60, true);
-
-    ortc::ISettings::applyDefaults();
-  }
-
-
   std::string FromCx(Platform::String^ inObj) {
     return rtc::ToUtf8(inObj->Data());
   }

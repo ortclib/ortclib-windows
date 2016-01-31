@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "OrtcMediaDevices.h"
+#include "MediaDevices.h"
 #include <ortc/types.h>
 #include "helpers.h"
 
@@ -21,13 +21,13 @@ Constraints^ Constraints::create(Constraints^ value)
 	return nullptr;
 }
 
-void OrtcMediaDevicesDelegate::onMediaDevicesChanged()
+void MediaDevicesDelegate::onMediaDevicesChanged()
 {
 	_mediaDevices->OnDeviceChange();
 }
 
 
-SupportedConstraints^ OrtcMediaDevices::GetSupportedConstraints()
+SupportedConstraints^ MediaDevices::GetSupportedConstraints()
 {
 	IMediaDevicesTypes::SupportedConstraintsPtr supportedConstraintsPtr = IMediaDevices::getSupportedConstraints();
 
@@ -38,14 +38,14 @@ SupportedConstraints^ OrtcMediaDevices::GetSupportedConstraints()
 	return nullptr;
 }
 
-IAsyncOperation<IVector<MediaDeviceInfo^>^>^ OrtcMediaDevices::enumerateDevices()
+IAsyncOperation<IVector<MediaDeviceInfo^>^>^ MediaDevices::enumerateDevices()
 {
 	IAsyncOperation<IVector<MediaDeviceInfo^>^>^ ret = Concurrency::create_async([]() -> IVector<MediaDeviceInfo^>^
 	{
 		Concurrency::task_completion_event<IVector<MediaDeviceInfo^>^> tce;
 
 		IMediaDevicesTypes::PromiseWithDeviceListPtr promise = IMediaDevices::enumerateDevices();
-		OrtcMediaDevicesPromiseObserverPtr pDelegate(make_shared<OrtcMediaDevicesPromiseObserver>(tce));
+		MediaDevicesPromiseObserverPtr pDelegate(make_shared<MediaDevicesPromiseObserver>(tce));
 
 		promise->then(pDelegate);
 		promise->background();
@@ -57,14 +57,14 @@ IAsyncOperation<IVector<MediaDeviceInfo^>^>^ OrtcMediaDevices::enumerateDevices(
 	return ret;
 }
 
-IAsyncOperation<IVector<MediaStreamTrack^>^>^ OrtcMediaDevices::getUserMedia(Constraints^ constraints)
+IAsyncOperation<IVector<MediaStreamTrack^>^>^ MediaDevices::getUserMedia(Constraints^ constraints)
 {
 	IAsyncOperation<IVector<MediaStreamTrack^>^>^ ret = Concurrency::create_async([]() -> IVector<MediaStreamTrack^>^
 	{
 		Concurrency::task_completion_event<IVector<MediaStreamTrack^>^> tce;
 
 		IMediaDevicesTypes::PromiseWithMediaStreamTrackListPtr promise = IMediaDevices::getUserMedia();
-		OrtcMediaStreamTrackPromiseObserverPtr pDelegate(make_shared<OrtcMediaStreamTrackPromiseObserver>(tce));
+		MediaStreamTrackPromiseObserverPtr pDelegate(make_shared<MediaStreamTrackPromiseObserver>(tce));
 
 		promise->then(pDelegate);
 		promise->background();
@@ -76,11 +76,11 @@ IAsyncOperation<IVector<MediaStreamTrack^>^>^ OrtcMediaDevices::getUserMedia(Con
 	return ret;
 }
 
-OrtcMediaDevicesPromiseObserver::OrtcMediaDevicesPromiseObserver(Concurrency::task_completion_event<IVector<MediaDeviceInfo^>^> tce) : mTce(tce)
+MediaDevicesPromiseObserver::MediaDevicesPromiseObserver(Concurrency::task_completion_event<IVector<MediaDeviceInfo^>^> tce) : mTce(tce)
 {
 }
 
-void OrtcMediaDevicesPromiseObserver::onPromiseResolved(PromisePtr promise)
+void MediaDevicesPromiseObserver::onPromiseResolved(PromisePtr promise)
 {
 	auto ret = ref new Vector<MediaDeviceInfo^>();
 
@@ -96,18 +96,18 @@ void OrtcMediaDevicesPromiseObserver::onPromiseResolved(PromisePtr promise)
 	mTce.set(ret);
 }
 
-void OrtcMediaDevicesPromiseObserver::onPromiseRejected(PromisePtr promise)
+void MediaDevicesPromiseObserver::onPromiseRejected(PromisePtr promise)
 {
 	IMediaDevicesTypes::PromiseWithDeviceListPtr deviceListPromise = ZS_DYNAMIC_PTR_CAST(IMediaDevicesTypes::PromiseWithDeviceList, promise);
 	mTce.set_exception(deviceListPromise->reason());
 }
 
-OrtcMediaStreamTrackPromiseObserver::OrtcMediaStreamTrackPromiseObserver(Concurrency::task_completion_event<IVector<MediaStreamTrack^>^> tce) : mTce(tce)
+MediaStreamTrackPromiseObserver::MediaStreamTrackPromiseObserver(Concurrency::task_completion_event<IVector<MediaStreamTrack^>^> tce) : mTce(tce)
 {
 
 }
 
-void OrtcMediaStreamTrackPromiseObserver::onPromiseResolved(PromisePtr promise)
+void MediaStreamTrackPromiseObserver::onPromiseResolved(PromisePtr promise)
 {
 	auto ret = ref new Vector<MediaStreamTrack^>();
 
@@ -127,7 +127,7 @@ void OrtcMediaStreamTrackPromiseObserver::onPromiseResolved(PromisePtr promise)
 	}
 	mTce.set(ret);
 }
-void OrtcMediaStreamTrackPromiseObserver::onPromiseRejected(PromisePtr promise)
+void MediaStreamTrackPromiseObserver::onPromiseRejected(PromisePtr promise)
 {
 	IMediaDevicesTypes::PromiseWithMediaStreamTrackListPtr streamTrackPromise = ZS_DYNAMIC_PTR_CAST(IMediaDevicesTypes::PromiseWithMediaStreamTrackList, promise);
 	mTce.set_exception(streamTrackPromise->reason());

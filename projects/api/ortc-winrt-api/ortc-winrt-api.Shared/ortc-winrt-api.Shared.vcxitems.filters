@@ -14,8 +14,11 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)MediaStreamTrack.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MediaTypes.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTPTypes.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)OrtcMediaDevices.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCRtpListener.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Ortc.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Settings.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MediaDevices.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Logger.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)pch.cpp">
@@ -31,7 +34,10 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCIceTransportController.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCRtpSender.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MediaStreamTrack.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)OrtcMediaDevices.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCRtpListener.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Ortc.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Settings.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)MediaDevices.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Logger.cpp" />
   </ItemGroup>
 </Project>

@@ -17,6 +17,7 @@ using System.Diagnostics;
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 using ortc_winrt_api;
+using Log = ortc_winrt_api.Log;
 
 namespace ortc_api_test
 {
@@ -28,7 +29,19 @@ namespace ortc_api_test
         public MainPage()
         {
             this.InitializeComponent();
-            ConfigureOrtcEngine conf = new ConfigureOrtcEngine();
+            Logger.SetLogLevel(Log.Level.Trace);
+            Logger.SetLogLevel(Log.Component.ZsLib, Log.Level.Trace);
+            Logger.SetLogLevel(Log.Component.Services, Log.Level.Trace);
+            Logger.SetLogLevel(Log.Component.ServicesHttp, Log.Level.Trace);
+            Logger.SetLogLevel(Log.Component.OrtcLib, Log.Level.Insane);
+            Logger.SetLogLevel("ortc_standup", Log.Level.Insane);
+
+
+            //openpeer::services::ILogger::installDebuggerLogger();
+            Logger.InstallTelnetLogger(59999, 60, true);
+
+            Settings.ApplyDefaults();
+            Ortc.Setup();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -79,7 +92,7 @@ namespace ortc_api_test
               constraints.Audio = new MediaTrackConstraints();
               constraints.Video = new MediaTrackConstraints();
 
-              OrtcMediaDevices.getUserMedia(constraints).AsTask().ContinueWith<IList<MediaStreamTrack>>((temp) =>
+              MediaDevices.getUserMedia(constraints).AsTask().ContinueWith<IList<MediaStreamTrack>>((temp) =>
               {
                   if (temp.Result != null && temp.Result.Count() > 0)
                   {

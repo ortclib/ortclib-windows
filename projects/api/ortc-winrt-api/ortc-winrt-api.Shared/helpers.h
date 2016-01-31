@@ -16,12 +16,6 @@ using namespace ortc;
 
 namespace ortc_winrt_api
 {
-  public ref class ConfigureOrtcEngine sealed
-  {
-  public:
-    ConfigureOrtcEngine();
-  };
-
   std::string FromCx(Platform::String^ inObj);
   Platform::String^ ToCx(std::string const& inObj);
 
