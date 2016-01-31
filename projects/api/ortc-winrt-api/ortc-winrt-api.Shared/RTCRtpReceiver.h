@@ -90,7 +90,7 @@ namespace ortc_winrt_api
 		RTCRtpReceiverDelegatePtr mNativeDelegatePointer;
 
   private:
-    RTCDtlsTransport^ GetDtlsTransport(boolean isRtcp);
+    RTCDtlsTransport^ GetDtlsTransport(Platform::Boolean isRtcp);
     MediaStreamTrack^ GetTrack();
 	public:
 

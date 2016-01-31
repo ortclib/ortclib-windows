@@ -28,9 +28,11 @@ namespace ortc_winrt_api
 	public ref class Logger sealed
 	{
 	public:
+    [Windows::Foundation::Metadata::OverloadAttribute("SetDefaultLogLevel")]
     static void SetLogLevel(Log::Level level);
     [Windows::Foundation::Metadata::DefaultOverloadAttribute]
     static void SetLogLevel(Log::Component component, Log::Level level);
+    [Windows::Foundation::Metadata::OverloadAttribute("SetLogLevelByName")]
     static void SetLogLevel(Platform::String^ component, Log::Level level);
 
     static void InstallStdOutLogger(Platform::Boolean colorizeOutput);

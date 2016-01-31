@@ -29,7 +29,7 @@ mNativeDelegatePointer(new RTCDataChannelDelegate())
   }
 }
 
-void RTCDataChannel::close()
+void RTCDataChannel::Close()
 {
   if (mNativePointer)
   {
@@ -37,7 +37,7 @@ void RTCDataChannel::close()
   }
 }
 
-void RTCDataChannel::send(Platform::String^ data)
+void RTCDataChannel::Send(Platform::String^ data)
 {
   if (mNativePointer)
   {
@@ -45,7 +45,7 @@ void RTCDataChannel::send(Platform::String^ data)
   }
 }
 
-void RTCDataChannel::send(const Platform::Array<byte>^ data)
+void RTCDataChannel::Send(const Platform::Array<byte>^ data)
 {
   if (mNativePointer)
   {
@@ -54,7 +54,7 @@ void RTCDataChannel::send(const Platform::Array<byte>^ data)
   }
 }
 
-void RTCDataChannel::send(const Platform::Array<byte>^ data, uint16 bufferSizeInBytes)
+void RTCDataChannel::Send(const Platform::Array<byte>^ data, uint16 bufferSizeInBytes)
 {
   if (mNativePointer)
   {

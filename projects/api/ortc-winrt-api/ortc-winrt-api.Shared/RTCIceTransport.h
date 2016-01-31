@@ -128,7 +128,9 @@ namespace ortc_winrt_api
     void                       stop();
     RTCIceParameters^          getRemoteParameters();
     RTCIceTransport^           createAssociatedTransport();
+    [Windows::Foundation::Metadata::DefaultOverloadAttribute]
     void                       addRemoteCandidate(RTCIceCandidate^ remoteCandidate);
+    [Windows::Foundation::Metadata::OverloadAttribute("AddRemoteCandidateComplete")]
     void                       addRemoteCandidate(RTCIceCandidateComplete^ remoteCandidate);
     void                       setRemoteCandidates(IVector<RTCIceCandidate^>^ remoteCandidates);
   private:

@@ -56,7 +56,7 @@ MediaStreamTrack^ RTCRtpSender::GetTrack()
 		return ConvertObjectToCx::ToMediaStreamTrack(mNativePointer->track());
 }
 
-RTCDtlsTransport^ RTCRtpSender::GetDtlsTransport(boolean isRtcp)
+RTCDtlsTransport^ RTCRtpSender::GetDtlsTransport(Platform::Boolean isRtcp)
 {
   if (!isRtcp)
   {

@@ -56,9 +56,9 @@ namespace ortc_winrt_api
   public:
     static SupportedConstraints^ GetSupportedConstraints();
 
-    static IAsyncOperation<IVector<MediaDeviceInfo^>^>^ enumerateDevices();
+    static IAsyncOperation<IVector<MediaDeviceInfo^>^>^ EnumerateDevices();
 
-    static IAsyncOperation<IVector<MediaStreamTrack^>^>^ getUserMedia(Constraints^ constraints);
+    static IAsyncOperation<IVector<MediaStreamTrack^>^>^ GetUserMedia(Constraints^ constraints);
 
     event MediaDevicesChangeDelegate^   OnDeviceChange;
   };

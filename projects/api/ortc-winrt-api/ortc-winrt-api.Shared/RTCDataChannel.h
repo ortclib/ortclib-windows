@@ -43,11 +43,11 @@ namespace ortc_winrt_api
   {
   public:
     property Platform::String^   Label;
-    property boolean             Ordered;
+    property Platform::Boolean   Ordered;
     property uint64              MaxPacketLifetime;
-    property uint64              MaxRetransmits;
+    property uint32              MaxRetransmits;
     property Platform::String^   Protocol;
-    property boolean             Negotiated;
+    property Platform::Boolean   Negotiated;
     property uint16              Id;
   };
 
@@ -134,11 +134,14 @@ namespace ortc_winrt_api
     RTCDataChannel();
     RTCDataChannel(RTCSctpTransport^ dataTransport, RTCDataChannelParameters^ params);
 
-    void close();
+    void Close();
 
-    void send(Platform::String^ data);
-    void send(const Platform::Array<byte>^ data);
-    void send(const Platform::Array<byte>^ data, uint16 bufferSizeInBytes);
+    [Windows::Foundation::Metadata::OverloadAttribute("SendString")]
+    void Send(Platform::String^ data);
+    [Windows::Foundation::Metadata::DefaultOverloadAttribute]
+    void Send(const Platform::Array<byte>^ data);
+    [Windows::Foundation::Metadata::OverloadAttribute("SendWithSize")]
+    void Send(const Platform::Array<byte>^ data, uint16 bufferSizeInBytes);
 
   private:
     IDataChannelPtr mNativePointer;

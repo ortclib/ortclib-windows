@@ -92,7 +92,7 @@ namespace ortc_api_test
               constraints.Audio = new MediaTrackConstraints();
               constraints.Video = new MediaTrackConstraints();
 
-              MediaDevices.getUserMedia(constraints).AsTask().ContinueWith<IList<MediaStreamTrack>>((temp) =>
+              MediaDevices.GetUserMedia(constraints).AsTask().ContinueWith<IList<MediaStreamTrack>>((temp) =>
               {
                   if (temp.Result != null && temp.Result.Count() > 0)
                   {

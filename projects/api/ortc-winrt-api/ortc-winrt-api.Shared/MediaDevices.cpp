@@ -38,7 +38,7 @@ SupportedConstraints^ MediaDevices::GetSupportedConstraints()
 	return nullptr;
 }
 
-IAsyncOperation<IVector<MediaDeviceInfo^>^>^ MediaDevices::enumerateDevices()
+IAsyncOperation<IVector<MediaDeviceInfo^>^>^ MediaDevices::EnumerateDevices()
 {
 	IAsyncOperation<IVector<MediaDeviceInfo^>^>^ ret = Concurrency::create_async([]() -> IVector<MediaDeviceInfo^>^
 	{
@@ -57,7 +57,7 @@ IAsyncOperation<IVector<MediaDeviceInfo^>^>^ MediaDevices::enumerateDevices()
 	return ret;
 }
 
-IAsyncOperation<IVector<MediaStreamTrack^>^>^ MediaDevices::getUserMedia(Constraints^ constraints)
+IAsyncOperation<IVector<MediaStreamTrack^>^>^ MediaDevices::GetUserMedia(Constraints^ constraints)
 {
 	IAsyncOperation<IVector<MediaStreamTrack^>^>^ ret = Concurrency::create_async([]() -> IVector<MediaStreamTrack^>^
 	{

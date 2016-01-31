@@ -23,62 +23,62 @@ namespace ortc_winrt_api
   public ref class MediaTrackCapabilities sealed
   {
   public:
-    property LongRange^         width;
-    property LongRange^         height;
-    property DoubleRange^       aspectRatio;
-    property DoubleRange^       frameRate;
-    property Platform::String^  facingMode;
-    property DoubleRange^       volume;
-    property LongRange^         sampleRate;
-    property LongRange^         sampleSize;
-    property boolean            echoCancellation;
-    property Platform::String^  deviceId;
-    property Platform::String^  groupId;
+    property LongRange^         Width;
+    property LongRange^         Height;
+    property DoubleRange^       AspectRatio;
+    property DoubleRange^       FrameRate;
+    property Platform::String^  FacingMode;
+    property DoubleRange^       Volume;
+    property LongRange^         SampleRate;
+    property LongRange^         SampleSize;
+    property Platform::Boolean  EchoCancellation;
+    property Platform::String^  DeviceId;
+    property Platform::String^  GroupId;
   };
 
   public ref class MediaTrackConstraintSet sealed
   {
   public:
-    property ConstrainLong^       width;
-    property ConstrainLong^       height;
-    property ConstrainDouble^     aspectRatio;
-    property ConstrainDouble^     frameRate;
-    property ConstrainString^     facingMode;
-    property ConstrainDouble^     volume;
-    property ConstrainLong^       sampleRate;
-    property ConstrainLong^       sampleSize;
-    property ConstrainBool^       echoCancellation;
-    property ConstrainString^     deviceId;
-    property ConstrainString^     groupId;
+    property ConstrainLong^       Width;
+    property ConstrainLong^       Height;
+    property ConstrainDouble^     AspectRatio;
+    property ConstrainDouble^     FrameRate;
+    property ConstrainString^     FacingMode;
+    property ConstrainDouble^     Volume;
+    property ConstrainLong^       SampleRate;
+    property ConstrainLong^       SampleSize;
+    property ConstrainBool^       EchoCancellation;
+    property ConstrainString^     DeviceId;
+    property ConstrainString^     GroupId;
   };
 
   public ref class MediaTrackConstraints sealed
   {
   public:
-    property IVector<MediaTrackConstraintSet^>^ advanced;
+    property IVector<MediaTrackConstraintSet^>^ Advanced;
   };
   public ref class MediaTrackSettings sealed
   {
   public:
-    property uint32             width;
-    property uint32             height;
-    property double             aspectRatio;
-    property double             frameRate;
-    property Platform::String^  facingMode;
-    property double             volume;
-    property uint32             sampleRate;
-    property uint32             sampleSize;
-    property boolean            echoCancellation;
-    property Platform::String^  deviceId;
-    property Platform::String^  groupId;
+    property uint32             Width;
+    property uint32             Height;
+    property double             AspectRatio;
+    property double             FrameRate;
+    property Platform::String^  FacingMode;
+    property double             Volume;
+    property uint32             SampleRate;
+    property uint32             SampleSize;
+    property Platform::Boolean  EchoCancellation;
+    property Platform::String^  DeviceId;
+    property Platform::String^  GroupId;
   };
 
   public ref class MediaStreamError sealed
   {
   public:
-    property Platform::String^ name;
-    property Platform::String^ message;
-    property Platform::String^ constraintName;
+    property Platform::String^ Name;
+    property Platform::String^ Message;
+    property Platform::String^ ConstraintName;
   };
 
   public ref class MediaStreamErrorEvent sealed {
@@ -107,63 +107,55 @@ namespace ortc_winrt_api
     friend class ConvertObjectToCx;
     friend class FetchNativePointer;
 
-    MediaStreamTrackKind  _kind;
-    Platform::String^     _id;
-    Platform::String^     _label;
-    boolean               _enabled;
-    boolean               _muted;
-    boolean               _readonly;
-    boolean               _remote;
-    MediaStreamTrackState _readyState;
   private:
     IMediaStreamTrackPtr mNativePointer;
   public:
     property MediaStreamTrackKind Kind
     {
-      MediaStreamTrackKind  get() { return (MediaStreamTrackKind)mNativePointer->kind(); }
+      MediaStreamTrackKind  get();
     }
 
     property Platform::String^ Id
     {
-      Platform::String^  get() { return _id; }
+      Platform::String^  get();
     }
 
     property Platform::String^ Label
     {
-      Platform::String^  get() { return _label; }
+      Platform::String^  get();
     }
 
-    property boolean Enabled
+    property Platform::Boolean Enabled
     {
-      boolean  get() { return _enabled; }
-      void  set(boolean value) { _enabled = value; }
+      Platform::Boolean  get();
+      void  set(Platform::Boolean value);
     }
 
-    property boolean Muted
+    property Platform::Boolean Muted
     {
-      boolean  get() { return _muted; }
+      Platform::Boolean  get();
     }
 
-    property boolean ReadOnly
+    property Platform::Boolean ReadOnly
     {
-      boolean  get() { return _readonly; }
+      Platform::Boolean  get();
     }
 
-    property boolean Remote
+    property Platform::Boolean Remote
     {
-      boolean  get() { return _remote; }
+      Platform::Boolean  get();
     }
 
     property MediaStreamTrackState ReadyState
     {
-      MediaStreamTrackState  get() { return _readyState; }
+      MediaStreamTrackState  get();
     }
 
-    MediaStreamTrack^       clone();
-    void                    stop();
-    MediaTrackCapabilities^ getCapabilities();
-    MediaTrackConstraints^  getConstraints();
-    MediaTrackSettings^     getSettings();
+    MediaStreamTrack^       Clone();
+    void                    Stop();
+    MediaTrackCapabilities^ GetCapabilities();
+    MediaTrackConstraints^  GetConstraints();
+    MediaTrackSettings^     GetSettings();
 
     event MediaStreamTrackMuteDelegate^             OnMediaStreamTrackMuted;
     event MediaStreamTrackUnMuteDelegate^           OnMediaStreamTrackUnMuted;

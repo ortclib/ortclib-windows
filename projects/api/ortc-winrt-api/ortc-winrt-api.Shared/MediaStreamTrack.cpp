@@ -4,7 +4,52 @@
 
 namespace ortc_winrt_api
 {
-	MediaStreamTrack^ MediaStreamTrack::clone()
+  MediaStreamTrackKind  MediaStreamTrack::Kind::get()
+  {
+    return static_cast<MediaStreamTrackKind>(mNativePointer->kind());
+  }
+
+  Platform::String^ MediaStreamTrack::Id::get()
+  {
+    return ToCx(mNativePointer->id());
+  }
+
+  Platform::String^ MediaStreamTrack::Label::get()
+  {
+    return ToCx(mNativePointer->label());
+  }
+
+  Platform::Boolean MediaStreamTrack::Enabled::get()
+  {
+    return mNativePointer->enabled();
+  }
+
+  void MediaStreamTrack::Enabled::set(Platform::Boolean value)
+  {
+    mNativePointer->enabled(value);
+  }
+
+  Platform::Boolean MediaStreamTrack::Muted::get()
+  {
+    return mNativePointer->muted();
+  }
+
+  Platform::Boolean MediaStreamTrack::ReadOnly::get()
+  {
+    return mNativePointer->readOnly();
+  }
+
+  Platform::Boolean MediaStreamTrack::Remote::get()
+  {
+    return mNativePointer->remote();
+  }
+
+  MediaStreamTrackState MediaStreamTrack::ReadyState::get()
+  {
+    return static_cast<MediaStreamTrackState>(mNativePointer->readyState());
+  }
+
+	MediaStreamTrack^ MediaStreamTrack::Clone()
 	{
 		if (mNativePointer)
 		{
@@ -19,13 +64,13 @@ namespace ortc_winrt_api
 
 		return nullptr;
 	}
-	void MediaStreamTrack::stop()
+	void MediaStreamTrack::Stop()
 	{
 		if (mNativePointer)
 			mNativePointer->stop();
 	}
 
-	MediaTrackCapabilities^		MediaStreamTrack::getCapabilities()
+	MediaTrackCapabilities^		MediaStreamTrack::GetCapabilities()
 	{
 		if (mNativePointer)
 		{
@@ -39,7 +84,7 @@ namespace ortc_winrt_api
 		return nullptr;
 	}
 
-	MediaTrackConstraints^		MediaStreamTrack::getConstraints()
+	MediaTrackConstraints^		MediaStreamTrack::GetConstraints()
 	{
 		if (mNativePointer)
 		{
@@ -53,7 +98,7 @@ namespace ortc_winrt_api
 		return nullptr;
 	}
 
-	MediaTrackSettings^			MediaStreamTrack::getSettings()
+	MediaTrackSettings^			MediaStreamTrack::GetSettings()
 	{
 		if (mNativePointer)
 		{
