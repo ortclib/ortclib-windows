@@ -118,12 +118,18 @@ namespace ortc_winrt_api
     friend class RTCIceTransportDelegate;
     friend class FetchNativePointer;
     friend class ConvertObjectToCx;
+    friend class CreateEmptyCxObject;
+  private:
+    RTCIceTransport(Platform::Boolean noop);
   public:
     RTCIceTransport();
     RTCIceTransport(RTCIceGatherer^ Gatherer);
 
     IVector<RTCIceCandidate^>^ GetRemoteCandidates();
     RTCIceCandidatePair^       GetSelectedCandidatePair();
+    [Windows::Foundation::Metadata::DefaultOverloadAttribute]
+    void                       Start(RTCIceGatherer^ gatherer, RTCIceParameters^ remoteParameters);
+    [Windows::Foundation::Metadata::OverloadAttribute("StartWithIceRole")]
     void                       Start(RTCIceGatherer^ gatherer, RTCIceParameters^ remoteParameters, RTCIceRole role);
     void                       Stop();
     RTCIceParameters^          GetRemoteParameters();
@@ -133,6 +139,10 @@ namespace ortc_winrt_api
     [Windows::Foundation::Metadata::OverloadAttribute("AddRemoteCandidateComplete")]
     void                       AddRemoteCandidate(RTCIceCandidateComplete^ remoteCandidate);
     void                       SetRemoteCandidates(IVector<RTCIceCandidate^>^ remoteCandidates);
+    [Windows::Foundation::Metadata::DefaultOverloadAttribute]
+    void                       KeepWarm(RTCIceCandidatePair^ candidatePair);
+    [Windows::Foundation::Metadata::OverloadAttribute("KeepWarm1")]
+    void                       KeepWarm(RTCIceCandidatePair^ candidatePair, Platform::Boolean keepWarm);
   private:
     IICETransportPtr mNativePointer;
     RTCIceTransportDelegatePtr mNativeDelegatePointer;

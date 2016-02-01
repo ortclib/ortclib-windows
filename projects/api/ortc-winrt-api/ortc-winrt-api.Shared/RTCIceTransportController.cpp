@@ -20,7 +20,7 @@ IVector<RTCIceTransport^>^ RTCIceTransportController::GetTransports()
   {
     auto candidates = mNativePointer->getTransports();
     for (IICETransportControllerTypes::ICETransportList::iterator it = candidates.begin(); it != candidates.end(); ++it) {
-      RTCIceTransport^ transport = ref new RTCIceTransport();
+      RTCIceTransport^ transport = CreateEmptyCxObject::IceTransport();
       ret->Append(ConvertObjectToCx::ToIceTransport(*it));
     }
   }

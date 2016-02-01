@@ -130,8 +130,9 @@ namespace ortc_winrt_api
     friend class RTCDataChannelDelegate;
     friend class RTCSctpTransportDelegate;
     friend class FetchNativePointer;
-  public:
+  private:
     RTCDataChannel();
+  public:
     RTCDataChannel(RTCSctpTransport^ dataTransport, RTCDataChannelParameters^ params);
 
     void Close();

@@ -70,6 +70,12 @@ namespace ortc_winrt_api
 	//static MediaTrackSettings^ mediaTrackSettings(IMediaStreamTrackTypes::SettingsPtr settingsPtr);
   };
 
+  class CreateEmptyCxObject
+  {
+  public:
+    static RTCIceTransport^ IceTransport() { return ref new RTCIceTransport(true); }
+  };
+
   IRTPTypes::Parameters FromCx(RTCRtpParameters^ parameters);
 
 }

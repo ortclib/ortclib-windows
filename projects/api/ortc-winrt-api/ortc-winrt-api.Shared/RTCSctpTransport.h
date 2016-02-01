@@ -64,8 +64,9 @@ namespace ortc_winrt_api
     friend class RTCSctpTransportDelegate;
     friend class FetchNativePointer;
     friend class ConvertObjectToCx;
-  public:
+  private:
     RTCSctpTransport();
+  public:
     RTCSctpTransport(RTCDtlsTransport^ dtlsTransport, uint16 port);
 
     static RTCSctpCapabilities^ GetCapabilities();

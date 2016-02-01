@@ -100,10 +100,20 @@ namespace ortc_winrt_api
   private:
     RTCDtlsTransport^ GetDtlsTransport(Platform::Boolean isRtcp);
     MediaStreamTrack^ GetTrack();
+  private:
+    RTCRtpSender();
   public:
+    RTCRtpSender(MediaStreamTrack^ track, RTCDtlsTransport^ transport);
+    RTCRtpSender(MediaStreamTrack^ track, RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
 
-	  property MediaStreamTrack^ Track
-	  {
+    void SetTransport(RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
+    IAsyncAction^   SetTrack(MediaStreamTrack^ track);
+    static RTCRtpCapabilities^          GetCapabilities(Platform::String^ kind);
+    void                                Send(RTCRtpParameters^ parameters);
+    void                                Stop();
+
+    property MediaStreamTrack^ Track
+    {
       MediaStreamTrack^ get()
       {
         if (mNativePointer)
@@ -111,7 +121,7 @@ namespace ortc_winrt_api
         else
           return nullptr;
       }
-	  }
+    }
 
     property RTCDtlsTransport^ Transport
     {
@@ -134,16 +144,6 @@ namespace ortc_winrt_api
           return nullptr;
       }
     }
-
-    RTCRtpSender();
-    RTCRtpSender(MediaStreamTrack^ track, RTCDtlsTransport^ transport);
-    RTCRtpSender(MediaStreamTrack^ track, RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
-
-    void SetTransport(RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
-    IAsyncAction^   SetTrack(MediaStreamTrack^ track);
-    static RTCRtpCapabilities^          GetCapabilities(Platform::String^ kind);
-    void                                Send(RTCRtpParameters^ parameters);
-    void                                Stop();
 
     event RTCRtpSenderErrorDelegate^              OnRTCRtpSenderError;
     event RTCRtpSenderSSRCConflictDelegate^       OnRTCRtpSenderSSRCConflict;

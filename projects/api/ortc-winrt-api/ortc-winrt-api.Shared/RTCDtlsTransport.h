@@ -151,8 +151,9 @@ namespace ortc_winrt_api
     friend class RTCDtlsTransportDelegate;
     friend class FetchNativePointer;
     friend class ConvertObjectToCx;
-  public:
+  private:
     RTCDtlsTransport();
+  public:
     RTCDtlsTransport(RTCIceTransport^ transport, RTCCertificate^ certificate);
 
     RTCDtlsParameters^      GetLocalParameters();

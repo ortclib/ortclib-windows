@@ -92,10 +92,22 @@ namespace ortc_winrt_api
   private:
     RTCDtlsTransport^ GetDtlsTransport(Platform::Boolean isRtcp);
     MediaStreamTrack^ GetTrack();
-	public:
 
-		property MediaStreamTrack^ Track
-		{
+  private:
+    RTCRtpReceiver();
+  public:
+		RTCRtpReceiver(RTCDtlsTransport^ transport);
+		RTCRtpReceiver(RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
+
+		void SetTransport(RTCDtlsTransport^ transport);
+		void SetTransport(RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
+		static RTCRtpCapabilities ^ GetCapabilities(Platform::String^ kind);
+		void Receive(RTCRtpParameters^ parameters);
+		IVector<RTCRtpContributingSource^>^ GetContributingSource();
+		void Stop();
+
+    property MediaStreamTrack^ Track
+    {
       MediaStreamTrack^ get()
       {
         if (mNativePointer)
@@ -103,7 +115,7 @@ namespace ortc_winrt_api
         else
           return nullptr;
       }
-		}
+    }
 
     property RTCDtlsTransport^ Transport
     {
@@ -126,17 +138,6 @@ namespace ortc_winrt_api
           return nullptr;
       }
     }
-
-		RTCRtpReceiver();
-		RTCRtpReceiver(RTCDtlsTransport^ transport);
-		RTCRtpReceiver(RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
-
-		void SetTransport(RTCDtlsTransport^ transport);
-		void SetTransport(RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
-		static RTCRtpCapabilities ^ GetCapabilities(Platform::String^ kind);
-		void Receive(RTCRtpParameters^ parameters);
-		IVector<RTCRtpContributingSource^>^ GetContributingSource();
-		void Stop();
 
 		event RTCRtpReceiverErrorDelegate^              OnRTCRtpReceiverError;
 	};
