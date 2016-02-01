@@ -19,6 +19,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Settings.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MediaDevices.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Logger.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTCIceTypes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)pch.cpp">
@@ -39,5 +40,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Settings.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MediaDevices.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Logger.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RTCIceTypes.cpp" />
   </ItemGroup>
 </Project>

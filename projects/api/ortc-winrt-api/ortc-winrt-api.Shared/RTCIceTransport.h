@@ -2,7 +2,7 @@
 
 #include <ortc/IICETransport.h>
 #include <collection.h>
-#include "RTCIceGatherer.h"
+#include "RTCIceTypes.h"
 
 using namespace ortc;
 
@@ -14,6 +14,7 @@ namespace ortc_winrt_api
   ZS_DECLARE_CLASS_PTR(RTCIceTransportDelegate)
 
   ref class RTCIceTransport;
+  ref class RTCIceGatherer;
   ref class RTCIceCandidate;
 
   class RTCIceTransportDelegate : public IICETransportDelegate
@@ -57,12 +58,6 @@ namespace ortc_winrt_api
     Disconnected,
     Failed,
     Closed,
-  };
-
-  public enum class RTCIceRole
-  {
-    Controlling,
-    Controlled
   };
 
   public ref class RTCIceCandidatePair sealed
@@ -141,7 +136,7 @@ namespace ortc_winrt_api
     void                       SetRemoteCandidates(IVector<RTCIceCandidate^>^ remoteCandidates);
     [Windows::Foundation::Metadata::DefaultOverloadAttribute]
     void                       KeepWarm(RTCIceCandidatePair^ candidatePair);
-    [Windows::Foundation::Metadata::OverloadAttribute("KeepWarm1")]
+    [Windows::Foundation::Metadata::OverloadAttribute("SetKeepWarm")]
     void                       KeepWarm(RTCIceCandidatePair^ candidatePair, Platform::Boolean keepWarm);
   private:
     IICETransportPtr mNativePointer;

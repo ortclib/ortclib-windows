@@ -2,6 +2,7 @@
 
 #include <ortc/IICEGatherer.h>
 #include <collection.h>
+#include "RTCIceTypes.h"
 
 using namespace ortc;
 
@@ -97,53 +98,6 @@ namespace ortc_winrt_api
     property IVector<RTCIceServer^>^ IceServers;
   };
 
-  public enum class RTCIceProtocol
-  {
-    UDP,
-    TCP
-  };
-
-  public enum class RTCIceCandidateType {
-    Host,
-    Srflex,
-    Prflx,
-    Relay,
-  };
-
-  public enum class RTCIceTcpCandidateType {
-    Active,
-    Passive,
-    SO,
-  };
-
-  public enum class RTCIceComponent 
-  {
-	  RTP,
-	  RTCP
-  };
-
-  public ref class RTCIceCandidate sealed
-  {
-  public:
-    property Platform::String^            InterfaceType;
-    property Platform::String^            Foundation;
-    property uint32                       Priority;
-    property uint32                       UnfreezePriority;
-    property RTCIceProtocol               Protocol;
-    property Platform::String^            IP;
-    property uint16                       Port;
-    property RTCIceCandidateType          CandidateType;
-    property RTCIceTcpCandidateType       TCPType;
-    property Platform::String^            RelatedAddress;
-    property uint16                       RelatedPort;
-  };
-
-  public ref class RTCIceCandidateComplete sealed
-  {
-  public:
-    property Platform::Boolean Complete;
-  };
-
   public ref class RTCIceGathererError sealed
   {
   public:
@@ -151,12 +105,6 @@ namespace ortc_winrt_api
     property Platform::String^ ErrorReason;
   };
 
-  public ref class RTCIceParameters sealed
-  {
-  public:
-    property Platform::String^ UsernameFragment;
-    property Platform::String^ Password;
-  };
 
   //------------------------------------------
   // Events and Delegates
