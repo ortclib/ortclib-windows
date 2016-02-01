@@ -13,8 +13,6 @@ namespace Concurrency
   using ::LONG;
 }
 
-extern Windows::UI::Core::CoreDispatcher^ g_windowDispatcher;
-
 RTCDtlsTransport::RTCDtlsTransport() :
 mNativeDelegatePointer(nullptr),
 mNativePointer(nullptr)

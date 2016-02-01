@@ -7,8 +7,6 @@ using namespace ortc_winrt_api;
 
 using Platform::Collections::Vector;
 
-extern Windows::UI::Core::CoreDispatcher^ g_windowDispatcher;
-
 RTCIceGatherer::RTCIceGatherer() :
 mNativeDelegatePointer(nullptr),
 mNativePointer(nullptr)

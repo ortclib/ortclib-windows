@@ -6,8 +6,6 @@ using namespace ortc_winrt_api;
 
 using Platform::Collections::Vector;
 
-extern Windows::UI::Core::CoreDispatcher^ g_windowDispatcher;
-
 RTCIceTransportController::RTCIceTransportController()
 {
   mNativePointer = IICETransportController::create();

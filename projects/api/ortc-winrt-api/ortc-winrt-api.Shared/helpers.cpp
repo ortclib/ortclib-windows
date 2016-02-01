@@ -8,8 +8,6 @@
 using namespace Platform;
 using Platform::Collections::Vector;
 
-Windows::UI::Core::CoreDispatcher^ g_windowDispatcher;
-
 namespace ortc_winrt_api
 {
   std::string FromCx(Platform::String^ inObj) {
