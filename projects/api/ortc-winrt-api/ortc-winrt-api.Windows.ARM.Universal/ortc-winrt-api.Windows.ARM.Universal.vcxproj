@@ -1,0 +1,565 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\libs\cryptopp\projects\msvs\cryptopp\cryptopp.Windows.Universal\cryptopp.Windows.Universal.vcxproj">
+      <Project>{9b7e08b7-f3eb-418e-b69f-8a655ff913fa}</Project>
+      <Private>false</Private>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\idnkit\projects\msvs\idnkit\idnkit.Windows.Universal\idnkit.Windows.Universal.vcxproj">
+      <Project>{0b940009-c54f-4932-8d03-03141dcc9a50}</Project>
+      <Private>false</Private>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\op-services-cpp\projects\msvs\hfservices\hfservices.Windows.Universal\hfservices.Windows.Universal.vcxproj">
+      <Project>{6ccc9220-9334-4601-821d-5f55bc397003}</Project>
+      <Private>false</Private>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortc-lib.Windows.Universal\ortc-lib.Windows.Universal.vcxproj">
+      <Project>{f4ef2e27-727c-4cf8-b727-81583b864265}</Project>
+      <Private>false</Private>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\udns\projects\msvs\udns\udns.Windows.Universal\udns.Windows.Universal.vcxproj">
+      <Project>{577f12ab-3473-4a93-8ee4-eeed2ce5dc61}</Project>
+      <Private>false</Private>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\testing\gtest_win_phone.vcxproj">
+      <Project>{bfab9ac1-619c-4e01-02bd-65d4da27118d}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\third_party\boringssl\boringssl_win_phone.vcxproj">
+      <Project>{1a7ea66a-e03b-095a-417e-8cf49c39ed97}</Project>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\third_party\jsoncpp\jsoncpp_win_phone.vcxproj">
+      <Project>{e345fae8-5f42-ea3a-0dec-d0259b545d30}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\third_party\libjpeg_turbo\libjpeg_win_phone.vcxproj">
+      <Project>{767f56f8-0614-c592-a687-f612265e8381}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\third_party\libsrtp\libsrtp_win_phone.vcxproj">
+      <Project>{d93717e1-6103-4387-c194-f0f509597912}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\third_party\libvpx_new\libvpx_new_win_phone.vcxproj">
+      <Project>{9e2f0c19-6cc0-bce7-bcb0-7052ee22611c}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\third_party\libyuv\libyuv_win_phone.vcxproj">
+      <Project>{cd13f206-68c5-a1e1-2e9f-3e999e6ea5d9}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\third_party\openmax_dl\dl\openmax_dl_armv7_win_phone.vcxproj">
+      <Project>{788c604d-70c3-96eb-d8d9-5159cec8625e}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\third_party\openmax_dl\dl\openmax_dl_neon_win_phone.vcxproj">
+      <Project>{185beb0e-bbee-39fb-988d-4d107914b61f}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\third_party\openmax_dl\dl\openmax_dl_win_phone.vcxproj">
+      <Project>{a02ac890-28e4-1d7f-2b11-11e2066b44e7}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\third_party\opus\opus_win_phone.vcxproj">
+      <Project>{c8660b82-849c-e4bc-2449-b4b192c14c34}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\third_party\usrsctp\usrsctplib_win_phone.vcxproj">
+      <Project>{a24a8ef5-a244-4b81-af6c-faf95d233102}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\base\rtc_base_approved_win_phone.vcxproj">
+      <Project>{cd2bb815-a28e-7aae-6820-03e97f602515}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\base\rtc_base_win_phone.vcxproj">
+      <Project>{dd5adbe3-3f05-1703-d928-31befc33f96d}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\common_audio\common_audio_neon_win_phone.vcxproj">
+      <Project>{60d1cf8d-fed8-2292-9341-b42732ffe57d}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\common_audio\common_audio_win_phone.vcxproj">
+      <Project>{2475dc35-00ca-bd87-0c22-d0de39a6468e}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\common_video\common_video_win_phone.vcxproj">
+      <Project>{27444253-9c25-7eef-f6d3-e84099af6759}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\audio_coding_module_win_phone.vcxproj">
+      <Project>{71838df2-8a53-ce86-d155-a20cb2b757e8}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\audio_conference_mixer_win_phone.vcxproj">
+      <Project>{03b57e54-3161-099e-fbf9-be9cd941924d}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\audio_decoder_interface_win_phone.vcxproj">
+      <Project>{b8be7610-8d03-980f-24c8-f77e5c26b73e}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\audio_device_win_phone.vcxproj">
+      <Project>{daa585a3-f276-5fce-2fa2-74d7f115c71d}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\audio_encoder_interface_win_phone.vcxproj">
+      <Project>{d220b3d0-b5d0-de9a-b7a6-955aee6afe8a}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\audio_processing_neon_win_phone.vcxproj">
+      <Project>{8cbbf294-2e83-04d7-07c4-5cfe4488407b}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\audio_processing_win_phone.vcxproj">
+      <Project>{cf8b6087-aeac-a379-708e-e8680d140db6}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\bitrate_controller_win_phone.vcxproj">
+      <Project>{13760942-b7fa-39f2-8361-b0368782db7d}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\cng_win_phone.vcxproj">
+      <Project>{5898db25-044e-b45e-7702-957bfb00727a}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\g711_win_phone.vcxproj">
+      <Project>{248e4546-6112-ebec-7a1b-705353b122e0}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\g722_win_phone.vcxproj">
+      <Project>{4cff2a7f-1b46-f601-9173-17440a429742}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\ilbc_win_phone.vcxproj">
+      <Project>{d273dc13-02a4-4a21-5626-ab105645c8e1}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\isac_common_win_phone.vcxproj">
+      <Project>{cb8ebbd1-7f74-8aaf-12f8-07b4ccdc1706}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\isac_fix_win_phone.vcxproj">
+      <Project>{a76a0121-636e-fa5a-48d0-05c3a2cc9741}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\isac_neon_win_phone.vcxproj">
+      <Project>{a3bb03c7-460b-bf9a-cdae-abd465b8f2f2}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\isac_win_phone.vcxproj">
+      <Project>{92df14dc-9784-7c1e-b6c9-10273adefa78}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\media_file_win_phone.vcxproj">
+      <Project>{cd3d9911-eec4-4eff-6742-518926dd292e}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\neteq_win_phone.vcxproj">
+      <Project>{52279f56-69ed-8a0b-9075-14d4abade2b4}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\paced_sender_win_phone.vcxproj">
+      <Project>{5dcfaf24-2733-fcf1-bc7b-69dcca771333}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\pcm16b_win_phone.vcxproj">
+      <Project>{15678891-d9fc-8ca8-af4d-329fe0599b8f}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\red_win_phone.vcxproj">
+      <Project>{dda4ee7b-e574-1382-ffee-29f827bcf0b6}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\remote_bitrate_estimator_win_phone.vcxproj">
+      <Project>{b43a4448-437e-a4b3-0f34-ed50bd815f3e}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\rent_a_codec_win_phone.vcxproj">
+      <Project>{40538c04-aa12-53db-6b74-1119020feadd}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\rtp_rtcp_win_phone.vcxproj">
+      <Project>{3ac13745-4e43-69b7-7391-7c5ef92e9bf7}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\video_capture_module_internal_impl_win_phone.vcxproj">
+      <Project>{1498fa5e-2b09-94bc-7311-02ee36041985}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\video_capture_module_win_phone.vcxproj">
+      <Project>{0788c397-08f9-f538-7475-a13453c35b88}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\video_coding\codecs\vp8\webrtc_vp8_win_phone.vcxproj">
+      <Project>{8364f04c-07b8-a7cd-dfe1-d395f02f15d8}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\video_coding\codecs\vp9\webrtc_vp9_win_phone.vcxproj">
+      <Project>{dc48f5f8-edab-cb38-7fbe-793d4d4bd8c2}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\video_coding\utility\video_coding_utility_win_phone.vcxproj">
+      <Project>{61e429da-7a8f-1e8e-dcb0-1c879b872b5e}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\video_processing_win_phone.vcxproj">
+      <Project>{7ff23796-9aab-49d0-3dbd-3aae260066e0}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\video_render_module_internal_impl_win_phone.vcxproj">
+      <Project>{4478b349-7ff8-4a21-ca93-a1b897ae26b2}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\video_render_module_win_phone.vcxproj">
+      <Project>{d4d989e9-c400-6e51-81b9-4ff7f14f41cf}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\webrtc_h264_win_phone.vcxproj">
+      <Project>{9fc9efdf-453a-8adb-a567-fbe6c59da550}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\webrtc_i420_win_phone.vcxproj">
+      <Project>{c4e5ab52-9a45-2fe0-859e-59aa6f71b206}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\webrtc_opus_win_phone.vcxproj">
+      <Project>{ea9cc2d7-2275-be06-541f-2bfe7e78c2fb}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\webrtc_utility_win_phone.vcxproj">
+      <Project>{070b0513-9478-f3a5-611e-263899cf7236}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\modules\webrtc_video_coding_win_phone.vcxproj">
+      <Project>{04a80fab-bb4f-5c03-8c78-11c5555786aa}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\rtc_event_log_win_phone.vcxproj">
+      <Project>{47348b2c-8504-138d-630e-cb416e21d24c}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\system_wrappers\field_trial_default_win_phone.vcxproj">
+      <Project>{a00eb87a-74d2-4748-101b-1cb13f6b2258}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\system_wrappers\metrics_default_win_phone.vcxproj">
+      <Project>{5d144ec2-7a31-3516-b0e2-37132a631a19}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\system_wrappers\system_wrappers_win_phone.vcxproj">
+      <Project>{3fb8240e-2ab0-6397-7306-50626415e080}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\test\field_trial_win_phone.vcxproj">
+      <Project>{a0a86eef-7ed9-a794-2afd-7682ed18f9c4}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\voice_engine\voice_engine_win_phone.vcxproj">
+      <Project>{af4f3c26-4c98-2aca-463a-6a149729325e}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\webrtc_common_win_phone.vcxproj">
+      <Project>{2b037d34-af68-9f62-dff7-47d1cafb43a3}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\webrtc\webrtc\webrtc_win_phone.vcxproj">
+      <Project>{3a1f68ee-aab8-7842-d81f-6058d7d75da7}</Project>
+      <Private>false</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\zsLib\projects\msvs\zsLib\zsLib.Windows.Universal\zsLib.Windows.Universal.vcxproj">
+      <Project>{e7265f01-f993-44f6-889c-24a62ab171a0}</Project>
+      <Private>false</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{f12c67f3-12a0-4532-bdde-4be043dbc140}</ProjectGuid>
+    <Keyword>WindowsRuntimeComponent</Keyword>
+    <ProjectName>ortc-winrt-api.Windows.ARM.Universal</ProjectName>
+    <RootNamespace>ortc_winrt_api</RootNamespace>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <AppContainerApplication>true</AppContainerApplication>
+    <ApplicationType>Windows Store</ApplicationType>
+    <WindowsTargetPlatformVersion>10.0.10586.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformMinVersion>10.0.10240.0</WindowsTargetPlatformMinVersion>
+    <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+    <Import Project="..\ortc-winrt-api.Shared\ortc-winrt-api.Shared.vcxitems" Label="Shared" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PreprocessorDefinitions>_WINRT_DLL;WINRT;WEBRTC_WIN;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
+      <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>28204</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>../../../../../libs;../../../../../libs/op-services-cpp;../../../../../libs/ortc-lib;../../../../../libs/zsLib;../../../../../libs/webrtc;../../../../../libs/webrtc/webrtc;%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <AdditionalDependencies>MinCore.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PreprocessorDefinitions>_WINRT_DLL;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
+      <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>28204</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>../../../../../libs;../../../../../libs/op-services-cpp;../../../../../libs/ortc-lib;../../../../../libs/zsLib;../../../../../libs/webrtc;../../../../../libs/webrtc/webrtc;%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PreprocessorDefinitions>_WINRT_DLL;WINRT;WEBRTC_WIN;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
+      <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>28204</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>../../../../../libs;../../../../../libs/op-services-cpp;../../../../../libs/ortc-lib;../../../../../libs/zsLib;../../../../../libs/webrtc;../../../../../libs/webrtc/webrtc;%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <AdditionalDependencies>MinCore.lib;WindowsApp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PreprocessorDefinitions>_WINRT_DLL;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
+      <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>28204</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>../../../../../libs;../../../../../libs/op-services-cpp;../../../../../libs/ortc-lib;../../../../../libs/zsLib;../../../../../libs/webrtc;../../../../../libs/webrtc/webrtc;%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <AdditionalDependencies>MinCore.lib;WindowsApp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PreprocessorDefinitions>_WINRT_DLL;_DEBUG;V8_DEPRECATION_WARNINGS;CLD_VERSION=2;NOMINMAX;WIN32;_WIN32_WINNT=0x0603;WINVER=0x0603;_WINDOWS;PSAPI_VERSION=1;_CRT_RAND_S;CERT_CHAIN_PARA_HAS_EXTRA_FIELDS;WIN32_LEAN_AND_MEAN;_ATL_NO_OPENGL;_SECURE_ATL;_HAS_EXCEPTIONS=0;_WINSOCK_DEPRECATED_NO_WARNINGS;CHROMIUM_BUILD;CR_CLANG_REVISION=245965-1;USE_AURA=1;USE_ASH=1;USE_DEFAULT_RENDER_THEME=1;USE_LIBJPEG_TURBO=1;ENABLE_ONE_CLICK_SIGNIN;ENABLE_PRE_SYNC_BACKUP;ENABLE_WEBRTC=1;ENABLE_MEDIA_ROUTER=1;ENABLE_PEPPER_CDMS;ENABLE_CONFIGURATION_POLICY;ENABLE_NOTIFICATIONS;ENABLE_HIDPI=1;ENABLE_TOPCHROME_MD=1;DONT_EMBED_BUILD_METADATA;FIELDTRIAL_TESTING_ENABLED;NO_TCMALLOC;__STD_C;_CRT_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_DEPRECATE;NTDDI_VERSION=0x06030000;_USING_V110_SDK71_;WINRT;_HAS_EXCEPTIONS=1;WINAPI_FAMILY=WINAPI_FAMILY_APP;ENABLE_TASK_MANAGER=1;ENABLE_EXTENSIONS=1;ENABLE_PDF=1;ENABLE_PLUGIN_INSTALLATION=1;ENABLE_PLUGINS=1;ENABLE_SESSION_SERVICE=1;ENABLE_THEMES=1;ENABLE_AUTOFILL_DIALOG=1;ENABLE_BACKGROUND=1;ENABLE_GOOGLE_NOW=1;ENABLE_PRINTING=1;ENABLE_BASIC_PRINTING=1;ENABLE_PRINT_PREVIEW=1;ENABLE_SPELLCHECK=1;ENABLE_CAPTIVE_PORTAL_DETECTION=1;ENABLE_APP_LIST=1;ENABLE_SETTINGS_APP=1;ENABLE_SUPERVISED_USERS=1;ENABLE_MDNS=1;ENABLE_SERVICE_DISCOVERY=1;ENABLE_WIFI_BOOTSTRAPPING=1;V8_USE_EXTERNAL_STARTUP_DATA;FULL_SAFE_BROWSING;SAFE_BROWSING_CSD;SAFE_BROWSING_DB_LOCAL;SAFE_BROWSING_SERVICE;EXPAT_RELATIVE_PATH;WEBRTC_WIN;WEBRTC_INCLUDE_INTERNAL_AUDIO_DEVICE;_WINRT_DLL;USE_LIBPCI=1;USE_OPENSSL=1;__STDC_CONSTANT_MACROS;__STDC_FORMAT_MACROS;DYNAMIC_ANNOTATIONS_ENABLED=1;WTF_USE_DYNAMIC_ANNOTATIONS=1;WINRT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
+      <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>28204</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>../../../../../libs;../../../../../libs/op-services-cpp;../../../../../libs/ortc-lib;../../../../../libs/zsLib;../../../../../libs/webrtc;../../../../../libs/webrtc/webrtc;%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PreprocessorDefinitions>_WINRT_DLL;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
+      <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>28204</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>../../../../../libs;../../../../../libs/op-services-cpp;../../../../../libs/ortc-lib;../../../../../libs/zsLib;../../../../../libs/webrtc;../../../../../libs/webrtc/webrtc;%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
