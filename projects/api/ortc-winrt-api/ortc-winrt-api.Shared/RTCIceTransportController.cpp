@@ -27,6 +27,14 @@ IVector<RTCIceTransport^>^ RTCIceTransportController::GetTransports()
   return ret;
 }
 
+void RTCIceTransportController::AddTransport(RTCIceTransport^ transport)
+{
+  if (mNativePointer)
+  {
+    mNativePointer->addTransport(FetchNativePointer::FromIceTransport(transport));
+  }
+}
+
 void RTCIceTransportController::AddTransport(RTCIceTransport^ transport, size_t index)
 {
   if (mNativePointer)

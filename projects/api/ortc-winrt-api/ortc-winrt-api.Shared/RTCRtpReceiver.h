@@ -101,6 +101,9 @@ namespace ortc_winrt_api
 
 		void SetTransport(RTCDtlsTransport^ transport);
 		void SetTransport(RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
+    [Windows::Foundation::Metadata::DefaultOverloadAttribute]
+    static RTCRtpCapabilities ^ GetCapabilities();
+    [Windows::Foundation::Metadata::OverloadAttribute("GetCapabilitiesWithKind")]
 		static RTCRtpCapabilities ^ GetCapabilities(Platform::String^ kind);
 		void Receive(RTCRtpParameters^ parameters);
 		IVector<RTCRtpContributingSource^>^ GetContributingSource();

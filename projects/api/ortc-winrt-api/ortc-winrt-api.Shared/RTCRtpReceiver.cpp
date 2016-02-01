@@ -58,6 +58,34 @@ void RTCRtpReceiver::SetTransport(RTCDtlsTransport ^ transport, RTCDtlsTransport
 	}
 }
 
+RTCRtpCapabilities ^ RTCRtpReceiver::GetCapabilities()
+{
+  auto ret = ref new RTCRtpCapabilities();
+  IRTPTypes::CapabilitiesPtr capabilitiesPtr = IRtpReceiver::getCapabilities();
+
+  if (capabilitiesPtr)
+  {
+    for (IRTPTypes::CodecCapabilitiesList::iterator it = capabilitiesPtr->mCodecs.begin(); it != capabilitiesPtr->mCodecs.end(); ++it)
+    {
+      auto codec = ToCx((make_shared<IRTPTypes::CodecCapability>(*it)));
+      ret->Codecs->Append(codec);
+    }
+
+    for (IRTPTypes::HeaderExtensionsList::iterator it = capabilitiesPtr->mHeaderExtensions.begin(); it != capabilitiesPtr->mHeaderExtensions.end(); ++it)
+    {
+      auto codec = ToCx((make_shared<IRTPTypes::HeaderExtension>(*it)));
+      ret->HeaderExtensions->Append(codec);
+    }
+
+    for (std::list<zsLib::String>::iterator it = capabilitiesPtr->mFECMechanisms.begin(); it != capabilitiesPtr->mFECMechanisms.end(); ++it)
+    {
+      ret->FecMechanisms->Append(ToCx(*it));
+    }
+
+  }
+
+  return ret;
+}
 
 RTCRtpCapabilities ^ RTCRtpReceiver::GetCapabilities(Platform::String^ kind)
 {
