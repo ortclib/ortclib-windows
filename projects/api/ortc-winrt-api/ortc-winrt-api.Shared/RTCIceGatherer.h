@@ -199,7 +199,7 @@ namespace ortc_winrt_api
 				if (mNativePointer)
 					return (RTCIceComponent)mNativePointer->component();
 				else
-					return RTCIceComponent::RTP;
+					return RTCIceComponent::Rtp;
 			}
 		}
 

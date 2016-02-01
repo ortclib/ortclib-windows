@@ -72,11 +72,11 @@ namespace OrtcWrapper
             sb.Append(' ');
             sb.Append(sdpComponentId);
             sb.Append(' ');
-            sb.Append(iceCandidate.Protocol == RTCIceProtocol.UDP ? "udp" : "tcp");
+            sb.Append(iceCandidate.Protocol == RTCIceProtocol.Udp ? "udp" : "tcp");
             sb.Append(' ');
             sb.Append(iceCandidate.Priority);
             sb.Append(' ');
-            sb.Append(iceCandidate.IP);
+            sb.Append(iceCandidate.Ip);
             sb.Append(' ');
             sb.Append(iceCandidate.Port);
             sb.Append(' ');
@@ -112,9 +112,9 @@ namespace OrtcWrapper
                 if (substrings.Length == 10)
                 {
                     ice.Foundation = substrings[0];
-                    ice.Protocol = String.Equals(substrings[2],"udp") ? RTCIceProtocol.UDP : RTCIceProtocol.TCP;
+                    ice.Protocol = String.Equals(substrings[2],"udp") ? RTCIceProtocol.Udp : RTCIceProtocol.Tcp;
                     ice.Priority = uint.Parse(substrings[3]);
-                    ice.IP = substrings[4];
+                    ice.Ip = substrings[4];
                     ice.Port = ushort.Parse(substrings[5]);
                     ice.CandidateType = ToIceCandidateType(substrings[7]);
                 }

@@ -102,7 +102,7 @@ namespace ortc_winrt_api
     property bool GroupID;
   };
 
-  public enum class MediaDeviceKinds
+  public enum class MediaDeviceKind
   {
     AudioInput,
     AudioOutput,
@@ -111,7 +111,7 @@ namespace ortc_winrt_api
 
   public ref struct MediaDeviceInfo sealed 
   {
-    property MediaDeviceKinds Kind;
+    property MediaDeviceKind Kind;
 
     property Platform::String^ Label;
     property Platform::String^ DeviceID;

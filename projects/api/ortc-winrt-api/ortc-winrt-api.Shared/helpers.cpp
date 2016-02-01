@@ -27,13 +27,13 @@ namespace ortc_winrt_api
     ret.mCandidateType = (IICETypes::CandidateTypes)candidate->CandidateType;
     ret.mFoundation = FromCx(candidate->Foundation);
     ret.mInterfaceType = FromCx(candidate->InterfaceType);
-    ret.mIP = FromCx(candidate->IP);
+    ret.mIP = FromCx(candidate->Ip);
     ret.mPort = candidate->Port;
     ret.mPriority = candidate->Priority;
     ret.mProtocol = (IICETypes::Protocols)candidate->Protocol;
     ret.mRelatedAddress = FromCx(candidate->RelatedAddress);
     ret.mRelatedPort = candidate->RelatedPort;
-    ret.mTCPType = (IICETypes::TCPCandidateTypes)candidate->TCPType;
+    ret.mTCPType = (IICETypes::TCPCandidateTypes)candidate->TcpType;
     ret.mUnfreezePriority = candidate->UnfreezePriority;
 
     return ret;
@@ -46,13 +46,13 @@ namespace ortc_winrt_api
     ret->CandidateType = (RTCIceCandidateType)candidate->mCandidateType;
     ret->Foundation = ToCx(candidate->mFoundation);
     ret->InterfaceType = ToCx(candidate->mInterfaceType);
-    ret->IP = ToCx(candidate->mIP);
+    ret->Ip = ToCx(candidate->mIP);
     ret->Port = candidate->mPort;
     ret->Priority = candidate->mPriority;
     ret->Protocol = (RTCIceProtocol)candidate->mProtocol;
     ret->RelatedAddress = ToCx(candidate->mRelatedAddress);
     ret->RelatedPort = candidate->mRelatedPort;
-    ret->TCPType = (RTCIceTcpCandidateType)candidate->mTCPType;
+    ret->TcpType = (RTCIceTcpCandidateType)candidate->mTCPType;
     ret->UnfreezePriority = candidate->mUnfreezePriority;
 
     return ret;
@@ -424,7 +424,7 @@ namespace ortc_winrt_api
   {
 	  auto ret = ref new MediaDeviceInfo();
 
-	  ret->Kind = (MediaDeviceKinds)device.mKind;
+	  ret->Kind = (MediaDeviceKind)device.mKind;
 
 	  ret->Label = ToCx(device.mLabel);
 	  ret->DeviceID = ToCx(device.mDeviceID);

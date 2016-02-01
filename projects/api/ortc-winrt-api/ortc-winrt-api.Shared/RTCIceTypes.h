@@ -20,14 +20,14 @@ namespace ortc_winrt_api
 
   public enum class RTCIceComponent
   {
-    RTP,
-    RTCP
+    Rtp,
+    Rtcp
   };
 
   public enum class RTCIceProtocol
   {
-    UDP,
-    TCP
+    Udp,
+    Tcp
   };
 
   public enum class RTCIceCandidateType {
@@ -40,7 +40,7 @@ namespace ortc_winrt_api
   public enum class RTCIceTcpCandidateType {
     Active,
     Passive,
-    SO,
+    So,
   };
 
   public ref class RTCIceCandidate sealed
@@ -51,10 +51,10 @@ namespace ortc_winrt_api
     property uint32                       Priority;
     property uint32                       UnfreezePriority;
     property RTCIceProtocol               Protocol;
-    property Platform::String^            IP;
+    property Platform::String^            Ip;
     property uint16                       Port;
     property RTCIceCandidateType          CandidateType;
-    property RTCIceTcpCandidateType       TCPType;
+    property RTCIceTcpCandidateType       TcpType;
     property Platform::String^            RelatedAddress;
     property uint16                       RelatedPort;
   };
@@ -92,6 +92,4 @@ namespace ortc_winrt_api
     static RTCIceCandidateType ToCandidateType(Platform::String^ str);
     static RTCIceTcpCandidateType ToTcpCandidateType(Platform::String^ str);
   };
-
-
-}
+} // namespace 
