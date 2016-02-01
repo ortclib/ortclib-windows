@@ -4,8 +4,6 @@
 
 using namespace ortc_winrt_api;
 
-extern Windows::UI::Core::CoreDispatcher^ g_windowDispatcher;
-
 Platform::String^ RTCIceTypes::ToString(RTCIceRole value)
 {
   throw ref new Platform::NotImplementedException();

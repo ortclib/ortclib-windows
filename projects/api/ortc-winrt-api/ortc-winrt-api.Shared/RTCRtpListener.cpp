@@ -4,8 +4,6 @@
 
 using namespace ortc_winrt_api;
 
-extern Windows::UI::Core::CoreDispatcher^ g_windowDispatcher;
-
 RTCRtpListener::RTCRtpListener(RTCDtlsTransport^ transport) :
   mNativeDelegatePointer(new RTCRtpListenerDelegate())
 {
