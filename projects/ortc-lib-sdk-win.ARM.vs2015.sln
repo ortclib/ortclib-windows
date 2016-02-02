@@ -303,7 +303,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_win_phone", "..\..\l
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortc-standup.Windows.ARM.Universal", "samples\ortc-standup\ortc-standup.Windows.ARM.Universal\ortc-standup.Windows.ARM.Universal.vcxproj", "{C5AB382C-505A-4A6F-8577-F82145A34075}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ortc-api-test.Windows.Universal", "samples\ortc-api-test\ortc-api-test\ortc-api-test.Windows.Universal\ortc-api-test.Windows.Universal.csproj", "{A43CEB90-34F0-459B-898B-D1B66C0AB1E2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ortc-api-test.Windows.ARM.Universal", "samples\ortc-api-test\ortc-api-test\ortc-api-test.Windows.ARM.Universal\ortc-api-test.Windows.ARM.Universal.csproj", "{A43CEB90-34F0-459B-898B-D1B66C0AB1E2}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
