@@ -14,6 +14,11 @@ namespace ortc_winrt_api
     return ToCx(mNativePointer->id());
   }
 
+  Platform::String^ MediaStreamTrack::DeviceId::get()
+  {
+    return ToCx(mNativePointer->deviceID());
+  }
+
   Platform::String^ MediaStreamTrack::Label::get()
   {
     return ToCx(mNativePointer->label());
@@ -32,6 +37,11 @@ namespace ortc_winrt_api
   Platform::Boolean MediaStreamTrack::Muted::get()
   {
     return mNativePointer->muted();
+  }
+
+  void MediaStreamTrack::Muted::set(Platform::Boolean value)
+  {
+    return mNativePointer->muted(value);
   }
 
   Platform::Boolean MediaStreamTrack::ReadOnly::get()
