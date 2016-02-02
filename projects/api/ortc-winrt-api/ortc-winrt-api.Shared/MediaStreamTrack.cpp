@@ -184,6 +184,6 @@ namespace ortc_winrt_api
 
   MediaStreamTrackKind MediaStreamTrack::ToKind(Platform::String^ str)
   {
-    return internal::convert(IMediaStreamTrack::ToKind(FromCx(str).c_str()));
+    return internal::convert(IMediaStreamTrack::toKind(FromCx(str).c_str()));
   }
 }
