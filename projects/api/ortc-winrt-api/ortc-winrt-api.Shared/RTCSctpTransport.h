@@ -63,6 +63,7 @@ namespace ortc_winrt_api
   {
     friend class RTCSctpTransportDelegate;
     friend class FetchNativePointer;
+    friend class ConvertObjectToCx;
   public:
     RTCSctpTransport();
     RTCSctpTransport(RTCDtlsTransport^ dtlsTransport, uint16 port);
@@ -73,6 +74,31 @@ namespace ortc_winrt_api
   private:
     ISCTPTransportPtr mNativePointer;
     RTCSctpTransportDelegatePtr mNativeDelegatePointer;
+
+  private:
+    RTCDtlsTransport^ GetDtlsTransport();
+  public:
+    property RTCDtlsTransport^ Transport
+    {
+      RTCDtlsTransport^ get()
+      {
+        if (mNativePointer)
+          return GetDtlsTransport();
+        else
+          return nullptr;
+      }
+    }
+
+    property uint16 Port
+    {
+      uint16 get()
+      {
+        if (mNativePointer)
+          return mNativePointer->port();
+        else
+          return -1;
+      }
+    }
 
   public:
 

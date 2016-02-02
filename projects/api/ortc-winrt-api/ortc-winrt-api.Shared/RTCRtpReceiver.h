@@ -88,30 +88,44 @@ namespace ortc_winrt_api
 	private:
 		IRTPReceiverPtr mNativePointer;
 		RTCRtpReceiverDelegatePtr mNativeDelegatePointer;
-		RTCDtlsTransport^ _transport;
-		RTCDtlsTransport^ _rtcpTransport;
+
+  private:
+    RTCDtlsTransport^ GetDtlsTransport(boolean isRtcp);
+    MediaStreamTrack^ GetTrack();
 	public:
 
 		property MediaStreamTrack^ Track
 		{
-			MediaStreamTrack^ get();
+      MediaStreamTrack^ get()
+      {
+        if (mNativePointer)
+          return GetTrack();
+        else
+          return nullptr;
+      }
 		}
 
-		property RTCDtlsTransport^ Transport
-		{
-			RTCDtlsTransport^ get()
-			{
-				return _transport;
-			}
-		}
+    property RTCDtlsTransport^ Transport
+    {
+      RTCDtlsTransport^ get()
+      {
+        if (mNativePointer)
+          return GetDtlsTransport(false);
+        else
+          return nullptr;
+      }
+    }
 
-		property RTCDtlsTransport^ _RTCPTransport
-		{
-			RTCDtlsTransport^ get()
-			{
-				return _rtcpTransport;
-			}
-		}
+    property RTCDtlsTransport^ RtcpTransport
+    {
+      RTCDtlsTransport^ get()
+      {
+        if (mNativePointer)
+          return GetDtlsTransport(true);
+        else
+          return nullptr;
+      }
+    }
 
 		RTCRtpReceiver();
 		RTCRtpReceiver(RTCDtlsTransport^ transport);

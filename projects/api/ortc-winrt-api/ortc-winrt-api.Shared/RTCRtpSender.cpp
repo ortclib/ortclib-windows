@@ -51,16 +51,21 @@ mNativeDelegatePointer(new RTCRtpSenderDelegate())
   }
 }
 
-MediaStreamTrack^ RTCRtpSender::Track::get()
+MediaStreamTrack^ RTCRtpSender::GetTrack()
 {
-	if (_track == nullptr)
-	{
-		if (mNativePointer)
-		{
-			_track = ConvertObjectToCx::ToMediaStreamTrack(mNativePointer->track());
-		}
-	}
-	return _track;
+		return ConvertObjectToCx::ToMediaStreamTrack(mNativePointer->track());
+}
+
+RTCDtlsTransport^ RTCRtpSender::GetDtlsTransport(boolean isRtcp)
+{
+  if (!isRtcp)
+  {
+    return ConvertObjectToCx::ToDtlsTransport(IDTLSTransport::convert(mNativePointer->transport()));
+  }
+  else
+  {
+    return ConvertObjectToCx::ToDtlsTransport(IDTLSTransport::convert(mNativePointer->rtcpTransport()));
+  }
 }
 
 void RTCRtpSender::setTransport(RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport)

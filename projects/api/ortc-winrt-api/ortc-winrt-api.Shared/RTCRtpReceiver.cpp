@@ -130,15 +130,22 @@ void RTCRtpReceiver::stop()
 	if (mNativePointer)
 		mNativePointer->stop();
 }
-MediaStreamTrack^ RTCRtpReceiver::Track::get()
+
+MediaStreamTrack^ RTCRtpReceiver::GetTrack()
 {
-	if (mNativePointer)
-	{
-		IMediaStreamTrackPtr temp = mNativePointer->track();
-		if (temp)
-			return ConvertObjectToCx::ToMediaStreamTrack(temp);
-	}
-	return nullptr;
+  return ConvertObjectToCx::ToMediaStreamTrack(mNativePointer->track());
+}
+
+RTCDtlsTransport^ RTCRtpReceiver::GetDtlsTransport(boolean isRtcp)
+{
+  if (!isRtcp)
+  {
+    return ConvertObjectToCx::ToDtlsTransport(IDTLSTransport::convert(mNativePointer->transport()));
+  }
+  else
+  {
+    return ConvertObjectToCx::ToDtlsTransport(IDTLSTransport::convert(mNativePointer->rtcpTransport()));
+  }
 }
 //-----------------------------------------------------------------
 #pragma mark RTCRtpReceiverDelegate
