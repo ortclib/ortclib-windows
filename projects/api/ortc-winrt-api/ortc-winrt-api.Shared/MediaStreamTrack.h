@@ -120,6 +120,11 @@ namespace ortc_winrt_api
       Platform::String^  get();
     }
 
+    property Platform::String^ DeviceId
+    {
+      Platform::String^  get();
+    }
+
     property Platform::String^ Label
     {
       Platform::String^  get();
@@ -134,6 +139,7 @@ namespace ortc_winrt_api
     property Platform::Boolean Muted
     {
       Platform::Boolean  get();
+      void set(Platform::Boolean value);
     }
 
     property Platform::Boolean ReadOnly
