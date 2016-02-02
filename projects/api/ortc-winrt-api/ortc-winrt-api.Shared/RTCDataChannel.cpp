@@ -5,33 +5,6 @@
 
 namespace ortc_winrt_api
 {
-  namespace internal
-  {
-    //---------------------------------------------------------------------------
-    // RTCDataChannelState convert methods
-    //---------------------------------------------------------------------------
-    static IDataChannel::States convert(RTCDataChannelState state)
-    {
-      switch (state) {
-      case RTCDataChannelState::Connecting:   return IDataChannel::States::State_Connecting;
-      case RTCDataChannelState::Open:         return IDataChannel::States::State_Open;
-      case RTCDataChannelState::Closing:      return IDataChannel::States::State_Closing;
-      case RTCDataChannelState::Closed:       return IDataChannel::States::State_Closed;
-      }
-      throw ref new Platform::NotImplementedException();
-    }
-
-    static RTCDataChannelState convert(IDataChannel::States state)
-    {
-      switch (state) {
-      case IDataChannel::States::State_Connecting:   return RTCDataChannelState::Connecting;
-      case IDataChannel::States::State_Open:         return RTCDataChannelState::Open;
-      case IDataChannel::States::State_Closing:      return RTCDataChannelState::Closing;
-      case IDataChannel::States::State_Closed:       return RTCDataChannelState::Closed;
-      }
-      throw ref new Platform::NotImplementedException();
-    }
-  } // namespace internal
 
   RTCDataChannel::RTCDataChannel() :
     mNativeDelegatePointer(nullptr),
@@ -111,7 +84,7 @@ namespace ortc_winrt_api
   RTCDataChannelState RTCDataChannel::State::get()
   {
     if (mNativePointer)
-      return internal::convert(mNativePointer->readyState());
+      return internal::ConvertEnums::convert(mNativePointer->readyState());
     else
       return RTCDataChannelState::Closed;
   }
@@ -122,7 +95,7 @@ namespace ortc_winrt_api
     )
   {
     auto evt = ref new RTCDataChannelStateChangeEvent();
-    evt->State = internal::convert(state);
+    evt->State = internal::ConvertEnums::convert(state);
     _channel->OnDataChannelStateChanged(evt);
   }
 

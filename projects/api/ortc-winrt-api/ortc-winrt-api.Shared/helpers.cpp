@@ -34,6 +34,367 @@ namespace ortc_winrt_api
       }
       throw ref new Platform::NotImplementedException();
     }
+
+    //---------------------------------------------------------------------------
+    // RTCIceGatherPolicy convert methods
+    //---------------------------------------------------------------------------
+    IICEGathererTypes::FilterPolicies ConvertEnums::convert(RTCIceGatherPolicy policy)
+    {
+      switch (policy) {
+      case RTCIceGatherPolicy::None:              return IICEGathererTypes::FilterPolicies::FilterPolicy_None;
+      case RTCIceGatherPolicy::NoIPv4Srflx:       return IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv4Srflx;
+      case RTCIceGatherPolicy::NoIPv4Prflx:       return IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv4Prflx;
+      case RTCIceGatherPolicy::NoIPv4Relay:       return IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv4Relay;
+      case RTCIceGatherPolicy::NoIPv4Private:     return IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv4Private;
+      case RTCIceGatherPolicy::NoIPv4:            return IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv4Host;
+      case RTCIceGatherPolicy::NoIPv6Host:        return IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv6Host;
+      case RTCIceGatherPolicy::NoIPv6Srflx:       return IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv6Srflx;
+      case RTCIceGatherPolicy::NoIPv6Prflx:       return IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv6Prflx;
+      case RTCIceGatherPolicy::NoIPv6Relay:       return IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv6Relay;
+      case RTCIceGatherPolicy::NoIPv6Private:     return IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv6Private;
+      case RTCIceGatherPolicy::NoIPv6Tunnel:      return IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv6Tunnel;
+      case RTCIceGatherPolicy::NoIPv6Permanent:   return IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv6Permanent;
+      case RTCIceGatherPolicy::NoIPv6:            return IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv6;
+      case RTCIceGatherPolicy::NoHost:            return IICEGathererTypes::FilterPolicies::FilterPolicy_NoHost;
+      case RTCIceGatherPolicy::NoSrflx:           return IICEGathererTypes::FilterPolicies::FilterPolicy_NoSrflx;
+      case RTCIceGatherPolicy::NoPrflx:           return IICEGathererTypes::FilterPolicies::FilterPolicy_NoPrflx;
+      case RTCIceGatherPolicy::NoRelay:           return IICEGathererTypes::FilterPolicies::FilterPolicy_NoRelay;
+      case RTCIceGatherPolicy::NoPrivate:         return IICEGathererTypes::FilterPolicies::FilterPolicy_NoPrivate;
+      case RTCIceGatherPolicy::RelayOnly:         return IICEGathererTypes::FilterPolicies::FilterPolicy_RelayOnly;
+      case RTCIceGatherPolicy::NoCandidates:      return IICEGathererTypes::FilterPolicies::FilterPolicy_NoCandidates;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    RTCIceGatherPolicy ConvertEnums::convert(IICEGathererTypes::FilterPolicies policy)
+    {
+      switch (policy) {
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_None:              return RTCIceGatherPolicy::None;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv4Srflx:       return RTCIceGatherPolicy::NoIPv4Srflx;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv4Prflx:       return RTCIceGatherPolicy::NoIPv4Prflx;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv4Relay:       return RTCIceGatherPolicy::NoIPv4Relay;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv4Private:     return RTCIceGatherPolicy::NoIPv4Private;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv4Host:        return RTCIceGatherPolicy::NoIPv4;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv6Host:        return RTCIceGatherPolicy::NoIPv6Host;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv6Srflx:       return RTCIceGatherPolicy::NoIPv6Srflx;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv6Prflx:       return RTCIceGatherPolicy::NoIPv6Prflx;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv6Relay:       return RTCIceGatherPolicy::NoIPv6Relay;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv6Private:     return RTCIceGatherPolicy::NoIPv6Private;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv6Tunnel:      return RTCIceGatherPolicy::NoIPv6Tunnel;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv6Permanent:   return RTCIceGatherPolicy::NoIPv6Permanent;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv6:            return RTCIceGatherPolicy::NoIPv6;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoHost:            return RTCIceGatherPolicy::NoHost;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoSrflx:           return RTCIceGatherPolicy::NoSrflx;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoPrflx:           return RTCIceGatherPolicy::NoPrflx;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoRelay:           return RTCIceGatherPolicy::NoRelay;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoPrivate:         return RTCIceGatherPolicy::NoPrivate;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_RelayOnly:         return RTCIceGatherPolicy::RelayOnly;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoCandidates:      return RTCIceGatherPolicy::NoCandidates;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    //---------------------------------------------------------------------------
+    // RTCIceGathererCredentialType convert methods
+    //---------------------------------------------------------------------------
+    IICEGathererTypes::CredentialTypes ConvertEnums::convert(RTCIceGathererCredentialType credentialType)
+    {
+      switch (credentialType) {
+      case RTCIceGathererCredentialType::Password:    return IICEGathererTypes::CredentialTypes::CredentialType_Password;
+      case RTCIceGathererCredentialType::Token:       return IICEGathererTypes::CredentialTypes::CredentialType_Token;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    RTCIceGathererCredentialType ConvertEnums::convert(IICEGathererTypes::CredentialTypes credentialType)
+    {
+      switch (credentialType) {
+      case IICEGathererTypes::CredentialTypes::CredentialType_Password:    return RTCIceGathererCredentialType::Password;
+      case IICEGathererTypes::CredentialTypes::CredentialType_Token:       return RTCIceGathererCredentialType::Token;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    //---------------------------------------------------------------------------
+    // RTCIceGathererState convert methods
+    //---------------------------------------------------------------------------
+    IICEGathererTypes::States ConvertEnums::convert(RTCIceGathererState state)
+    {
+      switch (state) {
+      case RTCIceGathererState::New:          return IICEGathererTypes::States::State_New;
+      case RTCIceGathererState::Gathering:    return IICEGathererTypes::States::State_Gathering;
+      case RTCIceGathererState::Complete:     return IICEGathererTypes::States::State_Complete;
+      case RTCIceGathererState::Closed:       return IICEGathererTypes::States::State_Closed;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    RTCIceGathererState ConvertEnums::convert(IICEGathererTypes::States state)
+    {
+      switch (state) {
+      case IICEGathererTypes::States::State_New:          return RTCIceGathererState::New;
+      case IICEGathererTypes::States::State_Gathering:    return RTCIceGathererState::Gathering;
+      case IICEGathererTypes::States::State_Complete:     return RTCIceGathererState::Complete;
+      case IICEGathererTypes::States::State_Closed:       return RTCIceGathererState::Closed;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    //---------------------------------------------------------------------------
+    // RTCDataChannelState convert methods
+    //---------------------------------------------------------------------------
+    IDataChannel::States ConvertEnums::convert(RTCDataChannelState state)
+    {
+      switch (state) {
+      case RTCDataChannelState::Connecting:   return IDataChannel::States::State_Connecting;
+      case RTCDataChannelState::Open:         return IDataChannel::States::State_Open;
+      case RTCDataChannelState::Closing:      return IDataChannel::States::State_Closing;
+      case RTCDataChannelState::Closed:       return IDataChannel::States::State_Closed;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    RTCDataChannelState ConvertEnums::convert(IDataChannel::States state)
+    {
+      switch (state) {
+      case IDataChannel::States::State_Connecting:   return RTCDataChannelState::Connecting;
+      case IDataChannel::States::State_Open:         return RTCDataChannelState::Open;
+      case IDataChannel::States::State_Closing:      return RTCDataChannelState::Closing;
+      case IDataChannel::States::State_Closed:       return RTCDataChannelState::Closed;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    //---------------------------------------------------------------------------
+    // Logger convert methods
+    //---------------------------------------------------------------------------
+    zsLib::Log::Level ConvertEnums::convert(Log::Level level)
+    {
+      switch (level) {
+      case Log::Level::Basic:   return zsLib::Log::Basic;
+      case Log::Level::Detail:  return zsLib::Log::Detail;
+      case Log::Level::Debug:   return zsLib::Log::Debug;
+      case Log::Level::Trace:   return zsLib::Log::Trace;
+      case Log::Level::Insane:  return zsLib::Log::Insane;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    const char * ConvertEnums::toComponent(Log::Component  component)
+    {
+      switch (component) {
+      case Log::Component::ZsLib:         return "zsLib";
+      case Log::Component::ZsLibSocket:   return "zsLib_socket";
+      case Log::Component::Services:      return "openpeer_services";
+      case Log::Component::ServicesTurn:  return "openpeer_services_turn";
+      case Log::Component::ServicesHttp:  return "openpeer_services_http";
+      case Log::Component::OrtcLib:       return "ortclib";
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    //---------------------------------------------------------------------------
+    // RTCDtlsTransportState convert methods
+    //---------------------------------------------------------------------------
+    IDtlsTransport::States ConvertEnums::convert(RTCDtlsTransportState state)
+    {
+      switch (state) {
+      case RTCDtlsTransportState::New:            return IDtlsTransport::States::State_New;
+      case RTCDtlsTransportState::Connecting:     return IDtlsTransport::States::State_Connecting;
+      case RTCDtlsTransportState::Connected:      return IDtlsTransport::States::State_Connected;
+      case RTCDtlsTransportState::Validated:      return IDtlsTransport::States::State_Validated;
+      case RTCDtlsTransportState::Closed:         return IDtlsTransport::States::State_Closed;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    RTCDtlsTransportState ConvertEnums::convert(IDtlsTransport::States state)
+    {
+      switch (state) {
+      case IDtlsTransport::States::State_New:           return RTCDtlsTransportState::New;
+      case IDtlsTransport::States::State_Connecting:    return RTCDtlsTransportState::Connecting;
+      case IDtlsTransport::States::State_Connected:     return RTCDtlsTransportState::Connected;
+      case IDtlsTransport::States::State_Validated:     return RTCDtlsTransportState::Validated;
+      case IDtlsTransport::States::State_Closed:        return RTCDtlsTransportState::Closed;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    //---------------------------------------------------------------------------
+    // RTCDtlsRole convert methods
+    //---------------------------------------------------------------------------
+    IDtlsTransport::Roles ConvertEnums::convert(RTCDtlsRole role)
+    {
+      switch (role) {
+      case RTCDtlsRole::Auto:       return IDtlsTransport::Roles::Role_Auto;
+      case RTCDtlsRole::Client:     return IDtlsTransport::Roles::Role_Client;
+      case RTCDtlsRole::Server:     return IDtlsTransport::Roles::Role_Server;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    RTCDtlsRole ConvertEnums::convert(IDtlsTransport::Roles role)
+    {
+      switch (role) {
+      case IDtlsTransport::Roles::Role_Auto:      return RTCDtlsRole::Auto;
+      case IDtlsTransport::Roles::Role_Client:    return RTCDtlsRole::Client;
+      case IDtlsTransport::Roles::Role_Server:    return RTCDtlsRole::Server;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    //---------------------------------------------------------------------------
+    // RTCIceRole convert methods
+    //---------------------------------------------------------------------------
+    IICETypes::Roles ConvertEnums::convert(RTCIceRole role)
+    {
+      switch (role) {
+      case RTCIceRole::Controlling:   return IICETypes::Roles::Role_Controlling;
+      case RTCIceRole::Controlled:    return IICETypes::Roles::Role_Controlled;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    RTCIceRole ConvertEnums::convert(IICETypes::Roles role)
+    {
+      switch (role) {
+      case IICETypes::Roles::Role_Controlling:   return RTCIceRole::Controlling;
+      case IICETypes::Roles::Role_Controlled:    return RTCIceRole::Controlled;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    //---------------------------------------------------------------------------
+    // RTCIceComponent convert methods
+    //---------------------------------------------------------------------------
+    IICETypes::Components ConvertEnums::convert(RTCIceComponent component)
+    {
+      switch (component) {
+      case RTCIceComponent::Rtp:   return IICETypes::Components::Component_RTP;
+      case RTCIceComponent::Rtcp:  return IICETypes::Components::Component_RTCP;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    RTCIceComponent ConvertEnums::convert(IICETypes::Components component)
+    {
+      switch (component) {
+      case IICETypes::Components::Component_RTP:   return RTCIceComponent::Rtp;
+      case IICETypes::Components::Component_RTCP:  return RTCIceComponent::Rtcp;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    //---------------------------------------------------------------------------
+    // RTCIceProtocol convert methods
+    //---------------------------------------------------------------------------
+    IICETypes::Protocols ConvertEnums::convert(RTCIceProtocol protocol)
+    {
+      switch (protocol) {
+      case RTCIceProtocol::Udp:   return IICETypes::Protocols::Protocol_UDP;
+      case RTCIceProtocol::Tcp:  return IICETypes::Protocols::Protocol_TCP;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    RTCIceProtocol ConvertEnums::convert(IICETypes::Protocols protocol)
+    {
+      switch (protocol) {
+      case IICETypes::Protocols::Protocol_UDP:   return RTCIceProtocol::Udp;
+      case IICETypes::Protocols::Protocol_TCP:  return RTCIceProtocol::Tcp;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    //---------------------------------------------------------------------------
+    // RTCIceCandidateType convert methods
+    //---------------------------------------------------------------------------
+    IICETypes::CandidateTypes ConvertEnums::convert(RTCIceCandidateType candidateType)
+    {
+      switch (candidateType) {
+      case RTCIceCandidateType::Host:   return IICETypes::CandidateTypes::CandidateType_Host;
+      case RTCIceCandidateType::Srflex: return IICETypes::CandidateTypes::CandidateType_Srflex;
+      case RTCIceCandidateType::Prflx:  return IICETypes::CandidateTypes::CandidateType_Prflx;
+      case RTCIceCandidateType::Relay:  return IICETypes::CandidateTypes::CandidateType_Relay;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    RTCIceCandidateType ConvertEnums::convert(IICETypes::CandidateTypes candidateType)
+    {
+      switch (candidateType) {
+      case IICETypes::CandidateTypes::CandidateType_Host:    return RTCIceCandidateType::Host;
+      case IICETypes::CandidateTypes::CandidateType_Srflex:  return RTCIceCandidateType::Srflex;
+      case IICETypes::CandidateTypes::CandidateType_Prflx:   return RTCIceCandidateType::Prflx;
+      case IICETypes::CandidateTypes::CandidateType_Relay:   return RTCIceCandidateType::Relay;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    //---------------------------------------------------------------------------
+    // RTCIceTcpCandidateType convert methods
+    //---------------------------------------------------------------------------
+    IICETypes::TCPCandidateTypes ConvertEnums::convert(RTCIceTcpCandidateType candidateType)
+    {
+      switch (candidateType) {
+      case RTCIceTcpCandidateType::Active:   return IICETypes::TCPCandidateTypes::TCPCandidateType_Active;
+      case RTCIceTcpCandidateType::Passive:  return IICETypes::TCPCandidateTypes::TCPCandidateType_Passive;
+      case RTCIceTcpCandidateType::So:       return IICETypes::TCPCandidateTypes::TCPCandidateType_SO;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    RTCIceTcpCandidateType ConvertEnums::convert(IICETypes::TCPCandidateTypes candidateType)
+    {
+      switch (candidateType) {
+      case IICETypes::TCPCandidateTypes::TCPCandidateType_Active:    return RTCIceTcpCandidateType::Active;
+      case IICETypes::TCPCandidateTypes::TCPCandidateType_Passive:   return RTCIceTcpCandidateType::Passive;
+      case IICETypes::TCPCandidateTypes::TCPCandidateType_SO:        return RTCIceTcpCandidateType::So;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    //---------------------------------------------------------------------------
+    // MediaStreamTrackState convert methods
+    //---------------------------------------------------------------------------
+    IMediaStreamTrack::States ConvertEnums::convert(MediaStreamTrackState state)
+    {
+      switch (state) {
+      case MediaStreamTrackState::Live:   return IMediaStreamTrack::States::State_Live;
+      case MediaStreamTrackState::Ended:  return IMediaStreamTrack::States::State_Ended;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    MediaStreamTrackState ConvertEnums::convert(IMediaStreamTrack::States state)
+    {
+      switch (state) {
+      case IMediaStreamTrack::States::State_Live:   return MediaStreamTrackState::Live;
+      case IMediaStreamTrack::States::State_Ended:  return MediaStreamTrackState::Ended;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    //---------------------------------------------------------------------------
+    // MediaStreamTrackKind convert methods
+    //---------------------------------------------------------------------------
+    IMediaStreamTrack::Kinds ConvertEnums::convert(MediaStreamTrackKind kind)
+    {
+      switch (kind) {
+      case MediaStreamTrackKind::Audio:   return IMediaStreamTrack::Kinds::Kind_Audio;
+      case MediaStreamTrackKind::Video:   return IMediaStreamTrack::Kinds::Kind_Video;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    MediaStreamTrackKind ConvertEnums::convert(IMediaStreamTrack::Kinds kind)
+    {
+      switch (kind) {
+      case IMediaStreamTrack::Kinds::Kind_Audio:   return MediaStreamTrackKind::Audio;
+      case IMediaStreamTrack::Kinds::Kind_Video:   return MediaStreamTrackKind::Video;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
   } // namespace internal
 
   std::string FromCx(Platform::String^ inObj) {
@@ -99,6 +460,7 @@ namespace ortc_winrt_api
           ortc::IICEGatherer::Server server;
           server.mUserName = FromCx(srv->UserName);
           server.mCredential = FromCx(srv->Credential);
+          server.mCredentialType = internal::ConvertEnums::convert(srv->CredentialType);
           if (srv->URLs->Size > 0)
           {
             for (Platform::String^ url : srv->URLs)

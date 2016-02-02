@@ -9,48 +9,19 @@ using namespace ortc;
 using namespace ortc_winrt_api;
 using UseServicesLogger = openpeer::services::ILogger;
 
-namespace internal
-{
-
-  static zsLib::Log::Level convert(Log::Level level)
-  {
-    switch (level) {
-    case Log::Level::Basic:   return zsLib::Log::Basic;
-    case Log::Level::Detail:  return zsLib::Log::Detail;
-    case Log::Level::Debug:   return zsLib::Log::Debug;
-    case Log::Level::Trace:   return zsLib::Log::Trace;
-    case Log::Level::Insane:  return zsLib::Log::Insane;
-    }
-    throw ref new Platform::NotImplementedException();
-  }
-
-  static const char *toComponent(Log::Component  component)
-  {
-    switch (component) {
-    case Log::Component::ZsLib:         return "zsLib";
-    case Log::Component::ZsLibSocket:   return "zsLib_socket";
-    case Log::Component::Services:      return "openpeer_services";
-    case Log::Component::ServicesTurn:  return "openpeer_services_turn";
-    case Log::Component::ServicesHttp:  return "openpeer_services_http";
-    case Log::Component::OrtcLib:       return "ortclib";
-    }
-    throw ref new Platform::NotImplementedException();
-  }
-}
-
 void Logger::SetLogLevel(Log::Level level)
 {
-  UseServicesLogger::setLogLevel(internal::convert(level));
+  UseServicesLogger::setLogLevel(internal::ConvertEnums::convert(level));
 }
 
 void Logger::SetLogLevel(Log::Component component, Log::Level level)
 {
-  UseServicesLogger::setLogLevel(internal::toComponent(component), internal::convert(level));
+  UseServicesLogger::setLogLevel(internal::ConvertEnums::toComponent(component), internal::ConvertEnums::convert(level));
 }
 
 void Logger::SetLogLevel(Platform::String^ component, Log::Level level)
 {
-  UseServicesLogger::setLogLevel(FromCx(component).c_str(), internal::convert(level));
+  UseServicesLogger::setLogLevel(FromCx(component).c_str(), internal::ConvertEnums::convert(level));
 }
 
 void Logger::InstallStdOutLogger(Platform::Boolean colorizeOutput)

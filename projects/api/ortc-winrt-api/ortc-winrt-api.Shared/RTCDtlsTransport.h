@@ -195,16 +195,21 @@ namespace ortc_winrt_api
 
     property RTCDtlsTransportState State
     {
-      RTCDtlsTransportState get()
-      {
-        if (mNativePointer)
-          return (RTCDtlsTransportState)mNativePointer->state();
-        else
-          return RTCDtlsTransportState::Closed;
-      }
+      RTCDtlsTransportState get();
     }
   public:
     event RTCDtlsTransportStateChangedDelegate^           OnDtlsTransportStateChanged;
     event RTCDtlsTransportErrorDelegate^                  OnDtlsTransportError;
+
+  public:
+    [Windows::Foundation::Metadata::DefaultOverloadAttribute]
+    static Platform::String^ ToString();
+    [Windows::Foundation::Metadata::OverloadAttribute("DtlsTransportStateToString")]
+    static Platform::String^ ToString(RTCDtlsTransportState value);
+    [Windows::Foundation::Metadata::OverloadAttribute("DtlsTransportRoleToString")]
+    static Platform::String^ ToString(RTCDtlsRole value);
+
+    static RTCDtlsTransportState ToState(Platform::String^ str);
+    static RTCDtlsRole ToRole(Platform::String^ str);
   };
 }
