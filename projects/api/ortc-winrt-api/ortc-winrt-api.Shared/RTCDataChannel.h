@@ -179,13 +179,7 @@ namespace ortc_winrt_api
 
     property RTCDataChannelState State
     {
-      RTCDataChannelState get()
-      {
-        if (mNativePointer)
-          return (RTCDataChannelState)mNativePointer->readyState();
-        else
-          return RTCDataChannelState::Closed;
-      }
+      RTCDataChannelState get();
     }
 
     property uint64 BufferedAmount

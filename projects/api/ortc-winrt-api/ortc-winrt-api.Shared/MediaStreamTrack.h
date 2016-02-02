@@ -11,14 +11,14 @@ namespace ortc_winrt_api
 {
   public enum class MediaStreamTrackState
   {
-    TrackState_Live,
-    TrackState_Ended
+    Live,
+    Ended
   };
 
   public enum class MediaStreamTrackKind
   {
-    TrackKind_Audio,
-    TrackKind_Video
+    Audio,
+    Video
   };
   public ref class MediaTrackCapabilities sealed
   {
@@ -161,6 +161,15 @@ namespace ortc_winrt_api
     event MediaStreamTrackUnMuteDelegate^           OnMediaStreamTrackUnMuted;
     event MediaStreamTrackEndedDelegate^            OnMediaStreamTrackEnded;
     event MediaStreamTrackOverConstrainedDelegate^  OnMediaStreamTrackOverConstrained;
+
+  public:
+    [Windows::Foundation::Metadata::OverloadAttribute("MediaStreamTrackStateToString")]
+    static Platform::String^ ToString(MediaStreamTrackState value);
+    [Windows::Foundation::Metadata::OverloadAttribute("MediaStreamTrackKindToString")]
+    static Platform::String^ ToString(MediaStreamTrackKind value);
+
+    static MediaStreamTrackState ToState(Platform::String^ str);
+    static MediaStreamTrackKind  ToKind(Platform::String^ str);
     /*
 
 
