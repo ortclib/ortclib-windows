@@ -8,7 +8,9 @@
 #include "RTCIceTransportController.h"
 #include "RTCRtpSender.h"
 #include "RTPTypes.h"
+#include "MediaTypes.h"
 #include "MediaStreamTrack.h"
+#include "Logger.h"
 #include <ortc/IMediaStreamTrack.h>
 #include <ortc/IMediaDevices.h>
 
@@ -16,12 +18,6 @@ using namespace ortc;
 
 namespace ortc_winrt_api
 {
-  public ref class ConfigureOrtcEngine sealed
-  {
-  public:
-    ConfigureOrtcEngine();
-  };
-
   std::string FromCx(Platform::String^ inObj);
   Platform::String^ ToCx(std::string const& inObj);
 
@@ -76,6 +72,67 @@ namespace ortc_winrt_api
 	//static MediaTrackSettings^ mediaTrackSettings(IMediaStreamTrackTypes::SettingsPtr settingsPtr);
   };
 
+  class CreateEmptyCxObject
+  {
+  public:
+    static RTCIceTransport^ IceTransport() { return ref new RTCIceTransport(true); }
+  };
+
   IRTPTypes::Parameters FromCx(RTCRtpParameters^ parameters);
+
+  namespace internal
+  {
+    class ConvertEnums
+    {
+    public:
+      // RTCIceGatherer convertors
+      static IICEGathererTypes::FilterPolicies convert(RTCIceGatherPolicy policy);
+      static RTCIceGatherPolicy convert(IICEGathererTypes::FilterPolicies policy);
+
+      static IICEGathererTypes::CredentialTypes convert(RTCIceGathererCredentialType credentialType);
+      static RTCIceGathererCredentialType convert(IICEGathererTypes::CredentialTypes credentialType);
+
+      static IICEGathererTypes::States convert(RTCIceGathererState state);
+      static RTCIceGathererState convert(IICEGathererTypes::States state);
+
+      // RTCDataChannel convertors
+      static IDataChannel::States convert(RTCDataChannelState state);
+      static RTCDataChannelState ConvertEnums::convert(IDataChannel::States state);
+
+      // RTCDtlsTransport convertors
+      static IDtlsTransport::States convert(RTCDtlsTransportState state);
+      static RTCDtlsTransportState convert(IDtlsTransport::States state);
+
+      static IDtlsTransport::Roles convert(RTCDtlsRole role);
+      static RTCDtlsRole convert(IDtlsTransport::Roles role);
+
+      // RTCIceTypes convertors
+      static IICETypes::Roles convert(RTCIceRole role);
+      static RTCIceRole convert(IICETypes::Roles role);
+
+      static IICETypes::Components convert(RTCIceComponent component);
+      static RTCIceComponent convert(IICETypes::Components component);
+
+      static IICETypes::Protocols convert(RTCIceProtocol protocol);
+      static RTCIceProtocol convert(IICETypes::Protocols protocol);
+
+      static IICETypes::CandidateTypes convert(RTCIceCandidateType candidateType);
+      static RTCIceCandidateType convert(IICETypes::CandidateTypes candidateType);
+
+      static IICETypes::TCPCandidateTypes convert(RTCIceTcpCandidateType candidateType);
+      static RTCIceTcpCandidateType convert(IICETypes::TCPCandidateTypes candidateType);
+
+      // MediaStreamTrack convertors
+      static IMediaStreamTrack::States convert(MediaStreamTrackState state);
+      static MediaStreamTrackState convert(IMediaStreamTrack::States state);
+
+      static IMediaStreamTrack::Kinds convert(MediaStreamTrackKind kind);
+      static MediaStreamTrackKind convert(IMediaStreamTrack::Kinds kind);
+
+      // Logger convertors
+      static zsLib::Log::Level convert(Log::Level level);
+      static const char *toComponent(Log::Component  component);
+    };
+  }
 
 }

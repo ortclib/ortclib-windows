@@ -17,8 +17,11 @@ namespace ortc_winrt_api
   public:
     RTCIceTransportController();
 
-    IVector<RTCIceTransport^>^ getTransports();
-    void                       addTransport(RTCIceTransport^ transport, size_t index);
+    IVector<RTCIceTransport^>^ GetTransports();
+    [Windows::Foundation::Metadata::DefaultOverloadAttribute]
+    void                       AddTransport(RTCIceTransport^ transport);
+    [Windows::Foundation::Metadata::OverloadAttribute("AddTransportAtIndex")]
+    void                       AddTransport(RTCIceTransport^ transport, size_t index);
   private:
     IICETransportControllerPtr mNativePointer;
   };

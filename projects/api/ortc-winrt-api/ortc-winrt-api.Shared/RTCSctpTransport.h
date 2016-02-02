@@ -35,7 +35,7 @@ namespace ortc_winrt_api
   public ref class RTCSctpCapabilities sealed
   {
   public:
-    property uint16 MaxMessageSize;
+    property size_t MaxMessageSize;
   };
 
   //------------------------------------------
@@ -64,13 +64,14 @@ namespace ortc_winrt_api
     friend class RTCSctpTransportDelegate;
     friend class FetchNativePointer;
     friend class ConvertObjectToCx;
-  public:
+  private:
     RTCSctpTransport();
+  public:
     RTCSctpTransport(RTCDtlsTransport^ dtlsTransport, uint16 port);
 
-    static RTCSctpCapabilities^ getCapabilities();
-    void                       start(RTCSctpCapabilities^ remoteCaps);
-    void                       stop();
+    static RTCSctpCapabilities^ GetCapabilities();
+    void                       Start(RTCSctpCapabilities^ remoteCaps);
+    void                       Stop();
   private:
     ISCTPTransportPtr mNativePointer;
     RTCSctpTransportDelegatePtr mNativeDelegatePointer;

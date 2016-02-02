@@ -2,7 +2,7 @@
 
 #include <ortc/IICETransport.h>
 #include <collection.h>
-#include "RTCIceGatherer.h"
+#include "RTCIceTypes.h"
 
 using namespace ortc;
 
@@ -14,6 +14,7 @@ namespace ortc_winrt_api
   ZS_DECLARE_CLASS_PTR(RTCIceTransportDelegate)
 
   ref class RTCIceTransport;
+  ref class RTCIceGatherer;
   ref class RTCIceCandidate;
 
   class RTCIceTransportDelegate : public IICETransportDelegate
@@ -50,19 +51,13 @@ namespace ortc_winrt_api
 
   public enum class RTCIceTransportState
   {
-    State_New,
-    State_Checking,
-    State_Connected,
-    State_Completed,
-    State_Disconnected,
-    State_Failed,
-    State_Closed,
-  };
-
-  public enum class RTCIceRole
-  {
-    Role_Controlling,
-    Role_Controlled,
+    New,
+    Checking,
+    Connected,
+    Completed,
+    Disconnected,
+    Failed,
+    Closed,
   };
 
   public ref class RTCIceCandidatePair sealed
@@ -118,19 +113,31 @@ namespace ortc_winrt_api
     friend class RTCIceTransportDelegate;
     friend class FetchNativePointer;
     friend class ConvertObjectToCx;
+    friend class CreateEmptyCxObject;
+  private:
+    RTCIceTransport(Platform::Boolean noop);
   public:
     RTCIceTransport();
-    RTCIceTransport(RTCIceGatherer^ gatherer);
+    RTCIceTransport(RTCIceGatherer^ Gatherer);
 
-    IVector<RTCIceCandidate^>^ getRemoteCandidates();
-    RTCIceCandidatePair^       getSelectedCandidatePair();
-    void                       start(RTCIceGatherer^ gatherer, RTCIceParameters^ remoteParameters, RTCIceRole role);
-    void                       stop();
-    RTCIceParameters^          getRemoteParameters();
-    RTCIceTransport^           createAssociatedTransport();
-    void                       addRemoteCandidate(RTCIceCandidate^ remoteCandidate);
-    void                       addRemoteCandidate(RTCIceCandidateComplete^ remoteCandidate);
-    void                       setRemoteCandidates(IVector<RTCIceCandidate^>^ remoteCandidates);
+    IVector<RTCIceCandidate^>^ GetRemoteCandidates();
+    RTCIceCandidatePair^       GetSelectedCandidatePair();
+    [Windows::Foundation::Metadata::DefaultOverloadAttribute]
+    void                       Start(RTCIceGatherer^ gatherer, RTCIceParameters^ remoteParameters);
+    [Windows::Foundation::Metadata::OverloadAttribute("StartWithIceRole")]
+    void                       Start(RTCIceGatherer^ gatherer, RTCIceParameters^ remoteParameters, RTCIceRole role);
+    void                       Stop();
+    RTCIceParameters^          GetRemoteParameters();
+    RTCIceTransport^           CreateAssociatedTransport();
+    [Windows::Foundation::Metadata::DefaultOverloadAttribute]
+    void                       AddRemoteCandidate(RTCIceCandidate^ remoteCandidate);
+    [Windows::Foundation::Metadata::OverloadAttribute("AddRemoteCandidateComplete")]
+    void                       AddRemoteCandidate(RTCIceCandidateComplete^ remoteCandidate);
+    void                       SetRemoteCandidates(IVector<RTCIceCandidate^>^ remoteCandidates);
+    [Windows::Foundation::Metadata::DefaultOverloadAttribute]
+    void                       KeepWarm(RTCIceCandidatePair^ candidatePair);
+    [Windows::Foundation::Metadata::OverloadAttribute("SetKeepWarm")]
+    void                       KeepWarm(RTCIceCandidatePair^ candidatePair, Platform::Boolean keepWarm);
   private:
     IICETransportPtr mNativePointer;
     RTCIceTransportDelegatePtr mNativeDelegatePointer;
@@ -158,7 +165,7 @@ namespace ortc_winrt_api
         if (mNativePointer)
           return (RTCIceComponent)mNativePointer->component();
         else
-          return RTCIceComponent::RTP;
+          return RTCIceComponent::Rtp;
       }
     }
 
@@ -169,7 +176,7 @@ namespace ortc_winrt_api
         if (mNativePointer)
           return (RTCIceRole)mNativePointer->role();
         else
-          return RTCIceRole::Role_Controlled;
+          return RTCIceRole::Controlled;
       }
     }
 
@@ -180,7 +187,7 @@ namespace ortc_winrt_api
         if (mNativePointer)
           return (RTCIceTransportState)mNativePointer->state();
         else
-          return RTCIceTransportState::State_Closed;
+          return RTCIceTransportState::Closed;
       }
     }
 

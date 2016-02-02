@@ -3,114 +3,122 @@
 #include "helpers.h"
 #include <op-services-cpp\openpeer\services\IHelper.h>
 
-using namespace ortc_winrt_api;
-
-extern Windows::UI::Core::CoreDispatcher^ g_windowDispatcher;
-
-RTCDataChannel::RTCDataChannel() :
-mNativeDelegatePointer(nullptr),
-mNativePointer(nullptr)
-{
-}
-
-RTCDataChannel::RTCDataChannel(RTCSctpTransport^ dataTransport, RTCDataChannelParameters^ params) :
-mNativeDelegatePointer(new RTCDataChannelDelegate())
+namespace ortc_winrt_api
 {
 
-  if (!dataTransport)
+  RTCDataChannel::RTCDataChannel() :
+    mNativeDelegatePointer(nullptr),
+    mNativePointer(nullptr)
   {
-    return;
   }
 
-  if (FetchNativePointer::FromSctpTransport(dataTransport))
+  RTCDataChannel::RTCDataChannel(RTCSctpTransport^ dataTransport, RTCDataChannelParameters^ params) :
+    mNativeDelegatePointer(new RTCDataChannelDelegate())
   {
-    mNativeDelegatePointer->SetOwnerObject(this);
-    mNativePointer = IDataChannel::create(mNativeDelegatePointer, FetchNativePointer::FromSctpTransport(dataTransport), FromCx(params));
-  }
-}
 
-void RTCDataChannel::close()
-{
-  if (mNativePointer)
+    if (!dataTransport)
+    {
+      return;
+    }
+
+    if (FetchNativePointer::FromSctpTransport(dataTransport))
+    {
+      mNativeDelegatePointer->SetOwnerObject(this);
+      mNativePointer = IDataChannel::create(mNativeDelegatePointer, FetchNativePointer::FromSctpTransport(dataTransport), FromCx(params));
+    }
+  }
+
+  void RTCDataChannel::Close()
   {
-    mNativePointer->close();
+    if (mNativePointer)
+    {
+      mNativePointer->close();
+    }
   }
-}
 
-void RTCDataChannel::send(Platform::String^ data)
-{
-  if (mNativePointer)
+  void RTCDataChannel::Send(Platform::String^ data)
   {
-    mNativePointer->send(FromCx(data));
+    if (mNativePointer)
+    {
+      mNativePointer->send(FromCx(data));
+    }
   }
-}
 
-void RTCDataChannel::send(const Platform::Array<byte>^ data)
-{
-  if (mNativePointer)
+  void RTCDataChannel::Send(const Platform::Array<byte>^ data)
   {
-    SecureByteBlockPtr bytes = openpeer::services::IHelper::convertToBuffer(data->Data, data->Length);
-    mNativePointer->send(*bytes.get());
+    if (mNativePointer)
+    {
+      SecureByteBlockPtr bytes = openpeer::services::IHelper::convertToBuffer(data->Data, data->Length);
+      mNativePointer->send(*bytes.get());
+    }
   }
-}
 
-void RTCDataChannel::send(const Platform::Array<byte>^ data, uint16 bufferSizeInBytes)
-{
-  if (mNativePointer)
+  void RTCDataChannel::Send(const Platform::Array<byte>^ data, uint16 bufferSizeInBytes)
   {
-    mNativePointer->send(data->Data, data->Length);
+    if (mNativePointer)
+    {
+      mNativePointer->send(data->Data, data->Length);
+    }
   }
-}
 
-RTCSctpTransport^ RTCDataChannel::GetSctpTransport()
-{
-  return ConvertObjectToCx::ToSctpTransport(ISctpTransport::convert(mNativePointer->transport()));
-}
+  RTCSctpTransport^ RTCDataChannel::GetSctpTransport()
+  {
+    return ConvertObjectToCx::ToSctpTransport(ISctpTransport::convert(mNativePointer->transport()));
+  }
 
-RTCDataChannelParameters^ RTCDataChannel::GetParameters()
-{
-  return ToCx(mNativePointer->parameters());
-}
+  RTCDataChannelParameters^ RTCDataChannel::GetParameters()
+  {
+    return ToCx(mNativePointer->parameters());
+  }
 
-Platform::String^ RTCDataChannel::GetBinaryType()
-{
-  return ToCx(mNativePointer->binaryType());
-}
+  Platform::String^ RTCDataChannel::GetBinaryType()
+  {
+    return ToCx(mNativePointer->binaryType());
+  }
 
-void RTCDataChannel::SetBinaryType(Platform::String^ binaryType)
-{
-  mNativePointer->binaryType(FromCx(binaryType).c_str());
-}
+  void RTCDataChannel::SetBinaryType(Platform::String^ binaryType)
+  {
+    mNativePointer->binaryType(FromCx(binaryType).c_str());
+  }
 
-void RTCDataChannelDelegate::onDataChannelStateChanged(
-  IDataChannelPtr channel,
-  States state
-  )
-{
-  auto evt = ref new RTCDataChannelStateChangeEvent();
-  evt->State = (RTCDataChannelState)state;
-  _channel->OnDataChannelStateChanged(evt);
-}
+  RTCDataChannelState RTCDataChannel::State::get()
+  {
+    if (mNativePointer)
+      return internal::ConvertEnums::convert(mNativePointer->readyState());
+    else
+      return RTCDataChannelState::Closed;
+  }
 
-void RTCDataChannelDelegate::onDataChannelError(
-  IDataChannelPtr channel,
-  ErrorCode errorCode,
-  String errorReason
-  )
-{
-  auto evt = ref new RTCDataChannelErrorEvent();
-  evt->Error->ErrorCode = errorCode;
-  evt->Error->ErrorReason = ToCx(errorReason);
-  _channel->OnDataChannelError(evt);
-}
+  void RTCDataChannelDelegate::onDataChannelStateChanged(
+    IDataChannelPtr channel,
+    States state
+    )
+  {
+    auto evt = ref new RTCDataChannelStateChangeEvent();
+    evt->State = internal::ConvertEnums::convert(state);
+    _channel->OnDataChannelStateChanged(evt);
+  }
 
-void RTCDataChannelDelegate::onDataChannelMessage(
-  IDataChannelPtr channel,
-  MessageEventDataPtr data
-  )
-{
-  auto evt = ref new RTCMessageEventDataEvent();
-  evt->MessageData->Binary = ref new Array<byte>(data->mBinary->BytePtr(), data->mBinary->SizeInBytes());
-  evt->MessageData->Text = ToCx(data->mText);
-  _channel->OnDataChannelMessage(evt);
-}
+  void RTCDataChannelDelegate::onDataChannelError(
+    IDataChannelPtr channel,
+    ErrorCode errorCode,
+    String errorReason
+    )
+  {
+    auto evt = ref new RTCDataChannelErrorEvent();
+    evt->Error->ErrorCode = errorCode;
+    evt->Error->ErrorReason = ToCx(errorReason);
+    _channel->OnDataChannelError(evt);
+  }
+
+  void RTCDataChannelDelegate::onDataChannelMessage(
+    IDataChannelPtr channel,
+    MessageEventDataPtr data
+    )
+  {
+    auto evt = ref new RTCMessageEventDataEvent();
+    evt->MessageData->Binary = ref new Array<byte>(data->mBinary->BytePtr(), data->mBinary->SizeInBytes());
+    evt->MessageData->Text = ToCx(data->mText);
+    _channel->OnDataChannelMessage(evt);
+  }
+} // namespace ortc_winrt_api

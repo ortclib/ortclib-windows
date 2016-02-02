@@ -2,9 +2,66 @@
 #include "MediaStreamTrack.h"
 #include "helpers.h"
 
+
 namespace ortc_winrt_api
 {
-	MediaStreamTrack^ MediaStreamTrack::clone()
+
+  MediaStreamTrackKind  MediaStreamTrack::Kind::get()
+  {
+    return internal::ConvertEnums::convert(mNativePointer->kind());
+  }
+
+  Platform::String^ MediaStreamTrack::Id::get()
+  {
+    return ToCx(mNativePointer->id());
+  }
+
+  Platform::String^ MediaStreamTrack::DeviceId::get()
+  {
+    return ToCx(mNativePointer->deviceID());
+  }
+
+  Platform::String^ MediaStreamTrack::Label::get()
+  {
+    return ToCx(mNativePointer->label());
+  }
+
+  Platform::Boolean MediaStreamTrack::Enabled::get()
+  {
+    return mNativePointer->enabled();
+  }
+
+  void MediaStreamTrack::Enabled::set(Platform::Boolean value)
+  {
+    mNativePointer->enabled(value);
+  }
+
+  Platform::Boolean MediaStreamTrack::Muted::get()
+  {
+    return mNativePointer->muted();
+  }
+
+  void MediaStreamTrack::Muted::set(Platform::Boolean value)
+  {
+    return mNativePointer->muted(value);
+  }
+
+  Platform::Boolean MediaStreamTrack::ReadOnly::get()
+  {
+    return mNativePointer->readOnly();
+  }
+
+  Platform::Boolean MediaStreamTrack::Remote::get()
+  {
+    return mNativePointer->remote();
+  }
+
+  MediaStreamTrackState MediaStreamTrack::ReadyState::get()
+  {
+    return internal::ConvertEnums::convert(mNativePointer->readyState());
+  }
+
+	MediaStreamTrack^ MediaStreamTrack::Clone()
 	{
 		if (mNativePointer)
 		{
@@ -19,13 +76,13 @@ namespace ortc_winrt_api
 
 		return nullptr;
 	}
-	void MediaStreamTrack::stop()
+	void MediaStreamTrack::Stop()
 	{
 		if (mNativePointer)
 			mNativePointer->stop();
 	}
 
-	MediaTrackCapabilities^		MediaStreamTrack::getCapabilities()
+	MediaTrackCapabilities^		MediaStreamTrack::GetCapabilities()
 	{
 		if (mNativePointer)
 		{
@@ -39,7 +96,7 @@ namespace ortc_winrt_api
 		return nullptr;
 	}
 
-	MediaTrackConstraints^		MediaStreamTrack::getConstraints()
+	MediaTrackConstraints^		MediaStreamTrack::GetConstraints()
 	{
 		if (mNativePointer)
 		{
@@ -53,7 +110,7 @@ namespace ortc_winrt_api
 		return nullptr;
 	}
 
-	MediaTrackSettings^			MediaStreamTrack::getSettings()
+	MediaTrackSettings^			MediaStreamTrack::GetSettings()
 	{
 		if (mNativePointer)
 		{
@@ -66,4 +123,29 @@ namespace ortc_winrt_api
 		}
 		return nullptr;
 	}
+
+  Platform::String^ MediaStreamTrack::ToString()
+  {
+    throw ref new Platform::NotImplementedException();
+  }
+
+  Platform::String^ MediaStreamTrack::ToString(MediaStreamTrackState value)
+  {
+    return ToCx(IMediaStreamTrack::toString(internal::ConvertEnums::convert(value)));
+  }
+
+  Platform::String^ MediaStreamTrack::ToString(MediaStreamTrackKind value)
+  {
+    return ToCx(IMediaStreamTrack::toString(internal::ConvertEnums::convert(value)));
+  }
+
+  MediaStreamTrackState MediaStreamTrack::ToState(Platform::String^ str)
+  {
+    return internal::ConvertEnums::convert(IMediaStreamTrack::toState(FromCx(str).c_str()));
+  }
+
+  MediaStreamTrackKind MediaStreamTrack::ToKind(Platform::String^ str)
+  {
+    return internal::ConvertEnums::convert(IMediaStreamTrack::toKind(FromCx(str).c_str()));
+  }
 }

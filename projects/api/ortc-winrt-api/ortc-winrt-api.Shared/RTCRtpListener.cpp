@@ -4,7 +4,20 @@
 
 using namespace ortc_winrt_api;
 
-extern Windows::UI::Core::CoreDispatcher^ g_windowDispatcher;
+RTCRtpListener::RTCRtpListener(RTCDtlsTransport^ transport) :
+  mNativeDelegatePointer(new RTCRtpListenerDelegate())
+{
+  if (!transport)
+  {
+    return;
+  }
+
+  if (FetchNativePointer::FromDtlsTransport(transport))
+  {
+    mNativeDelegatePointer->SetOwnerObject(this);
+    mNativePointer = IRTPListener::create(mNativeDelegatePointer, FetchNativePointer::FromDtlsTransport(transport));
+  }
+}
 
 RTCRtpListener::RTCRtpListener(RTCDtlsTransport^ transport, IVector<RTCRtpHeaderExtensionParameters^>^ headerExtensions) :
 mNativeDelegatePointer(new RTCRtpListenerDelegate())

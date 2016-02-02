@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ortc_winrt_api;
+using Log = ortc_winrt_api.Log;
 
 namespace OrtcWrapper
 {
@@ -45,7 +46,19 @@ namespace OrtcWrapper
 
         public RTCPeerConnection(RTCConfiguration configuration)
         {
-            ConfigureOrtcEngine conf = new ConfigureOrtcEngine();
+            Logger.SetLogLevel(Log.Level.Trace);
+            Logger.SetLogLevel(Log.Component.ZsLib, Log.Level.Trace);
+            Logger.SetLogLevel(Log.Component.Services, Log.Level.Trace);
+            Logger.SetLogLevel(Log.Component.ServicesHttp, Log.Level.Trace);
+            Logger.SetLogLevel(Log.Component.OrtcLib, Log.Level.Insane);
+            Logger.SetLogLevel("ortc_standup", Log.Level.Insane);
+
+
+            //openpeer::services::ILogger::installDebuggerLogger();
+            Logger.InstallTelnetLogger(59999, 60, true);
+
+            Settings.ApplyDefaults();
+            Ortc.Setup();
 
             options = new RTCIceGatherOptions();
             options.IceServers = new List<ortc_winrt_api.RTCIceServer>();
@@ -211,7 +224,7 @@ namespace OrtcWrapper
                 iceGatherer.OnICEGathererLocalCandidateGone += this.RTCIceGatherer_onICEGathererLocalCandidateGone;
                 iceGatherer.OnICEGathererError += this.RTCIceGatherer_onICEGathererError;
 
-                iceGathererRTCP = iceGatherer.createAssociatedGatherer();
+                iceGathererRTCP = iceGatherer.CreateAssociatedGatherer();
                 //iceGathererRTCP.OnICEGathererStateChanged += OnICEGathererStateChanged;
                 iceGathererRTCP.OnICEGathererLocalCandidate += this.RTCIceGatherer_onRTCPICEGathererLocalCandidate;
                 //iceGathererRTCP.OnICEGathererCandidateComplete += this.RTCIceGatherer_onICEGathererCandidateComplete;
@@ -227,7 +240,7 @@ namespace OrtcWrapper
 
         private void OnICEGathererStateChanged(RTCIceGathererStateChangeEvent evt)
         {
-            if (evt.State == RTCIceGathererState.State_Complete)
+            if (evt.State == RTCIceGathererState.Complete)
             {
                 
             }

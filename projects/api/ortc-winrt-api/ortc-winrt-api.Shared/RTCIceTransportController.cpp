@@ -6,28 +6,34 @@ using namespace ortc_winrt_api;
 
 using Platform::Collections::Vector;
 
-extern Windows::UI::Core::CoreDispatcher^ g_windowDispatcher;
-
 RTCIceTransportController::RTCIceTransportController()
 {
   mNativePointer = IICETransportController::create();
 }
 
-IVector<RTCIceTransport^>^ RTCIceTransportController::getTransports()
+IVector<RTCIceTransport^>^ RTCIceTransportController::GetTransports()
 {
   auto ret = ref new Vector<RTCIceTransport^>();
   if (mNativePointer)
   {
     auto candidates = mNativePointer->getTransports();
     for (IICETransportControllerTypes::ICETransportList::iterator it = candidates.begin(); it != candidates.end(); ++it) {
-      RTCIceTransport^ transport = ref new RTCIceTransport();
+      RTCIceTransport^ transport = CreateEmptyCxObject::IceTransport();
       ret->Append(ConvertObjectToCx::ToIceTransport(*it));
     }
   }
   return ret;
 }
 
-void RTCIceTransportController::addTransport(RTCIceTransport^ transport, size_t index)
+void RTCIceTransportController::AddTransport(RTCIceTransport^ transport)
+{
+  if (mNativePointer)
+  {
+    mNativePointer->addTransport(FetchNativePointer::FromIceTransport(transport));
+  }
+}
+
+void RTCIceTransportController::AddTransport(RTCIceTransport^ transport, size_t index)
 {
   if (mNativePointer)
   {

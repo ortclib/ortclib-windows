@@ -32,7 +32,7 @@ namespace OrtcWrapper
         {
             Task<MediaDeviceInfo> t = Task.Run<MediaDeviceInfo>(() =>
             {
-                Task<IList<MediaDeviceInfo>> task = OrtcMediaDevices.enumerateDevices().AsTask();
+                Task<IList<MediaDeviceInfo>> task = MediaDevices.EnumerateDevices().AsTask();
                 
                 return task.ContinueWith<MediaDeviceInfo>((temp) =>
                 {
@@ -49,7 +49,7 @@ namespace OrtcWrapper
         {
             Task<MediaStream> t = Task.Run<MediaStream>(() =>
             {
-                Task<IList<MediaStreamTrack>> task = OrtcMediaDevices.getUserMedia(Helper.ToApiConstraints(mediaStreamConstraints)).AsTask();
+                Task<IList<MediaStreamTrack>> task = MediaDevices.GetUserMedia(Helper.ToApiConstraints(mediaStreamConstraints)).AsTask();
                 
                 return task.ContinueWith<MediaStream>((temp) =>
                 {
@@ -58,12 +58,12 @@ namespace OrtcWrapper
                     
                     foreach (MediaStreamTrack track in test)
                     {
-                        if (track.Kind == MediaStreamTrackKind.TrackKind_Audio)
+                        if (track.Kind == MediaStreamTrackKind.Audio)
                         {
                             MediaAudioTrack audio = new MediaAudioTrack(track.Id);
                             stream.AddAudioTrack(audio);
                         }
-                        else if (track.Kind == MediaStreamTrackKind.TrackKind_Video)
+                        else if (track.Kind == MediaStreamTrackKind.Video)
                         {
                             MediaVideoTrack audio = new MediaVideoTrack(track.Id);
                             stream.AddVideoTrack(audio);

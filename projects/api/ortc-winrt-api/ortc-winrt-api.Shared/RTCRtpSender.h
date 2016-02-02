@@ -24,7 +24,7 @@ namespace ortc_winrt_api
     virtual void onRTPSenderError(
       IRTPSenderPtr sender,
       ErrorCode errorCode,
-      String errorReason
+      zsLib::String errorReason
       );
 
     virtual void onRTPSenderSSRCConflict(
@@ -98,12 +98,22 @@ namespace ortc_winrt_api
     RTCRtpSenderDelegatePtr mNativeDelegatePointer;
 
   private:
-    RTCDtlsTransport^ GetDtlsTransport(boolean isRtcp);
+    RTCDtlsTransport^ GetDtlsTransport(Platform::Boolean isRtcp);
     MediaStreamTrack^ GetTrack();
+  private:
+    RTCRtpSender();
   public:
+    RTCRtpSender(MediaStreamTrack^ track, RTCDtlsTransport^ transport);
+    RTCRtpSender(MediaStreamTrack^ track, RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
 
-	  property MediaStreamTrack^ Track
-	  {
+    void SetTransport(RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
+    IAsyncAction^   SetTrack(MediaStreamTrack^ track);
+    static RTCRtpCapabilities^          GetCapabilities(Platform::String^ kind);
+    void                                Send(RTCRtpParameters^ parameters);
+    void                                Stop();
+
+    property MediaStreamTrack^ Track
+    {
       MediaStreamTrack^ get()
       {
         if (mNativePointer)
@@ -111,7 +121,7 @@ namespace ortc_winrt_api
         else
           return nullptr;
       }
-	  }
+    }
 
     property RTCDtlsTransport^ Transport
     {
@@ -134,16 +144,6 @@ namespace ortc_winrt_api
           return nullptr;
       }
     }
-
-    RTCRtpSender();
-    RTCRtpSender(MediaStreamTrack^ track, RTCDtlsTransport^ transport);
-    RTCRtpSender(MediaStreamTrack^ track, RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
-
-    void setTransport(RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
-    IAsyncAction^   setTrack(MediaStreamTrack^ track);
-    static RTCRtpCapabilities^          getCapabilities(Platform::String^ kind);
-    void                                send(RTCRtpParameters^ parameters);
-    void                                stop();
 
     event RTCRtpSenderErrorDelegate^              OnRTCRtpSenderError;
     event RTCRtpSenderSSRCConflictDelegate^       OnRTCRtpSenderSSRCConflict;

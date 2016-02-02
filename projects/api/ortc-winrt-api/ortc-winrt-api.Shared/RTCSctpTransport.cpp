@@ -4,8 +4,6 @@
 
 using namespace ortc_winrt_api;
 
-extern Windows::UI::Core::CoreDispatcher^ g_windowDispatcher;
-
 RTCSctpTransport::RTCSctpTransport() :
 mNativeDelegatePointer(nullptr),
 mNativePointer(nullptr)
@@ -28,7 +26,7 @@ mNativeDelegatePointer(new RTCSctpTransportDelegate())
   }
 }
 
-RTCSctpCapabilities^ RTCSctpTransport::getCapabilities()
+RTCSctpCapabilities^ RTCSctpTransport::GetCapabilities()
 {
   RTCSctpCapabilities^ ret = ref new RTCSctpCapabilities();
 
@@ -38,7 +36,7 @@ RTCSctpCapabilities^ RTCSctpTransport::getCapabilities()
   return ret;
 }
 
-void RTCSctpTransport::start(RTCSctpCapabilities^ remoteCaps)
+void RTCSctpTransport::Start(RTCSctpCapabilities^ remoteCaps)
 {
   if (mNativePointer)
   {
@@ -48,7 +46,7 @@ void RTCSctpTransport::start(RTCSctpCapabilities^ remoteCaps)
   }
 }
 
-void RTCSctpTransport::stop()
+void RTCSctpTransport::Stop()
 {
   if (mNativePointer)
   {

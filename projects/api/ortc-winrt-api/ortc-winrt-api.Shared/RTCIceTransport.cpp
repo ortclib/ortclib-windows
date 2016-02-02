@@ -6,12 +6,17 @@ using namespace ortc_winrt_api;
 
 using Platform::Collections::Vector;
 
-extern Windows::UI::Core::CoreDispatcher^ g_windowDispatcher;
+RTCIceTransport::RTCIceTransport(Platform::Boolean noop) :
+  mNativeDelegatePointer(nullptr),
+  mNativePointer(nullptr)
+{
+}
 
 RTCIceTransport::RTCIceTransport() :
-mNativeDelegatePointer(nullptr),
-mNativePointer(nullptr)
+  mNativeDelegatePointer(new RTCIceTransportDelegate())
 {
+  mNativeDelegatePointer->SetOwnerObject(this);
+  mNativePointer = IICETransport::create(mNativeDelegatePointer);
 }
 
 RTCIceTransport::RTCIceTransport(RTCIceGatherer^ gatherer) :
@@ -30,7 +35,7 @@ mNativeDelegatePointer(new RTCIceTransportDelegate())
   }
 }
 
-IVector<RTCIceCandidate^>^ RTCIceTransport::getRemoteCandidates()
+IVector<RTCIceCandidate^>^ RTCIceTransport::GetRemoteCandidates()
 {
   auto ret = ref new Vector<RTCIceCandidate^>();
   if (mNativePointer)
@@ -43,7 +48,7 @@ IVector<RTCIceCandidate^>^ RTCIceTransport::getRemoteCandidates()
   return ret;
 }
 
-RTCIceCandidatePair^ RTCIceTransport::getSelectedCandidatePair()
+RTCIceCandidatePair^ RTCIceTransport::GetSelectedCandidatePair()
 {
   auto ret = ref new RTCIceCandidatePair();
   if (mNativePointer)
@@ -56,7 +61,20 @@ RTCIceCandidatePair^ RTCIceTransport::getSelectedCandidatePair()
   return ret;
 }
 
-void RTCIceTransport::start(RTCIceGatherer^ gatherer, RTCIceParameters^ remoteParameters, RTCIceRole role)
+void RTCIceTransport::Start(RTCIceGatherer^ gatherer, RTCIceParameters^ remoteParameters)
+{
+  if (mNativePointer && FetchNativePointer::FromIceGatherer(gatherer))
+  {
+
+    IIceTransport::Parameters params;
+    params.mUsernameFragment = FromCx(remoteParameters->UsernameFragment);
+    params.mPassword = FromCx(remoteParameters->Password);
+
+    mNativePointer->start(FetchNativePointer::FromIceGatherer(gatherer), params);
+  }
+}
+
+void RTCIceTransport::Start(RTCIceGatherer^ gatherer, RTCIceParameters^ remoteParameters, RTCIceRole role)
 {
   if (mNativePointer && FetchNativePointer::FromIceGatherer(gatherer))
   {
@@ -72,7 +90,7 @@ void RTCIceTransport::start(RTCIceGatherer^ gatherer, RTCIceParameters^ remotePa
   }
 }
 
-void RTCIceTransport::stop()
+void RTCIceTransport::Stop()
 {
   if (mNativePointer)
   {
@@ -80,7 +98,7 @@ void RTCIceTransport::stop()
   }
 }
 
-RTCIceParameters^ RTCIceTransport::getRemoteParameters()
+RTCIceParameters^ RTCIceTransport::GetRemoteParameters()
 {
   auto ret = ref new RTCIceParameters();
   if (mNativePointer)
@@ -92,7 +110,7 @@ RTCIceParameters^ RTCIceTransport::getRemoteParameters()
   return ret;
 }
 
-RTCIceTransport^ RTCIceTransport::createAssociatedTransport()
+RTCIceTransport^ RTCIceTransport::CreateAssociatedTransport()
 {
   auto ret = ref new RTCIceTransport();
 
@@ -106,7 +124,7 @@ RTCIceTransport^ RTCIceTransport::createAssociatedTransport()
   return ret;
 }
 
-void RTCIceTransport::addRemoteCandidate(RTCIceCandidate^ remoteCandidate)
+void RTCIceTransport::AddRemoteCandidate(RTCIceCandidate^ remoteCandidate)
 {
   if (mNativePointer)
   {
@@ -114,7 +132,7 @@ void RTCIceTransport::addRemoteCandidate(RTCIceCandidate^ remoteCandidate)
   }
 }
 
-void RTCIceTransport::addRemoteCandidate(RTCIceCandidateComplete^ remoteCandidate)
+void RTCIceTransport::AddRemoteCandidate(RTCIceCandidateComplete^ remoteCandidate)
 {
   if (mNativePointer)
   {
@@ -123,7 +141,7 @@ void RTCIceTransport::addRemoteCandidate(RTCIceCandidateComplete^ remoteCandidat
   }
 }
 
-void RTCIceTransport::setRemoteCandidates(IVector<RTCIceCandidate^>^ remoteCandidates)
+void RTCIceTransport::SetRemoteCandidates(IVector<RTCIceCandidate^>^ remoteCandidates)
 {
   if (mNativePointer)
   {
@@ -134,6 +152,28 @@ void RTCIceTransport::setRemoteCandidates(IVector<RTCIceCandidate^>^ remoteCandi
     }
 
     mNativePointer->setRemoteCandidates(list);
+  }
+}
+
+void RTCIceTransport::KeepWarm(RTCIceCandidatePair^ candidatePair)
+{
+  if (mNativePointer)
+  {
+    IIceTransport::CandidatePair pair;
+    pair.mLocal = make_shared<IIceTransport::Candidate>(FromCx(candidatePair->Local));
+    pair.mRemote = make_shared<IIceTransport::Candidate>(FromCx(candidatePair->Remote));
+    mNativePointer->keepWarm(pair);
+  }
+}
+
+void RTCIceTransport::KeepWarm(RTCIceCandidatePair^ candidatePair, Platform::Boolean keepWarm)
+{
+  if (mNativePointer)
+  {
+    IIceTransport::CandidatePair pair;
+    pair.mLocal = make_shared<IIceTransport::Candidate>(FromCx(candidatePair->Local));
+    pair.mRemote = make_shared<IIceTransport::Candidate>(FromCx(candidatePair->Remote));
+    mNativePointer->keepWarm(pair, keepWarm);
   }
 }
 

@@ -8,26 +8,394 @@
 using namespace Platform;
 using Platform::Collections::Vector;
 
-Windows::UI::Core::CoreDispatcher^ g_windowDispatcher;
-
 namespace ortc_winrt_api
 {
-
-  ConfigureOrtcEngine::ConfigureOrtcEngine()
+  namespace internal
   {
-    openpeer::services::ILogger::setLogLevel(zsLib::Log::Trace);
-    openpeer::services::ILogger::setLogLevel("zsLib", zsLib::Log::Trace);
-    openpeer::services::ILogger::setLogLevel("openpeer_services", zsLib::Log::Trace);
-    openpeer::services::ILogger::setLogLevel("openpeer_services_http", zsLib::Log::Trace);
-    openpeer::services::ILogger::setLogLevel("ortclib", zsLib::Log::Insane);
-    openpeer::services::ILogger::setLogLevel("ortc_standup", zsLib::Log::Insane);
+    //---------------------------------------------------------------------------
+    // MediaDeviceKind convert methods
+    //---------------------------------------------------------------------------
+    static IMediaDevicesTypes::DeviceKinds convert(MediaDeviceKind kind)
+    {
+      switch (kind) {
+      case MediaDeviceKind::AudioInput:   return IMediaDevicesTypes::DeviceKinds::DeviceKind_AudioInput;
+      case MediaDeviceKind::AudioOutput:  return IMediaDevicesTypes::DeviceKinds::DeviceKind_AudioOutput;
+      case MediaDeviceKind::Video:        return IMediaDevicesTypes::DeviceKinds::DeviceKind_Video;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
 
-    //openpeer::services::ILogger::installDebuggerLogger();
-    openpeer::services::ILogger::installTelnetLogger(59999, 60, true);
+    static MediaDeviceKind convert(IMediaDevicesTypes::DeviceKinds kind)
+    {
+      switch (kind) {
+      case IMediaDevicesTypes::DeviceKinds::DeviceKind_AudioInput:   return MediaDeviceKind::AudioInput;
+      case IMediaDevicesTypes::DeviceKinds::DeviceKind_AudioOutput:  return MediaDeviceKind::AudioOutput;
+      case IMediaDevicesTypes::DeviceKinds::DeviceKind_Video:        return MediaDeviceKind::Video;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
 
-    ortc::ISettings::applyDefaults();
-  }
+    //---------------------------------------------------------------------------
+    // RTCIceGatherPolicy convert methods
+    //---------------------------------------------------------------------------
+    IICEGathererTypes::FilterPolicies ConvertEnums::convert(RTCIceGatherPolicy policy)
+    {
+      switch (policy) {
+      case RTCIceGatherPolicy::None:              return IICEGathererTypes::FilterPolicies::FilterPolicy_None;
+      case RTCIceGatherPolicy::NoIPv4Srflx:       return IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv4Srflx;
+      case RTCIceGatherPolicy::NoIPv4Prflx:       return IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv4Prflx;
+      case RTCIceGatherPolicy::NoIPv4Relay:       return IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv4Relay;
+      case RTCIceGatherPolicy::NoIPv4Private:     return IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv4Private;
+      case RTCIceGatherPolicy::NoIPv4:            return IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv4Host;
+      case RTCIceGatherPolicy::NoIPv6Host:        return IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv6Host;
+      case RTCIceGatherPolicy::NoIPv6Srflx:       return IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv6Srflx;
+      case RTCIceGatherPolicy::NoIPv6Prflx:       return IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv6Prflx;
+      case RTCIceGatherPolicy::NoIPv6Relay:       return IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv6Relay;
+      case RTCIceGatherPolicy::NoIPv6Private:     return IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv6Private;
+      case RTCIceGatherPolicy::NoIPv6Tunnel:      return IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv6Tunnel;
+      case RTCIceGatherPolicy::NoIPv6Permanent:   return IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv6Permanent;
+      case RTCIceGatherPolicy::NoIPv6:            return IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv6;
+      case RTCIceGatherPolicy::NoHost:            return IICEGathererTypes::FilterPolicies::FilterPolicy_NoHost;
+      case RTCIceGatherPolicy::NoSrflx:           return IICEGathererTypes::FilterPolicies::FilterPolicy_NoSrflx;
+      case RTCIceGatherPolicy::NoPrflx:           return IICEGathererTypes::FilterPolicies::FilterPolicy_NoPrflx;
+      case RTCIceGatherPolicy::NoRelay:           return IICEGathererTypes::FilterPolicies::FilterPolicy_NoRelay;
+      case RTCIceGatherPolicy::NoPrivate:         return IICEGathererTypes::FilterPolicies::FilterPolicy_NoPrivate;
+      case RTCIceGatherPolicy::RelayOnly:         return IICEGathererTypes::FilterPolicies::FilterPolicy_RelayOnly;
+      case RTCIceGatherPolicy::NoCandidates:      return IICEGathererTypes::FilterPolicies::FilterPolicy_NoCandidates;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
 
+    RTCIceGatherPolicy ConvertEnums::convert(IICEGathererTypes::FilterPolicies policy)
+    {
+      switch (policy) {
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_None:              return RTCIceGatherPolicy::None;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv4Srflx:       return RTCIceGatherPolicy::NoIPv4Srflx;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv4Prflx:       return RTCIceGatherPolicy::NoIPv4Prflx;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv4Relay:       return RTCIceGatherPolicy::NoIPv4Relay;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv4Private:     return RTCIceGatherPolicy::NoIPv4Private;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv4Host:        return RTCIceGatherPolicy::NoIPv4;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv6Host:        return RTCIceGatherPolicy::NoIPv6Host;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv6Srflx:       return RTCIceGatherPolicy::NoIPv6Srflx;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv6Prflx:       return RTCIceGatherPolicy::NoIPv6Prflx;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv6Relay:       return RTCIceGatherPolicy::NoIPv6Relay;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv6Private:     return RTCIceGatherPolicy::NoIPv6Private;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv6Tunnel:      return RTCIceGatherPolicy::NoIPv6Tunnel;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv6Permanent:   return RTCIceGatherPolicy::NoIPv6Permanent;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoIPv6:            return RTCIceGatherPolicy::NoIPv6;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoHost:            return RTCIceGatherPolicy::NoHost;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoSrflx:           return RTCIceGatherPolicy::NoSrflx;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoPrflx:           return RTCIceGatherPolicy::NoPrflx;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoRelay:           return RTCIceGatherPolicy::NoRelay;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoPrivate:         return RTCIceGatherPolicy::NoPrivate;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_RelayOnly:         return RTCIceGatherPolicy::RelayOnly;
+      case IICEGathererTypes::FilterPolicies::FilterPolicy_NoCandidates:      return RTCIceGatherPolicy::NoCandidates;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    //---------------------------------------------------------------------------
+    // RTCIceGathererCredentialType convert methods
+    //---------------------------------------------------------------------------
+    IICEGathererTypes::CredentialTypes ConvertEnums::convert(RTCIceGathererCredentialType credentialType)
+    {
+      switch (credentialType) {
+      case RTCIceGathererCredentialType::Password:    return IICEGathererTypes::CredentialTypes::CredentialType_Password;
+      case RTCIceGathererCredentialType::Token:       return IICEGathererTypes::CredentialTypes::CredentialType_Token;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    RTCIceGathererCredentialType ConvertEnums::convert(IICEGathererTypes::CredentialTypes credentialType)
+    {
+      switch (credentialType) {
+      case IICEGathererTypes::CredentialTypes::CredentialType_Password:    return RTCIceGathererCredentialType::Password;
+      case IICEGathererTypes::CredentialTypes::CredentialType_Token:       return RTCIceGathererCredentialType::Token;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    //---------------------------------------------------------------------------
+    // RTCIceGathererState convert methods
+    //---------------------------------------------------------------------------
+    IICEGathererTypes::States ConvertEnums::convert(RTCIceGathererState state)
+    {
+      switch (state) {
+      case RTCIceGathererState::New:          return IICEGathererTypes::States::State_New;
+      case RTCIceGathererState::Gathering:    return IICEGathererTypes::States::State_Gathering;
+      case RTCIceGathererState::Complete:     return IICEGathererTypes::States::State_Complete;
+      case RTCIceGathererState::Closed:       return IICEGathererTypes::States::State_Closed;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    RTCIceGathererState ConvertEnums::convert(IICEGathererTypes::States state)
+    {
+      switch (state) {
+      case IICEGathererTypes::States::State_New:          return RTCIceGathererState::New;
+      case IICEGathererTypes::States::State_Gathering:    return RTCIceGathererState::Gathering;
+      case IICEGathererTypes::States::State_Complete:     return RTCIceGathererState::Complete;
+      case IICEGathererTypes::States::State_Closed:       return RTCIceGathererState::Closed;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    //---------------------------------------------------------------------------
+    // RTCDataChannelState convert methods
+    //---------------------------------------------------------------------------
+    IDataChannel::States ConvertEnums::convert(RTCDataChannelState state)
+    {
+      switch (state) {
+      case RTCDataChannelState::Connecting:   return IDataChannel::States::State_Connecting;
+      case RTCDataChannelState::Open:         return IDataChannel::States::State_Open;
+      case RTCDataChannelState::Closing:      return IDataChannel::States::State_Closing;
+      case RTCDataChannelState::Closed:       return IDataChannel::States::State_Closed;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    RTCDataChannelState ConvertEnums::convert(IDataChannel::States state)
+    {
+      switch (state) {
+      case IDataChannel::States::State_Connecting:   return RTCDataChannelState::Connecting;
+      case IDataChannel::States::State_Open:         return RTCDataChannelState::Open;
+      case IDataChannel::States::State_Closing:      return RTCDataChannelState::Closing;
+      case IDataChannel::States::State_Closed:       return RTCDataChannelState::Closed;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    //---------------------------------------------------------------------------
+    // Logger convert methods
+    //---------------------------------------------------------------------------
+    zsLib::Log::Level ConvertEnums::convert(Log::Level level)
+    {
+      switch (level) {
+      case Log::Level::Basic:   return zsLib::Log::Basic;
+      case Log::Level::Detail:  return zsLib::Log::Detail;
+      case Log::Level::Debug:   return zsLib::Log::Debug;
+      case Log::Level::Trace:   return zsLib::Log::Trace;
+      case Log::Level::Insane:  return zsLib::Log::Insane;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    const char * ConvertEnums::toComponent(Log::Component  component)
+    {
+      switch (component) {
+      case Log::Component::ZsLib:         return "zsLib";
+      case Log::Component::ZsLibSocket:   return "zsLib_socket";
+      case Log::Component::Services:      return "openpeer_services";
+      case Log::Component::ServicesTurn:  return "openpeer_services_turn";
+      case Log::Component::ServicesHttp:  return "openpeer_services_http";
+      case Log::Component::OrtcLib:       return "ortclib";
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    //---------------------------------------------------------------------------
+    // RTCDtlsTransportState convert methods
+    //---------------------------------------------------------------------------
+    IDtlsTransport::States ConvertEnums::convert(RTCDtlsTransportState state)
+    {
+      switch (state) {
+      case RTCDtlsTransportState::New:            return IDtlsTransport::States::State_New;
+      case RTCDtlsTransportState::Connecting:     return IDtlsTransport::States::State_Connecting;
+      case RTCDtlsTransportState::Connected:      return IDtlsTransport::States::State_Connected;
+      case RTCDtlsTransportState::Validated:      return IDtlsTransport::States::State_Validated;
+      case RTCDtlsTransportState::Closed:         return IDtlsTransport::States::State_Closed;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    RTCDtlsTransportState ConvertEnums::convert(IDtlsTransport::States state)
+    {
+      switch (state) {
+      case IDtlsTransport::States::State_New:           return RTCDtlsTransportState::New;
+      case IDtlsTransport::States::State_Connecting:    return RTCDtlsTransportState::Connecting;
+      case IDtlsTransport::States::State_Connected:     return RTCDtlsTransportState::Connected;
+      case IDtlsTransport::States::State_Validated:     return RTCDtlsTransportState::Validated;
+      case IDtlsTransport::States::State_Closed:        return RTCDtlsTransportState::Closed;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    //---------------------------------------------------------------------------
+    // RTCDtlsRole convert methods
+    //---------------------------------------------------------------------------
+    IDtlsTransport::Roles ConvertEnums::convert(RTCDtlsRole role)
+    {
+      switch (role) {
+      case RTCDtlsRole::Auto:       return IDtlsTransport::Roles::Role_Auto;
+      case RTCDtlsRole::Client:     return IDtlsTransport::Roles::Role_Client;
+      case RTCDtlsRole::Server:     return IDtlsTransport::Roles::Role_Server;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    RTCDtlsRole ConvertEnums::convert(IDtlsTransport::Roles role)
+    {
+      switch (role) {
+      case IDtlsTransport::Roles::Role_Auto:      return RTCDtlsRole::Auto;
+      case IDtlsTransport::Roles::Role_Client:    return RTCDtlsRole::Client;
+      case IDtlsTransport::Roles::Role_Server:    return RTCDtlsRole::Server;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    //---------------------------------------------------------------------------
+    // RTCIceRole convert methods
+    //---------------------------------------------------------------------------
+    IICETypes::Roles ConvertEnums::convert(RTCIceRole role)
+    {
+      switch (role) {
+      case RTCIceRole::Controlling:   return IICETypes::Roles::Role_Controlling;
+      case RTCIceRole::Controlled:    return IICETypes::Roles::Role_Controlled;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    RTCIceRole ConvertEnums::convert(IICETypes::Roles role)
+    {
+      switch (role) {
+      case IICETypes::Roles::Role_Controlling:   return RTCIceRole::Controlling;
+      case IICETypes::Roles::Role_Controlled:    return RTCIceRole::Controlled;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    //---------------------------------------------------------------------------
+    // RTCIceComponent convert methods
+    //---------------------------------------------------------------------------
+    IICETypes::Components ConvertEnums::convert(RTCIceComponent component)
+    {
+      switch (component) {
+      case RTCIceComponent::Rtp:   return IICETypes::Components::Component_RTP;
+      case RTCIceComponent::Rtcp:  return IICETypes::Components::Component_RTCP;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    RTCIceComponent ConvertEnums::convert(IICETypes::Components component)
+    {
+      switch (component) {
+      case IICETypes::Components::Component_RTP:   return RTCIceComponent::Rtp;
+      case IICETypes::Components::Component_RTCP:  return RTCIceComponent::Rtcp;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    //---------------------------------------------------------------------------
+    // RTCIceProtocol convert methods
+    //---------------------------------------------------------------------------
+    IICETypes::Protocols ConvertEnums::convert(RTCIceProtocol protocol)
+    {
+      switch (protocol) {
+      case RTCIceProtocol::Udp:   return IICETypes::Protocols::Protocol_UDP;
+      case RTCIceProtocol::Tcp:  return IICETypes::Protocols::Protocol_TCP;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    RTCIceProtocol ConvertEnums::convert(IICETypes::Protocols protocol)
+    {
+      switch (protocol) {
+      case IICETypes::Protocols::Protocol_UDP:   return RTCIceProtocol::Udp;
+      case IICETypes::Protocols::Protocol_TCP:  return RTCIceProtocol::Tcp;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    //---------------------------------------------------------------------------
+    // RTCIceCandidateType convert methods
+    //---------------------------------------------------------------------------
+    IICETypes::CandidateTypes ConvertEnums::convert(RTCIceCandidateType candidateType)
+    {
+      switch (candidateType) {
+      case RTCIceCandidateType::Host:   return IICETypes::CandidateTypes::CandidateType_Host;
+      case RTCIceCandidateType::Srflex: return IICETypes::CandidateTypes::CandidateType_Srflex;
+      case RTCIceCandidateType::Prflx:  return IICETypes::CandidateTypes::CandidateType_Prflx;
+      case RTCIceCandidateType::Relay:  return IICETypes::CandidateTypes::CandidateType_Relay;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    RTCIceCandidateType ConvertEnums::convert(IICETypes::CandidateTypes candidateType)
+    {
+      switch (candidateType) {
+      case IICETypes::CandidateTypes::CandidateType_Host:    return RTCIceCandidateType::Host;
+      case IICETypes::CandidateTypes::CandidateType_Srflex:  return RTCIceCandidateType::Srflex;
+      case IICETypes::CandidateTypes::CandidateType_Prflx:   return RTCIceCandidateType::Prflx;
+      case IICETypes::CandidateTypes::CandidateType_Relay:   return RTCIceCandidateType::Relay;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    //---------------------------------------------------------------------------
+    // RTCIceTcpCandidateType convert methods
+    //---------------------------------------------------------------------------
+    IICETypes::TCPCandidateTypes ConvertEnums::convert(RTCIceTcpCandidateType candidateType)
+    {
+      switch (candidateType) {
+      case RTCIceTcpCandidateType::Active:   return IICETypes::TCPCandidateTypes::TCPCandidateType_Active;
+      case RTCIceTcpCandidateType::Passive:  return IICETypes::TCPCandidateTypes::TCPCandidateType_Passive;
+      case RTCIceTcpCandidateType::So:       return IICETypes::TCPCandidateTypes::TCPCandidateType_SO;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    RTCIceTcpCandidateType ConvertEnums::convert(IICETypes::TCPCandidateTypes candidateType)
+    {
+      switch (candidateType) {
+      case IICETypes::TCPCandidateTypes::TCPCandidateType_Active:    return RTCIceTcpCandidateType::Active;
+      case IICETypes::TCPCandidateTypes::TCPCandidateType_Passive:   return RTCIceTcpCandidateType::Passive;
+      case IICETypes::TCPCandidateTypes::TCPCandidateType_SO:        return RTCIceTcpCandidateType::So;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    //---------------------------------------------------------------------------
+    // MediaStreamTrackState convert methods
+    //---------------------------------------------------------------------------
+    IMediaStreamTrack::States ConvertEnums::convert(MediaStreamTrackState state)
+    {
+      switch (state) {
+      case MediaStreamTrackState::Live:   return IMediaStreamTrack::States::State_Live;
+      case MediaStreamTrackState::Ended:  return IMediaStreamTrack::States::State_Ended;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    MediaStreamTrackState ConvertEnums::convert(IMediaStreamTrack::States state)
+    {
+      switch (state) {
+      case IMediaStreamTrack::States::State_Live:   return MediaStreamTrackState::Live;
+      case IMediaStreamTrack::States::State_Ended:  return MediaStreamTrackState::Ended;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    //---------------------------------------------------------------------------
+    // MediaStreamTrackKind convert methods
+    //---------------------------------------------------------------------------
+    IMediaStreamTrack::Kinds ConvertEnums::convert(MediaStreamTrackKind kind)
+    {
+      switch (kind) {
+      case MediaStreamTrackKind::Audio:   return IMediaStreamTrack::Kinds::Kind_Audio;
+      case MediaStreamTrackKind::Video:   return IMediaStreamTrack::Kinds::Kind_Video;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    MediaStreamTrackKind ConvertEnums::convert(IMediaStreamTrack::Kinds kind)
+    {
+      switch (kind) {
+      case IMediaStreamTrack::Kinds::Kind_Audio:   return MediaStreamTrackKind::Audio;
+      case IMediaStreamTrack::Kinds::Kind_Video:   return MediaStreamTrackKind::Video;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+  } // namespace internal
 
   std::string FromCx(Platform::String^ inObj) {
     return rtc::ToUtf8(inObj->Data());
@@ -44,13 +412,13 @@ namespace ortc_winrt_api
     ret.mCandidateType = (IICETypes::CandidateTypes)candidate->CandidateType;
     ret.mFoundation = FromCx(candidate->Foundation);
     ret.mInterfaceType = FromCx(candidate->InterfaceType);
-    ret.mIP = FromCx(candidate->IP);
+    ret.mIP = FromCx(candidate->Ip);
     ret.mPort = candidate->Port;
     ret.mPriority = candidate->Priority;
     ret.mProtocol = (IICETypes::Protocols)candidate->Protocol;
     ret.mRelatedAddress = FromCx(candidate->RelatedAddress);
     ret.mRelatedPort = candidate->RelatedPort;
-    ret.mTCPType = (IICETypes::TCPCandidateTypes)candidate->TCPType;
+    ret.mTCPType = (IICETypes::TCPCandidateTypes)candidate->TcpType;
     ret.mUnfreezePriority = candidate->UnfreezePriority;
 
     return ret;
@@ -63,13 +431,13 @@ namespace ortc_winrt_api
     ret->CandidateType = (RTCIceCandidateType)candidate->mCandidateType;
     ret->Foundation = ToCx(candidate->mFoundation);
     ret->InterfaceType = ToCx(candidate->mInterfaceType);
-    ret->IP = ToCx(candidate->mIP);
+    ret->Ip = ToCx(candidate->mIP);
     ret->Port = candidate->mPort;
     ret->Priority = candidate->mPriority;
     ret->Protocol = (RTCIceProtocol)candidate->mProtocol;
     ret->RelatedAddress = ToCx(candidate->mRelatedAddress);
     ret->RelatedPort = candidate->mRelatedPort;
-    ret->TCPType = (RTCIceTcpCandidateType)candidate->mTCPType;
+    ret->TcpType = (RTCIceTcpCandidateType)candidate->mTCPType;
     ret->UnfreezePriority = candidate->mUnfreezePriority;
 
     return ret;
@@ -92,6 +460,7 @@ namespace ortc_winrt_api
           ortc::IICEGatherer::Server server;
           server.mUserName = FromCx(srv->UserName);
           server.mCredential = FromCx(srv->Credential);
+          server.mCredentialType = internal::ConvertEnums::convert(srv->CredentialType);
           if (srv->URLs->Size > 0)
           {
             for (Platform::String^ url : srv->URLs)
@@ -183,28 +552,28 @@ namespace ortc_winrt_api
   {
     auto ret = ref new RTCRtpCodecCapability();
 
-    ret->name = ToCx(codecCapabilityPtr->mName);
-    ret->kind = ToCx(codecCapabilityPtr->mKind);
-    ret->clockRate = codecCapabilityPtr->mClockRate;
+    ret->Name = ToCx(codecCapabilityPtr->mName);
+    ret->Kind = ToCx(codecCapabilityPtr->mKind);
+    ret->ClockRate = codecCapabilityPtr->mClockRate;
     //ret->preferredPayloadType = codecCapabilityPtr->mPreferredPayloadType;
-    ret->maxptime = codecCapabilityPtr->mMaxPTime;
-    ret->numChannels = codecCapabilityPtr->mNumChannels;
+    ret->Maxptime = codecCapabilityPtr->mMaxPTime;
+    ret->NumChannels = codecCapabilityPtr->mNumChannels;
 
     //ret->rtcpFeedback = ref new Vector<RTCRtcpFeedback^>();
 
     for (IRTPTypes::RTCPFeedbackList::iterator it = codecCapabilityPtr->mRTCPFeedback.begin(); it != codecCapabilityPtr->mRTCPFeedback.end(); ++it)
     {
       auto feedback = ref new RTCRtcpFeedback();
-      feedback->parameter = ToCx(it->mParameter);
-      feedback->type = ToCx(it->mType);
+      feedback->Parameter = ToCx(it->mParameter);
+      feedback->Type = ToCx(it->mType);
       //ret->rtcpFeedback->Append(feedback);
     }
 
     //ret->parameters = codecCapabilityPtr->mParameters;
     //ret->options = codecCapabilityPtr->mOptions;
-    ret->maxTemporalLayers = codecCapabilityPtr->mMaxTemporalLayers; //default = 0;
-    ret->maxSpatialLayers = codecCapabilityPtr->mMaxSpatialLayers; //default = 0;
-    ret->svcMultiStreamSupport = codecCapabilityPtr->mSVCMultiStreamSupport;
+    ret->MaxTemporalLayers = codecCapabilityPtr->mMaxTemporalLayers; //default = 0;
+    ret->MaxSpatialLayers = codecCapabilityPtr->mMaxSpatialLayers; //default = 0;
+    ret->SvcMultiStreamSupport = codecCapabilityPtr->mSVCMultiStreamSupport;
 
     return ret;
   }
@@ -213,10 +582,10 @@ namespace ortc_winrt_api
   {
     auto ret = ref new RTCRtpHeaderExtensions();
 
-    ret->kind = ToCx(headerExtensions->mKind);
-    ret->uri = ToCx(headerExtensions->mURI);
-    ret->preferredEncrypt = headerExtensions->mPreferredEncrypt;
-    ret->preferredId = headerExtensions->mPreferredID;
+    ret->Kind = ToCx(headerExtensions->mKind);
+    ret->Uri = ToCx(headerExtensions->mURI);
+    ret->PreferredEncrypt = headerExtensions->mPreferredEncrypt;
+    ret->PreferredId = headerExtensions->mPreferredID;
 
     return ret;
   }
@@ -225,9 +594,9 @@ namespace ortc_winrt_api
   {
     IRTPTypes::HeaderExtensionParameters ret;
 
-    ret.mURI = FromCx(headerExtensions->uri);
-    ret.mEncrypt = headerExtensions->encrypt;
-    ret.mID = headerExtensions->id;
+    ret.mURI = FromCx(headerExtensions->Uri);
+    ret.mEncrypt = headerExtensions->Encrypt;
+    ret.mID = headerExtensions->Id;
 
     return ret;
   }
@@ -274,15 +643,7 @@ namespace ortc_winrt_api
   MediaStreamTrack^ ConvertObjectToCx::ToMediaStreamTrack(IMediaStreamTrackPtr mediaStreamTrackPtr)
   {
 	  auto ret = ref new MediaStreamTrack();
-
-	  ret->_kind = (MediaStreamTrackKind)mediaStreamTrackPtr->kind();
-	  ret->_id = ToCx(mediaStreamTrackPtr->id());
-	  ret->_label = ToCx(mediaStreamTrackPtr->label());
-	  ret->_enabled = mediaStreamTrackPtr->enabled();
-	  ret->_muted = mediaStreamTrackPtr->muted();
-	  ret->_readonly = mediaStreamTrackPtr->readOnly();
-	  ret->_remote = mediaStreamTrackPtr->remote();
-	  ret->_readyState = (MediaStreamTrackState)mediaStreamTrackPtr->readyState();
+    ret->mNativePointer = mediaStreamTrackPtr;
 
 	  return ret;
   }
@@ -310,8 +671,8 @@ namespace ortc_winrt_api
   {
 	  auto ret = ref new LongRange();
 
-	  ret->max = input.mMax;
-	  ret->min = input.mMin;
+	  ret->Max = input.mMax;
+	  ret->Min = input.mMin;
 
 	  return ret;
   }
@@ -321,11 +682,11 @@ namespace ortc_winrt_api
   {
 	  auto ret = ref new To();
 
-	  ret->max = from.mRange.value().mMax;
-	  ret->min = from.mRange.value().mMin;
-	  ret->exact = from.mRange.value().mExact;
-	  ret->ideal = from.mRange.value().mIdeal;
-	  ret->value = from.mValue;
+	  ret->Max = from.mRange.value().mMax;
+	  ret->Min = from.mRange.value().mMin;
+	  ret->Exact = from.mRange.value().mExact;
+	  ret->Ideal = from.mRange.value().mIdeal;
+	  ret->Value = from.mValue;
 
 	  return ret;
   }
@@ -335,26 +696,26 @@ namespace ortc_winrt_api
 	  auto ret = ref new StringOrStringList();
 
 	  if (from.mValue.hasValue())
-		  ret->value = ToCx(from.mValue.value());
+		  ret->Value = ToCx(from.mValue.value());
 
 	  if (from.mValues.hasValue())
 	  {
-		  ret->values = ref new Vector<Platform::String^>();
+		  ret->Values = ref new Vector<Platform::String^>();
 
 		  for (IConstraints::StringList::iterator it = from.mValues.value().begin(); it != from.mValues.value().end(); ++it)
-			  ret->values->Append(ToCx(*it));
+			  ret->Values->Append(ToCx(*it));
 	  }
 	  return ret;
   }
   ConstrainString^ convertConstrainToCx(ortc::IConstraints::ConstrainString from)
   {
 	  auto ret = ref new ConstrainString();
-	  ret->value = ToCx(from.mValue);
-	  ret->parameters = ref new ConstrainStringParameters();
+	  ret->Value = ToCx(from.mValue);
+	  ret->Parameters = ref new ConstrainStringParameters();
 	  if (from.mParameters.hasValue())
 	  {
-		  ret->parameters->exact = ToCx(from.mParameters.value().mExact);
-		  ret->parameters->ideal = ToCx(from.mParameters.value().mIdeal);
+		  ret->Parameters->Exact = ToCx(from.mParameters.value().mExact);
+		  ret->Parameters->Ideal = ToCx(from.mParameters.value().mIdeal);
 	  }
 	  return ret;
   }
@@ -362,12 +723,12 @@ namespace ortc_winrt_api
   ConstrainBool^ convertConstrainToCx(ortc::IConstraints::ConstrainBool from)
   {
 	  auto ret = ref new ConstrainBool();
-	  ret->value = from.mValue;
-	  ret->parameters = ref new ConstrainBoolParameters();
+	  ret->Value = from.mValue;
+	  ret->Parameters = ref new ConstrainBoolParameters();
 	  if (from.mParameters.hasValue())
 	  {
-		  ret->parameters->exact = from.mParameters.value().mExact;
-		  ret->parameters->ideal = from.mParameters.value().mIdeal;
+		  ret->Parameters->Exact = from.mParameters.value().mExact;
+		  ret->Parameters->Ideal = from.mParameters.value().mIdeal;
 	  }
 	  return ret;
   }
@@ -376,19 +737,19 @@ namespace ortc_winrt_api
   {
 	  auto ret = ref new MediaTrackConstraintSet();
 
-	  ret->width = convertConstrainToCx<ortc::IConstraints::ConstrainLong,ConstrainLong>(constraintSetPtr->mWidth);
-	  ret->height = convertConstrainToCx<ortc::IConstraints::ConstrainLong, ConstrainLong>(constraintSetPtr->mHeight);
-	  ret->aspectRatio = convertConstrainToCx<ortc::IConstraints::ConstrainDouble, ConstrainDouble>(constraintSetPtr->mAspectRatio);
-	  ret->frameRate = convertConstrainToCx<ortc::IConstraints::ConstrainDouble, ConstrainDouble>(constraintSetPtr->mFrameRate);
+	  ret->Width = convertConstrainToCx<ortc::IConstraints::ConstrainLong,ConstrainLong>(constraintSetPtr->mWidth);
+	  ret->Height = convertConstrainToCx<ortc::IConstraints::ConstrainLong, ConstrainLong>(constraintSetPtr->mHeight);
+	  ret->AspectRatio = convertConstrainToCx<ortc::IConstraints::ConstrainDouble, ConstrainDouble>(constraintSetPtr->mAspectRatio);
+	  ret->FrameRate = convertConstrainToCx<ortc::IConstraints::ConstrainDouble, ConstrainDouble>(constraintSetPtr->mFrameRate);
 
-	  ret->facingMode = convertConstrainToCx(constraintSetPtr->mFacingMode);
-	  ret->volume = convertConstrainToCx<ortc::IConstraints::ConstrainDouble, ConstrainDouble>(constraintSetPtr->mVolume);
-	  ret->sampleRate = convertConstrainToCx<ortc::IConstraints::ConstrainLong, ConstrainLong>(constraintSetPtr->mSampleRate);
-	  ret->sampleSize = convertConstrainToCx<ortc::IConstraints::ConstrainLong, ConstrainLong>(constraintSetPtr->mSampleSize);
+	  ret->FacingMode = convertConstrainToCx(constraintSetPtr->mFacingMode);
+	  ret->Volume = convertConstrainToCx<ortc::IConstraints::ConstrainDouble, ConstrainDouble>(constraintSetPtr->mVolume);
+	  ret->SampleRate = convertConstrainToCx<ortc::IConstraints::ConstrainLong, ConstrainLong>(constraintSetPtr->mSampleRate);
+	  ret->SampleSize = convertConstrainToCx<ortc::IConstraints::ConstrainLong, ConstrainLong>(constraintSetPtr->mSampleSize);
 
-	  ret->echoCancellation = convertConstrainToCx(constraintSetPtr->mEchoCancellation);
-	  ret->deviceId = convertConstrainToCx(constraintSetPtr->mDeviceID);
-	  ret->groupId = convertConstrainToCx(constraintSetPtr->mGroupID);
+	  ret->EchoCancellation = convertConstrainToCx(constraintSetPtr->mEchoCancellation);
+	  ret->DeviceId = convertConstrainToCx(constraintSetPtr->mDeviceID);
+	  ret->GroupId = convertConstrainToCx(constraintSetPtr->mGroupID);
 
 	  return ret;
   }
@@ -400,7 +761,7 @@ namespace ortc_winrt_api
 	  for (IMediaStreamTrackTypes::ConstraintSetList::iterator it = trackConstraintsPtr->mAdvanced.begin(); it != trackConstraintsPtr->mAdvanced.end(); ++it)
 	  {
 		  MediaTrackConstraintSet^ mediaTrackConstraintSet = ToCx(*it);
-		  ret->advanced->Append(mediaTrackConstraintSet);
+		  ret->Advanced->Append(mediaTrackConstraintSet);
 	  }
 
 	  return ret;
@@ -410,17 +771,17 @@ namespace ortc_winrt_api
   {
 	  auto ret = ref new MediaTrackSettings();
 
-	  ret->width = settingsPtr->mWidth.value();
-	  ret->height = settingsPtr->mHeight.value();
-	  ret->aspectRatio = settingsPtr->mAspectRatio.value();
-	  ret->frameRate = settingsPtr->mFrameRate.value();
-	  ret->facingMode = ToCx(settingsPtr->mFacingMode.value());
-	  ret->volume = settingsPtr->mVolume.value();
-	  ret->sampleRate = settingsPtr->mSampleRate.value();
-	  ret->sampleSize = settingsPtr->mSampleSize.value();
-	  ret->echoCancellation = settingsPtr->mEchoCancellation.value();
-	  ret->deviceId = ToCx(settingsPtr->mDeviceID.value());
-	  ret->groupId = ToCx(settingsPtr->mGroupID.value());
+	  ret->Width = settingsPtr->mWidth.value();
+	  ret->Height = settingsPtr->mHeight.value();
+	  ret->AspectRatio = settingsPtr->mAspectRatio.value();
+	  ret->FrameRate = settingsPtr->mFrameRate.value();
+	  ret->FacingMode = ToCx(settingsPtr->mFacingMode.value());
+	  ret->Volume = settingsPtr->mVolume.value();
+	  ret->SampleRate = settingsPtr->mSampleRate.value();
+	  ret->SampleSize = settingsPtr->mSampleSize.value();
+	  ret->EchoCancellation = settingsPtr->mEchoCancellation.value();
+	  ret->DeviceId = ToCx(settingsPtr->mDeviceID.value());
+	  ret->GroupId = ToCx(settingsPtr->mGroupID.value());
 	  
 	  return ret;
   }
@@ -449,7 +810,7 @@ namespace ortc_winrt_api
   {
 	  auto ret = ref new MediaDeviceInfo();
 
-	  ret->Kind = (MediaDeviceKinds)device.mKind;
+	  ret->Kind = internal::convert(device.mKind);
 
 	  ret->Label = ToCx(device.mLabel);
 	  ret->DeviceID = ToCx(device.mDeviceID);
@@ -464,22 +825,22 @@ namespace ortc_winrt_api
   {
 	  IRTPTypes::Parameters ret;
 
-	  ret.mMuxID = FromCx(parameters->muxId);
+	  ret.mMuxID = FromCx(parameters->MuxId);
 
-	  for (RTCRtpCodecParameters^ codec : parameters->codecs)
+	  for (RTCRtpCodecParameters^ codec : parameters->Codecs)
 	  {
 		  IRTPTypes::CodecParameters codecCore;
-		  codecCore.mName = FromCx(codec->name);
-		  codecCore.mPayloadType = codec->payloadType;
-		  codecCore.mClockRate = codec->clockRate;
-		  codecCore.mMaxPTime = codec->maxptime;
-		  codecCore.mNumChannels = codec->numChannels;
+		  codecCore.mName = FromCx(codec->Name);
+		  codecCore.mPayloadType = codec->PayloadType;
+		  codecCore.mClockRate = codec->ClockRate;
+		  codecCore.mMaxPTime = codec->Maxptime;
+		  codecCore.mNumChannels = codec->NumChannels;
 
-		  for (RTCRtcpFeedback^ feedback : codec->rtcpFeedback)
+		  for (RTCRtcpFeedback^ feedback : codec->RtcpFeedback)
 		  {
 			  IRTPTypes::RTCPFeedback feedbackCore;
-			  feedbackCore.mParameter = FromCx(feedback->parameter);
-			  feedbackCore.mType = FromCx(feedback->type);
+			  feedbackCore.mParameter = FromCx(feedback->Parameter);
+			  feedbackCore.mType = FromCx(feedback->Type);
 			  codecCore.mRTCPFeedback.push_back(feedbackCore);
 		  }
 
@@ -488,47 +849,46 @@ namespace ortc_winrt_api
 		  ret.mCodecs.push_back(codecCore);
 	  }
 
-	  for (RTCRtpHeaderExtensionParameters^ headerExtension : parameters->headerExtensions)
+	  for (RTCRtpHeaderExtensionParameters^ headerExtension : parameters->HeaderExtensions)
 	  {
 		  IRTPTypes::HeaderExtensionParameters extensionCore;
-		  extensionCore.mEncrypt = headerExtension->encrypt;
-		  extensionCore.mID = headerExtension->id;
-		  extensionCore.mURI = FromCx(headerExtension->uri);
+		  extensionCore.mEncrypt = headerExtension->Encrypt;
+		  extensionCore.mID = headerExtension->Id;
+		  extensionCore.mURI = FromCx(headerExtension->Uri);
 
 		  ret.mHeaderExtensions.push_back(extensionCore);
 	  }
 
-	  for (RTCRtpEncodingParameters^ encodingParameters : parameters->encodings)
+	  for (RTCRtpEncodingParameters^ encodingParameters : parameters->Encodings)
 	  {
 		  IRTPTypes::EncodingParameters encodingParametersCore;
 
-		  encodingParametersCore.mSSRC = encodingParameters->ssrc;
-		  encodingParametersCore.mCodecPayloadType = encodingParameters->codecPayloadType;
-		  encodingParametersCore.mFEC.value().mSSRC = encodingParameters->fec->ssrc;
-		  encodingParametersCore.mFEC.value().mMechanism = FromCx(encodingParameters->fec->mechanism);
-		  encodingParametersCore.mRTX.value().mSSRC = encodingParameters->rtx->ssrc;
-		  encodingParametersCore.mRTX.value().mPayloadType = encodingParameters->rtx->payloadType;
-		  encodingParametersCore.mPriority = (IRTPTypes::PriorityTypes)encodingParameters->priority;
-		  encodingParametersCore.mMaxBitrate = encodingParameters->maxBitrate;
-		  encodingParametersCore.mMinQuality = encodingParameters->minQuality;
-		  encodingParametersCore.mActive = encodingParameters->active;
-		  encodingParametersCore.mEncodingID = FromCx(encodingParameters->encodingId);
+		  encodingParametersCore.mSSRC = encodingParameters->Ssrc;
+		  encodingParametersCore.mCodecPayloadType = encodingParameters->CodecPayloadType;
+		  encodingParametersCore.mFEC.value().mSSRC = encodingParameters->Fec->Ssrc;
+		  encodingParametersCore.mFEC.value().mMechanism = FromCx(encodingParameters->Fec->Mechanism);
+		  encodingParametersCore.mRTX.value().mSSRC = encodingParameters->Rtx->Ssrc;
+		  encodingParametersCore.mRTX.value().mPayloadType = encodingParameters->Rtx->PayloadType;
+		  encodingParametersCore.mPriority = (IRTPTypes::PriorityTypes)encodingParameters->Priority;
+		  encodingParametersCore.mMaxBitrate = encodingParameters->MaxBitrate;
+		  encodingParametersCore.mMinQuality = encodingParameters->MinQuality;
+		  encodingParametersCore.mActive = encodingParameters->Active;
+		  encodingParametersCore.mEncodingID = FromCx(encodingParameters->EncodingId);
 
-		  for (Platform::String^ dependencyEncodingID : encodingParameters->dependencyEncodingIds)
+		  for (Platform::String^ dependencyEncodingID : encodingParameters->DependencyEncodingIds)
 		  {
 			  encodingParametersCore.mDependencyEncodingIDs.push_back(FromCx(dependencyEncodingID));
 		  }
 		  ret.mEncodingParameters.push_back(encodingParametersCore);
 	  }
 
-	  ret.mRTCP.mCName = FromCx(parameters->rtcp->cname);
-	  ret.mRTCP.mMux = parameters->rtcp->mux;
-	  ret.mRTCP.mReducedSize = parameters->rtcp->reducedSize;
-	  ret.mRTCP.mSSRC = parameters->rtcp->ssrc;
+	  ret.mRTCP.mCName = FromCx(parameters->Rtcp->CName);
+	  ret.mRTCP.mMux = parameters->Rtcp->Mux;
+	  ret.mRTCP.mReducedSize = parameters->Rtcp->ReducedSize;
+	  ret.mRTCP.mSSRC = parameters->Rtcp->Ssrc;
 
-	  ret.mDegredationPreference = (IRTPTypes::DegradationPreferences)parameters->degradationPreference;
+	  ret.mDegredationPreference = (IRTPTypes::DegradationPreferences)parameters->DegradationPreference;
 
 	  return ret;
   }
-
 } // namespace ortc_winrt_api

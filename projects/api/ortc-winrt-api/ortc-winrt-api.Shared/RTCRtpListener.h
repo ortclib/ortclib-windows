@@ -58,6 +58,9 @@ namespace ortc_winrt_api
     friend class RTCRtpListenerDelegate;
     friend class ConvertObjectToCx;
   public:
+    [Windows::Foundation::Metadata::DefaultOverloadAttribute]
+    RTCRtpListener(RTCDtlsTransport^ transport);
+    [Windows::Foundation::Metadata::OverloadAttribute("CreateWithHeaderExtensions")]
     RTCRtpListener(RTCDtlsTransport^ transport, IVector<RTCRtpHeaderExtensionParameters^>^ headerExtensions);
   private:
     RTCDtlsTransport^ GetDtlsTransport();

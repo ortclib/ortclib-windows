@@ -58,18 +58,18 @@ namespace ortc_winrt_api
 
   public enum class RTCDtlsTransportState
   {
-    State_New,
-    State_Connecting,
-    State_Connected,
-    State_Validated,
-    State_Closed,
+    New,
+    Connecting,
+    Connected,
+    Validated,
+    Closed,
   };
 
   public enum class RTCDtlsRole
   {
-    Role_Auto,
-    Role_Client,
-    Role_Server,
+    Auto,
+    Client,
+    Server,
   };
 
   public ref class RTCDtlsFingerprint sealed
@@ -137,7 +137,7 @@ namespace ortc_winrt_api
     friend class FetchNativePointer;
     friend class ConvertObjectToCx;
   public:
-    static IAsyncOperation<RTCCertificate^>^ generateCertificate(Platform::String^ algorithmIdentifier);
+    static IAsyncOperation<RTCCertificate^>^ GenerateCertificate(Platform::String^ algorithmIdentifier);
   private:
 
     ICertificatePtr mNativePointer;
@@ -151,19 +151,20 @@ namespace ortc_winrt_api
     friend class RTCDtlsTransportDelegate;
     friend class FetchNativePointer;
     friend class ConvertObjectToCx;
-  public:
+  private:
     RTCDtlsTransport();
+  public:
     RTCDtlsTransport(RTCIceTransport^ transport, RTCCertificate^ certificate);
 
-    RTCDtlsParameters^      getLocalParameters();
-    RTCDtlsParameters^      getRemoteParameters();
-    IVector<Object^>^       getRemoteCertificates();
-    void                    start(RTCDtlsParameters^ remoteParameters);
-    void                    stop();
+    RTCDtlsParameters^      GetLocalParameters();
+    RTCDtlsParameters^      GetRemoteParameters();
+    IVector<Object^>^       GetRemoteCertificates();
+    void                    Start(RTCDtlsParameters^ remoteParameters);
+    void                    Stop();
+
   private:
     IDtlsTransportPtr mNativePointer;
     RTCDtlsTransportDelegatePtr mNativeDelegatePointer;
-
 
   private:
     RTCIceTransport^ GetIceTransport();
@@ -194,16 +195,21 @@ namespace ortc_winrt_api
 
     property RTCDtlsTransportState State
     {
-      RTCDtlsTransportState get()
-      {
-        if (mNativePointer)
-          return (RTCDtlsTransportState)mNativePointer->state();
-        else
-          return RTCDtlsTransportState::State_Closed;
-      }
+      RTCDtlsTransportState get();
     }
   public:
     event RTCDtlsTransportStateChangedDelegate^           OnDtlsTransportStateChanged;
     event RTCDtlsTransportErrorDelegate^                  OnDtlsTransportError;
+
+  public:
+    [Windows::Foundation::Metadata::DefaultOverloadAttribute]
+    static Platform::String^ ToString();
+    [Windows::Foundation::Metadata::OverloadAttribute("DtlsTransportStateToString")]
+    static Platform::String^ ToString(RTCDtlsTransportState value);
+    [Windows::Foundation::Metadata::OverloadAttribute("DtlsTransportRoleToString")]
+    static Platform::String^ ToString(RTCDtlsRole value);
+
+    static RTCDtlsTransportState ToState(Platform::String^ str);
+    static RTCDtlsRole ToRole(Platform::String^ str);
   };
 }

@@ -17,6 +17,7 @@ using System.Diagnostics;
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 using ortc_winrt_api;
+using Log = ortc_winrt_api.Log;
 
 namespace ortc_api_test
 {
@@ -28,7 +29,19 @@ namespace ortc_api_test
         public MainPage()
         {
             this.InitializeComponent();
-            ConfigureOrtcEngine conf = new ConfigureOrtcEngine();
+            Logger.SetLogLevel(Log.Level.Trace);
+            Logger.SetLogLevel(Log.Component.ZsLib, Log.Level.Trace);
+            Logger.SetLogLevel(Log.Component.Services, Log.Level.Trace);
+            Logger.SetLogLevel(Log.Component.ServicesHttp, Log.Level.Trace);
+            Logger.SetLogLevel(Log.Component.OrtcLib, Log.Level.Insane);
+            Logger.SetLogLevel("ortc_standup", Log.Level.Insane);
+
+
+            //openpeer::services::ILogger::installDebuggerLogger();
+            Logger.InstallTelnetLogger(59999, 60, true);
+
+            Settings.ApplyDefaults();
+            Ortc.Setup();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -71,7 +84,7 @@ namespace ortc_api_test
           _iceTransport2.OnICETransportCandidatePairGone += RTCIceTransport_onICETransportCandidatePairGone2;
           _iceTransport2.OnICETransportCandidatePairChanged += RTCIceTransport_onICETransportCandidatePairChanged2;
 
-          RTCCertificate.generateCertificate("").AsTask<RTCCertificate>().ContinueWith((cert) => 
+          RTCCertificate.GenerateCertificate("").AsTask<RTCCertificate>().ContinueWith((cert) => 
           {
             _dtlsTransport = new RTCDtlsTransport(_iceTransport, cert.Result);
               Constraints constraints = new Constraints();
@@ -79,7 +92,7 @@ namespace ortc_api_test
               constraints.Audio = new MediaTrackConstraints();
               constraints.Video = new MediaTrackConstraints();
 
-              OrtcMediaDevices.getUserMedia(constraints).AsTask().ContinueWith<IList<MediaStreamTrack>>((temp) =>
+              MediaDevices.GetUserMedia(constraints).AsTask().ContinueWith<IList<MediaStreamTrack>>((temp) =>
               {
                   if (temp.Result != null && temp.Result.Count() > 0)
                   {
@@ -98,7 +111,7 @@ namespace ortc_api_test
               });
           });
 
-          RTCCertificate.generateCertificate("").AsTask<RTCCertificate>().ContinueWith((cert) =>
+          RTCCertificate.GenerateCertificate("").AsTask<RTCCertificate>().ContinueWith((cert) =>
           {
             _dtlsTransport2 = new RTCDtlsTransport(_iceTransport2, cert.Result);
           });
@@ -121,15 +134,15 @@ namespace ortc_api_test
 
         private void RTCIceGatherer_onICEGathererStateChanged(RTCIceGathererStateChangeEvent evt)
         {
-          if(evt.State == RTCIceGathererState.State_Complete)
+          if(evt.State == RTCIceGathererState.Complete)
           {
-            _iceTransport.start(_iceGatherer, _iceGatherer2.getLocalParameters(), RTCIceRole.Role_Controlled);
+            _iceTransport.Start(_iceGatherer, _iceGatherer2.GetLocalParameters(), RTCIceRole.Controlled);
           }
         }
 
         private void RTCIceGatherer_onICEGathererLocalCandidate(RTCIceGathererCandidateEvent evt)
         {
-          _iceTransport2.addRemoteCandidate(evt.Candidate);
+          _iceTransport2.AddRemoteCandidate(evt.Candidate);
         }
 
         private void RTCIceGatherer_onICEGathererCandidateComplete(RTCIceGathererCandidateCompleteEvent evt)
@@ -154,14 +167,14 @@ namespace ortc_api_test
 
         private void RTCIceGatherer_onICEGathererStateChanged2(RTCIceGathererStateChangeEvent evt)
         {
-          if (evt.State == RTCIceGathererState.State_Complete)
+          if (evt.State == RTCIceGathererState.Complete)
           {
-            _iceTransport2.start(_iceGatherer2, _iceGatherer.getLocalParameters(), RTCIceRole.Role_Controlling);
+            _iceTransport2.Start(_iceGatherer2, _iceGatherer.GetLocalParameters(), RTCIceRole.Controlling);
           }
         }
         private void RTCIceGatherer_onICEGathererLocalCandidate2(RTCIceGathererCandidateEvent evt)
         {
-          _iceTransport.addRemoteCandidate(evt.Candidate);
+          _iceTransport.AddRemoteCandidate(evt.Candidate);
 
         }
 

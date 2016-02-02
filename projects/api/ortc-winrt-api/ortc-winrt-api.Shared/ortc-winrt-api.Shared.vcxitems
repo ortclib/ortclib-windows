@@ -15,25 +15,31 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)helpers.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Logger.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MediaStreamTrack.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MediaTypes.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)OrtcMediaDevices.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Ortc.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MediaDevices.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCDataChannel.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCDtlsTransport.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCIceGatherer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)pch.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCIceTransport.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCIceTransportController.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTCIceTypes.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCRtpListener.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCRtpReceiver.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCRtpSender.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCSctpTransport.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTPTypes.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Settings.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)helpers.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Logger.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MediaStreamTrack.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)OrtcMediaDevices.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Ortc.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)MediaDevices.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCDataChannel.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCDtlsTransport.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCIceGatherer.cpp" />
@@ -42,10 +48,12 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCIceTransport.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCIceTransportController.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RTCIceTypes.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCRtpListener.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCRtpReceiver.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCRtpSender.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCSctpTransport.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Settings.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectCapability Include="SourceItemsFromImports" />

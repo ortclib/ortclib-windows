@@ -43,20 +43,20 @@ namespace ortc_winrt_api
   {
   public:
     property Platform::String^   Label;
-    property boolean             Ordered;
+    property Platform::Boolean   Ordered;
     property uint64              MaxPacketLifetime;
-    property uint64              MaxRetransmits;
+    property uint32              MaxRetransmits;
     property Platform::String^   Protocol;
-    property boolean             Negotiated;
+    property Platform::Boolean   Negotiated;
     property uint16              Id;
   };
 
   public enum class RTCDataChannelState
   {
-    State_Connecting,
-    State_Open,
-    State_Closing,
-    State_Closed,
+    Connecting,
+    Open,
+    Closing,
+    Closed,
   };
 
   public ref class RTCDataChannelError sealed
@@ -130,15 +130,19 @@ namespace ortc_winrt_api
     friend class RTCDataChannelDelegate;
     friend class RTCSctpTransportDelegate;
     friend class FetchNativePointer;
-  public:
+  private:
     RTCDataChannel();
+  public:
     RTCDataChannel(RTCSctpTransport^ dataTransport, RTCDataChannelParameters^ params);
 
-    void close();
+    void Close();
 
-    void send(Platform::String^ data);
-    void send(const Platform::Array<byte>^ data);
-    void send(const Platform::Array<byte>^ data, uint16 bufferSizeInBytes);
+    [Windows::Foundation::Metadata::OverloadAttribute("SendString")]
+    void Send(Platform::String^ data);
+    [Windows::Foundation::Metadata::DefaultOverloadAttribute]
+    void Send(const Platform::Array<byte>^ data);
+    [Windows::Foundation::Metadata::OverloadAttribute("SendWithSize")]
+    void Send(const Platform::Array<byte>^ data, uint16 bufferSizeInBytes);
 
   private:
     IDataChannelPtr mNativePointer;
@@ -175,13 +179,7 @@ namespace ortc_winrt_api
 
     property RTCDataChannelState State
     {
-      RTCDataChannelState get()
-      {
-        if (mNativePointer)
-          return (RTCDataChannelState)mNativePointer->readyState();
-        else
-          return RTCDataChannelState::State_Closed;
-      }
+      RTCDataChannelState get();
     }
 
     property uint64 BufferedAmount
