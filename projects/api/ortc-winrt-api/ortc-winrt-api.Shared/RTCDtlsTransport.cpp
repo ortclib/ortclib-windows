@@ -141,7 +141,7 @@ void RTCDtlsTransportDelegate::onDTLSTransportError(
   _transport->OnDtlsTransportError(evt);
 }
 
-IAsyncOperation<RTCCertificate^>^ RTCCertificate::generateCertificate(Platform::String^ algorithmIdentifier) {
+IAsyncOperation<RTCCertificate^>^ RTCCertificate::GenerateCertificate(Platform::String^ algorithmIdentifier) {
 
   return Concurrency::create_async([algorithmIdentifier]() -> RTCCertificate^ {
     Concurrency::task_completion_event<RTCCertificate^> tce;

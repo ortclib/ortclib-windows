@@ -137,7 +137,7 @@ namespace ortc_winrt_api
     friend class FetchNativePointer;
     friend class ConvertObjectToCx;
   public:
-    static IAsyncOperation<RTCCertificate^>^ generateCertificate(Platform::String^ algorithmIdentifier);
+    static IAsyncOperation<RTCCertificate^>^ GenerateCertificate(Platform::String^ algorithmIdentifier);
   private:
 
     ICertificatePtr mNativePointer;
