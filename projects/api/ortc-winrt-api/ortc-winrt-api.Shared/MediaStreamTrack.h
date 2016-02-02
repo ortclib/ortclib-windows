@@ -169,6 +169,8 @@ namespace ortc_winrt_api
     event MediaStreamTrackOverConstrainedDelegate^  OnMediaStreamTrackOverConstrained;
 
   public:
+    [Windows::Foundation::Metadata::DefaultOverloadAttribute]
+    static Platform::String^ ToString();
     [Windows::Foundation::Metadata::OverloadAttribute("MediaStreamTrackStateToString")]
     static Platform::String^ ToString(MediaStreamTrackState value);
     [Windows::Foundation::Metadata::OverloadAttribute("MediaStreamTrackKindToString")]

@@ -35,7 +35,7 @@ namespace ortc_winrt_api
   public ref class RTCSctpCapabilities sealed
   {
   public:
-    property uint16 MaxMessageSize;
+    property size_t MaxMessageSize;
   };
 
   //------------------------------------------

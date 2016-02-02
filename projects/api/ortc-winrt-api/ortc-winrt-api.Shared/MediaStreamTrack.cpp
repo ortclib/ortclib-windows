@@ -23,7 +23,7 @@ namespace ortc_winrt_api
     {
       switch (state) {
       case IMediaStreamTrack::States::State_Live:   return MediaStreamTrackState::Live;
-      case IMediaStreamTrack::States::State_Ended:         return MediaStreamTrackState::Ended;
+      case IMediaStreamTrack::States::State_Ended:  return MediaStreamTrackState::Ended;
       }
       throw ref new Platform::NotImplementedException();
     }
@@ -166,6 +166,11 @@ namespace ortc_winrt_api
 		}
 		return nullptr;
 	}
+
+  Platform::String^ MediaStreamTrack::ToString()
+  {
+    throw ref new Platform::NotImplementedException();
+  }
 
   Platform::String^ MediaStreamTrack::ToString(MediaStreamTrackState value)
   {

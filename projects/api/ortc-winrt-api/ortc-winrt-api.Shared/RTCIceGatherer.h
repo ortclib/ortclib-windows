@@ -51,14 +51,6 @@ namespace ortc_winrt_api
     void SetOwnerObject(RTCIceGatherer^ owner) { _gatherer = owner; }
   };
 
-  public ref class RTCIceServer sealed
-  {
-  public:
-    property IVector<Platform::String^>^ URLs;
-    property Platform::String^           UserName;
-    property Platform::String^           Credential;
-  };
-
   public enum class RTCIceGatherPolicy
   {
     None = 0,
@@ -66,22 +58,29 @@ namespace ortc_winrt_api
     NoIPv4Srflx = 0x00000002,
     NoIPv4Prflx = 0x00000004,
     NoIPv4Relay = 0x00000008,
+    NoIPv4Private = 0x00000010,
     NoIPv4 = 0x000000FF,
     NoIPv6Host = 0x00000100,
     NoIPv6Srflx = 0x00000200,
     NoIPv6Prflx = 0x00000400,
     NoIPv6Relay = 0x00000800,
-    NoIPv6Tunnel = 0x00001000,
-    NoIPv6Permanent = 0x00002000,
+    NoIPv6Private = 0x00001000,
+    NoIPv6Tunnel = 0x00002000,
+    NoIPv6Permanent = 0x00004000,
     NoIPv6 = 0x0000FF00,
     NoHost = (NoIPv4Host | NoIPv6Host),
-    NoSrflx = (NoIPv4Srflx | NoIPv4Srflx),
+    NoSrflx = (NoIPv4Srflx | NoIPv6Srflx),
     NoPrflx = (NoIPv4Prflx | NoIPv6Prflx),
     NoRelay = (NoIPv4Relay | NoIPv6Relay),
+    NoPrivate = (NoIPv4Private | NoIPv6Private),
     RelayOnly = (NoIPv4Host | NoSrflx | NoPrflx),
     NoCandidates = (0xFFFFFFFF)
-#define WARNING_MISSING_FEW_ENTRIES 1
-#define WARNING_MISSING_FEW_ENTRIES 2
+  };
+
+  public enum class RTCIceGathererCredentialType
+  {
+    Password,
+    Token,
   };
 
   public enum class RTCIceGathererState {
@@ -89,6 +88,15 @@ namespace ortc_winrt_api
     Gathering,
     Complete,
     Closed,
+  };
+
+  public ref class RTCIceServer sealed
+  {
+  public:
+    property IVector<Platform::String^>^      URLs;
+    property Platform::String^                UserName;
+    property Platform::String^                Credential;
+    property RTCIceGathererCredentialType     CredentialType;
   };
 
   public ref class RTCIceGatherOptions sealed
@@ -205,13 +213,7 @@ namespace ortc_winrt_api
 
 		property RTCIceGathererState State
 		{
-			RTCIceGathererState get()
-			{
-				if (mNativePointer)
-					return (RTCIceGathererState)mNativePointer->state();
-				else
-					return RTCIceGathererState::Closed;
-			}
+      RTCIceGathererState get();
 		}
 
 		event RTCIceGathererStateChangedDelegate^       OnICEGathererStateChanged;
@@ -219,5 +221,19 @@ namespace ortc_winrt_api
 		event RTCIceGathererCandidateCompleteDelegate^  OnICEGathererCandidateComplete;
 		event RTCIceGathererLocalCandidateGoneDelegate^ OnICEGathererLocalCandidateGone;
 		event RTCIceGathererErrorDelegate^              OnICEGathererError;
+
+  public:
+    [Windows::Foundation::Metadata::DefaultOverloadAttribute]
+    static Platform::String^ ToString();
+    [Windows::Foundation::Metadata::OverloadAttribute("IceGatherPolicyToString")]
+    static Platform::String^ ToString(RTCIceGatherPolicy value);
+    [Windows::Foundation::Metadata::OverloadAttribute("IceGathererStateToString")]
+    static Platform::String^ ToString(RTCIceGathererState value);
+    [Windows::Foundation::Metadata::OverloadAttribute("IceGathererCredentialTypeToString")]
+    static Platform::String^ ToString(RTCIceGathererCredentialType value);
+
+    static RTCIceGatherPolicy ToPolicy(Platform::String^ str);
+    static RTCIceGathererState ToState(Platform::String^ str);
+    static RTCIceGathererCredentialType ToCredentialType(Platform::String^ str);
 	};
 }

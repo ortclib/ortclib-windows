@@ -10,6 +10,32 @@ using Platform::Collections::Vector;
 
 namespace ortc_winrt_api
 {
+  namespace internal
+  {
+    //---------------------------------------------------------------------------
+    // MediaDeviceKind convert methods
+    //---------------------------------------------------------------------------
+    static IMediaDevicesTypes::DeviceKinds convert(MediaDeviceKind kind)
+    {
+      switch (kind) {
+      case MediaDeviceKind::AudioInput:   return IMediaDevicesTypes::DeviceKinds::DeviceKind_AudioInput;
+      case MediaDeviceKind::AudioOutput:  return IMediaDevicesTypes::DeviceKinds::DeviceKind_AudioOutput;
+      case MediaDeviceKind::Video:        return IMediaDevicesTypes::DeviceKinds::DeviceKind_Video;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    static MediaDeviceKind convert(IMediaDevicesTypes::DeviceKinds kind)
+    {
+      switch (kind) {
+      case IMediaDevicesTypes::DeviceKinds::DeviceKind_AudioInput:   return MediaDeviceKind::AudioInput;
+      case IMediaDevicesTypes::DeviceKinds::DeviceKind_AudioOutput:  return MediaDeviceKind::AudioOutput;
+      case IMediaDevicesTypes::DeviceKinds::DeviceKind_Video:        return MediaDeviceKind::Video;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+  } // namespace internal
+
   std::string FromCx(Platform::String^ inObj) {
     return rtc::ToUtf8(inObj->Data());
   }
@@ -422,7 +448,7 @@ namespace ortc_winrt_api
   {
 	  auto ret = ref new MediaDeviceInfo();
 
-	  ret->Kind = (MediaDeviceKind)device.mKind;
+	  ret->Kind = internal::convert(device.mKind);
 
 	  ret->Label = ToCx(device.mLabel);
 	  ret->DeviceID = ToCx(device.mDeviceID);
@@ -503,5 +529,4 @@ namespace ortc_winrt_api
 
 	  return ret;
   }
-
 } // namespace ortc_winrt_api

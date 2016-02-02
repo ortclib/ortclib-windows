@@ -8,6 +8,7 @@
 #include "RTCIceTransportController.h"
 #include "RTCRtpSender.h"
 #include "RTPTypes.h"
+#include "MediaTypes.h"
 #include "MediaStreamTrack.h"
 #include <ortc/IMediaStreamTrack.h>
 #include <ortc/IMediaDevices.h>

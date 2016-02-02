@@ -75,6 +75,8 @@ namespace ortc_winrt_api
   public ref class RTCIceTypes sealed
   {
   public:
+    [Windows::Foundation::Metadata::DefaultOverloadAttribute]
+    static Platform::String^ ToString();
     [Windows::Foundation::Metadata::OverloadAttribute("IceRoleToString")]
     static Platform::String^ ToString(RTCIceRole value);
     [Windows::Foundation::Metadata::OverloadAttribute("IceComponentToString")]
