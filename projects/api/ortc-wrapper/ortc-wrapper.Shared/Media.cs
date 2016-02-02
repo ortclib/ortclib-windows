@@ -8,6 +8,7 @@ using Windows.Media.Core;
 using ortc_winrt_api;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using ortc_wrapper.Shared;
 
 namespace OrtcWrapper
 {
@@ -36,6 +37,16 @@ namespace OrtcWrapper
                 
                 return task.ContinueWith<MediaDeviceInfo>((temp) =>
                 {
+                    foreach (MediaDeviceInfo info in temp.Result)
+                    {
+                        if (info.DeviceID != null)
+                        {
+                            MediaDevice device = new MediaDevice(info.DeviceID, info.Label);
+                            InternalStorage.listOfAllMediaDevices.Add(device);
+                            System.Diagnostics.Debug.WriteLine("DeviceID: {0}", info.DeviceID);
+                        }
+                    }
+                    //InternalStorage.listOfAllMediaDevices.Concat(temp.Result);
                     MediaDeviceInfo test = temp.Result[0];
 
                     return test;

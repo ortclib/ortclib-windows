@@ -15,6 +15,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)FrameCounterHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IMediaStreamTrack.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InternalStorage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Media.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MediaAudioTrack.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MediaDevice.cs" />

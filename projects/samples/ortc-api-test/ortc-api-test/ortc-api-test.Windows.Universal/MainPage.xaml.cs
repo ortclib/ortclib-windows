@@ -103,7 +103,7 @@ namespace ortc_api_test
             _dtlsTransport2 = new RTCDtlsTransport(_iceTransport2, cert.Result);
           });
 
-            /*OrtcMediaDevices.enumerateDevices().AsTask().ContinueWith<MediaDeviceInfo>((temp) =>
+            OrtcMediaDevices.enumerateDevices().AsTask().ContinueWith<MediaDeviceInfo>((temp) =>
             {
                 foreach(MediaDeviceInfo info in temp.Result)
                 {
@@ -111,8 +111,9 @@ namespace ortc_api_test
                         System.Diagnostics.Debug.WriteLine("DeviceID: {0}",info.DeviceID);
                 }
                 return null;
-            });*/
+            });
 
+            Media.
         }
 
         //----------------------------------------------------------------------------------

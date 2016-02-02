@@ -8,6 +8,7 @@ using Windows.UI.Core;
 using Windows.Storage;
 using Windows.Foundation;
 using Windows.Media.Capture;
+using ortc_winrt_api;
 
 namespace OrtcWrapper
 {
@@ -41,6 +42,25 @@ namespace OrtcWrapper
         }
         public static void Initialize(CoreDispatcher dispatcher)
         {
+            /*OrtcMediaDevices.enumerateDevices().AsTask().ContinueWith<MediaDeviceInfo>((temp) =>
+            {
+                foreach (MediaDeviceInfo info in temp.Result)
+                {
+                    if (info.DeviceID != null)
+                        System.Diagnostics.Debug.WriteLine("DeviceID: {0}", info.DeviceID);
+                }
+                return null;
+            });*/
+
+            Media.EnumerateDevices().AsTask().ContinueWith<MediaDeviceInfo>((temp) =>
+            {
+                /*foreach (MediaDeviceInfo info in temp.Result)
+                {
+                    if (info.DeviceID != null)
+                        System.Diagnostics.Debug.WriteLine("DeviceID: {0}", info.DeviceID);
+                }*/
+                return null;
+            });
             /*if (globals::isInitialized)
                 return;
 
