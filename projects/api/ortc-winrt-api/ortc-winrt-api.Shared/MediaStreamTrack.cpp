@@ -2,6 +2,10 @@
 #include "MediaStreamTrack.h"
 #include "helpers.h"
 
+namespace Concurrency
+{
+  using ::LONG;
+}
 
 namespace ortc_winrt_api
 {
@@ -124,6 +128,38 @@ namespace ortc_winrt_api
 		return nullptr;
 	}
 
+  IAsyncAction^ MediaStreamTrack::ApplyConstraints(MediaTrackConstraints^ constraints)
+  {
+    IAsyncAction^ ret = Concurrency::create_async([this, constraints]()
+    {
+      Concurrency::task_completion_event<void> tce;
+
+      if (constraints == nullptr || mNativePointer == nullptr)
+      {
+        tce.set();
+        return;
+      }
+
+      IMediaStreamTrackTypes::TrackConstraints trackConstraints;
+      
+      for (MediaTrackConstraintSet^ iterator : constraints->Advanced)
+      {
+        IMediaStreamTrackTypes::ConstraintSetPtr set = FromCx(iterator);
+        trackConstraints.mAdvanced.push_back(set);
+      }
+      PromisePtr promise = mNativePointer->applyConstraints(trackConstraints);
+      MediaStreamTrackConstraintsPromiseObserverPtr pDelegate(make_shared<MediaStreamTrackConstraintsPromiseObserver>(tce));
+
+      promise->then(pDelegate);
+      promise->background();
+      auto tceTask = Concurrency::task<void>(tce);
+
+      return tceTask.get();
+    });
+
+    return ret;
+  }
+
   Platform::String^ MediaStreamTrack::ToString()
   {
     throw ref new Platform::NotImplementedException();
@@ -147,5 +183,20 @@ namespace ortc_winrt_api
   MediaStreamTrackKind MediaStreamTrack::ToKind(Platform::String^ str)
   {
     return internal::ConvertEnums::convert(IMediaStreamTrack::toKind(FromCx(str).c_str()));
+  }
+
+  MediaStreamTrackConstraintsPromiseObserver::MediaStreamTrackConstraintsPromiseObserver(Concurrency::task_completion_event<void> tce) : mTce(tce)
+  {
+
+  }
+
+  void MediaStreamTrackConstraintsPromiseObserver::onPromiseResolved(PromisePtr promise)
+  {
+    mTce.set();
+  }
+
+  void MediaStreamTrackConstraintsPromiseObserver::onPromiseRejected(PromisePtr promise)
+  {
+
   }
 }

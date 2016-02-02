@@ -5,10 +5,13 @@
 
 using namespace ortc;
 
+using Windows::Foundation::IAsyncAction;
 using Windows::Foundation::Collections::IVector;
 
 namespace ortc_winrt_api
 {
+  ZS_DECLARE_CLASS_PTR(MediaStreamTrackConstraintsPromiseObserver)
+
   public enum class MediaStreamTrackState
   {
     Live,
@@ -102,6 +105,19 @@ namespace ortc_winrt_api
 
   event MediaStreamTrackEndedDelegate^       OnMediaStreamTrackEnded;
   event MediaStreamTrackOverConstrainedDelegate^*/
+
+  class MediaStreamTrackConstraintsPromiseObserver : public zsLib::IPromiseResolutionDelegate
+  {
+  public:
+    MediaStreamTrackConstraintsPromiseObserver(Concurrency::task_completion_event<void> tce);
+
+    virtual void onPromiseResolved(PromisePtr promise);
+    virtual void onPromiseRejected(PromisePtr promise);
+
+  private:
+    Concurrency::task_completion_event<void> mTce;
+  };
+
   public ref class MediaStreamTrack sealed
   {
     friend class ConvertObjectToCx;
@@ -163,6 +179,8 @@ namespace ortc_winrt_api
     MediaTrackConstraints^  GetConstraints();
     MediaTrackSettings^     GetSettings();
 
+    IAsyncAction^ ApplyConstraints(MediaTrackConstraints^ constraints);
+
     event MediaStreamTrackMuteDelegate^             OnMediaStreamTrackMuted;
     event MediaStreamTrackUnMuteDelegate^           OnMediaStreamTrackUnMuted;
     event MediaStreamTrackEndedDelegate^            OnMediaStreamTrackEnded;
@@ -178,10 +196,6 @@ namespace ortc_winrt_api
 
     static MediaStreamTrackState ToState(Platform::String^ str);
     static MediaStreamTrackKind  ToKind(Platform::String^ str);
-    /*
-
-
-    Promise<void>          applyConstraints (MediaTrackConstraints constraints);*/
   };
 }
 
