@@ -691,6 +691,18 @@ namespace ortc_winrt_api
 	  return ret;
   }
 
+  template <typename  From, typename To> To convertConstrainFromCx(From^ from)
+  {
+    To ret;
+
+    ret.mRange.value().mMax = from->Max;
+    ret.mRange.value().mMin = from->Min;
+    ret.mRange.value().mExact = from->Exact;
+    ret.mRange.value().mIdeal = from->Ideal;
+
+    return ret;
+  }
+
   StringOrStringList^ ToCx(ortc::IConstraints::StringOrStringList from)
   {
 	  auto ret = ref new StringOrStringList();
@@ -707,6 +719,24 @@ namespace ortc_winrt_api
 	  }
 	  return ret;
   }
+
+  ortc::IConstraints::StringOrStringList FromCx(StringOrStringList^ from)
+  {
+    ortc::IConstraints::StringOrStringList ret;
+
+    if (!from->Value->IsEmpty())
+      ret.mValue = FromCx(from->Value);
+
+    if (from->Values->Size > 0)
+    {
+      for (Platform::String^ value : from->Values)
+      {
+        ret.mValues.value().push_back(FromCx(value));
+      }
+    }
+    return ret;
+  }
+
   ConstrainString^ convertConstrainToCx(ortc::IConstraints::ConstrainString from)
   {
 	  auto ret = ref new ConstrainString();
@@ -720,6 +750,18 @@ namespace ortc_winrt_api
 	  return ret;
   }
 
+  ortc::IConstraints::ConstrainString convertConstrainFromCx(ConstrainString^ from)
+  {
+    ortc::IConstraints::ConstrainString ret;
+    ret.mValue = FromCx(from->Value);
+    if (from->Parameters)
+    {
+      ret.mParameters.value().mExact = FromCx(from->Parameters->Exact);
+      ret.mParameters.value().mIdeal = FromCx(from->Parameters->Ideal);
+    }
+    return ret;
+  }
+
   ConstrainBool^ convertConstrainToCx(ortc::IConstraints::ConstrainBool from)
   {
 	  auto ret = ref new ConstrainBool();
@@ -731,6 +773,18 @@ namespace ortc_winrt_api
 		  ret->Parameters->Ideal = from.mParameters.value().mIdeal;
 	  }
 	  return ret;
+  }
+
+  ortc::IConstraints::ConstrainBool convertConstrainFromCx(ConstrainBool^ from)
+  {
+    ortc::IConstraints::ConstrainBool ret;
+    ret.mValue = from->Value;
+    if (from->Parameters)
+    {
+      ret.mParameters.value().mExact = from->Parameters->Exact;
+      ret.mParameters.value().mIdeal = from->Parameters->Ideal;
+    }
+    return ret;
   }
 
   MediaTrackConstraintSet^ ToCx(IMediaStreamTrackTypes::ConstraintSetPtr constraintSetPtr)
@@ -752,6 +806,27 @@ namespace ortc_winrt_api
 	  ret->GroupId = convertConstrainToCx(constraintSetPtr->mGroupID);
 
 	  return ret;
+  }
+
+  IMediaStreamTrackTypes::ConstraintSetPtr FromCx(MediaTrackConstraintSet^ constraintSet)
+  {
+    IMediaStreamTrackTypes::ConstraintSetPtr ret;
+
+    ret->mWidth = convertConstrainFromCx<ConstrainLong, ortc::IConstraints::ConstrainLong>(constraintSet->Width);
+    ret->mHeight = convertConstrainFromCx<ConstrainLong, ortc::IConstraints::ConstrainLong>(constraintSet->Height);
+    ret->mAspectRatio = convertConstrainFromCx<ConstrainDouble, ortc::IConstraints::ConstrainDouble>(constraintSet->AspectRatio);
+    ret->mFrameRate = convertConstrainFromCx<ConstrainDouble, ortc::IConstraints::ConstrainDouble>(constraintSet->FrameRate);
+
+    ret->mFacingMode = convertConstrainFromCx(constraintSet->FacingMode);
+    ret->mVolume = convertConstrainFromCx<ConstrainDouble, ortc::IConstraints::ConstrainDouble>(constraintSet->Volume);
+    ret->mSampleRate = convertConstrainFromCx<ConstrainLong, ortc::IConstraints::ConstrainLong>(constraintSet->SampleRate);
+    ret->mSampleSize = convertConstrainFromCx<ConstrainLong, ortc::IConstraints::ConstrainLong>(constraintSet->SampleSize);
+
+    ret->mEchoCancellation = convertConstrainFromCx(constraintSet->EchoCancellation);
+    ret->mDeviceID = convertConstrainFromCx(constraintSet->DeviceId);
+    ret->mGroupID = convertConstrainFromCx(constraintSet->GroupId);
+
+    return ret;
   }
 
   MediaTrackConstraints^ ToCx(IMediaStreamTrackTypes::TrackConstraintsPtr trackConstraintsPtr)
