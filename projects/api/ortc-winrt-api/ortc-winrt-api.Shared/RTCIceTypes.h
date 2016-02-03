@@ -67,9 +67,17 @@ namespace ortc_winrt_api
 
   public ref class RTCIceParameters sealed
   {
+    friend class PushNativePointer;
   public:
     property Platform::String^ UsernameFragment;
     property Platform::String^ Password;
+
+  public:
+    Platform::String^ ToJsonString();
+    static RTCIceParameters^ FromJsonString(Platform::String^ jsonString);
+
+  private:
+    IICETypes::ParametersPtr mNativePointer;
   };
 
   public ref class RTCIceTypes sealed

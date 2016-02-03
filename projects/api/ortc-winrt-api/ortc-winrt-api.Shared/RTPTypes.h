@@ -1,7 +1,10 @@
 #pragma once
 #include <collection.h>
+#include <ortc\IRTPTypes.h>
 
 using Windows::Foundation::Collections::IVector;
+
+using namespace ortc;
 
 namespace ortc_winrt_api
 {
@@ -48,10 +51,18 @@ namespace ortc_winrt_api
 
   public ref class RTCRtpCapabilities sealed
   {
+    friend class PushNativePointer;
   public:
     property IVector<RTCRtpCodecCapability^>^     Codecs;
     property IVector<RTCRtpHeaderExtensions^>^    HeaderExtensions;
     property IVector<Platform::String^>^          FecMechanisms;
+
+  public:
+    Platform::String^ ToJsonString();
+    static RTCRtpCapabilities^ FromJsonString(Platform::String^ jsonString);
+
+  private:
+    IRTPTypes::CapabilitiesPtr mNativePointer;
   };
 
 

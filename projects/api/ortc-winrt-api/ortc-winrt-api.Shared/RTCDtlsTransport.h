@@ -81,9 +81,17 @@ namespace ortc_winrt_api
 
   public ref class RTCDtlsParameters sealed
   {
+    friend class PushNativePointer;
   public:
     property RTCDtlsRole                    Role;
     property IVector<RTCDtlsFingerprint^>^  Fingerprints;
+
+  public:
+    Platform::String^ ToJsonString();
+    static RTCDtlsParameters^ FromJsonString(Platform::String^ jsonString);
+
+  private:
+    IDtlsTransport::ParametersPtr mNativePointer;
   };
 
   public ref class RTCDtlsTransportError sealed

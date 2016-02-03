@@ -13,6 +13,7 @@
 #include "Logger.h"
 #include <ortc/IMediaStreamTrack.h>
 #include <ortc/IMediaDevices.h>
+#include <op-services-cpp\openpeer\services\IHelper.h>
 
 using namespace ortc;
 
@@ -49,6 +50,8 @@ namespace ortc_winrt_api
   MediaDeviceInfo^ ToCx(IMediaDevicesTypes::Device device);
   MediaDeviceInfo^ ToCx(IMediaDevicesTypes::Device device);
 
+  IRTPTypes::Parameters FromCx(RTCRtpParameters^ parameters);
+
   class FetchNativePointer
   {
   public:
@@ -81,7 +84,13 @@ namespace ortc_winrt_api
     static RTCIceTransport^ IceTransport() { return ref new RTCIceTransport(true); }
   };
 
-  IRTPTypes::Parameters FromCx(RTCRtpParameters^ parameters);
+  class PushNativePointer
+  {
+  public:
+    static void ToRTCIceParameters(RTCIceParameters^ object, IICETypes::ParametersPtr nativePointer) { object->mNativePointer = nativePointer; }
+    static void ToRTCDtlsParameters(RTCDtlsParameters^ object, IDTLSTransport::ParametersPtr nativePointer) { object->mNativePointer = nativePointer; }
+    static void ToRTCRtpCapabilities(RTCRtpCapabilities^ object, IRTPTypes::CapabilitiesPtr nativePointer) { object->mNativePointer = nativePointer; }
+  };
 
   namespace internal
   {

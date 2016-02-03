@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "RTCDataChannel.h"
 #include "helpers.h"
-#include <op-services-cpp\openpeer\services\IHelper.h>
 
 namespace ortc_winrt_api
 {

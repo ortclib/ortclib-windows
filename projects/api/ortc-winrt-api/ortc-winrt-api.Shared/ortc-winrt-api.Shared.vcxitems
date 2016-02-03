@@ -53,6 +53,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCRtpReceiver.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCRtpSender.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCSctpTransport.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RTPTypes.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Settings.cpp" />
   </ItemGroup>
   <ItemGroup>

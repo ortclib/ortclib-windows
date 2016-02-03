@@ -44,6 +44,7 @@ namespace ortc_winrt_api
     {
       auto parameters = mNativePointer->getLocalParameters();
       ret = ToCx(parameters);
+      PushNativePointer::ToRTCDtlsParameters(ret, parameters);
     }
 
     return ret;
@@ -207,5 +208,26 @@ namespace ortc_winrt_api
   void RTCGenerateCertificatePromiseObserver::onPromiseRejected(PromisePtr promise)
   {
     //mTce.set_exception(promise->reason());
+  }
+
+  //---------------------------------------------------------------------------
+  // RTCDtlsParameters methods
+  //---------------------------------------------------------------------------
+  Platform::String^ RTCDtlsParameters::ToJsonString()
+  {
+    if (mNativePointer)
+    {
+      return ToCx(openpeer::services::IHelper::toString(mNativePointer->createElement("DtlsParameters")));
+    }
+
+  }
+  RTCDtlsParameters^ RTCDtlsParameters::FromJsonString(Platform::String^ jsonString)
+  {
+    auto ret = ref new RTCDtlsParameters();
+
+    auto params = make_shared<IDtlsTransport::Parameters>(IDtlsTransport::Parameters::Parameters(openpeer::services::IHelper::toJSON(FromCx(jsonString).c_str())));
+    ret = ToCx(params);
+    PushNativePointer::ToRTCDtlsParameters(ret, params);
+    return ret;
   }
 } // namespace ortc_winrt_api

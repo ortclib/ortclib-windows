@@ -130,7 +130,7 @@ RTCRtpCapabilities^ RTCRtpSender::GetCapabilities(Platform::String^ kind)
     {
       ret->FecMechanisms->Append(ToCx(*it));
     }
-
+    PushNativePointer::ToRTCRtpCapabilities(ret, capabilitiesPtr);
   }
 
   return ret;

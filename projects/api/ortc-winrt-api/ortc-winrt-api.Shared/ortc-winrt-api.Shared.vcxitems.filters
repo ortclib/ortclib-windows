@@ -41,5 +41,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)MediaDevices.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Logger.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCIceTypes.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RTPTypes.cpp" />
   </ItemGroup>
 </Project>

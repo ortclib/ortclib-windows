@@ -513,6 +513,7 @@ namespace ortc_winrt_api
       }
 
       ret->Role = (RTCDtlsRole)parameters->mRole;
+      PushNativePointer::ToRTCDtlsParameters(ret, parameters);
     }
 
     return ret;
