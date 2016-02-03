@@ -41,14 +41,6 @@ namespace ortc_winrt_api
     property Platform::Boolean    PreferredEncrypt; //default = false;
   };
 
-  //public ref class RTCRtpHeaderExtensionParameters sealed
-  //{
-  //public:
-  //  property Platform::String^    Uri;
-  //  property uint16               Id;
-  //  property Platform::Boolean    Encrypt; //default = false;
-  //};
-
   public ref class RTCRtpCapabilities sealed
   {
     friend class PushNativePointer;

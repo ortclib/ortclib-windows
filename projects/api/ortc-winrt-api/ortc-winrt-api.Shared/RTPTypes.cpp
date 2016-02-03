@@ -5,9 +5,6 @@
 
 using namespace ortc;
 
-using Windows::Foundation::Collections::IVector;
-
-
 namespace ortc_winrt_api
 {
   //---------------------------------------------------------------------------
