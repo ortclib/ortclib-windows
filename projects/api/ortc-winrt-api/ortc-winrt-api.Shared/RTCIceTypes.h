@@ -45,6 +45,7 @@ namespace ortc_winrt_api
 
   public ref class RTCIceCandidate sealed
   {
+    friend class PushNativePointer;
   public:
     property Platform::String^            InterfaceType;
     property Platform::String^            Foundation;
@@ -57,6 +58,12 @@ namespace ortc_winrt_api
     property RTCIceTcpCandidateType       TcpType;
     property Platform::String^            RelatedAddress;
     property uint16                       RelatedPort;
+  public:
+    Platform::String^ ToJsonString();
+    static RTCIceCandidate^ FromJsonString(Platform::String^ jsonString);
+
+  private:
+    IICETypes::CandidatePtr mNativePointer;
   };
 
   public ref class RTCIceCandidateComplete sealed

@@ -120,4 +120,25 @@ namespace ortc_winrt_api
     evt->MessageData->Text = ToCx(data->mText);
     _channel->OnDataChannelMessage(evt);
   }
+
+  //---------------------------------------------------------------------------
+  // RTCIceParameters methods
+  //---------------------------------------------------------------------------
+  Platform::String^ RTCDataChannelParameters::ToJsonString()
+  {
+    if (mNativePointer)
+    {
+      return ToCx(openpeer::services::IHelper::toString(mNativePointer->createElement("DataChannelParameters")));
+    }
+
+  }
+  RTCDataChannelParameters^ RTCDataChannelParameters::FromJsonString(Platform::String^ jsonString)
+  {
+    auto ret = ref new RTCDataChannelParameters();
+
+    auto params = make_shared<IDataChannel::Parameters>(IDataChannel::Parameters::Parameters(openpeer::services::IHelper::toJSON(FromCx(jsonString).c_str())));
+    ret = ToCx(params);
+    PushNativePointer::ToRTCDataChannelParameters(ret, params);
+    return ret;
+  }
 } // namespace ortc_winrt_api

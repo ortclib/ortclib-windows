@@ -82,4 +82,25 @@ namespace ortc_winrt_api
     PushNativePointer::ToRTCIceParameters(ret, params);
     return ret;
   }
+
+  //---------------------------------------------------------------------------
+  // RTCIceCandidate methods
+  //---------------------------------------------------------------------------
+  Platform::String^ RTCIceCandidate::ToJsonString()
+  {
+    if (mNativePointer)
+    {
+      return ToCx(openpeer::services::IHelper::toString(mNativePointer->createElement("IceParameters")));
+    }
+
+  }
+  RTCIceCandidate^ RTCIceCandidate::FromJsonString(Platform::String^ jsonString)
+  {
+    auto ret = ref new RTCIceCandidate();
+
+    auto candidate = make_shared<IICETypes::Candidate>(IICETypes::Candidate::Candidate(openpeer::services::IHelper::toJSON(FromCx(jsonString).c_str())));
+    ret = ToCx(candidate);
+    PushNativePointer::ToRTCIceCandidate(ret, candidate);
+    return ret;
+  }
 } // namespace ortc_winrt_api

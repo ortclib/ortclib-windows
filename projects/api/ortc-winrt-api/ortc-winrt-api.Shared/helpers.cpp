@@ -546,6 +546,8 @@ namespace ortc_winrt_api
     ret->Negotiated = parameters->mNegotiated;
     ret->Id = parameters->mID;
 
+    PushNativePointer::ToRTCDataChannelParameters(ret, parameters);
+
     return ret;
   }
 
