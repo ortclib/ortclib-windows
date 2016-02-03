@@ -17,6 +17,7 @@ namespace ortc_winrt_api
 
   public ref class RTCRtpCodecCapability sealed
   {
+    friend class PushNativePointer;
   public:
     property Platform::String^          Name;
     property Platform::String^          Kind;
@@ -30,6 +31,12 @@ namespace ortc_winrt_api
     property uint16                     MaxTemporalLayers; //default = 0;
     property uint16                     MaxSpatialLayers; //default = 0;
     property Platform::Boolean          SvcMultiStreamSupport;
+  public:
+    Platform::String^ ToJsonString();
+    static RTCRtpCodecCapability^ FromJsonString(Platform::String^ jsonString);
+
+  private:
+    IRTPTypes::CodecCapabilityPtr mNativePointer;
   };
 
   public ref class RTCRtpHeaderExtensions sealed

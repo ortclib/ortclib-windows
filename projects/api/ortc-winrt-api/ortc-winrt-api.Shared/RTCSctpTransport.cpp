@@ -33,7 +33,7 @@ namespace ortc_winrt_api
 
     ISCTPTransportTypes::CapabilitiesPtr caps = ISCTPTransport::getCapabilities();
     ret->MaxMessageSize = caps->mMaxMessageSize;
-
+    PushNativePointer::ToRTCSctpCapabilities(ret, caps);
     return ret;
   }
 
@@ -83,7 +83,7 @@ namespace ortc_winrt_api
   {
     if (mNativePointer)
     {
-      return ToCx(openpeer::services::IHelper::toString(mNativePointer->createElement("IceParameters")));
+      return ToCx(openpeer::services::IHelper::toString(mNativePointer->createElement("SctpCapabilities")));
     }
 
   }

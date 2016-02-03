@@ -43,4 +43,25 @@ namespace ortc_winrt_api
     PushNativePointer::ToRTCRtpCapabilities(ret, capabilitiesPtr);
     return ret;
   }
+
+  //---------------------------------------------------------------------------
+  // RTCRtpCodecCapability methods
+  //---------------------------------------------------------------------------
+  Platform::String^ RTCRtpCodecCapability::ToJsonString()
+  {
+    if (mNativePointer)
+    {
+      return ToCx(openpeer::services::IHelper::toString(mNativePointer->createElement("CodecCapability")));
+    }
+
+  }
+  RTCRtpCodecCapability^ RTCRtpCodecCapability::FromJsonString(Platform::String^ jsonString)
+  {
+    auto ret = ref new RTCRtpCodecCapability();
+
+    auto capability = make_shared<IRTPTypes::CodecCapability>(IRTPTypes::CodecCapability::CodecCapability(openpeer::services::IHelper::toJSON(FromCx(jsonString).c_str())));
+    ret = ToCx(capability);
+    PushNativePointer::ToRTCRtpCodecCapability(ret, capability);
+    return ret;
+  }
 } // namespace ortc_winrt_api

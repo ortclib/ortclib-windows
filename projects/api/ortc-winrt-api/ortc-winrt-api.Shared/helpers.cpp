@@ -578,6 +578,8 @@ namespace ortc_winrt_api
     ret->MaxSpatialLayers = codecCapabilityPtr->mMaxSpatialLayers; //default = 0;
     ret->SvcMultiStreamSupport = codecCapabilityPtr->mSVCMultiStreamSupport;
 
+    PushNativePointer::ToRTCRtpCodecCapability(ret, codecCapabilityPtr);
+
     return ret;
   }
 
