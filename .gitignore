@@ -1,5 +1,6 @@
 [Dd]ebug/
 *.opensdf
+*.opendb
 *.sdf
 *.suo
 *.user
