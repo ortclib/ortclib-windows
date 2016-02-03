@@ -34,7 +34,7 @@ namespace ortc_winrt_api
   IICEGatherer::Options FromCx(RTCIceGatherOptions^ options);
 
   RTCRtpCodecCapability^ ToCx(IRTPTypes::CodecCapabilityPtr codecCapabilityPtr);
-  RTCRtpHeaderExtensions^ ToCx(IRTPTypes::HeaderExtensionPtr headerExtensions);
+  RTCRtpHeaderExtension^ ToCx(IRTPTypes::HeaderExtensionPtr headerExtensions);
 
   IRTPTypes::HeaderExtensionParameters FromCx(RTCRtpHeaderExtensionParameters^ headerExtensions);
 
@@ -92,6 +92,8 @@ namespace ortc_winrt_api
     static void ToRTCDtlsParameters(RTCDtlsParameters^ object, IDTLSTransport::ParametersPtr nativePointer) { object->mNativePointer = nativePointer; }
     static void ToRTCRtpCapabilities(RTCRtpCapabilities^ object, IRTPTypes::CapabilitiesPtr nativePointer) { object->mNativePointer = nativePointer; }
     static void ToRTCRtpCodecCapability(RTCRtpCodecCapability^ object, IRTPTypes::CodecCapabilityPtr nativePointer) { object->mNativePointer = nativePointer; }
+    static void ToRTCRtcpFeedback(RTCRtcpFeedback^ object, IRTPTypes::RTCPFeedbackPtr nativePointer) { object->mNativePointer = nativePointer; }
+    static void ToRTCRtpHeaderExtension(RTCRtpHeaderExtension^ object, IRTPTypes::HeaderExtensionPtr nativePointer) { object->mNativePointer = nativePointer; }
     static void ToRTCSctpCapabilities(RTCSctpCapabilities^ object, ISCTPTransport::CapabilitiesPtr nativePointer) { object->mNativePointer = nativePointer; }
     static void ToRTCDataChannelParameters(RTCDataChannelParameters^ object, IDataChannel::ParametersPtr nativePointer) { object->mNativePointer = nativePointer; }
   };

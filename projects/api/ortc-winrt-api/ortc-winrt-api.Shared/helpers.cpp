@@ -570,6 +570,7 @@ namespace ortc_winrt_api
       feedback->Parameter = ToCx(it->mParameter);
       feedback->Type = ToCx(it->mType);
       //ret->rtcpFeedback->Append(feedback);
+      PushNativePointer::ToRTCRtcpFeedback(feedback, make_shared<IRTPTypes::RTCPFeedback>(*it));
     }
 
     //ret->parameters = codecCapabilityPtr->mParameters;
@@ -583,15 +584,15 @@ namespace ortc_winrt_api
     return ret;
   }
 
-  RTCRtpHeaderExtensions^ ToCx(IRTPTypes::HeaderExtensionPtr headerExtensions)
+  RTCRtpHeaderExtension^ ToCx(IRTPTypes::HeaderExtensionPtr headerExtension)
   {
-    auto ret = ref new RTCRtpHeaderExtensions();
+    auto ret = ref new RTCRtpHeaderExtension();
 
-    ret->Kind = ToCx(headerExtensions->mKind);
-    ret->Uri = ToCx(headerExtensions->mURI);
-    ret->PreferredEncrypt = headerExtensions->mPreferredEncrypt;
-    ret->PreferredId = headerExtensions->mPreferredID;
-
+    ret->Kind = ToCx(headerExtension->mKind);
+    ret->Uri = ToCx(headerExtension->mURI);
+    ret->PreferredEncrypt = headerExtension->mPreferredEncrypt;
+    ret->PreferredId = headerExtension->mPreferredID;
+    PushNativePointer::ToRTCRtpHeaderExtension(ret, headerExtension);
     return ret;
   }
 

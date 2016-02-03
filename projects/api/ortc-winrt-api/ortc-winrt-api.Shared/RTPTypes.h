@@ -10,9 +10,16 @@ namespace ortc_winrt_api
 {
   public ref class  RTCRtcpFeedback sealed
   {
+    friend class PushNativePointer;
   public:
     property Platform::String^ Type;
     property Platform::String^ Parameter;
+  public:
+    Platform::String^ ToJsonString();
+    static RTCRtcpFeedback^ FromJsonString(Platform::String^ jsonString);
+
+  private:
+    IRTPTypes::RTCPFeedbackPtr mNativePointer;
   };
 
   public ref class RTCRtpCodecCapability sealed
@@ -39,13 +46,20 @@ namespace ortc_winrt_api
     IRTPTypes::CodecCapabilityPtr mNativePointer;
   };
 
-  public ref class RTCRtpHeaderExtensions sealed
+  public ref class RTCRtpHeaderExtension sealed
   {
+    friend class PushNativePointer;
   public:
     property Platform::String^    Kind;
     property Platform::String^    Uri;
     property uint16               PreferredId;
     property Platform::Boolean    PreferredEncrypt; //default = false;
+  public:
+    Platform::String^ ToJsonString();
+    static RTCRtpHeaderExtension^ FromJsonString(Platform::String^ jsonString);
+
+  private:
+    IRTPTypes::HeaderExtensionPtr mNativePointer;
   };
 
   public ref class RTCRtpCapabilities sealed
@@ -53,7 +67,7 @@ namespace ortc_winrt_api
     friend class PushNativePointer;
   public:
     property IVector<RTCRtpCodecCapability^>^     Codecs;
-    property IVector<RTCRtpHeaderExtensions^>^    HeaderExtensions;
+    property IVector<RTCRtpHeaderExtension^>^    HeaderExtensions;
     property IVector<Platform::String^>^          FecMechanisms;
 
   public:

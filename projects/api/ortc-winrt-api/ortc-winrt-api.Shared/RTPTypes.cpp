@@ -64,4 +64,50 @@ namespace ortc_winrt_api
     PushNativePointer::ToRTCRtpCodecCapability(ret, capability);
     return ret;
   }
+
+  //---------------------------------------------------------------------------
+  // RTCRtcpFeedback methods
+  //---------------------------------------------------------------------------
+  Platform::String^ RTCRtcpFeedback::ToJsonString()
+  {
+    if (mNativePointer)
+    {
+      return ToCx(openpeer::services::IHelper::toString(mNativePointer->createElement("RtcpFeedback")));
+    }
+
+  }
+  RTCRtcpFeedback^ RTCRtcpFeedback::FromJsonString(Platform::String^ jsonString)
+  {
+    auto ret = ref new RTCRtcpFeedback();
+
+    auto feedback = make_shared<IRTPTypes::RTCPFeedback>(IRTPTypes::RTCPFeedback::RTCPFeedback(openpeer::services::IHelper::toJSON(FromCx(jsonString).c_str())));
+    ret->Parameter = ToCx(feedback->mParameter);
+    ret->Type = ToCx(feedback->mType);
+    PushNativePointer::ToRTCRtcpFeedback(ret, feedback);
+    return ret;
+  }
+
+  //---------------------------------------------------------------------------
+  // RTCRtpHeaderExtension methods
+  //---------------------------------------------------------------------------
+  Platform::String^ RTCRtpHeaderExtension::ToJsonString()
+  {
+    if (mNativePointer)
+    {
+      return ToCx(openpeer::services::IHelper::toString(mNativePointer->createElement("RtpHeaderExtension")));
+    }
+
+  }
+  RTCRtpHeaderExtension^ RTCRtpHeaderExtension::FromJsonString(Platform::String^ jsonString)
+  {
+    auto ret = ref new RTCRtpHeaderExtension();
+
+    auto headerExtension = make_shared<IRTPTypes::HeaderExtension>(IRTPTypes::HeaderExtension::HeaderExtension(openpeer::services::IHelper::toJSON(FromCx(jsonString).c_str())));
+    ret->Kind = ToCx(headerExtension->mKind);
+    ret->Uri = ToCx(headerExtension->mURI);
+    ret->PreferredEncrypt = headerExtension->mPreferredEncrypt;
+    ret->PreferredId = headerExtension->mPreferredID;
+    PushNativePointer::ToRTCRtpHeaderExtension(ret, headerExtension);
+    return ret;
+  }
 } // namespace ortc_winrt_api
