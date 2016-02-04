@@ -20,6 +20,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)MediaDevices.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Logger.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCIceTypes.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)WebRtcMediaSource.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)WebRtcMediaStream.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MediaSourceHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)pch.cpp">
@@ -42,5 +45,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Logger.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCIceTypes.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTPTypes.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)WebRtcMediaSource.cc" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)WebRtcMediaStream.cc" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)MediaSourceHelper.cc" />
   </ItemGroup>
 </Project>

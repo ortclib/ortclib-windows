@@ -7,6 +7,7 @@ using namespace ortc;
 
 using Windows::Foundation::IAsyncAction;
 using Windows::Foundation::Collections::IVector;
+using Windows::Media::Core::IMediaSource;
 
 namespace ortc_winrt_api
 {
@@ -178,6 +179,8 @@ namespace ortc_winrt_api
     MediaTrackCapabilities^ GetCapabilities();
     MediaTrackConstraints^  GetConstraints();
     MediaTrackSettings^     GetSettings();
+
+    IMediaSource^ CreateMediaSource(MediaStreamTrack^ track, Platform::String^ id);
 
     IAsyncAction^ ApplyConstraints(MediaTrackConstraints^ constraints);
 

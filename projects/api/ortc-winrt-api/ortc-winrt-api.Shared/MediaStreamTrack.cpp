@@ -1,4 +1,7 @@
 #include "pch.h"
+#include "WebRtcMediaSource.h"
+#include <windows.media.h>
+#include <windows.media.core.h>
 #include "MediaStreamTrack.h"
 #include "helpers.h"
 
@@ -6,6 +9,14 @@ namespace Concurrency
 {
   using ::LONG;
 }
+
+namespace Microsoft {
+  namespace WRL {
+    using ::ULONG;
+    using ::DWORD;
+  }
+}
+using Microsoft::WRL::ComPtr;
 
 namespace ortc_winrt_api
 {
@@ -127,6 +138,20 @@ namespace ortc_winrt_api
 		}
 		return nullptr;
 	}
+
+  IMediaSource^ MediaStreamTrack::CreateMediaSource(MediaStreamTrack^ track, Platform::String^ id)
+  {
+    //return globals::RunOnGlobalThread<IMediaSource^>([track, id]() -> IMediaSource^ {
+    //  ComPtr<ABI::Windows::Media::Core::IMediaSource> comSource;
+    //  ortc_winrt_api::WebRtcMediaSource::CreateMediaSource(&comSource, track, id);
+    //  IMediaSource^ source = reinterpret_cast<IMediaSource^>(comSource.Get());
+    //  return source;
+    //});
+    ComPtr<ABI::Windows::Media::Core::IMediaSource> comSource;
+    WebRtcMediaSource::CreateMediaSource(&comSource, track, id);
+    IMediaSource^ source = reinterpret_cast<IMediaSource^>(comSource.Get());
+    return source;
+  }
 
   IAsyncAction^ MediaStreamTrack::ApplyConstraints(MediaTrackConstraints^ constraints)
   {

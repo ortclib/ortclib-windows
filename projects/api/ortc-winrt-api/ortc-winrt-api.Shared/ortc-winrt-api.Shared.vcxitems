@@ -16,6 +16,7 @@
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)helpers.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Logger.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MediaSourceHelper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MediaStreamTrack.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MediaTypes.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Ortc.h" />
@@ -33,10 +34,13 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCSctpTransport.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTPTypes.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Settings.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)WebRtcMediaSource.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)WebRtcMediaStream.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)helpers.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Logger.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)MediaSourceHelper.cc" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MediaStreamTrack.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Ortc.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MediaDevices.cpp" />
@@ -55,6 +59,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCSctpTransport.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTPTypes.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Settings.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)WebRtcMediaSource.cc" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)WebRtcMediaStream.cc" />
   </ItemGroup>
   <ItemGroup>
     <ProjectCapability Include="SourceItemsFromImports" />
