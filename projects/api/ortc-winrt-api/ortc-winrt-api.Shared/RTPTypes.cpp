@@ -10,6 +10,14 @@ namespace ortc_winrt_api
   //---------------------------------------------------------------------------
   // RTCRtpCapabilities methods
   //---------------------------------------------------------------------------
+	RTCRtpCapabilities::RTCRtpCapabilities()
+	{
+		Codecs = ref new Platform::Collections::Vector<RTCRtpCodecCapability^>();
+		HeaderExtensions = ref new Platform::Collections::Vector<RTCRtpHeaderExtension^>();
+		FecMechanisms = ref new Platform::Collections::Vector<Platform::String^>();
+	}
+	
+
   Platform::String^ RTCRtpCapabilities::ToJsonString()
   {
     if (mNativePointer)
@@ -21,7 +29,7 @@ namespace ortc_winrt_api
   RTCRtpCapabilities^ RTCRtpCapabilities::FromJsonString(Platform::String^ jsonString)
   {
     auto ret = ref new RTCRtpCapabilities();
-
+	
     auto capabilitiesPtr = make_shared<IRTPTypes::Capabilities>(IRTPTypes::Capabilities::Capabilities(openpeer::services::IHelper::toJSON(FromCx(jsonString).c_str())));
 
     for (IRTPTypes::CodecCapabilitiesList::iterator it = capabilitiesPtr->mCodecs.begin(); it != capabilitiesPtr->mCodecs.end(); ++it)

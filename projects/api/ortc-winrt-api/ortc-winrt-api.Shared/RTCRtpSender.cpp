@@ -102,6 +102,7 @@ RTCRtpCapabilities^ RTCRtpSender::GetCapabilities(Platform::String^ kind)
 {
   auto ret = ref new RTCRtpCapabilities();
   IRTPTypes::CapabilitiesPtr capabilitiesPtr;
+  
   if (kind != nullptr)
   {
     if (Platform::String::CompareOrdinal(kind, "audio") == 0)

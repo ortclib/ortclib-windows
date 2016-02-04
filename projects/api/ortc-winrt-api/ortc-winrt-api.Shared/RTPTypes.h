@@ -71,6 +71,7 @@ namespace ortc_winrt_api
     property IVector<Platform::String^>^          FecMechanisms;
 
   public:
+	RTCRtpCapabilities();
     Platform::String^ ToJsonString();
     static RTCRtpCapabilities^ FromJsonString(Platform::String^ jsonString);
 
