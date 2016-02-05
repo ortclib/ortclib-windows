@@ -66,12 +66,11 @@ namespace ortc_winrt_api
   //---------------------------------------------------------------------------
   Platform::String^ RTCIceParameters::ToJsonString()
   {
-    if (mNativePointer)
-    {
-      return ToCx(openpeer::services::IHelper::toString(mNativePointer->createElement("IceParameters")));
-    }
+    IICETypes::Parameters params = FromCx(this);
+    return ToCx(openpeer::services::IHelper::toString(params.createElement("IceParameters")));
 
   }
+
   RTCIceParameters^ RTCIceParameters::FromJsonString(Platform::String^ jsonString)
   {
     auto ret = ref new RTCIceParameters();
@@ -79,7 +78,7 @@ namespace ortc_winrt_api
     auto params = make_shared<IICETypes::Parameters>(IICETypes::Parameters::Parameters(openpeer::services::IHelper::toJSON(FromCx(jsonString).c_str())));
     ret->UsernameFragment = ToCx(params->mUsernameFragment);
     ret->Password = ToCx(params->mPassword);
-    PushNativePointer::ToRTCIceParameters(ret, params);
+
     return ret;
   }
 
@@ -88,19 +87,17 @@ namespace ortc_winrt_api
   //---------------------------------------------------------------------------
   Platform::String^ RTCIceCandidate::ToJsonString()
   {
-    if (mNativePointer)
-    {
-      return ToCx(openpeer::services::IHelper::toString(mNativePointer->createElement("IceParameters")));
-    }
-
+    IICETypes::Candidate candidate = FromCx(this);
+    return ToCx(openpeer::services::IHelper::toString(candidate.createElement("IceCandidate")));
   }
+
   RTCIceCandidate^ RTCIceCandidate::FromJsonString(Platform::String^ jsonString)
   {
     auto ret = ref new RTCIceCandidate();
 
     auto candidate = make_shared<IICETypes::Candidate>(IICETypes::Candidate::Candidate(openpeer::services::IHelper::toJSON(FromCx(jsonString).c_str())));
     ret = ToCx(candidate);
-    PushNativePointer::ToRTCIceCandidate(ret, candidate);
+
     return ret;
   }
 } // namespace ortc_winrt_api

@@ -52,6 +52,14 @@ namespace ortc_winrt_api
 
   IRTPTypes::Parameters FromCx(RTCRtpParameters^ parameters);
 
+
+  IICETypes::Parameters         FromCx(RTCIceParameters^ params);
+  ISCTPTransport::Capabilities  FromCx(RTCSctpCapabilities^ params);
+  IRTPTypes::Capabilities       FromCx(RTCRtpCapabilities^ params);
+  IRTPTypes::CodecCapability    FromCx(RTCRtpCodecCapability^ params);
+  IRTPTypes::RTCPFeedback       FromCx(RTCRtcpFeedback^ params);
+  IRTPTypes::HeaderExtension    FromCx(RTCRtpHeaderExtension^ params);
+
   class FetchNativePointer
   {
   public:
@@ -82,20 +90,6 @@ namespace ortc_winrt_api
   {
   public:
     static RTCIceTransport^ IceTransport() { return ref new RTCIceTransport(true); }
-  };
-
-  class PushNativePointer
-  {
-  public:
-    static void ToRTCIceParameters(RTCIceParameters^ object, IICETypes::ParametersPtr nativePointer) { object->mNativePointer = nativePointer; }
-    static void ToRTCIceCandidate(RTCIceCandidate^ object, IICETypes::CandidatePtr nativePointer) { object->mNativePointer = nativePointer; }
-    static void ToRTCDtlsParameters(RTCDtlsParameters^ object, IDTLSTransport::ParametersPtr nativePointer) { object->mNativePointer = nativePointer; }
-    static void ToRTCRtpCapabilities(RTCRtpCapabilities^ object, IRTPTypes::CapabilitiesPtr nativePointer) { object->mNativePointer = nativePointer; }
-    static void ToRTCRtpCodecCapability(RTCRtpCodecCapability^ object, IRTPTypes::CodecCapabilityPtr nativePointer) { object->mNativePointer = nativePointer; }
-    static void ToRTCRtcpFeedback(RTCRtcpFeedback^ object, IRTPTypes::RTCPFeedbackPtr nativePointer) { object->mNativePointer = nativePointer; }
-    static void ToRTCRtpHeaderExtension(RTCRtpHeaderExtension^ object, IRTPTypes::HeaderExtensionPtr nativePointer) { object->mNativePointer = nativePointer; }
-    static void ToRTCSctpCapabilities(RTCSctpCapabilities^ object, ISCTPTransport::CapabilitiesPtr nativePointer) { object->mNativePointer = nativePointer; }
-    static void ToRTCDataChannelParameters(RTCDataChannelParameters^ object, IDataChannel::ParametersPtr nativePointer) { object->mNativePointer = nativePointer; }
   };
 
   namespace internal

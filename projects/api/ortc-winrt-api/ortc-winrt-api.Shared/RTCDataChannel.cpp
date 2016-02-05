@@ -126,11 +126,8 @@ namespace ortc_winrt_api
   //---------------------------------------------------------------------------
   Platform::String^ RTCDataChannelParameters::ToJsonString()
   {
-    if (mNativePointer)
-    {
-      return ToCx(openpeer::services::IHelper::toString(mNativePointer->createElement("DataChannelParameters")));
-    }
-
+    IDataChannel::Parameters params = FromCx(this);
+    return ToCx(openpeer::services::IHelper::toString(params.createElement("DataChannelParameters")));
   }
   RTCDataChannelParameters^ RTCDataChannelParameters::FromJsonString(Platform::String^ jsonString)
   {
@@ -138,7 +135,6 @@ namespace ortc_winrt_api
 
     auto params = make_shared<IDataChannel::Parameters>(IDataChannel::Parameters::Parameters(openpeer::services::IHelper::toJSON(FromCx(jsonString).c_str())));
     ret = ToCx(params);
-    PushNativePointer::ToRTCDataChannelParameters(ret, params);
     return ret;
   }
 } // namespace ortc_winrt_api

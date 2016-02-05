@@ -45,7 +45,6 @@ namespace ortc_winrt_api
 
   public ref class RTCIceCandidate sealed
   {
-    friend class PushNativePointer;
   public:
     property Platform::String^            InterfaceType;
     property Platform::String^            Foundation;
@@ -61,9 +60,6 @@ namespace ortc_winrt_api
   public:
     Platform::String^ ToJsonString();
     static RTCIceCandidate^ FromJsonString(Platform::String^ jsonString);
-
-  private:
-    IICETypes::CandidatePtr mNativePointer;
   };
 
   public ref class RTCIceCandidateComplete sealed
@@ -74,7 +70,6 @@ namespace ortc_winrt_api
 
   public ref class RTCIceParameters sealed
   {
-    friend class PushNativePointer;
   public:
     property Platform::String^ UsernameFragment;
     property Platform::String^ Password;
@@ -82,9 +77,6 @@ namespace ortc_winrt_api
   public:
     Platform::String^ ToJsonString();
     static RTCIceParameters^ FromJsonString(Platform::String^ jsonString);
-
-  private:
-    IICETypes::ParametersPtr mNativePointer;
   };
 
   public ref class RTCIceTypes sealed

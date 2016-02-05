@@ -180,7 +180,7 @@ namespace ortc_winrt_api
     MediaTrackConstraints^  GetConstraints();
     MediaTrackSettings^     GetSettings();
 
-    IMediaSource^ CreateMediaSource(MediaStreamTrack^ track, Platform::String^ id);
+    IMediaSource^ CreateMediaSource();
 
     IAsyncAction^ ApplyConstraints(MediaTrackConstraints^ constraints);
 

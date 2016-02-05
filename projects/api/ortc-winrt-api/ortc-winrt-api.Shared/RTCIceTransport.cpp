@@ -106,7 +106,6 @@ RTCIceParameters^ RTCIceTransport::GetRemoteParameters()
     auto params = mNativePointer->getRemoteParameters();
     ret->UsernameFragment = ToCx(params->mUsernameFragment);
     ret->Password = ToCx(params->mPassword);
-    PushNativePointer::ToRTCIceParameters(ret, params);
   }
   return ret;
 }

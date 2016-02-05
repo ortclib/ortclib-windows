@@ -32,7 +32,6 @@ namespace ortc_winrt_api
       {
         ret->UsernameFragment = ToCx(params->mUsernameFragment);
         ret->Password = ToCx(params->mPassword);
-        PushNativePointer::ToRTCIceParameters(ret, params);
       }
     }
 

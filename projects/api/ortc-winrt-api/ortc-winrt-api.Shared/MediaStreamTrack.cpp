@@ -139,7 +139,7 @@ namespace ortc_winrt_api
 		return nullptr;
 	}
 
-  IMediaSource^ MediaStreamTrack::CreateMediaSource(MediaStreamTrack^ track, Platform::String^ id)
+  IMediaSource^ MediaStreamTrack::CreateMediaSource()
   {
     //return globals::RunOnGlobalThread<IMediaSource^>([track, id]() -> IMediaSource^ {
     //  ComPtr<ABI::Windows::Media::Core::IMediaSource> comSource;
@@ -147,8 +147,10 @@ namespace ortc_winrt_api
     //  IMediaSource^ source = reinterpret_cast<IMediaSource^>(comSource.Get());
     //  return source;
     //});
+    Platform::String^ id = "stream";
+
     ComPtr<ABI::Windows::Media::Core::IMediaSource> comSource;
-    WebRtcMediaSource::CreateMediaSource(&comSource, track, id);
+    WebRtcMediaSource::CreateMediaSource(&comSource, this, id);
     IMediaSource^ source = reinterpret_cast<IMediaSource^>(comSource.Get());
     return source;
   }

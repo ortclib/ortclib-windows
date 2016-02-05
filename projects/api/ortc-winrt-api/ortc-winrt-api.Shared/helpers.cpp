@@ -513,7 +513,6 @@ namespace ortc_winrt_api
       }
 
       ret->Role = (RTCDtlsRole)parameters->mRole;
-      PushNativePointer::ToRTCDtlsParameters(ret, parameters);
     }
 
     return ret;
@@ -546,8 +545,6 @@ namespace ortc_winrt_api
     ret->Negotiated = parameters->mNegotiated;
     ret->Id = parameters->mID;
 
-    PushNativePointer::ToRTCDataChannelParameters(ret, parameters);
-
     return ret;
   }
 
@@ -570,7 +567,6 @@ namespace ortc_winrt_api
       feedback->Parameter = ToCx(it->mParameter);
       feedback->Type = ToCx(it->mType);
       //ret->rtcpFeedback->Append(feedback);
-      PushNativePointer::ToRTCRtcpFeedback(feedback, make_shared<IRTPTypes::RTCPFeedback>(*it));
     }
 
     //ret->parameters = codecCapabilityPtr->mParameters;
@@ -578,8 +574,6 @@ namespace ortc_winrt_api
     ret->MaxTemporalLayers = codecCapabilityPtr->mMaxTemporalLayers; //default = 0;
     ret->MaxSpatialLayers = codecCapabilityPtr->mMaxSpatialLayers; //default = 0;
     ret->SvcMultiStreamSupport = codecCapabilityPtr->mSVCMultiStreamSupport;
-
-    PushNativePointer::ToRTCRtpCodecCapability(ret, codecCapabilityPtr);
 
     return ret;
   }
@@ -592,7 +586,7 @@ namespace ortc_winrt_api
     ret->Uri = ToCx(headerExtension->mURI);
     ret->PreferredEncrypt = headerExtension->mPreferredEncrypt;
     ret->PreferredId = headerExtension->mPreferredID;
-    PushNativePointer::ToRTCRtpHeaderExtension(ret, headerExtension);
+ 
     return ret;
   }
 
@@ -971,5 +965,85 @@ namespace ortc_winrt_api
 	  ret.mDegredationPreference = (IRTPTypes::DegradationPreferences)parameters->DegradationPreference;
 
 	  return ret;
+  }
+
+  IICETypes::Parameters FromCx(RTCIceParameters^ params)
+  {
+    IICETypes::Parameters ret;
+    ret.mUsernameFragment = FromCx(params->UsernameFragment);
+    ret.mPassword = FromCx(params->Password);
+    return ret;
+  }
+
+  ISCTPTransport::Capabilities FromCx(RTCSctpCapabilities^ caps)
+  {
+    ISCTPTransport::Capabilities ret;
+    ret.mMaxMessageSize = caps->MaxMessageSize;
+    return ret;
+  }
+
+  IRTPTypes::Capabilities FromCx(RTCRtpCapabilities^ caps)
+  {
+    IRTPTypes::Capabilities ret;
+    for (RTCRtpCodecCapability^ c: caps->Codecs)
+    {
+      auto codec = FromCx(c);
+      ret.mCodecs.push_back(codec);
+    }
+
+    for (RTCRtpHeaderExtension^ ext : caps->HeaderExtensions)
+    {
+      auto extension = FromCx(ext);
+      ret.mHeaderExtensions.push_back(extension);
+    }
+
+    for (Platform::String^ fec : caps->FecMechanisms)
+    {
+      ret.mFECMechanisms.push_back(FromCx(fec));
+    }
+    return ret;
+  }
+
+  IRTPTypes::CodecCapability FromCx(RTCRtpCodecCapability^ cap)
+  {
+    IRTPTypes::CodecCapability ret;
+    ret.mName = FromCx(cap->Name);
+    ret.mKind = FromCx(cap->Kind);
+    ret.mClockRate = cap->ClockRate;
+    //ret->preferredPayloadType = codecCapabilityPtr->mPreferredPayloadType;
+    ret.mMaxPTime = cap->Maxptime;
+    ret.mNumChannels = cap->NumChannels;
+
+    //ret->rtcpFeedback = ref new Vector<RTCRtcpFeedback^>();
+
+    for (RTCRtcpFeedback^ fb : cap->RtcpFeedback)
+    {
+      ret.mRTCPFeedback.push_back(FromCx(fb));
+    }
+
+    //ret->parameters = codecCapabilityPtr->mParameters;
+    //ret->options = codecCapabilityPtr->mOptions;
+    ret.mMaxTemporalLayers = cap->MaxTemporalLayers; //default = 0;
+    ret.mMaxSpatialLayers = cap->MaxSpatialLayers; //default = 0;
+    ret.mSVCMultiStreamSupport = cap->SvcMultiStreamSupport;
+    return ret;
+  }
+
+  IRTPTypes::RTCPFeedback FromCx(RTCRtcpFeedback^ fb)
+  {
+    IRTPTypes::RTCPFeedback ret;
+    ret.mParameter = FromCx(fb->Parameter);
+    ret.mType = FromCx(fb->Type);
+    return ret;
+  }
+
+  IRTPTypes::HeaderExtension FromCx(RTCRtpHeaderExtension^ ext)
+  {
+    IRTPTypes::HeaderExtension ret;
+    ret.mKind = FromCx(ext->Kind);
+    ret.mURI = FromCx(ext->Uri);
+    ret.mPreferredEncrypt = ext->PreferredEncrypt;
+    ret.mPreferredID = ext->PreferredId;
+    return ret;
   }
 } // namespace ortc_winrt_api

@@ -20,11 +20,8 @@ namespace ortc_winrt_api
 
   Platform::String^ RTCRtpCapabilities::ToJsonString()
   {
-    if (mNativePointer)
-    {
-      return ToCx(openpeer::services::IHelper::toString(mNativePointer->createElement("RtpCapabilities")));
-    }
-
+    IRTPTypes::Capabilities caps = FromCx(this);
+    return ToCx(openpeer::services::IHelper::toString(caps.createElement("RtpCapabilities")));
   }
   RTCRtpCapabilities^ RTCRtpCapabilities::FromJsonString(Platform::String^ jsonString)
   {
@@ -48,7 +45,6 @@ namespace ortc_winrt_api
     {
       ret->FecMechanisms->Append(ToCx(*it));
     }
-    PushNativePointer::ToRTCRtpCapabilities(ret, capabilitiesPtr);
     return ret;
   }
 
@@ -57,11 +53,8 @@ namespace ortc_winrt_api
   //---------------------------------------------------------------------------
   Platform::String^ RTCRtpCodecCapability::ToJsonString()
   {
-    if (mNativePointer)
-    {
-      return ToCx(openpeer::services::IHelper::toString(mNativePointer->createElement("CodecCapability")));
-    }
-
+    IRTPTypes::CodecCapability capability = FromCx(this);
+    return ToCx(openpeer::services::IHelper::toString(capability.createElement("CodecCapability")));
   }
   RTCRtpCodecCapability^ RTCRtpCodecCapability::FromJsonString(Platform::String^ jsonString)
   {
@@ -69,7 +62,6 @@ namespace ortc_winrt_api
 
     auto capability = make_shared<IRTPTypes::CodecCapability>(IRTPTypes::CodecCapability::CodecCapability(openpeer::services::IHelper::toJSON(FromCx(jsonString).c_str())));
     ret = ToCx(capability);
-    PushNativePointer::ToRTCRtpCodecCapability(ret, capability);
     return ret;
   }
 
@@ -78,11 +70,8 @@ namespace ortc_winrt_api
   //---------------------------------------------------------------------------
   Platform::String^ RTCRtcpFeedback::ToJsonString()
   {
-    if (mNativePointer)
-    {
-      return ToCx(openpeer::services::IHelper::toString(mNativePointer->createElement("RtcpFeedback")));
-    }
-
+    IRTPTypes::RTCPFeedback feedback = FromCx(this);
+    return ToCx(openpeer::services::IHelper::toString(feedback.createElement("RtcpFeedback")));
   }
   RTCRtcpFeedback^ RTCRtcpFeedback::FromJsonString(Platform::String^ jsonString)
   {
@@ -91,7 +80,7 @@ namespace ortc_winrt_api
     auto feedback = make_shared<IRTPTypes::RTCPFeedback>(IRTPTypes::RTCPFeedback::RTCPFeedback(openpeer::services::IHelper::toJSON(FromCx(jsonString).c_str())));
     ret->Parameter = ToCx(feedback->mParameter);
     ret->Type = ToCx(feedback->mType);
-    PushNativePointer::ToRTCRtcpFeedback(ret, feedback);
+
     return ret;
   }
 
@@ -100,11 +89,8 @@ namespace ortc_winrt_api
   //---------------------------------------------------------------------------
   Platform::String^ RTCRtpHeaderExtension::ToJsonString()
   {
-    if (mNativePointer)
-    {
-      return ToCx(openpeer::services::IHelper::toString(mNativePointer->createElement("RtpHeaderExtension")));
-    }
-
+    IRTPTypes::HeaderExtension ext = FromCx(this);
+    return ToCx(openpeer::services::IHelper::toString(ext.createElement("RtpHeaderExtension")));
   }
   RTCRtpHeaderExtension^ RTCRtpHeaderExtension::FromJsonString(Platform::String^ jsonString)
   {
@@ -115,7 +101,7 @@ namespace ortc_winrt_api
     ret->Uri = ToCx(headerExtension->mURI);
     ret->PreferredEncrypt = headerExtension->mPreferredEncrypt;
     ret->PreferredId = headerExtension->mPreferredID;
-    PushNativePointer::ToRTCRtpHeaderExtension(ret, headerExtension);
+
     return ret;
   }
 } // namespace ortc_winrt_api

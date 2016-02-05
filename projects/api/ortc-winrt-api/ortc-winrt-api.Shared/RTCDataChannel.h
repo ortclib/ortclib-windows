@@ -41,7 +41,6 @@ namespace ortc_winrt_api
   //--------------------------------------------------------------------
   public ref class RTCDataChannelParameters sealed
   {
-    friend class PushNativePointer;
   public:
     property Platform::String^   Label;
     property Platform::Boolean   Ordered;
@@ -53,9 +52,6 @@ namespace ortc_winrt_api
   public:
     Platform::String^ ToJsonString();
     static RTCDataChannelParameters^ FromJsonString(Platform::String^ jsonString);
-
-  private:
-    IDataChannel::ParametersPtr mNativePointer;
   };
 
   public enum class RTCDataChannelState

@@ -33,7 +33,7 @@ namespace ortc_winrt_api
 
     ISCTPTransportTypes::CapabilitiesPtr caps = ISCTPTransport::getCapabilities();
     ret->MaxMessageSize = caps->mMaxMessageSize;
-    PushNativePointer::ToRTCSctpCapabilities(ret, caps);
+
     return ret;
   }
 
@@ -81,10 +81,8 @@ namespace ortc_winrt_api
   //---------------------------------------------------------------------------
   Platform::String^ RTCSctpCapabilities::ToJsonString()
   {
-    if (mNativePointer)
-    {
-      return ToCx(openpeer::services::IHelper::toString(mNativePointer->createElement("SctpCapabilities")));
-    }
+    ISCTPTransport::Capabilities caps = FromCx(this);
+    return ToCx(openpeer::services::IHelper::toString(caps.createElement("SctpCapabilities")));
 
   }
   RTCSctpCapabilities^ RTCSctpCapabilities::FromJsonString(Platform::String^ jsonString)
@@ -93,7 +91,7 @@ namespace ortc_winrt_api
 
     auto caps = make_shared<ISCTPTransport::Capabilities>(ISCTPTransport::Capabilities::Capabilities(openpeer::services::IHelper::toJSON(FromCx(jsonString).c_str())));
     ret->MaxMessageSize = caps->mMaxMessageSize;
-    PushNativePointer::ToRTCSctpCapabilities(ret, caps);
+
     return ret;
   }
 } // namespace ortc_winrt_api

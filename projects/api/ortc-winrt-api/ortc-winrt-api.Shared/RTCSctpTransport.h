@@ -34,15 +34,11 @@ namespace ortc_winrt_api
 
   public ref class RTCSctpCapabilities sealed
   {
-    friend class PushNativePointer;
   public:
     property size_t MaxMessageSize;
   public:
     Platform::String^ ToJsonString();
     static RTCSctpCapabilities^ FromJsonString(Platform::String^ jsonString);
-
-  private:
-    ISCTPTransport::CapabilitiesPtr mNativePointer;
   };
 
   //------------------------------------------
