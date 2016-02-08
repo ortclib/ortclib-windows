@@ -111,9 +111,13 @@
     <EmbeddedResource Include="Properties\ortc_wrapper.Windows.Universal.rd.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ortc-winrt-api\ortc-winrt-api.Windows.Universal\ortc-winrt-api.Windows.Universal.vcxproj">
+    <ProjectReference Include="..\..\ortc-winrt-api\ortc-winrt-api.Windows.ARM.Universal\ortc-winrt-api.Windows.ARM.Universal.vcxproj" Condition="'$(Platform)'!='ARM'">
       <Project>{f12c67f3-12a0-4532-bdde-4be043dbc140}</Project>
-      <Name>ortc-winrt-api.Windows.Universal</Name>
+      <Name>ortc-winrt-api.Windows.ARM.Universal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ortc-winrt-api\ortc-winrt-api.Windows.ARM.Universal\ortc-winrt-api.Windows.ARM.Universal.vcxproj" Condition="'$(Platform)'=='ARM'">
+      <Project>{f12c67f3-12a0-4532-bdde-4be043dbc140}</Project>
+      <Name>ortc-winrt-api.Windows.ARM.Universal</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\ortc-wrapper.Shared\ortc-wrapper.Shared.projitems" Label="Shared" />
