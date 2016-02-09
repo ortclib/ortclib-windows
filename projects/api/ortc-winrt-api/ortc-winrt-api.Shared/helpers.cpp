@@ -505,6 +505,7 @@ namespace ortc_winrt_api
     if (parameters)
     {
       RTCDtlsFingerprint^ fingerprint = ref new RTCDtlsFingerprint();
+      ret->Fingerprints = ref new Vector<RTCDtlsFingerprint^>();
       for (ICertificateTypes::FingerprintList::iterator it = parameters->mFingerprints.begin(); it != parameters->mFingerprints.end(); ++it)
       {
         fingerprint->Algorithm = ToCx((*it).mAlgorithm);
@@ -1016,9 +1017,12 @@ namespace ortc_winrt_api
 
     //ret->rtcpFeedback = ref new Vector<RTCRtcpFeedback^>();
 
-    for (RTCRtcpFeedback^ fb : cap->RtcpFeedback)
+    if (cap->RtcpFeedback)
     {
-      ret.mRTCPFeedback.push_back(FromCx(fb));
+      for (RTCRtcpFeedback^ fb : cap->RtcpFeedback)
+      {
+        ret.mRTCPFeedback.push_back(FromCx(fb));
+      }
     }
 
     //ret->parameters = codecCapabilityPtr->mParameters;
