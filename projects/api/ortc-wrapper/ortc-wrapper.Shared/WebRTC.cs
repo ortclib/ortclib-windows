@@ -31,16 +31,19 @@ namespace OrtcWrapper
         }
         public static IList<CodecInfo> GetAudioCodecs()
         {
-            return null;
+            return Helper.GetCodecs("audio");
         }
         //public static double GetCPUUsage();
         //public static long GetMemUsage();
         public static IList<CodecInfo> GetVideoCodecs()
         {
-            return null;
+            return Helper.GetCodecs("video");
         }
         public static void Initialize(CoreDispatcher dispatcher)
         {
+            /*var contentAsync = Media.EnumerateDevices();//.AsTask().Wait();
+            contentAsync.AsTask().Wait();
+            string content = contentAsync.GetResults();*/
             /*if (globals::isInitialized)
                 return;
 

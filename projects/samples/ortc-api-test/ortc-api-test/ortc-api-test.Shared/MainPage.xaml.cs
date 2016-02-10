@@ -116,7 +116,7 @@ namespace ortc_api_test
             _dtlsTransport2 = new RTCDtlsTransport(_iceTransport2, cert.Result);
           });
 
-            /*OrtcMediaDevices.enumerateDevices().AsTask().ContinueWith<MediaDeviceInfo>((temp) =>
+            MediaDevices.EnumerateDevices().AsTask().ContinueWith<MediaDeviceInfo>((temp) =>
             {
                 foreach(MediaDeviceInfo info in temp.Result)
                 {
@@ -124,7 +124,7 @@ namespace ortc_api_test
                         System.Diagnostics.Debug.WriteLine("DeviceID: {0}",info.DeviceID);
                 }
                 return null;
-            });*/
+            });
 
         }
 
@@ -142,7 +142,7 @@ namespace ortc_api_test
 
         private void RTCIceGatherer_onICEGathererLocalCandidate(RTCIceGathererCandidateEvent evt)
         {
-          _iceTransport2.AddRemoteCandidate(evt.Candidate);
+          //_iceTransport2.AddRemoteCandidate(evt.Candidate);
         }
 
         private void RTCIceGatherer_onICEGathererCandidateComplete(RTCIceGathererCandidateCompleteEvent evt)
@@ -174,7 +174,7 @@ namespace ortc_api_test
         }
         private void RTCIceGatherer_onICEGathererLocalCandidate2(RTCIceGathererCandidateEvent evt)
         {
-          _iceTransport.AddRemoteCandidate(evt.Candidate);
+          //_iceTransport.AddRemoteCandidate(evt.Candidate);
 
         }
 

@@ -61,6 +61,51 @@ namespace OrtcWrapper
             return ret;
         }
 
+        public static List<MediaDeviceInfo> Filter(
+            MediaDeviceKind kind,
+            IList<MediaDeviceInfo> infos
+            )
+        {
+            var results = new List<MediaDeviceInfo>();
+            foreach (var info in infos)
+            {
+                if (kind != info.Kind) continue;
+                results.Add(info);
+            }
+            return results;
+        }
+        public static MediaDevice ToMediaDevice(MediaDeviceInfo device)
+        {
+            return new MediaDevice(device.DeviceID, device.Label);
+        }
+        public static IList<MediaDevice> ToMediaDevices(IList<MediaDeviceInfo> devices)
+        {
+            var results = new List<MediaDevice>();
+            foreach (var device in devices)
+            {
+                results.Add(ToMediaDevice(device));
+            }
+            return results;
+        }
+        public static CodecInfo ToDto(RTCRtpCodecCapability codec, int index)
+        {
+            return new CodecInfo(index, (int)codec.ClockRate, codec.Name);
+        }
+        public static IList<CodecInfo> GetCodecs(string kind)
+        {
+            var caps = RTCRtpSender.GetCapabilities(kind);
+            var codecs = caps.Codecs;
+            var results = new List<CodecInfo>();
+
+            int index = 0;
+            foreach (var codec in codecs)
+            {
+                ++index;
+                results.Add(ToDto(codec, index));
+            }
+            return results;
+        }
+
         public static RTCIceCandidate ToWrapperIceCandidate(ortc_winrt_api.RTCIceCandidate iceCandidate, int sdpComponentId)
         {
             StringBuilder sb = new StringBuilder();

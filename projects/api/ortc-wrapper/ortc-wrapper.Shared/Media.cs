@@ -86,7 +86,28 @@ namespace OrtcWrapper
         }
         public IAsyncOperation<bool> EnumerateAudioVideoCaptureDevices()
         {
-            return null;
+            return Task.Run<bool>(async () =>
+            {
+                var devices = await MediaDevices.EnumerateDevices();
+
+                var audioCaptureList = Helper.Filter(MediaDeviceKind.AudioInput, devices);
+                //var audioPlaybackList = Helper.Filter(MediaDeviceKind.AudioOutput, devices);
+                var videoList = Helper.Filter(MediaDeviceKind.Video, devices);
+
+                await Task.Run(() =>
+                {
+                    foreach (var info in audioCaptureList)
+                    {
+                        OnAudioCaptureDeviceFound(new MediaDevice(info.DeviceID, info.Label));
+                    }
+                    foreach (var info in videoList)
+                    {
+                        OnVideoCaptureDeviceFound(new MediaDevice(info.DeviceID, info.Label));
+                    }
+                });
+
+                return devices.Count > 0;
+            }).AsAsyncOperation();
         }
         //public IList<MediaDevice> GetAudioCaptureDevices();
         //public IAsyncOperation<MediaStream> GetUserMedia(RTCMediaStreamConstraints mediaStreamConstraints);
@@ -111,7 +132,15 @@ namespace OrtcWrapper
 
         public IList<MediaDevice> GetAudioPlayoutDevices()
         {
-            return null;
+            var contentAsync = MediaDevices.EnumerateDevices();//.AsTask().Wait();
+            contentAsync.AsTask().Wait();
+            var devices = contentAsync.GetResults();
+
+            //var audioCaptureList = Helper.Filter(MediaDeviceKind.AudioInput, devices);
+            var audioPlaybackList = Helper.Filter(MediaDeviceKind.AudioOutput, devices);
+            //var videoList = Helper.Filter(MediaDeviceKind.Video, devices);
+
+            return Helper.ToMediaDevices(audioPlaybackList);
         }
     }
 }
