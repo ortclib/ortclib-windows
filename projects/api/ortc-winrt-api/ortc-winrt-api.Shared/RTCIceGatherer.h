@@ -74,7 +74,7 @@ namespace ortc_winrt_api
     NoRelay = (NoIPv4Relay | NoIPv6Relay),
     NoPrivate = (NoIPv4Private | NoIPv6Private),
     RelayOnly = (NoIPv4Host | NoSrflx | NoPrflx),
-    NoCandidates = (0xFFFFFFFF)
+    NoCandidates = (0x7FFFFFFF)
   };
 
   public enum class RTCIceGathererCredentialType
