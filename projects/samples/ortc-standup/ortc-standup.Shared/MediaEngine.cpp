@@ -213,10 +213,12 @@ namespace ortc_standup
     {
       if (mSender) {
         ortc::ICertificatePtr certificate = promise->value<ortc::ICertificate>();
+        std::list<ortc::ICertificatePtr> certificates;
+        certificates.push_back(certificate);
         mMediaEngine.lock()->mSendVideoDTLSTransport = ortc::IDTLSTransport::create(
                                                                                     mMediaEngine.lock(),
                                                                                     mMediaEngine.lock()->mSendVideoICETransport,
-                                                                                    certificate
+                                                                                    certificates
                                                                                     );
 
         mMediaEngine.lock()->mVideoRTPSender = ortc::IRTPSender::create(
@@ -240,10 +242,12 @@ namespace ortc_standup
                                                    );
       } else {
         ortc::ICertificatePtr certificate = promise->value<ortc::ICertificate>();
+        std::list<ortc::ICertificatePtr> certificates;
+        certificates.push_back(certificate);
         mMediaEngine.lock()->mReceiveVideoDTLSTransport = ortc::IDTLSTransport::create(
                                                                                        mMediaEngine.lock(),
                                                                                        mMediaEngine.lock()->mReceiveVideoICETransport,
-                                                                                       certificate
+                                                                                       certificates
                                                                                        );
 
         mMediaEngine.lock()->mVideoRTPReceiver = ortc::IRTPReceiver::create(
