@@ -10,6 +10,7 @@
 #include "RTPTypes.h"
 #include "MediaTypes.h"
 #include "MediaStreamTrack.h"
+#include "MediaDevices.h"
 #include "Logger.h"
 #include <ortc/IMediaStreamTrack.h>
 #include <ortc/IMediaDevices.h>
@@ -41,6 +42,9 @@ namespace ortc_winrt_api
   
   MediaTrackConstraintSet^ ToCx(IMediaStreamTrackTypes::ConstraintSetPtr constraintSetPtr);
   IMediaStreamTrackTypes::ConstraintSetPtr FromCx(MediaTrackConstraintSet^ constraintSet);
+
+  //Constraints^ ToCx(IMediaStreamTrackTypes::ConstraintsPtr constraintPtr);
+  IMediaStreamTrackTypes::ConstraintsPtr FromCx(Constraints^ constraint);
 
   MediaTrackCapabilities^ ToCx(IMediaStreamTrackTypes::CapabilitiesPtr capabilitiesPtr);
   MediaTrackConstraints^ ToCx(IMediaStreamTrackTypes::TrackConstraintsPtr trackConstraintsPtr);

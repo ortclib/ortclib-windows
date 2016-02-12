@@ -13,6 +13,14 @@ namespace OrtcWrapper
 {
     public class Media
     {
+        IList<MediaDeviceInfo> _audioCaptureDevices = new List<MediaDeviceInfo>();
+        IList<MediaDeviceInfo> _audioPlaybackDevices = new List<MediaDeviceInfo>();
+        IList<MediaDeviceInfo> _videoDevices = new List<MediaDeviceInfo>();
+
+        private MediaDevice _audioCaptureDevice;
+        private MediaDevice _audioPlaybackDevice;
+
+        private MediaDevice _videoDevice;
         public delegate void OnMediaCaptureDeviceFoundDelegate(MediaDevice __param0);
         public event OnMediaCaptureDeviceFoundDelegate OnAudioCaptureDeviceFound;
         public event OnMediaCaptureDeviceFoundDelegate OnVideoCaptureDeviceFound;
@@ -25,7 +33,15 @@ namespace OrtcWrapper
         }
         static public IAsyncOperation<Media> CreateMediaAsync() //async
         {
-            return null;
+            return Task.Run<Media>(() =>
+            {
+                return CreateMedia();
+             }).AsAsyncOperation<Media>();
+
+            /*IAsyncOperation <Media> asyncOp = Concurrency::create_async([]()->Media ^ {
+                return CreateMedia();
+            });
+            return asyncOp;*/
         }
 
         static public IAsyncOperation<MediaDeviceInfo> EnumerateDevices() //async
@@ -45,14 +61,43 @@ namespace OrtcWrapper
             return t.AsAsyncOperation<MediaDeviceInfo>();
         }
 
+        public IAsyncOperation<MediaStream> GetUserMedia2(RTCMediaStreamConstraints mediaStreamConstraints)
+        {
+            MediaDevice audioCaptureDevice = null;
+            MediaDevice videoDevice = null;
+
+            return Task.Run<MediaStream>(async () =>
+            {
+                var constraints = Helper.MakeConstraints(mediaStreamConstraints.audioEnabled, null, MediaDeviceKind.AudioInput, audioCaptureDevice);
+                constraints = Helper.MakeConstraints(mediaStreamConstraints.videoEnabled, constraints, MediaDeviceKind.Video, videoDevice);
+
+                if (null == constraints) { return new MediaStream(); }
+
+                var tracks = await MediaDevices.GetUserMedia(constraints);
+
+                var audioTracks = Helper.InsertAudioIfValid(mediaStreamConstraints.audioEnabled, null, tracks, audioCaptureDevice);
+                var videoTracks = Helper.InsertVideoIfValid(mediaStreamConstraints.videoEnabled, null, tracks, videoDevice);
+                            
+                return new MediaStream(audioTracks, videoTracks);
+            }).AsAsyncOperation();
+        }
         public IAsyncOperation<MediaStream> GetUserMedia(RTCMediaStreamConstraints mediaStreamConstraints)
         {
             Task<MediaStream> t = Task.Run<MediaStream>(() =>
             {
-                Task<IList<MediaStreamTrack>> task = MediaDevices.GetUserMedia(Helper.ToApiConstraints(mediaStreamConstraints)).AsTask();
+                var constraints = Helper.MakeConstraints(mediaStreamConstraints.audioEnabled, null, MediaDeviceKind.AudioInput, _audioCaptureDevice);
+                constraints = Helper.MakeConstraints(mediaStreamConstraints.videoEnabled, constraints, MediaDeviceKind.Video, _videoDevice);
+
+                //Task<IList<MediaStreamTrack>> task = MediaDevices.GetUserMedia(Helper.ToApiConstraints(mediaStreamConstraints)).AsTask();
+
                 
+
+                Task<IList<MediaStreamTrack>> task = MediaDevices.GetUserMedia(constraints).AsTask();
                 return task.ContinueWith<MediaStream>((temp) =>
                 {
+                    var audioTracks = Helper.InsertAudioIfValid(mediaStreamConstraints.audioEnabled, null, temp.Result, _audioCaptureDevice);
+                    var videoTracks = Helper.InsertVideoIfValid(mediaStreamConstraints.videoEnabled, null, temp.Result, _videoDevice);
+                    return new MediaStream(audioTracks, videoTracks);
                     MediaStream stream = new MediaStream();
                     List<MediaStreamTrack> test = new List<MediaStreamTrack>(temp.Result);
                     
@@ -94,6 +139,9 @@ namespace OrtcWrapper
                 //var audioPlaybackList = Helper.Filter(MediaDeviceKind.AudioOutput, devices);
                 var videoList = Helper.Filter(MediaDeviceKind.Video, devices);
 
+                _audioCaptureDevices = audioCaptureList;
+                _videoDevices = videoList;
+
                 await Task.Run(() =>
                 {
                     foreach (var info in audioCaptureList)
@@ -118,16 +166,17 @@ namespace OrtcWrapper
         }
         public void SelectAudioDevice(MediaDevice device)
         {
-
+            _audioCaptureDevice = device;
         }
         public void SelectVideoDevice(MediaDevice device)
         {
-
+            _videoDevice = device;
         }
         //public void SetDisplayOrientation(DisplayOrientations display_orientation);
         public bool SelectAudioPlayoutDevice(MediaDevice device)
         {
-            return false;
+            _audioPlaybackDevice = device;
+            return true;
         }
 
         public IList<MediaDevice> GetAudioPlayoutDevices()
@@ -139,6 +188,8 @@ namespace OrtcWrapper
             //var audioCaptureList = Helper.Filter(MediaDeviceKind.AudioInput, devices);
             var audioPlaybackList = Helper.Filter(MediaDeviceKind.AudioOutput, devices);
             //var videoList = Helper.Filter(MediaDeviceKind.Video, devices);
+
+            _audioPlaybackDevices = audioPlaybackList;
 
             return Helper.ToMediaDevices(audioPlaybackList);
         }

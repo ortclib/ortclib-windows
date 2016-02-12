@@ -59,11 +59,11 @@ IAsyncOperation<IVector<MediaDeviceInfo^>^>^ MediaDevices::EnumerateDevices()
 
 IAsyncOperation<IVector<MediaStreamTrack^>^>^ MediaDevices::GetUserMedia(Constraints^ constraints)
 {
-	IAsyncOperation<IVector<MediaStreamTrack^>^>^ ret = Concurrency::create_async([]() -> IVector<MediaStreamTrack^>^
+	IAsyncOperation<IVector<MediaStreamTrack^>^>^ ret = Concurrency::create_async([constraints]() -> IVector<MediaStreamTrack^>^
 	{
 		Concurrency::task_completion_event<IVector<MediaStreamTrack^>^> tce;
 
-		IMediaDevicesTypes::PromiseWithMediaStreamTrackListPtr promise = IMediaDevices::getUserMedia();
+		IMediaDevicesTypes::PromiseWithMediaStreamTrackListPtr promise = IMediaDevices::getUserMedia(*(FromCx(constraints).get()));
 		MediaStreamTrackPromiseObserverPtr pDelegate(make_shared<MediaStreamTrackPromiseObserver>(tce));
 
 		promise->then(pDelegate);
@@ -111,10 +111,10 @@ void MediaStreamTrackPromiseObserver::onPromiseResolved(PromisePtr promise)
 {
 	auto ret = ref new Vector<MediaStreamTrack^>();
 
-	IMediaDevicesTypes::MediaStreamTrackListPtr mediaStreamTrackListPtr = ZS_DYNAMIC_PTR_CAST(IMediaDevicesTypes::MediaStreamTrackList, promise);
+	IMediaDevicesTypes::MediaStreamTrackListPtr mediaStreamTrackListPtr2 = ZS_DYNAMIC_PTR_CAST(IMediaDevicesTypes::MediaStreamTrackList, promise);
 
 	//test
-	ortc::IMediaDevicesTypes::MediaStreamTrackListPtr mediaStreamTrackListPtr2 = promise->value<ortc::IMediaDevicesTypes::MediaStreamTrackList>();
+	ortc::IMediaDevicesTypes::MediaStreamTrackListPtr mediaStreamTrackListPtr = promise->value<ortc::IMediaDevicesTypes::MediaStreamTrackList>();
 
 	if (mediaStreamTrackListPtr != nullptr)
 	{

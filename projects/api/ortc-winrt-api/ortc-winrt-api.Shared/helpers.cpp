@@ -784,6 +784,82 @@ namespace ortc_winrt_api
     return ret;
   }
 
+  Constraints^ ToCx(IMediaStreamTrackTypes::ConstraintsPtr constraintPtr)
+  {
+	  return nullptr;
+  }
+
+
+  IMediaStreamTrackTypes::ConstraintsPtr FromCx(Constraints^ constraint)
+  {
+	  IMediaStreamTrackTypes::ConstraintsPtr ret = IMediaStreamTrackTypes::Constraints::create();
+
+	  if (constraint->Audio != nullptr)
+	  {
+		  for (MediaTrackConstraintSet^ trackConstraint : constraint->Audio->Advanced)
+		  {
+			  ortc::IMediaDevicesTypes::ConstraintSetPtr constraintSet = ortc::IMediaDevicesTypes::ConstraintSet::create();
+			  constraintSet->mDeviceID.mValue.value().mValue.value() = FromCx(trackConstraint->DeviceId->Value->Value);
+			  //constraintSet->mWidth.mValue.value() = trackConstraint->Width->Value;
+			  //constraintSet->mHeight.mValue.value() = trackConstraint->Height->Value;
+			  //constraintSet->mFrameRate.mValue.value() = trackConstraint->FrameRate->Value;
+			  //constraintSet->mAspectRatio.mValue.value() = trackConstraint->AspectRatio->Value;
+			  
+			  if (trackConstraint->Volume)
+				  constraintSet->mVolume.mValue.value() = trackConstraint->Volume->Value;
+			  if (trackConstraint->SampleRate)
+				constraintSet->mSampleRate.mValue.value() = trackConstraint->SampleRate->Value;
+			  if(trackConstraint->SampleSize)
+				constraintSet->mSampleSize.mValue.value() = trackConstraint->SampleSize->Value;
+			  if (trackConstraint->EchoCancellation)
+				constraintSet->mEchoCancellation.mValue.value() = trackConstraint->EchoCancellation->Value;
+
+			  if (trackConstraint->GroupId)
+				constraintSet->mGroupID.mValue.value().mValue.value() = FromCx(trackConstraint->GroupId->Value->Value);
+
+			  if (trackConstraint->FacingMode)
+				constraintSet->mFacingMode.mValue.value().mValue.value() = FromCx(trackConstraint->FacingMode->Value->Value);
+
+			  ret->mAudio = IMediaStreamTrackTypes::TrackConstraints::create();
+			  ret->mAudio->mAdvanced.push_back(constraintSet);
+		  }
+	  }
+
+	  if (constraint->Video != nullptr)
+	  {
+		  for (MediaTrackConstraintSet^ trackConstraint : constraint->Video->Advanced)
+		  {
+			  ortc::IMediaDevicesTypes::ConstraintSetPtr constraintSet = ortc::IMediaDevicesTypes::ConstraintSet::create();
+			  constraintSet->mDeviceID.mValue.value().mValue.value() = FromCx(trackConstraint->DeviceId->Value->Value);
+			  if (trackConstraint->Width)
+				constraintSet->mWidth.mValue.value() = trackConstraint->Width->Value;
+
+			  if (trackConstraint->Height)
+				constraintSet->mHeight.mValue.value() = trackConstraint->Height->Value;
+
+			  if (trackConstraint->FrameRate)
+				constraintSet->mFrameRate.mValue.value() = trackConstraint->FrameRate->Value;
+
+			  if (trackConstraint->AspectRatio)
+				constraintSet->mAspectRatio.mValue.value() = trackConstraint->AspectRatio->Value;
+			  //constraintSet->mVolume.mValue.value() = trackConstraint->Volume->Value;
+			  //constraintSet->mSampleRate.mValue.value() = trackConstraint->SampleRate->Value;
+			  //constraintSet->mSampleSize.mValue.value() = trackConstraint->SampleSize->Value;
+			  //constraintSet->mEchoCancellation.mValue.value() = trackConstraint->EchoCancellation->Value;
+
+			  if (trackConstraint->GroupId)
+				constraintSet->mGroupID.mValue.value().mValue.value() = FromCx(trackConstraint->GroupId->Value->Value);
+
+			  if (trackConstraint->FacingMode)
+				constraintSet->mFacingMode.mValue.value().mValue.value() = FromCx(trackConstraint->FacingMode->Value->Value);
+
+			  ret->mVideo = IMediaStreamTrackTypes::TrackConstraints::create();
+			  ret->mVideo->mAdvanced.push_back(constraintSet);
+		  }
+	  }
+
+	  return ret;
+  }
   MediaTrackConstraints^ ToCx(IMediaStreamTrackTypes::TrackConstraintsPtr trackConstraintsPtr)
   {
 	  auto ret = ref new MediaTrackConstraints();

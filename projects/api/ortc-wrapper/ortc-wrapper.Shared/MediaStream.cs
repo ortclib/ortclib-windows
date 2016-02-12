@@ -10,11 +10,22 @@ namespace OrtcWrapper
     {
         IList<MediaAudioTrack> _audioTracks;
         IList<MediaVideoTrack> _videoTracks;
-        
+        IList<IMediaStreamTrack> _mediaTracks;
+
         public MediaStream()
         {
             _audioTracks = new List<MediaAudioTrack>();
             _videoTracks = new List<MediaVideoTrack>();
+            _mediaTracks = new List<IMediaStreamTrack>();
+        }
+
+        public MediaStream(List<MediaAudioTrack> audioTracks, List<MediaVideoTrack> videoTracks)
+        {
+            _audioTracks = audioTracks;
+            _videoTracks = videoTracks;
+            _mediaTracks = new List<IMediaStreamTrack>();
+            if (null != audioTracks) { foreach (var track in audioTracks) { _mediaTracks.Add(track); } }
+            if (null != videoTracks) { foreach (var track in videoTracks) { _mediaTracks.Add(track); } }
         }
         public IList<MediaAudioTrack> GetAudioTracks()
         {
@@ -28,24 +39,37 @@ namespace OrtcWrapper
 
         public IList<IMediaStreamTrack> GetTracks()
         {
-            return null;
+            return _mediaTracks;
         }
 
         public void RemoveTrack(IMediaStreamTrack track)
         {
-
+            if (track != null)
+            {
+                _mediaTracks.Remove(track);
+                if (track.Kind.Equals("audio"))
+                    _audioTracks.Remove((MediaAudioTrack)track);
+                else
+                    _videoTracks.Remove((MediaVideoTrack)track);
+            }
         }
 
         public void AddAudioTrack(MediaAudioTrack track)
         {
             if (track != null)
+            {
                 _audioTracks.Add(track);
+                _mediaTracks.Add(track);
+            }
         }
 
         public void AddVideoTrack(MediaVideoTrack track)
         {
             if (track != null)
+            {
                 _videoTracks.Add(track);
+                _mediaTracks.Add(track);
+            }
         }
     }
 }
