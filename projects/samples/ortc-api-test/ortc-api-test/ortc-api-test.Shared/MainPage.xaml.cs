@@ -86,7 +86,9 @@ namespace ortc_api_test
 
           RTCCertificate.GenerateCertificate("").AsTask<RTCCertificate>().ContinueWith((cert) => 
           {
-            _dtlsTransport = new RTCDtlsTransport(_iceTransport, cert.Result);
+              List<RTCCertificate> certs = new List<RTCCertificate>();
+              certs.Add(cert.Result);
+              _dtlsTransport = new RTCDtlsTransport(_iceTransport, certs);
               Constraints constraints = new Constraints();
 
               constraints.Audio = new MediaTrackConstraints();
@@ -113,7 +115,9 @@ namespace ortc_api_test
 
           RTCCertificate.GenerateCertificate("").AsTask<RTCCertificate>().ContinueWith((cert) =>
           {
-            _dtlsTransport2 = new RTCDtlsTransport(_iceTransport2, cert.Result);
+              List<RTCCertificate> certs = new List<RTCCertificate>();
+              certs.Add(cert.Result);
+              _dtlsTransport2 = new RTCDtlsTransport(_iceTransport2, certs);
           });
 
             MediaDevices.EnumerateDevices().AsTask().ContinueWith<MediaDeviceInfo>((temp) =>

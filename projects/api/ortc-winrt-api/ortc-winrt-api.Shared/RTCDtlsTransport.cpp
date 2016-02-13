@@ -20,11 +20,11 @@ namespace ortc_winrt_api
   {
   }
 
-  RTCDtlsTransport::RTCDtlsTransport(RTCIceTransport^ transport, RTCCertificate^ certificate) :
+  RTCDtlsTransport::RTCDtlsTransport(RTCIceTransport^ transport, IVector<RTCCertificate^>^ certificates) :
     mNativeDelegatePointer(new RTCDtlsTransportDelegate())
   {
 
-    if (!transport || !certificate)
+    if (!transport || !certificates)
     {
       return;
     }
@@ -32,7 +32,14 @@ namespace ortc_winrt_api
     if (FetchNativePointer::FromIceTransport(transport))
     {
       mNativeDelegatePointer->SetOwnerObject(this);
-      mNativePointer = IDTLSTransport::create(mNativeDelegatePointer, FetchNativePointer::FromIceTransport(transport), FetchNativePointer::FromCertificate(certificate));
+
+      IDTLSTransport::CertificateList coreCertificates;
+      for (RTCCertificate^ cert : certificates)
+      {
+        ICertificatePtr coreCert = FetchNativePointer::FromCertificate(cert);
+        coreCertificates.push_back(coreCert);
+      }
+      mNativePointer = IDTLSTransport::create(mNativeDelegatePointer, FetchNativePointer::FromIceTransport(transport), coreCertificates);
     }
   }
 
@@ -106,15 +113,15 @@ namespace ortc_winrt_api
 
   IVector<RTCCertificate^>^ RTCDtlsTransport::GetCertificates()
   {
-
-#define WRAP_ENTIRE_LIST_OF_CERTIFICATES_ONCE_SUPPORTED_FROM_CORE_IMPLEMENTATION 1
-#define WRAP_ENTIRE_LIST_OF_CERTIFICATES_ONCE_SUPPORTED_FROM_CORE_IMPLEMENTATION 2
-
     auto ret = ref new Vector<RTCCertificate^>();
 
     if (mNativePointer)
     {
-      ret->Append(ConvertObjectToCx::ToCertificate(mNativePointer->certificate()));
+      IDTLSTransport::CertificateListPtr certificates = mNativePointer->certificates();
+      for (IDTLSTransport::CertificateList::iterator it = certificates->begin(); it != certificates->end(); ++it)
+      {
+        ret->Append(ConvertObjectToCx::ToCertificate(*it));
+      }
     }
 
     return ret;
@@ -175,12 +182,28 @@ namespace ortc_winrt_api
     _transport->OnDtlsTransportError(evt);
   }
 
+  IAsyncOperation<RTCCertificate^>^ RTCCertificate::GenerateCertificate() {
+
+    return Concurrency::create_async([]() -> RTCCertificate^ {
+      Concurrency::task_completion_event<RTCCertificate^> tce;
+
+      ICertificate::PromiseWithCertificatePtr promise = ICertificate::generateCertificate();
+      RTCGenerateCertificatePromiseObserverPtr pDelegate(make_shared<RTCGenerateCertificatePromiseObserver>(tce));
+
+      promise->then(pDelegate);
+      promise->background();
+      auto tceTask = Concurrency::task<RTCCertificate^>(tce);
+
+      return tceTask.get();
+    });
+  }
+
   IAsyncOperation<RTCCertificate^>^ RTCCertificate::GenerateCertificate(Platform::String^ algorithmIdentifier) {
 
     return Concurrency::create_async([algorithmIdentifier]() -> RTCCertificate^ {
       Concurrency::task_completion_event<RTCCertificate^> tce;
 
-      ICertificate::PromiseWithCertificatePtr promise = ICertificate::generateCertificate();
+      ICertificate::PromiseWithCertificatePtr promise = ICertificate::generateCertificate(FromCx(algorithmIdentifier).c_str());
       RTCGenerateCertificatePromiseObserverPtr pDelegate(make_shared<RTCGenerateCertificatePromiseObserver>(tce));
 
       promise->then(pDelegate);

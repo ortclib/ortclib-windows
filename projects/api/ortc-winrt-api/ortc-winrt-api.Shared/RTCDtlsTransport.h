@@ -141,6 +141,7 @@ namespace ortc_winrt_api
     friend class FetchNativePointer;
     friend class ConvertObjectToCx;
   public:
+    static IAsyncOperation<RTCCertificate^>^ GenerateCertificate();
     static IAsyncOperation<RTCCertificate^>^ GenerateCertificate(Platform::String^ algorithmIdentifier);
   private:
 
@@ -158,7 +159,7 @@ namespace ortc_winrt_api
   private:
     RTCDtlsTransport();
   public:
-    RTCDtlsTransport(RTCIceTransport^ transport, RTCCertificate^ certificate);
+    RTCDtlsTransport(RTCIceTransport^ transport, IVector<RTCCertificate^>^ certificates);
 
     RTCDtlsParameters^      GetLocalParameters();
     RTCDtlsParameters^      GetRemoteParameters();
