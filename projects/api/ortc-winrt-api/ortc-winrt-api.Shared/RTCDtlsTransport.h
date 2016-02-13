@@ -2,7 +2,6 @@
 
 #include <ortc/IDTLSTransport.h>
 #include <ortc/ICertificate.h>
-
 #include <collection.h>
 #include "RTCIceTransport.h"
 
@@ -147,6 +146,33 @@ namespace ortc_winrt_api
 
     ICertificatePtr mNativePointer;
     ICertificateTypes::PromiseWithCertificatePtr mCertificatePromise;
+
+  private:
+    Windows::Foundation::DateTime GetExpires();
+    RTCDtlsFingerprint^ GetFingerprint();
+
+  public:
+    property Windows::Foundation::DateTime Expires
+    {
+      Windows::Foundation::DateTime get()
+      {
+        if (mNativePointer)
+          return GetExpires();
+        else
+          return Windows::Foundation::DateTime();
+      }
+    }
+
+    property RTCDtlsFingerprint^ Fingerprint
+    {
+      RTCDtlsFingerprint^ get()
+      {
+        if (mNativePointer)
+          return GetFingerprint();
+        else
+          return nullptr;
+      }
+    }
   };
 
   ZS_DECLARE_CLASS_PTR(RTCDtlsTransportDelegate)
