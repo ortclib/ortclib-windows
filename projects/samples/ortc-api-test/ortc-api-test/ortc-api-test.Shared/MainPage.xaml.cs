@@ -115,7 +115,7 @@ namespace ortc_api_test
 
           RTCCertificate.GenerateCertificate("").AsTask<RTCCertificate>().ContinueWith((cert) =>
           {
-              List<RTCCertificate> certs = new List<RTCCertificate>();
+              var certs = new List<RTCCertificate>();
               certs.Add(cert.Result);
               _dtlsTransport2 = new RTCDtlsTransport(_iceTransport2, certs);
           });

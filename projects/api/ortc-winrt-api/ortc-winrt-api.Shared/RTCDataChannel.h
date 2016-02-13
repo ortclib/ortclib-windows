@@ -18,18 +18,22 @@ namespace ortc_winrt_api
     virtual void onDataChannelStateChanged(
       IDataChannelPtr channel,
       States state
-      );
+      ) override;
 
     virtual void onDataChannelError(
       IDataChannelPtr channel,
       ErrorCode errorCode,
       zsLib::String errorReason
-      );
+      ) override;
+
+    virtual void onDataChannelBufferedAmountLow(
+      IDataChannelPtr channel
+      ) override;
 
     virtual void onDataChannelMessage(
       IDataChannelPtr channel,
       MessageEventDataPtr data
-      );
+      ) override;
 
     RTCDataChannel^ _channel;
 
@@ -109,20 +113,28 @@ namespace ortc_winrt_api
 
   public delegate void RTCDataChannelErrorDelegate(RTCDataChannelErrorEvent^ evt);
 
-  // Message event data event and delegate
-  public ref class RTCMessageEventDataEvent sealed {
+  // Buffered amount low event data event and delegate
+  public ref class RTCDataChannelBufferedAmountLowEvent sealed {
   public:
-    property RTCMessageEventData^ MessageData
+  private:
+  };
+
+  public delegate void RTCDataChannelBufferedAmountLowDelegate(RTCDataChannelBufferedAmountLowEvent^ evt);
+
+  // Message event data event and delegate
+  public ref class RTCMessageEvent sealed {
+  public:
+    property RTCMessageEventData^ Data
     {
-      RTCMessageEventData^  get(){ return m_dataEvent; }
-      void  set(RTCMessageEventData^ value){ m_dataEvent = value; }
+      RTCMessageEventData^  get(){ return m_data; }
+      void  set(RTCMessageEventData^ value){ m_data = value; }
     }
 
   private:
-    RTCMessageEventData^ m_dataEvent;
+    RTCMessageEventData^ m_data;
   };
 
-  public delegate void RTCDataChannelMessageEventDataDelegate(RTCMessageEventDataEvent^ evt);
+  public delegate void RTCDataChannelMessageEventDataDelegate(RTCMessageEvent^ evt);
   //------------------------------------------
   // End Events and Delegates
   //------------------------------------------
@@ -162,10 +174,8 @@ namespace ortc_winrt_api
     {
       RTCSctpTransport^ get()
       {
-        if (mNativePointer)
-          return GetSctpTransport();
-        else
-          return nullptr;
+        if (mNativePointer) return GetSctpTransport();
+        return nullptr;
       }
     }
 
@@ -173,10 +183,8 @@ namespace ortc_winrt_api
     {
       RTCDataChannelParameters^ get()
       {
-        if (mNativePointer)
-          return GetParameters();
-        else
-          return nullptr;
+        if (mNativePointer) return GetParameters();
+        return nullptr;
       }
     }
 
@@ -189,25 +197,22 @@ namespace ortc_winrt_api
     {
       uint64 get()
       {
-        if (mNativePointer)
-          return mNativePointer->bufferedAmount();
-        else
-          return -1;
+        if (mNativePointer) return mNativePointer->bufferedAmount();
+        return 0;
       }
     }
 
     property uint64 BufferedAmountLowThreshold
     {
-#define ORTC_CORE_IMPLEMENTATION_NOT_SUPPORTED_IN_THIS_VERSION 1
-#define ORTC_CORE_IMPLEMENTATION_NOT_SUPPORTED_IN_THIS_VERSION 2
       uint64 get()
       {
-          return -1;
+        if (mNativePointer) return mNativePointer->bufferedAmountLowThreshold();
+        return 0;
       }
 
       void set(uint64 threshold)
       {
-        return;
+        if (mNativePointer) mNativePointer->bufferedAmountLowThreshold(static_cast<size_t>(threshold));
       }
     }
 
@@ -215,18 +220,14 @@ namespace ortc_winrt_api
     {
       Platform::String^ get()
       {
-        if (mNativePointer)
-          return GetBinaryType();
-        else
-          return nullptr;
+        if (mNativePointer) return GetBinaryType();
+        return nullptr;
       }
 
       void set(Platform::String^ binaryType)
       {
-        if (mNativePointer)
-          return SetBinaryType(binaryType);
-        else
-          return;
+        if (mNativePointer) return SetBinaryType(binaryType);
+        return;
       }
     }
 
@@ -234,6 +235,7 @@ namespace ortc_winrt_api
 
     event RTCDataChannelStateChangedDelegate^            OnDataChannelStateChanged;
     event RTCDataChannelErrorDelegate^                   OnDataChannelError;
+    event RTCDataChannelBufferedAmountLowDelegate^       OnDataChannelBufferedAmountLow;
     event RTCDataChannelMessageEventDataDelegate^        OnDataChannelMessage;
   };
 

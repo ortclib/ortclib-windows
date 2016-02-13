@@ -110,14 +110,22 @@ namespace ortc_winrt_api
     _channel->OnDataChannelError(evt);
   }
 
+  void RTCDataChannelDelegate::onDataChannelBufferedAmountLow(
+    IDataChannelPtr channel
+    )
+  {
+    auto evt = ref new RTCDataChannelBufferedAmountLowEvent();
+    _channel->OnDataChannelBufferedAmountLow(evt);
+  }
+
   void RTCDataChannelDelegate::onDataChannelMessage(
     IDataChannelPtr channel,
     MessageEventDataPtr data
     )
   {
-    auto evt = ref new RTCMessageEventDataEvent();
-    evt->MessageData->Binary = ref new Array<byte>(data->mBinary->BytePtr(), data->mBinary->SizeInBytes());
-    evt->MessageData->Text = ToCx(data->mText);
+    auto evt = ref new RTCMessageEvent();
+    evt->Data->Binary = ref new Array<byte>(data->mBinary->BytePtr(), data->mBinary->SizeInBytes());
+    evt->Data->Text = ToCx(data->mText);
     _channel->OnDataChannelMessage(evt);
   }
 
