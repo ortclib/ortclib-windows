@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ortc_winrt_api;
 using Log = ortc_winrt_api.Log;
+using Windows.Foundation;
 
 namespace OrtcWrapper
 {
@@ -16,6 +17,7 @@ namespace OrtcWrapper
 
         private RTCIceTransport iceTransport { get; set; }
 
+        private MediaStream _localStream;
         static public void SetPreferredVideoCaptureFormat(int frame_width,
                                             int frame_height, int fps)
         {
@@ -107,7 +109,7 @@ namespace OrtcWrapper
         /// <param name="stream"><see cref="MediaStream"/> to be added.</param>
         public void AddStream(MediaStream stream)
         {
-
+            _localStream = stream;
         }
 
         public void Close()
@@ -188,7 +190,7 @@ namespace OrtcWrapper
 
             return sb.ToString();
         }
-        public async Task<RTCSessionDescription> CreateOffer()
+        public IAsyncOperation<RTCSessionDescription> CreateOffer()
         {
             Task<RTCSessionDescription> ret = Task.Run<RTCSessionDescription>(() =>
             {
@@ -197,7 +199,7 @@ namespace OrtcWrapper
                 return sd;
             });
 
-            return null;
+            return ret.AsAsyncOperation<RTCSessionDescription>();
         }
         public Task SetLocalDescription(RTCSessionDescription description) //async
         {

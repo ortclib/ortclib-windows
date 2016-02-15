@@ -184,7 +184,8 @@ namespace OrtcWrapper
             var found = findTrack(tracks, device);
             if (null == found) return existingList;
             if (null == existingList) existingList = new List<MediaAudioTrack>();
-            existingList.Add(new MediaAudioTrack(found.Id, found.Enabled));
+            //existingList.Add(new MediaAudioTrack(found.Id, found.Enabled));
+            existingList.Add(new MediaAudioTrack(found));
             return existingList;
         }
         public static List<MediaVideoTrack> InsertVideoIfValid(
@@ -201,7 +202,8 @@ namespace OrtcWrapper
             var found = findTrack(tracks, device);
             if (null == found) return existingList;
             if (null == existingList) existingList = new List<MediaVideoTrack>();
-            existingList.Add(new MediaVideoTrack(found.Id,found.Enabled));
+            //existingList.Add(new MediaVideoTrack(found.Id,found.Enabled));
+            existingList.Add(new MediaVideoTrack(found));
             return existingList;
         }
         public static RTCIceCandidate ToWrapperIceCandidate(ortc_winrt_api.RTCIceCandidate iceCandidate, int sdpComponentId)

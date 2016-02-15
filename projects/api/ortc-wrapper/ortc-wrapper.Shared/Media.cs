@@ -60,27 +60,7 @@ namespace OrtcWrapper
 
             return t.AsAsyncOperation<MediaDeviceInfo>();
         }
-
-        public IAsyncOperation<MediaStream> GetUserMedia2(RTCMediaStreamConstraints mediaStreamConstraints)
-        {
-            MediaDevice audioCaptureDevice = null;
-            MediaDevice videoDevice = null;
-
-            return Task.Run<MediaStream>(async () =>
-            {
-                var constraints = Helper.MakeConstraints(mediaStreamConstraints.audioEnabled, null, MediaDeviceKind.AudioInput, audioCaptureDevice);
-                constraints = Helper.MakeConstraints(mediaStreamConstraints.videoEnabled, constraints, MediaDeviceKind.Video, videoDevice);
-
-                if (null == constraints) { return new MediaStream(); }
-
-                var tracks = await MediaDevices.GetUserMedia(constraints);
-
-                var audioTracks = Helper.InsertAudioIfValid(mediaStreamConstraints.audioEnabled, null, tracks, audioCaptureDevice);
-                var videoTracks = Helper.InsertVideoIfValid(mediaStreamConstraints.videoEnabled, null, tracks, videoDevice);
-                            
-                return new MediaStream(audioTracks, videoTracks);
-            }).AsAsyncOperation();
-        }
+        
         public IAsyncOperation<MediaStream> GetUserMedia(RTCMediaStreamConstraints mediaStreamConstraints)
         {
             Task<MediaStream> t = Task.Run<MediaStream>(() =>
@@ -98,7 +78,7 @@ namespace OrtcWrapper
                     var audioTracks = Helper.InsertAudioIfValid(mediaStreamConstraints.audioEnabled, null, temp.Result, _audioCaptureDevice);
                     var videoTracks = Helper.InsertVideoIfValid(mediaStreamConstraints.videoEnabled, null, temp.Result, _videoDevice);
                     return new MediaStream(audioTracks, videoTracks);
-                    MediaStream stream = new MediaStream();
+                    /*MediaStream stream = new MediaStream();
                     List<MediaStreamTrack> test = new List<MediaStreamTrack>(temp.Result);
                     
                     foreach (MediaStreamTrack track in test)
@@ -115,7 +95,7 @@ namespace OrtcWrapper
                         }
                     }
                     
-                    return stream;
+                    return stream;*/
                 });
             });
 
@@ -123,11 +103,12 @@ namespace OrtcWrapper
         }
 
 
-
-
         public IMediaSource CreateMediaStreamSource(MediaVideoTrack track, uint framerate, string id)
         {
-            return null;
+            var useTrack = track.Track;
+            if (null == useTrack) return null;
+
+            return useTrack.CreateMediaSource();
         }
         public IAsyncOperation<bool> EnumerateAudioVideoCaptureDevices()
         {
