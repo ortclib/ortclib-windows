@@ -170,6 +170,15 @@ namespace OrtcWrapper
             return null;
         }
 
+        public static MediaStreamTrack findTrack(
+            IList<MediaStreamTrack> tracks,
+            MediaStreamTrackKind kind
+            )
+        {
+            //if (null == device) return null;
+            foreach (var track in tracks) { if (track.Kind == kind) return track; }
+            return null;
+        }
         public static List<MediaAudioTrack> InsertAudioIfValid(
             bool shouldDoThis,
             List<MediaAudioTrack> existingList,
@@ -181,7 +190,7 @@ namespace OrtcWrapper
             if (null == device) return existingList;
             if (null == tracks) return existingList;
 
-            var found = findTrack(tracks, device);
+            var found = findTrack(tracks, MediaStreamTrackKind.Audio);
             if (null == found) return existingList;
             if (null == existingList) existingList = new List<MediaAudioTrack>();
             //existingList.Add(new MediaAudioTrack(found.Id, found.Enabled));
@@ -199,7 +208,7 @@ namespace OrtcWrapper
             if (null == device) return existingList;
             if (null == tracks) return existingList;
 
-            var found = findTrack(tracks, device);
+            var found = findTrack(tracks, MediaStreamTrackKind.Video);
             if (null == found) return existingList;
             if (null == existingList) existingList = new List<MediaVideoTrack>();
             //existingList.Add(new MediaVideoTrack(found.Id,found.Enabled));
