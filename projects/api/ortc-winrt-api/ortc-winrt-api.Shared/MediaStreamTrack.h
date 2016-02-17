@@ -8,6 +8,7 @@ using namespace ortc;
 using Windows::Foundation::IAsyncAction;
 using Windows::Foundation::Collections::IVector;
 using Windows::Media::Core::IMediaSource;
+using Platform::Collections::Vector;
 
 namespace ortc_winrt_api
 {
@@ -59,6 +60,9 @@ namespace ortc_winrt_api
   public ref class MediaTrackConstraints sealed
   {
   public:
+    MediaTrackConstraints() {
+      Advanced = ref new Vector<MediaTrackConstraintSet^>();
+    };
     property IVector<MediaTrackConstraintSet^>^ Advanced;
   };
   public ref class MediaTrackSettings sealed

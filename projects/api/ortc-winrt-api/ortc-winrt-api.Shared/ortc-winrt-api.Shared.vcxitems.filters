@@ -23,6 +23,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)WebRtcMediaSource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)WebRtcMediaStream.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MediaSourceHelper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTMediaStreamSource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)pch.cpp">
@@ -48,5 +49,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)WebRtcMediaSource.cc" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WebRtcMediaStream.cc" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MediaSourceHelper.cc" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RTMediaStreamSource.cc" />
   </ItemGroup>
 </Project>

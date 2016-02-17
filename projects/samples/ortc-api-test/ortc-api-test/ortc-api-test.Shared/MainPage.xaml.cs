@@ -84,8 +84,9 @@ namespace ortc_api_test
           _iceTransport2.OnICETransportCandidatePairGone += RTCIceTransport_onICETransportCandidatePairGone2;
           _iceTransport2.OnICETransportCandidatePairChanged += RTCIceTransport_onICETransportCandidatePairChanged2;
 
-          RTCCertificate.GenerateCertificate("").AsTask<RTCCertificate>().ContinueWith((cert) => 
+          RTCCertificate.GenerateCertificate().AsTask<RTCCertificate>().ContinueWith((cert) => 
           {
+              String str = cert.Result.Expires.ToString(); 
               List<RTCCertificate> certs = new List<RTCCertificate>();
               certs.Add(cert.Result);
               _dtlsTransport = new RTCDtlsTransport(_iceTransport, certs);
@@ -113,7 +114,7 @@ namespace ortc_api_test
               });
           });
 
-          RTCCertificate.GenerateCertificate("").AsTask<RTCCertificate>().ContinueWith((cert) =>
+          RTCCertificate.GenerateCertificate().AsTask<RTCCertificate>().ContinueWith((cert) =>
           {
               var certs = new List<RTCCertificate>();
               certs.Add(cert.Result);

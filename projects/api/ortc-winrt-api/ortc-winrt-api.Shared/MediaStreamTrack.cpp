@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "WebRtcMediaSource.h"
+#include "RTMediaStreamSource.h"
 #include <windows.media.h>
 #include <windows.media.core.h>
 #include "MediaStreamTrack.h"
@@ -147,12 +148,19 @@ namespace ortc_winrt_api
     //  IMediaSource^ source = reinterpret_cast<IMediaSource^>(comSource.Get());
     //  return source;
     //});
+
+#ifdef USE_NEW_RENDERER
     Platform::String^ id = "stream";
 
     ComPtr<ABI::Windows::Media::Core::IMediaSource> comSource;
     WebRtcMediaSource::CreateMediaSource(&comSource, this, id);
     IMediaSource^ source = reinterpret_cast<IMediaSource^>(comSource.Get());
     return source;
+#else
+    Platform::String^ id = "stream";
+    uint32 framerate = 30;
+    return RTMediaStreamSource::CreateMediaSource(this, framerate, id);
+#endif
   }
 
   IAsyncAction^ MediaStreamTrack::ApplyConstraints(MediaTrackConstraints^ constraints)
