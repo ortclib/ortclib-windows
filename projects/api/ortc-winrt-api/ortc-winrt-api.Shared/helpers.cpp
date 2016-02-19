@@ -510,7 +510,7 @@ namespace ortc_winrt_api
     ret->Name = ToCx(codecCapabilityPtr->mName);
     ret->Kind = ToCx(codecCapabilityPtr->mKind);
     ret->ClockRate = codecCapabilityPtr->mClockRate;
-    //ret->preferredPayloadType = codecCapabilityPtr->mPreferredPayloadType;
+    ret->PreferredPayloadType = codecCapabilityPtr->mPreferredPayloadType;
     ret->Maxptime = codecCapabilityPtr->mMaxPTime;
     ret->NumChannels = codecCapabilityPtr->mNumChannels;
 
