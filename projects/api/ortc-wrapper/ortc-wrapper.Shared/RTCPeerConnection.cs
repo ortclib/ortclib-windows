@@ -222,7 +222,7 @@ namespace OrtcWrapper
 
         private UInt64 sessionID { get; set; }
         private UInt16 sessionVersion { get; set; }
-        private string streamID { get; set; }
+        //private string streamID { get; set; }
         string createSDP()
         {
             StringBuilder sb = new StringBuilder();
@@ -238,7 +238,7 @@ namespace OrtcWrapper
 
             //o=- 1045717134763489491 2 IN IP4 127.0.0.1
             sb.Append("o=");
-            sb.Append(sessionID);
+            sb.Append(_localStream.Id);
             sb.Append(' ');
             sb.Append(sessionVersion);
             sb.Append(' ');
@@ -369,34 +369,52 @@ namespace OrtcWrapper
                 sb.Append("\r\n");
 
                 //a = extmap:1 urn:ietf:params:rtp-hdrext:ssrc-audio-level
-                sb.Append("a=extmap:1 urn:ietf:params:rtp-hdrext:ssrc-audio-level");
-                sb.Append("\r\n");
                 //a = extmap:3 http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time
-                sb.Append("a=extmap:3 http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time");
-                sb.Append("\r\n");
 
+                foreach (RTCRtpHeaderExtension extension in audioCapabilities.HeaderExtensions)
+                {
+                    sb.Append("a=extmap:");
+                    sb.Append(extension.PreferredId);
+                    sb.Append(' ');
+                    sb.Append(extension.Uri);
+                    sb.Append("\r\n");
+                }
                 //a=sendrecv
-                sb.Append("a=sendrecv");
+                sb.Append("a=sendrecv");    //WARNING - THIS IS HARDCODED, IS SHOULD BE HANDLED PROPERLY
                 sb.Append("\r\n");
 
                 //a=rtcp-mux
-                sb.Append("a=rtcp-mux");
+                sb.Append("a=rtcp-mux");    //WARNING - THIS IS HARDCODED, IS SHOULD BE HANDLED PROPERLY
                 sb.Append("\r\n");
 
+                uint maxPTime = 0;
                 //a=rtpmap:111 opus/48000/2
                 if (audioCapabilities != null)
                 {
-                    sb.Append("a=rtpmap:111");
-                    sb.Append(' ');
                     foreach (RTCRtpCodecCapability cap in audioCapabilities.Codecs)
                     {
+                        if (maxPTime == 0)
+                            maxPTime = cap.Maxptime;
+                        else
+                            maxPTime = maxPTime > cap.Maxptime ? cap.Maxptime : maxPTime;
+
+                        sb.Append("a=rtpmap:");
+                        sb.Append(cap.PreferredPayloadType);
+                        sb.Append(' ');
                         sb.Append(cap.Name);
                         sb.Append('/');
                         sb.Append(cap.ClockRate);
                         sb.Append('/');
                         sb.Append(cap.NumChannels);
                         sb.Append("\r\n");
+                        //a=fmtp:111 minptime=10; useinbandfec=1
+                        //WARNING - THIS SHOULD BE HANDLED BUT MINPITME AND USEINBANDFEC ARE MISSING 
                     }
+                    maxPTime = maxPTime == 0 ? 120 : maxPTime;
+                    //a=maxptime:60
+                    sb.Append("a=maxptime:");
+                    sb.Append(maxPTime);
+                    sb.Append("\r\n");
                 }
             }
             return sb.ToString();

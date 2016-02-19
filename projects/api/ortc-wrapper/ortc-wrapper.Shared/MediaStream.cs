@@ -12,15 +12,19 @@ namespace OrtcWrapper
         IList<MediaVideoTrack> _videoTracks;
         IList<IMediaStreamTrack> _mediaTracks;
 
+        public string Id { get; set; }
+
         public MediaStream()
         {
             _audioTracks = new List<MediaAudioTrack>();
             _videoTracks = new List<MediaVideoTrack>();
             _mediaTracks = new List<IMediaStreamTrack>();
+            Id = Guid.NewGuid().ToString();
         }
 
         public MediaStream(List<MediaAudioTrack> audioTracks, List<MediaVideoTrack> videoTracks)
         {
+            Id = Guid.NewGuid().ToString();
             _audioTracks = audioTracks;
             _videoTracks = videoTracks;
             _mediaTracks = new List<IMediaStreamTrack>();
