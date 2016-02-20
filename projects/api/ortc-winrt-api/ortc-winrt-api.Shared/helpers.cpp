@@ -418,6 +418,8 @@ namespace ortc_winrt_api
 #pragma endregion
   } // namespace internal
 
+#pragma region Basic types
+
   std::string FromCx(Platform::String^ inObj) {
     if (nullptr == inObj) return std::string();
     return rtc::ToUtf8(inObj->Data());
@@ -426,6 +428,8 @@ namespace ortc_winrt_api
   Platform::String^ ToCx(const std::string &inObj) {
     return ref new Platform::String(rtc::ToUtf16(inObj).c_str());
   }
+
+#pragma endregion
 
 #pragma region Optional
 
@@ -557,130 +561,297 @@ namespace ortc_winrt_api
 
 #pragma endregion
 
+#pragma region IceTypes
 
-  IICETypes::Parameters FromCx(RTCIceParameters^ params)
+  RTCIceParameters^ ToCx(const IICETypes::Parameters &input)
   {
-    IICETypes::Parameters ret;
-    ret.mUsernameFragment = FromCx(params->UsernameFragment);
-    ret.mPassword = FromCx(params->Password);
-    return ret;
+    auto result = ref new RTCIceParameters();
+    result->UseCandidateFreezePriority = input.mUseCandidateFreezePriority;
+    result->UsernameFragment = ToCx(input.mUsernameFragment);
+    result->Password = ToCx(input.mPassword);
+    result->IceLite = input.mICELite;
+    return result;
   }
 
-
-  IICETypes::Candidate FromCx(RTCIceCandidate^ candidate)
+  RTCIceParameters^ ToCx(IICETypes::ParametersPtr input)
   {
-    IICETypes::Candidate ret;
-
-    ret.mCandidateType = (IICETypes::CandidateTypes)candidate->CandidateType;
-    ret.mFoundation = FromCx(candidate->Foundation);
-    ret.mInterfaceType = FromCx(candidate->InterfaceType);
-    ret.mIP = FromCx(candidate->Ip);
-    ret.mPort = candidate->Port;
-    ret.mPriority = candidate->Priority;
-    ret.mProtocol = (IICETypes::Protocols)candidate->Protocol;
-    ret.mRelatedAddress = FromCx(candidate->RelatedAddress);
-    ret.mRelatedPort = candidate->RelatedPort;
-    ret.mTCPType = (IICETypes::TCPCandidateTypes)candidate->TcpType;
-    ret.mUnfreezePriority = candidate->UnfreezePriority;
-
-    return ret;
+    if (!input) return nullptr;
+    return ToCx(*input);
   }
 
-  RTCIceCandidate^ ToCx(IICETypes::CandidatePtr candidate)
+  IICETypes::ParametersPtr FromCx(RTCIceParameters^ input)
   {
-    RTCIceCandidate^ ret = ref new RTCIceCandidate();
-
-    ret->CandidateType = (RTCIceCandidateType)candidate->mCandidateType;
-    ret->Foundation = ToCx(candidate->mFoundation);
-    ret->InterfaceType = ToCx(candidate->mInterfaceType);
-    ret->Ip = ToCx(candidate->mIP);
-    ret->Port = candidate->mPort;
-    ret->Priority = candidate->mPriority;
-    ret->Protocol = (RTCIceProtocol)candidate->mProtocol;
-    ret->RelatedAddress = ToCx(candidate->mRelatedAddress);
-    ret->RelatedPort = candidate->mRelatedPort;
-    ret->TcpType = (RTCIceTcpCandidateType)candidate->mTCPType;
-    ret->UnfreezePriority = candidate->mUnfreezePriority;
-
-    return ret;
+    if (nullptr == input) return IICETypes::ParametersPtr();
+    auto result = make_shared<IICETypes::Parameters>();
+    result->mUseCandidateFreezePriority = input->UseCandidateFreezePriority;
+    result->mUsernameFragment = FromCx(input->UsernameFragment);
+    result->mPassword = FromCx(input->Password);
+    result->mICELite = input->IceLite;
+    return result;
   }
 
-  IICEGatherer::Options FromCx(RTCIceGatherOptions^ options)
+  RTCIceCandidate^ ToCx(const IICETypes::Candidate &input)
   {
-    IICEGatherer::Options ret;
+    auto result = ref new RTCIceCandidate();
 
-    if (options)
+    result->InterfaceType = ToCx(input.mInterfaceType);
+    result->Foundation = ToCx(input.mFoundation);
+    result->Priority = SafeInt<uint32>(input.mPriority);
+    result->UnfreezePriority = SafeInt<uint32>(input.mUnfreezePriority);
+    result->Protocol = internal::ConvertEnums::convert(input.mProtocol);
+    result->Ip = ToCx(input.mIP);
+    result->Port = SafeInt<uint16>(input.mPort);
+    result->CandidateType = internal::ConvertEnums::convert(input.mCandidateType);
+    result->TcpType = internal::ConvertEnums::convert(input.mTCPType);
+    result->RelatedAddress = ToCx(input.mRelatedAddress);
+    result->RelatedPort = input.mRelatedPort;
+
+    return result;
+  }
+
+  RTCIceCandidate^ ToCx(IICETypes::CandidatePtr input)
+  {
+    if (!input) return nullptr;
+    return ToCx(*input);
+  }
+
+  IICETypes::CandidatePtr FromCx(RTCIceCandidate^ input)
+  {
+    if (nullptr == input) return IICETypes::CandidatePtr();
+    auto result = make_shared<IICETypes::Candidate>();
+
+    result->mInterfaceType = FromCx(input->InterfaceType);
+    result->mFoundation = FromCx(input->Foundation);
+    result->mPriority = SafeInt<uint32>(input->Priority);
+    result->mUnfreezePriority = SafeInt<uint32>(input->UnfreezePriority);
+    result->mProtocol = internal::ConvertEnums::convert(input->Protocol);
+    result->mIP = FromCx(input->Ip);
+    result->mPort = SafeInt<uint16>(input->Port);
+    result->mCandidateType = internal::ConvertEnums::convert(input->CandidateType);
+    result->mTCPType = internal::ConvertEnums::convert(input->TcpType);
+    result->mRelatedAddress = FromCx(input->RelatedAddress);
+    result->mRelatedPort = input->RelatedPort;
+
+    return result;
+  }
+
+#pragma endregion
+
+#pragma region IceGatherer
+
+  RTCIceInterfacePolicy^ ToCx(const IICEGatherer::InterfacePolicy &input)
+  {
+    auto result = ref new RTCIceInterfacePolicy();
+    result->InterfaceType = ToCx(input.mInterfaceType);
+    result->GatherPolicy = internal::ConvertEnums::convert(input.mGatherPolicy);
+    return result;
+  }
+
+  RTCIceInterfacePolicy^ ToCx(IICEGatherer::InterfacePolicyPtr input)
+  {
+    if (!input) return nullptr;
+    return ToCx(*input);
+  }
+
+  IICEGatherer::InterfacePolicyPtr FromCx(RTCIceInterfacePolicy^ input)
+  {
+    if (nullptr == input) return IICEGatherer::InterfacePolicyPtr();
+    auto result = make_shared<IICEGatherer::InterfacePolicy>();
+    result->mInterfaceType = FromCx(input->InterfaceType);
+    result->mGatherPolicy = internal::ConvertEnums::convert(input->GatherPolicy);
+    return result;
+  }
+
+  RTCIceServer^ ToCx(const IICEGatherer::Server &input)
+  {
+    auto result = ref new RTCIceServer();
+
+    if (input.mURLs.size() > 0)
     {
-      IICEGatherer::InterfacePolicy interfacePolicy;
-      interfacePolicy.mGatherPolicy = (IICEGatherer::FilterPolicies)options->GatherPolicy;
-      ret.mInterfacePolicies.push_back(interfacePolicy);
-
-      if (options->IceServers->Size > 0)
+      result->Urls = ref new Vector<Platform::String^>();
+      for (auto iter = input.mURLs.begin(); iter != input.mURLs.end(); ++iter)
       {
-        for (RTCIceServer^ srv : options->IceServers)
-        {
-          IICEGatherer::Server server;
-          server.mUserName = FromCx(srv->UserName);
-          server.mCredential = FromCx(srv->Credential);
-          server.mCredentialType = internal::ConvertEnums::convert(srv->CredentialType);
-          if (srv->URLs->Size > 0)
-          {
-            for (Platform::String^ url : srv->URLs)
-            {
-              server.mURLs.push_back(FromCx(url));
-            }
-          }
-          ret.mICEServers.push_back(server);
-        }
-
+        auto &value = (*iter);
+        result->Urls->Append(ToCx(value));
       }
     }
-    return ret;
+    result->UserName = ToCx(input.mUserName);
+    result->Credential = ToCx(input.mCredential);
+    result->CredentialType = internal::ConvertEnums::convert(input.mCredentialType);
+    return result;
   }
 
-  IDTLSTransportTypes::Parameters FromCx(RTCDtlsParameters^ parameters)
+  RTCIceServer^ ToCx(IICEGatherer::ServerPtr input)
   {
-    IDTLSTransportTypes::Parameters ret;
+    if (!input) return nullptr;
+    return ToCx(*input);
+  }
 
-    if (parameters)
+  IICEGatherer::ServerPtr FromCx(RTCIceServer^ input)
+  {
+    if (nullptr == input) return IICEGatherer::ServerPtr();
+    auto result = make_shared<IICEGatherer::Server>();
+    if (input->Urls)
     {
-      if (parameters->Fingerprints->Size > 0)
+      for (Platform::String^ value : input->Urls)
       {
-        for (RTCDtlsFingerprint^ fingerprint : parameters->Fingerprints)
-        {
-          ICertificate::Fingerprint fing;
-          fing.mAlgorithm = FromCx(fingerprint->Algorithm);
-          fing.mValue = FromCx(fingerprint->Value);
-          ret.mFingerprints.push_back(fing);
-        }
-
-        ret.mRole = (IDTLSTransportTypes::Roles)parameters->Role;
+        result->mURLs.push_front(FromCx(value));
       }
     }
-    return ret;
+    result->mUserName = FromCx(input->UserName);
+    result->mCredential = FromCx(input->Credential);
+    result->mCredentialType = internal::ConvertEnums::convert(input->CredentialType);
+    return result;
   }
 
-  RTCDtlsParameters^ ToCx(IDTLSTransportTypes::ParametersPtr parameters)
+  RTCIceGatherOptions^ ToCx(const IICEGatherer::Options &input)
   {
-    auto ret = ref new RTCDtlsParameters();
-
-    if (parameters)
+    auto result = ref new RTCIceGatherOptions();
+    result->ContinuousGathering = input.mContinuousGathering;
+    if (input.mInterfacePolicies.size() > 0)
     {
-      RTCDtlsFingerprint^ fingerprint = ref new RTCDtlsFingerprint();
-      ret->Fingerprints = ref new Vector<RTCDtlsFingerprint^>();
-      for (ICertificateTypes::FingerprintList::iterator it = parameters->mFingerprints.begin(); it != parameters->mFingerprints.end(); ++it)
+      result->InterfacePolicies = ref new Vector<RTCIceInterfacePolicy^>();
+      for (auto iter = input.mInterfacePolicies.begin(); iter != input.mInterfacePolicies.end(); ++iter)
       {
-        fingerprint->Algorithm = ToCx((*it).mAlgorithm);
-        fingerprint->Value = ToCx((*it).mValue);
-        ret->Fingerprints->Append(fingerprint);
+        auto &value = (*iter);
+        result->InterfacePolicies->Append(ToCx(value));
       }
-
-      ret->Role = (RTCDtlsRole)parameters->mRole;
     }
-
-    return ret;
+    if (input.mICEServers.size() > 0)
+    {
+      result->IceServers = ref new Vector<RTCIceServer^>();
+      for (auto iter = input.mICEServers.begin(); iter != input.mICEServers.end(); ++iter)
+      {
+        auto &value = (*iter);
+        result->IceServers->Append(ToCx(value));
+      }
+    }
+    return result;
   }
 
+  RTCIceGatherOptions^ ToCx(IICEGatherer::OptionsPtr input)
+  {
+    if (!input) return nullptr;
+    return ToCx(*input);
+  }
+
+  IICEGatherer::OptionsPtr FromCx(RTCIceGatherOptions^ input)
+  {
+    if (nullptr == input) return IICEGatherer::OptionsPtr();
+    auto result = make_shared<IICEGatherer::Options>();
+    result->mContinuousGathering = input->ContinuousGathering;
+    if (input->InterfacePolicies)
+    {
+      for (RTCIceInterfacePolicy^ value : input->InterfacePolicies)
+      {
+        if (nullptr == value) continue;
+        result->mInterfacePolicies.push_front(*FromCx(value));
+      }
+    }
+    if (input->IceServers)
+    {
+      for (RTCIceServer^ value : input->IceServers)
+      {
+        if (nullptr == value) continue;
+        result->mICEServers.push_front(*FromCx(value));
+      }
+    }
+    return result;
+  }
+
+#pragma endregion
+
+#pragma region IceTransport
+
+  RTCIceCandidatePair^ ToCx(const IICETransport::CandidatePair &input)
+  {
+    auto result = ref new RTCIceCandidatePair();
+    result->Local = ToCx(input.mLocal);
+    result->Remote = ToCx(input.mRemote);
+    return result;
+  }
+
+  RTCIceCandidatePair^ ToCx(IICETransport::CandidatePairPtr input)
+  {
+    if (!input) return nullptr;
+    return ToCx(*input);
+  }
+
+  IICETransport::CandidatePairPtr FromCx(RTCIceCandidatePair^ input)
+  {
+    if (nullptr == input) return IICETransport::CandidatePairPtr();
+    auto result = make_shared<IICETransport::CandidatePair>();
+    result->mLocal = FromCx(input->Local);
+    result->mRemote = FromCx(input->Remote);
+    return result;
+  }
+
+#pragma endregion
+
+#pragma region DtlsTransport
+
+  RTCDtlsFingerprint^ ToCx(const ICertificateTypes::Fingerprint &input)
+  {
+    auto result = ref new RTCDtlsFingerprint();
+    result->Algorithm = ToCx(input.mAlgorithm);
+    result->Value = ToCx(input.mValue);
+    return result;
+  }
+
+  RTCDtlsFingerprint^ ToCx(ICertificateTypes::FingerprintPtr input)
+  {
+    if (!input) return nullptr;
+    return ToCx(*input);
+  }
+
+  ICertificateTypes::FingerprintPtr FromCx(RTCDtlsFingerprint^ input)
+  {
+    if (nullptr == input) return ICertificateTypes::FingerprintPtr();
+    auto result = make_shared<ICertificateTypes::Fingerprint>();
+    result->mAlgorithm = FromCx(input->Algorithm);
+    result->mValue = FromCx(input->Value);
+    return result;
+  }
+
+  RTCDtlsParameters^ ToCx(const IDTLSTransportTypes::Parameters input)
+  {
+    auto result = ref new RTCDtlsParameters();
+    result->Role = internal::ConvertEnums::convert(input.mRole);
+    if (input.mFingerprints.size() > 0)
+    {
+      result->Fingerprints = ref new Vector<RTCDtlsFingerprint^>();
+      for (auto iter = input.mFingerprints.begin(); iter != input.mFingerprints.end(); ++iter)
+      {
+        auto &value = (*iter);
+        result->Fingerprints->Append(ToCx(value));
+      }
+    }
+    return result;
+  }
+
+  RTCDtlsParameters^ ToCx(IDTLSTransportTypes::ParametersPtr input)
+  {
+    if (!input) return nullptr;
+    return ToCx(*input);
+  }
+
+  IDTLSTransportTypes::ParametersPtr FromCx(RTCDtlsParameters^ input)
+  {
+    if (nullptr == input) return IDTLSTransportTypes::ParametersPtr();
+    auto result = make_shared<IDTLSTransportTypes::Parameters>();
+    result->mRole = internal::ConvertEnums::convert(input->Role);
+    if (input->Fingerprints)
+    {
+      for (RTCDtlsFingerprint^ value : input->Fingerprints)
+      {
+        if (nullptr == value) continue;
+        result->mFingerprints.push_front(*FromCx(value));
+      }
+    }
+    return result;
+  }
+
+#pragma endregion
 
 #pragma region DataChannel
 
@@ -1120,56 +1291,6 @@ namespace ortc_winrt_api
 
 #pragma endregion
 
-
-
-
-  //***********************************************************************
-  // ConvertObjectToCx class methods
-  //***********************************************************************
-
-  RTCIceGatherer^ ConvertObjectToCx::ToIceGatherer(IIceGathererPtr iceGatherer)
-  {
-    RTCIceGatherer^ ret = ref new RTCIceGatherer();
-    ret->mNativePointer = iceGatherer;
-    return ret;
-  }
-
-  RTCIceTransport^ ConvertObjectToCx::ToIceTransport(IIceTransportPtr iceTransport)
-  {
-    RTCIceTransport^ ret = ref new RTCIceTransport();
-    ret->mNativePointer = iceTransport;
-    return ret;
-  }
-
-  RTCCertificate^ ConvertObjectToCx::ToCertificate(ICertificatePtr certificate)
-  {
-    RTCCertificate^ ret = ref new RTCCertificate();
-    ret->mNativePointer = certificate;
-    return ret;
-  }
-
-  RTCDtlsTransport^ ConvertObjectToCx::ToDtlsTransport(IDtlsTransportPtr dtlsTransport)
-  {
-    RTCDtlsTransport^ ret = ref new RTCDtlsTransport();
-    ret->mNativePointer = dtlsTransport;
-    return ret;
-  }
-
-  RTCSctpTransport^ ConvertObjectToCx::ToSctpTransport(ISctpTransportPtr sctpTransport)
-  {
-    RTCSctpTransport^ ret = ref new RTCSctpTransport();
-    ret->mNativePointer = sctpTransport;
-    return ret;
-  }
-
-  MediaStreamTrack^ ConvertObjectToCx::ToMediaStreamTrack(IMediaStreamTrackPtr mediaStreamTrackPtr)
-  {
-	  auto ret = ref new MediaStreamTrack();
-    ret->mNativePointer = mediaStreamTrackPtr;
-
-	  return ret;
-  }
-
 #pragma region MediaStreamTrack
 
   MediaTrackCapabilities^ ToCx(const IMediaStreamTrackTypes::Capabilities &input)
@@ -1436,7 +1557,6 @@ namespace ortc_winrt_api
   }
 
 #pragma endregion
-
 
 #pragma region RtpTypes
 
@@ -2486,6 +2606,56 @@ namespace ortc_winrt_api
       result->mRTCP = *FromCx(input->Rtcp);
     }
     result->mDegredationPreference = internal::ConvertEnums::convert(input->DegradationPreference);
+    return result;
+  }
+
+#pragma endregion
+
+#pragma region Class converters
+
+  //***********************************************************************
+  // ConvertObjectToCx class methods
+  //***********************************************************************
+
+  RTCIceGatherer^ ConvertObjectToCx::ToIceGatherer(IIceGathererPtr iceGatherer)
+  {
+    RTCIceGatherer^ result = ref new RTCIceGatherer();
+    result->mNativePointer = iceGatherer;
+    return result;
+  }
+
+  RTCIceTransport^ ConvertObjectToCx::ToIceTransport(IIceTransportPtr iceTransport)
+  {
+    RTCIceTransport^ result = ref new RTCIceTransport();
+    result->mNativePointer = iceTransport;
+    return result;
+  }
+
+  RTCCertificate^ ConvertObjectToCx::ToCertificate(ICertificatePtr certificate)
+  {
+    RTCCertificate^ result = ref new RTCCertificate();
+    result->mNativePointer = certificate;
+    return result;
+  }
+
+  RTCDtlsTransport^ ConvertObjectToCx::ToDtlsTransport(IDtlsTransportPtr dtlsTransport)
+  {
+    RTCDtlsTransport^ result = ref new RTCDtlsTransport();
+    result->mNativePointer = dtlsTransport;
+    return result;
+  }
+
+  RTCSctpTransport^ ConvertObjectToCx::ToSctpTransport(ISctpTransportPtr sctpTransport)
+  {
+    RTCSctpTransport^ result = ref new RTCSctpTransport();
+    result->mNativePointer = sctpTransport;
+    return result;
+  }
+
+  MediaStreamTrack^ ConvertObjectToCx::ToMediaStreamTrack(IMediaStreamTrackPtr mediaStreamTrackPtr)
+  {
+    auto result = ref new MediaStreamTrack();
+    result->mNativePointer = mediaStreamTrackPtr;
     return result;
   }
 

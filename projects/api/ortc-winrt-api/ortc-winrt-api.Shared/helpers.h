@@ -23,7 +23,8 @@ namespace ortc_winrt_api
   IDataChannelTypes::ParametersPtr FromCx(RTCDataChannelParameters^ input);
   ISCTPTransport::CapabilitiesPtr FromCx(RTCSctpCapabilities^ input);
 
-  IDTLSTransportTypes::Parameters FromCx(RTCDtlsParameters^ parameters);
+  RTCDtlsFingerprint^ ToCx(ICertificateTypes::FingerprintPtr input);
+  IDTLSTransportTypes::ParametersPtr FromCx(RTCDtlsParameters^ parameters);
   RTCDtlsParameters^ ToCx(IDTLSTransportTypes::ParametersPtr parameters);
 
   MediaDeviceInfo^ ToCx(const IMediaDevices::Device &input);
@@ -32,6 +33,7 @@ namespace ortc_winrt_api
   IMediaStreamTrackTypes::ConstraintsPtr FromCx(Constraints ^input);
   MediaTrackCapabilities^ ToCx(IMediaStreamTrackTypes::CapabilitiesPtr input);
   MediaTrackConstraints^ ToCx(IMediaStreamTrackTypes::TrackConstraintsPtr input);
+  IMediaStreamTrackTypes::TrackConstraintsPtr FromCx(MediaTrackConstraints^ input);
   MediaTrackSettings^ ToCx(IMediaStreamTrackTypes::SettingsPtr input);
   IMediaStreamTrackTypes::ConstraintSetPtr FromCx(MediaTrackConstraintSet^ input);
 
@@ -39,9 +41,16 @@ namespace ortc_winrt_api
   Constraints^ ToCx(IMediaStreamTrackTypes::ConstraintsPtr input);
 
   RTCIceCandidate^ ToCx(IICETypes::CandidatePtr candidate);
-  IICETypes::Candidate FromCx(RTCIceCandidate^ candidate);
-  IICETypes::Parameters FromCx(RTCIceParameters^ params);
-  IICEGatherer::Options FromCx(RTCIceGatherOptions^ options);
+  RTCIceCandidate^ ToCx(const IICETypes::Candidate &candidate);
+  IICETypes::CandidatePtr FromCx(RTCIceCandidate^ candidate);
+  IICETypes::ParametersPtr FromCx(RTCIceParameters^ params);
+  RTCIceParameters^ ToCx(IICETypes::ParametersPtr input);
+  IICETypes::ParametersPtr FromCx(RTCIceParameters^ input);
+
+  IICEGatherer::OptionsPtr FromCx(RTCIceGatherOptions^ options);
+
+  RTCIceCandidatePair^ ToCx(IICETransport::CandidatePairPtr input);
+  IICETransport::CandidatePairPtr FromCx(RTCIceCandidatePair^ input);
 
   IRTPTypes::HeaderExtensionParametersPtr FromCx(RTCRtpHeaderExtensionParameters^ input);
   RTCRtpParameters ^ToCx(IRTPTypes::ParametersPtr input);

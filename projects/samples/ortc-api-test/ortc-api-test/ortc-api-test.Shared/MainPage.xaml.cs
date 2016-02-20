@@ -52,8 +52,8 @@ namespace ortc_api_test
 
           server.UserName = "Bojan";
           server.Credential = "12345";
-          server.URLs = new List<String>();
-          server.URLs.Add("stun:stun.vline.com");
+          server.Urls = new List<String>();
+          server.Urls.Add("stun:stun.vline.com");
           options.IceServers = new List<RTCIceServer>();
           options.IceServers.Add(server);
           

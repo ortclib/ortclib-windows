@@ -19,23 +19,18 @@ namespace ortc_winrt_api
   {
     mNativeDelegatePointer->SetOwnerObject(this);
 
-    mNativePointer = IICEGatherer::create(mNativeDelegatePointer, FromCx(options));
+    assert(nullptr != options);
+    mNativePointer = IICEGatherer::create(mNativeDelegatePointer, *FromCx(options));
   }
 
   RTCIceParameters^ RTCIceGatherer::GetLocalParameters()
   {
-    RTCIceParameters^ ret = ref new RTCIceParameters();
     if (mNativePointer)
     {
-      IICETypes::ParametersPtr params = mNativePointer->getLocalParameters();
-      if (params)
-      {
-        ret->UsernameFragment = ToCx(params->mUsernameFragment);
-        ret->Password = ToCx(params->mPassword);
-      }
+      return ToCx(mNativePointer->getLocalParameters());
     }
 
-    return ret;
+    return nullptr;
   }
 
   IVector<RTCIceCandidate^>^ RTCIceGatherer::GetLocalCandidates()
@@ -46,7 +41,7 @@ namespace ortc_winrt_api
     {
       auto candidates = mNativePointer->getLocalCandidates();
       for (IICEGatherer::CandidateList::iterator it = candidates->begin(); it != candidates->end(); ++it) {
-        ret->Append(ToCx(make_shared<IICEGatherer::Candidate>(*it)));
+        ret->Append(ToCx(*it));
       }
     }
 

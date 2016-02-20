@@ -93,17 +93,28 @@ namespace ortc_winrt_api
   public ref class RTCIceServer sealed
   {
   public:
-    property IVector<Platform::String^>^      URLs;
+    property IVector<Platform::String^>^      Urls;
     property Platform::String^                UserName;
     property Platform::String^                Credential;
     property RTCIceGathererCredentialType     CredentialType;
   };
 
+  public ref class RTCIceInterfacePolicy sealed
+  {
+  public:
+    property Platform::String^                InterfaceType;
+    property RTCIceGatherPolicy               GatherPolicy;
+  };
+
   public ref class RTCIceGatherOptions sealed
   {
   public:
-    property RTCIceGatherPolicy      GatherPolicy;
-    property IVector<RTCIceServer^>^ IceServers;
+    property Platform::Boolean                ContinuousGathering;
+    property IVector<RTCIceInterfacePolicy^>^ InterfacePolicies;
+    property IVector<RTCIceServer^>^          IceServers;
+
+  public:
+    RTCIceGatherOptions() { ContinuousGathering = true; }
   };
 
   public ref class RTCIceGathererError sealed

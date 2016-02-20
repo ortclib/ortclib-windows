@@ -71,8 +71,10 @@ namespace ortc_winrt_api
   public ref class RTCIceParameters sealed
   {
   public:
-    property Platform::String^ UsernameFragment;
-    property Platform::String^ Password;
+    property Platform::Boolean  UseCandidateFreezePriority;
+    property Platform::String^  UsernameFragment;
+    property Platform::String^  Password;
+    property Platform::Boolean  IceLite;
 
   public:
     Platform::String^ ToJsonString();

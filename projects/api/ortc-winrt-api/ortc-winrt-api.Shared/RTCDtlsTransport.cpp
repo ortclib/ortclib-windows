@@ -47,28 +47,20 @@ namespace ortc_winrt_api
 
   RTCDtlsParameters^ RTCDtlsTransport::GetLocalParameters()
   {
-    auto ret = ref new RTCDtlsParameters();
-
     if (mNativePointer)
     {
-      auto parameters = mNativePointer->getLocalParameters();
-      ret = ToCx(parameters);
+      return ToCx(mNativePointer->getLocalParameters());
     }
-
-    return ret;
+    return nullptr;
   }
 
   RTCDtlsParameters^ RTCDtlsTransport::GetRemoteParameters()
   {
-    auto ret = ref new RTCDtlsParameters();
-
     if (mNativePointer)
     {
-      auto parameters = mNativePointer->getRemoteParameters();
-      ret = ToCx(parameters);
+      return ToCx(mNativePointer->getRemoteParameters());
     }
-
-    return ret;
+    return nullptr;
   }
 
   IVector<Object^>^ RTCDtlsTransport::GetRemoteCertificates()
@@ -96,7 +88,8 @@ namespace ortc_winrt_api
   {
     if (mNativePointer)
     {
-      mNativePointer->start(FromCx(remoteParameters));
+      assert(nullptr != remoteParameters);
+      mNativePointer->start(*FromCx(remoteParameters));
     }
   }
 
@@ -249,16 +242,11 @@ namespace ortc_winrt_api
 
   RTCDtlsFingerprint^ RTCCertificate::GetFingerprint()
   {
-    auto ret = ref new RTCDtlsFingerprint();
-
     if (mNativePointer)
     {
-      ICertificate::FingerprintPtr fp = mNativePointer->fingerprint();
-      ret->Algorithm = ToCx(fp->mAlgorithm);
-      ret->Value = ToCx(fp->mValue);
+      return ToCx(mNativePointer->fingerprint());
     }
-
-    return ret;
+    return nullptr;
   }
 
   RTCGenerateCertificatePromiseObserver::RTCGenerateCertificatePromiseObserver(Concurrency::task_completion_event<RTCCertificate^> tce) :
@@ -284,8 +272,8 @@ namespace ortc_winrt_api
   //---------------------------------------------------------------------------
   Platform::String^ RTCDtlsParameters::ToJsonString()
   {
-    IDtlsTransport::Parameters params = FromCx(this);
-    return ToCx(openpeer::services::IHelper::toString(params.createElement("DtlsParameters")));
+    IDtlsTransport::ParametersPtr params = FromCx(this);
+    return ToCx(openpeer::services::IHelper::toString(params->createElement("DtlsParameters")));
   }
 
   RTCDtlsParameters^ RTCDtlsParameters::FromJsonString(Platform::String^ jsonString)
@@ -293,4 +281,5 @@ namespace ortc_winrt_api
     auto params = make_shared<IDtlsTransport::Parameters>(IDtlsTransport::Parameters::Parameters(openpeer::services::IHelper::toJSON(FromCx(jsonString).c_str())));
     return ToCx(params);
   }
+
 } // namespace ortc_winrt_api

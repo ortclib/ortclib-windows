@@ -57,6 +57,8 @@ IAsyncOperation<IVector<MediaStreamTrack^>^>^ MediaDevices::GetUserMedia(Constra
 	{
 		Concurrency::task_completion_event<IVector<MediaStreamTrack^>^> tce;
 
+    assert(nullptr != constraints);
+
 		IMediaDevicesTypes::PromiseWithMediaStreamTrackListPtr promise = IMediaDevices::getUserMedia(*(FromCx(constraints).get()));
 		MediaStreamTrackPromiseObserverPtr pDelegate(make_shared<MediaStreamTrackPromiseObserver>(tce));
 
@@ -80,12 +82,14 @@ void MediaDevicesPromiseObserver::onPromiseResolved(PromisePtr promise)
 
 	ortc::IMediaDevicesTypes::DeviceListPtr deviceList = promise->value<ortc::IMediaDevicesTypes::DeviceList>();
 
-	for (IMediaDevicesTypes::DeviceList::iterator it = deviceList->begin(); it != deviceList->end(); ++it)
-	{
-		MediaDeviceInfo^ med = ToCx(*it);
-
-		ret->Append(med);
-	}
+  if (deviceList)
+  {
+    for (IMediaDevicesTypes::DeviceList::iterator it = deviceList->begin(); it != deviceList->end(); ++it)
+    {
+      MediaDeviceInfo^ med = ToCx(*it);
+      ret->Append(med);
+    }
+  }
 
 	mTce.set(ret);
 }
@@ -98,7 +102,6 @@ void MediaDevicesPromiseObserver::onPromiseRejected(PromisePtr promise)
 
 MediaStreamTrackPromiseObserver::MediaStreamTrackPromiseObserver(Concurrency::task_completion_event<IVector<MediaStreamTrack^>^> tce) : mTce(tce)
 {
-
 }
 
 void MediaStreamTrackPromiseObserver::onPromiseResolved(PromisePtr promise)
@@ -110,17 +113,17 @@ void MediaStreamTrackPromiseObserver::onPromiseResolved(PromisePtr promise)
 	//test
 	ortc::IMediaDevicesTypes::MediaStreamTrackListPtr mediaStreamTrackListPtr = promise->value<ortc::IMediaDevicesTypes::MediaStreamTrackList>();
 
-	if (mediaStreamTrackListPtr != nullptr)
+	if (mediaStreamTrackListPtr)
 	{
 		for (IMediaDevicesTypes::MediaStreamTrackList::iterator it = mediaStreamTrackListPtr->begin(); it != mediaStreamTrackListPtr->end(); ++it)
 		{
 			MediaStreamTrack^ track = ConvertObjectToCx::ToMediaStreamTrack(*it);
-
 			ret->Append(track);
 		}
 	}
 	mTce.set(ret);
 }
+
 void MediaStreamTrackPromiseObserver::onPromiseRejected(PromisePtr promise)
 {
 	IMediaDevicesTypes::PromiseWithMediaStreamTrackListPtr streamTrackPromise = ZS_DYNAMIC_PTR_CAST(IMediaDevicesTypes::PromiseWithMediaStreamTrackList, promise);

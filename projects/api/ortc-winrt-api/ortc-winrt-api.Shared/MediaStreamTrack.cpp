@@ -102,12 +102,7 @@ namespace ortc_winrt_api
 	{
 		if (mNativePointer)
 		{
-			IMediaStreamTrackTypes::CapabilitiesPtr  capabilitiesPtr = mNativePointer->getCapabilities();
-			if (capabilitiesPtr)
-			{
-				MediaTrackCapabilities^ ret = ToCx(capabilitiesPtr);
-				return ret;
-			}
+			return ToCx(mNativePointer->getCapabilities());
 		}
 		return nullptr;
 	}
@@ -116,12 +111,7 @@ namespace ortc_winrt_api
 	{
 		if (mNativePointer)
 		{
-			IMediaStreamTrackTypes::TrackConstraintsPtr  trackConstraintsPtr = mNativePointer->getConstraints();
-			if (trackConstraintsPtr)
-			{
-				MediaTrackConstraints^ ret = ToCx(trackConstraintsPtr);
-				return ret;
-			}
+      return ToCx(mNativePointer->getConstraints());
 		}
 		return nullptr;
 	}
@@ -130,12 +120,7 @@ namespace ortc_winrt_api
 	{
 		if (mNativePointer)
 		{
-			IMediaStreamTrackTypes::SettingsPtr  settingsPtr = mNativePointer->getSettings();
-			if (settingsPtr)
-			{
-				MediaTrackSettings^ ret = ToCx(settingsPtr);
-				return ret;
-			}
+			return ToCx(mNativePointer->getSettings());
 		}
 		return nullptr;
 	}
@@ -175,14 +160,7 @@ namespace ortc_winrt_api
         return;
       }
 
-      IMediaStreamTrackTypes::TrackConstraints trackConstraints;
-      
-      for (MediaTrackConstraintSet^ iterator : constraints->Advanced)
-      {
-        IMediaStreamTrackTypes::ConstraintSetPtr set = FromCx(iterator);
-        trackConstraints.mAdvanced.push_back(set);
-      }
-      PromisePtr promise = mNativePointer->applyConstraints(trackConstraints);
+      PromisePtr promise = mNativePointer->applyConstraints(*FromCx(constraints));
       MediaStreamTrackConstraintsPromiseObserverPtr pDelegate(make_shared<MediaStreamTrackConstraintsPromiseObserver>(tce));
 
       promise->then(pDelegate);
@@ -232,6 +210,5 @@ namespace ortc_winrt_api
 
   void MediaStreamTrackConstraintsPromiseObserver::onPromiseRejected(PromisePtr promise)
   {
-
   }
 }
