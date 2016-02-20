@@ -127,11 +127,11 @@ namespace OrtcWrapper
                 {
                     foreach (var info in audioCaptureList)
                     {
-                        OnAudioCaptureDeviceFound(new MediaDevice(info.DeviceID, info.Label));
+                        OnAudioCaptureDeviceFound(new MediaDevice(info.DeviceId, info.Label));
                     }
                     foreach (var info in videoList)
                     {
-                        OnVideoCaptureDeviceFound(new MediaDevice(info.DeviceID, info.Label));
+                        OnVideoCaptureDeviceFound(new MediaDevice(info.DeviceId, info.Label));
                     }
                 });
 

@@ -76,7 +76,7 @@ namespace OrtcWrapper
         }
         public static MediaDevice ToMediaDevice(MediaDeviceInfo device)
         {
-            return new MediaDevice(device.DeviceID, device.Label);
+            return new MediaDevice(device.DeviceId, device.Label);
         }
         public static IList<MediaDevice> ToMediaDevices(IList<MediaDeviceInfo> devices)
         {
