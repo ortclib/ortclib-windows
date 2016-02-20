@@ -199,6 +199,7 @@ namespace ortc_winrt_api
     friend class ConvertObjectToCx;
   private:
     RTCIceGatherer();
+
 	public:
 		RTCIceGatherer(RTCIceGatherOptions^ options);
 		

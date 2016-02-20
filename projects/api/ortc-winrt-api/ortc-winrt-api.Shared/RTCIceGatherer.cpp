@@ -10,17 +10,17 @@ namespace ortc_winrt_api
 
   RTCIceGatherer::RTCIceGatherer() :
     _NativeDelegatePointer(nullptr),
-    _NativePointer(nullptr),
+    _NativePointer(nullptr)
+  {
+  }
+
+  RTCIceGatherer::RTCIceGatherer(RTCIceGatherOptions^ options) :
+    _NativeDelegatePointer(new RTCIceGathererDelegate()),
     _RaisedOnICEGathererStateChangedEvents(ref new Vector<RTCIceGathererStateChangeEvent^>()),
     _RaisedOnICEGathererLocalCandidateEvents(ref new Vector<RTCIceGathererCandidateEvent^>()),
     _RaisedOnICEGathererCandidateCompleteEvents(ref new Vector<RTCIceGathererCandidateCompleteEvent^>()),
     _RaisedOnICEGathererLocalCandidateGoneEvents(ref new Vector<RTCIceGathererCandidateEvent^>()),
     _RaisedOnICEGathererErrorEvents(ref new Vector<RTCIceGathererErrorEvent^>())
-  {
-  }
-
-  RTCIceGatherer::RTCIceGatherer(RTCIceGatherOptions^ options) :
-    _NativeDelegatePointer(new RTCIceGathererDelegate())
   {
     _NativeDelegatePointer->SetOwnerObject(this);
 
