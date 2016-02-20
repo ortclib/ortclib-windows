@@ -14,6 +14,10 @@ namespace OrtcWrapper
         //private SemaphoreSlim _lock = new SemaphoreSlim(1, 1);
 
         private bool _closed = false;
+        private string audioSSRCLabel = null;
+        private string videoSSRCLabel = null;
+        private string cnameSSRC = null;
+        private UInt32 ssrcId;
         //private RTCIceGatherer _iceGatherer;
         //private RtcIceTransport _iceTransport;
         //private RtcDtlsTransport _dtlsTransport;
@@ -125,59 +129,11 @@ namespace OrtcWrapper
                     if (_closed) dtlsTransport.Stop();
                 }
             });
+
+            sessionID = (ulong)(DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0).ToUniversalTime()).TotalMilliseconds;
         }
 
-       /* private void GetCapabilities()
-        {
-            if (null == _capabilitiesTcs) return;
-
-            // Obtain basic ICE configuration information like the usernameFragment and password.
-            var localParams = iceGatherer.GetLocalParameters();
-
-            // Obtain the complete capabilities of the RtcRtpSenders/RtcRtpReceivers for both
-            // audio and video.
-            var audioSenderCaps = RTCRtpSender.GetCapabilities("audio");
-            var videoSenderCaps = RTCRtpSender.GetCapabilities("video");
-            var audioReceiverCaps = RTCRtpSender.GetCapabilities("audio");
-            var videoReceiverCaps = RTCRtpSender.GetCapabilities("video");
-            var dtlsParameters =  dtlsTransport.GetLocalParameters();
-
-            // Find out what type of media the application wants to send, i.e. audio, video, or both.
-            bool hasAudio = false;
-            bool hasVideo = false;
-
-            if (null != _localStream)
-            {
-                var audioTracks = _localStream.GetAudioTracks();
-                if (null != audioTracks) { hasAudio = (audioTracks.Count > 0); }
-                var videoTracks = _localStream.GetVideoTracks();
-                if (null != videoTracks) { hasVideo = (videoTracks.Count > 0); }
-            }
-
-            // If the remote peer's capabilities are already known at this time do not offer media beyond
-            // what the remote side desires even if the local application offers the media devices needed
-            // for more.
-            if (null != _remoteCapabilities)
-            {
-                hasAudio = _remoteCapabilities.Description.HasAudio;
-                hasVideo = _remoteCapabilities.Description.HasVideo;
-            }
-
-            // Put all this information into a "blob" that can be JSONified and sent to the remote party.
-            var caps = new RTCSessionDescription(new RDescription(hasAudio, hasVideo, _iceRole, localParams, audioSenderCaps, videoSenderCaps, audioReceiverCaps, videoReceiverCaps, dtlsParameters));
-
-            // If the remote peer's codec information is known, readjust the codec ordering to match the
-            // remote peer's order to ensure both sender and receiver are using the same codec. This is not
-            // a requirement of ORTC but typically the same codec is used bidirectionally.
-            if (null != _remoteCapabilities) { RtcHelper.PickLocalCodecBasedOnRemote(caps, _remoteCapabilities); }
-
-            // Remember the capabilities for use later when setting up the RtcRtpSenders/RtcRtpReceivers
-            _localCapabilities = caps;
-
-            // Return the "blob" information asynchronously to the calling application.
-            _capabilitiesTcs.SetResult(_localCapabilities);
-            _capabilitiesTcs = null;
-        }*/
+       
         /// <summary>
         /// Enable/Disable WebRTC statistics to ETW.
         /// </summary>
@@ -236,9 +192,10 @@ namespace OrtcWrapper
             sb.Append(0);
             sb.Append("\r\n");
 
+
             //o=- 1045717134763489491 2 IN IP4 127.0.0.1
             sb.Append("o=");
-            sb.Append(_localStream.Id);
+            sb.Append(sessionID);
             sb.Append(' ');
             sb.Append(sessionVersion);
             sb.Append(' ');
@@ -281,7 +238,7 @@ namespace OrtcWrapper
             sb.Append(' ');
             sb.Append("WMS");
             sb.Append(' ');
-            sb.Append("streamID");
+            sb.Append(_localStream.Id);
             sb.Append("\r\n");
             //------------- Global lines END -------------
 
@@ -301,7 +258,7 @@ namespace OrtcWrapper
                 {
                     foreach (RTCRtpCodecCapability cap in audioCapabilities.Codecs)
                     {
-                        sb.Append(cap.Name);
+                        sb.Append(cap.PreferredPayloadType);
                         sb.Append(' ');
                     }
                 }
@@ -350,7 +307,7 @@ namespace OrtcWrapper
                 }
 
                 //a = setup:actpass
-                sb.Append("a = setup:");
+                sb.Append("a=setup:");
                 switch (dtlsParameters.Role)
                 {
                     case RTCDtlsRole.Server:
@@ -408,7 +365,7 @@ namespace OrtcWrapper
                         sb.Append(cap.NumChannels);
                         sb.Append("\r\n");
                         //a=fmtp:111 minptime=10; useinbandfec=1
-                        //WARNING - THIS SHOULD BE HANDLED BUT MINPITME AND USEINBANDFEC ARE MISSING 
+                        //WARNING - THIS SHOULD BE HANDLED BUT MINPTIME AND USEINBANDFEC ARE MISSING 
                     }
                     maxPTime = maxPTime == 0 ? 120 : maxPTime;
                     //a=maxptime:60
@@ -416,8 +373,49 @@ namespace OrtcWrapper
                     sb.Append(maxPTime);
                     sb.Append("\r\n");
                 }
+
+        
+                if (ssrcId == 0)
+                    ssrcId = (UInt32)Guid.NewGuid().GetHashCode();
+                if (cnameSSRC == null)
+                    cnameSSRC = Guid.NewGuid().ToString();
+                if (audioSSRCLabel == null)
+                    audioSSRCLabel = Guid.NewGuid().ToString();
+
+                //a = ssrc:3063731557 cname: 6dj1AlWMKSYOn3hv
+                sb.Append("a=ssrc:");
+                sb.Append(ssrcId);
+                sb.Append(' ');
+                sb.Append("cname: ");
+                sb.Append(cnameSSRC);
+                sb.Append("\r\n");
+
+                //a = ssrc:3063731557 msid: stream_label_1c26693 audio_label_3ea802dc
+                sb.Append("a=ssrc:");
+                sb.Append(ssrcId);
+                sb.Append(' ');
+                sb.Append("msid: ");    
+                sb.Append(_localStream.Id);
+                sb.Append(' ');
+                sb.Append(audioSSRCLabel);
+                sb.Append("\r\n");
+                //a = ssrc:3063731557 mslabel: stream_label_1c26693
+                sb.Append("a=ssrc:");
+                sb.Append(ssrcId);
+                sb.Append(' ');
+                sb.Append("mslabel: ");
+                sb.Append(_localStream.Id);
+                sb.Append("\r\n");
+                //a = ssrc:3063731557 label: audio_label_3ea802dc
+                sb.Append("a=ssrc:");
+                sb.Append(ssrcId);
+                sb.Append(' ');
+                sb.Append("label: ");
+                sb.Append(audioSSRCLabel);
+                sb.Append("\r\n");
             }
-            return sb.ToString();
+            string ret = sb.ToString();
+            return ret;
             
         }
         public IAsyncOperation<RTCSessionDescription> CreateOffer()
