@@ -100,7 +100,7 @@ namespace OrtcWrapper
             foreach (RTCIceServer server in configuration.IceServers)
             {
                 ortc_winrt_api.RTCIceServer ortcServer = new ortc_winrt_api.RTCIceServer();
-                ortcServer.URLs = new List<string>();
+                ortcServer.Urls = new List<string>();
 
                 if (!string.IsNullOrEmpty(server.Credential))
                 {
@@ -112,7 +112,7 @@ namespace OrtcWrapper
                     ortcServer.UserName = server.Username;
                 }
 
-                ortcServer.URLs.Add(server.Url);
+                ortcServer.Urls.Add(server.Url);
                 options.IceServers.Add(ortcServer);
             }
 
