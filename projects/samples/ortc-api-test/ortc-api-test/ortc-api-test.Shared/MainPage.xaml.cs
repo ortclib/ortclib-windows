@@ -125,8 +125,8 @@ namespace ortc_api_test
             {
                 foreach(MediaDeviceInfo info in temp.Result)
                 {
-                    if (info.DeviceID != null)
-                        System.Diagnostics.Debug.WriteLine("DeviceID: {0}",info.DeviceID);
+                    if (info.DeviceId != null)
+                        System.Diagnostics.Debug.WriteLine("DeviceID: {0}",info.DeviceId);
                 }
                 return null;
             });

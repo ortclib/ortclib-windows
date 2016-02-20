@@ -1,26 +1,51 @@
 #pragma once
 #include <collection.h>
-#include "MediaTypes.h"
 #include "MediaStreamTrack.h"
 #include <ortc/IMediaDevices.h>
-
 
 using Platform::Array;
 using Platform::Collections::Vector;
 using Windows::Foundation::Collections::IVector;
 using Windows::Foundation::IAsyncOperation;
+using zsLib::PromisePtr;
 
 namespace ortc_winrt_api
 {
   ZS_DECLARE_CLASS_PTR(MediaStreamTrackPromiseObserver)
   ZS_DECLARE_CLASS_PTR(MediaDevicesPromiseObserver)
-  public ref struct Constraints sealed
-  {
-    property MediaTrackConstraints^ Video;
-    property MediaTrackConstraints^ Audio;
 
-    static Constraints^ create();
-    static Constraints^ create(Constraints^ value);
+    public enum class MediaDeviceKind
+  {
+    AudioInput,
+    AudioOutput,
+    Video,
+  };
+
+  public ref struct SupportedConstraints sealed
+  {
+    property Platform::Boolean Width;
+    property Platform::Boolean Height;
+    property Platform::Boolean AspectRatio;
+    property Platform::Boolean FrameRate;
+    property Platform::Boolean FacingMode;
+    property Platform::Boolean Volume;
+    property Platform::Boolean SampleRate;
+    property Platform::Boolean SampleSize;
+    property Platform::Boolean EchoCancellation;
+    property Platform::Boolean Latency;
+    property Platform::Boolean DeviceId;
+    property Platform::Boolean GroupId;
+  };
+
+  public ref struct MediaDeviceInfo sealed
+  {
+    property MediaDeviceKind Kind;
+
+    property Platform::String^ Label;
+    property Platform::String^ DeviceId;
+    property Platform::String^ GroupId;
+
+    property SupportedConstraints^ SupportedConstraints;
   };
 
   public delegate void MediaDevicesChangeDelegate();

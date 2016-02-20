@@ -46,13 +46,13 @@ namespace ortc_winrt_api
   public ref class RTCDataChannelParameters sealed
   {
   public:
-    property Platform::String^   Label;
-    property Platform::Boolean   Ordered;
-    property uint64              MaxPacketLifetime;
-    property uint32              MaxRetransmits;
-    property Platform::String^   Protocol;
-    property Platform::Boolean   Negotiated;
-    property uint16              Id;
+    property Platform::String^        Label;
+    property Platform::Boolean        Ordered;
+    property uint64                   MaxPacketLifetime;
+    property Platform::IBox<uint32>^  MaxRetransmits;
+    property Platform::String^        Protocol;
+    property Platform::Boolean        Negotiated;
+    property Platform::IBox<uint16>^  Id;
   public:
     Platform::String^ ToJsonString();
     static RTCDataChannelParameters^ FromJsonString(Platform::String^ jsonString);

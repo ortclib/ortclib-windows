@@ -35,7 +35,12 @@ namespace ortc_winrt_api
   public ref class RTCSctpCapabilities sealed
   {
   public:
-    property size_t MaxMessageSize;
+    property uint32 MaxMessageSize;
+    property uint16 MinPort;
+    property uint16 MaxPort;
+    property uint16 MaxUsablePorts;
+    property uint16 MaxSessionsPerPort;
+
   public:
     Platform::String^ ToJsonString();
     static RTCSctpCapabilities^ FromJsonString(Platform::String^ jsonString);

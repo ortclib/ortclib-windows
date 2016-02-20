@@ -2,6 +2,8 @@
 #include "RTCIceTypes.h"
 #include "helpers.h"
 
+#include <openpeer/services/IHelper.h>
+
 namespace ortc_winrt_api
 {
 

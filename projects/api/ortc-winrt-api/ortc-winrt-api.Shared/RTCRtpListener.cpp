@@ -34,7 +34,8 @@ mNativeDelegatePointer(new RTCRtpListenerDelegate())
     {
       for (RTCRtpHeaderExtensionParameters^ ext : headerExtensions)
       {
-        list.push_back(FromCx(ext));
+        if (nullptr == ext) continue;
+        list.push_back(*FromCx(ext));
       }
     }
     mNativeDelegatePointer->SetOwnerObject(this);

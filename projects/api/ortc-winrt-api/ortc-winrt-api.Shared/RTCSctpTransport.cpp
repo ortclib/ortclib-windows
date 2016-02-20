@@ -2,6 +2,8 @@
 #include "RTCSctpTransport.h"
 #include "helpers.h"
 
+#include <openpeer/services/IHelper.h>
+
 namespace ortc_winrt_api
 {
 
@@ -81,10 +83,10 @@ namespace ortc_winrt_api
   //---------------------------------------------------------------------------
   Platform::String^ RTCSctpCapabilities::ToJsonString()
   {
-    ISCTPTransport::Capabilities caps = FromCx(this);
-    return ToCx(openpeer::services::IHelper::toString(caps.createElement("SctpCapabilities")));
-
+    auto caps = FromCx(this);
+    return ToCx(openpeer::services::IHelper::toString(caps->createElement("SctpCapabilities")));
   }
+
   RTCSctpCapabilities^ RTCSctpCapabilities::FromJsonString(Platform::String^ jsonString)
   {
     auto ret = ref new RTCSctpCapabilities();
@@ -94,4 +96,5 @@ namespace ortc_winrt_api
 
     return ret;
   }
+
 } // namespace ortc_winrt_api

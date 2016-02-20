@@ -2,6 +2,8 @@
 #include "RTCDtlsTransport.h"
 #include "helpers.h"
 
+#include <openpeer/services/IHelper.h>
+
 using Platform::Collections::Vector;
 using Platform::Array;
 using Platform::Object;
@@ -288,10 +290,7 @@ namespace ortc_winrt_api
 
   RTCDtlsParameters^ RTCDtlsParameters::FromJsonString(Platform::String^ jsonString)
   {
-    auto ret = ref new RTCDtlsParameters();
-
     auto params = make_shared<IDtlsTransport::Parameters>(IDtlsTransport::Parameters::Parameters(openpeer::services::IHelper::toJSON(FromCx(jsonString).c_str())));
-    ret = ToCx(params);
-    return ret;
+    return ToCx(params);
   }
 } // namespace ortc_winrt_api

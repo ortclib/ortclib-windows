@@ -8,61 +8,50 @@
 #include "RTCIceTransportController.h"
 #include "RTCRtpSender.h"
 #include "RTPTypes.h"
-#include "MediaTypes.h"
+#include "Contraints.h"
+#include "Capabilities.h"
 #include "MediaStreamTrack.h"
 #include "MediaDevices.h"
 #include "Logger.h"
-#include <ortc/IMediaStreamTrack.h>
-#include <ortc/IMediaDevices.h>
-#include <op-services-cpp\openpeer\services\IHelper.h>
-
-using namespace ortc;
 
 namespace ortc_winrt_api
 {
   std::string FromCx(Platform::String^ inObj);
-  Platform::String^ ToCx(std::string const& inObj);
+  Platform::String^ ToCx(const std::string & inObj);
 
-  IICETypes::Candidate FromCx(RTCIceCandidate^ candidate);
-  RTCIceCandidate^ ToCx(IICETypes::CandidatePtr candidate);
+  RTCDataChannelParameters^ ToCx(IDataChannelTypes::ParametersPtr input);
+  IDataChannelTypes::ParametersPtr FromCx(RTCDataChannelParameters^ input);
+  ISCTPTransport::CapabilitiesPtr FromCx(RTCSctpCapabilities^ input);
 
   IDTLSTransportTypes::Parameters FromCx(RTCDtlsParameters^ parameters);
   RTCDtlsParameters^ ToCx(IDTLSTransportTypes::ParametersPtr parameters);
 
-  IDataChannelTypes::Parameters FromCx(RTCDataChannelParameters^ parameters);
-  RTCDataChannelParameters^ ToCx(IDataChannelTypes::ParametersPtr parameters);
+  MediaDeviceInfo^ ToCx(const IMediaDevices::Device &input);
+  MediaDeviceInfo^ ToCx(IMediaDevices::DevicePtr input);
 
+  IMediaStreamTrackTypes::ConstraintsPtr FromCx(Constraints ^input);
+  MediaTrackCapabilities^ ToCx(IMediaStreamTrackTypes::CapabilitiesPtr input);
+  MediaTrackConstraints^ ToCx(IMediaStreamTrackTypes::TrackConstraintsPtr input);
+  MediaTrackSettings^ ToCx(IMediaStreamTrackTypes::SettingsPtr input);
+  IMediaStreamTrackTypes::ConstraintSetPtr FromCx(MediaTrackConstraintSet^ input);
+
+  SupportedConstraints^ ToCx(IMediaDevices::SupportedConstraintsPtr input);
+  Constraints^ ToCx(IMediaStreamTrackTypes::ConstraintsPtr input);
+
+  RTCIceCandidate^ ToCx(IICETypes::CandidatePtr candidate);
+  IICETypes::Candidate FromCx(RTCIceCandidate^ candidate);
+  IICETypes::Parameters FromCx(RTCIceParameters^ params);
   IICEGatherer::Options FromCx(RTCIceGatherOptions^ options);
 
-  RTCRtpCodecCapability^ ToCx(IRTPTypes::CodecCapabilityPtr codecCapabilityPtr);
-  RTCRtpHeaderExtension^ ToCx(IRTPTypes::HeaderExtensionPtr headerExtensions);
-
-  IRTPTypes::HeaderExtensionParameters FromCx(RTCRtpHeaderExtensionParameters^ headerExtensions);
-
-  
-  MediaTrackConstraintSet^ ToCx(IMediaStreamTrackTypes::ConstraintSetPtr constraintSetPtr);
-  IMediaStreamTrackTypes::ConstraintSetPtr FromCx(MediaTrackConstraintSet^ constraintSet);
-
-  //Constraints^ ToCx(IMediaStreamTrackTypes::ConstraintsPtr constraintPtr);
-  IMediaStreamTrackTypes::ConstraintsPtr FromCx(Constraints^ constraint);
-
-  MediaTrackCapabilities^ ToCx(IMediaStreamTrackTypes::CapabilitiesPtr capabilitiesPtr);
-  MediaTrackConstraints^ ToCx(IMediaStreamTrackTypes::TrackConstraintsPtr trackConstraintsPtr);
-  MediaTrackSettings^ ToCx(IMediaStreamTrackTypes::SettingsPtr settingsPtr);
-  SupportedConstraints^ ToCx(IMediaDevicesTypes::SupportedConstraints constraints);
-
-  MediaDeviceInfo^ ToCx(IMediaDevicesTypes::Device device);
-  MediaDeviceInfo^ ToCx(IMediaDevicesTypes::Device device);
-
-  IRTPTypes::Parameters FromCx(RTCRtpParameters^ parameters);
-
-
-  IICETypes::Parameters         FromCx(RTCIceParameters^ params);
-  ISCTPTransport::Capabilities  FromCx(RTCSctpCapabilities^ params);
-  IRTPTypes::Capabilities       FromCx(RTCRtpCapabilities^ params);
-  IRTPTypes::CodecCapability    FromCx(RTCRtpCodecCapability^ params);
-  IRTPTypes::RTCPFeedback       FromCx(RTCRtcpFeedback^ params);
-  IRTPTypes::HeaderExtension    FromCx(RTCRtpHeaderExtension^ params);
+  IRTPTypes::HeaderExtensionParametersPtr FromCx(RTCRtpHeaderExtensionParameters^ input);
+  RTCRtpParameters ^ToCx(IRTPTypes::ParametersPtr input);
+  IRTPTypes::ParametersPtr FromCx(RTCRtpParameters^ input);
+  RTCRtpCapabilities ^ToCx(IRTPTypes::CapabilitiesPtr input);
+  IRTPTypes::CapabilitiesPtr FromCx(RTCRtpCapabilities^ input);
+  RTCRtpCodecCapability^ ToCx(IRTPTypes::CodecCapabilityPtr input);
+  IRTPTypes::CodecCapabilityPtr FromCx(RTCRtpCodecCapability^ input);
+  IRTPTypes::RTCPFeedback FromCx(RTCRtcpFeedback^ input);
+  IRTPTypes::HeaderExtensionPtr FromCx(RTCRtpHeaderExtension^ input);
 
   class FetchNativePointer
   {
@@ -72,7 +61,7 @@ namespace ortc_winrt_api
     static IDtlsTransportPtr FromDtlsTransport(RTCDtlsTransport^ transport) { return transport->mNativePointer; }
     static ICertificatePtr FromCertificate(RTCCertificate^ certificate) { return certificate->mNativePointer; }
     static ISctpTransportPtr FromSctpTransport(RTCSctpTransport^ transport) { return transport->mNativePointer; }
-	static IMediaStreamTrackPtr FromMediaTrack(MediaStreamTrack^ track) { return track->mNativePointer; }
+	  static IMediaStreamTrackPtr FromMediaTrack(MediaStreamTrack^ track) { return track->mNativePointer; }
   };
 
   class ConvertObjectToCx
@@ -84,10 +73,7 @@ namespace ortc_winrt_api
     static RTCDtlsTransport^ ToDtlsTransport(IDtlsTransportPtr dtlsTransport);
     static RTCSctpTransport^ ToSctpTransport(ISctpTransportPtr sctpTransport);
 
-	static MediaStreamTrack^ ToMediaStreamTrack(IMediaStreamTrackPtr mediaStreamTrackPtr);
-	
-
-	//static MediaTrackSettings^ mediaTrackSettings(IMediaStreamTrackTypes::SettingsPtr settingsPtr);
+	  static MediaStreamTrack^ ToMediaStreamTrack(IMediaStreamTrackPtr mediaStreamTrackPtr);
   };
 
   class CreateEmptyCxObject
@@ -144,6 +130,13 @@ namespace ortc_winrt_api
 
       static IMediaStreamTrack::Kinds convert(MediaStreamTrackKind kind);
       static MediaStreamTrackKind convert(IMediaStreamTrack::Kinds kind);
+
+      // RtpTypes convertors
+      static IRTPTypes::PriorityTypes convert(RTCPriorityType priority);
+      static RTCPriorityType convert(IRTPTypes::PriorityTypes priority);
+
+      static IRTPTypes::DegradationPreferences convert(RTCDegradationPreference preference);
+      static RTCDegradationPreference convert(IRTPTypes::DegradationPreferences preference);
 
       // Logger convertors
       static zsLib::Log::Level convert(Log::Level level);

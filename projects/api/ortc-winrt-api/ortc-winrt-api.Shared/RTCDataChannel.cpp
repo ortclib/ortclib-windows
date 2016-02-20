@@ -1,4 +1,5 @@
 #include "pch.h"
+#include <openpeer/services/IHelper.h>
 #include "RTCDataChannel.h"
 #include "helpers.h"
 
@@ -15,15 +16,14 @@ namespace ortc_winrt_api
     mNativeDelegatePointer(new RTCDataChannelDelegate())
   {
 
-    if (!dataTransport)
-    {
-      return;
-    }
+    if (!dataTransport) return;
+
+    assert(nullptr != params);
 
     if (FetchNativePointer::FromSctpTransport(dataTransport))
     {
       mNativeDelegatePointer->SetOwnerObject(this);
-      mNativePointer = IDataChannel::create(mNativeDelegatePointer, FetchNativePointer::FromSctpTransport(dataTransport), FromCx(params));
+      mNativePointer = IDataChannel::create(mNativeDelegatePointer, FetchNativePointer::FromSctpTransport(dataTransport), *FromCx(params));
     }
   }
 
@@ -134,15 +134,13 @@ namespace ortc_winrt_api
   //---------------------------------------------------------------------------
   Platform::String^ RTCDataChannelParameters::ToJsonString()
   {
-    IDataChannel::Parameters params = FromCx(this);
-    return ToCx(openpeer::services::IHelper::toString(params.createElement("DataChannelParameters")));
+    auto params = FromCx(this);
+    return ToCx(openpeer::services::IHelper::toString(params->createElement("DataChannelParameters")));
   }
+
   RTCDataChannelParameters^ RTCDataChannelParameters::FromJsonString(Platform::String^ jsonString)
   {
-    auto ret = ref new RTCDataChannelParameters();
-
     auto params = make_shared<IDataChannel::Parameters>(IDataChannel::Parameters::Parameters(openpeer::services::IHelper::toJSON(FromCx(jsonString).c_str())));
-    ret = ToCx(params);
-    return ret;
+    return ToCx(params);
   }
 } // namespace ortc_winrt_api

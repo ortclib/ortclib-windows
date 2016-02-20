@@ -1,6 +1,7 @@
 #pragma once
 #include <collection.h>
-#include <MediaTypes.h>
+#include <Capabilities.h>
+#include <Contraints.h>
 #include <ortc/IMediaStreamTrack.h>
 
 using namespace ortc;
@@ -14,31 +15,51 @@ namespace ortc_winrt_api
 {
   ZS_DECLARE_CLASS_PTR(MediaStreamTrackConstraintsPromiseObserver)
 
+  public enum class MediaStreamTrackKind
+  {
+    Audio,
+    Video
+  };
+
   public enum class MediaStreamTrackState
   {
     Live,
     Ended
   };
 
-  public enum class MediaStreamTrackKind
-  {
-    Audio,
-    Video
-  };
   public ref class MediaTrackCapabilities sealed
   {
   public:
-    property LongRange^         Width;
-    property LongRange^         Height;
-    property DoubleRange^       AspectRatio;
-    property DoubleRange^       FrameRate;
-    property Platform::String^  FacingMode;
-    property DoubleRange^       Volume;
-    property LongRange^         SampleRate;
-    property LongRange^         SampleSize;
-    property Platform::Boolean  EchoCancellation;
+    property CapabilityLong^    Width;
+    property CapabilityLong^    Height;
+    property CapabilityDouble^  AspectRatio;
+    property CapabilityDouble^  FrameRate;
+    property CapabilityString^  FacingMode;
+    property CapabilityDouble^  Volume;
+    property CapabilityLong^    SampleRate;
+    property CapabilityLong^    SampleSize;
+    property CapabilityBool^    EchoCancellation;
+    property CapabilityDouble^  Latency;
+
     property Platform::String^  DeviceId;
     property Platform::String^  GroupId;
+  };
+
+  public ref class MediaTrackSettings sealed
+  {
+  public:
+    property Platform::IBox<int32>^             Width;
+    property Platform::IBox<int32>^             Height;
+    property Platform::IBox<float64>^           AspectRatio;
+    property Platform::IBox<float64>^           FrameRate;
+    property Platform::String^                  FacingMode;
+    property Platform::IBox<float64>^           Volume;
+    property Platform::IBox<int32>^             SampleRate;
+    property Platform::IBox<int32>^             SampleSize;
+    property Platform::IBox<Platform::Boolean>^ EchoCancellation;
+    property Platform::IBox<float64>^           Latency;
+    property Platform::String^                  DeviceId;
+    property Platform::String^                  GroupId;
   };
 
   public ref class MediaTrackConstraintSet sealed
@@ -53,6 +74,7 @@ namespace ortc_winrt_api
     property ConstrainLong^       SampleRate;
     property ConstrainLong^       SampleSize;
     property ConstrainBool^       EchoCancellation;
+    property ConstrainDouble^     Latency;
     property ConstrainString^     DeviceId;
     property ConstrainString^     GroupId;
   };
@@ -60,26 +82,18 @@ namespace ortc_winrt_api
   public ref class MediaTrackConstraints sealed
   {
   public:
-    MediaTrackConstraints() {
-      Advanced = ref new Vector<MediaTrackConstraintSet^>();
-    };
     property IVector<MediaTrackConstraintSet^>^ Advanced;
   };
-  public ref class MediaTrackSettings sealed
+
+  public ref struct Constraints sealed
   {
-  public:
-    property uint32             Width;
-    property uint32             Height;
-    property double             AspectRatio;
-    property double             FrameRate;
-    property Platform::String^  FacingMode;
-    property double             Volume;
-    property uint32             SampleRate;
-    property uint32             SampleSize;
-    property Platform::Boolean  EchoCancellation;
-    property Platform::String^  DeviceId;
-    property Platform::String^  GroupId;
+    property MediaTrackConstraints^ Video;
+    property MediaTrackConstraints^ Audio;
+
+    static Constraints^ create();
+    static Constraints^ create(Constraints^ value);
   };
+
 
   public ref class MediaStreamError sealed
   {

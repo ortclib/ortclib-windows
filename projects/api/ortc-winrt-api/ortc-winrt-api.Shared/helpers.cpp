@@ -5,13 +5,32 @@
 #include "helpers.h"
 #include <ortc/ISettings.h>
 
+namespace SafeIntInternal
+{
+  using ::DWORD;
+}
+
+#include <zsLib/SafeInt.h>
+
 using namespace Platform;
 using Platform::Collections::Vector;
+using zsLib::Optional;
+using namespace ortc;
 
 namespace ortc_winrt_api
 {
+  using zsLib::BYTE;
+  using zsLib::SHORT;
+  using zsLib::USHORT;
+  using zsLib::LONG;
+  using zsLib::ULONG;
+  using zsLib::LONGLONG;
+  using zsLib::ULONGLONG;
+
   namespace internal
   {
+#pragma region Enum Conversion
+
     //---------------------------------------------------------------------------
     // MediaDeviceKind convert methods
     //---------------------------------------------------------------------------
@@ -349,15 +368,204 @@ namespace ortc_winrt_api
       }
       throw ref new Platform::NotImplementedException();
     }
+
+    //---------------------------------------------------------------------------
+    // RtpTypes convert methods
+    //---------------------------------------------------------------------------
+    IRTPTypes::PriorityTypes ConvertEnums::convert(RTCPriorityType priority)
+    {
+      switch (priority) {
+      case RTCPriorityType::Unknown:    return IRTPTypes::PriorityTypes::PriorityType_Unknown;
+      case RTCPriorityType::Very_Low:   return IRTPTypes::PriorityTypes::PriorityType_VeryLow;
+      case RTCPriorityType::Low:        return IRTPTypes::PriorityTypes::PriorityType_Low;
+      case RTCPriorityType::Medium:     return IRTPTypes::PriorityTypes::PriorityType_Medium;
+      case RTCPriorityType::High:       return IRTPTypes::PriorityTypes::PriorityType_High;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    RTCPriorityType ConvertEnums::convert(IRTPTypes::PriorityTypes priority)
+    {
+      switch (priority) {
+      case IRTPTypes::PriorityTypes::PriorityType_Unknown:  return RTCPriorityType::Unknown;
+      case IRTPTypes::PriorityTypes::PriorityType_VeryLow:  return RTCPriorityType::Very_Low;
+      case IRTPTypes::PriorityTypes::PriorityType_Low:      return RTCPriorityType::Low;
+      case IRTPTypes::PriorityTypes::PriorityType_Medium:   return RTCPriorityType::Medium;
+      case IRTPTypes::PriorityTypes::PriorityType_High:     return RTCPriorityType::High;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    IRTPTypes::DegradationPreferences ConvertEnums::convert(RTCDegradationPreference preference)
+    {
+      switch (preference) {
+      case RTCDegradationPreference::MaintainFramerate:    return IRTPTypes::DegradationPreferences::DegradationPreference_MaintainFramerate;
+      case RTCDegradationPreference::MaintainResolution:   return IRTPTypes::DegradationPreferences::DegradationPreference_MaintainResolution;
+      case RTCDegradationPreference::Balanced:             return IRTPTypes::DegradationPreferences::DegradationPreference_Balanced;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+
+    RTCDegradationPreference ConvertEnums::convert(IRTPTypes::DegradationPreferences preference)
+    {
+      switch (preference) {
+      case IRTPTypes::DegradationPreferences::DegradationPreference_MaintainFramerate:  return RTCDegradationPreference::MaintainFramerate;
+      case IRTPTypes::DegradationPreferences::DegradationPreference_MaintainResolution: return RTCDegradationPreference::MaintainResolution;
+      case IRTPTypes::DegradationPreferences::DegradationPreference_Balanced:           return RTCDegradationPreference::Balanced;
+      }
+      throw ref new Platform::NotImplementedException();
+    }
+#pragma endregion
   } // namespace internal
 
   std::string FromCx(Platform::String^ inObj) {
+    if (nullptr == inObj) return std::string();
     return rtc::ToUtf8(inObj->Data());
   }
 
-  Platform::String^ ToCx(std::string const& inObj) {
+  Platform::String^ ToCx(const std::string &inObj) {
     return ref new Platform::String(rtc::ToUtf16(inObj).c_str());
   }
+
+#pragma region Optional
+
+  Platform::IBox<Platform::Boolean>^ ToCx(const Optional<bool> &input)
+  {
+    if (!input.hasValue()) return nullptr;
+    return ref new Platform::Box<Platform::Boolean>(input.value());
+  }
+
+  Optional<bool> FromCx(Platform::IBox<Platform::Boolean>^ input)
+  {
+    Optional<bool> result;
+    if (nullptr == input) return result;
+    result = input->Value;
+    return result;
+  }
+
+  Platform::IBox<uint8>^ ToCx(const Optional<BYTE> &input)
+  {
+    if (!input.hasValue()) return nullptr;
+    return ref new Platform::Box<uint8>(SafeInt<uint8>(input.value()));
+  }
+
+  Optional<BYTE> FromCx(Platform::IBox<uint8>^ input)
+  {
+    Optional<BYTE> result;
+    if (nullptr == input) return result;
+    result = SafeInt<BYTE>(input->Value);
+    return result;
+  }
+
+  Platform::IBox<int16>^ ToCx(const Optional<SHORT> &input)
+  {
+    if (!input.hasValue()) return nullptr;
+    return ref new Platform::Box<int16>(SafeInt<int16>(input.value()));
+  }
+
+  Optional<SHORT> FromCx(Platform::IBox<int16>^ input)
+  {
+    Optional<SHORT> result;
+    if (nullptr == input) return result;
+    result = SafeInt<SHORT>(input->Value);
+    return result;
+  }
+
+  Platform::IBox<uint16>^ ToCx(const Optional<USHORT> &input)
+  {
+    if (!input.hasValue()) return nullptr;
+    return ref new Platform::Box<uint16>(SafeInt<uint16>(input.value()));
+  }
+
+  Optional<USHORT> FromCx(Platform::IBox<uint16>^ input)
+  {
+    Optional<USHORT> result;
+    if (nullptr == input) return result;
+    result = SafeInt<USHORT>(input->Value);
+    return result;
+  }
+
+  Platform::IBox<int32>^ ToCx(const Optional<LONG> &input)
+  {
+    if (!input.hasValue()) return nullptr;
+    return ref new Platform::Box<int32>(SafeInt<int32>(input.value()));
+  }
+
+  Optional<LONG> FromCx(Platform::IBox<int32>^ input)
+  {
+    Optional<LONG> result;
+    if (nullptr == input) return result;
+    result = SafeInt<LONG>(input->Value);
+    return result;
+  }
+
+  Platform::IBox<uint32>^ ToCx(const Optional<ULONG> &input)
+  {
+    if (!input.hasValue()) return nullptr;
+    return ref new Platform::Box<uint32>(SafeInt<uint32>(input.value()));
+  }
+
+  Optional<ULONG> FromCx(Platform::IBox<uint32>^ input)
+  {
+    Optional<ULONG> result;
+    if (nullptr == input) return result;
+    result = SafeInt<ULONG>(input->Value);
+    return result;
+  }
+
+  Platform::IBox<uint64>^ ToCx(const Optional<ULONGLONG> &input)
+  {
+    if (!input.hasValue()) return nullptr;
+    return ref new Platform::Box<uint64>(SafeInt<uint64>(input.value()));
+  }
+
+  Optional<ULONGLONG> FromCx(Platform::IBox<uint64>^ input)
+  {
+    Optional<ULONGLONG> result;
+    if (nullptr == input) return result;
+    result = SafeInt<ULONGLONG>(input->Value);
+    return result;
+  }
+
+  Platform::IBox<float64>^ ToCx(const Optional<double> &input)
+  {
+    if (!input.hasValue()) return nullptr;
+    return ref new Platform::Box<float64>(input.value());
+  }
+
+  Optional<double> FromCx(Platform::IBox<float64>^ input)
+  {
+    Optional<double> result;
+    if (nullptr == input) return result;
+    result = input->Value;
+    return result;
+  }
+
+  Platform::String^ ToCx(const Optional<zsLib::String> &input)
+  {
+    if (!input.hasValue()) return nullptr;
+    return ToCx(input.value());
+  }
+
+  Optional<zsLib::String> FromCxToOptional(Platform::String^ input)
+  {
+    Optional<zsLib::String> result;
+    if (nullptr == input) return result;
+    result = FromCx(input);
+    return result;
+  }
+
+#pragma endregion
+
+
+  IICETypes::Parameters FromCx(RTCIceParameters^ params)
+  {
+    IICETypes::Parameters ret;
+    ret.mUsernameFragment = FromCx(params->UsernameFragment);
+    ret.mPassword = FromCx(params->Password);
+    return ret;
+  }
+
 
   IICETypes::Candidate FromCx(RTCIceCandidate^ candidate)
   {
@@ -378,7 +586,7 @@ namespace ortc_winrt_api
     return ret;
   }
 
-  RTCIceCandidate^ ToCx(ortc::IICETypes::CandidatePtr candidate)
+  RTCIceCandidate^ ToCx(IICETypes::CandidatePtr candidate)
   {
     RTCIceCandidate^ ret = ref new RTCIceCandidate();
 
@@ -411,7 +619,7 @@ namespace ortc_winrt_api
       {
         for (RTCIceServer^ srv : options->IceServers)
         {
-          ortc::IICEGatherer::Server server;
+          IICEGatherer::Server server;
           server.mUserName = FromCx(srv->UserName);
           server.mCredential = FromCx(srv->Credential);
           server.mCredentialType = internal::ConvertEnums::convert(srv->CredentialType);
@@ -473,89 +681,448 @@ namespace ortc_winrt_api
     return ret;
   }
 
-  IDataChannelTypes::Parameters FromCx(RTCDataChannelParameters^ parameters)
+
+#pragma region DataChannel
+
+  RTCDataChannelParameters^ ToCx(const IDataChannelTypes::Parameters &input)
   {
-    IDataChannelTypes::Parameters ret;
+    auto result = ref new RTCDataChannelParameters();
 
-    ret.mLabel = FromCx(parameters->Label);
-    ret.mOrdered = parameters->Ordered;
-    ret.mMaxPacketLifetime = Milliseconds(parameters->MaxPacketLifetime);
-    ret.mMaxRetransmits = parameters->MaxRetransmits;
-    ret.mProtocol = FromCx(parameters->Protocol);
-    ret.mNegotiated = parameters->Negotiated;
-    ret.mID = parameters->Id;
-
-    return ret;
-  }
-
-  RTCDataChannelParameters^ ToCx(IDataChannelTypes::ParametersPtr parameters)
-  {
-    RTCDataChannelParameters^ ret = ref new RTCDataChannelParameters();
-
-    ret->Label = ToCx(parameters->mLabel);
-    ret->Ordered = parameters->mOrdered;
-    ret->MaxPacketLifetime = parameters->mMaxPacketLifetime.count();
-    ret->MaxRetransmits = parameters->mMaxRetransmits;
-    ret->Protocol = ToCx(parameters->mProtocol);
-    ret->Negotiated = parameters->mNegotiated;
-    ret->Id = parameters->mID;
-
-    return ret;
-  }
-
-  RTCRtpCodecCapability^ ToCx(IRTPTypes::CodecCapabilityPtr codecCapabilityPtr)
-  {
-    auto ret = ref new RTCRtpCodecCapability();
-
-    ret->Name = ToCx(codecCapabilityPtr->mName);
-    ret->Kind = ToCx(codecCapabilityPtr->mKind);
-    ret->ClockRate = codecCapabilityPtr->mClockRate;
-    //ret->preferredPayloadType = codecCapabilityPtr->mPreferredPayloadType;
-    ret->Maxptime = codecCapabilityPtr->mMaxPTime;
-    ret->NumChannels = codecCapabilityPtr->mNumChannels;
-
-    //ret->rtcpFeedback = ref new Vector<RTCRtcpFeedback^>();
-
-    for (IRTPTypes::RTCPFeedbackList::iterator it = codecCapabilityPtr->mRTCPFeedback.begin(); it != codecCapabilityPtr->mRTCPFeedback.end(); ++it)
+    result->Label = ToCx(input.mLabel);
+    result->Ordered = input.mOrdered;
+    if (Milliseconds() != input.mMaxPacketLifetime)
     {
-      auto feedback = ref new RTCRtcpFeedback();
-      feedback->Parameter = ToCx(it->mParameter);
-      feedback->Type = ToCx(it->mType);
-      //ret->rtcpFeedback->Append(feedback);
+      result->MaxPacketLifetime = input.mMaxPacketLifetime.count();
     }
+    else
+    {
+      result->MaxPacketLifetime = 0;
+    }
+    result->MaxRetransmits = ToCx(input.mMaxRetransmits);
+    result->Protocol = ToCx(input.mProtocol);
+    result->Negotiated = input.mNegotiated;
+    result->Id = ToCx(input.mID);
 
-    //ret->parameters = codecCapabilityPtr->mParameters;
-    //ret->options = codecCapabilityPtr->mOptions;
-    ret->MaxTemporalLayers = codecCapabilityPtr->mMaxTemporalLayers; //default = 0;
-    ret->MaxSpatialLayers = codecCapabilityPtr->mMaxSpatialLayers; //default = 0;
-    ret->SvcMultiStreamSupport = codecCapabilityPtr->mSVCMultiStreamSupport;
-
-    return ret;
+    return result;
   }
 
-  RTCRtpHeaderExtension^ ToCx(IRTPTypes::HeaderExtensionPtr headerExtension)
+  RTCDataChannelParameters^ ToCx(IDataChannelTypes::ParametersPtr input)
   {
-    auto ret = ref new RTCRtpHeaderExtension();
-
-    ret->Kind = ToCx(headerExtension->mKind);
-    ret->Uri = ToCx(headerExtension->mURI);
-    ret->PreferredEncrypt = headerExtension->mPreferredEncrypt;
-    ret->PreferredId = headerExtension->mPreferredID;
- 
-    return ret;
+    if (!input) return nullptr;
+    return ToCx(input);
   }
 
-  IRTPTypes::HeaderExtensionParameters FromCx(RTCRtpHeaderExtensionParameters^ headerExtensions)
+  IDataChannelTypes::ParametersPtr FromCx(RTCDataChannelParameters^ input)
   {
-    IRTPTypes::HeaderExtensionParameters ret;
+    if (nullptr == input) return IDataChannelTypes::ParametersPtr();
+    auto result = std::make_shared<IDataChannelTypes::Parameters>();
 
-    ret.mURI = FromCx(headerExtensions->Uri);
-    ret.mEncrypt = headerExtensions->Encrypt;
-    ret.mID = headerExtensions->Id;
+    result->mLabel = FromCx(input->Label);
+    result->mOrdered = input->Ordered;
+    if (0 != input->MaxPacketLifetime) result->mMaxPacketLifetime = Milliseconds(SafeInt<Milliseconds::rep>(input->MaxPacketLifetime));
+    result->mMaxRetransmits = FromCx(input->MaxRetransmits);
+    result->mProtocol = FromCx(input->Protocol);
+    result->mNegotiated = input->Negotiated;
+    result->mID = FromCx(input->Id);
 
-    return ret;
+    return result;
   }
- 
+
+#pragma endregion
+  
+#pragma region Sctp Transport
+
+  RTCSctpCapabilities^ ToCx(const ISCTPTransport::Capabilities &input)
+  {
+    auto result = ref new RTCSctpCapabilities();
+    result->MaxMessageSize =  SafeInt<uint32>(input.mMaxMessageSize);
+    result->MinPort = SafeInt<uint16>(input.mMinPort);
+    result->MaxPort = SafeInt<uint16>(input.mMaxPort);
+    result->MaxUsablePorts = SafeInt<uint16>(input.mMaxUsablePorts);
+    result->MaxSessionsPerPort = SafeInt<uint16>(input.mMaxSessionsPerPort);
+    return result;
+  }
+
+  RTCSctpCapabilities^ ToCx(ISCTPTransport::CapabilitiesPtr input)
+  {
+    if (!input) return nullptr;
+    return ToCx(input);
+  }
+
+  ISCTPTransport::CapabilitiesPtr FromCx(RTCSctpCapabilities^ input)
+  {
+    if (nullptr == input) return ISCTPTransport::CapabilitiesPtr();
+    auto result = std::make_shared<ISCTPTransport::Capabilities>();
+
+    result->mMaxMessageSize = SafeInt<uint32>(input->MaxMessageSize);
+    result->mMinPort = SafeInt<uint16>(input->MinPort);
+    result->mMaxPort = SafeInt<uint16>(input->MaxPort);
+    result->mMaxUsablePorts = SafeInt<uint16>(input->MaxUsablePorts);
+    result->mMaxSessionsPerPort = SafeInt<uint16>(input->MaxSessionsPerPort);
+    return result;
+  }
+
+#pragma endregion
+
+#pragma region Capabilities
+
+  CapabilityBool^ ToCx(const ICapabilities::CapabilityBool &input)
+  {
+    auto result = ref new CapabilityBool;
+    if (input.size() < 1) return result;
+
+    result->Values = ref new Vector<Platform::Boolean>();
+
+    for (auto iter = input.begin(); iter != input.end(); ++iter)
+    {
+      auto &value = *iter;
+      result->Values->Append(value);
+    }
+    return result;
+  }
+
+  CapabilityBool^ ToCx(const Optional<ICapabilities::CapabilityBool> &input)
+  {
+    if (!input.hasValue()) return nullptr;
+    return ToCx(input.value());
+  }
+
+  Optional<ICapabilities::CapabilityBool> FromCx(CapabilityBool^ input)
+  {
+    Optional<ICapabilities::CapabilityBool> result;
+    if (nullptr == input) return result;
+
+    result = ICapabilities::CapabilityBool();
+    if (input->Values->Size < 1) return result;
+
+    for (Platform::Boolean value : input->Values)
+    {
+      result.value().insert(value);
+    }
+    return result;
+  }
+
+  CapabilityLong^ ToCx(const ICapabilities::CapabilityLong &input)
+  {
+    auto result = ref new CapabilityLong();
+    result->Min = SafeInt<int32>(input.mMin);
+    result->Max = SafeInt<int32>(input.mMax);
+    return result;
+  }
+
+  CapabilityLong^ ToCx(const Optional<ICapabilities::CapabilityLong> &input)
+  {
+    if (!input.hasValue()) return nullptr;
+    return ToCx(input.value());
+  }
+
+  Optional<ICapabilities::CapabilityLong> FromCx(CapabilityLong^ input)
+  {
+    Optional<ICapabilities::CapabilityLong> result;
+    if (nullptr == input) return result;
+
+    result = ICapabilities::CapabilityLong();
+    result.value().mMin = SafeInt<decltype(ICapabilities::CapabilityLong::mMin)>(input->Min);
+    result.value().mMax = SafeInt<decltype(ICapabilities::CapabilityLong::mMax)>(input->Max);
+    return result;
+  }
+
+  CapabilityDouble^ ToCx(const ICapabilities::CapabilityDouble &input)
+  {
+    auto result = ref new CapabilityDouble();
+    result->Min = static_cast<float64>(input.mMin);
+    result->Max = static_cast<float64>(input.mMax);
+    return result;
+  }
+
+  CapabilityDouble^ ToCx(const Optional<ICapabilities::CapabilityDouble> &input)
+  {
+    if (!input.hasValue()) return nullptr;
+    return ToCx(input.value());
+  }
+
+  Optional<ICapabilities::CapabilityDouble> FromCx(CapabilityDouble^ input)
+  {
+    Optional<ICapabilities::CapabilityDouble> result;
+    if (nullptr == input) return result;
+
+    result = ICapabilities::CapabilityDouble();
+    result.value().mMin = static_cast<decltype(ICapabilities::CapabilityDouble::mMin)>(input->Min);
+    result.value().mMax = static_cast<decltype(ICapabilities::CapabilityDouble::mMax)>(input->Max);
+    return result;
+  }
+
+  CapabilityString^ ToCx(const ICapabilities::CapabilityString &input)
+  {
+    auto result = ref new CapabilityString();
+    if (input.size() < 1) return result;
+
+    result->Values = ref new Vector<Platform::String^>();
+
+    for (auto iter = input.begin(); iter != input.end(); ++iter)
+    {
+      auto &value = *iter;
+      result->Values->Append(ToCx(value));
+    }
+    return result;
+  }
+
+  CapabilityString^ ToCx(const Optional<ICapabilities::CapabilityString> &input)
+  {
+    if (!input.hasValue()) return nullptr;
+    return ToCx(input.value());
+  }
+
+  Optional<ICapabilities::CapabilityString> FromCx(CapabilityString^ input)
+  {
+    Optional<ICapabilities::CapabilityString> result;
+    if (nullptr == input) return result;
+
+    result = ICapabilities::CapabilityString();
+    if (input->Values->Size < 1) return result;
+
+    for (Platform::String^ value : input->Values)
+    {
+      result.value().insert(FromCx(value));
+    }
+    return result;
+  }
+
+#pragma endregion
+
+#pragma region Constraints
+
+  ConstrainBoolParameters^ ToCx(const IConstraints::ConstrainBoolParameters &input)
+  {
+    auto result = ref new ConstrainBoolParameters();
+    result->Exact = ToCx(input.mExact);
+    result->Ideal = ToCx(input.mIdeal);
+    return result;
+  }
+
+  ConstrainBoolParameters^ ToCx(const Optional<IConstraints::ConstrainBoolParameters> &input)
+  {
+    if (!input.hasValue()) return nullptr;
+    return ToCx(input.value());
+  }
+
+  Optional<IConstraints::ConstrainBoolParameters> FromCx(ConstrainBoolParameters^ input)
+  {
+    Optional<IConstraints::ConstrainBoolParameters> result;
+    if (nullptr == input) return result;
+
+    result = IConstraints::ConstrainBoolParameters();
+    result.value().mExact = FromCx(input->Exact);
+    result.value().mIdeal = FromCx(input->Ideal);
+    return result;
+  }
+
+  ConstrainBool^ ToCx(const IConstraints::ConstrainBool &input)
+  {
+    auto result = ref new ConstrainBool();
+    result->Value = ToCx(input.mValue);
+    result->Parameters = ToCx(input.mParameters);
+    return result;
+  }
+
+  IConstraints::ConstrainBool FromCx(ConstrainBool^ input)
+  {
+    IConstraints::ConstrainBool result;
+    if (nullptr == input) return result;
+    result.mValue = FromCx(input->Value);
+    result.mParameters = FromCx(input->Parameters);
+    return result;
+  }
+
+  ConstrainLongRange^ ToCx(const IConstraints::ConstrainLongRange &input)
+  {
+    auto result = ref new ConstrainLongRange();
+    result->Max = ToCx(input.mMax);
+    result->Min = ToCx(input.mMin);
+    result->Exact = ToCx(input.mExact);
+    result->Ideal = ToCx(input.mIdeal);
+    return result;
+  }
+
+  ConstrainLongRange^ ToCx(const Optional<IConstraints::ConstrainLongRange> &input)
+  {
+    if (!input.hasValue()) return nullptr;
+    return ToCx(input.value());
+  }
+
+  Optional<IConstraints::ConstrainLongRange> FromCx(ConstrainLongRange^ input)
+  {
+    Optional<IConstraints::ConstrainLongRange> result;
+    if (nullptr == input) return result;
+
+    result = IConstraints::ConstrainLongRange();
+    result.value().mMax = FromCx(input->Max);
+    result.value().mMin = FromCx(input->Min);
+    result.value().mExact = FromCx(input->Exact);
+    result.value().mIdeal = FromCx(input->Ideal);
+    return result;
+  }
+
+  ConstrainLong^ ToCx(const IConstraints::ConstrainLong &input)
+  {
+    auto result = ref new ConstrainLong();
+    result->Value = ToCx(input.mValue);
+    result->Range = ToCx(input.mRange);
+    return result;
+  }
+
+  IConstraints::ConstrainLong FromCx(ConstrainLong^ input)
+  {
+    IConstraints::ConstrainLong result;
+    if (nullptr == input) return result;
+    result.mValue = FromCx(input->Value);
+    result.mRange = FromCx(input->Range);
+    return result;
+  }
+
+  ConstrainDoubleRange^ ToCx(const IConstraints::ConstrainDoubleRange &input)
+  {
+    auto result = ref new ConstrainDoubleRange();
+    result->Max = ToCx(input.mMax);
+    result->Min = ToCx(input.mMin);
+    result->Exact = ToCx(input.mExact);
+    result->Ideal = ToCx(input.mIdeal);
+    return result;
+  }
+
+  ConstrainDoubleRange^ ToCx(const Optional<IConstraints::ConstrainDoubleRange> &input)
+  {
+    if (!input.hasValue()) return nullptr;
+    return ToCx(input.value());
+  }
+
+  Optional<IConstraints::ConstrainDoubleRange> FromCx(ConstrainDoubleRange^ input)
+  {
+    Optional<IConstraints::ConstrainDoubleRange> result;
+    if (nullptr == input) return result;
+
+    result = IConstraints::ConstrainDoubleRange();
+    result.value().mMax = FromCx(input->Max);
+    result.value().mMin = FromCx(input->Min);
+    result.value().mExact = FromCx(input->Exact);
+    result.value().mIdeal = FromCx(input->Ideal);
+    return result;
+  }
+
+  ConstrainDouble^ ToCx(const IConstraints::ConstrainDouble &input)
+  {
+    auto result = ref new ConstrainDouble();
+    result->Value = ToCx(input.mValue);
+    result->Range = ToCx(input.mRange);
+    return result;
+  }
+
+  IConstraints::ConstrainDouble FromCx(ConstrainDouble^ input)
+  {
+    IConstraints::ConstrainDouble result;
+    if (nullptr == input) return result;
+    result.mValue = FromCx(input->Value);
+    result.mRange = FromCx(input->Range);
+    return result;
+  }
+
+  IVector<Platform::String^>^ ToCx(const IConstraints::StringList &input)
+  {
+    if (input.size() < 1) return nullptr;
+    auto result = ref new Vector<Platform::String^>();
+    for (auto iter = input.begin(); iter != input.end(); ++iter)
+    {
+      auto &value = (*iter);
+      result->Append(ToCx(value));
+    }
+    return result;
+  }
+
+  IVector<Platform::String^>^ ToCx(const Optional<IConstraints::StringList> &input)
+  {
+    if (!input.hasValue()) return nullptr;
+    return ToCx(input.value());
+  }
+
+  Optional<IConstraints::StringList> FromCx(IVector<Platform::String^>^ input)
+  {
+    Optional<IConstraints::StringList> result;
+    if (nullptr == input) return result;
+    result = IConstraints::StringList();
+    for (Platform::String^ value : input)
+    {
+      result.value().push_back(FromCx(value));
+    }
+    return result;
+  }
+
+  StringOrStringList^ ToCx(const IConstraints::StringOrStringList &input)
+  {
+    auto result = ref new StringOrStringList();
+    result->Value = ToCx(input.mValue);
+    result->Values = ToCx(input.mValues);
+    return result;
+  }
+
+  Optional<IConstraints::StringOrStringList> FromCx(StringOrStringList^ input)
+  {
+    Optional<IConstraints::StringOrStringList> result;
+    if (nullptr == input) return result;
+
+    result = IConstraints::StringOrStringList();
+    result.value().mValue = FromCxToOptional(input->Value);
+    result.value().mValues = FromCx(input->Values);
+    return result;
+  }
+
+
+  ConstrainStringParameters^ ToCx(const IConstraints::ConstrainStringParameters &input)
+  {
+    auto result = ref new ConstrainStringParameters();
+    result->Exact = ToCx(input.mExact);
+    result->Ideal = ToCx(input.mIdeal);
+    return result;
+  }
+
+  ConstrainStringParameters^ ToCx(const Optional<IConstraints::ConstrainStringParameters> &input)
+  {
+    if (!input.hasValue()) return nullptr;
+    return ToCx(input.value());
+  }
+
+  Optional<IConstraints::ConstrainStringParameters> FromCx(ConstrainStringParameters^ input)
+  {
+    Optional<IConstraints::ConstrainStringParameters> result;
+    if (nullptr == input) return result;
+
+    result = IConstraints::ConstrainStringParameters();
+    result.value().mExact = FromCx(input->Exact);
+    result.value().mIdeal = FromCx(input->Ideal);
+    return result;
+  }
+
+  ConstrainString^ ToCx(const IConstraints::ConstrainString &input)
+  {
+    auto result = ref new ConstrainString();
+    result->Value = ToCx(input.mValue);
+    result->Parameters = ToCx(input.mParameters);
+    return result;
+  }
+
+  IConstraints::ConstrainString FromCx(ConstrainString^ input)
+  {
+    IConstraints::ConstrainString result;
+    if (nullptr == input) return result;
+    result.mValue = FromCx(input->Value);
+    result.mParameters = FromCx(input->Parameters);
+    return result;
+  }
+
+#pragma endregion
+
+
+
+
   //***********************************************************************
   // ConvertObjectToCx class methods
   //***********************************************************************
@@ -603,481 +1170,1325 @@ namespace ortc_winrt_api
 	  return ret;
   }
 
-  MediaTrackCapabilities^ ToCx(IMediaStreamTrackTypes::CapabilitiesPtr capabilitiesPtr)
-  {
-	  auto ret = ref new MediaTrackCapabilities();
+#pragma region MediaStreamTrack
 
-	  /*ret->width = capabilitiesPtr->mWidth;
-	  ret->height = capabilitiesPtr->mHeight;
-	  ret->aspectRatio = capabilitiesPtr->mAspectRatio;
-	  ret->frameRate = capabilitiesPtr->mFrameRate;
-	  ret->facingMode = ToCx(capabilitiesPtr->mFacingMode);
-	  ret->volume = capabilitiesPtr->mVolume;
-	  ret->sampleRate = capabilitiesPtr->mSampleRate;
-	  ret->sampleSize = capabilitiesPtr->mSampleSize;
-	  ret->echoCancellation = capabilitiesPtr->mEchoCancellation;
-	  ret->deviceId = ToCx(capabilitiesPtr->mDeviceID);
-	  ret->groupId = ToCx(capabilitiesPtr->mGroupID);
-	  */
-	  return ret;
+  MediaTrackCapabilities^ ToCx(const IMediaStreamTrackTypes::Capabilities &input)
+  {
+    MediaTrackCapabilities^ result = ref new MediaTrackCapabilities;
+    result->Width = ToCx(input.mWidth);
+    result->Height = ToCx(input.mHeight);
+    result->AspectRatio = ToCx(input.mAspectRatio);
+    result->FrameRate = ToCx(input.mFrameRate);
+    result->FacingMode = ToCx(input.mFacingMode);
+    result->Volume = ToCx(input.mVolume);
+    result->SampleRate = ToCx(input.mSampleRate);
+    result->SampleSize = ToCx(input.mSampleSize);
+    result->EchoCancellation = ToCx(input.mEchoCancellation);
+    result->Latency = ToCx(input.mLatency);
+
+    result->DeviceId = ToCx(input.mDeviceID);
+    result->GroupId = ToCx(input.mGroupID);
+    return result;
   }
 
-  LongRange^ ToCx(IMediaStreamTrackTypes::CapabilityLong input)
+  MediaTrackCapabilities^ ToCx(IMediaStreamTrackTypes::CapabilitiesPtr input)
   {
-	  auto ret = ref new LongRange();
-
-	  ret->Max = input.mMax;
-	  ret->Min = input.mMin;
-
-	  return ret;
+    if (!input) return nullptr;
+    return ToCx(*input);
   }
 
-
-  template <typename  From, typename To> To^ convertConstrainToCx(From from)
+  IMediaStreamTrackTypes::CapabilitiesPtr FromCx(MediaTrackCapabilities^ input)
   {
-	  auto ret = ref new To();
+    if (nullptr == input) return IMediaStreamTrackTypes::CapabilitiesPtr();
+    auto result(make_shared<IMediaStreamTrackTypes::Capabilities>());
+    result->mWidth = FromCx(input->Width);
+    result->mHeight = FromCx(input->Height);
+    result->mAspectRatio = FromCx(input->AspectRatio);
+    result->mFrameRate = FromCx(input->FrameRate);
+    result->mFacingMode = FromCx(input->FacingMode);
+    result->mVolume = FromCx(input->Volume);
+    result->mSampleRate = FromCx(input->SampleRate);
+    result->mSampleSize = FromCx(input->SampleSize);
+    result->mEchoCancellation = FromCx(input->EchoCancellation);
+    result->mLatency = FromCx(input->Latency);
 
-	  ret->Max = from.mRange.value().mMax;
-	  ret->Min = from.mRange.value().mMin;
-	  ret->Exact = from.mRange.value().mExact;
-	  ret->Ideal = from.mRange.value().mIdeal;
-	  ret->Value = from.mValue;
-
-	  return ret;
+    result->mDeviceID = FromCx(input->DeviceId);
+    result->mGroupID = FromCx(input->GroupId);
+    return result;
   }
 
-  template <typename  From, typename To> To convertConstrainFromCx(From^ from)
+  MediaTrackSettings^ ToCx(const IMediaStreamTrackTypes::Settings &input)
   {
-    To ret;
-
-    ret.mRange.value().mMax = from->Max;
-    ret.mRange.value().mMin = from->Min;
-    ret.mRange.value().mExact = from->Exact;
-    ret.mRange.value().mIdeal = from->Ideal;
-
-    return ret;
+    auto result = ref new MediaTrackSettings();
+    result->Width = ToCx(input.mWidth);
+    result->Height = ToCx(input.mHeight);
+    result->AspectRatio = ToCx(input.mAspectRatio);
+    result->FrameRate = ToCx(input.mFrameRate);
+    result->FacingMode = ToCx(input.mFacingMode);
+    result->Volume = ToCx(input.mVolume);
+    result->SampleRate = ToCx(input.mSampleRate);
+    result->SampleSize = ToCx(input.mSampleSize);
+    result->EchoCancellation = ToCx(input.mEchoCancellation);
+    result->Latency = ToCx(input.mLatency);
+    result->DeviceId = ToCx(input.mDeviceID);
+    result->GroupId = ToCx(input.mGroupID);
+    return result;
   }
 
-  StringOrStringList^ ToCx(ortc::IConstraints::StringOrStringList from)
+  MediaTrackSettings^ ToCx(IMediaStreamTrackTypes::SettingsPtr input)
   {
-	  auto ret = ref new StringOrStringList();
-
-	  if (from.mValue.hasValue())
-		  ret->Value = ToCx(from.mValue.value());
-
-	  if (from.mValues.hasValue())
-	  {
-		  ret->Values = ref new Vector<Platform::String^>();
-
-		  for (IConstraints::StringList::iterator it = from.mValues.value().begin(); it != from.mValues.value().end(); ++it)
-			  ret->Values->Append(ToCx(*it));
-	  }
-	  return ret;
+    if (!input) return nullptr;
+    return ToCx(*input);
   }
 
-  ortc::IConstraints::StringOrStringList FromCx(StringOrStringList^ from)
+  IMediaStreamTrackTypes::SettingsPtr FromCx(MediaTrackSettings^ input)
   {
-    ortc::IConstraints::StringOrStringList ret;
+    if (nullptr == input) return IMediaStreamTrackTypes::SettingsPtr();
+    auto result(make_shared<IMediaStreamTrackTypes::Settings>());
+    result->mWidth = FromCx(input->Width);
+    result->mHeight = FromCx(input->Height);
+    result->mAspectRatio = FromCx(input->AspectRatio);
+    result->mFrameRate = FromCx(input->FrameRate);
+    result->mFacingMode = FromCx(input->FacingMode);
+    result->mVolume = FromCx(input->Volume);
+    result->mSampleRate = FromCx(input->SampleRate);
+    result->mSampleSize = FromCx(input->SampleSize);
+    result->mEchoCancellation = FromCx(input->EchoCancellation);
+    result->mLatency = FromCx(input->Latency);
+    result->mDeviceID = FromCx(input->DeviceId);
+    result->mGroupID = FromCx(input->GroupId);
+    return result;
+  }
 
-    if (!from->Value->IsEmpty())
-      ret.mValue = FromCx(from->Value);
+  MediaTrackConstraintSet^ ToCx(const IMediaStreamTrackTypes::ConstraintSet &input)
+  {
+    auto result = ref new MediaTrackConstraintSet();
+    result->Width = ToCx(input.mWidth);
+    result->Height = ToCx(input.mHeight);
+    result->AspectRatio = ToCx(input.mAspectRatio);
+    result->FrameRate = ToCx(input.mFrameRate);
+    result->FacingMode = ToCx(input.mFacingMode);
+    result->Volume = ToCx(input.mVolume);
+    result->SampleRate = ToCx(input.mSampleRate);
+    result->SampleSize = ToCx(input.mSampleSize);
+    result->EchoCancellation = ToCx(input.mEchoCancellation);
+    result->Latency = ToCx(input.mLatency);
+    result->DeviceId = ToCx(input.mDeviceID);
+    result->GroupId = ToCx(input.mGroupID);
+    return result;
+  }
 
-    if (from->Values->Size > 0)
+  MediaTrackConstraintSet^ ToCx(IMediaStreamTrackTypes::ConstraintSetPtr input)
+  {
+    if (!input) return nullptr;
+    return ToCx(*input);
+  }
+
+  IMediaStreamTrackTypes::ConstraintSetPtr FromCx(MediaTrackConstraintSet^ input)
+  {
+    if (nullptr == input) return IMediaStreamTrackTypes::ConstraintSetPtr();
+    auto result(make_shared<IMediaStreamTrackTypes::ConstraintSet>());
+    result->mWidth = FromCx(input->Width);
+    result->mHeight = FromCx(input->Height);
+    result->mAspectRatio = FromCx(input->AspectRatio);
+    result->mFrameRate = FromCx(input->FrameRate);
+    result->mFacingMode = FromCx(input->FacingMode);
+    result->mVolume = FromCx(input->Volume);
+    result->mSampleRate = FromCx(input->SampleRate);
+    result->mSampleSize = FromCx(input->SampleSize);
+    result->mEchoCancellation = FromCx(input->EchoCancellation);
+    result->mLatency = FromCx(input->Latency);
+    result->mDeviceID = FromCx(input->DeviceId);
+    result->mGroupID = FromCx(input->GroupId);
+    return result;
+  }
+
+  MediaTrackConstraints^ ToCx(const IMediaStreamTrackTypes::TrackConstraints &input)
+  {
+    auto result = ref new MediaTrackConstraints();
+    if (input.mAdvanced.size() < 1) return result;
+
+    result->Advanced = ref new Vector<MediaTrackConstraintSet^>();
+    for (auto iter = input.mAdvanced.begin(); iter != input.mAdvanced.end(); ++iter)
     {
-      for (Platform::String^ value : from->Values)
+      auto &value = *iter;
+      result->Advanced->Append(ToCx(value));
+    }
+    return result;
+  }
+
+  MediaTrackConstraints^ ToCx(IMediaStreamTrackTypes::TrackConstraintsPtr input)
+  {
+    if (!input) return nullptr;
+    return ToCx(*input);
+  }
+
+  IMediaStreamTrackTypes::TrackConstraintsPtr FromCx(MediaTrackConstraints^ input)
+  {
+    if (nullptr == input) return IMediaStreamTrackTypes::TrackConstraintsPtr();
+    auto result(make_shared<IMediaStreamTrackTypes::TrackConstraints>());
+    if (nullptr == input->Advanced) return result;
+
+    for (MediaTrackConstraintSet^ value : input->Advanced)
+    {
+      result->mAdvanced.push_back(FromCx(value));
+    }
+    return result;
+  }
+
+  Constraints^ ToCx(const IMediaStreamTrackTypes::Constraints &input)
+  {
+    auto result = ref new Constraints();
+    result->Video = ToCx(input.mVideo);
+    result->Audio = ToCx(input.mAudio);
+    return result;
+  }
+
+  Constraints^ ToCx(IMediaStreamTrackTypes::ConstraintsPtr input)
+  {
+    if (!input) return nullptr;
+    return ToCx(*input);
+  }
+
+  IMediaStreamTrackTypes::ConstraintsPtr FromCx(Constraints^ input)
+  {
+    if (nullptr == input) return IMediaStreamTrackTypes::ConstraintsPtr();
+    auto result(make_shared<IMediaStreamTrackTypes::Constraints>());
+    result->mVideo = FromCx(input->Video);
+    result->mAudio = FromCx(input->Audio);
+    return result;
+  }
+
+  SupportedConstraints^ ToCx(const IMediaDevices::SupportedConstraints &input)
+  {
+    auto result = ref new SupportedConstraints();
+    result->Width = input.mWidth;
+    result->Height = input.mHeight;
+    result->AspectRatio = input.mAspectRatio;
+    result->FrameRate = input.mFrameRate;
+    result->FacingMode = input.mFacingMode;
+    result->Volume = input.mVolume;
+    result->SampleRate = input.mSampleRate;
+    result->SampleSize = input.mSampleSize;
+    result->EchoCancellation = input.mEchoCancellation;
+    result->Latency = input.mLatency;
+    result->DeviceId = input.mDeviceID;
+    result->GroupId = input.mGroupID;
+    return result;
+  }
+
+  SupportedConstraints^ ToCx(IMediaDevices::SupportedConstraintsPtr input)
+  {
+    if (!input) return nullptr;
+    return ToCx(*input);
+  }
+
+  IMediaDevices::SupportedConstraintsPtr FromCx(SupportedConstraints^ input)
+  {
+    if (nullptr == input) return IMediaDevices::SupportedConstraintsPtr();
+    auto result(make_shared<IMediaDevices::SupportedConstraints>());
+    result->mWidth = input->Width;
+    result->mHeight = input->Height;
+    result->mAspectRatio = input->AspectRatio;
+    result->mFrameRate = input->FrameRate;
+    result->mFacingMode = input->FacingMode;
+    result->mVolume = input->Volume;
+    result->mSampleRate = input->SampleRate;
+    result->mSampleSize = input->SampleSize;
+    result->mEchoCancellation = input->EchoCancellation;
+    result->mLatency = input->Latency;
+    result->mDeviceID = input->DeviceId;
+    result->mGroupID = input->GroupId;
+    return result;
+  }
+
+  MediaDeviceInfo^ ToCx(const IMediaDevices::Device &input)
+  {
+    auto result = ref new MediaDeviceInfo();
+
+    result->Kind = internal::convert(input.mKind);
+
+    result->Label = ToCx(input.mLabel);
+    result->DeviceId = ToCx(input.mDeviceID);
+    result->GroupId = ToCx(input.mGroupID);
+
+    result->SupportedConstraints = ToCx(input.mSupportedConstraints);
+
+    return result;
+  }
+
+  MediaDeviceInfo^ ToCx(IMediaDevices::DevicePtr input)
+  {
+    if (!input) return nullptr;
+    return ToCx(*input);
+  }
+
+  IMediaDevices::DevicePtr FromCx(MediaDeviceInfo^ input)
+  {
+    if (nullptr == input) return IMediaDevices::DevicePtr();
+    auto result(make_shared<IMediaDevices::Device>());
+    result->mKind = internal::convert(input->Kind);
+
+    result->mLabel = FromCx(input->Label);
+    result->mDeviceID = FromCx(input->DeviceId);
+    result->mGroupID = FromCx(input->GroupId);
+    return result;
+  }
+
+#pragma endregion
+
+
+#pragma region RtpTypes
+
+  RTCRtcpFeedback^ ToCx(const IRTPTypes::RTCPFeedback &input)
+  {
+    auto result = ref new RTCRtcpFeedback();
+    result->Type = ToCx(input.mType);
+    result->Parameter = ToCx(input.mParameter);
+    return result;
+  }
+
+  RTCRtcpFeedback^ ToCx(IRTPTypes::RTCPFeedbackPtr input)
+  {
+    if (!input) return nullptr;
+    return ToCx(*input);
+  }
+
+  IRTPTypes::RTCPFeedback FromCx(RTCRtcpFeedback^ input)
+  {
+    IRTPTypes::RTCPFeedback result;
+    if (nullptr == input) return result;
+    result.mParameter = FromCx(input->Parameter);
+    result.mType = FromCx(input->Type);
+    return result;
+  }
+
+  RTCRtpOpusCodecCapabilityOptions^ ToCx(const IRTPTypes::OpusCodecCapabilityOptions &input)
+  {
+    auto result = ref new RTCRtpOpusCodecCapabilityOptions();
+    result->Complexity = input.mComplexity;
+    result->Signal = input.mSignal;
+    result->Application = input.mApplication;
+    result->PacketLossPerc = input.mPacketLossPerc;
+    result->PredictionDisabled = input.mPredictionDisabled;
+    return result;
+  }
+
+  RTCRtpOpusCodecCapabilityOptions^ ToCx(IRTPTypes::OpusCodecCapabilityOptionsPtr input)
+  {
+    if (!input) return nullptr;
+    return ToCx(*input);
+  }
+
+  IRTPTypes::OpusCodecCapabilityOptionsPtr FromCx(RTCRtpOpusCodecCapabilityOptions^ input)
+  {
+    if (nullptr == input) return IRTPTypes::OpusCodecCapabilityOptionsPtr();
+    auto result = make_shared<IRTPTypes::OpusCodecCapabilityOptions>();
+    result->mComplexity = input->Complexity;
+    result->mSignal = input->Signal;
+    result->mApplication = input->Application;
+    result->mPacketLossPerc = input->PacketLossPerc;
+    result->mPredictionDisabled = input->PredictionDisabled;
+    return result;
+  }
+
+  RTCRtpOpusCodecCapabilityParameters^ ToCx(const IRTPTypes::OpusCodecCapabilityParameters &input)
+  {
+    auto result = ref new RTCRtpOpusCodecCapabilityParameters();
+    result->MaxPlaybackRate = ToCx(input.mMaxPlaybackRate);
+    result->Ptime = ToCx(input.mPTime);
+    result->MaxAverageBitrate = ToCx(input.mMaxAverageBitrate);
+    result->Stereo = ToCx(input.mStereo);
+    result->Cbr = ToCx(input.mCBR);
+    result->UseInbandFec = ToCx(input.mUseInbandFEC);
+    result->UseDtx = ToCx(input.mUseDTX);
+    result->SpropMaxCaptureRate = ToCx(input.mSPropMaxCaptureRate);
+    result->SpropStereo = ToCx(input.mSPropStereo);
+    return result;
+  }
+
+  RTCRtpOpusCodecCapabilityParameters^ ToCx(IRTPTypes::OpusCodecCapabilityParametersPtr input)
+  {
+    if (!input) return nullptr;
+    return ToCx(*input);
+  }
+
+  IRTPTypes::OpusCodecCapabilityParametersPtr FromCx(RTCRtpOpusCodecCapabilityParameters^ input)
+  {
+    if (nullptr == input) return IRTPTypes::OpusCodecCapabilityParametersPtr();
+    auto result = make_shared<IRTPTypes::OpusCodecCapabilityParameters>();
+    result->mMaxPlaybackRate = FromCx(input->MaxPlaybackRate);
+    result->mPTime = FromCx(input->Ptime);
+    result->mMaxAverageBitrate = FromCx(input->MaxAverageBitrate);
+    result->mStereo = FromCx(input->Stereo);
+    result->mCBR = FromCx(input->Cbr);
+    result->mUseInbandFEC = FromCx(input->UseInbandFec);
+    result->mUseDTX = FromCx(input->UseDtx);
+    result->mSPropMaxCaptureRate = FromCx(input->SpropMaxCaptureRate);
+    result->mSPropStereo = FromCx(input->SpropStereo);
+    return result;
+  }
+
+  RTCRtpVp8CodecCapabilityParameters^ ToCxCapabilityParameters(const IRTPTypes::VP8CodecCapabilityParameters &input)
+  {
+    auto result = ref new RTCRtpVp8CodecCapabilityParameters();
+    result->MaxFt = ToCx(input.mMaxFT);
+    result->MaxFs = ToCx(input.mMaxFS);
+    return result;
+  }
+
+  RTCRtpVp8CodecCapabilityParameters^ ToCxCapabilityParameters(IRTPTypes::VP8CodecCapabilityParametersPtr input)
+  {
+    if (!input) return nullptr;
+    return ToCxCapabilityParameters(*input);
+  }
+
+  IRTPTypes::VP8CodecCapabilityParametersPtr FromCx(RTCRtpVp8CodecCapabilityParameters^ input)
+  {
+    if (nullptr == input) return IRTPTypes::VP8CodecCapabilityParametersPtr();
+    auto result = make_shared<IRTPTypes::VP8CodecCapabilityParameters>();
+    result->mMaxFT = FromCx(input->MaxFt);
+    result->mMaxFS = FromCx(input->MaxFs);
+    return result;
+  }
+
+  RTCRtpH264CodecCapabilityParameters^ ToCxCapabilityParameters(const IRTPTypes::H264CodecCapabilityParameters &input)
+  {
+    auto result = ref new RTCRtpH264CodecCapabilityParameters();
+    result->ProfileLevelId = ToCx(input.mProfileLevelID);
+
+    if (input.mPacketizationModes.size() > 0)
+    {
+      result->PacketizationModes = ref new Vector<uint16>();
+      for (auto iter = input.mPacketizationModes.begin(); iter != input.mPacketizationModes.end(); ++iter)
       {
-        ret.mValues.value().push_back(FromCx(value));
-      }
-    }
-    return ret;
-  }
-
-  ConstrainString^ convertConstrainToCx(ortc::IConstraints::ConstrainString from)
-  {
-	  auto ret = ref new ConstrainString();
-	  ret->Value = ToCx(from.mValue);
-	  ret->Parameters = ref new ConstrainStringParameters();
-	  if (from.mParameters.hasValue())
-	  {
-		  ret->Parameters->Exact = ToCx(from.mParameters.value().mExact);
-		  ret->Parameters->Ideal = ToCx(from.mParameters.value().mIdeal);
-	  }
-	  return ret;
-  }
-
-  ortc::IConstraints::ConstrainString convertConstrainFromCx(ConstrainString^ from)
-  {
-    ortc::IConstraints::ConstrainString ret;
-    ret.mValue = FromCx(from->Value);
-    if (from->Parameters)
-    {
-      ret.mParameters.value().mExact = FromCx(from->Parameters->Exact);
-      ret.mParameters.value().mIdeal = FromCx(from->Parameters->Ideal);
-    }
-    return ret;
-  }
-
-  ConstrainBool^ convertConstrainToCx(ortc::IConstraints::ConstrainBool from)
-  {
-	  auto ret = ref new ConstrainBool();
-	  ret->Value = from.mValue;
-	  ret->Parameters = ref new ConstrainBoolParameters();
-	  if (from.mParameters.hasValue())
-	  {
-		  ret->Parameters->Exact = from.mParameters.value().mExact;
-		  ret->Parameters->Ideal = from.mParameters.value().mIdeal;
-	  }
-	  return ret;
-  }
-
-  ortc::IConstraints::ConstrainBool convertConstrainFromCx(ConstrainBool^ from)
-  {
-    ortc::IConstraints::ConstrainBool ret;
-    ret.mValue = from->Value;
-    if (from->Parameters)
-    {
-      ret.mParameters.value().mExact = from->Parameters->Exact;
-      ret.mParameters.value().mIdeal = from->Parameters->Ideal;
-    }
-    return ret;
-  }
-
-  MediaTrackConstraintSet^ ToCx(IMediaStreamTrackTypes::ConstraintSetPtr constraintSetPtr)
-  {
-	  auto ret = ref new MediaTrackConstraintSet();
-
-	  ret->Width = convertConstrainToCx<ortc::IConstraints::ConstrainLong,ConstrainLong>(constraintSetPtr->mWidth);
-	  ret->Height = convertConstrainToCx<ortc::IConstraints::ConstrainLong, ConstrainLong>(constraintSetPtr->mHeight);
-	  ret->AspectRatio = convertConstrainToCx<ortc::IConstraints::ConstrainDouble, ConstrainDouble>(constraintSetPtr->mAspectRatio);
-	  ret->FrameRate = convertConstrainToCx<ortc::IConstraints::ConstrainDouble, ConstrainDouble>(constraintSetPtr->mFrameRate);
-
-	  ret->FacingMode = convertConstrainToCx(constraintSetPtr->mFacingMode);
-	  ret->Volume = convertConstrainToCx<ortc::IConstraints::ConstrainDouble, ConstrainDouble>(constraintSetPtr->mVolume);
-	  ret->SampleRate = convertConstrainToCx<ortc::IConstraints::ConstrainLong, ConstrainLong>(constraintSetPtr->mSampleRate);
-	  ret->SampleSize = convertConstrainToCx<ortc::IConstraints::ConstrainLong, ConstrainLong>(constraintSetPtr->mSampleSize);
-
-	  ret->EchoCancellation = convertConstrainToCx(constraintSetPtr->mEchoCancellation);
-	  ret->DeviceId = convertConstrainToCx(constraintSetPtr->mDeviceID);
-	  ret->GroupId = convertConstrainToCx(constraintSetPtr->mGroupID);
-
-	  return ret;
-  }
-
-  IMediaStreamTrackTypes::ConstraintSetPtr FromCx(MediaTrackConstraintSet^ constraintSet)
-  {
-    IMediaStreamTrackTypes::ConstraintSetPtr ret;
-
-    ret->mWidth = convertConstrainFromCx<ConstrainLong, ortc::IConstraints::ConstrainLong>(constraintSet->Width);
-    ret->mHeight = convertConstrainFromCx<ConstrainLong, ortc::IConstraints::ConstrainLong>(constraintSet->Height);
-    ret->mAspectRatio = convertConstrainFromCx<ConstrainDouble, ortc::IConstraints::ConstrainDouble>(constraintSet->AspectRatio);
-    ret->mFrameRate = convertConstrainFromCx<ConstrainDouble, ortc::IConstraints::ConstrainDouble>(constraintSet->FrameRate);
-
-    ret->mFacingMode = convertConstrainFromCx(constraintSet->FacingMode);
-    ret->mVolume = convertConstrainFromCx<ConstrainDouble, ortc::IConstraints::ConstrainDouble>(constraintSet->Volume);
-    ret->mSampleRate = convertConstrainFromCx<ConstrainLong, ortc::IConstraints::ConstrainLong>(constraintSet->SampleRate);
-    ret->mSampleSize = convertConstrainFromCx<ConstrainLong, ortc::IConstraints::ConstrainLong>(constraintSet->SampleSize);
-
-    ret->mEchoCancellation = convertConstrainFromCx(constraintSet->EchoCancellation);
-    ret->mDeviceID = convertConstrainFromCx(constraintSet->DeviceId);
-    ret->mGroupID = convertConstrainFromCx(constraintSet->GroupId);
-
-    return ret;
-  }
-
-  Constraints^ ToCx(IMediaStreamTrackTypes::ConstraintsPtr constraintPtr)
-  {
-	  return nullptr;
-  }
-
-
-  IMediaStreamTrackTypes::ConstraintsPtr FromCx(Constraints^ constraint)
-  {
-	  IMediaStreamTrackTypes::ConstraintsPtr ret = IMediaStreamTrackTypes::Constraints::create();
-
-	  if (constraint->Audio != nullptr)
-	  {
-		  for (MediaTrackConstraintSet^ trackConstraint : constraint->Audio->Advanced)
-		  {
-			  ortc::IMediaDevicesTypes::ConstraintSetPtr constraintSet = ortc::IMediaDevicesTypes::ConstraintSet::create();
-			  constraintSet->mDeviceID.mValue.value().mValue.value() = FromCx(trackConstraint->DeviceId->Value->Value);
-			  //constraintSet->mWidth.mValue.value() = trackConstraint->Width->Value;
-			  //constraintSet->mHeight.mValue.value() = trackConstraint->Height->Value;
-			  //constraintSet->mFrameRate.mValue.value() = trackConstraint->FrameRate->Value;
-			  //constraintSet->mAspectRatio.mValue.value() = trackConstraint->AspectRatio->Value;
-			  
-			  if (trackConstraint->Volume)
-				  constraintSet->mVolume.mValue.value() = trackConstraint->Volume->Value;
-			  if (trackConstraint->SampleRate)
-				constraintSet->mSampleRate.mValue.value() = trackConstraint->SampleRate->Value;
-			  if(trackConstraint->SampleSize)
-				constraintSet->mSampleSize.mValue.value() = trackConstraint->SampleSize->Value;
-			  if (trackConstraint->EchoCancellation)
-				constraintSet->mEchoCancellation.mValue.value() = trackConstraint->EchoCancellation->Value;
-
-			  if (trackConstraint->GroupId)
-				constraintSet->mGroupID.mValue.value().mValue.value() = FromCx(trackConstraint->GroupId->Value->Value);
-
-			  if (trackConstraint->FacingMode)
-				constraintSet->mFacingMode.mValue.value().mValue.value() = FromCx(trackConstraint->FacingMode->Value->Value);
-
-			  ret->mAudio = IMediaStreamTrackTypes::TrackConstraints::create();
-			  ret->mAudio->mAdvanced.push_back(constraintSet);
-		  }
-	  }
-
-	  if (constraint->Video != nullptr)
-	  {
-		  for (MediaTrackConstraintSet^ trackConstraint : constraint->Video->Advanced)
-		  {
-			  ortc::IMediaDevicesTypes::ConstraintSetPtr constraintSet = ortc::IMediaDevicesTypes::ConstraintSet::create();
-			  constraintSet->mDeviceID.mValue.value().mValue.value() = FromCx(trackConstraint->DeviceId->Value->Value);
-			  if (trackConstraint->Width)
-				constraintSet->mWidth.mValue.value() = trackConstraint->Width->Value;
-
-			  if (trackConstraint->Height)
-				constraintSet->mHeight.mValue.value() = trackConstraint->Height->Value;
-
-			  if (trackConstraint->FrameRate)
-				constraintSet->mFrameRate.mValue.value() = trackConstraint->FrameRate->Value;
-
-			  if (trackConstraint->AspectRatio)
-				constraintSet->mAspectRatio.mValue.value() = trackConstraint->AspectRatio->Value;
-			  //constraintSet->mVolume.mValue.value() = trackConstraint->Volume->Value;
-			  //constraintSet->mSampleRate.mValue.value() = trackConstraint->SampleRate->Value;
-			  //constraintSet->mSampleSize.mValue.value() = trackConstraint->SampleSize->Value;
-			  //constraintSet->mEchoCancellation.mValue.value() = trackConstraint->EchoCancellation->Value;
-
-			  if (trackConstraint->GroupId)
-				constraintSet->mGroupID.mValue.value().mValue.value() = FromCx(trackConstraint->GroupId->Value->Value);
-
-			  if (trackConstraint->FacingMode)
-				constraintSet->mFacingMode.mValue.value().mValue.value() = FromCx(trackConstraint->FacingMode->Value->Value);
-
-			  ret->mVideo = IMediaStreamTrackTypes::TrackConstraints::create();
-			  ret->mVideo->mAdvanced.push_back(constraintSet);
-		  }
-	  }
-
-	  return ret;
-  }
-  MediaTrackConstraints^ ToCx(IMediaStreamTrackTypes::TrackConstraintsPtr trackConstraintsPtr)
-  {
-	  auto ret = ref new MediaTrackConstraints();
-
-	  for (IMediaStreamTrackTypes::ConstraintSetList::iterator it = trackConstraintsPtr->mAdvanced.begin(); it != trackConstraintsPtr->mAdvanced.end(); ++it)
-	  {
-		  MediaTrackConstraintSet^ mediaTrackConstraintSet = ToCx(*it);
-		  ret->Advanced->Append(mediaTrackConstraintSet);
-	  }
-
-	  return ret;
-  }
-
-  MediaTrackSettings^ ToCx(IMediaStreamTrackTypes::SettingsPtr settingsPtr)
-  {
-	  auto ret = ref new MediaTrackSettings();
-
-	  ret->Width = settingsPtr->mWidth.value();
-	  ret->Height = settingsPtr->mHeight.value();
-	  ret->AspectRatio = settingsPtr->mAspectRatio.value();
-	  ret->FrameRate = settingsPtr->mFrameRate.value();
-	  ret->FacingMode = ToCx(settingsPtr->mFacingMode.value());
-	  ret->Volume = settingsPtr->mVolume.value();
-	  ret->SampleRate = settingsPtr->mSampleRate.value();
-	  ret->SampleSize = settingsPtr->mSampleSize.value();
-	  ret->EchoCancellation = settingsPtr->mEchoCancellation.value();
-	  ret->DeviceId = ToCx(settingsPtr->mDeviceID.value());
-	  ret->GroupId = ToCx(settingsPtr->mGroupID.value());
-	  
-	  return ret;
-  }
-
-  SupportedConstraints^ ToCx(IMediaDevicesTypes::SupportedConstraints constraints)
-  {
-	  auto ret = ref new SupportedConstraints();
-
-	  ret->Width = constraints.mWidth;
-	  ret->Height = constraints.mHeight;
-	  ret->AspectRatio = constraints.mAspectRatio;
-	  ret->FrameRate = constraints.mFrameRate;
-	  ret->FacingMode = constraints.mFacingMode;
-	  ret->Volume = constraints.mVolume;
-	  ret->SampleRate = constraints.mSampleRate;
-	  ret->SampleSize = constraints.mSampleSize;
-	  ret->EchoCancellation = constraints.mEchoCancellation;
-	  ret->Latency = constraints.mLatency;
-	  ret->DeviceID = constraints.mDeviceID;
-	  ret->GroupID = constraints.mGroupID;
-
-	  return ret;
-  }
-
-  MediaDeviceInfo^ ToCx(IMediaDevicesTypes::Device device)
-  {
-	  auto ret = ref new MediaDeviceInfo();
-
-	  ret->Kind = internal::convert(device.mKind);
-
-	  ret->Label = ToCx(device.mLabel);
-	  ret->DeviceID = ToCx(device.mDeviceID);
-	  ret->GroupID = ToCx(device.mGroupID);
-
-	  ret->SupportedConstraints = ToCx(device.mSupportedConstraints);
-
-	  return ret;
-  }
-
-  IRTPTypes::Parameters FromCx(RTCRtpParameters^ parameters)
-  {
-	  IRTPTypes::Parameters ret;
-
-	  ret.mMuxID = FromCx(parameters->MuxId);
-
-	  for (RTCRtpCodecParameters^ codec : parameters->Codecs)
-	  {
-		  IRTPTypes::CodecParameters codecCore;
-		  codecCore.mName = FromCx(codec->Name);
-		  codecCore.mPayloadType = codec->PayloadType;
-		  codecCore.mClockRate = codec->ClockRate;
-		  codecCore.mMaxPTime = codec->Maxptime;
-		  codecCore.mNumChannels = codec->NumChannels;
-
-		  for (RTCRtcpFeedback^ feedback : codec->RtcpFeedback)
-		  {
-			  IRTPTypes::RTCPFeedback feedbackCore;
-			  feedbackCore.mParameter = FromCx(feedback->Parameter);
-			  feedbackCore.mType = FromCx(feedback->Type);
-			  codecCore.mRTCPFeedback.push_back(feedbackCore);
-		  }
-
-		  //TODO: AnyPtr            mParameters;
-
-		  ret.mCodecs.push_back(codecCore);
-	  }
-
-	  for (RTCRtpHeaderExtensionParameters^ headerExtension : parameters->HeaderExtensions)
-	  {
-		  IRTPTypes::HeaderExtensionParameters extensionCore;
-		  extensionCore.mEncrypt = headerExtension->Encrypt;
-		  extensionCore.mID = headerExtension->Id;
-		  extensionCore.mURI = FromCx(headerExtension->Uri);
-
-		  ret.mHeaderExtensions.push_back(extensionCore);
-	  }
-
-	  for (RTCRtpEncodingParameters^ encodingParameters : parameters->Encodings)
-	  {
-		  IRTPTypes::EncodingParameters encodingParametersCore;
-
-		  encodingParametersCore.mSSRC = encodingParameters->Ssrc;
-		  encodingParametersCore.mCodecPayloadType = encodingParameters->CodecPayloadType;
-		  encodingParametersCore.mFEC.value().mSSRC = encodingParameters->Fec->Ssrc;
-		  encodingParametersCore.mFEC.value().mMechanism = FromCx(encodingParameters->Fec->Mechanism);
-		  encodingParametersCore.mRTX.value().mSSRC = encodingParameters->Rtx->Ssrc;
-		  encodingParametersCore.mRTX.value().mPayloadType = encodingParameters->Rtx->PayloadType;
-		  encodingParametersCore.mPriority = (IRTPTypes::PriorityTypes)encodingParameters->Priority;
-		  encodingParametersCore.mMaxBitrate = encodingParameters->MaxBitrate;
-		  encodingParametersCore.mMinQuality = encodingParameters->MinQuality;
-		  encodingParametersCore.mActive = encodingParameters->Active;
-		  encodingParametersCore.mEncodingID = FromCx(encodingParameters->EncodingId);
-
-		  for (Platform::String^ dependencyEncodingID : encodingParameters->DependencyEncodingIds)
-		  {
-			  encodingParametersCore.mDependencyEncodingIDs.push_back(FromCx(dependencyEncodingID));
-		  }
-		  ret.mEncodingParameters.push_back(encodingParametersCore);
-	  }
-
-	  ret.mRTCP.mCName = FromCx(parameters->Rtcp->CName);
-	  ret.mRTCP.mMux = parameters->Rtcp->Mux;
-	  ret.mRTCP.mReducedSize = parameters->Rtcp->ReducedSize;
-	  ret.mRTCP.mSSRC = parameters->Rtcp->Ssrc;
-
-	  ret.mDegredationPreference = (IRTPTypes::DegradationPreferences)parameters->DegradationPreference;
-
-	  return ret;
-  }
-
-  IICETypes::Parameters FromCx(RTCIceParameters^ params)
-  {
-    IICETypes::Parameters ret;
-    ret.mUsernameFragment = FromCx(params->UsernameFragment);
-    ret.mPassword = FromCx(params->Password);
-    return ret;
-  }
-
-  ISCTPTransport::Capabilities FromCx(RTCSctpCapabilities^ caps)
-  {
-    ISCTPTransport::Capabilities ret;
-    ret.mMaxMessageSize = caps->MaxMessageSize;
-    return ret;
-  }
-
-  IRTPTypes::Capabilities FromCx(RTCRtpCapabilities^ caps)
-  {
-    IRTPTypes::Capabilities ret;
-    for (RTCRtpCodecCapability^ c: caps->Codecs)
-    {
-      auto codec = FromCx(c);
-      ret.mCodecs.push_back(codec);
-    }
-
-    for (RTCRtpHeaderExtension^ ext : caps->HeaderExtensions)
-    {
-      auto extension = FromCx(ext);
-      ret.mHeaderExtensions.push_back(extension);
-    }
-
-    for (Platform::String^ fec : caps->FecMechanisms)
-    {
-      ret.mFECMechanisms.push_back(FromCx(fec));
-    }
-    return ret;
-  }
-
-  IRTPTypes::CodecCapability FromCx(RTCRtpCodecCapability^ cap)
-  {
-    IRTPTypes::CodecCapability ret;
-    ret.mName = FromCx(cap->Name);
-    ret.mKind = FromCx(cap->Kind);
-    ret.mClockRate = cap->ClockRate;
-    //ret->preferredPayloadType = codecCapabilityPtr->mPreferredPayloadType;
-    ret.mMaxPTime = cap->Maxptime;
-    ret.mNumChannels = cap->NumChannels;
-
-    //ret->rtcpFeedback = ref new Vector<RTCRtcpFeedback^>();
-
-    if (cap->RtcpFeedback)
-    {
-      for (RTCRtcpFeedback^ fb : cap->RtcpFeedback)
-      {
-        ret.mRTCPFeedback.push_back(FromCx(fb));
+        auto &value = (*iter);
+        result->PacketizationModes->Append(value);
       }
     }
 
-    //ret->parameters = codecCapabilityPtr->mParameters;
-    //ret->options = codecCapabilityPtr->mOptions;
-    ret.mMaxTemporalLayers = cap->MaxTemporalLayers; //default = 0;
-    ret.mMaxSpatialLayers = cap->MaxSpatialLayers; //default = 0;
-    ret.mSVCMultiStreamSupport = cap->SvcMultiStreamSupport;
-    return ret;
+    result->MaxMbps = ToCx(input.mMaxMBPS);
+    result->MaxSmbps = ToCx(input.mMaxSMBPS);
+    result->MaxFs = ToCx(input.mMaxFS);
+    result->MaxCpb = ToCx(input.mMaxCPB);
+    result->MaxDpb = ToCx(input.mMaxDPB);
+    result->MaxBr = ToCx(input.mMaxBR);
+    return result;
   }
 
-  IRTPTypes::RTCPFeedback FromCx(RTCRtcpFeedback^ fb)
+  RTCRtpH264CodecCapabilityParameters^ ToCxCapabilityParameters(IRTPTypes::H264CodecCapabilityParametersPtr input)
   {
-    IRTPTypes::RTCPFeedback ret;
-    ret.mParameter = FromCx(fb->Parameter);
-    ret.mType = FromCx(fb->Type);
-    return ret;
+    if (!input) return nullptr;
+    return ToCxCapabilityParameters(*input);
   }
 
-  IRTPTypes::HeaderExtension FromCx(RTCRtpHeaderExtension^ ext)
+  IRTPTypes::H264CodecCapabilityParametersPtr FromCx(RTCRtpH264CodecCapabilityParameters^ input)
   {
-    IRTPTypes::HeaderExtension ret;
-    ret.mKind = FromCx(ext->Kind);
-    ret.mURI = FromCx(ext->Uri);
-    ret.mPreferredEncrypt = ext->PreferredEncrypt;
-    ret.mPreferredID = ext->PreferredId;
-    return ret;
+    if (nullptr == input) return IRTPTypes::H264CodecCapabilityParametersPtr();
+    auto result = make_shared<IRTPTypes::H264CodecCapabilityParameters>();
+    result->mProfileLevelID = FromCx(input->ProfileLevelId);
+    if (input->PacketizationModes)
+    {
+      for (uint16 value : input->PacketizationModes)
+      {
+        result->mPacketizationModes.push_back(value);
+      }
+    }
+    result->mMaxMBPS = FromCx(input->MaxMbps);
+    result->mMaxSMBPS = FromCx(input->MaxSmbps);
+    result->mMaxFS = FromCx(input->MaxFs);
+    result->mMaxCPB = FromCx(input->MaxCpb);
+    result->mMaxDPB = FromCx(input->MaxDpb);
+    result->mMaxBR = FromCx(input->MaxBr);
+    return result;
   }
+
+  RTCRtpOpusCodecParameters^ ToCx(const IRTPTypes::OpusCodecParameters &input)
+  {
+    auto result = ref new RTCRtpOpusCodecParameters();
+    result->MaxPlaybackRate = ToCx(input.mMaxPlaybackRate);
+    result->Ptime = ToCx(input.mPTime);
+    result->MaxAverageBitrate = ToCx(input.mMaxAverageBitrate);
+    result->Stereo = ToCx(input.mStereo);
+    result->Cbr = ToCx(input.mCBR);
+    result->UseInbandFec = ToCx(input.mUseInbandFEC);
+    result->UseDtx = ToCx(input.mUseDTX);
+
+    result->Complexity = ToCx(input.mComplexity);
+    result->Signal = ToCx(zsLib::String(IRTPTypes::OpusCodecParameters::toString(input.mSignal)));
+    result->Application = ToCx(zsLib::String(IRTPTypes::OpusCodecParameters::toString(input.mApplication)));
+    result->PacketLossPerc = ToCx(input.mPacketLossPerc);
+    result->PredictionDisabled = ToCx(input.mPredictionDisabled);
+
+    result->SpropMaxCaptureRate = ToCx(input.mSPropMaxCaptureRate);
+    result->SpropStereo = ToCx(input.mSPropStereo);
+    return result;
+  }
+
+  RTCRtpOpusCodecParameters^ ToCx(IRTPTypes::OpusCodecParametersPtr input)
+  {
+    if (!input) return nullptr;
+    return ToCx(*input);
+  }
+
+  IRTPTypes::OpusCodecParametersPtr FromCx(RTCRtpOpusCodecParameters^ input)
+  {
+    if (nullptr == input) return IRTPTypes::OpusCodecParametersPtr();
+    auto result = make_shared<IRTPTypes::OpusCodecParameters>();
+    result->mMaxPlaybackRate = FromCx(input->MaxPlaybackRate);
+    result->mPTime = FromCx(input->Ptime);
+    result->mMaxAverageBitrate = FromCx(input->MaxAverageBitrate);
+    result->mStereo = FromCx(input->Stereo);
+    result->mCBR = FromCx(input->Cbr);
+    result->mUseInbandFEC = FromCx(input->UseInbandFec);
+    result->mUseDTX = FromCx(input->UseDtx);
+
+    result->mComplexity = FromCx(input->Complexity);
+    result->mSignal = IRTPTypes::OpusCodecParameters::toSignal(FromCx(input->Signal).c_str());
+    result->mApplication = IRTPTypes::OpusCodecParameters::toApplication(FromCx(input->Application).c_str());
+    result->mPacketLossPerc = FromCx(input->PacketLossPerc);
+    result->mPredictionDisabled = FromCx(input->PredictionDisabled);
+
+    result->mSPropMaxCaptureRate = FromCx(input->SpropMaxCaptureRate);
+    result->mSPropStereo = FromCx(input->SpropStereo);
+    return result;
+  }
+
+  RTCRtpVp8CodecParameters^ ToCxParameters(const IRTPTypes::VP8CodecParameters &input)
+  {
+    auto result = ref new RTCRtpVp8CodecParameters();
+    result->MaxFt = ToCx(input.mMaxFT);
+    result->MaxFs = ToCx(input.mMaxFS);
+    return result;
+  }
+
+  RTCRtpVp8CodecParameters^ ToCxParameters(IRTPTypes::VP8CodecParametersPtr input)
+  {
+    if (!input) return nullptr;
+    return ToCxParameters(*input);
+  }
+
+  IRTPTypes::VP8CodecCapabilityParametersPtr FromCx(RTCRtpVp8CodecParameters^ input)
+  {
+    if (nullptr == input) return IRTPTypes::VP8CodecCapabilityParametersPtr();
+    auto result = make_shared<IRTPTypes::VP8CodecCapabilityParameters>();
+    result->mMaxFT = FromCx(input->MaxFt);
+    result->mMaxFS = FromCx(input->MaxFs);
+    return result;
+  }
+
+  RTCRtpH264CodecParameters^ ToCxParameters(const IRTPTypes::H264CodecParameters &input)
+  {
+    auto result = ref new RTCRtpH264CodecParameters();
+    result->ProfileLevelId = ToCx(input.mProfileLevelID);
+
+    if (input.mPacketizationModes.size() > 0)
+    {
+      result->PacketizationModes = ref new Vector<uint16>();
+      for (auto iter = input.mPacketizationModes.begin(); iter != input.mPacketizationModes.end(); ++iter)
+      {
+        auto &value = (*iter);
+        result->PacketizationModes->Append(value);
+      }
+    }
+
+    result->MaxMbps = ToCx(input.mMaxMBPS);
+    result->MaxSmbps = ToCx(input.mMaxSMBPS);
+    result->MaxFs = ToCx(input.mMaxFS);
+    result->MaxCpb = ToCx(input.mMaxCPB);
+    result->MaxDpb = ToCx(input.mMaxDPB);
+    result->MaxBr = ToCx(input.mMaxBR);
+    return result;
+  }
+
+  RTCRtpH264CodecParameters^ ToCxParameters(IRTPTypes::H264CodecParametersPtr input)
+  {
+    if (!input) return nullptr;
+    return ToCxParameters(*input);
+  }
+
+  IRTPTypes::H264CodecParametersPtr FromCx(RTCRtpH264CodecParameters^ input)
+  {
+    if (nullptr == input) return IRTPTypes::H264CodecParametersPtr();
+    auto result = make_shared<IRTPTypes::H264CodecParameters>();
+    result->mProfileLevelID = FromCx(input->ProfileLevelId);
+    if (input->PacketizationModes)
+    {
+      for (uint16 value : input->PacketizationModes)
+      {
+        result->mPacketizationModes.push_back(value);
+      }
+    }
+    result->mMaxMBPS = FromCx(input->MaxMbps);
+    result->mMaxSMBPS = FromCx(input->MaxSmbps);
+    result->mMaxFS = FromCx(input->MaxFs);
+    result->mMaxCPB = FromCx(input->MaxCpb);
+    result->mMaxDPB = FromCx(input->MaxDpb);
+    result->mMaxBR = FromCx(input->MaxBr);
+    return result;
+  }
+
+  RTCRtpRtxCodecParameters^ ToCx(const IRTPTypes::RTXCodecParameters &input)
+  {
+    auto result = ref new RTCRtpRtxCodecParameters();
+    if (zsLib::Milliseconds() != input.mRTXTime)
+    {
+      result->RtxTime = SafeInt<uint32>(input.mRTXTime.count());
+    }
+    else
+    {
+      result->RtxTime = 0;
+    }
+    return result;
+  }
+
+  RTCRtpRtxCodecParameters^ ToCx(IRTPTypes::RTXCodecParametersPtr input)
+  {
+    if (!input) return nullptr;
+    return ToCx(*input);
+  }
+
+  IRTPTypes::RTXCodecParametersPtr FromCx(RTCRtpRtxCodecParameters^ input)
+  {
+    if (nullptr == input) return IRTPTypes::RTXCodecParametersPtr();
+    auto result = make_shared<IRTPTypes::RTXCodecParameters>();
+    if (0 == input->RtxTime) return result;
+    result->mRTXTime = zsLib::Milliseconds(SafeInt<Milliseconds::rep>(input->RtxTime));
+    return result;
+  }
+
+  RTCRtpRedCodecParameters^ ToCx(const IRTPTypes::REDCodecParameters &input)
+  {
+    auto result = ref new RTCRtpRedCodecParameters();
+    if (input.mPayloadTypes.size() > 0)
+    {
+      result->PayloadTypes = ref new Vector<uint8>();
+      for (auto iter = input.mPayloadTypes.begin(); iter != input.mPayloadTypes.end(); ++iter)
+      {
+        auto &value = (*iter);
+        result->PayloadTypes->Append(SafeInt<uint8>(value));
+      }
+    }
+    return result;
+  }
+
+  RTCRtpRedCodecParameters^ ToCx(IRTPTypes::REDCodecParametersPtr input)
+  {
+    if (!input) return nullptr;
+    return ToCx(*input);
+  }
+
+  IRTPTypes::REDCodecParametersPtr FromCx(RTCRtpRedCodecParameters^ input)
+  {
+    if (nullptr == input) return IRTPTypes::REDCodecParametersPtr();
+    auto result = make_shared<IRTPTypes::REDCodecParameters>();
+    if (input->PayloadTypes)
+    {
+      for (uint8 value : input->PayloadTypes)
+      {
+        result->mPayloadTypes.push_back(SafeInt<IRTPTypes::PayloadType>(value));
+      }
+    }
+    return result;
+  }
+
+  RTCRtpFlexFecCodecParameters^ ToCx(const IRTPTypes::FlexFECCodecParameters &input)
+  {
+    auto result = ref new RTCRtpFlexFecCodecParameters();
+    if (zsLib::Milliseconds() != input.mRepairWindow)
+    {
+      result->RepairWindow = SafeInt<uint64>(input.mRepairWindow.count());
+    }
+    else
+    {
+      result->RepairWindow = 0;
+    }
+
+    result->L = ToCx(input.mL);
+    result->D = ToCx(input.mD);
+
+    if (input.mToP.hasValue())
+    {
+      result->ToP = ref new Box<uint16>(SafeInt<uint16>(zsLib::to_underlying(input.mToP.value())));
+    }
+
+    return result;
+  }
+
+  RTCRtpFlexFecCodecParameters^ ToCx(IRTPTypes::FlexFECCodecParametersPtr input)
+  {
+    if (!input) return nullptr;
+    return ToCx(*input);
+  }
+
+  IRTPTypes::FlexFECCodecParametersPtr FromCx(RTCRtpFlexFecCodecParameters^ input)
+  {
+    if (nullptr == input) return IRTPTypes::FlexFECCodecParametersPtr();
+    auto result = make_shared<IRTPTypes::FlexFECCodecParameters>();
+    if (0 != input->RepairWindow)
+    {
+      result->mRepairWindow = zsLib::Milliseconds(SafeInt<Milliseconds::rep>(input->RepairWindow));
+    }
+    result->mL = FromCx(input->L);
+    result->mD = FromCx(input->D);
+    if (input->ToP)
+    {
+      result->mToP = static_cast<IRTPTypes::FlexFECCodecParameters::ToPs>(input->ToP->Value);
+    }
+    return result;
+  }
+
+  RTCRtpCodecCapability^ ToCx(const IRTPTypes::CodecCapability &input)
+  {
+    auto result = ref new RTCRtpCodecCapability();
+
+    result->Name = ToCx(input.mName);
+    result->Kind = ToCx(input.mKind);
+    result->ClockRate = SafeInt<uint32>(input.mClockRate);
+    result->PreferredPayloadType = SafeInt<uint8>(input.mPreferredPayloadType);
+    result->Maxptime = SafeInt<uint32>(input.mMaxPTime);
+    result->NumChannels = SafeInt<uint32>(input.mNumChannels);
+
+    if (input.mRTCPFeedback.size() > 0) {
+      result->RtcpFeedback = ref new Vector<RTCRtcpFeedback^>();
+
+      for (auto iter = input.mRTCPFeedback.begin(); iter != input.mRTCPFeedback.end(); ++iter)
+      {
+        result->RtcpFeedback->Append(ToCx(*iter));
+      }
+    }
+
+    if (input.mOptions)
+    {
+      {
+        auto value = IRTPTypes::OpusCodecCapabilityOptions::convert(input.mOptions);
+        if (value)
+        {
+          result->Options = ToCx(value);
+          goto done_convert_options;
+        }
+      }
+    done_convert_options:
+      {}
+    }
+
+    if (input.mParameters)
+    {
+      {
+        auto value = IRTPTypes::OpusCodecCapabilityParameters::convert(input.mParameters);
+        if (value)
+        {
+          result->Parameters = ToCx(value);
+          goto done_convert_params;
+        }
+      }
+      {
+        auto value = IRTPTypes::VP8CodecCapabilityParameters::convert(input.mParameters);
+        if (value)
+        {
+          result->Parameters = ToCxCapabilityParameters(value);
+          goto done_convert_params;
+        }
+      }
+      {
+        auto value = IRTPTypes::H264CodecCapabilityParameters::convert(input.mParameters);
+        if (value)
+        {
+          result->Parameters = ToCxCapabilityParameters(value);
+          goto done_convert_params;
+        }
+      }
+    done_convert_params:
+      {}
+    }
+
+    result->MaxTemporalLayers = SafeInt<uint16>(input.mMaxTemporalLayers);
+    result->MaxSpatialLayers = SafeInt<uint16>(input.mMaxSpatialLayers);
+    result->SvcMultiStreamSupport = input.mSVCMultiStreamSupport;
+
+    return result;
+  }
+
+  RTCRtpCodecCapability^ ToCx(IRTPTypes::CodecCapabilityPtr input)
+  {
+    if (!input) return nullptr;
+    return ToCx(*input);
+  }
+
+  IRTPTypes::CodecCapabilityPtr FromCx(RTCRtpCodecCapability^ input)
+  {
+    if (nullptr == input) return IRTPTypes::CodecCapabilityPtr();
+    auto result = make_shared<IRTPTypes::CodecCapability>();
+
+    result->mName = FromCx(input->Name);
+    result->mKind = FromCx(input->Kind);
+    result->mClockRate = SafeInt<decltype(result->mClockRate)>(input->ClockRate);
+    result->mPreferredPayloadType = SafeInt<decltype(result->mPreferredPayloadType)>(input->PreferredPayloadType);
+    result->mMaxPTime = SafeInt<decltype(result->mMaxPTime)>(input->Maxptime);
+    result->mNumChannels = SafeInt<decltype(result->mNumChannels)>(input->NumChannels);
+
+    if (input->RtcpFeedback)
+    {
+      for (RTCRtcpFeedback^ value : input->RtcpFeedback)
+      {
+        result->mRTCPFeedback.push_back(FromCx(value));
+      }
+    }
+
+    if (nullptr != input->Options)
+    {
+      {
+        RTCRtpOpusCodecCapabilityOptions^ value = dynamic_cast<RTCRtpOpusCodecCapabilityOptions^>(input->Options);
+        if (nullptr != value)
+        {
+          result->mOptions = FromCx(value);
+          goto done_convert_options;
+        }
+      }
+    done_convert_options:
+      {}
+    }
+
+    if (nullptr != input->Parameters)
+    {
+      {
+        RTCRtpOpusCodecCapabilityParameters^ value = dynamic_cast<RTCRtpOpusCodecCapabilityParameters^>(input->Parameters);
+        if (nullptr != value)
+        {
+          result->mParameters = FromCx(value);
+          goto done_convert_params;
+        }
+      }
+      {
+        RTCRtpVp8CodecCapabilityParameters^ value = dynamic_cast<RTCRtpVp8CodecCapabilityParameters^>(input->Parameters);
+        if (nullptr != value)
+        {
+          result->mParameters = FromCx(value);
+          goto done_convert_params;
+        }
+      }
+      {
+        RTCRtpH264CodecCapabilityParameters^ value = dynamic_cast<RTCRtpH264CodecCapabilityParameters^>(input->Parameters);
+        if (nullptr != value)
+        {
+          result->mParameters = FromCx(value);
+          goto done_convert_params;
+        }
+      }
+    done_convert_params:
+      {}
+    }
+
+    result->mMaxTemporalLayers = SafeInt<uint16>(input->MaxTemporalLayers);
+    result->mMaxSpatialLayers = SafeInt<uint16>(input->MaxSpatialLayers);
+    result->mSVCMultiStreamSupport = input->SvcMultiStreamSupport;
+    return result;
+  }
+
+  RTCRtpHeaderExtension^ ToCx(const IRTPTypes::HeaderExtension &input)
+  {
+    auto result = ref new RTCRtpHeaderExtension();
+    result->Kind = ToCx(input.mKind);
+    result->Uri = ToCx(input.mURI);
+    result->PreferredId = SafeInt<uint16>(input.mPreferredID);
+    result->PreferredEncrypt = input.mPreferredEncrypt;
+    return result;
+  }
+
+  RTCRtpHeaderExtension^ ToCx(IRTPTypes::HeaderExtensionPtr input)
+  {
+    if (!input) return nullptr;
+    return ToCx(*input);
+  }
+
+  IRTPTypes::HeaderExtensionPtr FromCx(RTCRtpHeaderExtension^ input)
+  {
+    if (nullptr == input) return IRTPTypes::HeaderExtensionPtr();
+    auto result = make_shared<IRTPTypes::HeaderExtension>();
+    result->mKind = FromCx(input->Kind);
+    result->mURI = FromCx(input->Uri);
+    result->mPreferredID = SafeInt<decltype(result->mPreferredID)>(input->PreferredId);
+    result->mPreferredEncrypt = input->PreferredEncrypt;
+    return result;
+  }
+
+  RTCRtpCapabilities^ ToCx(const IRTPTypes::Capabilities &input)
+  {
+    auto result = ref new RTCRtpCapabilities();
+    if (input.mCodecs.size() > 0)
+    {
+      result->Codecs = ref new Vector<RTCRtpCodecCapability^>();
+      for (auto iter = input.mCodecs.begin(); iter != input.mCodecs.end(); ++iter)
+      {
+        auto &value = (*iter);
+        result->Codecs->Append(ToCx(value));
+      }
+    }
+    if (input.mHeaderExtensions.size() > 0)
+    {
+      result->HeaderExtensions = ref new Vector<RTCRtpHeaderExtension^>();
+      for (auto iter = input.mHeaderExtensions.begin(); iter != input.mHeaderExtensions.end(); ++iter)
+      {
+        auto &value = (*iter);
+        result->HeaderExtensions->Append(ToCx(value));
+      }
+    }
+    if (input.mFECMechanisms.size() > 0)
+    {
+      result->FecMechanisms = ref new Vector<Platform::String^>();
+      for (auto iter = input.mFECMechanisms.begin(); iter != input.mFECMechanisms.end(); ++iter)
+      {
+        auto &value = (*iter);
+        result->FecMechanisms->Append(ToCx(value));
+      }
+    }
+    return result;
+  }
+
+  RTCRtpCapabilities^ ToCx(IRTPTypes::CapabilitiesPtr input)
+  {
+    if (!input) return nullptr;
+    return ToCx(*input);
+  }
+
+  IRTPTypes::CapabilitiesPtr FromCx(RTCRtpCapabilities^ input)
+  {
+    if (nullptr == input) return IRTPTypes::CapabilitiesPtr();
+    auto result = make_shared<IRTPTypes::Capabilities>();
+    for (RTCRtpCodecCapability^ value : input->Codecs)
+    {
+      auto codec = FromCx(value);
+      if (!codec) continue;
+      result->mCodecs.push_back(*codec);
+    }
+
+    for (RTCRtpHeaderExtension^ value : input->HeaderExtensions)
+    {
+      auto ext = FromCx(value);
+      if (!ext) continue;
+      result->mHeaderExtensions.push_back(*ext);
+    }
+
+    for (Platform::String^ value : input->FecMechanisms)
+    {
+      result->mFECMechanisms.push_back(FromCx(value));
+    }
+    return result;
+  }
+
+  RTCRtcpParameters^ ToCx(const IRTPTypes::RTCPParameters &input)
+  {
+    auto result = ref new RTCRtcpParameters();
+    result->Ssrc = SafeInt<uint32>(input.mSSRC);
+    result->Cname = ToCx(input.mCName);
+    result->ReducedSize = input.mReducedSize;
+    result->Mux = input.mMux;
+    return result;
+  }
+
+  RTCRtcpParameters^ ToCx(IRTPTypes::RTCPParametersPtr input)
+  {
+    if (!input) return nullptr;
+    return ToCx(*input);
+  }
+
+  IRTPTypes::RTCPParametersPtr FromCx(RTCRtcpParameters^ input)
+  {
+    if (nullptr == input) return IRTPTypes::RTCPParametersPtr();
+    auto result = make_shared<IRTPTypes::RTCPParameters>();
+    result->mSSRC = SafeInt<decltype(result->mSSRC)>(input->Ssrc);
+    result->mCName = FromCx(input->Cname);
+    result->mReducedSize = input->ReducedSize;
+    result->mMux = input->Mux;
+    return result;
+  }
+
+  RTCRtpCodecParameters^ ToCx(const IRTPTypes::CodecParameters &input)
+  {
+    auto result = ref new RTCRtpCodecParameters();
+
+    result->Name = ToCx(input.mName);
+    result->PayloadType = SafeInt<uint8>(input.mPayloadType);
+    result->ClockRate = ToCx(input.mClockRate);
+    result->Maxptime = SafeInt<uint32>(input.mMaxPTime);
+    result->NumChannels = SafeInt<uint32>(input.mNumChannels);
+
+    if (input.mRTCPFeedback.size() > 0) {
+      result->RtcpFeedback = ref new Vector<RTCRtcpFeedback^>();
+
+      for (auto iter = input.mRTCPFeedback.begin(); iter != input.mRTCPFeedback.end(); ++iter)
+      {
+        result->RtcpFeedback->Append(ToCx(*iter));
+      }
+    }
+
+    if (input.mParameters)
+    {
+      {
+        auto value = IRTPTypes::OpusCodecParameters::convert(input.mParameters);
+        if (value)
+        {
+          result->Parameters = ToCx(value);
+          goto done_convert_params;
+        }
+      }
+      {
+        auto value = IRTPTypes::VP8CodecParameters::convert(input.mParameters);
+        if (value)
+        {
+          result->Parameters = ToCxParameters(value);
+          goto done_convert_params;
+        }
+      }
+      {
+        auto value = IRTPTypes::H264CodecParameters::convert(input.mParameters);
+        if (value)
+        {
+          result->Parameters = ToCxParameters(value);
+          goto done_convert_params;
+        }
+      }
+      {
+        auto value = IRTPTypes::RTXCodecParameters::convert(input.mParameters);
+        if (value)
+        {
+          result->Parameters = ToCx(value);
+          goto done_convert_params;
+        }
+      }
+      {
+        auto value = IRTPTypes::REDCodecParameters::convert(input.mParameters);
+        if (value)
+        {
+          result->Parameters = ToCx(value);
+          goto done_convert_params;
+        }
+      }
+      {
+        auto value = IRTPTypes::FlexFECCodecParameters::convert(input.mParameters);
+        if (value)
+        {
+          result->Parameters = ToCx(value);
+          goto done_convert_params;
+        }
+      }
+    done_convert_params:
+      {}
+    }
+
+    return result;
+  }
+
+  RTCRtpCodecParameters^ ToCx(IRTPTypes::CodecParametersPtr input)
+  {
+    if (!input) return nullptr;
+    return ToCx(*input);
+  }
+
+  IRTPTypes::CodecParametersPtr FromCx(RTCRtpCodecParameters^ input)
+  {
+    if (nullptr == input) return IRTPTypes::CodecParametersPtr();
+    auto result = make_shared<IRTPTypes::CodecParameters>();
+
+    result->mName = FromCx(input->Name);
+    result->mPayloadType = SafeInt<decltype(result->mPayloadType)>(input->PayloadType);
+    result->mClockRate = FromCx(input->ClockRate);
+    result->mMaxPTime = SafeInt<decltype(result->mMaxPTime)>(input->Maxptime);
+    result->mNumChannels = SafeInt<decltype(result->mNumChannels)>(input->NumChannels);
+
+    if (input->RtcpFeedback)
+    {
+      for (RTCRtcpFeedback^ value : input->RtcpFeedback)
+      {
+        result->mRTCPFeedback.push_back(FromCx(value));
+      }
+    }
+
+    if (nullptr != input->Parameters)
+    {
+      {
+        RTCRtpOpusCodecParameters^ value = dynamic_cast<RTCRtpOpusCodecParameters^>(input->Parameters);
+        if (nullptr != value)
+        {
+          result->mParameters = FromCx(value);
+          goto done_convert_params;
+        }
+      }
+      {
+        RTCRtpVp8CodecParameters^ value = dynamic_cast<RTCRtpVp8CodecParameters^>(input->Parameters);
+        if (nullptr != value)
+        {
+          result->mParameters = FromCx(value);
+          goto done_convert_params;
+        }
+      }
+      {
+        RTCRtpH264CodecParameters^ value = dynamic_cast<RTCRtpH264CodecParameters^>(input->Parameters);
+        if (nullptr != value)
+        {
+          result->mParameters = FromCx(value);
+          goto done_convert_params;
+        }
+      }
+      {
+        RTCRtpRtxCodecParameters^ value = dynamic_cast<RTCRtpRtxCodecParameters^>(input->Parameters);
+        if (nullptr != value)
+        {
+          result->mParameters = FromCx(value);
+          goto done_convert_params;
+        }
+      }
+      {
+        RTCRtpRedCodecParameters^ value = dynamic_cast<RTCRtpRedCodecParameters^>(input->Parameters);
+        if (nullptr != value)
+        {
+          result->mParameters = FromCx(value);
+          goto done_convert_params;
+        }
+      }
+      {
+        RTCRtpFlexFecCodecParameters^ value = dynamic_cast<RTCRtpFlexFecCodecParameters^>(input->Parameters);
+        if (nullptr != value)
+        {
+          result->mParameters = FromCx(value);
+          goto done_convert_params;
+        }
+      }
+    done_convert_params:
+      {}
+    }
+
+    return result;
+  }
+
+  RTCRtpFecParameters^ ToCx(const IRTPTypes::FECParameters &input)
+  {
+    auto result = ref new RTCRtpFecParameters();
+    result->Ssrc = ToCx(input.mSSRC);
+    result->Mechanism = ToCx(input.mMechanism);
+    return result;
+  }
+
+  RTCRtpFecParameters^ ToCx(IRTPTypes::FECParametersPtr input)
+  {
+    if (!input) return nullptr;
+    return ToCx(*input);
+  }
+
+  IRTPTypes::FECParametersPtr FromCx(RTCRtpFecParameters^ input)
+  {
+    if (nullptr == input) return IRTPTypes::FECParametersPtr();
+    auto result = make_shared<IRTPTypes::FECParameters>();
+    result->mSSRC = FromCx(input->Ssrc);
+    result->mMechanism = FromCx(input->Mechanism);
+    return result;
+  }
+
+  RTCRtpRtxParameters^ ToCx(const IRTPTypes::RTXParameters &input)
+  {
+    auto result = ref new RTCRtpRtxParameters();
+    result->Ssrc = ToCx(input.mSSRC);
+    result->PayloadType = ToCx(input.mPayloadType);
+    return result;
+  }
+
+  RTCRtpRtxParameters^ ToCx(IRTPTypes::RTXParametersPtr input)
+  {
+    if (!input) return nullptr;
+    return ToCx(*input);
+  }
+
+  IRTPTypes::RTXParametersPtr FromCx(RTCRtpRtxParameters^ input)
+  {
+    if (nullptr == input) return IRTPTypes::RTXParametersPtr();
+    auto result = make_shared<IRTPTypes::RTXParameters>();
+    result->mSSRC = FromCx(input->Ssrc);
+    result->mPayloadType = FromCx(input->PayloadType);
+    return result;
+  }
+
+  RTCRtpEncodingParameters^ ToCx(const IRTPTypes::EncodingParameters &input)
+  {
+    auto result = ref new RTCRtpEncodingParameters();
+
+    result->Ssrc = ToCx(input.mSSRC);
+    result->CodecPayloadType = ToCx(input.mCodecPayloadType);
+    if (input.mFEC.hasValue()) result->Fec = ToCx(input.mFEC.value());
+    if (input.mRTX.hasValue()) result->Rtx = ToCx(input.mRTX.value());
+
+    result->Priority = internal::ConvertEnums::convert(input.mPriority);
+
+    result->MaxBitrate = SafeInt<uint64>(input.mMaxBitrate);
+    result->MinQuality = input.mMinQuality;
+    result->ResolutionScale = input.mResolutionScale;
+    result->FramerateScale = input.mFramerateScale;
+    result->Active = input.mActive;
+    result->EncodingId = ToCx(input.mEncodingID);
+
+    if (input.mDependencyEncodingIDs.size() > 0)
+    {
+      result->DependencyEncodingIds = ref new Vector<Platform::String^>();
+      for (auto iter = input.mDependencyEncodingIDs.begin(); iter != input.mDependencyEncodingIDs.end(); ++iter)
+      {
+        auto &value = (*iter);
+        result->DependencyEncodingIds->Append(ToCx(value));
+      }
+    }
+    return result;
+  }
+
+  RTCRtpEncodingParameters^ ToCx(IRTPTypes::EncodingParametersPtr input)
+  {
+    if (!input) return nullptr;
+    return ToCx(*input);
+  }
+
+  IRTPTypes::EncodingParametersPtr FromCx(RTCRtpEncodingParameters^ input)
+  {
+    if (nullptr == input) return IRTPTypes::EncodingParametersPtr();
+    auto result = make_shared<IRTPTypes::EncodingParameters>();
+
+    result->mSSRC = FromCx(input->Ssrc);
+    result->mCodecPayloadType = FromCx(input->CodecPayloadType);
+    if (input->Fec)
+    {
+      result->mFEC = *FromCx(input->Fec);
+    }
+    if (input->Rtx)
+    {
+      result->mRTX = *FromCx(input->Rtx);
+    }
+    result->mPriority = internal::ConvertEnums::convert(input->Priority);
+    result->mMaxBitrate = SafeInt<decltype(result->mMaxBitrate)>(input->MaxBitrate);
+    result->mMinQuality = input->MinQuality;
+    result->mResolutionScale = input->ResolutionScale;
+    result->mFramerateScale = input->FramerateScale;
+    result->mEncodingID = FromCx(input->EncodingId);
+
+    if (input->DependencyEncodingIds)
+    {
+      for (Platform::String^ value : input->DependencyEncodingIds)
+      {
+        result->mDependencyEncodingIDs.push_back(FromCx(value));
+      }
+    }
+
+    return result;
+  }
+
+  RTCRtpHeaderExtensionParameters^ ToCx(const IRTPTypes::HeaderExtensionParameters &input)
+  {
+    auto result = ref new RTCRtpHeaderExtensionParameters();
+    result->Uri = ToCx(input.mURI);
+    result->Id = SafeInt<uint16>(input.mID);
+    result->Encrypt = input.mEncrypt;
+    return result;
+  }
+
+  RTCRtpHeaderExtensionParameters^ ToCx(IRTPTypes::HeaderExtensionParametersPtr input)
+  {
+    if (!input) return nullptr;
+    return ToCx(*input);
+  }
+
+  IRTPTypes::HeaderExtensionParametersPtr FromCx(RTCRtpHeaderExtensionParameters^ input)
+  {
+    if (nullptr == input) return IRTPTypes::HeaderExtensionParametersPtr();
+    auto result = make_shared<IRTPTypes::HeaderExtensionParameters>();
+    result->mURI = FromCx(input->Uri);
+    result->mID = SafeInt<decltype(result->mID)>(input->Id);
+    result->mEncrypt = input->Encrypt;
+    return result;
+  }
+
+  RTCRtpParameters^ ToCx(const IRTPTypes::Parameters &input)
+  {
+    auto result = ref new RTCRtpParameters();
+
+    result->MuxId = ToCx(input.mMuxID);
+    if (input.mCodecs.size() > 0)
+    {
+      result->Codecs = ref new Vector<RTCRtpCodecParameters^>();
+
+      for (auto iter = input.mCodecs.begin(); iter != input.mCodecs.end(); ++iter)
+      {
+        auto &value = (*iter);
+        result->Codecs->Append(ToCx(value));
+      }
+    }
+    if (input.mHeaderExtensions.size() > 0)
+    {
+      result->HeaderExtensions = ref new Vector<RTCRtpHeaderExtensionParameters^>();
+
+      for (auto iter = input.mHeaderExtensions.begin(); iter != input.mHeaderExtensions.end(); ++iter)
+      {
+        auto &value = (*iter);
+        result->HeaderExtensions->Append(ToCx(value));
+      }
+    }
+    if (input.mEncodings.size() > 0)
+    {
+      result->Encodings = ref new Vector<RTCRtpEncodingParameters^>();
+
+      for (auto iter = input.mEncodings.begin(); iter != input.mEncodings.end(); ++iter)
+      {
+        auto &value = (*iter);
+        result->Encodings->Append(ToCx(value));
+      }
+    }
+
+    result->Rtcp = ToCx(input.mRTCP);
+    result->DegradationPreference = internal::ConvertEnums::convert(input.mDegredationPreference);
+
+    return result;
+  }
+
+  RTCRtpParameters^ ToCx(IRTPTypes::ParametersPtr input)
+  {
+    if (!input) return nullptr;
+    return ToCx(*input);
+  }
+
+  IRTPTypes::ParametersPtr FromCx(RTCRtpParameters^ input)
+  {
+    if (nullptr == input) return IRTPTypes::ParametersPtr();
+    auto result = make_shared<IRTPTypes::Parameters>();
+
+    result->mMuxID = FromCx(input->MuxId);
+
+    if (input->Codecs)
+    {
+      for (RTCRtpCodecParameters^ value : input->Codecs)
+      {
+        if (nullptr == value) continue;
+        result->mCodecs.push_back(*FromCx(value));
+      }
+    }
+    if (input->HeaderExtensions)
+    {
+      for (RTCRtpHeaderExtensionParameters^ value : input->HeaderExtensions)
+      {
+        if (nullptr == value) continue;
+        result->mHeaderExtensions.push_back(*FromCx(value));
+      }
+    }
+    if (input->Encodings)
+    {
+      for (RTCRtpEncodingParameters^ value : input->Encodings)
+      {
+        if (nullptr == value) continue;
+        result->mEncodings.push_back(*FromCx(value));
+      }
+    }
+
+    if (input->Rtcp)
+    {
+      result->mRTCP = *FromCx(input->Rtcp);
+    }
+    result->mDegredationPreference = internal::ConvertEnums::convert(input->DegradationPreference);
+    return result;
+  }
+
+#pragma endregion
+
 } // namespace ortc_winrt_api

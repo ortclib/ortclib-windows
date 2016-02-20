@@ -12,7 +12,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCIceTransportController.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCRtpSender.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MediaStreamTrack.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)MediaTypes.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTPTypes.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCRtpListener.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Ortc.h" />
@@ -24,6 +23,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)WebRtcMediaStream.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MediaSourceHelper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTMediaStreamSource.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Contraints.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Capabilities.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)pch.cpp">

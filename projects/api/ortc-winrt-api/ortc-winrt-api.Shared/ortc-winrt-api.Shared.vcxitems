@@ -14,11 +14,12 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Capabilities.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Contraints.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)helpers.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Logger.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MediaSourceHelper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MediaStreamTrack.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)MediaTypes.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Ortc.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MediaDevices.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCDataChannel.h" />

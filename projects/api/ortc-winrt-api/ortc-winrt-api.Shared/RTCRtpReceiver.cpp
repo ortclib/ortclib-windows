@@ -58,77 +58,32 @@ void RTCRtpReceiver::SetTransport(RTCDtlsTransport ^ transport, RTCDtlsTransport
 	}
 }
 
-RTCRtpCapabilities ^ RTCRtpReceiver::GetCapabilities()
+RTCRtpCapabilities^ RTCRtpReceiver::GetCapabilities()
 {
-  auto ret = ref new RTCRtpCapabilities();
-  IRTPTypes::CapabilitiesPtr capabilitiesPtr = IRtpReceiver::getCapabilities();
-
-  if (capabilitiesPtr)
-  {
-    for (IRTPTypes::CodecCapabilitiesList::iterator it = capabilitiesPtr->mCodecs.begin(); it != capabilitiesPtr->mCodecs.end(); ++it)
-    {
-      auto codec = ToCx((make_shared<IRTPTypes::CodecCapability>(*it)));
-      ret->Codecs->Append(codec);
-    }
-
-    for (IRTPTypes::HeaderExtensionsList::iterator it = capabilitiesPtr->mHeaderExtensions.begin(); it != capabilitiesPtr->mHeaderExtensions.end(); ++it)
-    {
-      auto codec = ToCx((make_shared<IRTPTypes::HeaderExtension>(*it)));
-      ret->HeaderExtensions->Append(codec);
-    }
-
-    for (std::list<zsLib::String>::iterator it = capabilitiesPtr->mFECMechanisms.begin(); it != capabilitiesPtr->mFECMechanisms.end(); ++it)
-    {
-      ret->FecMechanisms->Append(ToCx(*it));
-    }
-  }
-
-  return ret;
+  return ToCx(IRtpReceiver::getCapabilities());
 }
 
-RTCRtpCapabilities ^ RTCRtpReceiver::GetCapabilities(Platform::String^ kind)
+RTCRtpCapabilities^ RTCRtpReceiver::GetCapabilities(Platform::String^ kind)
 {
-	auto ret = ref new RTCRtpCapabilities();
-	IRTPTypes::CapabilitiesPtr capabilitiesPtr;
-	if (kind != nullptr)
+	if (nullptr != kind)
 	{
 		if (Platform::String::CompareOrdinal(kind, "audio") == 0)
-			capabilitiesPtr = IRtpReceiver::getCapabilities(IRTPReceiverTypes::Kinds::Kind_Audio);
-		else if (Platform::String::CompareOrdinal(kind, "video") == 0)
-			capabilitiesPtr = IRtpReceiver::getCapabilities(IRTPReceiverTypes::Kinds::Kind_Video);
-		else
-			capabilitiesPtr = IRtpReceiver::getCapabilities();
-	}
+			return ToCx(IRtpReceiver::getCapabilities(IRTPReceiverTypes::Kinds::Kind_Audio));
 
-	if (capabilitiesPtr)
-	{
-		for (IRTPTypes::CodecCapabilitiesList::iterator it = capabilitiesPtr->mCodecs.begin(); it != capabilitiesPtr->mCodecs.end(); ++it)
-		{
-			auto codec = ToCx((make_shared<IRTPTypes::CodecCapability>(*it)));
-			ret->Codecs->Append(codec);
-		}
+	  if (Platform::String::CompareOrdinal(kind, "video") == 0)
+			return ToCx(IRtpReceiver::getCapabilities(IRTPReceiverTypes::Kinds::Kind_Video));
+  }
 
-		for (IRTPTypes::HeaderExtensionsList::iterator it = capabilitiesPtr->mHeaderExtensions.begin(); it != capabilitiesPtr->mHeaderExtensions.end(); ++it)
-		{
-			auto codec = ToCx((make_shared<IRTPTypes::HeaderExtension>(*it)));
-			ret->HeaderExtensions->Append(codec);
-		}
-
-		for (std::list<zsLib::String>::iterator it = capabilitiesPtr->mFECMechanisms.begin(); it != capabilitiesPtr->mFECMechanisms.end(); ++it)
-		{
-			ret->FecMechanisms->Append(ToCx(*it));
-		}
-	}
-
-	return ret;
+  return ToCx(IRtpReceiver::getCapabilities());
 }
 
 
-void RTCRtpReceiver::Receive(RTCRtpParameters ^ parameters)
+void RTCRtpReceiver::Receive(RTCRtpParameters^ parameters)
 {
 	if (mNativePointer)
 	{
-		mNativePointer->receive(FromCx(parameters));
+    assert(nullptr != parameters);
+		mNativePointer->receive(*FromCx(parameters));
 	}
 }
 

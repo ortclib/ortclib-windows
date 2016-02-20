@@ -29,13 +29,7 @@ void MediaDevicesDelegate::onMediaDevicesChanged()
 
 SupportedConstraints^ MediaDevices::GetSupportedConstraints()
 {
-	IMediaDevicesTypes::SupportedConstraintsPtr supportedConstraintsPtr = IMediaDevices::getSupportedConstraints();
-
-	if (supportedConstraintsPtr)
-	{
-		return ToCx(*supportedConstraintsPtr.get());
-	}
-	return nullptr;
+	return ToCx(IMediaDevices::getSupportedConstraints());
 }
 
 IAsyncOperation<IVector<MediaDeviceInfo^>^>^ MediaDevices::EnumerateDevices()
