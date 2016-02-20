@@ -2620,7 +2620,7 @@ namespace ortc_winrt_api
   RTCIceGatherer^ ConvertObjectToCx::ToIceGatherer(IIceGathererPtr iceGatherer)
   {
     RTCIceGatherer^ result = ref new RTCIceGatherer();
-    result->mNativePointer = iceGatherer;
+    result->_NativePointer = iceGatherer;
     return result;
   }
 

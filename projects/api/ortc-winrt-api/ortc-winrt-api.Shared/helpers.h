@@ -65,7 +65,7 @@ namespace ortc_winrt_api
   class FetchNativePointer
   {
   public:
-    static IIceGathererPtr FromIceGatherer(RTCIceGatherer^ gatherer) { return gatherer->mNativePointer; }
+    static IIceGathererPtr FromIceGatherer(RTCIceGatherer^ gatherer) { return gatherer->_NativePointer; }
     static IIceTransportPtr FromIceTransport(RTCIceTransport^ transport) { return transport->mNativePointer; }
     static IDtlsTransportPtr FromDtlsTransport(RTCDtlsTransport^ transport) { return transport->mNativePointer; }
     static ICertificatePtr FromCertificate(RTCCertificate^ certificate) { return certificate->mNativePointer; }

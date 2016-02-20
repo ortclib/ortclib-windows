@@ -7,6 +7,7 @@
 using namespace ortc;
 
 using Windows::Foundation::Collections::IVector;
+using Platform::Collections::Vector;
 
 
 namespace ortc_winrt_api
@@ -49,6 +50,8 @@ namespace ortc_winrt_api
     RTCIceGatherer^ _gatherer;
 
     void SetOwnerObject(RTCIceGatherer^ owner) { _gatherer = owner; }
+
+  private:
   };
 
   public enum class RTCIceGatherPolicy
@@ -134,12 +137,12 @@ namespace ortc_winrt_api
   public:
     property RTCIceGathererState State
     {
-      RTCIceGathererState  get(){ return m_state; }
-      void  set(RTCIceGathererState value){ m_state = value; }
+      RTCIceGathererState  get(){ return _State; }
+      void  set(RTCIceGathererState value){ _State = value; }
     }
 
   private:
-    RTCIceGathererState m_state;
+    RTCIceGathererState _State;
   };
 
   public delegate void RTCIceGathererStateChangedDelegate(RTCIceGathererStateChangeEvent^ evt);
@@ -150,12 +153,12 @@ namespace ortc_winrt_api
   public:
     property RTCIceCandidate^ Candidate
     {
-      RTCIceCandidate^  get(){ return m_candidate; }
-      void  set(RTCIceCandidate^ value){ m_candidate = value; }
+      RTCIceCandidate^  get(){ return _Candidate; }
+      void  set(RTCIceCandidate^ value){ _Candidate = value; }
     }
 
   private:
-    RTCIceCandidate^ m_candidate;
+    RTCIceCandidate^ _Candidate;
   };
 
   public delegate void RTCIceGathererLocalCandidateDelegate(RTCIceGathererCandidateEvent^ evt);
@@ -175,12 +178,12 @@ namespace ortc_winrt_api
   public:
     property RTCIceGathererError^ Error
     {
-      RTCIceGathererError^  get(){ return m_error; }
-      void  set(RTCIceGathererError^ value){ m_error = value; }
+      RTCIceGathererError^  get(){ return _Error; }
+      void  set(RTCIceGathererError^ value){ _Error = value; }
     }
 
   private:
-    RTCIceGathererError^ m_error;
+    RTCIceGathererError^ _Error;
   };
 
   public delegate void RTCIceGathererErrorDelegate(RTCIceGathererErrorEvent^ evt);
@@ -205,20 +208,15 @@ namespace ortc_winrt_api
 
 		void Close();
 
-	private:
-		IICEGathererPtr mNativePointer;
-		RTCIceGathererDelegatePtr mNativeDelegatePointer;
-
 	public:
 
 		property RTCIceComponent Component
 		{
 			RTCIceComponent get() 
 			{ 
-				if (mNativePointer)
-					return (RTCIceComponent)mNativePointer->component();
-				else
-					return RTCIceComponent::Rtp;
+				if (_NativePointer)
+					return (RTCIceComponent)_NativePointer->component();
+  			return RTCIceComponent::Rtp;
 			}
 		}
 
@@ -227,11 +225,72 @@ namespace ortc_winrt_api
       RTCIceGathererState get();
 		}
 
-		event RTCIceGathererStateChangedDelegate^       OnICEGathererStateChanged;
-		event RTCIceGathererLocalCandidateDelegate^     OnICEGathererLocalCandidate;
-		event RTCIceGathererCandidateCompleteDelegate^  OnICEGathererCandidateComplete;
-		event RTCIceGathererLocalCandidateGoneDelegate^ OnICEGathererLocalCandidateGone;
-		event RTCIceGathererErrorDelegate^              OnICEGathererError;
+		event RTCIceGathererStateChangedDelegate^       OnICEGathererStateChanged
+    {
+      Windows::Foundation::EventRegistrationToken add(RTCIceGathererStateChangedDelegate^ handler)
+      {
+        RaiseBufferedOnICEGathererStateChangedEvents(handler);
+        return _InternalOnICEGathererStateChanged += handler;
+      }
+
+      void remove(Windows::Foundation::EventRegistrationToken token)
+      {
+        _InternalOnICEGathererStateChanged -= token;
+      }
+    }
+
+    event RTCIceGathererLocalCandidateDelegate^     OnICEGathererLocalCandidate
+    {
+      Windows::Foundation::EventRegistrationToken add(RTCIceGathererLocalCandidateDelegate^ handler)
+      {
+        RaiseBufferedOnICEGathererLocalCandidateEvents(handler);
+        return _InternalOnICEGathererLocalCandidate += handler;
+      }
+
+      void remove(Windows::Foundation::EventRegistrationToken token)
+      {
+        _InternalOnICEGathererLocalCandidate -= token;
+      }
+    }
+
+    event RTCIceGathererCandidateCompleteDelegate^  OnICEGathererCandidateComplete
+    {
+      Windows::Foundation::EventRegistrationToken add(RTCIceGathererCandidateCompleteDelegate^ handler)
+      {
+        return RaiseBufferedOnICEGathererCandidateCompleteEvents(handler);
+      }
+
+      void remove(Windows::Foundation::EventRegistrationToken token)
+      {
+        _InternalOnICEGathererCandidateComplete -= token;
+      }
+    }
+
+    event RTCIceGathererLocalCandidateGoneDelegate^ OnICEGathererLocalCandidateGone
+    {
+      Windows::Foundation::EventRegistrationToken add(RTCIceGathererLocalCandidateGoneDelegate^ handler)
+      {
+        return RaiseBufferedOnICEGathererLocalCandidateGoneEvents(handler);
+      }
+
+      void remove(Windows::Foundation::EventRegistrationToken token)
+      {
+        _InternalOnICEGathererLocalCandidateGone -= token;
+      }
+    }
+
+    event RTCIceGathererErrorDelegate^              OnICEGathererError
+    {
+      Windows::Foundation::EventRegistrationToken add(RTCIceGathererErrorDelegate^ handler)
+      {
+        return RaiseBufferedOnICEGathererErrorEvents(handler);
+      }
+
+      void remove(Windows::Foundation::EventRegistrationToken token)
+      {
+        _InternalOnICEGathererError -= token;
+      }
+    }
 
   public:
     [Windows::Foundation::Metadata::DefaultOverloadAttribute]
@@ -246,5 +305,34 @@ namespace ortc_winrt_api
     static RTCIceGatherPolicy ToPolicy(Platform::String^ str);
     static RTCIceGathererState ToState(Platform::String^ str);
     static RTCIceGathererCredentialType ToCredentialType(Platform::String^ str);
-	};
+
+  private:
+    Windows::Foundation::EventRegistrationToken RaiseBufferedOnICEGathererStateChangedEvents(RTCIceGathererStateChangedDelegate^ handler);
+    Windows::Foundation::EventRegistrationToken RaiseBufferedOnICEGathererLocalCandidateEvents(RTCIceGathererLocalCandidateDelegate^ handler);
+    Windows::Foundation::EventRegistrationToken RaiseBufferedOnICEGathererCandidateCompleteEvents(RTCIceGathererCandidateCompleteDelegate^ handler);
+    Windows::Foundation::EventRegistrationToken RaiseBufferedOnICEGathererLocalCandidateGoneEvents(RTCIceGathererLocalCandidateGoneDelegate^ handler);
+    Windows::Foundation::EventRegistrationToken RaiseBufferedOnICEGathererErrorEvents(RTCIceGathererErrorDelegate^ handler);
+
+    void RaiseOnICEGathererStateChangedEvent(RTCIceGathererStateChangeEvent^ evt);
+    void RaiseOnICEGathererLocalCandidateEvent(RTCIceGathererCandidateEvent^ evt);
+    void RaiseOnICEGathererCandidateCompleteEvent(RTCIceGathererCandidateCompleteEvent^ evt);
+    void RaiseOnICEGathererLocalCandidateGoneEvent(RTCIceGathererCandidateEvent^ evt);
+    void RaiseOnICEGathererErrorEvent(RTCIceGathererErrorEvent^ evt);
+
+    event RTCIceGathererStateChangedDelegate^       _InternalOnICEGathererStateChanged;
+    event RTCIceGathererLocalCandidateDelegate^     _InternalOnICEGathererLocalCandidate;
+    event RTCIceGathererCandidateCompleteDelegate^  _InternalOnICEGathererCandidateComplete;
+    event RTCIceGathererLocalCandidateGoneDelegate^ _InternalOnICEGathererLocalCandidateGone;
+    event RTCIceGathererErrorDelegate^              _InternalOnICEGathererError;
+
+    zsLib::RecursiveLock _Lock;
+    IICEGathererPtr _NativePointer;
+    RTCIceGathererDelegatePtr _NativeDelegatePointer;
+
+    Vector<RTCIceGathererStateChangeEvent^>^        _RaisedOnICEGathererStateChangedEvents;
+    Vector<RTCIceGathererCandidateEvent^>^          _RaisedOnICEGathererLocalCandidateEvents;
+    Vector<RTCIceGathererCandidateCompleteEvent^>^  _RaisedOnICEGathererCandidateCompleteEvents;
+    Vector<RTCIceGathererCandidateEvent^>^          _RaisedOnICEGathererLocalCandidateGoneEvents;
+    Vector<RTCIceGathererErrorEvent^>^              _RaisedOnICEGathererErrorEvents;
+  };
 }
