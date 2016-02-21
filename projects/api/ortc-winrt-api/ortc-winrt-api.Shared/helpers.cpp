@@ -2175,23 +2175,32 @@ namespace ortc_winrt_api
   {
     if (nullptr == input) return IRTPTypes::CapabilitiesPtr();
     auto result = make_shared<IRTPTypes::Capabilities>();
-    for (RTCRtpCodecCapability^ value : input->Codecs)
+    if (input->Codecs)
     {
-      auto codec = FromCx(value);
-      if (!codec) continue;
-      result->mCodecs.push_back(*codec);
+      for (RTCRtpCodecCapability^ value : input->Codecs)
+      {
+        auto codec = FromCx(value);
+        if (!codec) continue;
+        result->mCodecs.push_back(*codec);
+      }
     }
 
-    for (RTCRtpHeaderExtension^ value : input->HeaderExtensions)
+    if (input->HeaderExtensions)
     {
-      auto ext = FromCx(value);
-      if (!ext) continue;
-      result->mHeaderExtensions.push_back(*ext);
+      for (RTCRtpHeaderExtension^ value : input->HeaderExtensions)
+      {
+        auto ext = FromCx(value);
+        if (!ext) continue;
+        result->mHeaderExtensions.push_back(*ext);
+      }
     }
 
-    for (Platform::String^ value : input->FecMechanisms)
+    if (input->FecMechanisms)
     {
-      result->mFECMechanisms.push_back(FromCx(value));
+      for (Platform::String^ value : input->FecMechanisms)
+      {
+        result->mFECMechanisms.push_back(FromCx(value));
+      }
     }
     return result;
   }
