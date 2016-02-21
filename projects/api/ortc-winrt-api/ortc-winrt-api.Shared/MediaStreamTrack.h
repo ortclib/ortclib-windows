@@ -141,6 +141,7 @@ namespace ortc_winrt_api
   {
     friend class ConvertObjectToCx;
     friend class FetchNativePointer;
+    friend class CallPrivateMethod;
 
   private:
     IMediaStreamTrackPtr mNativePointer;
@@ -206,6 +207,9 @@ namespace ortc_winrt_api
     event MediaStreamTrackUnMuteDelegate^           OnMediaStreamTrackUnMuted;
     event MediaStreamTrackEndedDelegate^            OnMediaStreamTrackEnded;
     event MediaStreamTrackOverConstrainedDelegate^  OnMediaStreamTrackOverConstrained;
+
+  private:
+    void SetMediaElement(void* element);
 
   public:
     [Windows::Foundation::Metadata::DefaultOverloadAttribute]

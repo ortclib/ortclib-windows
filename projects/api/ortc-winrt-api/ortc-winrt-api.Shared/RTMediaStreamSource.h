@@ -14,6 +14,7 @@
 //#include "talk/app/webrtc/mediastreaminterface.h"
 #include "webrtc/system_wrappers/include/tick_util.h"
 #include "webrtc/system_wrappers/include/critical_section_wrapper.h"
+#include "webrtc/modules/video_render/include/video_render.h"
 
 using Windows::Media::Core::MediaStreamSource;
 using Platform::WeakReference;
@@ -55,12 +56,13 @@ ref class RTMediaStreamSource sealed {
     static MediaStreamSource^ CreateMediaSource(
       MediaStreamTrack^ track, uint32 frameRate, Platform::String^ id);
   private:
-    class RTCRenderer /*: public webrtc::VideoRendererInterface*/ {
+    class RTCRenderer : public webrtc::VideoRenderCallback {
      public:
       explicit RTCRenderer(RTMediaStreamSource^ streamSource);
       virtual ~RTCRenderer();
       virtual void SetSize(uint32 width, uint32 height, uint32 reserved);
-      virtual void RenderFrame(webrtc::VideoFrame *frame);
+      virtual int32_t RenderFrame(const uint32_t streamId,
+        const webrtc::VideoFrame& videoFrame);
       virtual bool CanApplyRotation() { return true; }
     private:
       // This object is owned by RTMediaStreamSource

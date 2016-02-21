@@ -19,6 +19,15 @@ namespace Microsoft {
 }
 using Microsoft::WRL::ComPtr;
 
+void MediaStreamTrack_SetMediaElement(Platform::Object^ obj, void* element)
+{
+  if (obj == nullptr) return;
+
+  ortc_winrt_api::MediaStreamTrack^ track = static_cast<ortc_winrt_api::MediaStreamTrack^>(obj);
+
+  ortc_winrt_api::CallPrivateMethod::SetMediaElement(track, element);
+};
+
 namespace ortc_winrt_api
 {
 
@@ -134,17 +143,16 @@ namespace ortc_winrt_api
     //  return source;
     //});
 
-#ifdef USE_NEW_RENDERER
+#ifdef USE_OLD_RENDERER
     Platform::String^ id = "stream";
-
+    uint32 framerate = 30;
+    return RTMediaStreamSource::CreateMediaSource(this, framerate, id);
+#else
+    Platform::String^ id = "stream";
     ComPtr<ABI::Windows::Media::Core::IMediaSource> comSource;
     WebRtcMediaSource::CreateMediaSource(&comSource, this, id);
     IMediaSource^ source = reinterpret_cast<IMediaSource^>(comSource.Get());
     return source;
-#else
-    Platform::String^ id = "stream";
-    uint32 framerate = 30;
-    return RTMediaStreamSource::CreateMediaSource(this, framerate, id);
 #endif
   }
 
@@ -171,6 +179,14 @@ namespace ortc_winrt_api
     });
 
     return ret;
+  }
+
+  void MediaStreamTrack::SetMediaElement(void* element)
+  {
+    if (mNativePointer)
+    {
+      mNativePointer->setMediaElement(element);
+    }
   }
 
   Platform::String^ MediaStreamTrack::ToString()

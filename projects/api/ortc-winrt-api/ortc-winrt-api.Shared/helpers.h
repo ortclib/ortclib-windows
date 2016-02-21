@@ -91,6 +91,12 @@ namespace ortc_winrt_api
     static RTCIceTransport^ IceTransport() { return ref new RTCIceTransport(true); }
   };
 
+  class CallPrivateMethod
+  {
+  public:
+    static void SetMediaElement(MediaStreamTrack^ track, void* element) { track->SetMediaElement(element); }
+  };
+
   namespace internal
   {
     class ConvertEnums

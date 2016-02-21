@@ -13,6 +13,7 @@
 #include "libyuv/convert.h"
 #include "webrtc/system_wrappers/include/critical_section_wrapper.h"
 #include "Ortc.h"
+#include "helpers.h"
 
 using Microsoft::WRL::ComPtr;
 using Platform::Collections::Vector;
@@ -26,6 +27,23 @@ using Windows::Media::MediaProperties::MediaEncodingSubtypes;
 using Windows::System::Threading::TimerElapsedHandler;
 using Windows::System::Threading::ThreadPoolTimer;
 
+namespace Microsoft
+{
+  namespace WRL
+  {
+    using ::ULONG;
+    using ::DWORD;
+    using ::UINT;
+    using ::LONG;
+    using ::BYTE;
+  }
+}
+
+namespace Concurrency
+{
+  using ::LONG;
+}
+
 namespace ortc_winrt_api {
 
 MediaStreamSource^ RTMediaStreamSource::CreateMediaSource(
@@ -37,7 +55,7 @@ MediaStreamSource^ RTMediaStreamSource::CreateMediaSource(
   streamState->_id = id;
   streamState->_rtcRenderer = rtc::scoped_ptr<RTCRenderer>(
     new RTCRenderer(streamState));
-  //track->SetRenderer(streamState->_rtcRenderer.get());
+  CallPrivateMethod::SetMediaElement(track, (void*)streamState->_rtcRenderer.get());
   VideoEncodingProperties^ videoProperties;
   if (isH264) {
     videoProperties = VideoEncodingProperties::CreateH264();
@@ -195,10 +213,10 @@ void RTMediaStreamSource::RTCRenderer::SetSize(
   }
 }
 
-void RTMediaStreamSource::RTCRenderer::RenderFrame(
-  webrtc::VideoFrame *frame) {
+int32_t RTMediaStreamSource::RTCRenderer::RenderFrame(const uint32_t streamId,
+  const webrtc::VideoFrame& frame) {
   webrtc::VideoFrame* frameCopy = new webrtc::VideoFrame();
-  frame->CopyFrame(*frameCopy);
+  frameCopy->CopyFrame(frame);
   // Do the processing async because there's a risk of a deadlock otherwise.
   Concurrency::create_async([this, frameCopy] {
     auto stream = _streamSource.Resolve<RTMediaStreamSource>();
@@ -206,6 +224,7 @@ void RTMediaStreamSource::RTCRenderer::RenderFrame(
       stream->ProcessReceivedFrame(frameCopy);
     }
   });
+  return 0;
 }
 
 void RTMediaStreamSource::ProgressTimerElapsedExecute(ThreadPoolTimer^ source) {
@@ -281,7 +300,7 @@ HRESULT RTMediaStreamSource::MakeSampleCallback(
   }
   ComPtr<IMFMediaBuffer> mediaBuffer;
   hr = MFCreate2DMediaBuffer(
-	(DWORD)frame->width(), (DWORD)frame->height(),
+    (::DWORD)frame->width(), (::DWORD)frame->height(),
     MFVideoFormat_NV12.Data1, FALSE,
     mediaBuffer.GetAddressOf());
   if (FAILED(hr)) {
@@ -295,10 +314,10 @@ HRESULT RTMediaStreamSource::MakeSampleCallback(
     return E_FAIL;
   }
 
-  BYTE* destRawData;
-  BYTE* buffer;
-  LONG pitch;
-  DWORD destMediaBufferSize;
+  ::BYTE* destRawData;
+  ::BYTE* buffer;
+  ::LONG pitch;
+  ::DWORD destMediaBufferSize;
 
   if (FAILED(imageBuffer->Lock2DSize(MF2DBuffer_LockFlags_Write,
     &destRawData, &pitch, &buffer, &destMediaBufferSize))) {

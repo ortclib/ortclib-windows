@@ -16,6 +16,7 @@
 #include "webrtc/base/scoped_ptr.h"
 #include "MediaSourceHelper.h"
 #include "WebRtcMediaSource.h"
+#include "webrtc/modules/video_render/include/video_render.h"
 
 using Microsoft::WRL::ComPtr;
 using Microsoft::WRL::RuntimeClass;
@@ -25,21 +26,20 @@ using Windows::System::Threading::ThreadPoolTimer;
 
 namespace ortc_winrt_api {
 
-  ref class MediaStreamTrack;
   class WebRtcMediaSource;
 
   class WebRtcMediaStream :
     public RuntimeClass<RuntimeClassFlags<RuntimeClassType::WinRtClassicComMix>,
     IMFMediaStream, IMFMediaEventGenerator,
-    IMFGetService>/*,
-    public webrtc::VideoRendererInterface*/ {
+    IMFGetService>,
+    public webrtc::VideoRenderCallback {
     InspectableClass(L"WebRtcMediaStream", BaseTrust)
   public:
     WebRtcMediaStream();
     virtual ~WebRtcMediaStream();
     HRESULT RuntimeClassInitialize(
       WebRtcMediaSource* source,
-      MediaStreamTrack^ track,
+      Platform::Object^ track,
       Platform::String^ id);
 
 
@@ -56,10 +56,9 @@ namespace ortc_winrt_api {
     // IMFGetService
     IFACEMETHOD(GetService)(REFGUID guidService, REFIID riid, LPVOID *ppvObject);
 
-    // VideoRendererInterface
-    virtual void SetSize(uint32 width, uint32 height, uint32 reserved);
-    virtual void RenderFrame(webrtc::VideoFrame *frame);
-    virtual bool CanApplyRotation() { return true; }
+    // VideoRenderCallback
+    virtual int32_t RenderFrame(const uint32_t streamId,
+      const webrtc::VideoFrame& videoFrame);
 
 
     STDMETHOD(Start)(IMFPresentationDescriptor *pPresentationDescriptor,
@@ -74,7 +73,7 @@ namespace ortc_winrt_api {
     ComPtr<IMFMediaEventQueue> _eventQueue;
 
     WebRtcMediaSource* _source;
-    MediaStreamTrack^ _track;
+    Platform::Object^ _track;
     Platform::String^ _id;
 
     static HRESULT CreateMediaType(unsigned int width, unsigned int height,

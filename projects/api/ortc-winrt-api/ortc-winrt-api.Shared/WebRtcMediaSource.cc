@@ -39,7 +39,7 @@ HRESULT WebRtcMediaSource::CreateMediaSource(
 }
 
 HRESULT WebRtcMediaSource::RuntimeClassInitialize(
-  MediaStreamTrack^ track, Platform::String^ id) {
+  Platform::Object^ track, Platform::String^ id) {
   webrtc::CriticalSectionScoped csLock(_lock.get());
   if (_eventQueue != nullptr)
     return S_OK;
