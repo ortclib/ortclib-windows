@@ -132,53 +132,62 @@ namespace ortc_winrt_api
   Windows::Foundation::EventRegistrationToken RTCIceGatherer::RaiseBufferedOnICEGathererLocalCandidateEvents(RTCIceGathererLocalCandidateDelegate^ handler)
   {
     Vector<RTCIceGathererCandidateEvent^>^ fired = nullptr;
+    Windows::Foundation::EventRegistrationToken token{};
+
     {
       zsLib::AutoRecursiveLock lock(_Lock);
       fired = _RaisedOnICEGathererLocalCandidateEvents;
       _RaisedOnICEGathererLocalCandidateEvents = nullptr;
+      token = _InternalOnICEGathererLocalCandidate += handler;
     }
 
     if (nullptr != fired) { for (auto evt : fired) { handler(evt); } }
-    return _InternalOnICEGathererLocalCandidate += handler;
+    return token;
   }
 
   Windows::Foundation::EventRegistrationToken RTCIceGatherer::RaiseBufferedOnICEGathererCandidateCompleteEvents(RTCIceGathererCandidateCompleteDelegate^ handler)
   {
     Vector<RTCIceGathererCandidateCompleteEvent^>^ fired = nullptr;
+    Windows::Foundation::EventRegistrationToken token{};
     {
       zsLib::AutoRecursiveLock lock(_Lock);
       fired = _RaisedOnICEGathererCandidateCompleteEvents;
       _RaisedOnICEGathererCandidateCompleteEvents = nullptr;
+      token = _InternalOnICEGathererCandidateComplete += handler;
     }
 
     if (nullptr != fired) { for (auto evt : fired) { handler(evt); } }
-    return _InternalOnICEGathererCandidateComplete += handler;
+    return token;
   }
 
   Windows::Foundation::EventRegistrationToken RTCIceGatherer::RaiseBufferedOnICEGathererLocalCandidateGoneEvents(RTCIceGathererLocalCandidateGoneDelegate^ handler)
   {
     Vector<RTCIceGathererCandidateEvent^>^ fired = nullptr;
+    Windows::Foundation::EventRegistrationToken token{};
     {
       zsLib::AutoRecursiveLock lock(_Lock);
       fired = _RaisedOnICEGathererLocalCandidateGoneEvents;
       _RaisedOnICEGathererLocalCandidateGoneEvents = nullptr;
+      token = _InternalOnICEGathererLocalCandidateGone += handler;
     }
 
     if (nullptr != fired) { for (auto evt : fired) { handler(evt); } }
-    return _InternalOnICEGathererLocalCandidateGone += handler;
+    return token;
   }
 
   Windows::Foundation::EventRegistrationToken RTCIceGatherer::RaiseBufferedOnICEGathererErrorEvents(RTCIceGathererErrorDelegate^ handler)
   {
     Vector<RTCIceGathererErrorEvent^>^ fired = nullptr;
+    Windows::Foundation::EventRegistrationToken token{};
     {
       zsLib::AutoRecursiveLock lock(_Lock);
       fired = _RaisedOnICEGathererErrorEvents;
       _RaisedOnICEGathererErrorEvents = nullptr;
+      token = _InternalOnICEGathererError += handler;
     }
 
     if (nullptr != fired) { for (auto evt : fired) { handler(evt); } }
-    return _InternalOnICEGathererError += handler;
+    return token;
   }
 
   void RTCIceGatherer::RaiseOnICEGathererStateChangedEvent(RTCIceGathererStateChangeEvent^ evt)
