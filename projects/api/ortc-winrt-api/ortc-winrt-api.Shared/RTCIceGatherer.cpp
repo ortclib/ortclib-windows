@@ -125,7 +125,9 @@ namespace ortc_winrt_api
       _RaisedOnICEGathererStateChangedEvents = nullptr;
     }
 
-    if (nullptr != fired) {for (auto evt : fired) {handler(evt);}}
+    if (nullptr != fired) {
+      concurrency::create_task([fired, handler] {for (auto evt : fired) { handler(evt); }}).then([] {});
+    }
     return _InternalOnICEGathererStateChanged += handler;
   }
 
@@ -141,7 +143,9 @@ namespace ortc_winrt_api
       token = _InternalOnICEGathererLocalCandidate += handler;
     }
 
-    if (nullptr != fired) { for (auto evt : fired) { handler(evt); } }
+    if (nullptr != fired) {
+      concurrency::create_task([fired, handler] {for (auto evt : fired) { handler(evt); }}).then([] {});
+    }
     return token;
   }
 
@@ -156,7 +160,9 @@ namespace ortc_winrt_api
       token = _InternalOnICEGathererCandidateComplete += handler;
     }
 
-    if (nullptr != fired) { for (auto evt : fired) { handler(evt); } }
+    if (nullptr != fired) {
+      concurrency::create_task([fired, handler] {for (auto evt : fired) { handler(evt); }}).then([] {});
+    }
     return token;
   }
 
@@ -171,7 +177,9 @@ namespace ortc_winrt_api
       token = _InternalOnICEGathererLocalCandidateGone += handler;
     }
 
-    if (nullptr != fired) { for (auto evt : fired) { handler(evt); } }
+    if (nullptr != fired) {
+      concurrency::create_task([fired, handler] {for (auto evt : fired) { handler(evt); }}).then([] {});
+    }
     return token;
   }
 
@@ -186,7 +194,9 @@ namespace ortc_winrt_api
       token = _InternalOnICEGathererError += handler;
     }
 
-    if (nullptr != fired) { for (auto evt : fired) { handler(evt); } }
+    if (nullptr != fired) {
+      concurrency::create_task([fired, handler] {for (auto evt : fired) { handler(evt); }}).then([] {});
+    }
     return token;
   }
 
