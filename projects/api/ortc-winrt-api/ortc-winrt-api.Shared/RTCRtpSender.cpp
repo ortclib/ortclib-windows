@@ -30,7 +30,7 @@ mNativeDelegatePointer(new RTCRtpSenderDelegate())
   if (FetchNativePointer::FromDtlsTransport(transport)) // add mediaStreamTrack too
   {
     mNativeDelegatePointer->SetOwnerObject(this);
-    mNativePointer = IRTPSender::create(mNativeDelegatePointer, IMediaStreamTrackPtr(), FetchNativePointer::FromDtlsTransport(transport));
+    mNativePointer = IRTPSender::create(mNativeDelegatePointer, FetchNativePointer::FromMediaTrack(track), FetchNativePointer::FromDtlsTransport(transport));
   }
 }
 
@@ -45,7 +45,7 @@ mNativeDelegatePointer(new RTCRtpSenderDelegate())
   if (FetchNativePointer::FromDtlsTransport(transport) && FetchNativePointer::FromDtlsTransport(rtcpTransport)) // add mediaStreamTrack too
   {
     mNativeDelegatePointer->SetOwnerObject(this);
-    mNativePointer = IRTPSender::create(mNativeDelegatePointer, IMediaStreamTrackPtr(), FetchNativePointer::FromDtlsTransport(transport), FetchNativePointer::FromDtlsTransport(rtcpTransport));
+    mNativePointer = IRTPSender::create(mNativeDelegatePointer, FetchNativePointer::FromMediaTrack(track), FetchNativePointer::FromDtlsTransport(transport), FetchNativePointer::FromDtlsTransport(rtcpTransport));
   }
 }
 
