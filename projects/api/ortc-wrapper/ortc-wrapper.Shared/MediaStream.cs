@@ -11,7 +11,7 @@ namespace OrtcWrapper
         IList<MediaAudioTrack> _audioTracks;
         IList<MediaVideoTrack> _videoTracks;
         IList<IMediaStreamTrack> _mediaTracks;
-
+         
         public string Id { get; set; }
 
         public MediaStream()

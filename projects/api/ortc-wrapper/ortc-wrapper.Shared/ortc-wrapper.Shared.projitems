@@ -30,6 +30,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)RTCPeerConnectionHealthStats.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RTCPeerConnectionIceEvent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RTCSessionDescription.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SDPGenerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebRTC.cs" />
   </ItemGroup>
 </Project>

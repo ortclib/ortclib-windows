@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ortc_winrt_api;
 using Log = ortc_winrt_api.Log;
 using Windows.Foundation;
+using ortc_wrapper.Shared.Internal;
 
 namespace OrtcWrapper
 {
@@ -244,175 +245,47 @@ namespace OrtcWrapper
 
             IList<MediaAudioTrack>  audioTracks = _localStream.GetAudioTracks();
 
+            List<UInt32> listOfSsrcIds = new List<UInt32>();
+            if (ssrcId == 0)
+            {
+                ssrcId = (UInt32)Guid.NewGuid().GetHashCode();
+                listOfSsrcIds.Add(ssrcId);
+            }
+            if (cnameSSRC == null)
+                cnameSSRC = Guid.NewGuid().ToString();
+
             //------------- Media lines START -------------
             //m = audio 9 UDP / TLS / RTP / SAVPF 111 103 104 9 102 0 8 106 105 13 127 126
             if (containsAudio)
             {
-                sb.Append("m=audio");
-                sb.Append(' ');
-                sb.Append('9');
-                sb.Append("UDP/TLS/RTP/SAVPF");
-                sb.Append(' ');
-                var audioCapabilities = RTCRtpReceiver.GetCapabilities("audio");
-                if (audioCapabilities != null)
-                {
-                    foreach (RTCRtpCodecCapability cap in audioCapabilities.Codecs)
-                    {
-                        sb.Append(cap.PreferredPayloadType);
-                        sb.Append(' ');
-                    }
-                }
-                sb.Append("\r\n");
-
-                //c=IN IP4 0.0.0.0
-                sb.Append("c=IN");
-                sb.Append(' ');
-                sb.Append("IP4");   //TODO get address type
-                sb.Append(' ');
-                sb.Append("0.0.0.0");
-                sb.Append("\r\n");
-
-                //a=rtcp:9 IN IP4 0.0.0.0
-                sb.Append("a=");
-                sb.Append("rtcp:");
-                sb.Append('9');
-                sb.Append(' ');
-                sb.Append("IN");
-                sb.Append(' ');
-                sb.Append("IP4");   //TODO get address type
-                sb.Append(' ');
-                sb.Append("0.0.0.0");
-                sb.Append("\r\n");
-
-                RTCIceParameters iceParams = iceGatherer.GetLocalParameters();
-                // a = ice - ufrag:C / tJt6mZEG7BQVUa
-                sb.Append("a=ice-ufrag:");
-                sb.Append(iceParams.UsernameFragment);
-                sb.Append("\r\n");
-                //a = ice - pwd:coliv0yBjagPtrltwt8u025S
-                sb.Append("a=ice-pwd:");
-                sb.Append(iceParams.Password);
-                sb.Append("\r\n");
-
-                RTCDtlsParameters dtlsParameters = dtlsTransport.GetLocalParameters();
-
-                //a=fingerprint:sha-256 40:0C:E6:90:75:80:87:35:C7:F4:66:CB:C3:5E:F1:E8:63:55:12:09:0E:61:35:32:B8:79:B3:68:73:DD:EB:17
-                foreach (RTCDtlsFingerprint finger in dtlsParameters.Fingerprints)
-                {
-                    sb.Append("a=fingerprint:");
-                    sb.Append(finger.Algorithm);
-                    sb.Append(' ');
-                    sb.Append(finger.Value);
-                    sb.Append("\r\n");
-                }
-
-                //a = setup:actpass
-                sb.Append("a=setup:");
-                switch (dtlsParameters.Role)
-                {
-                    case RTCDtlsRole.Server:
-                    case RTCDtlsRole.Client:
-                    case RTCDtlsRole.Auto:
-                        sb.Append("actpass");
-                        break;
-                    default:
-                        sb.Append("actpass");
-                        break;
-                }
-                sb.Append("\r\n");
-
-                //a=mid:audio
-                sb.Append("a=mid:audio");
-                sb.Append("\r\n");
-
-                //a = extmap:1 urn:ietf:params:rtp-hdrext:ssrc-audio-level
-                //a = extmap:3 http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time
-
-                foreach (RTCRtpHeaderExtension extension in audioCapabilities.HeaderExtensions)
-                {
-                    sb.Append("a=extmap:");
-                    sb.Append(extension.PreferredId);
-                    sb.Append(' ');
-                    sb.Append(extension.Uri);
-                    sb.Append("\r\n");
-                }
-                //a=sendrecv
-                sb.Append("a=sendrecv");    //WARNING - THIS IS HARDCODED, IS SHOULD BE HANDLED PROPERLY
-                sb.Append("\r\n");
-
-                //a=rtcp-mux
-                sb.Append("a=rtcp-mux");    //WARNING - THIS IS HARDCODED, IS SHOULD BE HANDLED PROPERLY
-                sb.Append("\r\n");
-
-                uint maxPTime = 0;
-                //a=rtpmap:111 opus/48000/2
-                if (audioCapabilities != null)
-                {
-                    foreach (RTCRtpCodecCapability cap in audioCapabilities.Codecs)
-                    {
-                        if (maxPTime == 0)
-                            maxPTime = cap.Maxptime;
-                        else
-                            maxPTime = maxPTime > cap.Maxptime ? cap.Maxptime : maxPTime;
-
-                        sb.Append("a=rtpmap:");
-                        sb.Append(cap.PreferredPayloadType);
-                        sb.Append(' ');
-                        sb.Append(cap.Name);
-                        sb.Append('/');
-                        sb.Append(cap.ClockRate);
-                        sb.Append('/');
-                        sb.Append(cap.NumChannels);
-                        sb.Append("\r\n");
-                        //a=fmtp:111 minptime=10; useinbandfec=1
-                        //WARNING - THIS SHOULD BE HANDLED BUT MINPTIME AND USEINBANDFEC ARE MISSING 
-                    }
-                    maxPTime = maxPTime == 0 ? 120 : maxPTime;
-                    //a=maxptime:60
-                    sb.Append("a=maxptime:");
-                    sb.Append(maxPTime);
-                    sb.Append("\r\n");
-                }
-
-        
-                if (ssrcId == 0)
-                    ssrcId = (UInt32)Guid.NewGuid().GetHashCode();
-                if (cnameSSRC == null)
-                    cnameSSRC = Guid.NewGuid().ToString();
+                
                 if (audioSSRCLabel == null)
                     audioSSRCLabel = Guid.NewGuid().ToString();
+                var audioCapabilities = RTCRtpReceiver.GetCapabilities("audio");
 
-                //a = ssrc:3063731557 cname: 6dj1AlWMKSYOn3hv
-                sb.Append("a=ssrc:");
-                sb.Append(ssrcId);
-                sb.Append(' ');
-                sb.Append("cname: ");
-                sb.Append(cnameSSRC);
-                sb.Append("\r\n");
+                if (audioCapabilities != null)
+                {
+                    string mediaLine = SDPGenerator.GenerateMediaSDP(@"audio", audioCapabilities, iceGatherer, dtlsTransport, "0.0.0.0", listOfSsrcIds, cnameSSRC, audioSSRCLabel, _localStream.Id);
 
-                //a = ssrc:3063731557 msid: stream_label_1c26693 audio_label_3ea802dc
-                sb.Append("a=ssrc:");
-                sb.Append(ssrcId);
-                sb.Append(' ');
-                sb.Append("msid: ");    
-                sb.Append(_localStream.Id);
-                sb.Append(' ');
-                sb.Append(audioSSRCLabel);
-                sb.Append("\r\n");
-                //a = ssrc:3063731557 mslabel: stream_label_1c26693
-                sb.Append("a=ssrc:");
-                sb.Append(ssrcId);
-                sb.Append(' ');
-                sb.Append("mslabel: ");
-                sb.Append(_localStream.Id);
-                sb.Append("\r\n");
-                //a = ssrc:3063731557 label: audio_label_3ea802dc
-                sb.Append("a=ssrc:");
-                sb.Append(ssrcId);
-                sb.Append(' ');
-                sb.Append("label: ");
-                sb.Append(audioSSRCLabel);
-                sb.Append("\r\n");
+                    if (!string.IsNullOrEmpty(mediaLine))
+                        sb.Append(mediaLine);
+                }
+            }
+
+            if (containsVideo)
+            {
+
+                if (videoSSRCLabel == null)
+                    videoSSRCLabel = Guid.NewGuid().ToString();
+                var videoCapabilities = RTCRtpReceiver.GetCapabilities("video");
+
+                if (videoCapabilities != null)
+                {
+                    string mediaLine = SDPGenerator.GenerateMediaSDP(@"video", videoCapabilities, iceGatherer, dtlsTransport, "0.0.0.0", listOfSsrcIds, cnameSSRC, videoSSRCLabel, _localStream.Id);
+
+                    if (!string.IsNullOrEmpty(mediaLine))
+                        sb.Append(mediaLine);
+                }
             }
             string ret = sb.ToString();
             return ret;
