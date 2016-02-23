@@ -12,42 +12,34 @@ namespace OrtcWrapper
 {
     public class RTCPeerConnection
     {
-        //private SemaphoreSlim _lock = new SemaphoreSlim(1, 1);
-
         private bool _closed = false;
         private string audioSSRCLabel = null;
         private string videoSSRCLabel = null;
         private string cnameSSRC = null;
         private UInt32 ssrcId;
-        //private RTCIceGatherer _iceGatherer;
-        //private RtcIceTransport _iceTransport;
-        //private RtcDtlsTransport _dtlsTransport;
-        private TaskCompletionSource<RTCSessionDescription> _capabilitiesTcs;
-        private TaskCompletionSource<RTCSessionDescription> _capabilitiesFinalTcs;
-        private TaskCompletionSource<RTCSessionDescription> _remoteCapabilitiesTcs;
+
         //private RtcIceRole _iceRole = RtcIceRole.Controlling;
         //private RTCSessionDescription _localCapabilities;
        // private RTCSessionDescription _localCapabilitiesFinal;
         //private RTCSessionDescription _remoteCapabilities;
-        //private MediaStream _localStream;
-        
-        private RTCRtpSender _audioSender;
-        private RTCRtpSender _videoSender;
-        private RTCRtpReceiver _audioReceiver;
-        private RTCRtpReceiver _videoReceiver;
-        private MediaDevice _audioPlaybackDevice;
 
         private bool _installedIceEvents;
+
+        private RTCRtpSender audioSender { get; set; }
+        private RTCRtpSender videoSender { get; set; }
+        private RTCRtpReceiver audioReceiver { get; set; }
+        private RTCRtpReceiver videoReceiver { get; set; }
+        private MediaDevice audioPlaybackDevice { get; set; }
+
+        private MediaStream localStream { get; set; }
+        private MediaStream remoteStream { get; set; }
 
         private RTCIceGatherOptions options { get; set; }
         private RTCIceGatherer iceGatherer { get; set; }
         private RTCIceGatherer iceGathererRTCP   { get; set; }
         private RTCDtlsTransport dtlsTransport  { get; set; }
-
         private RTCIceTransport iceTransport { get; set; }
 
-        private MediaStream _localStream;
-        private MediaStream _remoteStream;
 
         static public void SetPreferredVideoCaptureFormat(int frame_width,
                                             int frame_height, int fps)
@@ -65,12 +57,10 @@ namespace OrtcWrapper
             add
             {
                 _OnIceCandidate += value;
-                //iceGatherer.OnICEGathererLocalCandidate += this.RTCIceGatherer_onICEGathererLocalCandidate;
             }
             remove
             {
                 _OnIceCandidate -= value;
-                //iceGatherer.OnICEGathererLocalCandidate -= this.RTCIceGatherer_onICEGathererLocalCandidate;
             }
         }
         public event MediaStreamEventEventDelegate OnAddStream;
@@ -159,7 +149,7 @@ namespace OrtcWrapper
         /// <param name="stream"><see cref="MediaStream"/> to be added.</param>
         public void AddStream(MediaStream stream)
         {
-            _localStream = stream;
+            localStream = stream;
         }
 
         public void Close()
@@ -179,13 +169,17 @@ namespace OrtcWrapper
 
         private UInt64 sessionID { get; set; }
         private UInt16 sessionVersion { get; set; }
-        //private string streamID { get; set; }
+        
+        void parseSDP(string sdp)
+        {
+
+        }
         string createSDP()
         {
             StringBuilder sb = new StringBuilder();
 
-            Boolean containsAudio = (_localStream.GetAudioTracks() != null) && _localStream.GetAudioTracks().Count > 0;
-            Boolean containsVideo = (_localStream.GetVideoTracks() != null) && _localStream.GetVideoTracks().Count > 0;
+            Boolean containsAudio = (localStream.GetAudioTracks() != null) && localStream.GetAudioTracks().Count > 0;
+            Boolean containsVideo = (localStream.GetVideoTracks() != null) && localStream.GetVideoTracks().Count > 0;
 
             //------------- Global lines START -------------
             //v=0
@@ -239,11 +233,11 @@ namespace OrtcWrapper
             sb.Append(' ');
             sb.Append("WMS");
             sb.Append(' ');
-            sb.Append(_localStream.Id);
+            sb.Append(localStream.Id);
             sb.Append("\r\n");
             //------------- Global lines END -------------
 
-            IList<MediaAudioTrack>  audioTracks = _localStream.GetAudioTracks();
+            //IList<MediaAudioTrack>  audioTracks = localStream.GetAudioTracks();
 
             List<UInt32> listOfSsrcIds = new List<UInt32>();
             if (ssrcId == 0)
@@ -258,14 +252,13 @@ namespace OrtcWrapper
             //m = audio 9 UDP / TLS / RTP / SAVPF 111 103 104 9 102 0 8 106 105 13 127 126
             if (containsAudio)
             {
-                
                 if (audioSSRCLabel == null)
                     audioSSRCLabel = Guid.NewGuid().ToString();
                 var audioCapabilities = RTCRtpReceiver.GetCapabilities("audio");
 
                 if (audioCapabilities != null)
                 {
-                    string mediaLine = SDPGenerator.GenerateMediaSDP(@"audio", audioCapabilities, iceGatherer, dtlsTransport, "0.0.0.0", listOfSsrcIds, cnameSSRC, audioSSRCLabel, _localStream.Id);
+                    string mediaLine = SDPGenerator.GenerateMediaSDP(@"audio", audioCapabilities, iceGatherer, dtlsTransport, "0.0.0.0", listOfSsrcIds, cnameSSRC, audioSSRCLabel, localStream.Id);
 
                     if (!string.IsNullOrEmpty(mediaLine))
                         sb.Append(mediaLine);
@@ -281,7 +274,7 @@ namespace OrtcWrapper
 
                 if (videoCapabilities != null)
                 {
-                    string mediaLine = SDPGenerator.GenerateMediaSDP(@"video", videoCapabilities, iceGatherer, dtlsTransport, "0.0.0.0", listOfSsrcIds, cnameSSRC, videoSSRCLabel, _localStream.Id);
+                    string mediaLine = SDPGenerator.GenerateMediaSDP(@"video", videoCapabilities, iceGatherer, dtlsTransport, "0.0.0.0", listOfSsrcIds, cnameSSRC, videoSSRCLabel, localStream.Id);
 
                     if (!string.IsNullOrEmpty(mediaLine))
                         sb.Append(mediaLine);

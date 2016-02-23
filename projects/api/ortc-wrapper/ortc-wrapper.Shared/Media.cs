@@ -19,8 +19,8 @@ namespace OrtcWrapper
 
         private MediaDevice _audioCaptureDevice;
         private MediaDevice _audioPlaybackDevice;
-
         private MediaDevice _videoDevice;
+
         public delegate void OnMediaCaptureDeviceFoundDelegate(MediaDevice __param0);
         public event OnMediaCaptureDeviceFoundDelegate OnAudioCaptureDeviceFound;
         public event OnMediaCaptureDeviceFoundDelegate OnVideoCaptureDeviceFound;
@@ -31,20 +31,15 @@ namespace OrtcWrapper
 
             return ret;
         }
-        static public IAsyncOperation<Media> CreateMediaAsync() //async
+        static public IAsyncOperation<Media> CreateMediaAsync()
         {
             return Task.Run<Media>(() =>
             {
                 return CreateMedia();
              }).AsAsyncOperation<Media>();
-
-            /*IAsyncOperation <Media> asyncOp = Concurrency::create_async([]()->Media ^ {
-                return CreateMedia();
-            });
-            return asyncOp;*/
         }
 
-        static public IAsyncOperation<MediaDeviceInfo> EnumerateDevices() //async
+        static public IAsyncOperation<MediaDeviceInfo> EnumerateDevices()
         {
             Task<MediaDeviceInfo> t = Task.Run<MediaDeviceInfo>(() =>
             {
@@ -68,34 +63,12 @@ namespace OrtcWrapper
                 var constraints = Helper.MakeConstraints(mediaStreamConstraints.audioEnabled, null, MediaDeviceKind.AudioInput, _audioCaptureDevice);
                 constraints = Helper.MakeConstraints(mediaStreamConstraints.videoEnabled, constraints, MediaDeviceKind.Video, _videoDevice);
 
-                //Task<IList<MediaStreamTrack>> task = MediaDevices.GetUserMedia(Helper.ToApiConstraints(mediaStreamConstraints)).AsTask();
-
-                
-
                 Task<IList<MediaStreamTrack>> task = MediaDevices.GetUserMedia(constraints).AsTask();
                 return task.ContinueWith<MediaStream>((temp) =>
                 {
                     var audioTracks = Helper.InsertAudioIfValid(mediaStreamConstraints.audioEnabled, null, temp.Result, _audioCaptureDevice);
                     var videoTracks = Helper.InsertVideoIfValid(mediaStreamConstraints.videoEnabled, null, temp.Result, _videoDevice);
                     return new MediaStream(audioTracks, videoTracks);
-                    /*MediaStream stream = new MediaStream();
-                    List<MediaStreamTrack> test = new List<MediaStreamTrack>(temp.Result);
-                    
-                    foreach (MediaStreamTrack track in test)
-                    {
-                        if (track.Kind == MediaStreamTrackKind.Audio)
-                        {
-                            MediaAudioTrack audio = new MediaAudioTrack(track.Id);
-                            stream.AddAudioTrack(audio);
-                        }
-                        else if (track.Kind == MediaStreamTrackKind.Video)
-                        {
-                            MediaVideoTrack audio = new MediaVideoTrack(track.Id);
-                            stream.AddVideoTrack(audio);
-                        }
-                    }
-                    
-                    return stream;*/
                 });
             });
 
@@ -162,14 +135,12 @@ namespace OrtcWrapper
 
         public IList<MediaDevice> GetAudioPlayoutDevices()
         {
-            var contentAsync = MediaDevices.EnumerateDevices();//.AsTask().Wait();
+            var contentAsync = MediaDevices.EnumerateDevices();
             contentAsync.AsTask().Wait();
             var devices = contentAsync.GetResults();
 
-            //var audioCaptureList = Helper.Filter(MediaDeviceKind.AudioInput, devices);
             var audioPlaybackList = Helper.Filter(MediaDeviceKind.AudioOutput, devices);
-            //var videoList = Helper.Filter(MediaDeviceKind.Video, devices);
-
+            
             _audioPlaybackDevices = audioPlaybackList;
 
             return Helper.ToMediaDevices(audioPlaybackList);
