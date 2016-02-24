@@ -20,7 +20,7 @@ using Microsoft::WRL::MakeAndInitialize;
 using Windows::System::Threading::TimerElapsedHandler;
 
 
-void MediaStreamTrack_SetMediaElement(Platform::Object^ track, void* element);
+void MediaStreamTrack_SetMediaElement(Platform::Object^ obj, void* element);
 
 
 namespace Microsoft
@@ -69,7 +69,7 @@ namespace ortc_winrt_api
   }
 
   HRESULT WebRtcMediaStream::RuntimeClassInitialize(
-    WebRtcMediaSource* source, Platform::Object^ track, Platform::String^ id) {
+    WebRtcMediaSource* source, MediaStreamTrack^ track, Platform::String^ id) {
     webrtc::CriticalSectionScoped csLock(_lock.get());
     if (_eventQueue != nullptr)
       return S_OK;
@@ -77,6 +77,7 @@ namespace ortc_winrt_api
     _source = source;
     _track = track;
     _id = id;
+    _rtcRenderer = rtc::scoped_ptr<RTCRenderer>(new RTCRenderer(this));
 #define H264_CURRENTLY_DISABLED_CHECK_IN_MEDIASTREAMTRACK 1
 #define H264_CURRENTLY_DISABLED_CHECK_IN_MEDIASTREAMTRACK 2
 
@@ -101,7 +102,7 @@ namespace ortc_winrt_api
    /* auto caller = new AccessPrivateMethod<MediaStreamTrack>();
 
     caller->SetMediaElement(track, (void*) this);*/
-    MediaStreamTrack_SetMediaElement(track, (void*) this);
+    MediaStreamTrack_SetMediaElement(track, _rtcRenderer.get());
 
     return S_OK;
   }
@@ -177,27 +178,6 @@ namespace ortc_winrt_api
     return MF_E_UNSUPPORTED_SERVICE;
   }
 
-  //void WebRtcMediaStream::SetSize(
-  //  uint32 width, uint32 height, uint32 reserved) {
-  //  // TODO(winrt): Dispatch a size changed
-  //}
-
-  int32_t WebRtcMediaStream::RenderFrame(const uint32_t streamId,
-    const webrtc::VideoFrame& frame) {
-    webrtc::VideoFrame* frameCopy = new webrtc::VideoFrame();
-    frameCopy->CopyFrame(frame);
-    // Do the processing async because there's a risk of a deadlock otherwise.
-    Concurrency::create_async([this, frameCopy] {
-      webrtc::CriticalSectionScoped csLock(_lock.get());
-      if (_helper != nullptr) {
-        _helper->QueueFrame(frameCopy);
-        ReplyToSampleRequest();
-      }
-    });
-
-    return 0;
-  }
-
   HRESULT WebRtcMediaStream::CreateMediaType(
     unsigned int width, unsigned int height,
     unsigned int rotation, IMFMediaType** ppType, bool isH264) {
@@ -267,6 +247,33 @@ namespace ortc_winrt_api
     AutoFunction autoUnlockBuffer([buffer2d]() {buffer2d->Unlock2D(); });
 
     //frame->MakeExclusive();
+    if (!frame->video_frame_buffer()->HasOneRef())
+    {
+      // Not exclusive already, need to copy buffer.
+      rtc::scoped_refptr<webrtc::VideoFrameBuffer> new_buffer =
+        new rtc::RefCountedObject<webrtc::I420Buffer>(
+          frame->video_frame_buffer()->width(), frame->video_frame_buffer()->height(),
+          frame->video_frame_buffer()->stride(webrtc::PlaneType::kYPlane),
+          frame->video_frame_buffer()->stride(webrtc::PlaneType::kUPlane),
+          frame->video_frame_buffer()->stride(webrtc::PlaneType::kVPlane));
+
+
+
+        int32_t src_width = static_cast<int>(frame->video_frame_buffer()->width());
+        int32_t src_height = static_cast<int>(frame->video_frame_buffer()->height());
+        libyuv::I420Copy(
+          frame->video_frame_buffer()->data(webrtc::PlaneType::kYPlane), frame->video_frame_buffer()->stride(webrtc::PlaneType::kYPlane),
+          frame->video_frame_buffer()->data(webrtc::PlaneType::kUPlane), frame->video_frame_buffer()->stride(webrtc::PlaneType::kUPlane),
+          frame->video_frame_buffer()->data(webrtc::PlaneType::kVPlane), frame->video_frame_buffer()->stride(webrtc::PlaneType::kVPlane),
+          new_buffer->MutableData(webrtc::PlaneType::kYPlane), new_buffer->stride(webrtc::PlaneType::kYPlane),
+          new_buffer->MutableData(webrtc::PlaneType::kUPlane), new_buffer->stride(webrtc::PlaneType::kUPlane),
+          new_buffer->MutableData(webrtc::PlaneType::kVPlane), new_buffer->stride(webrtc::PlaneType::kVPlane),
+          src_width, src_height);
+      
+        frame->video_frame_buffer() = new_buffer;
+    }
+
+
     // Convert to NV12
     uint8* uvDest = destRawData + (pitch * frame->height());
     libyuv::I420ToNV12(frame->video_frame_buffer()->data(webrtc::PlaneType::kYPlane), frame->video_frame_buffer()->stride(webrtc::PlaneType::kYPlane),
@@ -460,7 +467,7 @@ namespace ortc_winrt_api
         texDesc.ArraySize = 1;
         texDesc.Format = DXGI_FORMAT_NV12;
         texDesc.SampleDesc.Count = 1;
-        texDesc.Usage = D3D11_USAGE_DYNAMIC;
+        texDesc.Usage = D3D11_USAGE_DEFAULT;
         texDesc.BindFlags = D3D11_BIND_DECODER;
         texDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
         if (FAILED(device->CreateTexture2D(&texDesc, nullptr,
@@ -491,4 +498,37 @@ namespace ortc_winrt_api
     ReplyToSampleRequest();
   }
 
+  WebRtcMediaStream::RTCRenderer::RTCRenderer(
+    WebRtcMediaStream* streamSource) {
+    _streamSource = streamSource;
+  }
+
+  WebRtcMediaStream::RTCRenderer::~RTCRenderer() {
+    //LOG(LS_INFO) << "RTMediaStreamSource::RTCRenderer::~RTCRenderer";
+  }
+
+  void WebRtcMediaStream::RTCRenderer::SetSize(
+    uint32 width, uint32 height, uint32 reserved) {
+    //auto stream = _streamSource.Resolve<WebRtcMediaStream>();
+    //if (stream != nullptr) {
+    //  stream->ResizeSource(width, height);
+    //}
+  }
+
+  int32_t WebRtcMediaStream::RTCRenderer::RenderFrame(const uint32_t streamId,
+    const webrtc::VideoFrame& frame) {
+    webrtc::VideoFrame* frameCopy = new webrtc::VideoFrame();
+    frameCopy->CopyFrame(frame);
+
+    auto stream = _streamSource;
+    // Do the processing async because there's a risk of a deadlock otherwise.
+    Concurrency::create_async([stream, frameCopy] {
+      webrtc::CriticalSectionScoped csLock(stream->_lock.get());
+      if (stream->_helper != nullptr) {
+        stream->_helper->QueueFrame(frameCopy);
+        stream->ReplyToSampleRequest();
+      }
+    });
+    return 0;
+  }
 }  // namespace webrtc_winrt_api_internal

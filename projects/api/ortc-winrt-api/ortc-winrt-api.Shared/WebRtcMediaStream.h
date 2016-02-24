@@ -27,21 +27,20 @@ using Windows::System::Threading::ThreadPoolTimer;
 namespace ortc_winrt_api {
 
   class WebRtcMediaSource;
+  ref class MediaStreamTrack;
 
   class WebRtcMediaStream :
     public RuntimeClass<RuntimeClassFlags<RuntimeClassType::WinRtClassicComMix>,
     IMFMediaStream, IMFMediaEventGenerator,
-    IMFGetService>,
-    public webrtc::VideoRenderCallback {
+    IMFGetService> {
     InspectableClass(L"WebRtcMediaStream", BaseTrust)
   public:
     WebRtcMediaStream();
     virtual ~WebRtcMediaStream();
     HRESULT RuntimeClassInitialize(
       WebRtcMediaSource* source,
-      Platform::Object^ track,
+      MediaStreamTrack^ track,
       Platform::String^ id);
-
 
     // IMFMediaEventGenerator
     IFACEMETHOD(GetEvent)(DWORD dwFlags, IMFMediaEvent **ppEvent);
@@ -56,11 +55,6 @@ namespace ortc_winrt_api {
     // IMFGetService
     IFACEMETHOD(GetService)(REFGUID guidService, REFIID riid, LPVOID *ppvObject);
 
-    // VideoRenderCallback
-    virtual int32_t RenderFrame(const uint32_t streamId,
-      const webrtc::VideoFrame& videoFrame);
-
-
     STDMETHOD(Start)(IMFPresentationDescriptor *pPresentationDescriptor,
       const GUID *pguidTimeFormat, const PROPVARIANT *pvarStartPosition);
     STDMETHOD(Stop)();
@@ -70,10 +64,25 @@ namespace ortc_winrt_api {
     rtc::scoped_ptr<webrtc::CriticalSectionWrapper> _lock;
 
   private:
+    class RTCRenderer : public webrtc::VideoRenderCallback {
+    public:
+      explicit RTCRenderer(WebRtcMediaStream* streamSource);
+      virtual ~RTCRenderer();
+      virtual void SetSize(uint32 width, uint32 height, uint32 reserved);
+      virtual int32_t RenderFrame(const uint32_t streamId,
+        const webrtc::VideoFrame& videoFrame);
+      virtual bool CanApplyRotation() { return true; }
+    private:
+      // This object is owned by RTMediaStreamSource
+      // so _streamSource must be a weak reference
+      WebRtcMediaStream* _streamSource;
+    };
+
+  private:
     ComPtr<IMFMediaEventQueue> _eventQueue;
 
     WebRtcMediaSource* _source;
-    Platform::Object^ _track;
+    MediaStreamTrack^ _track;
     Platform::String^ _id;
 
     static HRESULT CreateMediaType(unsigned int width, unsigned int height,
@@ -84,6 +93,7 @@ namespace ortc_winrt_api {
     HRESULT ReplyToSampleRequest();
 
     rtc::scoped_ptr<MediaSourceHelper> _helper;
+    rtc::scoped_ptr<RTCRenderer> _rtcRenderer;
 
     ComPtr<IMFMediaType> _mediaType;
     ComPtr<IMFDXGIDeviceManager> _deviceManager;
@@ -108,6 +118,4 @@ namespace ortc_winrt_api {
     bool _gpuVideoBuffer;
     bool _isH264;
   };
-
-
 }  // namespace ortc_winrt_api

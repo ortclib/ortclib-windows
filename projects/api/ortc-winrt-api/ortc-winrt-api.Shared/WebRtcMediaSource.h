@@ -43,7 +43,7 @@ namespace ortc_winrt_api {
 
     WebRtcMediaSource();
     virtual ~WebRtcMediaSource();
-    HRESULT RuntimeClassInitialize(Platform::Object^ track, Platform::String^ id);
+    HRESULT RuntimeClassInitialize(MediaStreamTrack^ track, Platform::String^ id);
 
     // IMFMediaEventGenerator
     IFACEMETHOD(GetEvent)(DWORD dwFlags, IMFMediaEvent **ppEvent);
