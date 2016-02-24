@@ -189,7 +189,7 @@ namespace OrtcWrapper
 
 
             //o=- 1045717134763489491 2 IN IP4 127.0.0.1
-            sb.Append("o=");
+            sb.Append("o=-");
             sb.Append(sessionID);
             sb.Append(' ');
             sb.Append(sessionVersion);
@@ -258,7 +258,7 @@ namespace OrtcWrapper
 
                 if (audioCapabilities != null)
                 {
-                    string mediaLine = SDPGenerator.GenerateMediaSDP(@"audio", audioCapabilities, iceGatherer, dtlsTransport, "0.0.0.0", listOfSsrcIds, cnameSSRC, audioSSRCLabel, localStream.Id);
+                    string mediaLine = SDPGenerator.GenerateMediaSDP("audio", audioCapabilities, iceGatherer, dtlsTransport, "0.0.0.0", listOfSsrcIds, cnameSSRC, audioSSRCLabel, localStream.Id);
 
                     if (!string.IsNullOrEmpty(mediaLine))
                         sb.Append(mediaLine);
@@ -267,14 +267,13 @@ namespace OrtcWrapper
 
             if (containsVideo)
             {
-
                 if (videoSSRCLabel == null)
                     videoSSRCLabel = Guid.NewGuid().ToString();
                 var videoCapabilities = RTCRtpReceiver.GetCapabilities("video");
 
                 if (videoCapabilities != null)
                 {
-                    string mediaLine = SDPGenerator.GenerateMediaSDP(@"video", videoCapabilities, iceGatherer, dtlsTransport, "0.0.0.0", listOfSsrcIds, cnameSSRC, videoSSRCLabel, localStream.Id);
+                    string mediaLine = SDPGenerator.GenerateMediaSDP("video", videoCapabilities, iceGatherer, dtlsTransport, "0.0.0.0", listOfSsrcIds, cnameSSRC, videoSSRCLabel, localStream.Id);
 
                     if (!string.IsNullOrEmpty(mediaLine))
                         sb.Append(mediaLine);

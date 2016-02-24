@@ -89,7 +89,7 @@ namespace OrtcWrapper
         }
         public static CodecInfo ToDto(RTCRtpCodecCapability codec, int index)
         {
-            return new CodecInfo(index, (int)codec.ClockRate, codec.Name);
+            return new CodecInfo(codec.PreferredPayloadType, (int)codec.ClockRate, codec.Name);
         }
         public static IList<CodecInfo> GetCodecs(string kind)
         {

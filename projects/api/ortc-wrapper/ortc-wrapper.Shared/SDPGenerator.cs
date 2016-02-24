@@ -78,13 +78,13 @@ namespace ortc_wrapper.Shared
                 sb.Append(mediaType);
                 sb.Append(' ');
                 sb.Append('9');
-                sb.Append("UDP/TLS/RTP/SAVPF");
                 sb.Append(' ');
-
+                sb.Append("UDP/TLS/RTP/SAVPF");
+                
                 foreach (RTCRtpCodecCapability cap in codecs)
                 {
-                    sb.Append(cap.PreferredPayloadType);
                     sb.Append(' ');
+                    sb.Append(cap.PreferredPayloadType);
                 }
                 sb.Append("\r\n");
 
@@ -216,8 +216,11 @@ namespace ortc_wrapper.Shared
                     sb.Append(cap.Name);
                     sb.Append('/');
                     sb.Append(cap.ClockRate);
-                    sb.Append('/');
-                    sb.Append(cap.NumChannels);
+                    if (cap.NumChannels > 0)
+                    {
+                        sb.Append('/');
+                        sb.Append(cap.NumChannels);
+                    }
                     sb.Append("\r\n");
 
                     if (cap.RtcpFeedback != null)
@@ -225,14 +228,17 @@ namespace ortc_wrapper.Shared
                         foreach (RTCRtcpFeedback fb in cap.RtcpFeedback)
                         {
                             sb.Append("a=rtcp-fb:");
+                            sb.Append(cap.PreferredPayloadType);
+                            sb.Append(' ');
                             sb.Append(fb.Type);
                             sb.Append(' ');
                             sb.Append(fb.Parameter);
                             sb.Append("\r\n");
                         }
                     }
+                    
                     //a=fmtp:111 minptime=10; useinbandfec=1
-                    //WARNING - THIS SHOULD BE HANDLED BUT MINPTIME AND USEINBANDFEC ARE MISSING 
+#warning TODO - a=fmtp:111 minptime=10; useinbandfec=1 SHOULD BE HANDLED BUT MINPTIME AND USEINBANDFEC ARE MISSING 
                 }
                 maxPTime = maxPTime == 0 ? 120 : maxPTime;
                 //a=maxptime:60
