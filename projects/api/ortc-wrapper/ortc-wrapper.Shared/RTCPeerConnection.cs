@@ -40,6 +40,10 @@ namespace OrtcWrapper
         private RTCDtlsTransport dtlsTransport  { get; set; }
         private RTCIceTransport iceTransport { get; set; }
 
+        private RTCRtpCapabilities audioSenderCaps { get; set; }
+        private RTCRtpCapabilities videoSenderCaps { get; set; }
+        private RTCRtpCapabilities audioReceiverCaps { get; set; }
+        private RTCRtpCapabilities videoReceiverCaps { get; set; }
 
         static public void SetPreferredVideoCaptureFormat(int frame_width,
                                             int frame_height, int fps)
@@ -85,41 +89,10 @@ namespace OrtcWrapper
 
             //_installedIceEvents = false;
 
-            options = new RTCIceGatherOptions();
-            options.IceServers = new List<ortc_winrt_api.RTCIceServer>();
-
-            foreach (RTCIceServer server in configuration.IceServers)
-            {
-                ortc_winrt_api.RTCIceServer ortcServer = new ortc_winrt_api.RTCIceServer();
-                ortcServer.Urls = new List<string>();
-
-                if (!string.IsNullOrEmpty(server.Credential))
-                {
-                    ortcServer.Credential = server.Credential;
-                }
-
-                if (!string.IsNullOrEmpty(server.Username))
-                {
-                    ortcServer.UserName = server.Username;
-                }
-
-                ortcServer.Urls.Add(server.Url);
-                options.IceServers.Add(ortcServer);
-            }
-
-            PrepareGatherer();
-
-            RTCCertificate.GenerateCertificate("").AsTask<RTCCertificate>().ContinueWith((cert) =>
-            {
-                //using (var @lock = new AutoLock(_lock))
-                {
-                    // Since the DTLS certificate is ready the RtcDtlsTransport can now be constructed.
-                    var certs = new List<RTCCertificate>();
-                    certs.Add(cert.Result);
-                    dtlsTransport = new RTCDtlsTransport(iceTransport, certs);
-                    if (_closed) dtlsTransport.Stop();
-                }
-            });
+            PrepareGatherer(configuration);
+            PrepareIceTransport();
+            PrepareDtlsTransport();
+           
 
             sessionID = (ulong)(DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0).ToUniversalTime()).TotalMilliseconds;
         }
@@ -297,7 +270,7 @@ namespace OrtcWrapper
         {
             Task ret = Task.Run(() =>
             {
-                //TODO update modifications
+                PrepareReceiver();
             });
             return ret;
         }
@@ -307,8 +280,31 @@ namespace OrtcWrapper
             return null;
         }
 
-        private void PrepareGatherer()
+        
+        private void PrepareGatherer(RTCConfiguration configuration)
         {
+            options = new RTCIceGatherOptions();
+            options.IceServers = new List<ortc_winrt_api.RTCIceServer>();
+
+            foreach (RTCIceServer server in configuration.IceServers)
+            {
+                ortc_winrt_api.RTCIceServer ortcServer = new ortc_winrt_api.RTCIceServer();
+                ortcServer.Urls = new List<string>();
+
+                if (!string.IsNullOrEmpty(server.Credential))
+                {
+                    ortcServer.Credential = server.Credential;
+                }
+
+                if (!string.IsNullOrEmpty(server.Username))
+                {
+                    ortcServer.UserName = server.Username;
+                }
+
+                ortcServer.Urls.Add(server.Url);
+                options.IceServers.Add(ortcServer);
+            }
+
             try
             {
                 iceGatherer = new ortc_winrt_api.RTCIceGatherer(options);
@@ -329,7 +325,53 @@ namespace OrtcWrapper
             {
                 return;
             }
+        }
+
+        private void PrepareIceTransport()
+        {
             iceTransport = new ortc_winrt_api.RTCIceTransport(iceGatherer);
+        }
+
+        private void PrepareDtlsTransport()
+        {
+            RTCCertificate.GenerateCertificate("").AsTask<RTCCertificate>().ContinueWith((cert) =>
+            {
+                //using (var @lock = new AutoLock(_lock))
+                {
+                    // Since the DTLS certificate is ready the RtcDtlsTransport can now be constructed.
+                    var certs = new List<RTCCertificate>();
+                    certs.Add(cert.Result);
+                    dtlsTransport = new RTCDtlsTransport(iceTransport, certs);
+                    if (_closed) dtlsTransport.Stop();
+                }
+            });
+        }
+
+        private void SetCapabilities()
+        {
+            audioSenderCaps = RTCRtpSender.GetCapabilities("audio");
+            videoSenderCaps = RTCRtpSender.GetCapabilities("video");
+            audioReceiverCaps = RTCRtpReceiver.GetCapabilities("audio");
+            videoReceiverCaps = RTCRtpReceiver.GetCapabilities("video");
+        }
+        private void PrepareReceiver()
+        {
+            Boolean containsAudio = (localStream.GetAudioTracks() != null) && localStream.GetAudioTracks().Count > 0;
+            Boolean containsVideo = (localStream.GetVideoTracks() != null) && localStream.GetVideoTracks().Count > 0;
+
+            if (containsAudio)
+            {
+                audioReceiver = new RTCRtpReceiver(dtlsTransport);
+                var audioParams = Helper.CapabilitiesToParameters("a", audioSenderCaps);
+                audioReceiver.Receive(audioParams);
+            }
+
+            if (containsVideo)
+            {
+                videoReceiver = new RTCRtpReceiver(dtlsTransport);
+                var videoParams = Helper.CapabilitiesToParameters("v", audioSenderCaps);
+                videoReceiver.Receive(videoParams);
+            }
         }
 
         private void OnICEGathererStateChanged(RTCIceGathererStateChangeEvent evt)

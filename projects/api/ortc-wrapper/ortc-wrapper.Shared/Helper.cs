@@ -106,6 +106,43 @@ namespace OrtcWrapper
             return results;
         }
 
+        public static RTCRtpParameters CapabilitiesToParameters(
+            string muxId,
+            RTCRtpCapabilities caps
+            )
+        {
+            var result = new RTCRtpParameters();
+
+            result.Codecs = new List<RTCRtpCodecParameters>();
+            foreach (var codec in caps.Codecs) { result.Codecs.Add(CapabilitiesToParameters(codec)); }
+            result.DegradationPreference = RTCDegradationPreference.Balanced;
+            result.HeaderExtensions = new List<RTCRtpHeaderExtensionParameters>();
+            result.Encodings = new List<RTCRtpEncodingParameters>();
+            //foreach (var ext in caps.HeaderExtensions) { result.HeaderExtensions.Add(CapabilitiesToParameters(ext)); }
+            //result.MuxId = muxId;
+            result.Rtcp = new RTCRtcpParameters();
+            result.Rtcp.Mux = true;
+            result.Rtcp.ReducedSize = true;
+
+            return result;
+        }
+
+        public static RTCRtpCodecParameters CapabilitiesToParameters(
+            RTCRtpCodecCapability caps
+            )
+        {
+            var result = new RTCRtpCodecParameters();
+
+            result.ClockRate = caps.ClockRate;
+            result.Maxptime = caps.Maxptime;
+            result.Name = caps.Name;
+            result.NumChannels = caps.NumChannels;
+            result.PayloadType = caps.PreferredPayloadType;
+            result.RtcpFeedback = caps.RtcpFeedback;
+            result.Parameters = caps.Parameters;
+
+            return result;
+        }
         public static Constraints MakeConstraints(
             bool shouldDoThis,
             Constraints existingConstraints,
