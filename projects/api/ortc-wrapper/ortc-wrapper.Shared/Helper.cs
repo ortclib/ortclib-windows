@@ -314,133 +314,6 @@ namespace OrtcWrapper
             }
             return ice;
         }
-        public static void createFromSDP(string sdp)
-        {
-            TextReader reader = new StringReader(sdp);
-
-            string line = reader.ReadLine();
-            while (line != null)
-            {
-                if ((line.Length == 0))
-                {
-                    line = reader.ReadLine();
-                    continue;
-                }
-                if ( (line.Length < 3) || (line[1] != '=') )
-                {
-                    throw new Exception(string.Format("Invalid Line {0}", line));
-                }
-                string value = line.Substring(2);
-                string[] parts = null;
-                int sep = -1;
-                try
-                {
-                    switch (line[0])
-                    {
-                        case 'v':
-                            int version = 0;
-                            if (!int.TryParse(value, out version))
-                            {
-                                throw new Exception(string.Format("Invalid Line {0}", line));
-                            }
-                            if (version != 0)
-                            {
-                                throw new Exception(string.Format("Not supported version"));
-                            }
-                            break;
-
-                        case 'o':
-                            break;
-                        case 's':
-                            break;
-                        case 't':
-                            break;
-
-                        case 'c':
-                            parts = value.Split(' ');
-                            if (parts.Length != 3)
-                            {
-                                throw new Exception(string.Format("Invalid Line {0}", line));
-                            }
-                            string networkType = parts[0];
-                            string addressType = parts[1];
-                            parts = parts[2].Split('/');
-                            if (parts.Length > 3)
-                            {
-                                throw new Exception(string.Format("Invalid Line {0}", line));
-                            }
-                            //TODO: Check if this is required
-                            break;
-                        case 'a':
-                            sep = value.IndexOf(':');
-                            string attrName;
-                            string attrValue;
-                            ortc_winrt_api.RTCIceCandidate iceCandidate;
-                            if (sep != -1)
-                            {
-                                attrName = value.Substring(0, sep);
-                                attrValue = value.Substring(sep + 1);
-                           
-                                if (attrName.Equals("candidate"))
-                                {
-                                    iceCandidate = iceCandidateFromSdp(attrValue);
-                                }
-                            }
-                            else
-                            {
-                                attrName = value;
-                                attrValue = null;
-                            }
-                            /*if (media != null)
-                            {
-                                media.Attributes.Add(attrName, attrValue);
-                            }
-                            else
-                            {
-                                sd.Attributes.Add(attrName, attrValue);
-                            }*/
-            break;
-                        case 'm':
-                            /*parts = value.Split(' ');
-                            if (parts.Length < 4)
-                            {
-                                goto invalidline;
-                            }
-                            string mediaType = parts[0];
-                            string protocol = parts[2];
-                            var formats = parts.Skip(3).ToList();
-                            parts = parts[1].Split('/');
-                            if (parts.Length > 2)
-                            {
-                                goto invalidline;
-                            }
-                            uint port = 0;
-                            uint portCount = 1;
-                            Grammar.ValidateDigits(parts[0], false);
-                            if (!uint.TryParse(parts[0], out port))
-                            {
-                                goto invalidline;
-                            }
-                            if (parts.Length == 2)
-                            {
-                                Grammar.ValidateDigits(parts[1], true);
-                                if (!uint.TryParse(parts[1], out portCount))
-                                {
-                                    goto invalidline;
-                                }
-                            }
-                            media = new Media(mediaType, port, portCount, protocol, formats);
-                            sd.Medias.Add(media);*/
-                            break;
-                    }
-                }
-                catch
-                {
-                    throw new Exception(string.Format("Invalid Line {0}", line));
-                }
-                line = reader.ReadLine();
-            }
-        }
 
         public static Constraints ToApiConstraints(RTCMediaStreamConstraints mediaStreamConstraints)
         {
@@ -450,6 +323,45 @@ namespace OrtcWrapper
             ret.Video = mediaStreamConstraints.videoEnabled ? new MediaTrackConstraints() : null;
 
             return ret;
+        }
+
+        public static void PickLocalCodecBasedOnRemote(
+            RTCRtpCapabilities localCaps,
+            RTCRtpCapabilities remoteCaps
+            )
+        {
+            if (null == localCaps) return;
+            if (null == remoteCaps) return;
+            if (null == localCaps.Codecs) return;
+            if (null == remoteCaps.Codecs) return;
+
+            var newList = new List<RTCRtpCodecCapability>();
+
+            // insert sort local codecs based on remote codec list
+            foreach (var remoteCodec in remoteCaps.Codecs)
+            {
+                foreach (var localCodec in localCaps.Codecs)
+                {
+                    if (remoteCodec.Name != localCodec.Name) continue;
+                    newList.Add(localCodec);
+                }
+            }
+
+            // insert sort local codecs based on codec not being found in remote codec list
+            foreach (var localCodec in localCaps.Codecs)
+            {
+                bool found = false;
+                foreach (var remoteCodec in remoteCaps.Codecs)
+                {
+                    if (remoteCodec.Name != localCodec.Name) continue;
+                    found = true;
+                    break;
+                }
+                if (found) continue;
+                newList.Add(localCodec);
+            }
+
+            localCaps.Codecs = newList;
         }
     }
 }

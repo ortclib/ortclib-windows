@@ -92,7 +92,7 @@ namespace OrtcWrapper
             PrepareGatherer(configuration);
             PrepareIceTransport();
             PrepareDtlsTransport();
-           
+            SetCapabilities();
 
             sessionID = (ulong)(DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0).ToUniversalTime()).TotalMilliseconds;
         }
@@ -130,9 +130,13 @@ namespace OrtcWrapper
 
         }
 
-        public Task SetRemoteDescription(RTCSessionDescription description)
+        public IAsyncAction SetRemoteDescription(RTCSessionDescription description)
         {
-            return null;
+            Task ret = Task.Run(() =>
+            {
+                
+            });
+            return ret.AsAsyncAction();
         }
 
         public Task<RTCSessionDescription> CreateAnswer()//async
@@ -266,13 +270,13 @@ namespace OrtcWrapper
 
             return ret.AsAsyncOperation<RTCSessionDescription>();
         }
-        public Task SetLocalDescription(RTCSessionDescription description) //async
+        public IAsyncAction SetLocalDescription(RTCSessionDescription description)
         {
             Task ret = Task.Run(() =>
             {
                 PrepareReceiver();
             });
-            return ret;
+            return ret.AsAsyncAction();
         }
 
         public Task AddIceCandidate(RTCIceCandidate candidate) //async
@@ -373,7 +377,63 @@ namespace OrtcWrapper
                 videoReceiver.Receive(videoParams);
             }
         }
+/*
+        private void PrepareSender()
+        {
+            Boolean containsAudio = (localStream.GetAudioTracks() != null) && localStream.GetAudioTracks().Count > 0;
+            Boolean containsVideo = (localStream.GetVideoTracks() != null) && localStream.GetVideoTracks().Count > 0;
 
+            //From SDP obtain remote IceParameters and IceRole
+            iceTransport.Start(iceGatherer, _remoteCapabilities.Description.IceParameters, _remoteCapabilities.Description.IceRole);
+
+            //From SDP obtain remote dtls parameters
+            dtlsTransport.Start(_remoteCapabilities.Description.DtlsParameters);
+
+            if (containsAudio)
+            {
+                if (null == audioSender)
+                {
+                    // Figure out if the application has audio media streams to send to the remote party.
+                    var tracks = localStream.GetAudioTracks();
+                    MediaAudioTrack mediaTrack = null;
+                    MediaStreamTrack track = null;
+                    if (null != tracks) { if (tracks.Count > 0) { mediaTrack = tracks.First(); } }
+                    if (null != mediaTrack) track = mediaTrack.Track;
+
+                    if (null != track)
+                    {
+                        // If a track was found then setup the audio RtcRtpSender.
+                        audioSender = new RTCRtpSender(track, dtlsTransport);
+                        var @params = Helper.CapabilitiesToParameters("a", _remoteCapabilities.Description.AudioReceiverCapabilities);
+                        RtcHelper.SetupSenderEncodings(@params);
+                        audioSender.Send(@params);
+                    }
+                }
+            }
+
+            // If the local and remote party are sending video then setup the video RtcRtpSender.
+            if (containsVideo)
+            {
+                if (null == videoSender)
+                {
+                    // Figure out if the application has video media streams to send to the remote party.
+                    var tracks = localStream.GetVideoTracks();
+                    MediaVideoTrack mediaTrack = null;
+                    MediaStreamTrack track = null;
+                    if (null != tracks) { if (tracks.Count > 0) { mediaTrack = tracks.First(); } }
+                    if (null != mediaTrack) track = mediaTrack.Track;
+
+                    if (null != track)
+                    {
+                        // If a track was found then setup the video RtcRtpSender.
+                        videoSender = new RTCRtpSender(track, dtlsTransport);
+                        var @params = Helper.CapabilitiesToParameters("v", _remoteCapabilities.Description.VideoReceiverCapabilities);
+                        RtcHelper.SetupSenderEncodings(@params);
+                        videoSender.Send(@params);
+                    }
+                }
+            }
+        }*/
         private void OnICEGathererStateChanged(RTCIceGathererStateChangeEvent evt)
         {
             if (evt.State == RTCIceGathererState.Complete)
