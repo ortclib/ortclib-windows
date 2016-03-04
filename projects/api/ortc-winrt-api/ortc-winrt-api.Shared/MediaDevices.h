@@ -85,6 +85,12 @@ namespace ortc_winrt_api
 
     static IAsyncOperation<IVector<MediaStreamTrack^>^>^ GetUserMedia(Constraints^ constraints);
 
+    static void OnAppSuspending();
+
+    static void SetDisplayOrientation(
+      Windows::Graphics::Display::DisplayOrientations display_orientation
+      );
+
     event MediaDevicesChangeDelegate^   OnDeviceChange;
   };
 
