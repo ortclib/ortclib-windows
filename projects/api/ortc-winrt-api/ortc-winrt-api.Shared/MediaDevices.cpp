@@ -3,6 +3,12 @@
 #include <ortc/types.h>
 #include "helpers.h"
 
+namespace rtc
+{
+  using ::LONG;
+}
+#include "webrtc/modules/video_capture/windows/device_info_winrt.h"
+#include "webrtc/modules/video_capture/windows/video_capture_winrt.h"
 
 using namespace ortc;
 using namespace ortc_winrt_api;
@@ -70,6 +76,16 @@ IAsyncOperation<IVector<MediaStreamTrack^>^>^ MediaDevices::GetUserMedia(Constra
 	});
 
 	return ret;
+}
+
+void MediaDevices::OnAppSuspending() {
+  // not implemented in current webrtc version - uncomment after webrtc is updated
+  //webrtc::videocapturemodule::MediaCaptureDevicesWinRT::Instance()->ClearCaptureDevicesCache();
+}
+
+void MediaDevices::SetDisplayOrientation(
+  Windows::Graphics::Display::DisplayOrientations display_orientation) {
+  webrtc::videocapturemodule::AppStateDispatcher::Instance()->DisplayOrientationChanged(display_orientation);
 }
 
 MediaDevicesPromiseObserver::MediaDevicesPromiseObserver(Concurrency::task_completion_event<IVector<MediaDeviceInfo^>^> tce) : mTce(tce)
