@@ -34,18 +34,35 @@ namespace ortc_device_enumerator.Windows.Universal
 
         private void EnumerateDevices()
         {
-            var asyncOp = MediaDevices.EnumerateDevices();
-            asyncOp.Completed = (op, state) =>
+            try
             {
-                var devices = op.GetResults();
-                int i = 0;
-                foreach (var deviceInfo in devices)
+                var asyncOp = MediaDevices.EnumerateDevices();
+                
+                asyncOp.Completed = (op, state) =>
                 {
-                    i++;
-                    string str = "Device " + i + ":" + deviceInfo.Label;
-                    listView.Items.Add(str);
-                }
-            };
+                    try
+                    {
+                        var devices = op.GetResults();
+                        int i = 0;
+                        foreach (var deviceInfo in devices)
+                        {
+                            i++;
+                            string str = "Device " + i + ":" + deviceInfo.Label;
+                            listView.Items.Add(str);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        string str = "Obtaining results of the enumeration has failed.";
+                        listView.Items.Add(str);
+                    }
+                };
+            }
+            catch (Exception e)
+            {
+                string str = "Device enumeration has failed.";
+                listView.Items.Add(str);
+            }
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
