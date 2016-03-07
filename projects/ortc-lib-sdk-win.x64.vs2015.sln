@@ -295,6 +295,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_common", "..\..\libs
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc", "..\..\libs\webrtc\webrtc\webrtc.vcxproj", "{6A84C71C-99A5-0EB5-4684-082255418225}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ortc-device-enumerator", "ortc-device-enumerator", "{F1D1166D-7A13-49E0-834E-FCEFABD04A8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ortc-device-enumerator.Windows.Universal", "samples\ortc-device-enumerator\ortc-device-enumerator.Windows.Universal\ortc-device-enumerator.Windows.Universal.csproj", "{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		..\..\libs\udns\projects\msvs\udns\udns.Shared\udns.Shared.vcxitems*{577f12ab-3473-4a93-8ee4-eeed2ce5dc61}*SharedItemsImports = 4
@@ -1978,6 +1982,25 @@ Global
 		{6A84C71C-99A5-0EB5-4684-082255418225}.Release|x64.Build.0 = Release|x64
 		{6A84C71C-99A5-0EB5-4684-082255418225}.Release|x86.ActiveCfg = Release|Win32
 		{6A84C71C-99A5-0EB5-4684-082255418225}.Release|x86.Build.0 = Release|Win32
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Debug|ARM.ActiveCfg = Debug|ARM
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Debug|ARM.Deploy.0 = Debug|ARM
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Debug|Win32.ActiveCfg = Debug|x86
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Debug|x64.ActiveCfg = Debug|x64
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Debug|x64.Build.0 = Debug|x64
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Debug|x64.Deploy.0 = Debug|x64
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Debug|x86.ActiveCfg = Debug|x86
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Debug|x86.Deploy.0 = Debug|x86
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Release|Any CPU.ActiveCfg = Release|x86
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Release|ARM.ActiveCfg = Release|ARM
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Release|ARM.Deploy.0 = Release|ARM
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Release|Win32.ActiveCfg = Release|x86
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Release|Win32.Deploy.0 = Release|x86
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Release|x64.ActiveCfg = Release|x64
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Release|x64.Build.0 = Release|x64
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Release|x64.Deploy.0 = Release|x64
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Release|x86.ActiveCfg = Release|x86
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2120,5 +2143,7 @@ Global
 		{22E64358-4021-07DE-287B-4AA671A0529C} = {F46B2481-4CF6-41E9-B6CB-CC8565717BAD}
 		{4E00D9E2-1F74-8D2E-1878-DCFE215138F5} = {F46B2481-4CF6-41E9-B6CB-CC8565717BAD}
 		{6A84C71C-99A5-0EB5-4684-082255418225} = {F46B2481-4CF6-41E9-B6CB-CC8565717BAD}
+		{F1D1166D-7A13-49E0-834E-FCEFABD04A8D} = {9E10CFE8-14EF-4F71-94F6-0D07EEF82F64}
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477} = {F1D1166D-7A13-49E0-834E-FCEFABD04A8D}
 	EndGlobalSection
 EndGlobal
