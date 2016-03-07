@@ -624,6 +624,9 @@
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <AdditionalDependencies>dxguid.lib; MinCore.lib; %(AdditionalDependencies)</AdditionalDependencies>
+      <WindowsMetadataFile>$(OutDir)$(RootNamespace).winmd</WindowsMetadataFile>
+      <OutputFile>$(OutDir)$(RootNamespace)$(TargetExt)</OutputFile>
+      <ProgramDatabaseFile>$(OutDir)$(RootNamespace).pdb</ProgramDatabaseFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -642,6 +645,9 @@
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <AdditionalDependencies>dxguid.lib; MinCore.lib; %(AdditionalDependencies)</AdditionalDependencies>
+      <WindowsMetadataFile>$(OutDir)$(RootNamespace).winmd</WindowsMetadataFile>
+      <OutputFile>$(OutDir)$(RootNamespace)$(TargetExt)</OutputFile>
+      <ProgramDatabaseFile>$(OutDir)$(RootNamespace).pdb</ProgramDatabaseFile>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
