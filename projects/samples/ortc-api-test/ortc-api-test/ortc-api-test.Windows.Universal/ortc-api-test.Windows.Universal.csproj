@@ -114,13 +114,9 @@
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\api\ortc-winrt-api\ortc-winrt-api.Windows.Universal\ortc-winrt-api.Windows.Universal.vcxproj" Condition="'$(Platform)'!='ARM'">
+    <ProjectReference Include="..\..\..\..\api\ortc-winrt-api\ortc-winrt-api\ortc-winrt-api.vcxproj">
       <Project>{f12c67f3-12a0-4532-bdde-4be043dbc140}</Project>
-      <Name>ortc-winrt-api.Windows.Universal</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\api\ortc-winrt-api\ortc-winrt-api.Windows.ARM.Universal\ortc-winrt-api.Windows.ARM.Universal.vcxproj" Condition="'$(Platform)'=='ARM'">
-      <Project>{f12c67f3-12a0-4532-bdde-4be043dbc140}</Project>
-      <Name>ortc-winrt-api.Windows.ARM.Universal</Name>
+      <Name>ortc-winrt-api</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\ortc-api-test.Shared\ortc-api-test.Shared.projitems" Label="Shared" />
