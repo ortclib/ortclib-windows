@@ -7,12 +7,14 @@ namespace rtc
 {
   using ::LONG;
 }
+
 #include "webrtc/modules/video_capture/windows/device_info_winrt.h"
 #include "webrtc/modules/video_capture/windows/video_capture_winrt.h"
 
 using namespace ortc;
-using namespace ortc_winrt_api;
+using namespace org::ortc;
 using Platform::Collections::Vector;
+
 namespace Concurrency
 {
 	using ::LONG;
@@ -96,7 +98,7 @@ void MediaDevicesPromiseObserver::onPromiseResolved(PromisePtr promise)
 {
 	auto ret = ref new Vector<MediaDeviceInfo^>();
 
-	ortc::IMediaDevicesTypes::DeviceListPtr deviceList = promise->value<ortc::IMediaDevicesTypes::DeviceList>();
+	IMediaDevicesTypes::DeviceListPtr deviceList = promise->value<IMediaDevicesTypes::DeviceList>();
 
   if (deviceList)
   {
@@ -127,7 +129,7 @@ void MediaStreamTrackPromiseObserver::onPromiseResolved(PromisePtr promise)
 	IMediaDevicesTypes::MediaStreamTrackListPtr mediaStreamTrackListPtr2 = ZS_DYNAMIC_PTR_CAST(IMediaDevicesTypes::MediaStreamTrackList, promise);
 
 	//test
-	ortc::IMediaDevicesTypes::MediaStreamTrackListPtr mediaStreamTrackListPtr = promise->value<ortc::IMediaDevicesTypes::MediaStreamTrackList>();
+	IMediaDevicesTypes::MediaStreamTrackListPtr mediaStreamTrackListPtr = promise->value<IMediaDevicesTypes::MediaStreamTrackList>();
 
 	if (mediaStreamTrackListPtr)
 	{

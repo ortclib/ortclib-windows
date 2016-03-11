@@ -6,9 +6,14 @@
 
 
 using namespace ortc;
-using namespace ortc_winrt_api;
 
-void Settings::ApplyDefaults()
+namespace org
 {
-  ISettings::applyDefaults();
+  namespace ortc
+  {
+    void Settings::ApplyDefaults()
+    {
+      ISettings::applyDefaults();
+    }
+  }
 }

@@ -8,21 +8,23 @@ using namespace ortc;
 
 using Windows::Foundation::Collections::IVector;
 
-namespace ortc_winrt_api
+namespace org
 {
-
-  public ref class RTCIceTransportController sealed
+  namespace ortc
   {
-    friend class FetchNativePointer;
-  public:
-    RTCIceTransportController();
+    public ref class RTCIceTransportController sealed
+    {
+      friend class FetchNativePointer;
+    public:
+      RTCIceTransportController();
 
-    IVector<RTCIceTransport^>^ GetTransports();
-    [Windows::Foundation::Metadata::DefaultOverloadAttribute]
-    void                       AddTransport(RTCIceTransport^ transport);
-    [Windows::Foundation::Metadata::OverloadAttribute("AddTransportAtIndex")]
-    void                       AddTransport(RTCIceTransport^ transport, size_t index);
-  private:
-    IICETransportControllerPtr mNativePointer;
-  };
+      IVector<RTCIceTransport^>^ GetTransports();
+      [Windows::Foundation::Metadata::DefaultOverloadAttribute]
+      void                       AddTransport(RTCIceTransport^ transport);
+      [Windows::Foundation::Metadata::OverloadAttribute("AddTransportAtIndex")]
+      void                       AddTransport(RTCIceTransport^ transport, size_t index);
+    private:
+      IICETransportControllerPtr mNativePointer;
+    };
+  }
 }

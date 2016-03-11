@@ -7,7 +7,7 @@
 //#include "helpers.h"
 
 using namespace ortc;
-using namespace ortc_winrt_api;
+using namespace org::ortc;
 
 Windows::UI::Core::CoreDispatcher^ g_windowDispatcher;
 

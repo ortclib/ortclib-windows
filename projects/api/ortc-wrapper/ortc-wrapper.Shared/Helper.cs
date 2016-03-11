@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Threading.Tasks;
-using ortc_winrt_api;
+using org.ortc;
 
 namespace OrtcWrapper
 {
@@ -254,7 +254,7 @@ namespace OrtcWrapper
         }
 
       
-        public static RTCIceCandidate ToWrapperIceCandidate(ortc_winrt_api.RTCIceCandidate iceCandidate, int sdpComponentId)
+        public static RTCIceCandidate ToWrapperIceCandidate(org.ortc.RTCIceCandidate iceCandidate, int sdpComponentId)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -285,14 +285,14 @@ namespace OrtcWrapper
             UInt16 sdpMLineIndex = 0;
             var ret = new RTCIceCandidate(sb.ToString(),sdpMid,sdpMLineIndex);
 
-            ortc_winrt_api.RTCIceCandidate iceCandidate2 = iceCandidateFromSdp(sb.ToString());
+            org.ortc.RTCIceCandidate iceCandidate2 = iceCandidateFromSdp(sb.ToString());
 
             return ret; 
         }
 
-        public static ortc_winrt_api.RTCIceCandidate iceCandidateFromSdp(string sdp)
+        public static org.ortc.RTCIceCandidate iceCandidateFromSdp(string sdp)
         {
-            var ice = new ortc_winrt_api.RTCIceCandidate();
+            var ice = new org.ortc.RTCIceCandidate();
 
             //candidate:704553097 1 udp 2122260223 192.168.1.3 62723 typ host generation 0
             TextReader reader = new StringReader(sdp);

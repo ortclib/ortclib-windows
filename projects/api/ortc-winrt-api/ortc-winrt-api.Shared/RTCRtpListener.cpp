@@ -2,7 +2,7 @@
 #include "RTCRtpListener.h"
 #include "helpers.h"
 
-using namespace ortc_winrt_api;
+using namespace org::ortc;
 
 RTCRtpListener::RTCRtpListener(RTCDtlsTransport^ transport) :
   mNativeDelegatePointer(new RTCRtpListenerDelegate())

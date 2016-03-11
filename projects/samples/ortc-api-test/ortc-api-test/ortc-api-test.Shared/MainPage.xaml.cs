@@ -16,8 +16,8 @@ using System.Diagnostics;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
-using ortc_winrt_api;
-using Log = ortc_winrt_api.Log;
+using org.ortc;
+using Log = org.ortc.Log;
 
 namespace ortc_api_test
 {

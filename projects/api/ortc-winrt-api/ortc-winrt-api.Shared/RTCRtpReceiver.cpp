@@ -3,7 +3,7 @@
 #include "helpers.h"
 #include <ortc/types.h>
 
-using namespace ortc_winrt_api;
+using namespace org::ortc;
 using namespace Platform;
 using namespace zsLib;
 using namespace ortc;
@@ -87,7 +87,7 @@ void RTCRtpReceiver::Receive(RTCRtpParameters^ parameters)
 	}
 }
 
-IVector<RTCRtpContributingSource^>^ ortc_winrt_api::RTCRtpReceiver::GetContributingSource()
+IVector<RTCRtpContributingSource^>^ org::ortc::RTCRtpReceiver::GetContributingSource()
 {
 	auto ret = ref new Vector <RTCRtpContributingSource^>();
 

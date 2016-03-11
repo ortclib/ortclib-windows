@@ -6,7 +6,7 @@
 
 
 using namespace ortc;
-using namespace ortc_winrt_api;
+using namespace org::ortc;
 using UseServicesLogger = openpeer::services::ILogger;
 
 void Logger::SetLogLevel(Log::Level level)

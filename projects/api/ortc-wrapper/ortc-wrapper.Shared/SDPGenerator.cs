@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using ortc_winrt_api;
+using org.ortc;
 
 namespace ortc_wrapper.Shared
 {

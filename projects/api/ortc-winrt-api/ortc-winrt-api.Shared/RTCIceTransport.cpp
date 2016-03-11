@@ -2,7 +2,7 @@
 #include "RTCIceTransport.h"
 #include "helpers.h"
 
-using namespace ortc_winrt_api;
+using namespace org::ortc;
 
 using Platform::Collections::Vector;
 

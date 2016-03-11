@@ -18,69 +18,71 @@
 
 using Microsoft::WRL::ComPtr;
 
-namespace ortc_winrt_api {
+namespace org
+{
+  namespace ortc
+  {
 
-struct SampleData {
-  SampleData();
-  ComPtr<IMFSample> sample;
-  bool sizeHasChanged;
-  SIZE size;
-  bool rotationHasChanged;
-  int rotation;
-  LONGLONG renderTime;
-};
+    struct SampleData {
+      SampleData();
+      ComPtr<IMFSample> sample;
+      bool sizeHasChanged;
+      SIZE size;
+      bool rotationHasChanged;
+      int rotation;
+      LONGLONG renderTime;
+    };
 
-class MediaSourceHelper {
- public:
-  MediaSourceHelper(bool isH264,
-    std::function<HRESULT(webrtc::VideoFrame* frame, IMFSample** sample)> mkSample,
-    std::function<void(int)> fpsCallback);
-  ~MediaSourceHelper();
+    class MediaSourceHelper {
+    public:
+      MediaSourceHelper(bool isH264,
+        std::function<HRESULT(webrtc::VideoFrame* frame, IMFSample** sample)> mkSample,
+        std::function<void(int)> fpsCallback);
+      ~MediaSourceHelper();
 
-  void QueueFrame(webrtc::VideoFrame* frame);
-  rtc::scoped_ptr<SampleData> DequeueFrame();
-  bool HasFrames();
+      void QueueFrame(webrtc::VideoFrame* frame);
+      rtc::scoped_ptr<SampleData> DequeueFrame();
+      bool HasFrames();
 
- private:
-  rtc::scoped_ptr<webrtc::CriticalSectionWrapper> _lock;
-  std::list<webrtc::VideoFrame*> _frames;
-  bool _isFirstFrame;
-  LONGLONG _startTime;
-  // One peculiarity, the timestamp of a sample should be slightly
-  // in the future for Media Foundation to handle it properly.
-  int _futureOffsetMs;
-  // We keep the last sample time to catch cases where samples are
-  // requested so quickly that the sample time doesn't change.
-  // We then increment it slightly to prevent giving MF duplicate times.
-  LONGLONG _lastSampleTime;
-  // Stored to detect changes.
-  SIZE _lastSize;
-  // In degrees.  In practice it can only be 0, 90, 180 or 270.
-  int _lastRotation;
+    private:
+      rtc::scoped_ptr<webrtc::CriticalSectionWrapper> _lock;
+      std::list<webrtc::VideoFrame*> _frames;
+      bool _isFirstFrame;
+      LONGLONG _startTime;
+      // One peculiarity, the timestamp of a sample should be slightly
+      // in the future for Media Foundation to handle it properly.
+      int _futureOffsetMs;
+      // We keep the last sample time to catch cases where samples are
+      // requested so quickly that the sample time doesn't change.
+      // We then increment it slightly to prevent giving MF duplicate times.
+      LONGLONG _lastSampleTime;
+      // Stored to detect changes.
+      SIZE _lastSize;
+      // In degrees.  In practice it can only be 0, 90, 180 or 270.
+      int _lastRotation;
 
-  rtc::scoped_ptr<SampleData> DequeueH264Frame();
-  rtc::scoped_ptr<SampleData> DequeueI420Frame();
-
-
-  // Gets the next timestamp using the clock.
-  // Guarantees no duplicate timestamps.
-  LONGLONG GetNextSampleTimeHns(LONGLONG frameRenderTime);
-
-  void CheckForAttributeChanges(webrtc::VideoFrame* frame, SampleData* data);
-
-  std::function<HRESULT(webrtc::VideoFrame* frame, IMFSample** sample)> _mkSample;
-  std::function<void(int)> _fpsCallback;
-
-  // Called whenever a new sample is sent for rendering.
-  void UpdateFrameRate();
-  // State related to calculating FPS.
-  int _frameCounter;
-  webrtc::TickTime _lastTimeFPSCalculated;
-
-  // Are the frames H264 encoded.
-  bool _isH264;
-};
+      rtc::scoped_ptr<SampleData> DequeueH264Frame();
+      rtc::scoped_ptr<SampleData> DequeueI420Frame();
 
 
-}  // namespace ortc_winrt_api
+      // Gets the next timestamp using the clock.
+      // Guarantees no duplicate timestamps.
+      LONGLONG GetNextSampleTimeHns(LONGLONG frameRenderTime);
 
+      void CheckForAttributeChanges(webrtc::VideoFrame* frame, SampleData* data);
+
+      std::function<HRESULT(webrtc::VideoFrame* frame, IMFSample** sample)> _mkSample;
+      std::function<void(int)> _fpsCallback;
+
+      // Called whenever a new sample is sent for rendering.
+      void UpdateFrameRate();
+      // State related to calculating FPS.
+      int _frameCounter;
+      webrtc::TickTime _lastTimeFPSCalculated;
+
+      // Are the frames H264 encoded.
+      bool _isH264;
+    };
+
+  } // namespace ortc
+}  // namespace org

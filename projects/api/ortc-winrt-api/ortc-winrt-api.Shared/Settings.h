@@ -1,12 +1,13 @@
 #pragma once
 
-namespace ortc_winrt_api
+namespace org
 {
-
-	public ref class Settings sealed
-	{
-	public:
-		static void ApplyDefaults();
-	};
-
+  namespace ortc
+  {
+    public ref class Settings sealed
+    {
+    public:
+      static void ApplyDefaults();
+    };
+  }
 }

@@ -7,80 +7,83 @@
 
 using namespace ortc;
 
-namespace ortc_winrt_api
+namespace org
 {
-  //---------------------------------------------------------------------------
-  // RTCRtpCapabilities methods
-  //---------------------------------------------------------------------------
-  Platform::String^ RTCRtpCapabilities::ToJsonString()
+  namespace ortc
   {
-    auto caps = FromCx(this);
-    return ToCx(openpeer::services::IHelper::toString(caps->createElement("RtpCapabilities")));
-  }
+    //---------------------------------------------------------------------------
+    // RTCRtpCapabilities methods
+    //---------------------------------------------------------------------------
+    Platform::String^ RTCRtpCapabilities::ToJsonString()
+    {
+      auto caps = FromCx(this);
+      return ToCx(openpeer::services::IHelper::toString(caps->createElement("RtpCapabilities")));
+    }
 
-  RTCRtpCapabilities^ RTCRtpCapabilities::FromJsonString(Platform::String^ jsonString)
-  {
-    auto ret = ref new RTCRtpCapabilities();
-	
-    auto capabilitiesPtr = make_shared<IRTPTypes::Capabilities>(IRTPTypes::Capabilities::Capabilities(openpeer::services::IHelper::toJSON(FromCx(jsonString).c_str())));
+    RTCRtpCapabilities^ RTCRtpCapabilities::FromJsonString(Platform::String^ jsonString)
+    {
+      auto ret = ref new RTCRtpCapabilities();
 
-    return ToCx(capabilitiesPtr);
-  }
+      auto capabilitiesPtr = make_shared<IRTPTypes::Capabilities>(IRTPTypes::Capabilities::Capabilities(openpeer::services::IHelper::toJSON(FromCx(jsonString).c_str())));
 
-  //---------------------------------------------------------------------------
-  // RTCRtpCodecCapability methods
-  //---------------------------------------------------------------------------
-  Platform::String^ RTCRtpCodecCapability::ToJsonString()
-  {
-    auto capability = FromCx(this);
-    return ToCx(openpeer::services::IHelper::toString(capability->createElement("CodecCapability")));
-  }
+      return ToCx(capabilitiesPtr);
+    }
 
-  RTCRtpCodecCapability^ RTCRtpCodecCapability::FromJsonString(Platform::String^ jsonString)
-  {
-    auto capability = make_shared<IRTPTypes::CodecCapability>(IRTPTypes::CodecCapability::CodecCapability(openpeer::services::IHelper::toJSON(FromCx(jsonString).c_str())));
-    return ToCx(capability);
-  }
+    //---------------------------------------------------------------------------
+    // RTCRtpCodecCapability methods
+    //---------------------------------------------------------------------------
+    Platform::String^ RTCRtpCodecCapability::ToJsonString()
+    {
+      auto capability = FromCx(this);
+      return ToCx(openpeer::services::IHelper::toString(capability->createElement("CodecCapability")));
+    }
 
-  //---------------------------------------------------------------------------
-  // RTCRtcpFeedback methods
-  //---------------------------------------------------------------------------
-  Platform::String^ RTCRtcpFeedback::ToJsonString()
-  {
-    IRTPTypes::RTCPFeedback feedback = FromCx(this);
-    return ToCx(openpeer::services::IHelper::toString(feedback.createElement("RtcpFeedback")));
-  }
+    RTCRtpCodecCapability^ RTCRtpCodecCapability::FromJsonString(Platform::String^ jsonString)
+    {
+      auto capability = make_shared<IRTPTypes::CodecCapability>(IRTPTypes::CodecCapability::CodecCapability(openpeer::services::IHelper::toJSON(FromCx(jsonString).c_str())));
+      return ToCx(capability);
+    }
 
-  RTCRtcpFeedback^ RTCRtcpFeedback::FromJsonString(Platform::String^ jsonString)
-  {
-    auto ret = ref new RTCRtcpFeedback();
+    //---------------------------------------------------------------------------
+    // RTCRtcpFeedback methods
+    //---------------------------------------------------------------------------
+    Platform::String^ RTCRtcpFeedback::ToJsonString()
+    {
+      IRTPTypes::RTCPFeedback feedback = FromCx(this);
+      return ToCx(openpeer::services::IHelper::toString(feedback.createElement("RtcpFeedback")));
+    }
 
-    auto feedback = make_shared<IRTPTypes::RTCPFeedback>(IRTPTypes::RTCPFeedback::RTCPFeedback(openpeer::services::IHelper::toJSON(FromCx(jsonString).c_str())));
-    ret->Parameter = ToCx(feedback->mParameter);
-    ret->Type = ToCx(feedback->mType);
+    RTCRtcpFeedback^ RTCRtcpFeedback::FromJsonString(Platform::String^ jsonString)
+    {
+      auto ret = ref new RTCRtcpFeedback();
 
-    return ret;
-  }
+      auto feedback = make_shared<IRTPTypes::RTCPFeedback>(IRTPTypes::RTCPFeedback::RTCPFeedback(openpeer::services::IHelper::toJSON(FromCx(jsonString).c_str())));
+      ret->Parameter = ToCx(feedback->mParameter);
+      ret->Type = ToCx(feedback->mType);
 
-  //---------------------------------------------------------------------------
-  // RTCRtpHeaderExtension methods
-  //---------------------------------------------------------------------------
-  Platform::String^ RTCRtpHeaderExtension::ToJsonString()
-  {
-    auto ext = FromCx(this);
-    return ToCx(openpeer::services::IHelper::toString(ext->createElement("RtpHeaderExtension")));
-  }
+      return ret;
+    }
 
-  RTCRtpHeaderExtension^ RTCRtpHeaderExtension::FromJsonString(Platform::String^ jsonString)
-  {
-    auto ret = ref new RTCRtpHeaderExtension();
+    //---------------------------------------------------------------------------
+    // RTCRtpHeaderExtension methods
+    //---------------------------------------------------------------------------
+    Platform::String^ RTCRtpHeaderExtension::ToJsonString()
+    {
+      auto ext = FromCx(this);
+      return ToCx(openpeer::services::IHelper::toString(ext->createElement("RtpHeaderExtension")));
+    }
 
-    auto headerExtension = make_shared<IRTPTypes::HeaderExtension>(IRTPTypes::HeaderExtension::HeaderExtension(openpeer::services::IHelper::toJSON(FromCx(jsonString).c_str())));
-    ret->Kind = ToCx(headerExtension->mKind);
-    ret->Uri = ToCx(headerExtension->mURI);
-    ret->PreferredEncrypt = headerExtension->mPreferredEncrypt;
-    ret->PreferredId = headerExtension->mPreferredID;
+    RTCRtpHeaderExtension^ RTCRtpHeaderExtension::FromJsonString(Platform::String^ jsonString)
+    {
+      auto ret = ref new RTCRtpHeaderExtension();
 
-    return ret;
-  }
-} // namespace ortc_winrt_api
+      auto headerExtension = make_shared<IRTPTypes::HeaderExtension>(IRTPTypes::HeaderExtension::HeaderExtension(openpeer::services::IHelper::toJSON(FromCx(jsonString).c_str())));
+      ret->Kind = ToCx(headerExtension->mKind);
+      ret->Uri = ToCx(headerExtension->mURI);
+      ret->PreferredEncrypt = headerExtension->mPreferredEncrypt;
+      ret->PreferredId = headerExtension->mPreferredID;
+
+      return ret;
+    }
+  } // namespace ortc
+} // namespace org

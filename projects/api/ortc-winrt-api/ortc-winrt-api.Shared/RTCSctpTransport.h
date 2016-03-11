@@ -8,109 +8,112 @@
 
 using namespace ortc;
 
-namespace ortc_winrt_api
+namespace org
 {
-  ZS_DECLARE_CLASS_PTR(RTCSctpTransportDelegate)
-
-  ref class RTCSctpTransport;
-  ref class RTCDataChannel;
-
-  class RTCSctpTransportDelegate : public ISCTPTransportDelegate
+  namespace ortc
   {
-  public:
-    virtual void onSCTPTransportDataChannel(
-      ISCTPTransportPtr transport,
-      IDataChannelPtr channel
-      );
+    ZS_DECLARE_CLASS_PTR(RTCSctpTransportDelegate)
 
-    RTCSctpTransport^ _transport;
+    ref class RTCSctpTransport;
+    ref class RTCDataChannel;
 
-    void SetOwnerObject(RTCSctpTransport^ owner) { _transport = owner; }
-  };
-
-  //--------------------------------------------------------------------
-  // Helper classes
-  //--------------------------------------------------------------------
-
-  public ref class RTCSctpCapabilities sealed
-  {
-  public:
-    property uint32 MaxMessageSize;
-    property uint16 MinPort;
-    property uint16 MaxPort;
-    property uint16 MaxUsablePorts;
-    property uint16 MaxSessionsPerPort;
-
-  public:
-    Platform::String^ ToJsonString();
-    static RTCSctpCapabilities^ FromJsonString(Platform::String^ jsonString);
-  };
-
-  //------------------------------------------
-  // Events and Delegates
-  //------------------------------------------
-  // Data channel event and delegate
-  public ref class RTCDataChannelEvent sealed {
-  public:
-    property RTCDataChannel^ DataChannel
+    class RTCSctpTransportDelegate : public ISCTPTransportDelegate
     {
-      RTCDataChannel^  get(){ return m_channel; }
-      void  set(RTCDataChannel^ value){ m_channel = value; }
-    }
+    public:
+      virtual void onSCTPTransportDataChannel(
+        ISCTPTransportPtr transport,
+        IDataChannelPtr channel
+        );
 
-  private:
-    RTCDataChannel^ m_channel;
-  };
+      RTCSctpTransport^ _transport;
 
-  public delegate void RTCSctpTransportDataChannelDelegate(RTCDataChannelEvent^ evt);
-  //------------------------------------------
-  // End Events and Delegates
-  //------------------------------------------
+      void SetOwnerObject(RTCSctpTransport^ owner) { _transport = owner; }
+    };
 
-  public ref class RTCSctpTransport sealed
-  {
-    friend class RTCSctpTransportDelegate;
-    friend class FetchNativePointer;
-    friend class ConvertObjectToCx;
-  private:
-    RTCSctpTransport();
-  public:
-    RTCSctpTransport(RTCDtlsTransport^ dtlsTransport, uint16 port);
+    //--------------------------------------------------------------------
+    // Helper classes
+    //--------------------------------------------------------------------
 
-    static RTCSctpCapabilities^ GetCapabilities();
-    void                       Start(RTCSctpCapabilities^ remoteCaps);
-    void                       Stop();
-  private:
-    ISCTPTransportPtr mNativePointer;
-    RTCSctpTransportDelegatePtr mNativeDelegatePointer;
-
-  private:
-    RTCDtlsTransport^ GetDtlsTransport();
-  public:
-    property RTCDtlsTransport^ Transport
+    public ref class RTCSctpCapabilities sealed
     {
-      RTCDtlsTransport^ get()
+    public:
+      property uint32 MaxMessageSize;
+      property uint16 MinPort;
+      property uint16 MaxPort;
+      property uint16 MaxUsablePorts;
+      property uint16 MaxSessionsPerPort;
+
+    public:
+      Platform::String^ ToJsonString();
+      static RTCSctpCapabilities^ FromJsonString(Platform::String^ jsonString);
+    };
+
+    //------------------------------------------
+    // Events and Delegates
+    //------------------------------------------
+    // Data channel event and delegate
+    public ref class RTCDataChannelEvent sealed {
+    public:
+      property RTCDataChannel^ DataChannel
       {
-        if (mNativePointer)
-          return GetDtlsTransport();
-        else
-          return nullptr;
+        RTCDataChannel^  get() { return m_channel; }
+        void  set(RTCDataChannel^ value) { m_channel = value; }
       }
-    }
 
-    property uint16 Port
+    private:
+      RTCDataChannel^ m_channel;
+    };
+
+    public delegate void RTCSctpTransportDataChannelDelegate(RTCDataChannelEvent^ evt);
+    //------------------------------------------
+    // End Events and Delegates
+    //------------------------------------------
+
+    public ref class RTCSctpTransport sealed
     {
-      uint16 get()
+      friend class RTCSctpTransportDelegate;
+      friend class FetchNativePointer;
+      friend class ConvertObjectToCx;
+    private:
+      RTCSctpTransport();
+    public:
+      RTCSctpTransport(RTCDtlsTransport^ dtlsTransport, uint16 port);
+
+      static RTCSctpCapabilities^ GetCapabilities();
+      void                       Start(RTCSctpCapabilities^ remoteCaps);
+      void                       Stop();
+    private:
+      ISCTPTransportPtr mNativePointer;
+      RTCSctpTransportDelegatePtr mNativeDelegatePointer;
+
+    private:
+      RTCDtlsTransport^ GetDtlsTransport();
+    public:
+      property RTCDtlsTransport^ Transport
       {
-        if (mNativePointer)
-          return mNativePointer->port();
-        else
-          return -1;
+        RTCDtlsTransport^ get()
+        {
+          if (mNativePointer)
+            return GetDtlsTransport();
+          else
+            return nullptr;
+        }
       }
-    }
 
-  public:
+      property uint16 Port
+      {
+        uint16 get()
+        {
+          if (mNativePointer)
+            return mNativePointer->port();
+          else
+            return -1;
+        }
+      }
 
-    event RTCSctpTransportDataChannelDelegate^            OnSCTPTransportDataChannel;
-  };
+    public:
+
+      event RTCSctpTransportDataChannelDelegate^            OnSCTPTransportDataChannel;
+    };
+  }
 }

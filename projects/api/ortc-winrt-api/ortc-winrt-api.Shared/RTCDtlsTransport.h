@@ -11,236 +11,239 @@ using Platform::Array;
 using Windows::Foundation::Collections::IVector;
 using Windows::Foundation::IAsyncOperation;
 
-namespace ortc_winrt_api
+namespace org
 {
-
-  ZS_DECLARE_CLASS_PTR(RTCDtlsTransportDelegate)
-  ZS_DECLARE_CLASS_PTR(RTCGenerateCertificatePromiseObserver)
-
-  ref class RTCDtlsTransport;
-  ref class RTCCertificate;
-
-  class RTCDtlsTransportDelegate : public IDtlsTransportDelegate
+  namespace ortc
   {
-  public:
-    virtual void onDTLSTransportStateChange(
-      IDTLSTransportPtr transport,
-      IDTLSTransport::States state
-      );
 
-    virtual void onDTLSTransportError(
-      IDTLSTransportPtr transport,
-      ErrorCode errorCode,
-      zsLib::String errorReason
-      );
+    ZS_DECLARE_CLASS_PTR(RTCDtlsTransportDelegate)
+      ZS_DECLARE_CLASS_PTR(RTCGenerateCertificatePromiseObserver)
 
-    RTCDtlsTransport^ _transport;
+    ref class RTCDtlsTransport;
+    ref class RTCCertificate;
 
-    void SetOwnerObject(RTCDtlsTransport^ owner) { _transport = owner; }
-  };
-
-  class RTCGenerateCertificatePromiseObserver : public zsLib::IPromiseResolutionDelegate
-  {
-  public:
-    RTCGenerateCertificatePromiseObserver(Concurrency::task_completion_event<RTCCertificate^> tce);
-
-    virtual void onPromiseResolved(PromisePtr promise);
-    virtual void onPromiseRejected(PromisePtr promise);
-
-  private:
-    Concurrency::task_completion_event<RTCCertificate^> mTce;
-  };
-
-  //--------------------------------------------------------------------
-  // Helper classes
-  //--------------------------------------------------------------------
-
-  public enum class RTCDtlsTransportState
-  {
-    New,
-    Connecting,
-    Connected,
-    Validated,
-    Closed,
-  };
-
-  public enum class RTCDtlsRole
-  {
-    Auto,
-    Client,
-    Server,
-  };
-
-  public ref class RTCDtlsFingerprint sealed
-  {
-  public:
-    property Platform::String^ Algorithm;
-    property Platform::String^ Value;
-  };
-
-  public ref class RTCDtlsParameters sealed
-  {
-  public:
-    property RTCDtlsRole                    Role;
-    property IVector<RTCDtlsFingerprint^>^  Fingerprints;
-
-  public:
-    Platform::String^ ToJsonString();
-    static RTCDtlsParameters^ FromJsonString(Platform::String^ jsonString);
-  };
-
-  public ref class RTCDtlsTransportError sealed
-  {
-  public:
-    property uint16 ErrorCode;
-    property Platform::String^ ErrorReason;
-  };
-
-  //------------------------------------------
-  // Events and Delegates
-  //------------------------------------------
-
-  // State change event and delegate
-  public ref class RTCDtlsTransportStateChangeEvent sealed {
-  public:
-    property RTCDtlsTransportState State
+    class RTCDtlsTransportDelegate : public IDtlsTransportDelegate
     {
-      RTCDtlsTransportState  get(){ return m_state; }
-      void  set(RTCDtlsTransportState value){ m_state = value; }
-    }
+    public:
+      virtual void onDTLSTransportStateChange(
+        IDTLSTransportPtr transport,
+        IDTLSTransport::States state
+        );
 
-  private:
-    RTCDtlsTransportState m_state;
-  };
+      virtual void onDTLSTransportError(
+        IDTLSTransportPtr transport,
+        ErrorCode errorCode,
+        zsLib::String errorReason
+        );
 
-  public delegate void RTCDtlsTransportStateChangedDelegate(RTCDtlsTransportStateChangeEvent^ evt);
+      RTCDtlsTransport^ _transport;
 
-  // Error event and delegate
-  public ref class RTCDtlsTransportErrorEvent sealed {
-  public:
-    property RTCDtlsTransportError^ Error
+      void SetOwnerObject(RTCDtlsTransport^ owner) { _transport = owner; }
+    };
+
+    class RTCGenerateCertificatePromiseObserver : public zsLib::IPromiseResolutionDelegate
     {
-      RTCDtlsTransportError^  get(){ return m_error; }
-      void  set(RTCDtlsTransportError^ value){ m_error = value; }
-    }
+    public:
+      RTCGenerateCertificatePromiseObserver(Concurrency::task_completion_event<RTCCertificate^> tce);
 
-  private:
-    RTCDtlsTransportError^ m_error;
-  };
+      virtual void onPromiseResolved(PromisePtr promise);
+      virtual void onPromiseRejected(PromisePtr promise);
 
-  public delegate void RTCDtlsTransportErrorDelegate(RTCDtlsTransportErrorEvent^ evt);
+    private:
+      Concurrency::task_completion_event<RTCCertificate^> mTce;
+    };
 
-  //------------------------------------------
-  // End Events and Delegates
-  //------------------------------------------
+    //--------------------------------------------------------------------
+    // Helper classes
+    //--------------------------------------------------------------------
 
-  public ref class RTCCertificate sealed
-  {
-    friend class RTCGenerateCertificatePromiseObserver;
-    friend class FetchNativePointer;
-    friend class ConvertObjectToCx;
-  public:
-    static IAsyncOperation<RTCCertificate^>^ GenerateCertificate();
-    static IAsyncOperation<RTCCertificate^>^ GenerateCertificate(Platform::String^ algorithmIdentifier);
-  private:
-
-    ICertificatePtr mNativePointer;
-    ICertificateTypes::PromiseWithCertificatePtr mCertificatePromise;
-
-  private:
-    Windows::Foundation::DateTime GetExpires();
-    RTCDtlsFingerprint^ GetFingerprint();
-
-  public:
-    property Windows::Foundation::DateTime Expires
+    public enum class RTCDtlsTransportState
     {
-      Windows::Foundation::DateTime get()
+      New,
+      Connecting,
+      Connected,
+      Validated,
+      Closed,
+    };
+
+    public enum class RTCDtlsRole
+    {
+      Auto,
+      Client,
+      Server,
+    };
+
+    public ref class RTCDtlsFingerprint sealed
+    {
+    public:
+      property Platform::String^ Algorithm;
+      property Platform::String^ Value;
+    };
+
+    public ref class RTCDtlsParameters sealed
+    {
+    public:
+      property RTCDtlsRole                    Role;
+      property IVector<RTCDtlsFingerprint^>^  Fingerprints;
+
+    public:
+      Platform::String^ ToJsonString();
+      static RTCDtlsParameters^ FromJsonString(Platform::String^ jsonString);
+    };
+
+    public ref class RTCDtlsTransportError sealed
+    {
+    public:
+      property uint16 ErrorCode;
+      property Platform::String^ ErrorReason;
+    };
+
+    //------------------------------------------
+    // Events and Delegates
+    //------------------------------------------
+
+    // State change event and delegate
+    public ref class RTCDtlsTransportStateChangeEvent sealed {
+    public:
+      property RTCDtlsTransportState State
       {
-        if (mNativePointer)
-          return GetExpires();
-        else
-          return Windows::Foundation::DateTime();
+        RTCDtlsTransportState  get() { return m_state; }
+        void  set(RTCDtlsTransportState value) { m_state = value; }
       }
-    }
 
-    property RTCDtlsFingerprint^ Fingerprint
-    {
-      RTCDtlsFingerprint^ get()
+    private:
+      RTCDtlsTransportState m_state;
+    };
+
+    public delegate void RTCDtlsTransportStateChangedDelegate(RTCDtlsTransportStateChangeEvent^ evt);
+
+    // Error event and delegate
+    public ref class RTCDtlsTransportErrorEvent sealed {
+    public:
+      property RTCDtlsTransportError^ Error
       {
-        if (mNativePointer)
-          return GetFingerprint();
-        else
-          return nullptr;
+        RTCDtlsTransportError^  get() { return m_error; }
+        void  set(RTCDtlsTransportError^ value) { m_error = value; }
       }
-    }
-  };
 
-  ZS_DECLARE_CLASS_PTR(RTCDtlsTransportDelegate)
+    private:
+      RTCDtlsTransportError^ m_error;
+    };
 
-  public ref class RTCDtlsTransport sealed
-  {
-    friend class RTCDtlsTransportDelegate;
-    friend class FetchNativePointer;
-    friend class ConvertObjectToCx;
-  private:
-    RTCDtlsTransport();
-  public:
-    RTCDtlsTransport(RTCIceTransport^ transport, IVector<RTCCertificate^>^ certificates);
+    public delegate void RTCDtlsTransportErrorDelegate(RTCDtlsTransportErrorEvent^ evt);
 
-    RTCDtlsParameters^      GetLocalParameters();
-    RTCDtlsParameters^      GetRemoteParameters();
-    IVector<Object^>^       GetRemoteCertificates();
-    void                    Start(RTCDtlsParameters^ remoteParameters);
-    void                    Stop();
+    //------------------------------------------
+    // End Events and Delegates
+    //------------------------------------------
 
-  private:
-    IDtlsTransportPtr mNativePointer;
-    RTCDtlsTransportDelegatePtr mNativeDelegatePointer;
-
-  private:
-    RTCIceTransport^ GetIceTransport();
-    IVector<RTCCertificate^>^ GetCertificates();
-
-  public:
-    property IVector<RTCCertificate^>^ Certificates
+    public ref class RTCCertificate sealed
     {
-      IVector<RTCCertificate^>^ get()
+      friend class RTCGenerateCertificatePromiseObserver;
+      friend class FetchNativePointer;
+      friend class ConvertObjectToCx;
+    public:
+      static IAsyncOperation<RTCCertificate^>^ GenerateCertificate();
+      static IAsyncOperation<RTCCertificate^>^ GenerateCertificate(Platform::String^ algorithmIdentifier);
+    private:
+
+      ICertificatePtr mNativePointer;
+      ICertificateTypes::PromiseWithCertificatePtr mCertificatePromise;
+
+    private:
+      Windows::Foundation::DateTime GetExpires();
+      RTCDtlsFingerprint^ GetFingerprint();
+
+    public:
+      property Windows::Foundation::DateTime Expires
       {
-        if (mNativePointer)
-          return GetCertificates();
-        else
-          return nullptr;
+        Windows::Foundation::DateTime get()
+        {
+          if (mNativePointer)
+            return GetExpires();
+          else
+            return Windows::Foundation::DateTime();
+        }
       }
-    }
 
-    property RTCIceTransport^ IceTransport
-    {
-      RTCIceTransport^ get()
+      property RTCDtlsFingerprint^ Fingerprint
       {
-        if (mNativePointer)
-          return GetIceTransport();
-        else
-          return nullptr;
+        RTCDtlsFingerprint^ get()
+        {
+          if (mNativePointer)
+            return GetFingerprint();
+          else
+            return nullptr;
+        }
       }
-    }
+    };
 
-    property RTCDtlsTransportState State
+    ZS_DECLARE_CLASS_PTR(RTCDtlsTransportDelegate)
+
+      public ref class RTCDtlsTransport sealed
     {
-      RTCDtlsTransportState get();
-    }
-  public:
-    event RTCDtlsTransportStateChangedDelegate^           OnDtlsTransportStateChanged;
-    event RTCDtlsTransportErrorDelegate^                  OnDtlsTransportError;
+      friend class RTCDtlsTransportDelegate;
+      friend class FetchNativePointer;
+      friend class ConvertObjectToCx;
+    private:
+      RTCDtlsTransport();
+    public:
+      RTCDtlsTransport(RTCIceTransport^ transport, IVector<RTCCertificate^>^ certificates);
 
-  public:
-    [Windows::Foundation::Metadata::DefaultOverloadAttribute]
-    static Platform::String^ ToString();
-    [Windows::Foundation::Metadata::OverloadAttribute("DtlsTransportStateToString")]
-    static Platform::String^ ToString(RTCDtlsTransportState value);
-    [Windows::Foundation::Metadata::OverloadAttribute("DtlsTransportRoleToString")]
-    static Platform::String^ ToString(RTCDtlsRole value);
+      RTCDtlsParameters^      GetLocalParameters();
+      RTCDtlsParameters^      GetRemoteParameters();
+      IVector<Object^>^       GetRemoteCertificates();
+      void                    Start(RTCDtlsParameters^ remoteParameters);
+      void                    Stop();
 
-    static RTCDtlsTransportState ToState(Platform::String^ str);
-    static RTCDtlsRole ToRole(Platform::String^ str);
-  };
+    private:
+      IDtlsTransportPtr mNativePointer;
+      RTCDtlsTransportDelegatePtr mNativeDelegatePointer;
+
+    private:
+      RTCIceTransport^ GetIceTransport();
+      IVector<RTCCertificate^>^ GetCertificates();
+
+    public:
+      property IVector<RTCCertificate^>^ Certificates
+      {
+        IVector<RTCCertificate^>^ get()
+        {
+          if (mNativePointer)
+            return GetCertificates();
+          else
+            return nullptr;
+        }
+      }
+
+      property RTCIceTransport^ IceTransport
+      {
+        RTCIceTransport^ get()
+        {
+          if (mNativePointer)
+            return GetIceTransport();
+          else
+            return nullptr;
+        }
+      }
+
+      property RTCDtlsTransportState State
+      {
+        RTCDtlsTransportState get();
+      }
+    public:
+      event RTCDtlsTransportStateChangedDelegate^           OnDtlsTransportStateChanged;
+      event RTCDtlsTransportErrorDelegate^                  OnDtlsTransportError;
+
+    public:
+      [Windows::Foundation::Metadata::DefaultOverloadAttribute]
+      static Platform::String^ ToString();
+      [Windows::Foundation::Metadata::OverloadAttribute("DtlsTransportStateToString")]
+      static Platform::String^ ToString(RTCDtlsTransportState value);
+      [Windows::Foundation::Metadata::OverloadAttribute("DtlsTransportRoleToString")]
+      static Platform::String^ ToString(RTCDtlsRole value);
+
+      static RTCDtlsTransportState ToState(Platform::String^ str);
+      static RTCDtlsRole ToRole(Platform::String^ str);
+    };
+  }
 }
