@@ -61,9 +61,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zsLib.Windows.Universal", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "api", "api", "{0732A704-D869-4D52-9814-E36F8F2F8086}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortc-winrt-api.Shared", "api\ortc-winrt-api\ortc-winrt-api.Shared\ortc-winrt-api.Shared.vcxitems", "{747B7F0D-D2AF-4F70-9578-334DCC8A6FEE}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "org.ortc.Shared", "api\org.ortc\org.ortc.Shared\org.ortc.Shared.vcxitems", "{747B7F0D-D2AF-4F70-9578-334DCC8A6FEE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ortc-winrt-api", "ortc-winrt-api", "{61920230-15AC-49CE-92FB-49C19476261B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "org.ortc", "org.ortc", "{61920230-15AC-49CE-92FB-49C19476261B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeerConnectionClient.Win10", "..\..\samples\PeerCC\PeerConnectionClient.Win10\PeerConnectionClient.Win10.csproj", "{46D1B3CB-DAE0-4AA9-A56E-C2B6EC534C1C}"
 EndProject
@@ -127,23 +127,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{FE2899
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{2BB5AE34-ADE0-4FBB-A0AF-068D85BB7963}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortc-winrt-api", "api\ortc-winrt-api\ortc-winrt-api\ortc-winrt-api.vcxproj", "{F12C67F3-12A0-4532-BDDE-4BE043DBC140}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "org.ortc", "api\org.ortc\org.ortc\org.ortc.vcxproj", "{F12C67F3-12A0-4532-BDDE-4BE043DBC140}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		..\..\libs\udns\projects\msvs\udns\udns.Shared\udns.Shared.vcxitems*{577f12ab-3473-4a93-8ee4-eeed2ce5dc61}*SharedItemsImports = 4
 		..\..\samples\ChatterBox\ChatterBox.Common.Communication.Shared\ChatterBox.Common.Communication.Shared.projitems*{6b237d83-603c-42af-aabe-9a8013ef1805}*SharedItemsImports = 4
 		..\..\libs\op-services-cpp\projects\msvs\hfservices\hfservicesTest.Shared\hfservicesTest.Shared.vcxitems*{b53f4474-1ed7-42a2-8cc8-3a7f7d996a5d}*SharedItemsImports = 9
-		api\ortc-winrt-api\ortc-winrt-api.Shared\ortc-winrt-api.Shared.vcxitems*{747b7f0d-d2af-4f70-9578-334dcc8a6fee}*SharedItemsImports = 9
+		api\org.ortc\org.ortc.Shared\org.ortc.Shared.vcxitems*{747b7f0d-d2af-4f70-9578-334dcc8a6fee}*SharedItemsImports = 9
 		..\..\libs\op-services-cpp\projects\msvs\hfservices\hfservices.Shared\hfservices.Shared.vcxitems*{6ccc9220-9334-4601-821d-5f55bc397003}*SharedItemsImports = 4
-		api\ortc-winrt-api\ortc-winrt-api.Shared\ortc-winrt-api.Shared.vcxitems*{f12c67f3-12a0-4532-bdde-4be043dbc140}*SharedItemsImports = 4
+		api\org.ortc\org.ortc.Shared\org.ortc.Shared.vcxitems*{f12c67f3-12a0-4532-bdde-4be043dbc140}*SharedItemsImports = 4
 		samples\ortc-api-test\ortc-api-test\ortc-api-test.Shared\ortc-api-test.Shared.projitems*{68a80fda-4c2d-4a4d-8394-883f324e0bd4}*SharedItemsImports = 13
 		api\ortc-wrapper\ortc-wrapper.Shared\ortc-wrapper.Shared.projitems*{7d09a933-37b7-4192-ac97-f88d139b70cd}*SharedItemsImports = 4
 		..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems*{73373db6-8059-4671-acbd-47219a769922}*SharedItemsImports = 9
 		..\..\samples\ChatterBox\ChatterBox.Common.Communication.Shared\ChatterBox.Common.Communication.Shared.projitems*{2093a3a2-0046-49eb-9e30-9e29d517606c}*SharedItemsImports = 13
 		..\..\samples\ChatterBox\ChatterBox.Common.Communication.Shared\ChatterBox.Common.Communication.Shared.projitems*{6feb923e-1234-4711-a3c2-b976c3aac70d}*SharedItemsImports = 4
-		..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems*{d9b5ee71-1e35-4d73-bde5-0f7a5caa9e00}*SharedItemsImports = 4
 		..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortclibTest.Shared\ortclibTest.Shared.vcxitems*{d9b5ee71-1e35-4d73-bde5-0f7a5caa9e00}*SharedItemsImports = 4
+		..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems*{d9b5ee71-1e35-4d73-bde5-0f7a5caa9e00}*SharedItemsImports = 4
 		..\..\libs\idnkit\projects\msvs\idnkit\idnkit.Shared\idnkit.Shared.vcxitems*{0b940009-c54f-4932-8d03-03141dcc9a50}*SharedItemsImports = 4
 		..\..\libs\cryptopp\projects\msvs\cryptopp\cryptopp.Shared\cryptopp.Shared.vcxitems*{9b7e08b7-f3eb-418e-b69f-8a655ff913fa}*SharedItemsImports = 4
 		..\..\libs\idnkit\projects\msvs\idnkit\idnkit.Shared\idnkit.Shared.vcxitems*{de21ecb4-5a23-43b0-8313-6cd7bf6e3b37}*SharedItemsImports = 9
@@ -469,7 +469,6 @@ Global
 		{4497E847-8611-4545-BDBE-CE9744C7013C}.Debug|Any CPU.ActiveCfg = Debug|Win32
 		{4497E847-8611-4545-BDBE-CE9744C7013C}.Debug|ARM.ActiveCfg = Debug|ARM
 		{4497E847-8611-4545-BDBE-CE9744C7013C}.Debug|ARM.Build.0 = Debug|ARM
-		{4497E847-8611-4545-BDBE-CE9744C7013C}.Debug|ARM.Deploy.0 = Debug|ARM
 		{4497E847-8611-4545-BDBE-CE9744C7013C}.Debug|Win32.ActiveCfg = Debug|Win32
 		{4497E847-8611-4545-BDBE-CE9744C7013C}.Debug|Win32.Build.0 = Debug|Win32
 		{4497E847-8611-4545-BDBE-CE9744C7013C}.Debug|Win32.Deploy.0 = Debug|Win32

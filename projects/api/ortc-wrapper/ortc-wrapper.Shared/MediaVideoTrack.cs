@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ortc_winrt_api;
+using org.ortc;
 
 namespace OrtcWrapper
 {
@@ -11,9 +11,9 @@ namespace OrtcWrapper
     {
         private string _id;
         private bool _enabled;
-        internal ortc_winrt_api.MediaStreamTrack Track;
+        internal org.ortc.MediaStreamTrack Track;
 
-        internal MediaVideoTrack(ortc_winrt_api.MediaStreamTrack track)
+        internal MediaVideoTrack(org.ortc.MediaStreamTrack track)
         {
             _id = track.DeviceId;
             _enabled = track.Enabled;

@@ -1,0 +1,65 @@
+#pragma once
+
+namespace org
+{
+  namespace ortc
+  {
+    namespace Log
+    {
+      public enum class Level
+      {
+        None,
+        Basic,
+        Detail,
+        Debug,
+        Trace,
+        Insane
+      };
+
+      public enum class Component
+      {
+        ZsLib,
+        ZsLibSocket,
+        Services,
+        ServicesTurn,
+        ServicesHttp,
+        OrtcLib
+      };
+    }
+
+    public ref class Logger sealed
+    {
+    public:
+      [Windows::Foundation::Metadata::OverloadAttribute("SetDefaultLogLevel")]
+      static void SetLogLevel(Log::Level level);
+      [Windows::Foundation::Metadata::DefaultOverloadAttribute]
+      static void SetLogLevel(Log::Component component, Log::Level level);
+      [Windows::Foundation::Metadata::OverloadAttribute("SetLogLevelByName")]
+      static void SetLogLevel(Platform::String^ component, Log::Level level);
+
+      static void InstallStdOutLogger(Platform::Boolean colorizeOutput);
+      static void InstallFileLogger(Platform::String^ fileName, Platform::Boolean colorizeOutput);
+      static void InstallTelnetLogger(
+        uint16 listenPort,
+        uint32 maxSecondsWaitForSocketToBeAvailable,
+        Platform::Boolean colorizeOutput
+        );
+      static void InstallOutgoingTelnetLogger(
+        Platform::String^ serverHostWithPort,
+        Platform::Boolean colorizeOutput,
+        Platform::String^ sendStringUponConnection
+        );
+      static void InstallDebuggerLogger();
+
+      static Platform::Boolean IsTelnetLoggerListening();
+      static Platform::Boolean IsTelnetLoggerConnected();
+      static Platform::Boolean IsOutgoingTelnetLoggerConnected();
+
+      static void UninstallStdOutLogger();
+      static void UninstallFileLogger();
+      static void UninstallTelnetLogger();
+      static void UninstallOutgoingTelnetLogger();
+      static void UninstallDebuggerLogger();
+    };
+  }
+}

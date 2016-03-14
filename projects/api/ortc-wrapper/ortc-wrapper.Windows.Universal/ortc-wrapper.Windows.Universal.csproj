@@ -111,9 +111,9 @@
     <EmbeddedResource Include="Properties\ortc_wrapper.Windows.Universal.rd.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ortc-winrt-api\ortc-winrt-api\ortc-winrt-api.vcxproj">
+    <ProjectReference Include="..\..\org.ortc\org.ortc\org.ortc.vcxproj">
       <Project>{f12c67f3-12a0-4532-bdde-4be043dbc140}</Project>
-      <Name>ortc-winrt-api</Name>
+      <Name>org.ortc</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\ortc-wrapper.Shared\ortc-wrapper.Shared.projitems" Label="Shared" />

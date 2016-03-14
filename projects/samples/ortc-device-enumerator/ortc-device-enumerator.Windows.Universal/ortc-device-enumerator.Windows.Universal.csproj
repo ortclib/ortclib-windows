@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{A4E8544E-50C9-4384-8763-FF55D3F39B8B}</ProjectGuid>
+    <ProjectGuid>{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ortc_api_test</RootNamespace>
-    <AssemblyName>ortc-api-test.Windows.Universal</AssemblyName>
+    <RootNamespace>ortc_device_enumerator.Windows.Universal</RootNamespace>
+    <AssemblyName>ortc-device-enumerator.Windows.Universal</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
@@ -16,7 +16,7 @@
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>ortc-api-test.Windows.Universal_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>ortc-device-enumerator.Windows.Universal_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -95,13 +95,19 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="ortc-api-test.Windows.Universal_TemporaryKey.pfx" />
+    <None Include="ortc-device-enumerator.Windows.Universal_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\Default.rd.xml" />
@@ -114,12 +120,21 @@
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\api\org.ortc\org.ortc\org.ortc.vcxproj">
-      <Project>{f12c67f3-12a0-4532-bdde-4be043dbc140}</Project>
-      <Name>ortc-winrt-api</Name>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\api\ortc-winrt-api\ortc-winrt-api.Windows.x64.Universal\ortc-winrt-api.Windows.x64.Universal.vcxproj">
+      <Project>{d3ad5a6e-2f77-4c74-8143-910280426f85}</Project>
+      <Name>ortc-winrt-api.Windows.x64.Universal</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="..\ortc-api-test.Shared\ortc-api-test.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

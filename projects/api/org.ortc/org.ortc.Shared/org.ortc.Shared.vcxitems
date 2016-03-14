@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <ItemsProjectGuid>{747b7f0d-d2af-4f70-9578-334dcc8a6fee}</ItemsProjectGuid>
+    <ItemsRootNamespace>org.ortc</ItemsRootNamespace>
+    <ItemsProjectName>org.ortc.Shared</ItemsProjectName>
+    <CodeSharingProject>248F659F-DAC5-46E8-AC09-60EC9FC95053</CodeSharingProject>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Capabilities.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Contraints.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)helpers.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Logger.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MediaSourceHelper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MediaStreamTrack.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Ortc.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MediaDevices.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTCDataChannel.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTCDtlsTransport.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTCIceGatherer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)pch.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTCIceTransport.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTCIceTransportController.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTCIceTypes.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTCRtpListener.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTCRtpReceiver.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTCRtpSender.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTCSctpTransport.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTMediaStreamSource.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTPTypes.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Settings.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)WebRtcMediaSource.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)WebRtcMediaStream.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)helpers.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Logger.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)MediaSourceHelper.cc" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)MediaStreamTrack.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Ortc.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)MediaDevices.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RTCDataChannel.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RTCDtlsTransport.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RTCIceGatherer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)pch.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)RTCIceTransport.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RTCIceTransportController.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RTCIceTypes.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RTCRtpListener.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RTCRtpReceiver.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RTCRtpSender.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RTCSctpTransport.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RTMediaStreamSource.cc" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RTPTypes.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Settings.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)WebRtcMediaSource.cc" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)WebRtcMediaStream.cc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+</Project>

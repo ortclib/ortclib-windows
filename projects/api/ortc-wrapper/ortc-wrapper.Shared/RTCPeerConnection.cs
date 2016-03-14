@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ortc_winrt_api;
-using Log = ortc_winrt_api.Log;
+using org.ortc;
+using Log = org.ortc.Log;
 using Windows.Foundation;
 using ortc_wrapper.Shared.Internal;
 
@@ -288,11 +288,11 @@ namespace OrtcWrapper
         private void PrepareGatherer(RTCConfiguration configuration)
         {
             options = new RTCIceGatherOptions();
-            options.IceServers = new List<ortc_winrt_api.RTCIceServer>();
+            options.IceServers = new List<org.ortc.RTCIceServer>();
 
             foreach (RTCIceServer server in configuration.IceServers)
             {
-                ortc_winrt_api.RTCIceServer ortcServer = new ortc_winrt_api.RTCIceServer();
+                org.ortc.RTCIceServer ortcServer = new org.ortc.RTCIceServer();
                 ortcServer.Urls = new List<string>();
 
                 if (!string.IsNullOrEmpty(server.Credential))
@@ -311,7 +311,7 @@ namespace OrtcWrapper
 
             try
             {
-                iceGatherer = new ortc_winrt_api.RTCIceGatherer(options);
+                iceGatherer = new org.ortc.RTCIceGatherer(options);
                 iceGatherer.OnICEGathererStateChanged += OnICEGathererStateChanged;
                 iceGatherer.OnICEGathererLocalCandidate += this.RTCIceGatherer_onICEGathererLocalCandidate;
                 iceGatherer.OnICEGathererCandidateComplete += this.RTCIceGatherer_onICEGathererCandidateComplete;
@@ -333,7 +333,7 @@ namespace OrtcWrapper
 
         private void PrepareIceTransport()
         {
-            iceTransport = new ortc_winrt_api.RTCIceTransport(iceGatherer);
+            iceTransport = new org.ortc.RTCIceTransport(iceGatherer);
         }
 
         private void PrepareDtlsTransport()

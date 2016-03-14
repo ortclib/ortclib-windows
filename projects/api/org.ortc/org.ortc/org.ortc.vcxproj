@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\libs\cryptopp\projects\msvs\cryptopp\cryptopp.Windows.Universal\cryptopp.Windows.Universal.vcxproj">
+      <Project>{9b7e08b7-f3eb-418e-b69f-8a655ff913fa}</Project>
+      <Private>false</Private>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\idnkit\projects\msvs\idnkit\idnkit.Windows.Universal\idnkit.Windows.Universal.vcxproj">
+      <Project>{0b940009-c54f-4932-8d03-03141dcc9a50}</Project>
+      <Private>false</Private>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\op-services-cpp\projects\msvs\hfservices\hfservices.Windows.Universal\hfservices.Windows.Universal.vcxproj">
+      <Project>{6ccc9220-9334-4601-821d-5f55bc397003}</Project>
+      <Private>false</Private>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortc-lib.Windows.Universal\ortc-lib.Windows.Universal.vcxproj">
+      <Project>{f4ef2e27-727c-4cf8-b727-81583b864265}</Project>
+      <Private>false</Private>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\udns\projects\msvs\udns\udns.Windows.Universal\udns.Windows.Universal.vcxproj">
+      <Project>{577f12ab-3473-4a93-8ee4-eeed2ce5dc61}</Project>
+      <Private>false</Private>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\libs\zsLib\projects\msvs\zsLib\zsLib.Windows.Universal\zsLib.Windows.Universal.vcxproj">
+      <Project>{e7265f01-f993-44f6-889c-24a62ab171a0}</Project>
+      <Private>false</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{f12c67f3-12a0-4532-bdde-4be043dbc140}</ProjectGuid>
+    <Keyword>WindowsRuntimeComponent</Keyword>
+    <ProjectName>org.ortc</ProjectName>
+    <RootNamespace>org.ortc</RootNamespace>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <AppContainerApplication>true</AppContainerApplication>
+    <ApplicationType>Windows Store</ApplicationType>
+    <WindowsTargetPlatformVersion>10.0.10586.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformMinVersion>10.0.10240.0</WindowsTargetPlatformMinVersion>
+    <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+    <Import Project="..\org.ortc.Shared\org.ortc.Shared.vcxitems" Label="Shared" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PreprocessorDefinitions>_WINRT_DLL;WINRT;WEBRTC_WIN;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
+      <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>28204;4068;4290</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>../../../../../libs;../../../../../libs/op-services-cpp;../../../../../libs/ortc-lib;../../../../../libs/zsLib;../../../../../libs/webrtc;../../../../../libs/webrtc/webrtc;../../../../../libs/webrtc/third_party/libyuv/include/;%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <AdditionalDependencies>dxguid.lib;MinCore.lib;audio_coding_module_win10.lib;audio_conference_mixer_win10.lib;audio_decoder_interface_win10.lib;audio_device_win10.lib;audio_encoder_interface_win10.lib;audio_processing_sse2_win10.lib;audio_processing_win10.lib;audioproc_debug_proto_win10.lib;bitrate_controller_win10.lib;boringssl_win10.lib;cng_win10.lib;common_audio_sse2_win10.lib;common_audio_win10.lib;common_video_win10.lib;field_trial_default_win10.lib;field_trial_win10.lib;g711_win10.lib;g722_win10.lib;ilbc_win10.lib;isac_common_win10.lib;isac_fix_win10.lib;isac_win10.lib;jsoncpp_win10.lib;libjpeg_win10.lib;libsrtp_win10.lib;libvpx_intrinsics_avx2_win10.lib;libvpx_intrinsics_mmx_win10.lib;libvpx_intrinsics_sse2_win10.lib;libvpx_intrinsics_sse4_1_win10.lib;libvpx_intrinsics_ssse3_win10.lib;libvpx_new_win10.lib;libyuv_win10.lib;media_file_win10.lib;metrics_default_win10.lib;neteq_win10.lib;openmax_dl_win10.lib;opus_win10.lib;paced_sender_win10.lib;pcm16b_win10.lib;protobuf_full_do_not_use_win10.lib;protobuf_lite_win10.lib;red_win10.lib;remote_bitrate_estimator_win10.lib;rent_a_codec_win10.lib;rtc_base_approved_win10.lib;rtc_base_win10.lib;rtc_event_log_proto_win10.lib;rtc_event_log_win10.lib;rtp_rtcp_win10.lib;system_wrappers_win10.lib;usrsctplib_win10.lib;video_capture_module_internal_impl_win10.lib;video_capture_module_win10.lib;video_coding_utility_win10.lib;video_processing_sse2_win10.lib;video_processing_win10.lib;video_render_module_internal_impl_win10.lib;video_render_module_win10.lib;voice_engine_win10.lib;webrtc_common_win10.lib;webrtc_h264_win10.lib;webrtc_i420_win10.lib;webrtc_opus_win10.lib;webrtc_utility_win10.lib;webrtc_video_coding_win10.lib;webrtc_vp8_win10.lib;webrtc_vp9_win10.lib;webrtc_win10.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\libs\webrtc\build_win10\$(Configuration);$(SolutionDir)..\..\libs\webrtc\build_win10\$(Configuration)\lib</AdditionalLibraryDirectories>
+    </Link>
+    <PreBuildEvent>
+      <Command>call "$(SolutionDir)..\..\bin\buildWebRTC.bat"  "$(SolutionDir)..\..\libs\webrtc\webrtcForOrtc.vs2015.sln" $(Configuration) $(PlatformTarget)</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PreprocessorDefinitions>_WINRT_DLL;WINRT;WEBRTC_WIN;NOMINMAX;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
+      <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>28204;4068;4290</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>../../../../../libs;../../../../../libs/op-services-cpp;../../../../../libs/ortc-lib;../../../../../libs/zsLib;../../../../../libs/webrtc;../../../../../libs/webrtc/webrtc;../../../../../libs/webrtc/third_party/libyuv/include/;%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <AdditionalDependencies>dxguid.lib;MinCore.lib;audio_coding_module_win10.lib;audio_conference_mixer_win10.lib;audio_decoder_interface_win10.lib;audio_device_win10.lib;audio_encoder_interface_win10.lib;audio_processing_sse2_win10.lib;audio_processing_win10.lib;audioproc_debug_proto_win10.lib;bitrate_controller_win10.lib;boringssl_win10.lib;cng_win10.lib;common_audio_sse2_win10.lib;common_audio_win10.lib;common_video_win10.lib;field_trial_default_win10.lib;field_trial_win10.lib;g711_win10.lib;g722_win10.lib;ilbc_win10.lib;isac_common_win10.lib;isac_fix_win10.lib;isac_win10.lib;jsoncpp_win10.lib;libjpeg_win10.lib;libsrtp_win10.lib;libvpx_intrinsics_avx2_win10.lib;libvpx_intrinsics_mmx_win10.lib;libvpx_intrinsics_sse2_win10.lib;libvpx_intrinsics_sse4_1_win10.lib;libvpx_intrinsics_ssse3_win10.lib;libvpx_new_win10.lib;libyuv_win10.lib;media_file_win10.lib;metrics_default_win10.lib;neteq_win10.lib;openmax_dl_win10.lib;opus_win10.lib;paced_sender_win10.lib;pcm16b_win10.lib;protobuf_full_do_not_use_win10.lib;protobuf_lite_win10.lib;red_win10.lib;remote_bitrate_estimator_win10.lib;rent_a_codec_win10.lib;rtc_base_approved_win10.lib;rtc_base_win10.lib;rtc_event_log_proto_win10.lib;rtc_event_log_win10.lib;rtp_rtcp_win10.lib;system_wrappers_win10.lib;usrsctplib_win10.lib;video_capture_module_internal_impl_win10.lib;video_capture_module_win10.lib;video_coding_utility_win10.lib;video_processing_sse2_win10.lib;video_processing_win10.lib;video_render_module_internal_impl_win10.lib;video_render_module_win10.lib;voice_engine_win10.lib;webrtc_common_win10.lib;webrtc_h264_win10.lib;webrtc_i420_win10.lib;webrtc_opus_win10.lib;webrtc_utility_win10.lib;webrtc_video_coding_win10.lib;webrtc_vp8_win10.lib;webrtc_vp9_win10.lib;webrtc_win10.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\libs\webrtc\build_win10\$(Configuration);$(SolutionDir)..\..\libs\webrtc\build_win10\$(Configuration)\lib</AdditionalLibraryDirectories>
+    </Link>
+    <PreBuildEvent>
+      <Command>call "$(SolutionDir)..\..\bin\buildWebRTC.bat"  "$(SolutionDir)..\..\libs\webrtc\webrtcForOrtc.vs2015.sln" $(Configuration) $(PlatformTarget)</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PreprocessorDefinitions>_WINRT_DLL;WINRT;WEBRTC_WIN;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
+      <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>28204;4068;4290</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>../../../../../libs;../../../../../libs/op-services-cpp;../../../../../libs/ortc-lib;../../../../../libs/zsLib;../../../../../libs/webrtc;../../../../../libs/webrtc/webrtc;../../../../../libs/webrtc/third_party/libyuv/include/;%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <AdditionalDependencies>MinCore.lib;WindowsApp.lib;dxguid.lib;audio_coding_module_win10_arm.lib;audio_conference_mixer_win10_arm.lib;audio_decoder_interface_win10_arm.lib;audio_encoder_interface_win10_arm.lib;audio_processing_neon_win10_arm.lib;audio_processing_win10_arm.lib;bitrate_controller_win10_arm.lib;boringssl_win10_arm.lib;cng_win10_arm.lib;common_audio_neon_win10_arm.lib;common_audio_win10_arm.lib;common_video_win10_arm.lib;field_trial_default_win10_arm.lib;field_trial_win10_arm.lib;g711_win10_arm.lib;g722_win10_arm.lib;gtest_win10_arm.lib;ilbc_win10_arm.lib;isac_common_win10_arm.lib;isac_fix_win10_arm.lib;isac_neon_win10_arm.lib;isac_win10_arm.lib;jsoncpp_win10_arm.lib;libjpeg_win10_arm.lib;libsrtp_win10_arm.lib;libvpx_new_win10_arm.lib;libyuv_win10_arm.lib;media_file_win10_arm.lib;metrics_default_win10_arm.lib;neteq_win10_arm.lib;openmax_dl_armv7_win10_arm.lib;openmax_dl_neon_win10_arm.lib;openmax_dl_win10_arm.lib;opus_win10_arm.lib;paced_sender_win10_arm.lib;pcm16b_win10_arm.lib;red_win10_arm.lib;remote_bitrate_estimator_win10_arm.lib;rent_a_codec_win10_arm.lib;rtc_base_approved_win10_arm.lib;rtc_base_win10_arm.lib;rtc_event_log_win10_arm.lib;rtp_rtcp_win10_arm.lib;system_wrappers_win10_arm.lib;usrsctplib_win10_arm.lib;video_capture_module_internal_impl_win10_arm.lib;video_capture_module_win10_arm.lib;video_coding_utility_win10_arm.lib;video_processing_win10_arm.lib;video_render_module_internal_impl_win10_arm.lib;video_render_module_win10_arm.lib;voice_engine_win10_arm.lib;webrtc_common_win10_arm.lib;webrtc_h264_win10_arm.lib;webrtc_i420_win10_arm.lib;webrtc_opus_win10_arm.lib;webrtc_utility_win10_arm.lib;webrtc_video_coding_win10_arm.lib;webrtc_vp8_win10_arm.lib;webrtc_vp9_win10_arm.lib;webrtc_win10_arm.lib;audio_device_win10_arm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\libs\webrtc\build_win10_arm\$(Configuration);$(SolutionDir)..\..\libs\webrtc\build_win10_arm\$(Configuration)\lib</AdditionalLibraryDirectories>
+    </Link>
+    <PreBuildEvent>
+      <Command>call "$(SolutionDir)..\..\bin\buildWebRTC.bat"  "$(SolutionDir)..\..\libs\webrtc\webrtcForOrtc.vs2015.sln" $(Configuration) $(PlatformTarget)</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PreprocessorDefinitions>_WINRT_DLL;WINRT;WEBRTC_WIN;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
+      <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>28204;4068;4290</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>../../../../../libs;../../../../../libs/op-services-cpp;../../../../../libs/ortc-lib;../../../../../libs/zsLib;../../../../../libs/webrtc;../../../../../libs/webrtc/webrtc;../../../../../libs/webrtc/third_party/libyuv/include/;%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <AdditionalDependencies>MinCore.lib;WindowsApp.lib;dxguid.lib;audio_coding_module_win10_arm.lib;audio_conference_mixer_win10_arm.lib;audio_decoder_interface_win10_arm.lib;audio_device_win10_arm.lib;audio_encoder_interface_win10_arm.lib;audio_processing_neon_win10_arm.lib;audio_processing_win10_arm.lib;bitrate_controller_win10_arm.lib;boringssl_win10_arm.lib;cng_win10_arm.lib;common_audio_neon_win10_arm.lib;common_audio_win10_arm.lib;common_video_win10_arm.lib;field_trial_default_win10_arm.lib;field_trial_win10_arm.lib;g711_win10_arm.lib;g722_win10_arm.lib;gtest_win10_arm.lib;ilbc_win10_arm.lib;isac_common_win10_arm.lib;isac_fix_win10_arm.lib;isac_neon_win10_arm.lib;isac_win10_arm.lib;jsoncpp_win10_arm.lib;libjpeg_win10_arm.lib;libsrtp_win10_arm.lib;libvpx_new_win10_arm.lib;libyuv_win10_arm.lib;media_file_win10_arm.lib;metrics_default_win10_arm.lib;neteq_win10_arm.lib;openmax_dl_armv7_win10_arm.lib;openmax_dl_neon_win10_arm.lib;openmax_dl_win10_arm.lib;opus_win10_arm.lib;paced_sender_win10_arm.lib;pcm16b_win10_arm.lib;red_win10_arm.lib;remote_bitrate_estimator_win10_arm.lib;rent_a_codec_win10_arm.lib;rtc_base_approved_win10_arm.lib;rtc_base_win10_arm.lib;rtc_event_log_win10_arm.lib;rtp_rtcp_win10_arm.lib;system_wrappers_win10_arm.lib;usrsctplib_win10_arm.lib;video_capture_module_internal_impl_win10_arm.lib;video_capture_module_win10_arm.lib;video_coding_utility_win10_arm.lib;video_processing_win10_arm.lib;video_render_module_internal_impl_win10_arm.lib;video_render_module_win10_arm.lib;voice_engine_win10_arm.lib;webrtc_common_win10_arm.lib;webrtc_h264_win10_arm.lib;webrtc_i420_win10_arm.lib;webrtc_opus_win10_arm.lib;webrtc_utility_win10_arm.lib;webrtc_video_coding_win10_arm.lib;webrtc_vp8_win10_arm.lib;webrtc_vp9_win10_arm.lib;webrtc_win10_arm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\libs\webrtc\build_win10_arm\$(Configuration);$(SolutionDir)..\..\libs\webrtc\build_win10_arm\$(Configuration)\lib</AdditionalLibraryDirectories>
+    </Link>
+    <PreBuildEvent>
+      <Command>call "$(SolutionDir)..\..\bin\buildWebRTC.bat"  "$(SolutionDir)..\..\libs\webrtc\webrtcForOrtc.vs2015.sln" $(Configuration) $(PlatformTarget)</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PreprocessorDefinitions>_WINRT_DLL;_DEBUG;V8_DEPRECATION_WARNINGS;CLD_VERSION=2;NOMINMAX;WIN32;_WIN32_WINNT=0x0603;WINVER=0x0603;_WINDOWS;PSAPI_VERSION=1;_CRT_RAND_S;CERT_CHAIN_PARA_HAS_EXTRA_FIELDS;WIN32_LEAN_AND_MEAN;_ATL_NO_OPENGL;_SECURE_ATL;_HAS_EXCEPTIONS=0;_WINSOCK_DEPRECATED_NO_WARNINGS;CHROMIUM_BUILD;CR_CLANG_REVISION=245965-1;USE_AURA=1;USE_ASH=1;USE_DEFAULT_RENDER_THEME=1;USE_LIBJPEG_TURBO=1;ENABLE_ONE_CLICK_SIGNIN;ENABLE_PRE_SYNC_BACKUP;ENABLE_WEBRTC=1;ENABLE_MEDIA_ROUTER=1;ENABLE_PEPPER_CDMS;ENABLE_CONFIGURATION_POLICY;ENABLE_NOTIFICATIONS;ENABLE_HIDPI=1;ENABLE_TOPCHROME_MD=1;DONT_EMBED_BUILD_METADATA;FIELDTRIAL_TESTING_ENABLED;NO_TCMALLOC;__STD_C;_CRT_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_DEPRECATE;NTDDI_VERSION=0x06030000;_USING_V110_SDK71_;WINRT;_HAS_EXCEPTIONS=1;WINAPI_FAMILY=WINAPI_FAMILY_APP;ENABLE_TASK_MANAGER=1;ENABLE_EXTENSIONS=1;ENABLE_PDF=1;ENABLE_PLUGIN_INSTALLATION=1;ENABLE_PLUGINS=1;ENABLE_SESSION_SERVICE=1;ENABLE_THEMES=1;ENABLE_AUTOFILL_DIALOG=1;ENABLE_BACKGROUND=1;ENABLE_GOOGLE_NOW=1;ENABLE_PRINTING=1;ENABLE_BASIC_PRINTING=1;ENABLE_PRINT_PREVIEW=1;ENABLE_SPELLCHECK=1;ENABLE_CAPTIVE_PORTAL_DETECTION=1;ENABLE_APP_LIST=1;ENABLE_SETTINGS_APP=1;ENABLE_SUPERVISED_USERS=1;ENABLE_MDNS=1;ENABLE_SERVICE_DISCOVERY=1;ENABLE_WIFI_BOOTSTRAPPING=1;V8_USE_EXTERNAL_STARTUP_DATA;FULL_SAFE_BROWSING;SAFE_BROWSING_CSD;SAFE_BROWSING_DB_LOCAL;SAFE_BROWSING_SERVICE;EXPAT_RELATIVE_PATH;WEBRTC_WIN;WEBRTC_INCLUDE_INTERNAL_AUDIO_DEVICE;_WINRT_DLL;USE_LIBPCI=1;USE_OPENSSL=1;__STDC_CONSTANT_MACROS;__STDC_FORMAT_MACROS;DYNAMIC_ANNOTATIONS_ENABLED=1;WTF_USE_DYNAMIC_ANNOTATIONS=1;WINRT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
+      <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>28204;4068;4290</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>../../../../../libs;../../../../../libs/op-services-cpp;../../../../../libs/ortc-lib;../../../../../libs/zsLib;../../../../../libs/webrtc;../../../../../libs/webrtc/webrtc;../../../../../libs/webrtc/third_party/libyuv/include/;%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\libs\webrtc\build\$(Configuration);$(SolutionDir)..\..\libs\webrtc\build\$(Configuration)\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>dxguid.lib;MinCore.lib;webrtc_vp9.lib;webrtc_vp8.lib;webrtc_video_coding.lib;webrtc_utility.lib;webrtc_opus.lib;webrtc_i420.lib;webrtc_h264.lib;webrtc_common.lib;webrtc.lib;voice_engine.lib;video_render_module_internal_impl.lib;video_render_module.lib;video_processing_sse2.lib;video_processing.lib;video_coding_utility.lib;video_capture_module_internal_impl.lib;video_capture_module.lib;usrsctplib.lib;system_wrappers.lib;rtp_rtcp.lib;rtc_event_log_proto.lib;rtc_event_log.lib;rtc_base_approved.lib;rtc_base.lib;rent_a_codec.lib;remote_bitrate_estimator.lib;red.lib;protobuf_lite.lib;protobuf_full_do_not_use.lib;pcm16b.lib;paced_sender.lib;opus.lib;openmax_dl.lib;neteq.lib;metrics_default.lib;media_file.lib;libyuv.lib;libvpx_new.lib;libvpx_intrinsics_ssse3.lib;libvpx_intrinsics_sse4_1.lib;libvpx_intrinsics_sse2.lib;libvpx_intrinsics_mmx.lib;libvpx_intrinsics_avx2.lib;libsrtp.lib;libjpeg.lib;jsoncpp.lib;isac_fix.lib;isac_common.lib;isac.lib;ilbc.lib;gtest.lib;g722.lib;g711.lib;field_trial_default.lib;field_trial.lib;common_video.lib;common_audio_sse2.lib;common_audio.lib;cng.lib;boringssl.lib;bitrate_controller.lib;audioproc_debug_proto.lib;audio_processing_sse2.lib;audio_processing.lib;audio_encoder_interface.lib;audio_device.lib;audio_decoder_interface.lib;audio_conference_mixer.lib;audio_coding_module.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PreBuildEvent>
+      <Command>call "$(SolutionDir)..\..\bin\buildWebRTC.bat"  "$(SolutionDir)..\..\libs\webrtc\webrtcForOrtc.vs2015.sln" $(Configuration) $(Platform)</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PreprocessorDefinitions>_WINRT_DLL;NDEBUG;V8_DEPRECATION_WARNINGS;CLD_VERSION=2;NOMINMAX;WIN32;_WIN32_WINNT=0x0603;WINVER=0x0603;_WINDOWS;PSAPI_VERSION=1;_CRT_RAND_S;CERT_CHAIN_PARA_HAS_EXTRA_FIELDS;WIN32_LEAN_AND_MEAN;_ATL_NO_OPENGL;_SECURE_ATL;_HAS_EXCEPTIONS=0;_WINSOCK_DEPRECATED_NO_WARNINGS;CHROMIUM_BUILD;CR_CLANG_REVISION=245965-1;USE_AURA=1;USE_ASH=1;USE_DEFAULT_RENDER_THEME=1;USE_LIBJPEG_TURBO=1;ENABLE_ONE_CLICK_SIGNIN;ENABLE_PRE_SYNC_BACKUP;ENABLE_WEBRTC=1;ENABLE_MEDIA_ROUTER=1;ENABLE_PEPPER_CDMS;ENABLE_CONFIGURATION_POLICY;ENABLE_NOTIFICATIONS;ENABLE_HIDPI=1;ENABLE_TOPCHROME_MD=1;DONT_EMBED_BUILD_METADATA;FIELDTRIAL_TESTING_ENABLED;NO_TCMALLOC;__STD_C;_CRT_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_DEPRECATE;NTDDI_VERSION=0x06030000;_USING_V110_SDK71_;WINRT;_HAS_EXCEPTIONS=1;WINAPI_FAMILY=WINAPI_FAMILY_APP;ENABLE_TASK_MANAGER=1;ENABLE_EXTENSIONS=1;ENABLE_PDF=1;ENABLE_PLUGIN_INSTALLATION=1;ENABLE_PLUGINS=1;ENABLE_SESSION_SERVICE=1;ENABLE_THEMES=1;ENABLE_AUTOFILL_DIALOG=1;ENABLE_BACKGROUND=1;ENABLE_GOOGLE_NOW=1;ENABLE_PRINTING=1;ENABLE_BASIC_PRINTING=1;ENABLE_PRINT_PREVIEW=1;ENABLE_SPELLCHECK=1;ENABLE_CAPTIVE_PORTAL_DETECTION=1;ENABLE_APP_LIST=1;ENABLE_SETTINGS_APP=1;ENABLE_SUPERVISED_USERS=1;ENABLE_MDNS=1;ENABLE_SERVICE_DISCOVERY=1;ENABLE_WIFI_BOOTSTRAPPING=1;V8_USE_EXTERNAL_STARTUP_DATA;FULL_SAFE_BROWSING;SAFE_BROWSING_CSD;SAFE_BROWSING_DB_LOCAL;SAFE_BROWSING_SERVICE;EXPAT_RELATIVE_PATH;WEBRTC_WIN;WEBRTC_INCLUDE_INTERNAL_AUDIO_DEVICE;USE_LIBPCI=1;USE_OPENSSL=1;__STDC_CONSTANT_MACROS;__STDC_FORMAT_MACROS;DYNAMIC_ANNOTATIONS_ENABLED=1;WTF_USE_DYNAMIC_ANNOTATIONS=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
+      <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>28204;4068;4290</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>../../../../../libs;../../../../../libs/op-services-cpp;../../../../../libs/ortc-lib;../../../../../libs/zsLib;../../../../../libs/webrtc;../../../../../libs/webrtc/webrtc;../../../../../libs/webrtc/third_party/libyuv/include/;%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <AdditionalDependencies>dxguid.lib;MinCore.lib;webrtc_vp9.lib;webrtc_vp8.lib;webrtc_video_coding.lib;webrtc_utility.lib;webrtc_opus.lib;webrtc_i420.lib;webrtc_h264.lib;webrtc_common.lib;webrtc.lib;voice_engine.lib;video_render_module_internal_impl.lib;video_render_module.lib;video_processing_sse2.lib;video_processing.lib;video_coding_utility.lib;video_capture_module_internal_impl.lib;video_capture_module.lib;usrsctplib.lib;system_wrappers.lib;rtp_rtcp.lib;rtc_event_log_proto.lib;rtc_event_log.lib;rtc_base_approved.lib;rtc_base.lib;rent_a_codec.lib;remote_bitrate_estimator.lib;red.lib;protobuf_lite.lib;protobuf_full_do_not_use.lib;pcm16b.lib;paced_sender.lib;opus.lib;openmax_dl.lib;neteq.lib;metrics_default.lib;media_file.lib;libyuv.lib;libvpx_new.lib;libvpx_intrinsics_ssse3.lib;libvpx_intrinsics_sse4_1.lib;libvpx_intrinsics_sse2.lib;libvpx_intrinsics_mmx.lib;libvpx_intrinsics_avx2.lib;libsrtp.lib;libjpeg.lib;jsoncpp.lib;isac_fix.lib;isac_common.lib;isac.lib;ilbc.lib;gtest.lib;g722.lib;g711.lib;field_trial_default.lib;field_trial.lib;common_video.lib;common_audio_sse2.lib;common_audio.lib;cng.lib;boringssl.lib;bitrate_controller.lib;audioproc_debug_proto.lib;audio_processing_sse2.lib;audio_processing.lib;audio_encoder_interface.lib;audio_device.lib;audio_decoder_interface.lib;audio_conference_mixer.lib;audio_coding_module.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\libs\webrtc\build\$(Configuration);$(SolutionDir)..\..\libs\webrtc\build\$(Configuration)\lib</AdditionalLibraryDirectories>
+    </Link>
+    <PreBuildEvent>
+      <Command>call "$(SolutionDir)..\..\bin\buildWebRTC.bat"  "$(SolutionDir)..\..\libs\webrtc\webrtcForOrtc.vs2015.sln" $(Configuration) $(Platform)</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
