@@ -142,8 +142,8 @@ Global
 		..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems*{73373db6-8059-4671-acbd-47219a769922}*SharedItemsImports = 9
 		..\..\samples\ChatterBox\ChatterBox.Common.Communication.Shared\ChatterBox.Common.Communication.Shared.projitems*{2093a3a2-0046-49eb-9e30-9e29d517606c}*SharedItemsImports = 13
 		..\..\samples\ChatterBox\ChatterBox.Common.Communication.Shared\ChatterBox.Common.Communication.Shared.projitems*{6feb923e-1234-4711-a3c2-b976c3aac70d}*SharedItemsImports = 4
-		..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortclibTest.Shared\ortclibTest.Shared.vcxitems*{d9b5ee71-1e35-4d73-bde5-0f7a5caa9e00}*SharedItemsImports = 4
 		..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems*{d9b5ee71-1e35-4d73-bde5-0f7a5caa9e00}*SharedItemsImports = 4
+		..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortclibTest.Shared\ortclibTest.Shared.vcxitems*{d9b5ee71-1e35-4d73-bde5-0f7a5caa9e00}*SharedItemsImports = 4
 		..\..\libs\idnkit\projects\msvs\idnkit\idnkit.Shared\idnkit.Shared.vcxitems*{0b940009-c54f-4932-8d03-03141dcc9a50}*SharedItemsImports = 4
 		..\..\libs\cryptopp\projects\msvs\cryptopp\cryptopp.Shared\cryptopp.Shared.vcxitems*{9b7e08b7-f3eb-418e-b69f-8a655ff913fa}*SharedItemsImports = 4
 		..\..\libs\idnkit\projects\msvs\idnkit\idnkit.Shared\idnkit.Shared.vcxitems*{de21ecb4-5a23-43b0-8313-6cd7bf6e3b37}*SharedItemsImports = 9
@@ -481,7 +481,6 @@ Global
 		{4497E847-8611-4545-BDBE-CE9744C7013C}.Release|Any CPU.ActiveCfg = Release|Win32
 		{4497E847-8611-4545-BDBE-CE9744C7013C}.Release|ARM.ActiveCfg = Release|ARM
 		{4497E847-8611-4545-BDBE-CE9744C7013C}.Release|ARM.Build.0 = Release|ARM
-		{4497E847-8611-4545-BDBE-CE9744C7013C}.Release|ARM.Deploy.0 = Release|ARM
 		{4497E847-8611-4545-BDBE-CE9744C7013C}.Release|Win32.ActiveCfg = Release|Win32
 		{4497E847-8611-4545-BDBE-CE9744C7013C}.Release|Win32.Build.0 = Release|Win32
 		{4497E847-8611-4545-BDBE-CE9744C7013C}.Release|Win32.Deploy.0 = Release|Win32
