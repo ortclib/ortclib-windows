@@ -116,10 +116,10 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\api\org.ortc\org.ortc\org.ortc.vcxproj">
       <Project>{f12c67f3-12a0-4532-bdde-4be043dbc140}</Project>
-      <Name>ortc-winrt-api</Name>
+      <Name>org.ortc</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="..\ortc-api-test.Shared\ortc-api-test.Shared.projitems" Label="Shared" />
+  <Import Project="..\..\..\..\..\samples\ortc-api-test\ortc-api-test.Shared\ortc-api-test.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
