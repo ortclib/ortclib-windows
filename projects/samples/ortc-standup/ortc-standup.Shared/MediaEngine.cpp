@@ -252,6 +252,7 @@ namespace ortc_standup
 
         mMediaEngine.lock()->mVideoRTPReceiver = ortc::IRTPReceiver::create(
                                                                             mMediaEngine.lock(),
+                                                                            ortc::IMediaStreamTrackTypes::Kind_Video,
                                                                             mMediaEngine.lock()->mReceiveVideoDTLSTransport
                                                                             );
 

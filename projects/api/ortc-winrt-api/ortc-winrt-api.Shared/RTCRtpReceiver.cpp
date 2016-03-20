@@ -14,7 +14,8 @@ RTCRtpReceiver::RTCRtpReceiver() : mNativeDelegatePointer(nullptr), mNativePoint
 {
 }
 
-RTCRtpReceiver::RTCRtpReceiver(RTCDtlsTransport ^ transport) : mNativeDelegatePointer(new RTCRtpReceiverDelegate())
+RTCRtpReceiver::RTCRtpReceiver(MediaStreamTrackKind kind, RTCDtlsTransport ^ transport) :
+  mNativeDelegatePointer(new RTCRtpReceiverDelegate())
 {
 	if (!transport)
 	{
@@ -24,11 +25,11 @@ RTCRtpReceiver::RTCRtpReceiver(RTCDtlsTransport ^ transport) : mNativeDelegatePo
 	if (FetchNativePointer::FromDtlsTransport(transport)) // add mediaStreamTrack too
 	{
 		mNativeDelegatePointer->SetOwnerObject(this);
-		mNativePointer = IRtpReceiver::create(mNativeDelegatePointer, FetchNativePointer::FromDtlsTransport(transport));
+		mNativePointer = IRtpReceiver::create(mNativeDelegatePointer, internal::ConvertEnums::convert(kind), FetchNativePointer::FromDtlsTransport(transport));
 	}
 }
 
-RTCRtpReceiver::RTCRtpReceiver(RTCDtlsTransport ^ transport, RTCDtlsTransport^ rtcpTransport)
+RTCRtpReceiver::RTCRtpReceiver(MediaStreamTrackKind kind, RTCDtlsTransport ^ transport, RTCDtlsTransport^ rtcpTransport)
 {
 	if (!transport && !rtcpTransport)
 	{
@@ -38,7 +39,7 @@ RTCRtpReceiver::RTCRtpReceiver(RTCDtlsTransport ^ transport, RTCDtlsTransport^ r
 	if (FetchNativePointer::FromDtlsTransport(transport) && FetchNativePointer::FromDtlsTransport(rtcpTransport)) // add mediaStreamTrack too
 	{
 		mNativeDelegatePointer->SetOwnerObject(this);
-		mNativePointer = IRtpReceiver::create(mNativeDelegatePointer, FetchNativePointer::FromDtlsTransport(transport), FetchNativePointer::FromDtlsTransport(rtcpTransport));
+		mNativePointer = IRtpReceiver::create(mNativeDelegatePointer, internal::ConvertEnums::convert(kind), FetchNativePointer::FromDtlsTransport(transport), FetchNativePointer::FromDtlsTransport(rtcpTransport));
 	}
 }
 
