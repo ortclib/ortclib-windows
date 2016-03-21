@@ -81,8 +81,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zsLibTest.Windows.Universal
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ortc-wrapper", "ortc-wrapper", "{13282AB3-48CB-4CDC-8938-4FE5FECC4AF9}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ortc-wrapper.Shared", "api\ortc-wrapper\ortc-wrapper.Shared\ortc-wrapper.Shared.shproj", "{0A3C4D1F-04DC-4331-A3A2-19FF43C7DD4B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ortc-wrapper.Windows.Universal", "api\ortc-wrapper\ortc-wrapper.Windows.Universal\ortc-wrapper.Windows.Universal.csproj", "{7D09A933-37B7-4192-AC97-F88D139B70CD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ChaterBox", "ChaterBox", "{EDDC2DFC-F315-4FBE-AB28-8A73391A8468}"
@@ -125,9 +123,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "org.ortc", "api\org.ortc\or
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "org.ortc.Shared", "..\api\org.ortc\org.ortc.Shared\org.ortc.Shared.vcxitems", "{747B7F0D-D2AF-4F70-9578-334DCC8A6FEE}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortc-standup.Shared", "..\samples\ortc-standup\ortc-standup.Shared\ortc-standup.Shared.vcxitems", "{196F4E37-9186-4991-99D3-67F5E1F012B6}"
+EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ortc-api-test.Shared", "..\samples\ortc-api-test\ortc-api-test.Shared\ortc-api-test.Shared.shproj", "{68A80FDA-4C2D-4A4D-8394-883F324E0BD4}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortc-standup.Shared", "..\samples\ortc-standup\ortc-standup.Shared\ortc-standup.Shared.vcxitems", "{196F4E37-9186-4991-99D3-67F5E1F012B6}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ortc-wrapper.Shared", "..\api\org.ortc.adapter.cs\ortc-wrapper.Shared\ortc-wrapper.Shared.shproj", "{0A3C4D1F-04DC-4331-A3A2-19FF43C7DD4B}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -138,12 +138,12 @@ Global
 		..\..\libs\op-services-cpp\projects\msvs\hfservices\hfservices.Shared\hfservices.Shared.vcxitems*{6ccc9220-9334-4601-821d-5f55bc397003}*SharedItemsImports = 4
 		..\api\org.ortc\org.ortc.Shared\org.ortc.Shared.vcxitems*{f12c67f3-12a0-4532-bdde-4be043dbc140}*SharedItemsImports = 4
 		..\samples\ortc-api-test\ortc-api-test.Shared\ortc-api-test.Shared.projitems*{68a80fda-4c2d-4a4d-8394-883f324e0bd4}*SharedItemsImports = 13
-		api\ortc-wrapper\ortc-wrapper.Shared\ortc-wrapper.Shared.projitems*{7d09a933-37b7-4192-ac97-f88d139b70cd}*SharedItemsImports = 4
+		..\api\org.ortc.adapter.cs\ortc-wrapper.Shared\ortc-wrapper.Shared.projitems*{7d09a933-37b7-4192-ac97-f88d139b70cd}*SharedItemsImports = 4
 		..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems*{73373db6-8059-4671-acbd-47219a769922}*SharedItemsImports = 9
 		..\..\samples\ChatterBox\ChatterBox.Common.Communication.Shared\ChatterBox.Common.Communication.Shared.projitems*{2093a3a2-0046-49eb-9e30-9e29d517606c}*SharedItemsImports = 13
 		..\..\samples\ChatterBox\ChatterBox.Common.Communication.Shared\ChatterBox.Common.Communication.Shared.projitems*{6feb923e-1234-4711-a3c2-b976c3aac70d}*SharedItemsImports = 4
-		..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortclibTest.Shared\ortclibTest.Shared.vcxitems*{d9b5ee71-1e35-4d73-bde5-0f7a5caa9e00}*SharedItemsImports = 4
 		..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems*{d9b5ee71-1e35-4d73-bde5-0f7a5caa9e00}*SharedItemsImports = 4
+		..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortclibTest.Shared\ortclibTest.Shared.vcxitems*{d9b5ee71-1e35-4d73-bde5-0f7a5caa9e00}*SharedItemsImports = 4
 		..\..\libs\idnkit\projects\msvs\idnkit\idnkit.Shared\idnkit.Shared.vcxitems*{0b940009-c54f-4932-8d03-03141dcc9a50}*SharedItemsImports = 4
 		..\..\libs\cryptopp\projects\msvs\cryptopp\cryptopp.Shared\cryptopp.Shared.vcxitems*{9b7e08b7-f3eb-418e-b69f-8a655ff913fa}*SharedItemsImports = 4
 		..\..\libs\idnkit\projects\msvs\idnkit\idnkit.Shared\idnkit.Shared.vcxitems*{de21ecb4-5a23-43b0-8313-6cd7bf6e3b37}*SharedItemsImports = 9
@@ -156,7 +156,7 @@ Global
 		..\..\samples\ChatterBox\ChatterBox.Common.Communication.Shared\ChatterBox.Common.Communication.Shared.projitems*{5ee2034e-0977-42b0-8f9d-5f65bdaccff4}*SharedItemsImports = 4
 		..\samples\ortc-api-test\ortc-api-test.Shared\ortc-api-test.Shared.projitems*{a4e8544e-50c9-4384-8763-ff55d3f39b8b}*SharedItemsImports = 4
 		..\..\samples\ChatterBox\ChatterBox.Client.Voip\ChatterBox.Client.Voip.projitems*{626bee3a-eb2f-415f-9e30-9aaf6b9c430a}*SharedItemsImports = 4
-		api\ortc-wrapper\ortc-wrapper.Shared\ortc-wrapper.Shared.projitems*{0a3c4d1f-04dc-4331-a3a2-19ff43c7dd4b}*SharedItemsImports = 13
+		..\api\org.ortc.adapter.cs\ortc-wrapper.Shared\ortc-wrapper.Shared.projitems*{0a3c4d1f-04dc-4331-a3a2-19ff43c7dd4b}*SharedItemsImports = 13
 		..\..\libs\op-services-cpp\projects\msvs\hfservices\hfservices.Shared\hfservices.Shared.vcxitems*{b510e402-e901-4cf0-9073-76984ac9fdc7}*SharedItemsImports = 9
 		..\..\libs\op-services-cpp\projects\msvs\hfservices\hfservicesTest.Shared\hfservicesTest.Shared.vcxitems*{4bb8ae83-85cb-4654-966f-e29b7543b262}*SharedItemsImports = 4
 		..\..\libs\zsLib\projects\msvs\zsLib\zsLib.Shared\zsLib.Shared.vcxitems*{aa3e6a72-1080-4430-9921-8eba6652ba3a}*SharedItemsImports = 9
@@ -534,7 +534,6 @@ Global
 		{4BB8AE83-85CB-4654-966F-E29B7543B262} = {2BE9ACDB-8219-4A0C-AB73-BD5A7B5BE7C4}
 		{753F1936-D5E5-4F37-8A65-537D06F0C8D2} = {2E835D6D-A406-47C0-BD6B-A6B4ABE95B5C}
 		{13282AB3-48CB-4CDC-8938-4FE5FECC4AF9} = {0732A704-D869-4D52-9814-E36F8F2F8086}
-		{0A3C4D1F-04DC-4331-A3A2-19FF43C7DD4B} = {13282AB3-48CB-4CDC-8938-4FE5FECC4AF9}
 		{7D09A933-37B7-4192-AC97-F88D139B70CD} = {13282AB3-48CB-4CDC-8938-4FE5FECC4AF9}
 		{EDDC2DFC-F315-4FBE-AB28-8A73391A8468} = {9E10CFE8-14EF-4F71-94F6-0D07EEF82F64}
 		{4497E847-8611-4545-BDBE-CE9744C7013C} = {3D2F20A3-B8C1-4FC9-9AAD-193DFC9353D1}
@@ -556,7 +555,8 @@ Global
 		{2BB5AE34-ADE0-4FBB-A0AF-068D85BB7963} = {EDDC2DFC-F315-4FBE-AB28-8A73391A8468}
 		{F12C67F3-12A0-4532-BDDE-4BE043DBC140} = {61920230-15AC-49CE-92FB-49C19476261B}
 		{747B7F0D-D2AF-4F70-9578-334DCC8A6FEE} = {61920230-15AC-49CE-92FB-49C19476261B}
-		{68A80FDA-4C2D-4A4D-8394-883F324E0BD4} = {3D92D92F-CBBC-4152-AAFF-FD4D400DEB37}
 		{196F4E37-9186-4991-99D3-67F5E1F012B6} = {A326F21A-98A2-492E-B804-BEB423C93B31}
+		{68A80FDA-4C2D-4A4D-8394-883F324E0BD4} = {3D92D92F-CBBC-4152-AAFF-FD4D400DEB37}
+		{0A3C4D1F-04DC-4331-A3A2-19FF43C7DD4B} = {13282AB3-48CB-4CDC-8938-4FE5FECC4AF9}
 	EndGlobalSection
 EndGlobal
