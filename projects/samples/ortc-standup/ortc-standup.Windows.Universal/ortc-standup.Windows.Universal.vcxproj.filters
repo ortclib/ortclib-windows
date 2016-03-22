@@ -11,10 +11,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainPage.xaml.cpp" />
-    <ClCompile Include="pch.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h" />
     <ClInclude Include="MainPage.xaml.h" />
   </ItemGroup>
   <ItemGroup>

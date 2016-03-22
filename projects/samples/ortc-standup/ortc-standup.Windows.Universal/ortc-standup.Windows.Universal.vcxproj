@@ -134,8 +134,12 @@
       <PreprocessorDefinitions>WIN32;WINRT;WEBRTC_WIN;_UNICODE;UNICODE;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;NOMINMAX;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>kernel32.lib;WindowsApp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>webrtc.lib;kernel32.lib;WindowsApp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\libs\webrtc\WEBRTC_BUILD\$(Configuration)\$(PlatformTarget)</AdditionalLibraryDirectories>
     </Link>
+    <PreBuildEvent>
+      <Command>call "$(SolutionDir)..\..\bin\buildWebRTC.bat"  "$(SolutionDir)..\..\libs\webrtc\webrtcForOrtc.vs2015.sln" $(Configuration) $(PlatformTarget)</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
     <ClCompile>
@@ -145,8 +149,12 @@
       <PreprocessorDefinitions>WIN32;WINRT;WEBRTC_WIN;_UNICODE;UNICODE;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;NOMINMAX;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>kernel32.lib;WindowsApp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>webrtc.lib;kernel32.lib;WindowsApp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\libs\webrtc\WEBRTC_BUILD\$(Configuration)\$(PlatformTarget)</AdditionalLibraryDirectories>
     </Link>
+    <PreBuildEvent>
+      <Command>call "$(SolutionDir)..\..\bin\buildWebRTC.bat"  "$(SolutionDir)..\..\libs\webrtc\webrtcForOrtc.vs2015.sln" $(Configuration) $(PlatformTarget)</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -156,8 +164,12 @@
       <PreprocessorDefinitions>_UNICODE;UNICODE;WIN32;WINRT;WEBRTC_WIN;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>kernel32.lib;mfplat.lib;mfuuid.lib;Ws2_32.lib;WindowsApp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>webrtc.lib;kernel32.lib;mfplat.lib;mfuuid.lib;Ws2_32.lib;WindowsApp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\libs\webrtc\WEBRTC_BUILD\$(Configuration)\$(PlatformTarget)</AdditionalLibraryDirectories>
     </Link>
+    <PreBuildEvent>
+      <Command>call "$(SolutionDir)..\..\bin\buildWebRTC.bat"  "$(SolutionDir)..\..\libs\webrtc\webrtcForOrtc.vs2015.sln" $(Configuration) $(PlatformTarget)</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -167,8 +179,12 @@
       <PreprocessorDefinitions>WIN32;WINRT;WEBRTC_WIN;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>kernel32.lib;mfplat.lib;mfuuid.lib;Ws2_32.lib;kernel32.lib;WindowsApp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>webrtc.lib;kernel32.lib;mfplat.lib;mfuuid.lib;Ws2_32.lib;kernel32.lib;WindowsApp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\libs\webrtc\WEBRTC_BUILD\$(Configuration)\$(PlatformTarget)</AdditionalLibraryDirectories>
     </Link>
+    <PreBuildEvent>
+      <Command>call "$(SolutionDir)..\..\bin\buildWebRTC.bat"  "$(SolutionDir)..\..\libs\webrtc\webrtcForOrtc.vs2015.sln" $(Configuration) $(PlatformTarget)</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -179,11 +195,11 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>kernel32.lib;WindowsApp.lib;dxguid.lib;MinCore.lib;webrtc_vp9.lib;webrtc_vp8.lib;webrtc_video_coding.lib;webrtc_utility.lib;webrtc_opus.lib;webrtc_i420.lib;webrtc_h264.lib;webrtc_common.lib;webrtc.lib;voice_engine.lib;video_render_module_internal_impl.lib;video_render_module.lib;video_processing_sse2.lib;video_processing.lib;video_coding_utility.lib;video_capture_module_internal_impl.lib;video_capture_module.lib;usrsctplib.lib;system_wrappers.lib;rtp_rtcp.lib;rtc_event_log_proto.lib;rtc_event_log.lib;rtc_base_approved.lib;rtc_base.lib;rent_a_codec.lib;remote_bitrate_estimator.lib;red.lib;protobuf_lite.lib;protobuf_full_do_not_use.lib;pcm16b.lib;paced_sender.lib;opus.lib;openmax_dl.lib;neteq.lib;metrics_default.lib;media_file.lib;libyuv.lib;libvpx_new.lib;libvpx_intrinsics_ssse3.lib;libvpx_intrinsics_sse4_1.lib;libvpx_intrinsics_sse2.lib;libvpx_intrinsics_mmx.lib;libvpx_intrinsics_avx2.lib;libsrtp.lib;libjpeg.lib;jsoncpp.lib;isac_fix.lib;isac_common.lib;isac.lib;ilbc.lib;gtest.lib;g722.lib;g711.lib;field_trial_default.lib;field_trial.lib;common_video.lib;common_audio_sse2.lib;common_audio.lib;cng.lib;boringssl.lib;bitrate_controller.lib;audioproc_debug_proto.lib;audio_processing_sse2.lib;audio_processing.lib;audio_encoder_interface.lib;audio_device.lib;audio_decoder_interface.lib;audio_conference_mixer.lib;audio_coding_module.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\..\libs\webrtc\build\$(Configuration);$(SolutionDir)..\..\libs\webrtc\build\$(Configuration)\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>webrtc.lib;kernel32.lib;mfplat.lib;mfuuid.lib;Ws2_32.lib;WindowsApp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\libs\webrtc\WEBRTC_BUILD\$(Configuration)\$(PlatformTarget)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
-      <Command>call "$(SolutionDir)..\..\bin\buildWebRTC.bat"  "$(SolutionDir)..\..\libs\webrtc\webrtcForOrtc.vs2015.sln" Release x64</Command>
+      <Command>call "$(SolutionDir)..\..\bin\buildWebRTC.bat"  "$(SolutionDir)..\..\libs\webrtc\webrtcForOrtc.vs2015.sln" $(Configuration) $(PlatformTarget)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -194,15 +210,14 @@
       <PreprocessorDefinitions>_UNICODE;UNICODE;WIN32;WINRT;WEBRTC_WIN;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>kernel32.lib;WindowsApp.lib;dxguid.lib;MinCore.lib;webrtc_vp9.lib;webrtc_vp8.lib;webrtc_video_coding.lib;webrtc_utility.lib;webrtc_opus.lib;webrtc_i420.lib;webrtc_h264.lib;webrtc_common.lib;webrtc.lib;voice_engine.lib;video_render_module_internal_impl.lib;video_render_module.lib;video_processing_sse2.lib;video_processing.lib;video_coding_utility.lib;video_capture_module_internal_impl.lib;video_capture_module.lib;usrsctplib.lib;system_wrappers.lib;rtp_rtcp.lib;rtc_event_log_proto.lib;rtc_event_log.lib;rtc_base_approved.lib;rtc_base.lib;rent_a_codec.lib;remote_bitrate_estimator.lib;red.lib;protobuf_lite.lib;protobuf_full_do_not_use.lib;pcm16b.lib;paced_sender.lib;opus.lib;openmax_dl.lib;neteq.lib;metrics_default.lib;media_file.lib;libyuv.lib;libvpx_new.lib;libvpx_intrinsics_ssse3.lib;libvpx_intrinsics_sse4_1.lib;libvpx_intrinsics_sse2.lib;libvpx_intrinsics_mmx.lib;libvpx_intrinsics_avx2.lib;libsrtp.lib;libjpeg.lib;jsoncpp.lib;isac_fix.lib;isac_common.lib;isac.lib;ilbc.lib;gtest.lib;g722.lib;g711.lib;field_trial_default.lib;field_trial.lib;common_video.lib;common_audio_sse2.lib;common_audio.lib;cng.lib;boringssl.lib;bitrate_controller.lib;audioproc_debug_proto.lib;audio_processing_sse2.lib;audio_processing.lib;audio_encoder_interface.lib;audio_device.lib;audio_decoder_interface.lib;audio_conference_mixer.lib;audio_coding_module.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\..\libs\webrtc\build\$(Configuration);$(SolutionDir)..\..\libs\webrtc\build\$(Configuration)\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>webrtc.lib;kernel32.lib;WindowsApp.lib;dxguid.lib;MinCore.lib;webrtc_vp9.lib;webrtc_vp8.lib;webrtc_video_coding.lib;webrtc_utility.lib;webrtc_opus.lib;webrtc_i420.lib;webrtc_h264.lib;webrtc_common.lib;webrtc.lib;voice_engine.lib;video_render_module_internal_impl.lib;video_render_module.lib;video_processing_sse2.lib;video_processing.lib;video_coding_utility.lib;video_capture_module_internal_impl.lib;video_capture_module.lib;usrsctplib.lib;system_wrappers.lib;rtp_rtcp.lib;rtc_event_log_proto.lib;rtc_event_log.lib;rtc_base_approved.lib;rtc_base.lib;rent_a_codec.lib;remote_bitrate_estimator.lib;red.lib;protobuf_lite.lib;protobuf_full_do_not_use.lib;pcm16b.lib;paced_sender.lib;opus.lib;openmax_dl.lib;neteq.lib;metrics_default.lib;media_file.lib;libyuv.lib;libvpx_new.lib;libvpx_intrinsics_ssse3.lib;libvpx_intrinsics_sse4_1.lib;libvpx_intrinsics_sse2.lib;libvpx_intrinsics_mmx.lib;libvpx_intrinsics_avx2.lib;libsrtp.lib;libjpeg.lib;jsoncpp.lib;isac_fix.lib;isac_common.lib;isac.lib;ilbc.lib;gtest.lib;g722.lib;g711.lib;field_trial_default.lib;field_trial.lib;common_video.lib;common_audio_sse2.lib;common_audio.lib;cng.lib;boringssl.lib;bitrate_controller.lib;audioproc_debug_proto.lib;audio_processing_sse2.lib;audio_processing.lib;audio_encoder_interface.lib;audio_device.lib;audio_decoder_interface.lib;audio_conference_mixer.lib;audio_coding_module.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\libs\webrtc\WEBRTC_BUILD\$(Configuration)\$(PlatformTarget)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
-      <Command>call "$(SolutionDir)..\..\bin\buildWebRTC.bat"  "$(SolutionDir)..\..\libs\webrtc\webrtcForOrtc.vs2015.sln" Release x64</Command>
+      <Command>call "$(SolutionDir)..\..\bin\buildWebRTC.bat"  "$(SolutionDir)..\..\libs\webrtc\webrtcForOrtc.vs2015.sln" $(Configuration) $(PlatformTarget)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h" />
     <ClInclude Include="MainPage.xaml.h">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </ClInclude>
@@ -231,14 +246,6 @@
     <ClCompile Include="MainPage.xaml.cpp">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </ClCompile>
-    <ClCompile Include="pch.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\libs\cryptopp\projects\msvs\cryptopp\cryptopp.Windows.Universal\cryptopp.Windows.Universal.vcxproj">
@@ -265,11 +272,6 @@
     <ProjectReference Include="..\..\..\..\..\libs\zsLib\projects\msvs\zsLib\zsLib.Windows.Universal\zsLib.Windows.Universal.vcxproj">
       <Project>{e7265f01-f993-44f6-889c-24a62ab171a0}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <SDKReference Include="Microsoft.NET.Native.Runtime.1.1, Version=1.1" />
-    <SDKReference Include="Microsoft.UniversalCRT.Debug, Version=10.0.10586.0" />
-    <SDKReference Include="Microsoft.VCLibs.120, Version=14.0" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
