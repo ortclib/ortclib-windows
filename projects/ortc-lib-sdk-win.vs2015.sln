@@ -129,6 +129,10 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ortc-api-test.Shared", "..\
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ortc-wrapper.Shared", "..\api\org.ortc.adapter.cs\ortc-wrapper.Shared\ortc-wrapper.Shared.shproj", "{0A3C4D1F-04DC-4331-A3A2-19FF43C7DD4B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ortc-device-enumerator", "ortc-device-enumerator", "{3B84FF10-991A-43BE-B74D-775F3339CBB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ortc-device-enumerator.Windows.Universal", "samples\ortc-device-enumerator\ortc-device-enumerator.Windows.Universal\ortc-device-enumerator.Windows.Universal.csproj", "{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		..\..\libs\udns\projects\msvs\udns\udns.Shared\udns.Shared.vcxitems*{577f12ab-3473-4a93-8ee4-eeed2ce5dc61}*SharedItemsImports = 4
@@ -142,8 +146,8 @@ Global
 		..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems*{73373db6-8059-4671-acbd-47219a769922}*SharedItemsImports = 9
 		..\..\samples\ChatterBox\ChatterBox.Common.Communication.Shared\ChatterBox.Common.Communication.Shared.projitems*{2093a3a2-0046-49eb-9e30-9e29d517606c}*SharedItemsImports = 13
 		..\..\samples\ChatterBox\ChatterBox.Common.Communication.Shared\ChatterBox.Common.Communication.Shared.projitems*{6feb923e-1234-4711-a3c2-b976c3aac70d}*SharedItemsImports = 4
-		..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems*{d9b5ee71-1e35-4d73-bde5-0f7a5caa9e00}*SharedItemsImports = 4
 		..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortclibTest.Shared\ortclibTest.Shared.vcxitems*{d9b5ee71-1e35-4d73-bde5-0f7a5caa9e00}*SharedItemsImports = 4
+		..\..\libs\ortc-lib\projects\msvs\ortc-lib\ortclibTest.Shared\ortclibTestUnitTests.vcxitems*{d9b5ee71-1e35-4d73-bde5-0f7a5caa9e00}*SharedItemsImports = 4
 		..\..\libs\idnkit\projects\msvs\idnkit\idnkit.Shared\idnkit.Shared.vcxitems*{0b940009-c54f-4932-8d03-03141dcc9a50}*SharedItemsImports = 4
 		..\..\libs\cryptopp\projects\msvs\cryptopp\cryptopp.Shared\cryptopp.Shared.vcxitems*{9b7e08b7-f3eb-418e-b69f-8a655ff913fa}*SharedItemsImports = 4
 		..\..\libs\idnkit\projects\msvs\idnkit\idnkit.Shared\idnkit.Shared.vcxitems*{de21ecb4-5a23-43b0-8313-6cd7bf6e3b37}*SharedItemsImports = 9
@@ -498,6 +502,24 @@ Global
 		{F12C67F3-12A0-4532-BDDE-4BE043DBC140}.Release|x64.Build.0 = Release|x64
 		{F12C67F3-12A0-4532-BDDE-4BE043DBC140}.Release|x86.ActiveCfg = Release|Win32
 		{F12C67F3-12A0-4532-BDDE-4BE043DBC140}.Release|x86.Build.0 = Release|Win32
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Debug|ARM.ActiveCfg = Debug|ARM
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Debug|ARM.Build.0 = Debug|ARM
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Debug|ARM.Deploy.0 = Debug|ARM
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Debug|x64.ActiveCfg = Debug|x64
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Debug|x64.Build.0 = Debug|x64
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Debug|x64.Deploy.0 = Debug|x64
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Debug|x86.ActiveCfg = Debug|x86
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Debug|x86.Build.0 = Debug|x86
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Debug|x86.Deploy.0 = Debug|x86
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Release|ARM.ActiveCfg = Release|ARM
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Release|ARM.Build.0 = Release|ARM
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Release|ARM.Deploy.0 = Release|ARM
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Release|x64.ActiveCfg = Release|x64
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Release|x64.Build.0 = Release|x64
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Release|x64.Deploy.0 = Release|x64
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Release|x86.ActiveCfg = Release|x86
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Release|x86.Build.0 = Release|x86
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -558,5 +580,7 @@ Global
 		{196F4E37-9186-4991-99D3-67F5E1F012B6} = {A326F21A-98A2-492E-B804-BEB423C93B31}
 		{68A80FDA-4C2D-4A4D-8394-883F324E0BD4} = {3D92D92F-CBBC-4152-AAFF-FD4D400DEB37}
 		{0A3C4D1F-04DC-4331-A3A2-19FF43C7DD4B} = {13282AB3-48CB-4CDC-8938-4FE5FECC4AF9}
+		{3B84FF10-991A-43BE-B74D-775F3339CBB1} = {9E10CFE8-14EF-4F71-94F6-0D07EEF82F64}
+		{F01B0CBC-AF8C-4A20-8185-23F54E5C3477} = {3B84FF10-991A-43BE-B74D-775F3339CBB1}
 	EndGlobalSection
 EndGlobal
