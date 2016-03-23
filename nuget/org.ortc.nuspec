@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/01/nuspec.xsd">
+    <metadata minClientVersion="2.5">
+        <id>org.ortc</id>
+        <version>1.0.3</version>
+        <authors>Hookflash</authors>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>org.Ortc is a ORTC WinRT library.</description>
+    </metadata>
+    <files>
+        <file src="lib\uap10.0\org.ortc.winmd" target="lib\uap10.0\org.ortc.winmd" />
+        <file src="runtimes\win10-x86\native\org.ortc.dll" target="runtimes\win10-x86\native\org.ortc.dll" />
+        <file src="runtimes\win10-x64\native\org.ortc.dll" target="runtimes\win10-x64\native\org.ortc.dll" />
+        <file src="runtimes\win10-arm\native\org.ortc.dll" target="runtimes\win10-arm\native\org.ortc.dll" />
+        <file src="build\native\org.ortc.targets" target="build\native\org.ortc.targets" />
+    </files>
+</package>

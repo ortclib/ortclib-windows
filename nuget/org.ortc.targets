@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <ORTC-Platform Condition="'$(Platform)' == 'Win32'">x86</ORTC-Platform>
+    <ORTC-Platform Condition="'$(Platform)' != 'Win32'">$(Platform)</ORTC-Platform>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(TargetPlatformIdentifier)' == 'UAP'">
+      <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\uap10.0\org.ortc.winmd">
+        <Implementation>org.ortc</Implementation>
+      </Reference>
+      <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-$(ORTC-Platform)\native\org.ortc.dll" />
+  </ItemGroup>
+</Project>
