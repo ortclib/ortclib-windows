@@ -381,14 +381,14 @@ namespace org
 
                     if (containsAudio)
                     {
-                        audioReceiver = new RTCRtpReceiver(dtlsTransport);
+                        audioReceiver = new RTCRtpReceiver(MediaStreamTrackKind.Audio, dtlsTransport);
                         var audioParams = Helper.CapabilitiesToParameters("a", audioSenderCaps);
                         audioReceiver.Receive(audioParams);
                     }
 
                     if (containsVideo)
                     {
-                        videoReceiver = new RTCRtpReceiver(dtlsTransport);
+                        videoReceiver = new RTCRtpReceiver(MediaStreamTrackKind.Video, dtlsTransport);
                         var videoParams = Helper.CapabilitiesToParameters("v", audioSenderCaps);
                         videoReceiver.Receive(videoParams);
                     }

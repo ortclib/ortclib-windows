@@ -98,8 +98,8 @@ namespace org
     private:
       RTCRtpReceiver();
     public:
-      RTCRtpReceiver(RTCDtlsTransport^ transport);
-      RTCRtpReceiver(RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
+      RTCRtpReceiver(MediaStreamTrackKind kind, RTCDtlsTransport^ transport);
+      RTCRtpReceiver(MediaStreamTrackKind kind, RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
 
       void SetTransport(RTCDtlsTransport^ transport);
       void SetTransport(RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
