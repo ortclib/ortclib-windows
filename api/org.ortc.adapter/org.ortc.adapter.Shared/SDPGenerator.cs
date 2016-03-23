@@ -280,7 +280,7 @@ namespace org
                             sb.Append("a=ssrc:");
                             sb.Append(ssrcId);
                             sb.Append(' ');
-                            sb.Append("cname: ");
+                            sb.Append("cname:");
                             sb.Append(cnameSSRC);
                             sb.Append("\r\n");
 
@@ -288,7 +288,7 @@ namespace org
                             sb.Append("a=ssrc:");
                             sb.Append(ssrcId);
                             sb.Append(' ');
-                            sb.Append("msid: ");
+                            sb.Append("msid:");
                             sb.Append(streamId);
                             sb.Append(' ');
                             sb.Append(audioSSRCLabel);
@@ -297,14 +297,14 @@ namespace org
                             sb.Append("a=ssrc:");
                             sb.Append(ssrcId);
                             sb.Append(' ');
-                            sb.Append("mslabel: ");
+                            sb.Append("mslabel:");
                             sb.Append(streamId);
                             sb.Append("\r\n");
                             //a = ssrc:3063731557 label: audio_label_3ea802dc
                             sb.Append("a=ssrc:");
                             sb.Append(ssrcId);
                             sb.Append(' ');
-                            sb.Append("label: ");
+                            sb.Append("label:");
                             sb.Append(audioSSRCLabel);
                             sb.Append("\r\n");
                         }

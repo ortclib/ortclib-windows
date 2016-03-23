@@ -29,13 +29,13 @@ namespace org
 
                 private bool _installedIceEvents;
 
-                private RTCRtpSender audioSender { get; set; }
-                private RTCRtpSender videoSender { get; set; }
-                private RTCRtpReceiver audioReceiver { get; set; }
-                private RTCRtpReceiver videoReceiver { get; set; }
-                private MediaDevice audioPlaybackDevice { get; set; }
+                private RTCRtpSender AudioSender { get; set; }
+                private RTCRtpSender VideoSender { get; set; }
+                private RTCRtpReceiver AudioReceiver { get; set; }
+                private RTCRtpReceiver VideoReceiver { get; set; }
+                private MediaDevice AudioPlaybackDevice { get; set; }
 
-                private MediaStream localStream { get; set; }
+                private MediaStream LocalStream { get; set; }
                 private MediaStream remoteStream { get; set; }
 
                 private RTCIceGatherOptions options { get; set; }
@@ -126,7 +126,7 @@ namespace org
                 /// <param name="stream"><see cref="MediaStream"/> to be added.</param>
                 public void AddStream(MediaStream stream)
                 {
-                    localStream = stream;
+                    LocalStream = stream;
                 }
 
                 public void Close()
@@ -160,10 +160,10 @@ namespace org
                 {
                     StringBuilder sb = new StringBuilder();
 
-                    Boolean containsAudio = (localStream.GetAudioTracks() != null) &&
-                                            localStream.GetAudioTracks().Count > 0;
-                    Boolean containsVideo = (localStream.GetVideoTracks() != null) &&
-                                            localStream.GetVideoTracks().Count > 0;
+                    Boolean containsAudio = (LocalStream.GetAudioTracks() != null) &&
+                                            LocalStream.GetAudioTracks().Count > 0;
+                    Boolean containsVideo = (LocalStream.GetVideoTracks() != null) &&
+                                            LocalStream.GetVideoTracks().Count > 0;
 
                     //------------- Global lines START -------------
                     //v=0
@@ -173,7 +173,7 @@ namespace org
 
 
                     //o=- 1045717134763489491 2 IN IP4 127.0.0.1
-                    sb.Append("o=-");
+                    sb.Append("o=- ");
                     sb.Append(sessionID);
                     sb.Append(' ');
                     sb.Append(sessionVersion);
@@ -217,7 +217,7 @@ namespace org
                     sb.Append(' ');
                     sb.Append("WMS");
                     sb.Append(' ');
-                    sb.Append(localStream.Id);
+                    sb.Append(LocalStream.Id);
                     sb.Append("\r\n");
                     //------------- Global lines END -------------
 
@@ -243,7 +243,7 @@ namespace org
                         if (audioCapabilities != null)
                         {
                             string mediaLine = SDPGenerator.GenerateMediaSDP("audio", audioCapabilities, iceGatherer,
-                                dtlsTransport, "0.0.0.0", listOfSsrcIds, cnameSSRC, audioSSRCLabel, localStream.Id);
+                                dtlsTransport, "0.0.0.0", listOfSsrcIds, cnameSSRC, audioSSRCLabel, LocalStream.Id);
 
                             if (!string.IsNullOrEmpty(mediaLine))
                                 sb.Append(mediaLine);
@@ -259,7 +259,7 @@ namespace org
                         if (videoCapabilities != null)
                         {
                             string mediaLine = SDPGenerator.GenerateMediaSDP("video", videoCapabilities, iceGatherer,
-                                dtlsTransport, "0.0.0.0", listOfSsrcIds, cnameSSRC, videoSSRCLabel, localStream.Id);
+                                dtlsTransport, "0.0.0.0", listOfSsrcIds, cnameSSRC, videoSSRCLabel, LocalStream.Id);
 
                             if (!string.IsNullOrEmpty(mediaLine))
                                 sb.Append(mediaLine);
@@ -374,23 +374,23 @@ namespace org
 
                 private void PrepareReceiver()
                 {
-                    Boolean containsAudio = (localStream.GetAudioTracks() != null) &&
-                                            localStream.GetAudioTracks().Count > 0;
-                    Boolean containsVideo = (localStream.GetVideoTracks() != null) &&
-                                            localStream.GetVideoTracks().Count > 0;
+                    Boolean containsAudio = (LocalStream.GetAudioTracks() != null) &&
+                                            LocalStream.GetAudioTracks().Count > 0;
+                    Boolean containsVideo = (LocalStream.GetVideoTracks() != null) &&
+                                            LocalStream.GetVideoTracks().Count > 0;
 
                     if (containsAudio)
                     {
-                        audioReceiver = new RTCRtpReceiver(dtlsTransport);
+                        AudioReceiver = new RTCRtpReceiver(dtlsTransport);
                         var audioParams = Helper.CapabilitiesToParameters("a", audioSenderCaps);
-                        audioReceiver.Receive(audioParams);
+                        AudioReceiver.Receive(audioParams);
                     }
 
                     if (containsVideo)
                     {
-                        videoReceiver = new RTCRtpReceiver(dtlsTransport);
+                        VideoReceiver = new RTCRtpReceiver(dtlsTransport);
                         var videoParams = Helper.CapabilitiesToParameters("v", audioSenderCaps);
-                        videoReceiver.Receive(videoParams);
+                        VideoReceiver.Receive(videoParams);
                     }
                 }
 
