@@ -150,126 +150,7 @@ namespace org
                 }
 
                 
-
-                void parseSDP(string sdp)
-                {
-
-                }
-
-                /*string createSDP()
-                {
-                    StringBuilder sb = new StringBuilder();
-
-                    Boolean containsAudio = (LocalStream.GetAudioTracks() != null) &&
-                                            LocalStream.GetAudioTracks().Count > 0;
-                    Boolean containsVideo = (LocalStream.GetVideoTracks() != null) &&
-                                            LocalStream.GetVideoTracks().Count > 0;
-
-                    //------------- Global lines START -------------
-                    //v=0
-                    sb.Append("v=");
-                    sb.Append(0);
-                    sb.Append("\r\n");
-
-
-                    //o=- 1045717134763489491 2 IN IP4 127.0.0.1
-                    sb.Append("o=- ");
-                    sb.Append(SessionId);
-                    sb.Append(' ');
-                    sb.Append(SessionVersion);
-                    sb.Append(' ');
-                    sb.Append("IN");
-                    sb.Append(' ');
-                    sb.Append("IP4");
-                    sb.Append(' ');
-                    sb.Append("127.0.0.1");
-                    sb.Append("\r\n");
-
-                    //s=-
-                    sb.Append("s=");
-                    sb.Append("-");
-                    sb.Append("\r\n");
-
-                    //t=0 0
-                    sb.Append("t=");
-                    sb.Append(0);
-                    sb.Append(' ');
-                    sb.Append(0);
-                    sb.Append("\r\n");
-
-                    //a=group:BUNDLE audio video
-                    sb.Append("a=");
-                    sb.Append("group:BUNDLE");
-                    sb.Append(' ');
-                    if (containsAudio)
-                    {
-                        sb.Append("audio");
-                        sb.Append(' ');
-                    }
-                    if (containsVideo)
-                        sb.Append("video");
-
-                    sb.Append("\r\n");
-
-                    //a=msid-semantic: WMS stream_label_ce8753d3
-                    sb.Append("a=");
-                    sb.Append("msid-semantic:");
-                    sb.Append(' ');
-                    sb.Append("WMS");
-                    sb.Append(' ');
-                    sb.Append(LocalStream.Id);
-                    sb.Append("\r\n");
-                    //------------- Global lines END -------------
-
-                    //IList<MediaAudioTrack>  audioTracks = localStream.GetAudioTracks();
-
-                    List<UInt32> listOfSsrcIds = new List<UInt32>();
-                    if (_ssrcId == 0)
-                    {
-                        _ssrcId = (UInt32) Guid.NewGuid().GetHashCode();
-                        listOfSsrcIds.Add(_ssrcId);
-                    }
-                    if (cnameSSRC == null)
-                        cnameSSRC = Guid.NewGuid().ToString();
-
-                    //------------- Media lines START -------------
-                    //m = audio 9 UDP / TLS / RTP / SAVPF 111 103 104 9 102 0 8 106 105 13 127 126
-                    if (containsAudio)
-                    {
-                        if (audioSSRCLabel == null)
-                            audioSSRCLabel = Guid.NewGuid().ToString();
-                        var audioCapabilities = RTCRtpReceiver.GetCapabilities("audio");
-
-                        if (audioCapabilities != null)
-                        {
-                            string mediaLine = SdpGenerator.GenerateMediaSdp("audio", audioCapabilities, IceGatherer,
-                                DtlsTransport, "0.0.0.0", listOfSsrcIds, cnameSSRC, audioSSRCLabel, LocalStream.Id);
-
-                            if (!string.IsNullOrEmpty(mediaLine))
-                                sb.Append(mediaLine);
-                        }
-                    }
-
-                    if (containsVideo)
-                    {
-                        if (videoSSRCLabel == null)
-                            videoSSRCLabel = Guid.NewGuid().ToString();
-                        var videoCapabilities = RTCRtpReceiver.GetCapabilities("video");
-
-                        if (videoCapabilities != null)
-                        {
-                            string mediaLine = SdpGenerator.GenerateMediaSdp("video", videoCapabilities, IceGatherer,
-                                DtlsTransport, "0.0.0.0", listOfSsrcIds, cnameSSRC, videoSSRCLabel, LocalStream.Id);
-
-                            if (!string.IsNullOrEmpty(mediaLine))
-                                sb.Append(mediaLine);
-                        }
-                    }
-                    string ret = sb.ToString();
-                    return ret;
-
-                }*/
-
+                
                 public IAsyncOperation<RTCSessionDescription> CreateOffer()
                 {
                     Task<RTCSessionDescription> ret = Task.Run<RTCSessionDescription>(() =>
@@ -291,9 +172,14 @@ namespace org
                     return ret.AsAsyncAction();
                 }
 
-                public Task AddIceCandidate(RTCIceCandidate candidate) //async
+                public IAsyncAction AddIceCandidate(RTCIceCandidate candidate)
                 {
-                    return null;
+                    return Task.Run(() =>
+                    {
+                        org.ortc.RTCIceCandidate iceCandidate = Helper.iceCandidateFromSdp(candidate.Candidate);
+                        IceTransport.AddRemoteCandidate(iceCandidate);
+                    }).AsAsyncAction();
+                    
                 }
 
 
@@ -325,16 +211,16 @@ namespace org
                     {
                         IceGatherer = new org.ortc.RTCIceGatherer(Options);
                         IceGatherer.OnICEGathererStateChanged += OnICEGathererStateChanged;
-                        IceGatherer.OnICEGathererLocalCandidate += this.RTCIceGatherer_onICEGathererLocalCandidate;
-                        IceGatherer.OnICEGathererCandidateComplete += this.RTCIceGatherer_onICEGathererCandidateComplete;
+                        IceGatherer.OnICEGathererLocalCandidate += RTCIceGatherer_onICEGathererLocalCandidate;
+                        IceGatherer.OnICEGathererCandidateComplete += RTCIceGatherer_onICEGathererCandidateComplete;
                         IceGatherer.OnICEGathererLocalCandidateGone +=
-                            this.RTCIceGatherer_onICEGathererLocalCandidateGone;
-                        IceGatherer.OnICEGathererError += this.RTCIceGatherer_onICEGathererError;
+                            RTCIceGatherer_onICEGathererLocalCandidateGone;
+                        IceGatherer.OnICEGathererError += RTCIceGatherer_onICEGathererError;
 
                         IceGathererRtcp = IceGatherer.CreateAssociatedGatherer();
                         //iceGathererRTCP.OnICEGathererStateChanged += OnICEGathererStateChanged;
                         IceGathererRtcp.OnICEGathererLocalCandidate +=
-                            this.RTCIceGatherer_onRTCPICEGathererLocalCandidate;
+                            RTCIceGatherer_onRTCPICEGathererLocalCandidate;
                         //iceGathererRTCP.OnICEGathererCandidateComplete += this.RTCIceGatherer_onICEGathererCandidateComplete;
                         //iceGathererRTCP.OnICEGathererLocalCandidateGone += this.RTCIceGatherer_onICEGathererLocalCandidateGone;
                         //iceGathererRTCP.OnICEGathererError += this.RTCIceGatherer_onICEGathererError;

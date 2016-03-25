@@ -30,14 +30,14 @@ namespace org
                 public event OnMediaCaptureDeviceFoundDelegate OnAudioCaptureDeviceFound;
                 public event OnMediaCaptureDeviceFoundDelegate OnVideoCaptureDeviceFound;
 
-                static public Media CreateMedia()
+                public static Media CreateMedia()
                 {
                     var ret = new Media();
 
                     return ret;
                 }
 
-                static public IAsyncOperation<Media> CreateMediaAsync()
+                public static IAsyncOperation<Media> CreateMediaAsync()
                 {
                     return Task.Run<Media>(() =>
                     {
@@ -45,7 +45,7 @@ namespace org
                     }).AsAsyncOperation<Media>();
                 }
 
-                static public IAsyncOperation<MediaDeviceInfo> EnumerateDevices()
+                public static IAsyncOperation<MediaDeviceInfo> EnumerateDevices()
                 {
                     Task<MediaDeviceInfo> t = Task.Run<MediaDeviceInfo>(() =>
                     {
@@ -126,7 +126,7 @@ namespace org
                 //public IList<MediaDevice> GetAudioCaptureDevices();
                 //public IAsyncOperation<MediaStream> GetUserMedia(RTCMediaStreamConstraints mediaStreamConstraints);
                 //public IList<MediaDevice> GetVideoCaptureDevices();
-                static public void OnAppSuspending()
+                public static void OnAppSuspending()
                 {
 
                 }

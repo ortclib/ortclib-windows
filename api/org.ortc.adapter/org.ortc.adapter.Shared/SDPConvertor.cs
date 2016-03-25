@@ -63,7 +63,7 @@ namespace org
                         string line = reader.ReadLine();
                         while (line != null)
                         {
-                            if ((line.Length == 0))
+                            if (line.Length == 0)
                             {
                                 line = reader.ReadLine();
                                 continue;
@@ -143,16 +143,25 @@ namespace org
                     ice_ufrag = null;
                     ice_pwd = null;
 
-                    Dictionary<string,RTCRtpCodecCapability> codecsDictionary = new Dictionary<string, RTCRtpCodecCapability>();
-                   List<RTCRtpHeaderExtension> headerExtensions = new List<RTCRtpHeaderExtension>();
+                    RTCIceParameters iceParameters = new RTCIceParameters();
 
+                    Dictionary<string,RTCRtpCodecCapability> codecsDictionary = new Dictionary<string, RTCRtpCodecCapability>();
+                    List<RTCRtpHeaderExtension> headerExtensions = new List<RTCRtpHeaderExtension>();
+
+                    RTCDtlsParameters dtlsParameters = new RTCDtlsParameters();
+                    dtlsParameters.Fingerprints = new List<RTCDtlsFingerprint>();
                     fingerprint = null;
                     TextReader reader = new StringReader(sdp);
+
+                    IList<UInt32> streamSourceIds = new List<uint>();
+                    string streamName = null;
+                    string mediaTrackLabel = null;
+                    string streamId = null;
 
                     string line = reader.ReadLine();
                     while (line != null)
                     {
-                        if ((line.Length == 0))
+                        if (line.Length == 0)
                         {
                             line = reader.ReadLine();
                             continue;
@@ -221,19 +230,29 @@ namespace org
                                         }
                                         else if (attrName.Equals("ice-ufrag"))
                                         {
-                                            ice_ufrag = attrValue;
+                                            iceParameters.UsernameFragment = attrValue;
                                         }
                                         else if (attrName.Equals("ice-pwd"))
                                         {
-                                            ice_pwd = attrValue;
+                                            iceParameters.Password = attrValue;
                                         }
                                         else if (attrName.Equals("fingerprint"))
                                         {
-                                            fingerprint = attrValue;
+                                            sep = attrValue.IndexOf(' ');
+
+                                            if (sep == -1)
+                                                break;
+
+                                            RTCDtlsFingerprint dtlsFingerprint = new RTCDtlsFingerprint();
+                                            dtlsFingerprint.Algorithm = attrValue.Substring(0, sep);
+                                            dtlsFingerprint.Value = attrValue.Substring(sep + 1);
+                                            dtlsParameters.Fingerprints.Add(dtlsFingerprint);
                                         }
                                         else if (attrName.Equals("setup"))
                                         {
-
+                                            //TODO Check when should be set client or server
+                                            //dtlsParameters.Role = attrValue.Equals("actpass") ? RTCDtlsRole.Auto : RTCDtlsRole.Auto;
+                                            dtlsParameters.Role = RTCDtlsRole.Auto;
                                         }
                                         else if (attrName.Equals("mid"))
                                         {
@@ -241,13 +260,14 @@ namespace org
                                         }
                                         else if (attrName.Equals("extmap"))
                                         {
-                                            sep = value.IndexOf(' ');
+                                            sep = attrValue.IndexOf(' ');
 
                                             if (sep == -1)
                                                 break;
                                             RTCRtpHeaderExtension headerExtension = new RTCRtpHeaderExtension();
-                                            headerExtension.PreferredId = ushort.Parse(value.Substring(0, sep));
-                                            headerExtension.Uri = value.Substring(sep + 1);
+                                            //string str = attrValue.Substring(0, sep);
+                                            headerExtension.PreferredId = ushort.Parse(attrValue.Substring(0, sep));
+                                            headerExtension.Uri = attrValue.Substring(sep + 1);
                                             headerExtensions.Add(headerExtension);
                                         }
                                         else if (attrName.Equals("sendrecv"))
@@ -261,40 +281,38 @@ namespace org
                                         else if (attrName.Equals("rtpmap"))
                                         {
                                             //a = rtpmap:100 VP8 / 90000
-                                            sep = value.IndexOf(' ');
+                                            sep = attrValue.IndexOf(' ');
 
                                             if (sep == -1)
                                                 break;
-                                            string codecId = value.Substring(0, sep);
+
+                                            string codecId = attrValue.Substring(0, sep);
                                             if (null == codecId) break;
 
                                             RTCRtpCodecCapability capability = null;
                                             if (codecsDictionary.TryGetValue(codecId, out capability))
                                             {
-                                                string temp = value.Substring(sep + 1);
-                                                sep = temp.IndexOf('/');
-                                                
-                                                if (sep == -1)
+                                                string temp = attrValue.Substring(sep + 1);
+                                                if (null == temp)
                                                     break;
 
-                                                int numberOfParams = temp.Count(x => x == '/');
-                                                capability.Name = temp.Substring(0, sep);
-                                                capability.ClockRate = uint.Parse(temp.Substring(sep+1));
-                                                if (numberOfParams > 2)
-                                                    capability.NumChannels = uint.Parse(temp.Substring(sep + 1));
+                                                string[] codecInfoStrings = temp.Split('/');
 
+                                                if (codecInfoStrings.Length > 1)
+                                                {
+                                                    capability.Name = codecInfoStrings[0];
+                                                    capability.ClockRate = uint.Parse(codecInfoStrings[1]);
+                                                    if (codecInfoStrings.Length == 3)
+                                                        capability.NumChannels = uint.Parse(codecInfoStrings[2]);
+                                                }
                                             }
 
                                         }
                                         else if (attrName.Equals("rtcp-fb"))
                                         {
                                             //rtcp-fb:100 ccm goog-remb
-                                            sep = value.IndexOf(' ');
-
-                                            if (sep == -1)
-                                                break;
-                                            string codecId = value.Substring(0, sep);
-                                            if (null == codecId) break;
+                                            string[] caodecInfoStrings = attrValue.Split(' ');
+                                            string codecId = caodecInfoStrings[0];
 
                                             RTCRtpCodecCapability capability = null;
                                             if (codecsDictionary.TryGetValue(codecId, out capability))
@@ -303,10 +321,11 @@ namespace org
                                                     capability.RtcpFeedback = new List<RTCRtcpFeedback>();
 
                                                 RTCRtcpFeedback fb = new RTCRtcpFeedback();
-                                                fb.Type = value.Substring(sep + 1);
-                                                fb.Parameter = value.Substring(sep + 1);
+                                                fb.Type = caodecInfoStrings[1];
+                                                fb.Parameter = caodecInfoStrings.Length == 3 ? caodecInfoStrings[2] : "";
                                                 capability.RtcpFeedback.Add(fb);
                                             }
+                                            
                                         }
                                         else if (attrName.Equals("fmtp"))
                                         {
@@ -314,23 +333,61 @@ namespace org
                                         }
                                         else if (attrName.Equals("maxptime"))
                                         {
-                                            uint maxptime = uint.Parse(value);
+                                            uint maxptime = uint.Parse(attrValue);
                                             foreach (var capability in codecsDictionary.Values)
                                             {
                                                 capability.Maxptime = maxptime;
                                             }
                                         }
+                                        else if (attrName.Equals("ssrc-group"))
+                                        {
+                                            string[] ssrcStrings = attrValue.Split(' ');
+                                            foreach (var str in ssrcStrings)
+                                            {
+                                                if (!str.Equals("FID"))
+                                                {
+                                                    streamSourceIds.Add(uint.Parse(str));
+                                                }
+                                            }
+                                        }
                                         else if (attrName.Equals("ssrc"))
                                         {
+                                            //a=ssrc:1928739697 cname:0SagpZSf2NzVtTYz
+                                            sep = attrValue.IndexOf(' ');
 
+                                            if (sep == -1)
+                                                break;
+                                            string ssrcId = attrValue.Substring(0, sep);
+
+                                            string ssrcString = attrValue.Substring(sep+1);
+                                            string[] ssrcStrings = ssrcString.Split(':');
+
+                                            string ssrcType = ssrcStrings[0];
+                                            if (ssrcType.Equals("cname"))
+                                            {
+                                                streamName = ssrcStrings[1];
+                                            }
+                                            else if (ssrcType.Equals("msid"))
+                                            {
+
+                                            }
+                                            else if (ssrcType.Equals("mslabel"))
+                                            {
+                                                streamId = ssrcStrings[1];
+                                            }
+                                            else if (ssrcType.Equals("label"))
+                                            {
+                                                mediaTrackLabel = ssrcStrings[1];
+                                            }
                                         }
                                         break;
                                 }
                             }
                         }
-                        catch (Exception	)
+                        catch (Exception e)
                         {
-                            throw new Exception(string.Format("Invalid Line {0}", line));
+                            valid = false;
+                            //throw new Exception(string.Format("Invalid Line {0}", line));
                         }
                         line = reader.ReadLine();
                     }

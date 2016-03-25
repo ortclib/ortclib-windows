@@ -99,7 +99,7 @@ namespace org
 
                             if (audioCapabilities != null)
                             {
-                                string mediaLine = SdpGenerator.GenerateMediaSdp("audio", audioCapabilities, peerConnection.IceGatherer,
+                                string mediaLine = GenerateMediaSdp("audio", audioCapabilities, peerConnection.IceGatherer,
                                     peerConnection.DtlsTransport, "0.0.0.0", listOfSsrcIds, peerConnection.CnameSsrc, peerConnection.AudioSsrcLabel, peerConnection.LocalStream.Id);
 
                                 if (!string.IsNullOrEmpty(mediaLine))
@@ -115,7 +115,7 @@ namespace org
 
                             if (videoCapabilities != null)
                             {
-                                string mediaLine = SdpGenerator.GenerateMediaSdp("video", videoCapabilities, peerConnection.IceGatherer,
+                                string mediaLine = GenerateMediaSdp("video", videoCapabilities, peerConnection.IceGatherer,
                                     peerConnection.DtlsTransport, "0.0.0.0", listOfSsrcIds, peerConnection.CnameSsrc, peerConnection.VideoSsrcLabel, peerConnection.LocalStream.Id);
 
                                 if (!string.IsNullOrEmpty(mediaLine))
@@ -136,24 +136,24 @@ namespace org
                         if (capabilities != null)
                         {
                             //------------- Media lines  -------------
-                            string mediaLines = SdpGenerator.GenerateMediaLines(type, capabilities.Codecs);
+                            string mediaLines = GenerateMediaLines(type, capabilities.Codecs);
                             if (!string.IsNullOrEmpty(mediaLines))
                                 sb.Append(mediaLines);
 
                             //------------- IP Address lines  -------------
-                            string ipAddressLines = SdpGenerator.GenerateIPAddressLines(ipAddress);
+                            string ipAddressLines = GenerateIPAddressLines(ipAddress);
                             if (!string.IsNullOrEmpty(ipAddressLines))
                                 sb.Append(ipAddressLines);
 
                             //------------- ICE Parameters lines  -------------
                             RTCIceParameters iceParams = iceGatherer.GetLocalParameters();
-                            string iceLines = SdpGenerator.GenerateIceLines(iceParams);
+                            string iceLines = GenerateIceLines(iceParams);
                             if (!string.IsNullOrEmpty(iceLines))
                                 sb.Append(iceLines);
 
                             //------------- DTLS Parameters lines  -------------
                             RTCDtlsParameters dtlsParameters = dtlsTransport.GetLocalParameters();
-                            string fingerprintLines = SdpGenerator.GenerateFingerprintLines(dtlsParameters);
+                            string fingerprintLines = GenerateFingerprintLines(dtlsParameters);
                             if (!string.IsNullOrEmpty(fingerprintLines))
                                 sb.Append(fingerprintLines);
 
@@ -163,7 +163,7 @@ namespace org
                             sb.Append("\r\n");
 
                             //------------- Extensions lines  -------------
-                            string extensionsLines = SdpGenerator.GenerateExtensionsLines(capabilities.HeaderExtensions);
+                            string extensionsLines = GenerateExtensionsLines(capabilities.HeaderExtensions);
                             if (!string.IsNullOrEmpty(extensionsLines))
                                 sb.Append(extensionsLines);
 
@@ -176,12 +176,12 @@ namespace org
                             sb.Append("\r\n");
 
                             //------------- Codec Parameters lines  -------------
-                            string codecLine = SdpGenerator.GenerateCodecLines(capabilities.Codecs);
+                            string codecLine = GenerateCodecLines(capabilities.Codecs);
                             if (!string.IsNullOrEmpty(codecLine))
                                 sb.Append(codecLine);
 
                             //------------- SSRC Parameters lines  -------------
-                            string ssrc = SdpGenerator.GenerateSSRC(streamSourceIds, streamName, mediaTrackLabel,
+                            string ssrc = GenerateSSRC(streamSourceIds, streamName, mediaTrackLabel,
                                 streamId);
                             if (!string.IsNullOrEmpty(ssrc))
                                 sb.Append(ssrc);
