@@ -11,9 +11,122 @@ namespace org
         {
             namespace Internal
             {
-                public class SDPGenerator
+                public class SdpGenerator
                 {
-                    internal static string GenerateMediaSDP(string type, RTCRtpCapabilities capabilities,
+                    internal static string CreateSdp(RTCPeerConnection peerConnection)
+                    {
+                        StringBuilder sb = new StringBuilder();
+
+                        Boolean containsAudio = (peerConnection.LocalStream.GetAudioTracks() != null) &&
+                                                peerConnection.LocalStream.GetAudioTracks().Count > 0;
+                        Boolean containsVideo = (peerConnection.LocalStream.GetVideoTracks() != null) &&
+                                                peerConnection.LocalStream.GetVideoTracks().Count > 0;
+
+                        //------------- Global lines START -------------
+                        //v=0
+                        sb.Append("v=");
+                        sb.Append(0);
+                        sb.Append("\r\n");
+
+
+                        //o=- 1045717134763489491 2 IN IP4 127.0.0.1
+                        sb.Append("o=- ");
+                        sb.Append(peerConnection.SessionId);
+                        sb.Append(' ');
+                        sb.Append(peerConnection.SessionVersion);
+                        sb.Append(' ');
+                        sb.Append("IN");
+                        sb.Append(' ');
+                        sb.Append("IP4");
+                        sb.Append(' ');
+                        sb.Append("127.0.0.1");
+                        sb.Append("\r\n");
+
+                        //s=-
+                        sb.Append("s=");
+                        sb.Append("-");
+                        sb.Append("\r\n");
+
+                        //t=0 0
+                        sb.Append("t=");
+                        sb.Append(0);
+                        sb.Append(' ');
+                        sb.Append(0);
+                        sb.Append("\r\n");
+
+                        //a=group:BUNDLE audio video
+                        sb.Append("a=");
+                        sb.Append("group:BUNDLE");
+                        sb.Append(' ');
+                        if (containsAudio)
+                        {
+                            sb.Append("audio");
+                            sb.Append(' ');
+                        }
+                        if (containsVideo)
+                            sb.Append("video");
+
+                        sb.Append("\r\n");
+
+                        //a=msid-semantic: WMS stream_label_ce8753d3
+                        sb.Append("a=");
+                        sb.Append("msid-semantic:");
+                        sb.Append(' ');
+                        sb.Append("WMS");
+                        sb.Append(' ');
+                        sb.Append(peerConnection.LocalStream.Id);
+                        sb.Append("\r\n");
+                        //------------- Global lines END -------------
+
+                        //IList<MediaAudioTrack>  audioTracks = localStream.GetAudioTracks();
+
+                        List<UInt32> listOfSsrcIds = new List<UInt32>();
+                        if (peerConnection.SsrcId == 0)
+                        {
+                            peerConnection.SsrcId = (UInt32)Guid.NewGuid().GetHashCode();
+                            listOfSsrcIds.Add(peerConnection.SsrcId);
+                        }
+                        if (peerConnection.CnameSsrc == null)
+                            peerConnection.CnameSsrc = Guid.NewGuid().ToString();
+
+                        //------------- Media lines START -------------
+                        //m = audio 9 UDP / TLS / RTP / SAVPF 111 103 104 9 102 0 8 106 105 13 127 126
+                        if (containsAudio)
+                        {
+                            if (peerConnection.AudioSsrcLabel == null)
+                                peerConnection.AudioSsrcLabel = Guid.NewGuid().ToString();
+                            var audioCapabilities = RTCRtpReceiver.GetCapabilities("audio");
+
+                            if (audioCapabilities != null)
+                            {
+                                string mediaLine = GenerateMediaSdp("audio", audioCapabilities, peerConnection.IceGatherer,
+                                    peerConnection.DtlsTransport, "0.0.0.0", listOfSsrcIds, peerConnection.CnameSsrc, peerConnection.AudioSsrcLabel, peerConnection.LocalStream.Id);
+
+                                if (!string.IsNullOrEmpty(mediaLine))
+                                    sb.Append(mediaLine);
+                            }
+                        }
+
+                        if (containsVideo)
+                        {
+                            if (peerConnection.VideoSsrcLabel == null)
+                                peerConnection.VideoSsrcLabel = Guid.NewGuid().ToString();
+                            var videoCapabilities = RTCRtpReceiver.GetCapabilities("video");
+
+                            if (videoCapabilities != null)
+                            {
+                                string mediaLine = GenerateMediaSdp("video", videoCapabilities, peerConnection.IceGatherer,
+                                    peerConnection.DtlsTransport, "0.0.0.0", listOfSsrcIds, peerConnection.CnameSsrc, peerConnection.VideoSsrcLabel, peerConnection.LocalStream.Id);
+
+                                if (!string.IsNullOrEmpty(mediaLine))
+                                    sb.Append(mediaLine);
+                            }
+                        }
+                        string ret = sb.ToString();
+                        return ret;
+                    }
+
+                    internal static string GenerateMediaSdp(string type, RTCRtpCapabilities capabilities,
                         RTCIceGatherer iceGatherer, RTCDtlsTransport dtlsTransport, string ipAddress,
                         IList<UInt32> streamSourceIds, string streamName, string mediaTrackLabel, string streamId)
                     {
@@ -23,24 +136,24 @@ namespace org
                         if (capabilities != null)
                         {
                             //------------- Media lines  -------------
-                            string mediaLines = SDPGenerator.GenerateMediaLines(type, capabilities.Codecs);
+                            string mediaLines = GenerateMediaLines(type, capabilities.Codecs);
                             if (!string.IsNullOrEmpty(mediaLines))
                                 sb.Append(mediaLines);
 
                             //------------- IP Address lines  -------------
-                            string ipAddressLines = SDPGenerator.GenerateIPAddressLines(ipAddress);
+                            string ipAddressLines = GenerateIPAddressLines(ipAddress);
                             if (!string.IsNullOrEmpty(ipAddressLines))
                                 sb.Append(ipAddressLines);
 
                             //------------- ICE Parameters lines  -------------
                             RTCIceParameters iceParams = iceGatherer.GetLocalParameters();
-                            string iceLines = SDPGenerator.GenerateIceLines(iceParams);
+                            string iceLines = GenerateIceLines(iceParams);
                             if (!string.IsNullOrEmpty(iceLines))
                                 sb.Append(iceLines);
 
                             //------------- DTLS Parameters lines  -------------
                             RTCDtlsParameters dtlsParameters = dtlsTransport.GetLocalParameters();
-                            string fingerprintLines = SDPGenerator.GenerateFingerprintLines(dtlsParameters);
+                            string fingerprintLines = GenerateFingerprintLines(dtlsParameters);
                             if (!string.IsNullOrEmpty(fingerprintLines))
                                 sb.Append(fingerprintLines);
 
@@ -50,7 +163,7 @@ namespace org
                             sb.Append("\r\n");
 
                             //------------- Extensions lines  -------------
-                            string extensionsLines = SDPGenerator.GenerateExtensionsLines(capabilities.HeaderExtensions);
+                            string extensionsLines = GenerateExtensionsLines(capabilities.HeaderExtensions);
                             if (!string.IsNullOrEmpty(extensionsLines))
                                 sb.Append(extensionsLines);
 
@@ -63,12 +176,12 @@ namespace org
                             sb.Append("\r\n");
 
                             //------------- Codec Parameters lines  -------------
-                            string codecLine = SDPGenerator.GenerateCodecLines(capabilities.Codecs);
+                            string codecLine = GenerateCodecLines(capabilities.Codecs);
                             if (!string.IsNullOrEmpty(codecLine))
                                 sb.Append(codecLine);
 
                             //------------- SSRC Parameters lines  -------------
-                            string ssrc = SDPGenerator.GenerateSSRC(streamSourceIds, streamName, mediaTrackLabel,
+                            string ssrc = GenerateSSRC(streamSourceIds, streamName, mediaTrackLabel,
                                 streamId);
                             if (!string.IsNullOrEmpty(ssrc))
                                 sb.Append(ssrc);
@@ -280,7 +393,7 @@ namespace org
                             sb.Append("a=ssrc:");
                             sb.Append(ssrcId);
                             sb.Append(' ');
-                            sb.Append("cname: ");
+                            sb.Append("cname:");
                             sb.Append(cnameSSRC);
                             sb.Append("\r\n");
 
@@ -288,7 +401,7 @@ namespace org
                             sb.Append("a=ssrc:");
                             sb.Append(ssrcId);
                             sb.Append(' ');
-                            sb.Append("msid: ");
+                            sb.Append("msid:");
                             sb.Append(streamId);
                             sb.Append(' ');
                             sb.Append(audioSSRCLabel);
@@ -297,14 +410,14 @@ namespace org
                             sb.Append("a=ssrc:");
                             sb.Append(ssrcId);
                             sb.Append(' ');
-                            sb.Append("mslabel: ");
+                            sb.Append("mslabel:");
                             sb.Append(streamId);
                             sb.Append("\r\n");
                             //a = ssrc:3063731557 label: audio_label_3ea802dc
                             sb.Append("a=ssrc:");
                             sb.Append(ssrcId);
                             sb.Append(' ');
-                            sb.Append("label: ");
+                            sb.Append("label:");
                             sb.Append(audioSSRCLabel);
                             sb.Append("\r\n");
                         }

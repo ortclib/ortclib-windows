@@ -16,11 +16,11 @@ namespace org
         {
             public class RTCPeerConnection
             {
-                private bool _closed = false;
-                private string audioSSRCLabel = null;
-                private string videoSSRCLabel = null;
-                private string cnameSSRC = null;
-                private UInt32 ssrcId;
+                internal bool Closed { get; set; } = false;
+                internal string AudioSsrcLabel { get; set; } = null;
+                internal string VideoSsrcLabel { get; set; } = null;
+                internal string CnameSsrc { get; set; } = null;
+                internal uint SsrcId { get; set; }
 
                 //private RtcIceRole _iceRole = RtcIceRole.Controlling;
                 //private RTCSessionDescription _localCapabilities;
@@ -29,25 +29,28 @@ namespace org
 
                 private bool _installedIceEvents;
 
-                private RTCRtpSender audioSender { get; set; }
-                private RTCRtpSender videoSender { get; set; }
-                private RTCRtpReceiver audioReceiver { get; set; }
-                private RTCRtpReceiver videoReceiver { get; set; }
-                private MediaDevice audioPlaybackDevice { get; set; }
+                private RTCRtpSender AudioSender { get; set; }
+                private RTCRtpSender VideoSender { get; set; }
+                private RTCRtpReceiver AudioReceiver { get; set; }
+                private RTCRtpReceiver VideoReceiver { get; set; }
+                private MediaDevice AudioPlaybackDevice { get; set; }
 
-                private MediaStream localStream { get; set; }
-                private MediaStream remoteStream { get; set; }
+                internal  MediaStream LocalStream { get; set; }
+                internal MediaStream RemoteStream { get; set; }
 
-                private RTCIceGatherOptions options { get; set; }
-                private RTCIceGatherer iceGatherer { get; set; }
-                private RTCIceGatherer iceGathererRTCP { get; set; }
-                private RTCDtlsTransport dtlsTransport { get; set; }
-                private RTCIceTransport iceTransport { get; set; }
+                private RTCIceGatherOptions Options { get; set; }
+                internal RTCIceGatherer IceGatherer { get; set; }
+                private RTCIceGatherer IceGathererRtcp { get; set; }
+                internal RTCDtlsTransport DtlsTransport { get; set; }
+                private RTCIceTransport IceTransport { get; set; }
 
-                private RTCRtpCapabilities audioSenderCaps { get; set; }
-                private RTCRtpCapabilities videoSenderCaps { get; set; }
-                private RTCRtpCapabilities audioReceiverCaps { get; set; }
-                private RTCRtpCapabilities videoReceiverCaps { get; set; }
+                private RTCRtpCapabilities AudioSenderCaps { get; set; }
+                private RTCRtpCapabilities VideoSenderCaps { get; set; }
+                private RTCRtpCapabilities AudioReceiverCaps { get; set; }
+                private RTCRtpCapabilities VideoReceiverCaps { get; set; }
+
+                internal ulong SessionId { get; set; }
+                internal ushort SessionVersion { get; set; }
 
                 static public void SetPreferredVideoCaptureFormat(int frame_width,
                     int frame_height, int fps)
@@ -55,15 +58,15 @@ namespace org
 
                 }
 
-                public delegate void RTCPeerConnectionIceEventDelegate(RTCPeerConnectionIceEvent evt);
+                public delegate void RtcPeerConnectionIceEventDelegate(RTCPeerConnectionIceEvent evt);
 
                 public delegate void MediaStreamEventEventDelegate(MediaStreamEvent evt);
 
-                public delegate void RTCPeerConnectionHealthStatsDelegate(RTCPeerConnectionHealthStats stats);
+                public delegate void RtcPeerConnectionHealthStatsDelegate(RTCPeerConnectionHealthStats stats);
 
-                public event RTCPeerConnectionIceEventDelegate _OnIceCandidate;
+                public event RtcPeerConnectionIceEventDelegate _OnIceCandidate;
 
-                public event RTCPeerConnectionIceEventDelegate OnIceCandidate
+                public event RtcPeerConnectionIceEventDelegate OnIceCandidate
                 {
                     add { _OnIceCandidate += value; }
                     remove { _OnIceCandidate -= value; }
@@ -71,7 +74,7 @@ namespace org
 
                 public event MediaStreamEventEventDelegate OnAddStream;
                 public event MediaStreamEventEventDelegate OnRemoveStream;
-                public event RTCPeerConnectionHealthStatsDelegate OnConnectionHealthStats;
+                public event RtcPeerConnectionHealthStatsDelegate OnConnectionHealthStats;
 
                 public RTCPeerConnection(RTCConfiguration configuration)
                 {
@@ -96,9 +99,7 @@ namespace org
                     PrepareDtlsTransport();
                     SetCapabilities();
 
-                    sessionID =
-                        (ulong)
-                            (DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0).ToUniversalTime()).TotalMilliseconds;
+                    SessionId = (ulong) (DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0).ToUniversalTime()).TotalMilliseconds;
                 }
 
 
@@ -126,7 +127,7 @@ namespace org
                 /// <param name="stream"><see cref="MediaStream"/> to be added.</param>
                 public void AddStream(MediaStream stream)
                 {
-                    localStream = stream;
+                    LocalStream = stream;
                 }
 
                 public void Close()
@@ -138,7 +139,7 @@ namespace org
                 {
                     Task ret = Task.Run(() =>
                     {
-
+                        SDPConvertor.ParseSdp(description.Sdp,description.Type,this);
                     });
                     return ret.AsAsyncAction();
                 }
@@ -148,133 +149,14 @@ namespace org
                     return null;
                 }
 
-                private UInt64 sessionID { get; set; }
-                private UInt16 sessionVersion { get; set; }
-
-                void parseSDP(string sdp)
-                {
-
-                }
-
-                string createSDP()
-                {
-                    StringBuilder sb = new StringBuilder();
-
-                    Boolean containsAudio = (localStream.GetAudioTracks() != null) &&
-                                            localStream.GetAudioTracks().Count > 0;
-                    Boolean containsVideo = (localStream.GetVideoTracks() != null) &&
-                                            localStream.GetVideoTracks().Count > 0;
-
-                    //------------- Global lines START -------------
-                    //v=0
-                    sb.Append("v=");
-                    sb.Append(0);
-                    sb.Append("\r\n");
-
-
-                    //o=- 1045717134763489491 2 IN IP4 127.0.0.1
-                    sb.Append("o=-");
-                    sb.Append(sessionID);
-                    sb.Append(' ');
-                    sb.Append(sessionVersion);
-                    sb.Append(' ');
-                    sb.Append("IN");
-                    sb.Append(' ');
-                    sb.Append("IP4");
-                    sb.Append(' ');
-                    sb.Append("127.0.0.1");
-                    sb.Append("\r\n");
-
-                    //s=-
-                    sb.Append("s=");
-                    sb.Append("-");
-                    sb.Append("\r\n");
-
-                    //t=0 0
-                    sb.Append("t=");
-                    sb.Append(0);
-                    sb.Append(' ');
-                    sb.Append(0);
-                    sb.Append("\r\n");
-
-                    //a=group:BUNDLE audio video
-                    sb.Append("a=");
-                    sb.Append("group:BUNDLE");
-                    sb.Append(' ');
-                    if (containsAudio)
-                    {
-                        sb.Append("audio");
-                        sb.Append(' ');
-                    }
-                    if (containsVideo)
-                        sb.Append("video");
-
-                    sb.Append("\r\n");
-
-                    //a=msid-semantic: WMS stream_label_ce8753d3
-                    sb.Append("a=");
-                    sb.Append("msid-semantic:");
-                    sb.Append(' ');
-                    sb.Append("WMS");
-                    sb.Append(' ');
-                    sb.Append(localStream.Id);
-                    sb.Append("\r\n");
-                    //------------- Global lines END -------------
-
-                    //IList<MediaAudioTrack>  audioTracks = localStream.GetAudioTracks();
-
-                    List<UInt32> listOfSsrcIds = new List<UInt32>();
-                    if (ssrcId == 0)
-                    {
-                        ssrcId = (UInt32) Guid.NewGuid().GetHashCode();
-                        listOfSsrcIds.Add(ssrcId);
-                    }
-                    if (cnameSSRC == null)
-                        cnameSSRC = Guid.NewGuid().ToString();
-
-                    //------------- Media lines START -------------
-                    //m = audio 9 UDP / TLS / RTP / SAVPF 111 103 104 9 102 0 8 106 105 13 127 126
-                    if (containsAudio)
-                    {
-                        if (audioSSRCLabel == null)
-                            audioSSRCLabel = Guid.NewGuid().ToString();
-                        var audioCapabilities = RTCRtpReceiver.GetCapabilities("audio");
-
-                        if (audioCapabilities != null)
-                        {
-                            string mediaLine = SDPGenerator.GenerateMediaSDP("audio", audioCapabilities, iceGatherer,
-                                dtlsTransport, "0.0.0.0", listOfSsrcIds, cnameSSRC, audioSSRCLabel, localStream.Id);
-
-                            if (!string.IsNullOrEmpty(mediaLine))
-                                sb.Append(mediaLine);
-                        }
-                    }
-
-                    if (containsVideo)
-                    {
-                        if (videoSSRCLabel == null)
-                            videoSSRCLabel = Guid.NewGuid().ToString();
-                        var videoCapabilities = RTCRtpReceiver.GetCapabilities("video");
-
-                        if (videoCapabilities != null)
-                        {
-                            string mediaLine = SDPGenerator.GenerateMediaSDP("video", videoCapabilities, iceGatherer,
-                                dtlsTransport, "0.0.0.0", listOfSsrcIds, cnameSSRC, videoSSRCLabel, localStream.Id);
-
-                            if (!string.IsNullOrEmpty(mediaLine))
-                                sb.Append(mediaLine);
-                        }
-                    }
-                    string ret = sb.ToString();
-                    return ret;
-
-                }
-
+                
+                
                 public IAsyncOperation<RTCSessionDescription> CreateOffer()
                 {
                     Task<RTCSessionDescription> ret = Task.Run<RTCSessionDescription>(() =>
                     {
-                        RTCSessionDescription sd = new RTCSessionDescription(RTCSdpType.Offer, this.createSDP());
+                        //RTCSessionDescription sd = new RTCSessionDescription(RTCSdpType.Offer, this.createSDP());
+                        RTCSessionDescription sd = new RTCSessionDescription(RTCSdpType.Offer, SdpGenerator.CreateSdp(this));
                         return sd;
                     });
 
@@ -290,16 +172,21 @@ namespace org
                     return ret.AsAsyncAction();
                 }
 
-                public Task AddIceCandidate(RTCIceCandidate candidate) //async
+                public IAsyncAction AddIceCandidate(RTCIceCandidate candidate)
                 {
-                    return null;
+                    return Task.Run(() =>
+                    {
+                        org.ortc.RTCIceCandidate iceCandidate = Helper.iceCandidateFromSdp(candidate.Candidate);
+                        IceTransport.AddRemoteCandidate(iceCandidate);
+                    }).AsAsyncAction();
+                    
                 }
 
 
                 private void PrepareGatherer(RTCConfiguration configuration)
                 {
-                    options = new RTCIceGatherOptions();
-                    options.IceServers = new List<org.ortc.RTCIceServer>();
+                    Options = new RTCIceGatherOptions();
+                    Options.IceServers = new List<org.ortc.RTCIceServer>();
 
                     foreach (RTCIceServer server in configuration.IceServers)
                     {
@@ -317,23 +204,23 @@ namespace org
                         }
 
                         ortcServer.Urls.Add(server.Url);
-                        options.IceServers.Add(ortcServer);
+                        Options.IceServers.Add(ortcServer);
                     }
 
                     try
                     {
-                        iceGatherer = new org.ortc.RTCIceGatherer(options);
-                        iceGatherer.OnICEGathererStateChanged += OnICEGathererStateChanged;
-                        iceGatherer.OnICEGathererLocalCandidate += this.RTCIceGatherer_onICEGathererLocalCandidate;
-                        iceGatherer.OnICEGathererCandidateComplete += this.RTCIceGatherer_onICEGathererCandidateComplete;
-                        iceGatherer.OnICEGathererLocalCandidateGone +=
-                            this.RTCIceGatherer_onICEGathererLocalCandidateGone;
-                        iceGatherer.OnICEGathererError += this.RTCIceGatherer_onICEGathererError;
+                        IceGatherer = new org.ortc.RTCIceGatherer(Options);
+                        IceGatherer.OnICEGathererStateChanged += OnICEGathererStateChanged;
+                        IceGatherer.OnICEGathererLocalCandidate += RTCIceGatherer_onICEGathererLocalCandidate;
+                        IceGatherer.OnICEGathererCandidateComplete += RTCIceGatherer_onICEGathererCandidateComplete;
+                        IceGatherer.OnICEGathererLocalCandidateGone +=
+                            RTCIceGatherer_onICEGathererLocalCandidateGone;
+                        IceGatherer.OnICEGathererError += RTCIceGatherer_onICEGathererError;
 
-                        iceGathererRTCP = iceGatherer.CreateAssociatedGatherer();
+                        IceGathererRtcp = IceGatherer.CreateAssociatedGatherer();
                         //iceGathererRTCP.OnICEGathererStateChanged += OnICEGathererStateChanged;
-                        iceGathererRTCP.OnICEGathererLocalCandidate +=
-                            this.RTCIceGatherer_onRTCPICEGathererLocalCandidate;
+                        IceGathererRtcp.OnICEGathererLocalCandidate +=
+                            RTCIceGatherer_onRTCPICEGathererLocalCandidate;
                         //iceGathererRTCP.OnICEGathererCandidateComplete += this.RTCIceGatherer_onICEGathererCandidateComplete;
                         //iceGathererRTCP.OnICEGathererLocalCandidateGone += this.RTCIceGatherer_onICEGathererLocalCandidateGone;
                         //iceGathererRTCP.OnICEGathererError += this.RTCIceGatherer_onICEGathererError;
@@ -346,7 +233,7 @@ namespace org
 
                 private void PrepareIceTransport()
                 {
-                    iceTransport = new org.ortc.RTCIceTransport(iceGatherer);
+                    IceTransport = new org.ortc.RTCIceTransport(IceGatherer);
                 }
 
                 private void PrepareDtlsTransport()
@@ -358,39 +245,39 @@ namespace org
                             // Since the DTLS certificate is ready the RtcDtlsTransport can now be constructed.
                             var certs = new List<RTCCertificate>();
                             certs.Add(cert.Result);
-                            dtlsTransport = new RTCDtlsTransport(iceTransport, certs);
-                            if (_closed) dtlsTransport.Stop();
+                            DtlsTransport = new RTCDtlsTransport(IceTransport, certs);
+                            if (Closed) DtlsTransport.Stop();
                         }
                     });
                 }
 
                 private void SetCapabilities()
                 {
-                    audioSenderCaps = RTCRtpSender.GetCapabilities("audio");
-                    videoSenderCaps = RTCRtpSender.GetCapabilities("video");
-                    audioReceiverCaps = RTCRtpReceiver.GetCapabilities("audio");
-                    videoReceiverCaps = RTCRtpReceiver.GetCapabilities("video");
+                    AudioSenderCaps = RTCRtpSender.GetCapabilities("audio");
+                    VideoSenderCaps = RTCRtpSender.GetCapabilities("video");
+                    AudioReceiverCaps = RTCRtpReceiver.GetCapabilities("audio");
+                    VideoReceiverCaps = RTCRtpReceiver.GetCapabilities("video");
                 }
 
                 private void PrepareReceiver()
                 {
-                    Boolean containsAudio = (localStream.GetAudioTracks() != null) &&
-                                            localStream.GetAudioTracks().Count > 0;
-                    Boolean containsVideo = (localStream.GetVideoTracks() != null) &&
-                                            localStream.GetVideoTracks().Count > 0;
+                    Boolean containsAudio = (LocalStream.GetAudioTracks() != null) &&
+                                            LocalStream.GetAudioTracks().Count > 0;
+                    Boolean containsVideo = (LocalStream.GetVideoTracks() != null) &&
+                                            LocalStream.GetVideoTracks().Count > 0;
 
                     if (containsAudio)
                     {
-                        audioReceiver = new RTCRtpReceiver(MediaStreamTrackKind.Audio, dtlsTransport);
-                        var audioParams = Helper.CapabilitiesToParameters("a", audioSenderCaps);
-                        audioReceiver.Receive(audioParams);
+                        AudioReceiver = new RTCRtpReceiver(MediaStreamTrackKind.Audio, DtlsTransport);
+                        var audioParams = Helper.CapabilitiesToParameters("a", AudioReceiverCaps);
+                        AudioReceiver.Receive(audioParams);
                     }
 
                     if (containsVideo)
                     {
-                        videoReceiver = new RTCRtpReceiver(MediaStreamTrackKind.Video, dtlsTransport);
-                        var videoParams = Helper.CapabilitiesToParameters("v", audioSenderCaps);
-                        videoReceiver.Receive(videoParams);
+                        VideoReceiver = new RTCRtpReceiver(MediaStreamTrackKind.Video, DtlsTransport);
+                        var videoParams = Helper.CapabilitiesToParameters("v", VideoReceiverCaps);
+                        VideoReceiver.Receive(videoParams);
                     }
                 }
 
