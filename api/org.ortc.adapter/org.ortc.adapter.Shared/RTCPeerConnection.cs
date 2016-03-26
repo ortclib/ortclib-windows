@@ -22,10 +22,7 @@ namespace org
                 internal string CnameSsrc { get; set; } = null;
                 internal uint SsrcId { get; set; }
 
-                //private RtcIceRole _iceRole = RtcIceRole.Controlling;
-                //private RTCSessionDescription _localCapabilities;
-                // private RTCSessionDescription _localCapabilitiesFinal;
-                //private RTCSessionDescription _remoteCapabilities;
+                internal RTCIceRole IceRole { get; set; } = RTCIceRole.Controlling;
 
                 private bool _installedIceEvents;
 
@@ -44,15 +41,24 @@ namespace org
                 internal RTCDtlsTransport DtlsTransport { get; set; }
                 private RTCIceTransport IceTransport { get; set; }
 
-                private RTCRtpCapabilities AudioSenderCaps { get; set; }
-                private RTCRtpCapabilities VideoSenderCaps { get; set; }
+                internal RTCRtpParameters AudioSenderRtpParameters { get; set; }
+                internal RTCRtpParameters VideoSenderRtpParameters { get; set; }
+
+                internal RTCRtpCapabilities AudioSenderCaps { get; set; }
+                internal RTCRtpCapabilities VideoSenderCaps { get; set; }
                 private RTCRtpCapabilities AudioReceiverCaps { get; set; }
                 private RTCRtpCapabilities VideoReceiverCaps { get; set; }
+
+                internal RTCRtpParameters AudioReceiverRtpParameters { get; set; }
+                internal RTCRtpParameters VideoReceiverRtpParameters { get; set; }
 
                 internal ulong SessionId { get; set; }
                 internal ushort SessionVersion { get; set; }
 
-                static public void SetPreferredVideoCaptureFormat(int frame_width,
+                internal RTCIceParameters RemoteRtcIceParameters { get; set; }
+                internal RTCDtlsParameters RemoteRtcDtlsParameters { get; set; }
+
+                public static void SetPreferredVideoCaptureFormat(int frame_width,
                     int frame_height, int fps)
                 {
 
@@ -140,13 +146,20 @@ namespace org
                     Task ret = Task.Run(() =>
                     {
                         SDPConvertor.ParseSdp(description.Sdp,description.Type,this);
+                        PrepareSender();
                     });
                     return ret.AsAsyncAction();
                 }
 
-                public Task<RTCSessionDescription> CreateAnswer() //async
+                public IAsyncOperation<RTCSessionDescription> CreateAnswer()
                 {
-                    return null;
+                    Task<RTCSessionDescription> ret = Task.Run<RTCSessionDescription>(() =>
+                    {
+                        RTCSessionDescription sd = new RTCSessionDescription(RTCSdpType.Answer, SdpGenerator.CreateSdp(this));
+                        return sd;
+                    });
+
+                    return ret.AsAsyncOperation<RTCSessionDescription>();
                 }
 
                 
@@ -155,7 +168,6 @@ namespace org
                 {
                     Task<RTCSessionDescription> ret = Task.Run<RTCSessionDescription>(() =>
                     {
-                        //RTCSessionDescription sd = new RTCSessionDescription(RTCSdpType.Offer, this.createSDP());
                         RTCSessionDescription sd = new RTCSessionDescription(RTCSdpType.Offer, SdpGenerator.CreateSdp(this));
                         return sd;
                     });
@@ -176,7 +188,7 @@ namespace org
                 {
                     return Task.Run(() =>
                     {
-                        org.ortc.RTCIceCandidate iceCandidate = Helper.iceCandidateFromSdp(candidate.Candidate);
+                        org.ortc.RTCIceCandidate iceCandidate = Helper.IceCandidateFromSdp(candidate.Candidate);
                         IceTransport.AddRemoteCandidate(iceCandidate);
                     }).AsAsyncAction();
                     
@@ -269,75 +281,69 @@ namespace org
                     if (containsAudio)
                     {
                         AudioReceiver = new RTCRtpReceiver(DtlsTransport);
-                        var audioParams = Helper.CapabilitiesToParameters("a", AudioReceiverCaps);
+                        var audioParams = Helper.CapabilitiesToParameters(SsrcId,CnameSsrc,"a",AudioReceiverCaps);
                         AudioReceiver.Receive(audioParams);
                     }
 
                     if (containsVideo)
                     {
                         VideoReceiver = new RTCRtpReceiver(DtlsTransport);
-                        var videoParams = Helper.CapabilitiesToParameters("v", VideoReceiverCaps);
+                        var videoParams = Helper.CapabilitiesToParameters(SsrcId, CnameSsrc, "v",VideoReceiverCaps);
                         VideoReceiver.Receive(videoParams);
                     }
                 }
-
-/*
-        private void PrepareSender()
-        {
-            Boolean containsAudio = (localStream.GetAudioTracks() != null) && localStream.GetAudioTracks().Count > 0;
-            Boolean containsVideo = (localStream.GetVideoTracks() != null) && localStream.GetVideoTracks().Count > 0;
-
-            //From SDP obtain remote IceParameters and IceRole
-            iceTransport.Start(iceGatherer, _remoteCapabilities.Description.IceParameters, _remoteCapabilities.Description.IceRole);
-
-            //From SDP obtain remote dtls parameters
-            dtlsTransport.Start(_remoteCapabilities.Description.DtlsParameters);
-
-            if (containsAudio)
-            {
-                if (null == audioSender)
+                private void PrepareSender()
                 {
-                    // Figure out if the application has audio media streams to send to the remote party.
-                    var tracks = localStream.GetAudioTracks();
-                    MediaAudioTrack mediaTrack = null;
-                    MediaStreamTrack track = null;
-                    if (null != tracks) { if (tracks.Count > 0) { mediaTrack = tracks.First(); } }
-                    if (null != mediaTrack) track = mediaTrack.Track;
+                    Boolean containsAudio = (LocalStream.GetAudioTracks() != null) && LocalStream.GetAudioTracks().Count > 0;
+                    Boolean containsVideo = (LocalStream.GetVideoTracks() != null) && LocalStream.GetVideoTracks().Count > 0;
 
-                    if (null != track)
+                    //From SDP obtain remote IceParameters and IceRole
+                    IceTransport.Start(IceGatherer, RemoteRtcIceParameters, IceRole);
+
+                    //From SDP obtain remote dtls parameters
+                    DtlsTransport.Start(RemoteRtcDtlsParameters);
+
+                    if (containsAudio)
                     {
-                        // If a track was found then setup the audio RtcRtpSender.
-                        audioSender = new RTCRtpSender(track, dtlsTransport);
-                        var @params = Helper.CapabilitiesToParameters("a", _remoteCapabilities.Description.AudioReceiverCapabilities);
-                        RtcHelper.SetupSenderEncodings(@params);
-                        audioSender.Send(@params);
+                        if (null == AudioSender)
+                        {
+                            // Figure out if the application has audio media streams to send to the remote party.
+                            var tracks = LocalStream.GetAudioTracks();
+                            MediaAudioTrack mediaTrack = null;
+                            MediaStreamTrack track = null;
+                            if (tracks?.Count > 0) mediaTrack = tracks.First();
+                            if (null != mediaTrack) track = mediaTrack.Track;
+
+                            if (null != track)
+                            {
+                                // If a track was found then setup the audio RtcRtpSender.
+                                AudioSender = new RTCRtpSender(track, DtlsTransport);
+                                AudioSender.Send(AudioSenderRtpParameters);
+                            }
+                        }
+                    }
+
+                    // If the local and remote party are sending video then setup the video RtcRtpSender.
+                    if (containsVideo)
+                    {
+                        if (null == VideoSender)
+                        {
+                            // Figure out if the application has video media streams to send to the remote party.
+                            var tracks = LocalStream.GetVideoTracks();
+                            MediaVideoTrack mediaTrack = null;
+                            MediaStreamTrack track = null;
+                            if (tracks?.Count > 0) mediaTrack = tracks.First();
+                            if (null != mediaTrack) track = mediaTrack.Track;
+
+                            if (null != track)
+                            {
+                                // If a track was found then setup the video RtcRtpSender.
+                                VideoSender = new RTCRtpSender(track, DtlsTransport);
+                                VideoSender.Send(VideoSenderRtpParameters);
+                            }
+                        }
                     }
                 }
-            }
-
-            // If the local and remote party are sending video then setup the video RtcRtpSender.
-            if (containsVideo)
-            {
-                if (null == videoSender)
-                {
-                    // Figure out if the application has video media streams to send to the remote party.
-                    var tracks = localStream.GetVideoTracks();
-                    MediaVideoTrack mediaTrack = null;
-                    MediaStreamTrack track = null;
-                    if (null != tracks) { if (tracks.Count > 0) { mediaTrack = tracks.First(); } }
-                    if (null != mediaTrack) track = mediaTrack.Track;
-
-                    if (null != track)
-                    {
-                        // If a track was found then setup the video RtcRtpSender.
-                        videoSender = new RTCRtpSender(track, dtlsTransport);
-                        var @params = Helper.CapabilitiesToParameters("v", _remoteCapabilities.Description.VideoReceiverCapabilities);
-                        RtcHelper.SetupSenderEncodings(@params);
-                        videoSender.Send(@params);
-                    }
-                }
-            }
-        }*/
 
                 private void OnICEGathererStateChanged(RTCIceGathererStateChangeEvent evt)
                 {

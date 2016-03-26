@@ -25,7 +25,7 @@ namespace org
                 private MediaDevice _audioPlaybackDevice;
                 private MediaDevice _videoDevice;
 
-                public delegate void OnMediaCaptureDeviceFoundDelegate(MediaDevice __param0);
+                public delegate void OnMediaCaptureDeviceFoundDelegate(MediaDevice param0);
 
                 public event OnMediaCaptureDeviceFoundDelegate OnAudioCaptureDeviceFound;
                 public event OnMediaCaptureDeviceFoundDelegate OnVideoCaptureDeviceFound;

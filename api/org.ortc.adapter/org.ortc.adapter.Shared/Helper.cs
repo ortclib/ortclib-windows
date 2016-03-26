@@ -32,9 +32,6 @@ namespace org
                         case RTCIceCandidateType.Srflex:
                             ret = "srflex";
                             break;
-
-                        default:
-                            break;
                     }
 
                     return ret;
@@ -71,13 +68,7 @@ namespace org
                     IList<MediaDeviceInfo> infos
                     )
                 {
-                    var results = new List<MediaDeviceInfo>();
-                    foreach (var info in infos)
-                    {
-                        if (kind != info.Kind) continue;
-                        results.Add(info);
-                    }
-                    return results;
+                    return infos.Where(info => kind == info.Kind).ToList();
                 }
 
                 public static MediaDevice ToMediaDevice(MediaDeviceInfo device)
@@ -116,6 +107,8 @@ namespace org
                 }
 
                 public static RTCRtpParameters CapabilitiesToParameters(
+                    uint ssrcId, 
+                    string cnameSsrc,
                     string muxId,
                     RTCRtpCapabilities caps
                     )
@@ -129,12 +122,19 @@ namespace org
                     }
                     result.DegradationPreference = RTCDegradationPreference.Balanced;
                     result.HeaderExtensions = new List<RTCRtpHeaderExtensionParameters>();
+                    foreach (var extension in caps.HeaderExtensions)
+                    {
+                        result.HeaderExtensions.Add(ExtensionToParameters(extension));
+                    }
                     result.Encodings = new List<RTCRtpEncodingParameters>();
-                    //foreach (var ext in caps.HeaderExtensions) { result.HeaderExtensions.Add(CapabilitiesToParameters(ext)); }
-                    //result.MuxId = muxId;
-                    result.Rtcp = new RTCRtcpParameters();
-                    result.Rtcp.Mux = true;
-                    result.Rtcp.ReducedSize = true;
+
+                    result.Rtcp = new RTCRtcpParameters
+                    {
+                        Cname = cnameSsrc,
+                        Ssrc = ssrcId,
+                        Mux = true,
+                        ReducedSize = true
+                    };
 
                     return result;
                 }
@@ -143,15 +143,32 @@ namespace org
                     RTCRtpCodecCapability caps
                     )
                 {
-                    var result = new RTCRtpCodecParameters();
+                    var result = new RTCRtpCodecParameters
+                    {
+                        ClockRate = caps.ClockRate,
+                        Maxptime = caps.Maxptime,
+                        Name = caps.Name,
+                        NumChannels = caps.NumChannels,
+                        PayloadType = caps.PreferredPayloadType,
+                        RtcpFeedback = caps.RtcpFeedback,
+                        Parameters = caps.Parameters
+                    };
 
-                    result.ClockRate = caps.ClockRate;
-                    result.Maxptime = caps.Maxptime;
-                    result.Name = caps.Name;
-                    result.NumChannels = caps.NumChannels;
-                    result.PayloadType = caps.PreferredPayloadType;
-                    result.RtcpFeedback = caps.RtcpFeedback;
-                    result.Parameters = caps.Parameters;
+
+                    return result;
+                }
+
+                public static RTCRtpHeaderExtensionParameters ExtensionToParameters(
+                    RTCRtpHeaderExtension extension
+                    )
+                {
+                    var result = new RTCRtpHeaderExtensionParameters
+                    {
+                        Id = extension.PreferredId,
+                        Encrypt = extension.PreferredEncrypt,
+                        Uri = extension.Uri
+                    };
+
 
                     return result;
                 }
@@ -242,11 +259,7 @@ namespace org
                     )
                 {
                     //if (null == device) return null;
-                    foreach (var track in tracks)
-                    {
-                        if (track.Kind == kind) return track;
-                    }
-                    return null;
+                    return tracks.FirstOrDefault(track => track.Kind == kind);
                 }
 
                 public static List<MediaAudioTrack> InsertAudioIfValid(
@@ -320,12 +333,12 @@ namespace org
                     UInt16 sdpMLineIndex = 0;
                     var ret = new RTCIceCandidate(sb.ToString(), sdpMid, sdpMLineIndex);
 
-                    org.ortc.RTCIceCandidate iceCandidate2 = iceCandidateFromSdp(sb.ToString());
+                    //org.ortc.RTCIceCandidate iceCandidate2 = IceCandidateFromSdp(sb.ToString());
 
                     return ret;
                 }
 
-                public static org.ortc.RTCIceCandidate iceCandidateFromSdp(string sdp)
+                public static org.ortc.RTCIceCandidate IceCandidateFromSdp(string sdp)
                 {
                     var ice = new org.ortc.RTCIceCandidate();
 
