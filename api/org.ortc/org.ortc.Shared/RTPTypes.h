@@ -223,6 +223,7 @@ namespace org
     {
     public:
       property uint32                   RtxTime;
+      property uint8                    Apt;
 
     public:
       //Platform::String^ ToJsonString();

@@ -1861,6 +1861,7 @@ namespace org
       {
         result->RtxTime = 0;
       }
+      result->Apt = SafeInt<uint8>(input.mApt);
       return result;
     }
 
@@ -1874,8 +1875,11 @@ namespace org
     {
       if (nullptr == input) return IRTPTypes::RTXCodecParametersPtr();
       auto result = make_shared<IRTPTypes::RTXCodecParameters>();
-      if (0 == input->RtxTime) return result;
-      result->mRTXTime = zsLib::Milliseconds(SafeInt<Milliseconds::rep>(input->RtxTime));
+      result->mApt = SafeInt<decltype(result->mApt)>(input->Apt);
+      if (0 != input->RtxTime)
+      {
+        result->mRTXTime = zsLib::Milliseconds(SafeInt<Milliseconds::rep>(input->RtxTime));
+      }
       return result;
     }
 
@@ -2419,7 +2423,6 @@ namespace org
     {
       auto result = ref new RTCRtpRtxParameters();
       result->Ssrc = ToCx(input.mSSRC);
-      result->PayloadType = ToCx(input.mPayloadType);
       return result;
     }
 
@@ -2434,7 +2437,6 @@ namespace org
       if (nullptr == input) return IRTPTypes::RTXParametersPtr();
       auto result = make_shared<IRTPTypes::RTXParameters>();
       result->mSSRC = FromCx(input->Ssrc);
-      result->mPayloadType = FromCx(input->PayloadType);
       return result;
     }
 
