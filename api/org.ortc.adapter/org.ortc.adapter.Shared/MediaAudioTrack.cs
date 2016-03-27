@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using org.ortc;
@@ -13,43 +14,35 @@ namespace org
         {
             public class MediaAudioTrack : IMediaStreamTrack
             {
-                private string _id;
-                private bool _enabled;
-                internal org.ortc.MediaStreamTrack Track;
+                internal org.ortc.MediaStreamTrack Track { get; set; }
 
                 internal MediaAudioTrack(org.ortc.MediaStreamTrack track)
                 {
-                    _id = track.DeviceId;
-                    _enabled = track.Enabled;
+                    Id = track.DeviceId;
+                    Enabled = track.Enabled;
                     Track = track;
+                    Label = Guid.NewGuid().ToString();
+                    SsrcId = (UInt32)Guid.NewGuid().GetHashCode();
                 }
 
                 public MediaAudioTrack(string id, bool enabled = true)
                 {
-                    _id = id;
-                    _enabled = enabled;
+                    Id = id;
+                    Enabled = enabled;
                 }
 
-                public bool Enabled
-                {
-                    get { return _enabled; }
+                public uint SsrcId { get; set; }
+                public bool Enabled { get; set; }
 
-                    set { _enabled = value; }
-                }
+                public string Id { get; }
+                public string Cname { get; set; }
+                public string Label { get; set; }
 
-                public string Id
-                {
-                    get { return _id; }
-                }
-
-                public string Kind
-                {
-                    get { return "audio"; }
-                }
+                public string Kind => "audio";
 
                 public void Stop()
                 {
-                    //throw new NotImplementedException();
+                    Track.Stop();
                 }
 
             }

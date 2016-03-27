@@ -22,6 +22,8 @@ namespace org
                     _id = track.DeviceId;
                     _enabled = track.Enabled;
                     Track = track;
+                    Label = Guid.NewGuid().ToString();
+                    SsrcId = (UInt32)Guid.NewGuid().GetHashCode();
                 }
 
                 public MediaVideoTrack(string id, bool enabled = true)
@@ -29,6 +31,8 @@ namespace org
                     _id = id;
                     _enabled = enabled;
                 }
+
+                public uint SsrcId { get; set; }
 
                 public bool Enabled
                 {
@@ -41,6 +45,9 @@ namespace org
                 {
                     get { return _id; }
                 }
+
+                public string Cname { get; set; }
+                public string Label { get; set; }
 
                 public string Kind
                 {

@@ -32,7 +32,7 @@ namespace org
                 private RTCRtpReceiver VideoReceiver { get; set; }
                 private MediaDevice AudioPlaybackDevice { get; set; }
 
-                internal  MediaStream LocalStream { get; set; }
+                internal MediaStream LocalStream { get; set; }
                 internal MediaStream RemoteStream { get; set; }
 
                 private RTCIceGatherOptions Options { get; set; }
@@ -46,8 +46,8 @@ namespace org
 
                 internal RTCRtpCapabilities AudioSenderCaps { get; set; }
                 internal RTCRtpCapabilities VideoSenderCaps { get; set; }
-                private RTCRtpCapabilities AudioReceiverCaps { get; set; }
-                private RTCRtpCapabilities VideoReceiverCaps { get; set; }
+                internal RTCRtpCapabilities AudioReceiverCaps { get; set; }
+                internal RTCRtpCapabilities VideoReceiverCaps { get; set; }
 
                 internal RTCRtpParameters AudioReceiverRtpParameters { get; set; }
                 internal RTCRtpParameters VideoReceiverRtpParameters { get; set; }
@@ -155,7 +155,7 @@ namespace org
                 {
                     Task<RTCSessionDescription> ret = Task.Run<RTCSessionDescription>(() =>
                     {
-                        RTCSessionDescription sd = new RTCSessionDescription(RTCSdpType.Answer, SdpGenerator.CreateSdp(this));
+                        RTCSessionDescription sd = new RTCSessionDescription(RTCSdpType.Answer, SdpGenerator.CreateSdp(this, RTCSdpType.Answer));
                         return sd;
                     });
 
@@ -168,7 +168,7 @@ namespace org
                 {
                     Task<RTCSessionDescription> ret = Task.Run<RTCSessionDescription>(() =>
                     {
-                        RTCSessionDescription sd = new RTCSessionDescription(RTCSdpType.Offer, SdpGenerator.CreateSdp(this));
+                        RTCSessionDescription sd = new RTCSessionDescription(RTCSdpType.Offer, SdpGenerator.CreateSdp(this, RTCSdpType.Offer));
                         return sd;
                     });
 

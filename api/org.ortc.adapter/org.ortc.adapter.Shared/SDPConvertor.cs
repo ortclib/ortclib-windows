@@ -282,7 +282,11 @@ namespace org
                                         }
                                         else if (attrName.Equals("rtcp-mux"))
                                         {
-
+                                            parameters.Rtcp.Mux = true;
+                                        }
+                                        else if (attrName.Equals("rtcp-rsize"))
+                                        {
+                                            parameters.Rtcp.ReducedSize = true;
                                         }
                                         else if (attrName.Equals("rtpmap"))
                                         {
