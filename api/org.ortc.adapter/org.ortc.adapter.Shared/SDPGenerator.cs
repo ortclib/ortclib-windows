@@ -14,7 +14,7 @@ namespace org
             {
                 public class SdpGenerator
                 {
-                    internal static string CreateSdp(RtcPeerConnection peerConnection, RTCSdpType sdpType)
+                    internal static string CreateSdp(RTCPeerConnection peerConnection, RTCSdpType sdpType)
                     {
                         StringBuilder sb = new StringBuilder();
 

@@ -14,7 +14,7 @@ namespace org
         {
             internal delegate void StepEventHandler();
 
-            public class RtcPeerConnection
+            public class RTCPeerConnection 
             {
                 private readonly SemaphoreSlim _lock = new SemaphoreSlim(1, 1);
 
@@ -82,7 +82,7 @@ namespace org
                 public event MediaStreamEventEventDelegate OnRemoveStream;
                 public event RtcPeerConnectionHealthStatsDelegate OnConnectionHealthStats;
 
-                public RtcPeerConnection(RTCConfiguration configuration)
+                public RTCPeerConnection(RTCConfiguration configuration)
                 {
                     Settings.ApplyDefaults();
                     Ortc.Setup();
