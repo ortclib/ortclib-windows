@@ -12,39 +12,39 @@ namespace org
     {
         namespace adapter
         {
-            public class MediaAudioTrack : IMediaStreamTrack
+            public class MediaAudioTrack : IMediaStreamTrack, IDisposable
             {
                 internal org.ortc.MediaStreamTrack Track { get; set; }
 
                 internal MediaAudioTrack(org.ortc.MediaStreamTrack track)
                 {
-                    Id = track.DeviceId;
-                    Enabled = track.Enabled;
                     Track = track;
                     Label = Guid.NewGuid().ToString();
-                    SsrcId = (UInt32)Guid.NewGuid().GetHashCode();
-                }
-
-                public MediaAudioTrack(string id, bool enabled = true)
-                {
-                    Id = id;
-                    Enabled = enabled;
+                    SsrcId = (uint)Guid.NewGuid().GetHashCode();
                 }
 
                 public uint SsrcId { get; set; }
-                public bool Enabled { get; set; }
+                public bool Enabled
+                {
+                    get { return Track.Enabled; }
+                    set { Track.Enabled = value; }
+                }
 
-                public string Id { get; }
+                public string Id => Track.Id;
                 public string Cname { get; set; }
                 public string Label { get; set; }
 
-                public string Kind => "audio";
+                public string Kind => MediaStreamTrack.ToString(Track.Kind);
 
                 public void Stop()
                 {
                     Track.Stop();
                 }
 
+                public void Dispose()
+                {
+                    Track.Stop();
+                }
             }
         }
     }

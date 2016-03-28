@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Media.MediaProperties;
 
 namespace org
 {
@@ -18,7 +19,7 @@ namespace org
                 public String FullDescription { get; set; }
                 public String ResolutionDescription { get; set; }
                 public String FrameRateDescription { get; set; }
-                //public Windows.Media.MediaProperties.MediaRatio PixelAspectRatio;
+                public MediaRatio PixelAspectRatio { get; set; }
             }
         }
     }

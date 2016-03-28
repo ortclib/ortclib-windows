@@ -11,52 +11,41 @@ namespace org
     {
         namespace adapter
         {
-            public class MediaVideoTrack : IMediaStreamTrack
+            public class MediaVideoTrack : IMediaStreamTrack, IDisposable
             {
-                private string _id;
-                private bool _enabled;
-                internal org.ortc.MediaStreamTrack Track;
+                internal MediaStreamTrack Track;
 
-                internal MediaVideoTrack(org.ortc.MediaStreamTrack track)
+                internal MediaVideoTrack(MediaStreamTrack track)
                 {
-                    _id = track.DeviceId;
-                    _enabled = track.Enabled;
                     Track = track;
                     Label = Guid.NewGuid().ToString();
-                    SsrcId = (UInt32)Guid.NewGuid().GetHashCode();
+                    SsrcId = (uint)Guid.NewGuid().GetHashCode();
                 }
-
-                public MediaVideoTrack(string id, bool enabled = true)
-                {
-                    _id = id;
-                    _enabled = enabled;
-                }
-
+                
                 public uint SsrcId { get; set; }
 
                 public bool Enabled
                 {
-                    get { return _enabled; }
-
-                    set { _enabled = value; }
+                    get { return Track.Enabled; }
+                    set { Track.Enabled = value; }
                 }
 
-                public string Id
-                {
-                    get { return _id; }
-                }
+                public string Id => Track.Id;
 
                 public string Cname { get; set; }
                 public string Label { get; set; }
 
-                public string Kind
-                {
-                    get { return "video"; }
-                }
+                //public string Kind => "video";
+                public string Kind => MediaStreamTrack.ToString(Track.Kind);
 
                 public void Stop()
                 {
-                    //throw new NotImplementedException();
+                    Track.Stop();
+                }
+
+                public void Dispose()
+                {
+                    Track.Stop();
                 }
             }
         }
