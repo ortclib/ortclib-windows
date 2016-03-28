@@ -25,7 +25,7 @@ namespace org
                 public string Id { get; set; }
                 public string Name { get; set; }
 
-                public IAsyncOperation<List<CaptureCapability>> GetVideoCaptureCapabilities() //async
+                public IAsyncOperation<List<CaptureCapability>> GetVideoCaptureCapabilities()
                 {
                     MediaDevice device = this;
                     return Task.Run(async () =>

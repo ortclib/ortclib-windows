@@ -29,6 +29,12 @@ namespace org
                 /// </summary>
                 String Id { get; }
 
+                String Cname { get; set; }
+
+                String Label { get; set; }
+
+                uint SsrcId { get; set; }
+
                 /// <summary>
                 /// Controls the enabled state for the track.
                 /// </summary>

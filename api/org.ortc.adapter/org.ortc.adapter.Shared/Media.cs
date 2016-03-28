@@ -8,6 +8,7 @@ using Windows.Media.Core;
 using org.ortc;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading;
 
 namespace org
 {
@@ -21,11 +22,13 @@ namespace org
                 IList<MediaDeviceInfo> _audioPlaybackDevices = new List<MediaDeviceInfo>();
                 IList<MediaDeviceInfo> _videoDevices = new List<MediaDeviceInfo>();
 
+                private SemaphoreSlim _lock = new SemaphoreSlim(1, 1);
+
                 private MediaDevice _audioCaptureDevice;
                 private MediaDevice _audioPlaybackDevice;
                 private MediaDevice _videoDevice;
 
-                public delegate void OnMediaCaptureDeviceFoundDelegate(MediaDevice __param0);
+                public delegate void OnMediaCaptureDeviceFoundDelegate(MediaDevice param0);
 
                 public event OnMediaCaptureDeviceFoundDelegate OnAudioCaptureDeviceFound;
                 public event OnMediaCaptureDeviceFoundDelegate OnVideoCaptureDeviceFound;
@@ -45,7 +48,7 @@ namespace org
                     }).AsAsyncOperation<Media>();
                 }
 
-                public static IAsyncOperation<MediaDeviceInfo> EnumerateDevices()
+                /*public static IAsyncOperation<MediaDeviceInfo> EnumerateDevices()
                 {
                     Task<MediaDeviceInfo> t = Task.Run<MediaDeviceInfo>(() =>
                     {
@@ -60,7 +63,7 @@ namespace org
                     });
 
                     return t.AsAsyncOperation<MediaDeviceInfo>();
-                }
+                }*/
 
                 public IAsyncOperation<MediaStream> GetUserMedia(RTCMediaStreamConstraints mediaStreamConstraints)
                 {
@@ -104,18 +107,26 @@ namespace org
                         //var audioPlaybackList = Helper.Filter(MediaDeviceKind.AudioOutput, devices);
                         var videoList = Helper.Filter(MediaDeviceKind.Video, devices);
 
-                        _audioCaptureDevices = audioCaptureList;
-                        _videoDevices = videoList;
+                        //_audioCaptureDevices = audioCaptureList;
+                        //_videoDevices = videoList;
+
+                        using (var @lock = new AutoLock(_lock))
+                        {
+                            @lock.WaitAsync().Wait();
+                            _audioCaptureDevices = audioCaptureList;
+                            //_audioPlaybackDevices = audioPlaybackList;
+                            _videoDevices = videoList;
+                        }
 
                         await Task.Run(() =>
                         {
                             foreach (var info in audioCaptureList)
                             {
-                                OnAudioCaptureDeviceFound(new MediaDevice(info.DeviceId, info.Label));
+                                OnAudioCaptureDeviceFound?.Invoke(new MediaDevice(info.DeviceId, info.Label));
                             }
                             foreach (var info in videoList)
                             {
-                                OnVideoCaptureDeviceFound(new MediaDevice(info.DeviceId, info.Label));
+                                OnVideoCaptureDeviceFound?.Invoke(new MediaDevice(info.DeviceId, info.Label));
                             }
                         });
 
@@ -124,27 +135,38 @@ namespace org
                 }
 
                 //public IList<MediaDevice> GetAudioCaptureDevices();
-                //public IAsyncOperation<MediaStream> GetUserMedia(RTCMediaStreamConstraints mediaStreamConstraints);
                 //public IList<MediaDevice> GetVideoCaptureDevices();
                 public static void OnAppSuspending()
                 {
-
+                    MediaDevices.OnAppSuspending();
                 }
 
                 public void SelectAudioDevice(MediaDevice device)
                 {
-                    _audioCaptureDevice = device;
+                    using (var @lock = new AutoLock(_lock))
+                    {
+                        @lock.WaitAsync().Wait();
+                        _audioCaptureDevice = device;
+                    }
                 }
 
                 public void SelectVideoDevice(MediaDevice device)
                 {
-                    _videoDevice = device;
+                    using (var @lock = new AutoLock(_lock))
+                    {
+                        @lock.WaitAsync().Wait();
+                        _videoDevice = device;
+                    }
                 }
 
                 //public void SetDisplayOrientation(DisplayOrientations display_orientation);
                 public bool SelectAudioPlayoutDevice(MediaDevice device)
                 {
-                    _audioPlaybackDevice = device;
+                    using (var @lock = new AutoLock(_lock))
+                    {
+                        @lock.WaitAsync().Wait();
+                        _audioPlaybackDevice = device;
+                    }
                     return true;
                 }
 
@@ -155,6 +177,12 @@ namespace org
                     var devices = contentAsync.GetResults();
 
                     var audioPlaybackList = Helper.Filter(MediaDeviceKind.AudioOutput, devices);
+
+                    using (var @lock = new AutoLock(_lock))
+                    {
+                        @lock.WaitAsync().Wait();
+                        _audioPlaybackDevices = audioPlaybackList;
+                    }
 
                     _audioPlaybackDevices = audioPlaybackList;
 

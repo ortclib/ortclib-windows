@@ -14,33 +14,38 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ChatterBox.Client.Voip.Utils
+namespace org
 {
-    internal class AutoLock : IDisposable
+    namespace ortc
     {
-        private readonly SemaphoreSlim _sem;
-        private bool _isLocked;
-
-        public AutoLock(SemaphoreSlim sem)
+        namespace adapter
         {
-            _sem = sem;
-        }
-
-        public Task WaitAsync()
-        {
-            if (_isLocked) return Task.Run(() => { });
-            _isLocked = true;
-            var result = _sem.WaitAsync();
-            return result;
-        }
-
-        public void Dispose()
-        {
-            if (_isLocked)
+            internal class AutoLock : IDisposable
             {
-                _sem.Release();
+                private readonly SemaphoreSlim _sem;
+                private bool _isLocked;
+
+                public AutoLock(SemaphoreSlim sem)
+                {
+                    _sem = sem;
+                }
+
+                public Task WaitAsync()
+                {
+                    if (_isLocked) return Task.Run(() => { });
+                    _isLocked = true;
+                    var result = _sem.WaitAsync();
+                    return result;
+                }
+
+                public void Dispose()
+                {
+                    if (_isLocked)
+                    {
+                        _sem.Release();
+                    }
+                }
             }
         }
     }
-
 }
