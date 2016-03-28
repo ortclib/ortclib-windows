@@ -411,6 +411,33 @@ namespace org
 
                     localCaps.Codecs = newList;
                 }
+
+                public static RTCIceGatherOptions ToGatherOptions(RTCConfiguration configuration)
+                {
+                    RTCIceGatherOptions options = new RTCIceGatherOptions();
+                    options.IceServers = new List<org.ortc.RTCIceServer>();
+
+                    foreach (RTCIceServer server in configuration.IceServers)
+                    {
+                        org.ortc.RTCIceServer ortcServer = new org.ortc.RTCIceServer();
+                        ortcServer.Urls = new List<string>();
+
+                        if (!string.IsNullOrEmpty(server.Credential))
+                        {
+                            ortcServer.Credential = server.Credential;
+                        }
+
+                        if (!string.IsNullOrEmpty(server.Username))
+                        {
+                            ortcServer.UserName = server.Username;
+                        }
+
+                        ortcServer.Urls.Add(server.Url);
+                        options.IceServers.Add(ortcServer);
+                    }
+                    return options;
+                }
+
             }
         }
     }

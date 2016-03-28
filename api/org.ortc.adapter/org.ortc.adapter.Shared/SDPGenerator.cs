@@ -14,15 +14,35 @@ namespace org
             {
                 public class SdpGenerator
                 {
-                    internal static string CreateSdp(RTCPeerConnection peerConnection, RTCSdpType sdpType)
+                    internal static string CreateSdp(RtcPeerConnection peerConnection, RTCSdpType sdpType)
                     {
                         StringBuilder sb = new StringBuilder();
 
-                        Boolean containsAudio = (peerConnection.LocalStream.GetAudioTracks() != null) &&
-                                                peerConnection.LocalStream.GetAudioTracks().Count > 0;
-                        Boolean containsVideo = (peerConnection.LocalStream.GetVideoTracks() != null) &&
-                                                peerConnection.LocalStream.GetVideoTracks().Count > 0;
+                        // Find out what type of media the application wants to send, i.e. audio, video, or both.
+                        bool hasAudio = peerConnection.HasAudio();
+                        bool hasVideo = peerConnection.HasVideo();
 
+                        /*if (null != peerConnection.LocalStream)
+                        {
+                            var audioTracks = peerConnection.LocalStream.GetAudioTracks();
+                            if (null != audioTracks) { hasAudio = (audioTracks.Count > 0); }
+                            var videoTracks = peerConnection.LocalStream.GetVideoTracks();
+                            if (null != videoTracks) { hasVideo = (videoTracks.Count > 0); }
+                        }
+
+                        // If the remote peer's capabilities are already known at this time do not offer media beyond
+                        // what the remote side desires even if the local application offers the media devices needed
+                        // for more.
+                        if (null != peerConnection.AudioSenderRtpParameters)
+                            hasAudio = true;
+                        if (null != peerConnection.VideoSenderRtpParameters)
+                            hasVideo = true;*/
+
+                        /*bool containsAudio = (peerConnection.LocalStream.GetAudioTracks() != null) &&
+                                                peerConnection.LocalStream.GetAudioTracks().Count > 0;
+                        bool containsVideo = (peerConnection.LocalStream.GetVideoTracks() != null) &&
+                                                peerConnection.LocalStream.GetVideoTracks().Count > 0;
+*/
                         //------------- Global lines START -------------
                         //v=0
                         sb.Append("v=");
@@ -59,12 +79,12 @@ namespace org
                         sb.Append("a=");
                         sb.Append("group:BUNDLE");
                         sb.Append(' ');
-                        if (containsAudio)
+                        if (hasAudio)
                         {
                             sb.Append("audio");
                             sb.Append(' ');
                         }
-                        if (containsVideo)
+                        if (hasVideo)
                             sb.Append("video");
 
                         sb.Append("\r\n");
@@ -94,7 +114,7 @@ namespace org
 
                         //------------- Media lines START -------------
                         //m = audio 9 UDP / TLS / RTP / SAVPF 111 103 104 9 102 0 8 106 105 13 127 126
-                        if (containsAudio)
+                        if (hasAudio)
                         {
                             if (peerConnection.AudioSsrcLabel == null)
                                 peerConnection.AudioSsrcLabel = Guid.NewGuid().ToString();
@@ -129,7 +149,7 @@ namespace org
                         }
 
                         mediaParams = null;
-                        if (containsVideo)
+                        if (hasVideo)
                         {
                             if (peerConnection.VideoSsrcLabel == null)
                                 peerConnection.VideoSsrcLabel = Guid.NewGuid().ToString();

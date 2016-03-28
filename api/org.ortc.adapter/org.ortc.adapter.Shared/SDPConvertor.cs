@@ -13,7 +13,7 @@ namespace org
 
             class SDPConvertor
             {
-                internal static void ParseSdp(string sdp, RTCSdpType? type, RTCPeerConnection peerConnection)
+                internal static void ParseSdp(string sdp, RTCSdpType? type, RtcPeerConnection peerConnection)
                 {
                     string sessionId = null;
                     string sessionVersion = null;
@@ -134,7 +134,7 @@ namespace org
                     return valid;
                 }
 
-                internal static bool parseMediaSdp(string sdp, RTCPeerConnection peerConnection)
+                internal static bool parseMediaSdp(string sdp, RtcPeerConnection peerConnection)
                 {
                     bool valid = true;
                     RTCRtpParameters parameters = null;
