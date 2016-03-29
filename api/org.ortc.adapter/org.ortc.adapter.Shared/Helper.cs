@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.IO;
@@ -340,25 +341,39 @@ namespace org
 
                 public static org.ortc.RTCIceCandidate IceCandidateFromSdp(string sdp)
                 {
-                    var ice = new org.ortc.RTCIceCandidate();
-
-                    //candidate:704553097 1 udp 2122260223 192.168.1.3 62723 typ host generation 0
-                    TextReader reader = new StringReader(sdp);
-                    string line = reader.ReadLine();
-
-                    if (!String.IsNullOrEmpty(line))
+                    ortc.RTCIceCandidate ice = null;//new org.ortc.RTCIceCandidate();
+                    try
                     {
-                        string[] substrings = line.Split(' ');
+                        //candidate:704553097 1 udp 2122260223 192.168.1.3 62723 typ host generation 0
+                        TextReader reader = new StringReader(sdp);
+                        string line = reader.ReadLine() ?? sdp;
 
-                        if (substrings.Length == 10)
+                        if (!String.IsNullOrEmpty(line))
                         {
-                            ice.Foundation = substrings[0];
-                            ice.Protocol = String.Equals(substrings[2], "udp") ? RTCIceProtocol.Udp : RTCIceProtocol.Tcp;
-                            ice.Priority = uint.Parse(substrings[3]);
-                            ice.Ip = substrings[4];
-                            ice.Port = ushort.Parse(substrings[5]);
-                            ice.CandidateType = ToIceCandidateType(substrings[7]);
+                            ice = new org.ortc.RTCIceCandidate();
+                            string[] substrings = line.Split(' ');
+
+                            if (substrings.Length >= 10)
+                            {
+                                ice.Foundation = substrings[0];
+                                ice.Protocol = String.Equals(substrings[2], "udp") ? RTCIceProtocol.Udp : RTCIceProtocol.Tcp;
+                                ice.Priority = uint.Parse(substrings[3]);
+                                ice.Ip = substrings[4];
+                                ice.Port = ushort.Parse(substrings[5]);
+                                ice.CandidateType = ToIceCandidateType(substrings[7]);
+
+                                if (substrings.Length > 10)
+                                {
+                                    ice.RelatedAddress = substrings[9];
+                                    ice.RelatedPort = ushort.Parse(substrings[11]);
+                                }
+                            }
                         }
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine($"Exception ice parsing: {e.Message}");
+                        //Common.Logger.Warn("Disconnected during socket read operation due to exception", e);
                     }
                     return ice;
                 }
