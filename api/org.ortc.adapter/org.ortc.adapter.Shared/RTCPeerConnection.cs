@@ -231,11 +231,6 @@ namespace org
                     
                 }
 
-                private void PrepareIceTransport()
-                {
-                    IceTransport = new org.ortc.RTCIceTransport(IceGatherer);
-                }
-
                 private void PrepareGatherer(RTCConfiguration configuration)
                 {
                     var options = Helper.ToGatherOptions(configuration);
@@ -252,7 +247,7 @@ namespace org
                         OnStep += RTCPeerConnection_OnStep;
                     }
                 }
-
+                
                 private void PrepareDtlsTransport()
                 {
                     RTCCertificate.GenerateCertificate("").AsTask<RTCCertificate>().ContinueWith((cert) =>
@@ -261,8 +256,7 @@ namespace org
                         {
                             @lock.WaitAsync().Wait();
                             // Since the DTLS certificate is ready the RtcDtlsTransport can now be constructed.
-                            var certs = new List<RTCCertificate>();
-                            certs.Add(cert.Result);
+                            var certs = new List<RTCCertificate> {cert.Result};
                             DtlsTransport = new RTCDtlsTransport(IceTransport, certs);
                             if (Closed) DtlsTransport.Stop();
                         }
