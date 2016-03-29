@@ -171,7 +171,7 @@ namespace org
                     using (var @lock = new AutoLock(_lock))
                     {
                         @lock.WaitAsync().Wait();
-                        //_remoteCapabilities = description;
+                        RemoteSessionDescription = description;
                         RemoteCapabilitiesTcs = remoteCapabilitiesTcs;
                     }
                     Wake();
@@ -180,6 +180,8 @@ namespace org
                     remoteCapabilitiesTcs.SetResult(description);
                     return result;
                 }
+
+                internal RTCSessionDescription RemoteSessionDescription { get; set; }
 
                 public IAsyncOperation<RTCSessionDescription> CreateAnswer()
                 {
@@ -337,6 +339,11 @@ namespace org
                         // Can only obtain and setup the senders and receivers if the RtcDtlsTransport is ready.
                         if (null == DtlsTransport) return;
 
+                        if (null != RemoteSessionDescription)
+                        {
+                            SDPConvertor.ParseSdp(RemoteSessionDescription.Sdp,RemoteSessionDescription.Type,this);
+                            RemoteSessionDescription = null;
+                        }
                         // Perform the three main steps to setup the capabilities, and incoming and outgoing media.
                         StepGetCapabilities(out capabilitiesTcs, out capabilitiesTcsResult);
                         StepSetupReceiver(out capabilitiesFinalTcs, out capabilitiesFinalTcsResult);
