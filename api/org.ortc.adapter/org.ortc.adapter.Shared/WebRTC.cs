@@ -92,11 +92,13 @@ namespace org
                 private static async Task<bool> RequestAccessForMediaCapturePrivate() //async
                 {
                     MediaCapture mediaAccessRequester = new MediaCapture();
-                    MediaCaptureInitializationSettings mediaSettings = new MediaCaptureInitializationSettings();
-                    mediaSettings.AudioDeviceId = "";
-                    mediaSettings.VideoDeviceId = "";
-                    mediaSettings.StreamingCaptureMode = StreamingCaptureMode.AudioAndVideo;
-                    mediaSettings.PhotoCaptureSource = PhotoCaptureSource.VideoPreview;
+                    MediaCaptureInitializationSettings mediaSettings = new MediaCaptureInitializationSettings
+                    {
+                        AudioDeviceId = "",
+                        VideoDeviceId = "",
+                        StreamingCaptureMode = StreamingCaptureMode.AudioAndVideo,
+                        PhotoCaptureSource = PhotoCaptureSource.VideoPreview
+                    };
 
                     await mediaAccessRequester.InitializeAsync(mediaSettings);
 
@@ -137,17 +139,17 @@ namespace org
 
                 }
 
-                public static void SynNTPTime(long current_ntp_time)
+                public static void SynNTPTime(long currentNtpTime)
                 {
 
                 }
 
-                public static void UpdateCPUUsage(double cpu_usage)
+                public static void UpdateCPUUsage(double cpuUsage)
                 {
 
                 }
 
-                public static void UpdateMemUsage(long mem_usage)
+                public static void UpdateMemUsage(long memUsage)
                 {
 
                 }

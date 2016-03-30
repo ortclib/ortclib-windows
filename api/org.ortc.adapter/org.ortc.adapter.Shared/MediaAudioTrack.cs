@@ -14,9 +14,9 @@ namespace org
         {
             public class MediaAudioTrack : IMediaStreamTrack, IDisposable
             {
-                internal org.ortc.MediaStreamTrack Track { get; set; }
+                internal MediaStreamTrack Track { get; set; }
 
-                internal MediaAudioTrack(org.ortc.MediaStreamTrack track)
+                internal MediaAudioTrack(MediaStreamTrack track)
                 {
                     Track = track;
                     Label = Guid.NewGuid().ToString();

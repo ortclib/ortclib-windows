@@ -11,25 +11,25 @@ namespace org
         namespace adapter
         {
 
-            class SDPConvertor
+            class SdpConvertor
             {
                 internal static void ParseSdp(string sdp, RTCSdpType? type, RTCPeerConnection peerConnection)
                 {
-                    string sessionId = null;
-                    string sessionVersion = null;
-                    string streamId = null;
-                    bool audioSupported = false;
-                    bool videoSupported = false;
+                    string sessionId;
+                    string sessionVersion;
+                    string streamId;
+                    bool audioSupported;
+                    bool videoSupported;
                     
                     if (type == RTCSdpType.Offer)
                         peerConnection.IceRole = RTCIceRole.Controlled;
 
                     //string[] parts = sdp.Split("m=".ToCharArray());
-                    string[] parts = sdp.Split(new string[] {"m="}, StringSplitOptions.None);
+                    string[] parts = sdp.Split(new[] {"m="}, StringSplitOptions.None);
                     if (parts.Length < 2)
                         throw new Exception("invalid SDP");
 
-                    bool parsedSuccessfully = parseCommonSdp(parts[0], out sessionId, out sessionVersion, out streamId, out audioSupported,
+                    bool parsedSuccessfully = ParseCommonSdp(parts[0], out sessionId, out sessionVersion, out streamId, out audioSupported,
                         out videoSupported);
 
                     if (!parsedSuccessfully)
@@ -37,14 +37,11 @@ namespace org
 
                     for (int i = 1; i < parts.Length; i++)
                     {
-                        parseMediaSdp(parts[i], peerConnection);
+                        ParseMediaSdp(parts[i], peerConnection);
                     }
-
-                    return;
-                    
                 }
 
-                internal static bool parseCommonSdp(string sdp, out string sessionId, out string sessionVersion,
+                internal static bool ParseCommonSdp(string sdp, out string sessionId, out string sessionVersion,
                     out string streamId, out bool audioSupported, out bool videoSupported)
                 {
                     bool valid = true;
@@ -67,25 +64,23 @@ namespace org
                                 continue;
                             }
                             string value = line.Substring(2);
-                            string[] parts = null;
-                            int sep = -1;
                             try
                             {
                                 switch (line[0])
                                 {
                                     case 'v':
-                                        int version = 0;
+                                        int version;
                                         if (!int.TryParse(value, out version))
                                         {
                                             throw new Exception(string.Format("Invalid Line {0}", line));
                                         }
                                         if (version != 0)
                                         {
-                                            throw new Exception(string.Format("Not supported version"));
+                                            throw new Exception("Not supported version");
                                         }
                                         break;
                                     case 'o':
-                                        parts = value.Split(' ');
+                                        var parts = value.Split(' ');
                                         if (parts.Length != 6)
                                         {
                                             throw new Exception(string.Format("Invalid Line {0}", line));
@@ -98,15 +93,13 @@ namespace org
                                     case 't':
                                         break;
                                     case 'a':
-                                        sep = value.IndexOf(':');
-                                        string attrName;
-                                        string attrValue;
+                                        var sep = value.IndexOf(':');
 
                                         if (sep == -1)
                                             break;
 
-                                        attrName = value.Substring(0, sep);
-                                        attrValue = value.Substring(sep + 1);
+                                        var attrName = value.Substring(0, sep);
+                                        var attrValue = value.Substring(sep + 1);
 
                                         if (attrName.Equals("group"))
                                         {
@@ -134,7 +127,7 @@ namespace org
                     return valid;
                 }
 
-                internal static bool parseMediaSdp(string sdp, RTCPeerConnection peerConnection)
+                internal static bool ParseMediaSdp(string sdp, RTCPeerConnection peerConnection)
                 {
                     bool valid = true;
                     RTCRtpParameters parameters = null;
@@ -183,8 +176,10 @@ namespace org
                                     
                                     foreach (var codecId in codecsList)
                                     {
-                                        RTCRtpCodecParameters codecParameters = new RTCRtpCodecParameters();
-                                        codecParameters.PayloadType = byte.Parse(codecId);
+                                        RTCRtpCodecParameters codecParameters = new RTCRtpCodecParameters
+                                        {
+                                            PayloadType = byte.Parse(codecId)
+                                        };
                                         parameters.Codecs.Add(codecParameters);
                                         //codecsDictionary.Add(codecId,codecCapability);
                                     }
@@ -249,9 +244,11 @@ namespace org
                                             if (sep == -1)
                                                 break;
 
-                                            RTCDtlsFingerprint dtlsFingerprint = new RTCDtlsFingerprint();
-                                            dtlsFingerprint.Algorithm = attrValue.Substring(0, sep);
-                                            dtlsFingerprint.Value = attrValue.Substring(sep + 1);
+                                            RTCDtlsFingerprint dtlsFingerprint = new RTCDtlsFingerprint
+                                            {
+                                                Algorithm = attrValue.Substring(0, sep),
+                                                Value = attrValue.Substring(sep + 1)
+                                            };
                                             peerConnection.RemoteRtcDtlsParameters.Fingerprints.Add(dtlsFingerprint);
                                         }
                                         else if (attrName.Equals("setup"))
@@ -270,10 +267,12 @@ namespace org
 
                                             if (sep == -1)
                                                 break;
-                                            RTCRtpHeaderExtensionParameters headerExtensionParameters = new RTCRtpHeaderExtensionParameters();
-                                            //string str = attrValue.Substring(0, sep);
-                                            headerExtensionParameters.Id = ushort.Parse(attrValue.Substring(0, sep));
-                                            headerExtensionParameters.Uri = attrValue.Substring(sep + 1);
+                                            RTCRtpHeaderExtensionParameters headerExtensionParameters =
+                                                new RTCRtpHeaderExtensionParameters
+                                                {
+                                                    Id = ushort.Parse(attrValue.Substring(0, sep)),
+                                                    Uri = attrValue.Substring(sep + 1)
+                                                };
                                             parameters.HeaderExtensions.Add(headerExtensionParameters);
                                         }
                                         else if (attrName.Equals("sendrecv"))

@@ -22,7 +22,7 @@ namespace org
                 IList<MediaDeviceInfo> _audioPlaybackDevices = new List<MediaDeviceInfo>();
                 IList<MediaDeviceInfo> _videoDevices = new List<MediaDeviceInfo>();
 
-                private SemaphoreSlim _lock = new SemaphoreSlim(1, 1);
+                private readonly SemaphoreSlim _lock = new SemaphoreSlim(1, 1);
 
                 private MediaDevice _audioCaptureDevice;
                 private MediaDevice _audioPlaybackDevice;
@@ -42,10 +42,7 @@ namespace org
 
                 public static IAsyncOperation<Media> CreateMediaAsync()
                 {
-                    return Task.Run<Media>(() =>
-                    {
-                        return CreateMedia();
-                    }).AsAsyncOperation<Media>();
+                    return Task.Run(() => CreateMedia()).AsAsyncOperation();
                 }
 
                 /*public static IAsyncOperation<MediaDeviceInfo> EnumerateDevices()
@@ -67,7 +64,7 @@ namespace org
 
                 public IAsyncOperation<MediaStream> GetUserMedia(RTCMediaStreamConstraints mediaStreamConstraints)
                 {
-                    Task<MediaStream> t = Task.Run<MediaStream>(() =>
+                    Task<MediaStream> t = Task.Run(() =>
                     {
                         var constraints = Helper.MakeConstraints(mediaStreamConstraints.audioEnabled, null,
                             MediaDeviceKind.AudioInput, _audioCaptureDevice);
@@ -75,7 +72,7 @@ namespace org
                             MediaDeviceKind.Video, _videoDevice);
 
                         Task<IList<MediaStreamTrack>> task = MediaDevices.GetUserMedia(constraints).AsTask();
-                        return task.ContinueWith<MediaStream>((temp) =>
+                        return task.ContinueWith(temp =>
                         {
                             var audioTracks = Helper.InsertAudioIfValid(mediaStreamConstraints.audioEnabled, null,
                                 temp.Result, _audioCaptureDevice);
@@ -85,21 +82,20 @@ namespace org
                         });
                     });
 
-                    return t.AsAsyncOperation<MediaStream>();
+                    return t.AsAsyncOperation();
                 }
 
 
                 public IMediaSource CreateMediaStreamSource(MediaVideoTrack track, uint framerate, string id)
                 {
                     var useTrack = track.Track;
-                    if (null == useTrack) return null;
 
-                    return useTrack.CreateMediaSource();
+                    return useTrack?.CreateMediaSource();
                 }
 
                 public IAsyncOperation<bool> EnumerateAudioVideoCaptureDevices()
                 {
-                    return Task.Run<bool>(async () =>
+                    return Task.Run(async () =>
                     {
                         var devices = await MediaDevices.EnumerateDevices();
 

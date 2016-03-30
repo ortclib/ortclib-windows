@@ -67,6 +67,7 @@ namespace ortc_device_enumerator.Windows.Universal
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
+            listView.Items.Clear();
             EnumerateDevices();
         }
     }
