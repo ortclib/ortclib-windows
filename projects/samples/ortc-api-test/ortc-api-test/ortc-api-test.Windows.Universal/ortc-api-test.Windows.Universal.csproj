@@ -20,7 +20,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>$(SolutionDir)..\Build\$(PlatformTarget)\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
+    <OutputPath>$(SolutionDir)..\Build\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
     <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
@@ -30,7 +30,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>$(SolutionDir)..\Build\$(PlatformTarget)\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
+    <OutputPath>$(SolutionDir)..\Build\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
@@ -43,7 +43,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>$(SolutionDir)..\Build\$(PlatformTarget)\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
+    <OutputPath>$(SolutionDir)..\Build\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
     <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
@@ -53,7 +53,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
-    <OutputPath>$(SolutionDir)..\Build\$(PlatformTarget)\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
+    <OutputPath>$(SolutionDir)..\Build\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
@@ -66,7 +66,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>$(SolutionDir)..\Build\$(PlatformTarget)\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
+    <OutputPath>$(SolutionDir)..\Build\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
     <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
@@ -76,7 +76,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <OutputPath>$(SolutionDir)..\Build\$(PlatformTarget)\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
+    <OutputPath>$(SolutionDir)..\Build\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
