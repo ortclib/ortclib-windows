@@ -190,7 +190,7 @@ namespace org
                         RTCIceGatherer iceGatherer, RTCDtlsTransport dtlsTransport, string ipAddress,
                         string cname, IList<IMediaStreamTrack> tracks, string msid)
                     {
-                        string ret = null;
+                        string ret;
                         try
                         {
                             StringBuilder sb = new StringBuilder();
@@ -203,7 +203,7 @@ namespace org
                                     sb.Append(mediaLines);
 
                                 //------------- IP Address lines  -------------
-                                string ipAddressLines = GenerateIPAddressLines(ipAddress);
+                                string ipAddressLines = GenerateIpAddressLines(ipAddress);
                                 if (!string.IsNullOrEmpty(ipAddressLines))
                                     sb.Append(ipAddressLines);
 
@@ -254,7 +254,7 @@ namespace org
                                 foreach (var track in tracks)
                                 {
                                     track.Cname = cname;
-                                    string ssrc = GenerateSSRC(track.SsrcId, track.Cname, track.Label,
+                                    string ssrc = GenerateSsrc(track.SsrcId, track.Cname, track.Label,
                                     msid);
                                     if (!string.IsNullOrEmpty(ssrc))
                                         sb.Append(ssrc);
@@ -275,7 +275,6 @@ namespace org
 
                     internal static string GenerateMediaLines(string mediaType, IList<RTCRtpCodecParameters> codecs)
                     {
-                        string ret = null;
                         StringBuilder sb = new StringBuilder();
 
                         sb.Append("m=");
@@ -292,7 +291,7 @@ namespace org
                         }
                         sb.Append("\r\n");
 
-                        ret = sb.ToString();
+                        var ret = sb.ToString();
                         return ret;
                     }
 
@@ -305,9 +304,8 @@ namespace org
                         return ret;
                     }
 
-                    internal static string GenerateIPAddressLines(string ipAddress)
+                    internal static string GenerateIpAddressLines(string ipAddress)
                     {
-                        string ret = null;
                         StringBuilder sb = new StringBuilder();
 
                         //c=IN IP4 0.0.0.0
@@ -330,13 +328,12 @@ namespace org
                         sb.Append(ipAddress);
                         sb.Append("\r\n");
 
-                        ret = sb.ToString();
+                        var ret = sb.ToString();
                         return ret;
                     }
 
                     internal static string GenerateIceLines(RTCIceParameters iceParams)
                     {
-                        string ret = null;
                         StringBuilder sb = new StringBuilder();
 
                         // a = ice - ufrag:C / tJt6mZEG7BQVUa
@@ -348,13 +345,12 @@ namespace org
                         sb.Append(iceParams.Password);
                         sb.Append("\r\n");
 
-                        ret = sb.ToString();
+                        var ret = sb.ToString();
                         return ret;
                     }
 
                     internal static string GenerateFingerprintLines(RTCDtlsParameters dtlsParameters)
                     {
-                        string ret = null;
                         StringBuilder sb = new StringBuilder();
 
                         //a=fingerprint:sha-256 40:0C:E6:90:75:80:87:35:C7:F4:66:CB:C3:5E:F1:E8:63:55:12:09:0E:61:35:32:B8:79:B3:68:73:DD:EB:17
@@ -382,13 +378,12 @@ namespace org
                         }
                         sb.Append("\r\n");
 
-                        ret = sb.ToString();
+                        var ret = sb.ToString();
                         return ret;
                     }
 
                     internal static string GenerateExtensionsLines(IList<RTCRtpHeaderExtensionParameters> headerExtensionsParameterses)
                     {
-                        string ret = null;
                         StringBuilder sb = new StringBuilder();
 
                         //a = extmap:1 urn:ietf:params:rtp-hdrext:ssrc-audio-level
@@ -402,13 +397,12 @@ namespace org
                             sb.Append(extension.Uri);
                             sb.Append("\r\n");
                         }
-                        ret = sb.ToString();
+                        var ret = sb.ToString();
                         return ret;
                     }
 
                     internal static string GenerateCodecLines(string type, IList<RTCRtpCodecParameters> codecs)
                     {
-                        string ret = null;
                         uint maxPTime = 0;
 
                         StringBuilder sb = new StringBuilder();
@@ -461,17 +455,16 @@ namespace org
                             sb.Append("\r\n");
                         }
 
-                        ret = sb.ToString();
+                        var ret = sb.ToString();
                         return ret;
                     }
 
-                    internal static string GenerateSSRC(uint ssrcId, string cname, string label,
+                    internal static string GenerateSsrc(uint ssrcId, string cname, string label,
                         string msid)
                     {
-                        string ret = null;
                         if (string.IsNullOrEmpty(cname) ||
                             string.IsNullOrEmpty(label) || string.IsNullOrEmpty(msid))
-                            return ret;
+                            return null;
 
                         StringBuilder sb = new StringBuilder();
 
@@ -509,7 +502,7 @@ namespace org
                             sb.Append(label);
                             sb.Append("\r\n");
                         }
-                        ret = sb.ToString();
+                        var ret = sb.ToString();
                         return ret;
                     }
                 }

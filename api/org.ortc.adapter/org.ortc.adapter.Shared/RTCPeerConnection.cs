@@ -227,7 +227,7 @@ namespace org
                 {
                     return Task.Run(() =>
                     {
-                        org.ortc.RTCIceCandidate iceCandidate = Helper.IceCandidateFromSdp(candidate.Candidate);
+                        ortc.RTCIceCandidate iceCandidate = Helper.IceCandidateFromSdp(candidate.Candidate);
                         IceTransport.AddRemoteCandidate(iceCandidate);
                     }).AsAsyncAction();
                     
@@ -252,7 +252,7 @@ namespace org
                 
                 private void PrepareDtlsTransport()
                 {
-                    RTCCertificate.GenerateCertificate("").AsTask<RTCCertificate>().ContinueWith((cert) =>
+                    RTCCertificate.GenerateCertificate("").AsTask().ContinueWith(cert =>
                     {
                         using (var @lock = new AutoLock(_lock))
                         {
@@ -291,14 +291,12 @@ namespace org
 
                 private void RTCIceGatherer_onICEGathererCandidateComplete(RTCIceGathererCandidateCompleteEvent evt)
                 {
-                    int i = 0;
-                    i++;
+                    
                 }
 
                 private void RTCIceGatherer_onICEGathererLocalCandidateGone(RTCIceGathererCandidateEvent evt)
                 {
-                    int i = 0;
-                    i++;
+                    
                 }
 
                 private void RTCIceGatherer_onICEGathererError(RTCIceGathererErrorEvent evt)
@@ -341,7 +339,7 @@ namespace org
 
                         if (null != RemoteSessionDescription)
                         {
-                            SDPConvertor.ParseSdp(RemoteSessionDescription.Sdp,RemoteSessionDescription.Type,this);
+                            SdpConvertor.ParseSdp(RemoteSessionDescription.Sdp,RemoteSessionDescription.Type,this);
                             RemoteSessionDescription = null;
                         }
                         // Perform the three main steps to setup the capabilities, and incoming and outgoing media.
@@ -376,10 +374,7 @@ namespace org
                     result = null;
 
                     if (null == CapabilitiesTcs) return;
-
-                    // Obtain basic ICE configuration information like the usernameFragment and password.
-                    var localParams = IceGatherer.GetLocalParameters();
-
+                    
                     // Obtain the complete capabilities of the RtcRtpSenders/RtcRtpReceivers for both
                     // audio and video.
                     AudioSenderCaps = RTCRtpSender.GetCapabilities("audio");
@@ -484,7 +479,6 @@ namespace org
 
                     tcs = CapabilitiesFinalTcs;
                     CapabilitiesFinalTcs = null;
-                    result = null;
                 }
 
                 /// <summary>
@@ -563,7 +557,7 @@ namespace org
                     if (null != LocalStream)
                     {
                         var audioTracks = LocalStream.GetAudioTracks();
-                        if (null != audioTracks) { hasAudio = (audioTracks.Count > 0); }
+                        if (null != audioTracks) { hasAudio = audioTracks.Count > 0; }
                     }
 
                     // If the remote peer's capabilities are already known at this time do not offer media beyond
@@ -582,7 +576,7 @@ namespace org
                     if (null != LocalStream)
                     {
                         var videoTracks = LocalStream.GetVideoTracks();
-                        if (null != videoTracks) { hasVideo = (videoTracks.Count > 0); }
+                        if (null != videoTracks) { hasVideo = videoTracks.Count > 0; }
                     }
 
                     // If the remote peer's capabilities are already known at this time do not offer media beyond

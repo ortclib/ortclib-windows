@@ -40,7 +40,7 @@ namespace org
 
                 public static RTCIceCandidateType ToIceCandidateType(string type)
                 {
-                    RTCIceCandidateType ret = RTCIceCandidateType.Host;
+                    RTCIceCandidateType ret;
 
                     switch (type)
                     {
@@ -254,12 +254,11 @@ namespace org
                     return null;
                 }
 
-                public static MediaStreamTrack findTrack(
+                public static MediaStreamTrack FindTrack(
                     IList<MediaStreamTrack> tracks,
                     MediaStreamTrackKind kind
                     )
                 {
-                    //if (null == device) return null;
                     return tracks.FirstOrDefault(track => track.Kind == kind);
                 }
 
@@ -274,7 +273,7 @@ namespace org
                     if (null == device) return existingList;
                     if (null == tracks) return existingList;
 
-                    var found = findTrack(tracks, MediaStreamTrackKind.Audio);
+                    var found = FindTrack(tracks, MediaStreamTrackKind.Audio);
                     if (null == found) return existingList;
                     if (null == existingList) existingList = new List<MediaAudioTrack>();
                     //existingList.Add(new MediaAudioTrack(found.Id, found.Enabled));
@@ -293,7 +292,7 @@ namespace org
                     if (null == device) return existingList;
                     if (null == tracks) return existingList;
 
-                    var found = findTrack(tracks, MediaStreamTrackKind.Video);
+                    var found = FindTrack(tracks, MediaStreamTrackKind.Video);
                     if (null == found) return existingList;
                     if (null == existingList) existingList = new List<MediaVideoTrack>();
                     //existingList.Add(new MediaVideoTrack(found.Id,found.Enabled));
@@ -302,7 +301,7 @@ namespace org
                 }
 
 
-                public static RTCIceCandidate ToWrapperIceCandidate(org.ortc.RTCIceCandidate iceCandidate,
+                public static RTCIceCandidate ToWrapperIceCandidate(ortc.RTCIceCandidate iceCandidate,
                     int sdpComponentId)
                 {
                     StringBuilder sb = new StringBuilder();
@@ -339,7 +338,7 @@ namespace org
                     return ret;
                 }
 
-                public static org.ortc.RTCIceCandidate IceCandidateFromSdp(string sdp)
+                public static ortc.RTCIceCandidate IceCandidateFromSdp(string sdp)
                 {
                     ortc.RTCIceCandidate ice = null;//new org.ortc.RTCIceCandidate();
                     try
@@ -350,7 +349,7 @@ namespace org
 
                         if (!String.IsNullOrEmpty(line))
                         {
-                            ice = new org.ortc.RTCIceCandidate();
+                            ice = new ortc.RTCIceCandidate();
                             string[] substrings = line.Split(' ');
 
                             if (substrings.Length >= 10)
@@ -430,11 +429,11 @@ namespace org
                 public static RTCIceGatherOptions ToGatherOptions(RTCConfiguration configuration)
                 {
                     RTCIceGatherOptions options = new RTCIceGatherOptions();
-                    options.IceServers = new List<org.ortc.RTCIceServer>();
+                    options.IceServers = new List<ortc.RTCIceServer>();
 
                     foreach (RTCIceServer server in configuration.IceServers)
                     {
-                        org.ortc.RTCIceServer ortcServer = new org.ortc.RTCIceServer();
+                        ortc.RTCIceServer ortcServer = new ortc.RTCIceServer();
                         ortcServer.Urls = new List<string>();
 
                         if (!string.IsNullOrEmpty(server.Credential))
