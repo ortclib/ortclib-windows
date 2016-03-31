@@ -8,15 +8,13 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>org.ortc.adapter is a WebRTC wrapper for ORTC WinRT library.</description>
         <dependencies>
-            <dependency id="org.ortc" version="1.0.3" />
-			<dependency id="Common.Logging" version="3.3.1" />
-            <dependency id="NLog" version="4.0.0" />
+            <dependency id="org.ortc" version="1.0.1-Beta" />
         </dependencies>
     </metadata>
-	<files>
-        <file src="runtimes\win10-x86\native\org.ortc.adapter.dll" target="runtimes\win10-x86\native\org.ortc.adapter.dll" />
-        <file src="runtimes\win10-x64\native\org.ortc.adapter.dll" target="runtimes\win10-x64\native\org.ortc.adapter.dll" />
-        <file src="runtimes\win10-arm\native\org.ortc.adapter.dll" target="runtimes\win10-arm\native\org.ortc.adapter.dll" />
+    <files>
         <file src="build\native\org.ortc.adapter.targets" target="build\native\org.ortc.adapter.targets" />
+        <file src="runtimes\win10-arm\native\org.ortc.adapter.dll" target="runtimes\win10-arm\native\org.ortc.adapter.dll" />
+        <file src="runtimes\win10-x64\native\org.ortc.adapter.dll" target="runtimes\win10-x64\native\org.ortc.adapter.dll" />
+        <file src="runtimes\win10-x86\native\org.ortc.adapter.dll" target="runtimes\win10-x86\native\org.ortc.adapter.dll" />
     </files>
 </package>
