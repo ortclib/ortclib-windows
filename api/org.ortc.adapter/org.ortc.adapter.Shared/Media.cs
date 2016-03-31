@@ -18,9 +18,9 @@ namespace org
         {
             public class Media
             {
-                IList<MediaDeviceInfo> _audioCaptureDevices = new List<MediaDeviceInfo>();
-                IList<MediaDeviceInfo> _audioPlaybackDevices = new List<MediaDeviceInfo>();
-                IList<MediaDeviceInfo> _videoDevices = new List<MediaDeviceInfo>();
+                private IList<MediaDeviceInfo> AudioCaptureDevices { get;  set; } = new List<MediaDeviceInfo>();
+                private IList<MediaDeviceInfo> AudioPlaybackDevices { get; set; } = new List<MediaDeviceInfo>();
+                private IList<MediaDeviceInfo> VideoDevices { get; set; } = new List<MediaDeviceInfo>();
 
                 private readonly SemaphoreSlim _lock = new SemaphoreSlim(1, 1);
 
@@ -109,9 +109,9 @@ namespace org
                         using (var @lock = new AutoLock(_lock))
                         {
                             @lock.WaitAsync().Wait();
-                            _audioCaptureDevices = audioCaptureList;
+                            AudioCaptureDevices = audioCaptureList;
                             //_audioPlaybackDevices = audioPlaybackList;
-                            _videoDevices = videoList;
+                            VideoDevices = videoList;
                         }
 
                         await Task.Run(() =>
@@ -177,10 +177,10 @@ namespace org
                     using (var @lock = new AutoLock(_lock))
                     {
                         @lock.WaitAsync().Wait();
-                        _audioPlaybackDevices = audioPlaybackList;
+                        AudioPlaybackDevices = audioPlaybackList;
                     }
 
-                    _audioPlaybackDevices = audioPlaybackList;
+                    AudioPlaybackDevices = audioPlaybackList;
 
                     return Helper.ToMediaDevices(audioPlaybackList);
                 }

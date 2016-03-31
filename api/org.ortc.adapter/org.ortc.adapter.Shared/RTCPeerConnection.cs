@@ -155,14 +155,8 @@ namespace org
                         VideoReceiver?.Stop();
                     }
 
-                    if (null != capabilitiesTcs)
-                    {
-                        capabilitiesTcs.SetResult(null);
-                    }
-                    if (null != capabilitiesFinalTcs)
-                    {
-                        capabilitiesFinalTcs.SetResult(null);
-                    }
+                    capabilitiesTcs?.SetResult(null);
+                    capabilitiesFinalTcs?.SetResult(null);
                 }
 
                 public IAsyncAction SetRemoteDescription(RTCSessionDescription description)
@@ -383,10 +377,7 @@ namespace org
                     VideoReceiverCaps = RTCRtpReceiver.GetCapabilities("video");
                     DtlsParameters = DtlsTransport.GetLocalParameters();
 
-                    if (IceRole == RTCIceRole.Controlling)
-                        result = new RTCSessionDescription(RTCSdpType.Offer, SdpGenerator.CreateSdp(this, RTCSdpType.Offer));
-                    else
-                        result = new RTCSessionDescription(RTCSdpType.Answer, SdpGenerator.CreateSdp(this, RTCSdpType.Answer));
+                    result = IceRole == RTCIceRole.Controlling ? new RTCSessionDescription(RTCSdpType.Offer, SdpGenerator.CreateSdp(this, RTCSdpType.Offer)) : new RTCSessionDescription(RTCSdpType.Answer, SdpGenerator.CreateSdp(this, RTCSdpType.Answer));
 
                     /*
                     // Put all this information into a "blob" that can be JSONified and sent to the remote party.
@@ -452,13 +443,11 @@ namespace org
                     List<MediaVideoTrack> incomingVideoTracks = null;
                     if (null != incomingAudioTrack)
                     {
-                        incomingAudioTracks = new List<MediaAudioTrack>();
-                        incomingAudioTracks.Add(incomingAudioTrack);
+                        incomingAudioTracks = new List<MediaAudioTrack> {incomingAudioTrack};
                     }
                     if (null != incomingVideoTrack)
                     {
-                        incomingVideoTracks = new List<MediaVideoTrack>();
-                        incomingVideoTracks.Add(incomingVideoTrack);
+                        incomingVideoTracks = new List<MediaVideoTrack> {incomingVideoTrack};
                     }
 
                     // Setup a helper media stream containing all the incoming audio and video media "tracks".
@@ -513,7 +502,7 @@ namespace org
                             var tracks = LocalStream.GetAudioTracks();
                             MediaAudioTrack mediaTrack = null;
                             MediaStreamTrack track = null;
-                            if (null != tracks) { if (tracks.Count > 0) { mediaTrack = tracks.First(); } }
+                            if (tracks?.Count > 0) { mediaTrack = tracks.First(); }
                             if (null != mediaTrack) track = mediaTrack.Track;
 
                             if (null != track)
@@ -534,7 +523,7 @@ namespace org
                             var tracks = LocalStream.GetVideoTracks();
                             MediaVideoTrack mediaTrack = null;
                             MediaStreamTrack track = null;
-                            if (null != tracks) { if (tracks.Count > 0) { mediaTrack = tracks.First(); } }
+                            if (tracks?.Count > 0) { mediaTrack = tracks.First(); }
                             if (null != mediaTrack) track = mediaTrack.Track;
 
                             if (null != track)
@@ -552,13 +541,10 @@ namespace org
                 internal bool HasAudio()
                 {
                     bool hasAudio = false;
-                    
 
-                    if (null != LocalStream)
-                    {
-                        var audioTracks = LocalStream.GetAudioTracks();
-                        if (null != audioTracks) { hasAudio = audioTracks.Count > 0; }
-                    }
+
+                    var audioTracks = LocalStream?.GetAudioTracks();
+                    if (audioTracks != null) { hasAudio = audioTracks.Count > 0; }
 
                     // If the remote peer's capabilities are already known at this time do not offer media beyond
                     // what the remote side desires even if the local application offers the media devices needed
@@ -573,11 +559,8 @@ namespace org
                 {
                     bool hasVideo = false;
 
-                    if (null != LocalStream)
-                    {
-                        var videoTracks = LocalStream.GetVideoTracks();
-                        if (null != videoTracks) { hasVideo = videoTracks.Count > 0; }
-                    }
+                    var videoTracks = LocalStream?.GetVideoTracks();
+                    if (videoTracks != null) { hasVideo = videoTracks.Count > 0; }
 
                     // If the remote peer's capabilities are already known at this time do not offer media beyond
                     // what the remote side desires even if the local application offers the media devices needed

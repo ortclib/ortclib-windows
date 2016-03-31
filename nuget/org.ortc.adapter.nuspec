@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/01/nuspec.xsd">
     <metadata minClientVersion="2.5">
         <id>org.ortc.adapter</id>
-        <version>1.0.0</version>
+        <version></version>
         <title>org.ortc.adapter</title>
         <authors>Hookflash</authors>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
