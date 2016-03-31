@@ -79,12 +79,7 @@ namespace org
 
                 public static IList<MediaDevice> ToMediaDevices(IList<MediaDeviceInfo> devices)
                 {
-                    var results = new List<MediaDevice>();
-                    foreach (var device in devices)
-                    {
-                        results.Add(ToMediaDevice(device));
-                    }
-                    return results;
+                    return devices.Select(ToMediaDevice).ToList();
                 }
 
                 public static CodecInfo ToDto(RTCRtpCodecCapability codec, int index)
@@ -241,7 +236,7 @@ namespace org
                     return existingConstraints;
                 }
 
-                public static MediaStreamTrack findTrack(
+                public static MediaStreamTrack FindTrack(
                     IList<MediaStreamTrack> tracks,
                     MediaDevice device
                     )
@@ -249,6 +244,7 @@ namespace org
                     if (null == device) return null;
                     foreach (var track in tracks)
                     {
+#warning TODO CHeck if this is resolved and it can be used ==
                         if (track.DeviceId != device.Id) return track;
                     }
                     return null;
@@ -379,10 +375,12 @@ namespace org
 
                 public static Constraints ToApiConstraints(RTCMediaStreamConstraints mediaStreamConstraints)
                 {
-                    Constraints ret = new Constraints();
+                    Constraints ret = new Constraints
+                    {
+                        Audio = mediaStreamConstraints.audioEnabled ? new MediaTrackConstraints() : null,
+                        Video = mediaStreamConstraints.videoEnabled ? new MediaTrackConstraints() : null
+                    };
 
-                    ret.Audio = mediaStreamConstraints.audioEnabled ? new MediaTrackConstraints() : null;
-                    ret.Video = mediaStreamConstraints.videoEnabled ? new MediaTrackConstraints() : null;
 
                     return ret;
                 }

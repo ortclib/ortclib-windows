@@ -124,7 +124,7 @@ namespace org
                     return false;
                 }
 
-                public static void SetPreferredVideoCaptureFormat(int frame_width, int frame_height, int fps)
+                public static void SetPreferredVideoCaptureFormat(int frameWidth, int frameHeight, int fps)
                 {
 
                 }
