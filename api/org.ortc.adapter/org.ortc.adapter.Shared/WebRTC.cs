@@ -50,32 +50,8 @@ namespace org
 
                 public static void Initialize(CoreDispatcher dispatcher)
                 {
-                    /*var contentAsync = Media.EnumerateDevices();//.AsTask().Wait();
-            contentAsync.AsTask().Wait();
-            string content = contentAsync.GetResults();*/
-                    /*if (globals::isInitialized)
-                return;
-
-            g_windowDispatcher = dispatcher;
-
-            // Create a worker thread
-            globals::gThread.SetName("WinRTApiWorker", nullptr);
-            globals::gThread.Start();
-            globals::RunOnGlobalThread<void>([] {
-                rtc::EnsureWinsockInit();
-                rtc::InitializeSSL(globals::certificateVerifyCallBack);
-
-                auto encoderFactory = new webrtc::H264WinRTEncoderFactory();
-                auto decoderFactory = new webrtc::H264WinRTDecoderFactory();
-
-                LOG(LS_INFO) << "Creating PeerConnectionFactory.";
-                globals::gPeerConnectionFactory =
-                    webrtc::CreatePeerConnectionFactory(encoderFactory, decoderFactory);
-
-                webrtc::SetupEventTracer(&WebRTC::GetCategoryGroupEnabled,
-                  &WebRTC::AddTraceEvent);
-            });
-            globals::isInitialized = true;*/
+                    Settings.ApplyDefaults();
+                    OrtcWithDispatcher.Setup(dispatcher);
                 }
 
                 //public static bool IsTracing();

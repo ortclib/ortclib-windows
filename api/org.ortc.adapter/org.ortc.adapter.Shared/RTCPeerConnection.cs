@@ -84,9 +84,6 @@ namespace org
 
                 public RTCPeerConnection(RTCConfiguration configuration)
                 {
-                    Settings.ApplyDefaults();
-                    Ortc.Setup();
-
                     SessionId = (ulong)(DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0).ToUniversalTime()).TotalMilliseconds;
 
                     PrepareGatherer(configuration);
