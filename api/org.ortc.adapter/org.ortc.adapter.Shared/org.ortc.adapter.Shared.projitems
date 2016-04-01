@@ -9,6 +9,7 @@
     <Import_RootNamespace>org.ortc.adapter.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AutoLock.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CaptureCapability.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CodecInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Defs.cs" />

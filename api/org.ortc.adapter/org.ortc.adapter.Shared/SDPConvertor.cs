@@ -11,27 +11,25 @@ namespace org
         namespace adapter
         {
 
-            class SDPConvertor
+            class SdpConvertor
             {
                 internal static void ParseSdp(string sdp, RTCSdpType? type, RTCPeerConnection peerConnection)
                 {
-                    string sessionId = null;
-                    string sessionVersion = null;
-                    string streamId = null;
-                    bool audioSupported = false;
-                    bool videoSupported = false;
-                    string ice_ufrag = null;
-                    string ice_pwd = null;
-                    string fingerprint = null;
-                    List<Dictionary<string, string>> extmaps = new List<Dictionary<string, string>>();
-                    List<string> codecs = new List<string>();
+                    string sessionId;
+                    string sessionVersion;
+                    string streamId;
+                    bool audioSupported;
+                    bool videoSupported;
+                    
+                    if (type == RTCSdpType.Offer)
+                        peerConnection.IceRole = RTCIceRole.Controlled;
 
                     //string[] parts = sdp.Split("m=".ToCharArray());
-                    string[] parts = sdp.Split(new string[] {"m="}, StringSplitOptions.None);
+                    string[] parts = sdp.Split(new[] {"m="}, StringSplitOptions.None);
                     if (parts.Length < 2)
                         throw new Exception("invalid SDP");
 
-                    bool parsedSuccessfully = parseCommonSdp(parts[0], out sessionId, out sessionVersion, out streamId, out audioSupported,
+                    bool parsedSuccessfully = ParseCommonSdp(parts[0], out sessionId, out sessionVersion, out streamId, out audioSupported,
                         out videoSupported);
 
                     if (!parsedSuccessfully)
@@ -39,14 +37,11 @@ namespace org
 
                     for (int i = 1; i < parts.Length; i++)
                     {
-                        parseMediaSdp(parts[i], out ice_ufrag, out ice_pwd, out fingerprint, extmaps, codecs);
+                        ParseMediaSdp(parts[i], peerConnection);
                     }
-
-                    return;
-                    
                 }
 
-                internal static bool parseCommonSdp(string sdp, out string sessionId, out string sessionVersion,
+                internal static bool ParseCommonSdp(string sdp, out string sessionId, out string sessionVersion,
                     out string streamId, out bool audioSupported, out bool videoSupported)
                 {
                     bool valid = true;
@@ -69,25 +64,23 @@ namespace org
                                 continue;
                             }
                             string value = line.Substring(2);
-                            string[] parts = null;
-                            int sep = -1;
                             try
                             {
                                 switch (line[0])
                                 {
                                     case 'v':
-                                        int version = 0;
+                                        int version;
                                         if (!int.TryParse(value, out version))
                                         {
                                             throw new Exception(string.Format("Invalid Line {0}", line));
                                         }
                                         if (version != 0)
                                         {
-                                            throw new Exception(string.Format("Not supported version"));
+                                            throw new Exception("Not supported version");
                                         }
                                         break;
                                     case 'o':
-                                        parts = value.Split(' ');
+                                        var parts = value.Split(' ');
                                         if (parts.Length != 6)
                                         {
                                             throw new Exception(string.Format("Invalid Line {0}", line));
@@ -100,15 +93,13 @@ namespace org
                                     case 't':
                                         break;
                                     case 'a':
-                                        sep = value.IndexOf(':');
-                                        string attrName;
-                                        string attrValue;
+                                        var sep = value.IndexOf(':');
 
                                         if (sep == -1)
                                             break;
 
-                                        attrName = value.Substring(0, sep);
-                                        attrValue = value.Substring(sep + 1);
+                                        var attrName = value.Substring(0, sep);
+                                        var attrValue = value.Substring(sep + 1);
 
                                         if (attrName.Equals("group"))
                                         {
@@ -136,27 +127,26 @@ namespace org
                     return valid;
                 }
 
-                internal static bool parseMediaSdp(string sdp, out string ice_ufrag, out string ice_pwd,
-                    out string fingerprint, List<Dictionary<string, string>> extmaps, List<string> codecs)
+                internal static bool ParseMediaSdp(string sdp, RTCPeerConnection peerConnection)
                 {
                     bool valid = true;
-                    ice_ufrag = null;
-                    ice_pwd = null;
+                    RTCRtpParameters parameters = null;
 
-                    RTCIceParameters iceParameters = new RTCIceParameters();
+                    if (null == peerConnection.RemoteRtcIceParameters) peerConnection.RemoteRtcIceParameters  = new RTCIceParameters();
+                    if (null == peerConnection.RemoteRtcDtlsParameters)
+                    {
+                        peerConnection.RemoteRtcDtlsParameters = new RTCDtlsParameters
+                        {
+                            Fingerprints = new List<RTCDtlsFingerprint>()
+                        };
+                    }
 
-                    Dictionary<string,RTCRtpCodecCapability> codecsDictionary = new Dictionary<string, RTCRtpCodecCapability>();
-                    List<RTCRtpHeaderExtension> headerExtensions = new List<RTCRtpHeaderExtension>();
-
-                    RTCDtlsParameters dtlsParameters = new RTCDtlsParameters();
-                    dtlsParameters.Fingerprints = new List<RTCDtlsFingerprint>();
-                    fingerprint = null;
+                    //Dictionary<string,RTCRtpCodecCapability> codecsDictionary = new Dictionary<string, RTCRtpCodecCapability>();
+                    //List<RTCRtpHeaderExtension> headerExtensions = new List<RTCRtpHeaderExtension>();
+      
                     TextReader reader = new StringReader(sdp);
 
                     IList<UInt32> streamSourceIds = new List<uint>();
-                    string streamName = null;
-                    string mediaTrackLabel = null;
-                    string streamId = null;
 
                     string line = reader.ReadLine();
                     while (line != null)
@@ -176,25 +166,38 @@ namespace org
                                 codecsList.RemoveRange(0,3);
                                 if (codecsList.Count > 0)
                                 {
+                                    parameters = new RTCRtpParameters
+                                    {
+                                        Codecs = new List<RTCRtpCodecParameters>(),
+                                        HeaderExtensions = new List<RTCRtpHeaderExtensionParameters>(),
+                                        Rtcp = new RTCRtcpParameters(),
+                                        Encodings = new List<RTCRtpEncodingParameters>()
+                                    };
+                                    
                                     foreach (var codecId in codecsList)
                                     {
-                                        RTCRtpCodecCapability codecCapability = new RTCRtpCodecCapability();
-                                        codecCapability.PreferredPayloadType = byte.Parse(codecId);
-                                        codecsDictionary.Add(codecId,codecCapability);
+                                        RTCRtpCodecParameters codecParameters = new RTCRtpCodecParameters
+                                        {
+                                            PayloadType = byte.Parse(codecId)
+                                        };
+                                        parameters.Codecs.Add(codecParameters);
+                                        //codecsDictionary.Add(codecId,codecCapability);
                                     }
-                                    codecs.AddRange(codecsList.Where(codecId => codecId.Length > 0));
+
+                                    if (line.StartsWith("audio"))
+                                        peerConnection.AudioSenderRtpParameters = parameters;
+                                    else
+                                        peerConnection.VideoSenderRtpParameters = parameters;
                                 }
                             }
                             else
                             {
                                 string value = line.Substring(2);
-                                string[] parts = null;
-                                int sep = -1;
 
                                 switch (line[0])
                                 {
                                     case 'c':
-                                        parts = value.Split(' ');
+                                        var parts = value.Split(' ');
                                         if (parts.Length != 3)
                                         {
                                             throw new Exception(string.Format("Invalid Line {0}", line));
@@ -209,15 +212,13 @@ namespace org
                                         //TODO: Check if this is required
                                         break;
                                     case 'a':
-                                        sep = value.IndexOf(':');
-                                        string attrName;
-                                        string attrValue;
+                                        var sep = value.IndexOf(':');
 
                                         if (sep == -1)
                                             break;
 
-                                        attrName = value.Substring(0, sep);
-                                        attrValue = value.Substring(sep + 1);
+                                        var attrName = value.Substring(0, sep);
+                                        var attrValue = value.Substring(sep + 1);
 
                                         if (attrName.Equals("candidate"))
                                         {
@@ -230,11 +231,11 @@ namespace org
                                         }
                                         else if (attrName.Equals("ice-ufrag"))
                                         {
-                                            iceParameters.UsernameFragment = attrValue;
+                                            peerConnection.RemoteRtcIceParameters.UsernameFragment = attrValue;
                                         }
                                         else if (attrName.Equals("ice-pwd"))
                                         {
-                                            iceParameters.Password = attrValue;
+                                            peerConnection.RemoteRtcIceParameters.Password = attrValue;
                                         }
                                         else if (attrName.Equals("fingerprint"))
                                         {
@@ -243,16 +244,18 @@ namespace org
                                             if (sep == -1)
                                                 break;
 
-                                            RTCDtlsFingerprint dtlsFingerprint = new RTCDtlsFingerprint();
-                                            dtlsFingerprint.Algorithm = attrValue.Substring(0, sep);
-                                            dtlsFingerprint.Value = attrValue.Substring(sep + 1);
-                                            dtlsParameters.Fingerprints.Add(dtlsFingerprint);
+                                            RTCDtlsFingerprint dtlsFingerprint = new RTCDtlsFingerprint
+                                            {
+                                                Algorithm = attrValue.Substring(0, sep),
+                                                Value = attrValue.Substring(sep + 1)
+                                            };
+                                            peerConnection.RemoteRtcDtlsParameters.Fingerprints.Add(dtlsFingerprint);
                                         }
                                         else if (attrName.Equals("setup"))
                                         {
                                             //TODO Check when should be set client or server
                                             //dtlsParameters.Role = attrValue.Equals("actpass") ? RTCDtlsRole.Auto : RTCDtlsRole.Auto;
-                                            dtlsParameters.Role = RTCDtlsRole.Auto;
+                                            peerConnection.RemoteRtcDtlsParameters.Role = RTCDtlsRole.Auto;
                                         }
                                         else if (attrName.Equals("mid"))
                                         {
@@ -264,11 +267,13 @@ namespace org
 
                                             if (sep == -1)
                                                 break;
-                                            RTCRtpHeaderExtension headerExtension = new RTCRtpHeaderExtension();
-                                            //string str = attrValue.Substring(0, sep);
-                                            headerExtension.PreferredId = ushort.Parse(attrValue.Substring(0, sep));
-                                            headerExtension.Uri = attrValue.Substring(sep + 1);
-                                            headerExtensions.Add(headerExtension);
+                                            RTCRtpHeaderExtensionParameters headerExtensionParameters =
+                                                new RTCRtpHeaderExtensionParameters
+                                                {
+                                                    Id = ushort.Parse(attrValue.Substring(0, sep)),
+                                                    Uri = attrValue.Substring(sep + 1)
+                                                };
+                                            parameters.HeaderExtensions.Add(headerExtensionParameters);
                                         }
                                         else if (attrName.Equals("sendrecv"))
                                         {
@@ -276,7 +281,11 @@ namespace org
                                         }
                                         else if (attrName.Equals("rtcp-mux"))
                                         {
-
+                                            parameters.Rtcp.Mux = true;
+                                        }
+                                        else if (attrName.Equals("rtcp-rsize"))
+                                        {
+                                            parameters.Rtcp.ReducedSize = true;
                                         }
                                         else if (attrName.Equals("rtpmap"))
                                         {
@@ -289,8 +298,8 @@ namespace org
                                             string codecId = attrValue.Substring(0, sep);
                                             if (null == codecId) break;
 
-                                            RTCRtpCodecCapability capability = null;
-                                            if (codecsDictionary.TryGetValue(codecId, out capability))
+                                            RTCRtpCodecParameters codecParameters = parameters.Codecs.FirstOrDefault(i => i.PayloadType == byte.Parse(codecId));
+                                            if (null != codecParameters)
                                             {
                                                 string temp = attrValue.Substring(sep + 1);
                                                 if (null == temp)
@@ -300,10 +309,10 @@ namespace org
 
                                                 if (codecInfoStrings.Length > 1)
                                                 {
-                                                    capability.Name = codecInfoStrings[0];
-                                                    capability.ClockRate = uint.Parse(codecInfoStrings[1]);
+                                                    codecParameters.Name = codecInfoStrings[0];
+                                                    codecParameters.ClockRate = uint.Parse(codecInfoStrings[1]);
                                                     if (codecInfoStrings.Length == 3)
-                                                        capability.NumChannels = uint.Parse(codecInfoStrings[2]);
+                                                        codecParameters.NumChannels = uint.Parse(codecInfoStrings[2]);
                                                 }
                                             }
 
@@ -314,16 +323,19 @@ namespace org
                                             string[] caodecInfoStrings = attrValue.Split(' ');
                                             string codecId = caodecInfoStrings[0];
 
-                                            RTCRtpCodecCapability capability = null;
-                                            if (codecsDictionary.TryGetValue(codecId, out capability))
+                                            RTCRtpCodecParameters codecParameters = parameters.Codecs.FirstOrDefault(i => i.PayloadType == byte.Parse(codecId));
+                                            if (null != codecParameters)
                                             {
-                                                if (null == capability.RtcpFeedback)
-                                                    capability.RtcpFeedback = new List<RTCRtcpFeedback>();
+                                                if (null == codecParameters.RtcpFeedback)
+                                                    codecParameters.RtcpFeedback = new List<RTCRtcpFeedback>();
 
-                                                RTCRtcpFeedback fb = new RTCRtcpFeedback();
-                                                fb.Type = caodecInfoStrings[1];
-                                                fb.Parameter = caodecInfoStrings.Length == 3 ? caodecInfoStrings[2] : "";
-                                                capability.RtcpFeedback.Add(fb);
+                                                RTCRtcpFeedback fb = new RTCRtcpFeedback
+                                                {
+                                                    Type = caodecInfoStrings[1],
+                                                    Parameter =
+                                                        caodecInfoStrings.Length == 3 ? caodecInfoStrings[2] : ""
+                                                };
+                                                codecParameters.RtcpFeedback.Add(fb);
                                             }
                                             
                                         }
@@ -333,10 +345,13 @@ namespace org
                                         }
                                         else if (attrName.Equals("maxptime"))
                                         {
-                                            uint maxptime = uint.Parse(attrValue);
-                                            foreach (var capability in codecsDictionary.Values)
+                                            if (null != peerConnection.AudioSenderCaps)
                                             {
-                                                capability.Maxptime = maxptime;
+                                                uint maxptime = uint.Parse(attrValue);
+                                                foreach (var codecCapability in peerConnection.AudioSenderCaps.Codecs)
+                                                {
+                                                    codecCapability.Maxptime = maxptime;
+                                                }
                                             }
                                         }
                                         else if (attrName.Equals("ssrc-group"))
@@ -359,13 +374,25 @@ namespace org
                                                 break;
                                             string ssrcId = attrValue.Substring(0, sep);
 
+                                            RTCRtpEncodingParameters encodingParameters = parameters.Encodings.FirstOrDefault(i => i.Ssrc == parameters.Rtcp.Ssrc);
+                                            if (null != encodingParameters)
+                                            {
+                                                encodingParameters = new RTCRtpEncodingParameters
+                                                {
+                                                    Ssrc = parameters.Rtcp.Ssrc
+                                                };
+                                                parameters.Encodings.Add(encodingParameters);
+                                            }
+
+                                            parameters.Rtcp.Ssrc = uint.Parse(ssrcId);
+
                                             string ssrcString = attrValue.Substring(sep+1);
                                             string[] ssrcStrings = ssrcString.Split(':');
 
                                             string ssrcType = ssrcStrings[0];
                                             if (ssrcType.Equals("cname"))
                                             {
-                                                streamName = ssrcStrings[1];
+                                                parameters.Rtcp.Cname = ssrcStrings[1];
                                             }
                                             else if (ssrcType.Equals("msid"))
                                             {
@@ -373,11 +400,11 @@ namespace org
                                             }
                                             else if (ssrcType.Equals("mslabel"))
                                             {
-                                                streamId = ssrcStrings[1];
+                                                //streamId = ssrcStrings[1];
                                             }
                                             else if (ssrcType.Equals("label"))
                                             {
-                                                mediaTrackLabel = ssrcStrings[1];
+                                                //mediaTrackLabel = ssrcStrings[1];
                                             }
                                         }
                                         break;

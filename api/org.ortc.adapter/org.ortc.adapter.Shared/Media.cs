@@ -8,6 +8,7 @@ using Windows.Media.Core;
 using org.ortc;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading;
 
 namespace org
 {
@@ -17,15 +18,17 @@ namespace org
         {
             public class Media
             {
-                IList<MediaDeviceInfo> _audioCaptureDevices = new List<MediaDeviceInfo>();
-                IList<MediaDeviceInfo> _audioPlaybackDevices = new List<MediaDeviceInfo>();
-                IList<MediaDeviceInfo> _videoDevices = new List<MediaDeviceInfo>();
+                private IList<MediaDeviceInfo> AudioCaptureDevices { get;  set; } = new List<MediaDeviceInfo>();
+                private IList<MediaDeviceInfo> AudioPlaybackDevices { get; set; } = new List<MediaDeviceInfo>();
+                private IList<MediaDeviceInfo> VideoDevices { get; set; } = new List<MediaDeviceInfo>();
+
+                private readonly SemaphoreSlim _lock = new SemaphoreSlim(1, 1);
 
                 private MediaDevice _audioCaptureDevice;
                 private MediaDevice _audioPlaybackDevice;
                 private MediaDevice _videoDevice;
 
-                public delegate void OnMediaCaptureDeviceFoundDelegate(MediaDevice __param0);
+                public delegate void OnMediaCaptureDeviceFoundDelegate(MediaDevice param0);
 
                 public event OnMediaCaptureDeviceFoundDelegate OnAudioCaptureDeviceFound;
                 public event OnMediaCaptureDeviceFoundDelegate OnVideoCaptureDeviceFound;
@@ -39,13 +42,10 @@ namespace org
 
                 public static IAsyncOperation<Media> CreateMediaAsync()
                 {
-                    return Task.Run<Media>(() =>
-                    {
-                        return CreateMedia();
-                    }).AsAsyncOperation<Media>();
+                    return Task.Run(() => CreateMedia()).AsAsyncOperation();
                 }
 
-                public static IAsyncOperation<MediaDeviceInfo> EnumerateDevices()
+                /*public static IAsyncOperation<MediaDeviceInfo> EnumerateDevices()
                 {
                     Task<MediaDeviceInfo> t = Task.Run<MediaDeviceInfo>(() =>
                     {
@@ -60,11 +60,11 @@ namespace org
                     });
 
                     return t.AsAsyncOperation<MediaDeviceInfo>();
-                }
+                }*/
 
                 public IAsyncOperation<MediaStream> GetUserMedia(RTCMediaStreamConstraints mediaStreamConstraints)
                 {
-                    Task<MediaStream> t = Task.Run<MediaStream>(() =>
+                    Task<MediaStream> t = Task.Run(() =>
                     {
                         var constraints = Helper.MakeConstraints(mediaStreamConstraints.audioEnabled, null,
                             MediaDeviceKind.AudioInput, _audioCaptureDevice);
@@ -72,7 +72,7 @@ namespace org
                             MediaDeviceKind.Video, _videoDevice);
 
                         Task<IList<MediaStreamTrack>> task = MediaDevices.GetUserMedia(constraints).AsTask();
-                        return task.ContinueWith<MediaStream>((temp) =>
+                        return task.ContinueWith(temp =>
                         {
                             var audioTracks = Helper.InsertAudioIfValid(mediaStreamConstraints.audioEnabled, null,
                                 temp.Result, _audioCaptureDevice);
@@ -82,21 +82,20 @@ namespace org
                         });
                     });
 
-                    return t.AsAsyncOperation<MediaStream>();
+                    return t.AsAsyncOperation();
                 }
 
 
                 public IMediaSource CreateMediaStreamSource(MediaVideoTrack track, uint framerate, string id)
                 {
                     var useTrack = track.Track;
-                    if (null == useTrack) return null;
 
-                    return useTrack.CreateMediaSource();
+                    return useTrack?.CreateMediaSource();
                 }
 
                 public IAsyncOperation<bool> EnumerateAudioVideoCaptureDevices()
                 {
-                    return Task.Run<bool>(async () =>
+                    return Task.Run(async () =>
                     {
                         var devices = await MediaDevices.EnumerateDevices();
 
@@ -104,18 +103,26 @@ namespace org
                         //var audioPlaybackList = Helper.Filter(MediaDeviceKind.AudioOutput, devices);
                         var videoList = Helper.Filter(MediaDeviceKind.Video, devices);
 
-                        _audioCaptureDevices = audioCaptureList;
-                        _videoDevices = videoList;
+                        //_audioCaptureDevices = audioCaptureList;
+                        //_videoDevices = videoList;
+
+                        using (var @lock = new AutoLock(_lock))
+                        {
+                            @lock.WaitAsync().Wait();
+                            AudioCaptureDevices = audioCaptureList;
+                            //_audioPlaybackDevices = audioPlaybackList;
+                            VideoDevices = videoList;
+                        }
 
                         await Task.Run(() =>
                         {
                             foreach (var info in audioCaptureList)
                             {
-                                OnAudioCaptureDeviceFound(new MediaDevice(info.DeviceId, info.Label));
+                                OnAudioCaptureDeviceFound?.Invoke(new MediaDevice(info.DeviceId, info.Label));
                             }
                             foreach (var info in videoList)
                             {
-                                OnVideoCaptureDeviceFound(new MediaDevice(info.DeviceId, info.Label));
+                                OnVideoCaptureDeviceFound?.Invoke(new MediaDevice(info.DeviceId, info.Label));
                             }
                         });
 
@@ -124,27 +131,38 @@ namespace org
                 }
 
                 //public IList<MediaDevice> GetAudioCaptureDevices();
-                //public IAsyncOperation<MediaStream> GetUserMedia(RTCMediaStreamConstraints mediaStreamConstraints);
                 //public IList<MediaDevice> GetVideoCaptureDevices();
                 public static void OnAppSuspending()
                 {
-
+                    MediaDevices.OnAppSuspending();
                 }
 
                 public void SelectAudioDevice(MediaDevice device)
                 {
-                    _audioCaptureDevice = device;
+                    using (var @lock = new AutoLock(_lock))
+                    {
+                        @lock.WaitAsync().Wait();
+                        _audioCaptureDevice = device;
+                    }
                 }
 
                 public void SelectVideoDevice(MediaDevice device)
                 {
-                    _videoDevice = device;
+                    using (var @lock = new AutoLock(_lock))
+                    {
+                        @lock.WaitAsync().Wait();
+                        _videoDevice = device;
+                    }
                 }
 
                 //public void SetDisplayOrientation(DisplayOrientations display_orientation);
                 public bool SelectAudioPlayoutDevice(MediaDevice device)
                 {
-                    _audioPlaybackDevice = device;
+                    using (var @lock = new AutoLock(_lock))
+                    {
+                        @lock.WaitAsync().Wait();
+                        _audioPlaybackDevice = device;
+                    }
                     return true;
                 }
 
@@ -156,7 +174,13 @@ namespace org
 
                     var audioPlaybackList = Helper.Filter(MediaDeviceKind.AudioOutput, devices);
 
-                    _audioPlaybackDevices = audioPlaybackList;
+                    using (var @lock = new AutoLock(_lock))
+                    {
+                        @lock.WaitAsync().Wait();
+                        AudioPlaybackDevices = audioPlaybackList;
+                    }
+
+                    AudioPlaybackDevices = audioPlaybackList;
 
                     return Helper.ToMediaDevices(audioPlaybackList);
                 }

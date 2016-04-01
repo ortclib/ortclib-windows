@@ -50,32 +50,8 @@ namespace org
 
                 public static void Initialize(CoreDispatcher dispatcher)
                 {
-                    /*var contentAsync = Media.EnumerateDevices();//.AsTask().Wait();
-            contentAsync.AsTask().Wait();
-            string content = contentAsync.GetResults();*/
-                    /*if (globals::isInitialized)
-                return;
-
-            g_windowDispatcher = dispatcher;
-
-            // Create a worker thread
-            globals::gThread.SetName("WinRTApiWorker", nullptr);
-            globals::gThread.Start();
-            globals::RunOnGlobalThread<void>([] {
-                rtc::EnsureWinsockInit();
-                rtc::InitializeSSL(globals::certificateVerifyCallBack);
-
-                auto encoderFactory = new webrtc::H264WinRTEncoderFactory();
-                auto decoderFactory = new webrtc::H264WinRTDecoderFactory();
-
-                LOG(LS_INFO) << "Creating PeerConnectionFactory.";
-                globals::gPeerConnectionFactory =
-                    webrtc::CreatePeerConnectionFactory(encoderFactory, decoderFactory);
-
-                webrtc::SetupEventTracer(&WebRTC::GetCategoryGroupEnabled,
-                  &WebRTC::AddTraceEvent);
-            });
-            globals::isInitialized = true;*/
+                    Settings.ApplyDefaults();
+                    OrtcWithDispatcher.Setup(dispatcher);
                 }
 
                 //public static bool IsTracing();
@@ -92,11 +68,13 @@ namespace org
                 private static async Task<bool> RequestAccessForMediaCapturePrivate() //async
                 {
                     MediaCapture mediaAccessRequester = new MediaCapture();
-                    MediaCaptureInitializationSettings mediaSettings = new MediaCaptureInitializationSettings();
-                    mediaSettings.AudioDeviceId = "";
-                    mediaSettings.VideoDeviceId = "";
-                    mediaSettings.StreamingCaptureMode = StreamingCaptureMode.AudioAndVideo;
-                    mediaSettings.PhotoCaptureSource = PhotoCaptureSource.VideoPreview;
+                    MediaCaptureInitializationSettings mediaSettings = new MediaCaptureInitializationSettings
+                    {
+                        AudioDeviceId = "",
+                        VideoDeviceId = "",
+                        StreamingCaptureMode = StreamingCaptureMode.AudioAndVideo,
+                        PhotoCaptureSource = PhotoCaptureSource.VideoPreview
+                    };
 
                     await mediaAccessRequester.InitializeAsync(mediaSettings);
 
@@ -122,7 +100,7 @@ namespace org
                     return false;
                 }
 
-                public static void SetPreferredVideoCaptureFormat(int frame_width, int frame_height, int fps)
+                public static void SetPreferredVideoCaptureFormat(int frameWidth, int frameHeight, int fps)
                 {
 
                 }
@@ -137,17 +115,17 @@ namespace org
 
                 }
 
-                public static void SynNTPTime(long current_ntp_time)
+                public static void SynNTPTime(long currentNtpTime)
                 {
 
                 }
 
-                public static void UpdateCPUUsage(double cpu_usage)
+                public static void UpdateCPUUsage(double cpuUsage)
                 {
 
                 }
 
-                public static void UpdateMemUsage(long mem_usage)
+                public static void UpdateMemUsage(long memUsage)
                 {
 
                 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using org.ortc;
@@ -11,47 +12,39 @@ namespace org
     {
         namespace adapter
         {
-            public class MediaAudioTrack : IMediaStreamTrack
+            public class MediaAudioTrack : IMediaStreamTrack, IDisposable
             {
-                private string _id;
-                private bool _enabled;
-                internal org.ortc.MediaStreamTrack Track;
+                internal MediaStreamTrack Track { get; set; }
 
-                internal MediaAudioTrack(org.ortc.MediaStreamTrack track)
+                internal MediaAudioTrack(MediaStreamTrack track)
                 {
-                    _id = track.DeviceId;
-                    _enabled = track.Enabled;
                     Track = track;
+                    Label = Guid.NewGuid().ToString();
+                    SsrcId = (uint)Guid.NewGuid().GetHashCode();
                 }
 
-                public MediaAudioTrack(string id, bool enabled = true)
-                {
-                    _id = id;
-                    _enabled = enabled;
-                }
-
+                public uint SsrcId { get; set; }
                 public bool Enabled
                 {
-                    get { return _enabled; }
-
-                    set { _enabled = value; }
+                    get { return Track.Enabled; }
+                    set { Track.Enabled = value; }
                 }
 
-                public string Id
-                {
-                    get { return _id; }
-                }
+                public string Id => Track.Id;
+                public string Cname { get; set; }
+                public string Label { get; set; }
 
-                public string Kind
-                {
-                    get { return "audio"; }
-                }
+                public string Kind => MediaStreamTrack.ToString(Track.Kind);
 
                 public void Stop()
                 {
-                    //throw new NotImplementedException();
+                    Track.Stop();
                 }
 
+                public void Dispose()
+                {
+                    Track.Stop();
+                }
             }
         }
     }

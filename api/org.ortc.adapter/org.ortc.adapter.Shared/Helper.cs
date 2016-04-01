@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.IO;
@@ -32,9 +33,6 @@ namespace org
                         case RTCIceCandidateType.Srflex:
                             ret = "srflex";
                             break;
-
-                        default:
-                            break;
                     }
 
                     return ret;
@@ -42,7 +40,7 @@ namespace org
 
                 public static RTCIceCandidateType ToIceCandidateType(string type)
                 {
-                    RTCIceCandidateType ret = RTCIceCandidateType.Host;
+                    RTCIceCandidateType ret;
 
                     switch (type)
                     {
@@ -71,13 +69,7 @@ namespace org
                     IList<MediaDeviceInfo> infos
                     )
                 {
-                    var results = new List<MediaDeviceInfo>();
-                    foreach (var info in infos)
-                    {
-                        if (kind != info.Kind) continue;
-                        results.Add(info);
-                    }
-                    return results;
+                    return infos.Where(info => kind == info.Kind).ToList();
                 }
 
                 public static MediaDevice ToMediaDevice(MediaDeviceInfo device)
@@ -87,12 +79,7 @@ namespace org
 
                 public static IList<MediaDevice> ToMediaDevices(IList<MediaDeviceInfo> devices)
                 {
-                    var results = new List<MediaDevice>();
-                    foreach (var device in devices)
-                    {
-                        results.Add(ToMediaDevice(device));
-                    }
-                    return results;
+                    return devices.Select(ToMediaDevice).ToList();
                 }
 
                 public static CodecInfo ToDto(RTCRtpCodecCapability codec, int index)
@@ -116,6 +103,8 @@ namespace org
                 }
 
                 public static RTCRtpParameters CapabilitiesToParameters(
+                    uint ssrcId, 
+                    string cnameSsrc,
                     string muxId,
                     RTCRtpCapabilities caps
                     )
@@ -129,12 +118,19 @@ namespace org
                     }
                     result.DegradationPreference = RTCDegradationPreference.Balanced;
                     result.HeaderExtensions = new List<RTCRtpHeaderExtensionParameters>();
+                    foreach (var extension in caps.HeaderExtensions)
+                    {
+                        result.HeaderExtensions.Add(ExtensionToParameters(extension));
+                    }
                     result.Encodings = new List<RTCRtpEncodingParameters>();
-                    //foreach (var ext in caps.HeaderExtensions) { result.HeaderExtensions.Add(CapabilitiesToParameters(ext)); }
-                    //result.MuxId = muxId;
-                    result.Rtcp = new RTCRtcpParameters();
-                    result.Rtcp.Mux = true;
-                    result.Rtcp.ReducedSize = true;
+
+                    result.Rtcp = new RTCRtcpParameters
+                    {
+                        Cname = cnameSsrc,
+                        Ssrc = ssrcId,
+                        Mux = true,
+                        ReducedSize = true
+                    };
 
                     return result;
                 }
@@ -143,15 +139,32 @@ namespace org
                     RTCRtpCodecCapability caps
                     )
                 {
-                    var result = new RTCRtpCodecParameters();
+                    var result = new RTCRtpCodecParameters
+                    {
+                        ClockRate = caps.ClockRate,
+                        Maxptime = caps.Maxptime,
+                        Name = caps.Name,
+                        NumChannels = caps.NumChannels,
+                        PayloadType = caps.PreferredPayloadType,
+                        RtcpFeedback = caps.RtcpFeedback,
+                        Parameters = caps.Parameters
+                    };
 
-                    result.ClockRate = caps.ClockRate;
-                    result.Maxptime = caps.Maxptime;
-                    result.Name = caps.Name;
-                    result.NumChannels = caps.NumChannels;
-                    result.PayloadType = caps.PreferredPayloadType;
-                    result.RtcpFeedback = caps.RtcpFeedback;
-                    result.Parameters = caps.Parameters;
+
+                    return result;
+                }
+
+                public static RTCRtpHeaderExtensionParameters ExtensionToParameters(
+                    RTCRtpHeaderExtension extension
+                    )
+                {
+                    var result = new RTCRtpHeaderExtensionParameters
+                    {
+                        Id = extension.PreferredId,
+                        Encrypt = extension.PreferredEncrypt,
+                        Uri = extension.Uri
+                    };
+
 
                     return result;
                 }
@@ -193,18 +206,18 @@ namespace org
                     constraintSet.DeviceId.Parameters.Exact.Value = device.Id;
                     constraintSet.DeviceId.Value = new StringOrStringList();
                     constraintSet.DeviceId.Value.Value = device.Id;
-#warning  TODO Removed hardcoded values
-                    constraintSet.Height = new ConstrainLong();
-                    constraintSet.Height.Value = 600;
+//#warning  TODO Removed hardcoded values
+//                    constraintSet.Height = new ConstrainLong();
+//                    constraintSet.Height.Value = 600;
 
-                    constraintSet.Width = new ConstrainLong();
-                    constraintSet.Width.Value = 800;
+//                    constraintSet.Width = new ConstrainLong();
+//                    constraintSet.Width.Value = 800;
 
-                    constraintSet.FrameRate = new ConstrainDouble();
-                    constraintSet.FrameRate.Value = 30;
+//                    constraintSet.FrameRate = new ConstrainDouble();
+//                    constraintSet.FrameRate.Value = 30;
 
-                    constraintSet.SampleRate = new ConstrainLong();
-                    constraintSet.SampleRate.Value = 48000;
+//                    constraintSet.SampleRate = new ConstrainLong();
+//                    constraintSet.SampleRate.Value = 48000;
 
                     trackConstraints.Advanced.Add(constraintSet);
 
@@ -223,7 +236,7 @@ namespace org
                     return existingConstraints;
                 }
 
-                public static MediaStreamTrack findTrack(
+                public static MediaStreamTrack FindTrack(
                     IList<MediaStreamTrack> tracks,
                     MediaDevice device
                     )
@@ -231,22 +244,18 @@ namespace org
                     if (null == device) return null;
                     foreach (var track in tracks)
                     {
+#warning TODO CHeck if this is resolved and it can be used ==
                         if (track.DeviceId != device.Id) return track;
                     }
                     return null;
                 }
 
-                public static MediaStreamTrack findTrack(
+                public static MediaStreamTrack FindTrack(
                     IList<MediaStreamTrack> tracks,
                     MediaStreamTrackKind kind
                     )
                 {
-                    //if (null == device) return null;
-                    foreach (var track in tracks)
-                    {
-                        if (track.Kind == kind) return track;
-                    }
-                    return null;
+                    return tracks.FirstOrDefault(track => track.Kind == kind);
                 }
 
                 public static List<MediaAudioTrack> InsertAudioIfValid(
@@ -260,7 +269,7 @@ namespace org
                     if (null == device) return existingList;
                     if (null == tracks) return existingList;
 
-                    var found = findTrack(tracks, MediaStreamTrackKind.Audio);
+                    var found = FindTrack(tracks, MediaStreamTrackKind.Audio);
                     if (null == found) return existingList;
                     if (null == existingList) existingList = new List<MediaAudioTrack>();
                     //existingList.Add(new MediaAudioTrack(found.Id, found.Enabled));
@@ -279,7 +288,7 @@ namespace org
                     if (null == device) return existingList;
                     if (null == tracks) return existingList;
 
-                    var found = findTrack(tracks, MediaStreamTrackKind.Video);
+                    var found = FindTrack(tracks, MediaStreamTrackKind.Video);
                     if (null == found) return existingList;
                     if (null == existingList) existingList = new List<MediaVideoTrack>();
                     //existingList.Add(new MediaVideoTrack(found.Id,found.Enabled));
@@ -288,7 +297,7 @@ namespace org
                 }
 
 
-                public static RTCIceCandidate ToWrapperIceCandidate(org.ortc.RTCIceCandidate iceCandidate,
+                public static RTCIceCandidate ToWrapperIceCandidate(ortc.RTCIceCandidate iceCandidate,
                     int sdpComponentId)
                 {
                     StringBuilder sb = new StringBuilder();
@@ -320,42 +329,58 @@ namespace org
                     UInt16 sdpMLineIndex = 0;
                     var ret = new RTCIceCandidate(sb.ToString(), sdpMid, sdpMLineIndex);
 
-                    org.ortc.RTCIceCandidate iceCandidate2 = iceCandidateFromSdp(sb.ToString());
+                    //org.ortc.RTCIceCandidate iceCandidate2 = IceCandidateFromSdp(sb.ToString());
 
                     return ret;
                 }
 
-                public static org.ortc.RTCIceCandidate iceCandidateFromSdp(string sdp)
+                public static ortc.RTCIceCandidate IceCandidateFromSdp(string sdp)
                 {
-                    var ice = new org.ortc.RTCIceCandidate();
-
-                    //candidate:704553097 1 udp 2122260223 192.168.1.3 62723 typ host generation 0
-                    TextReader reader = new StringReader(sdp);
-                    string line = reader.ReadLine();
-
-                    if (!String.IsNullOrEmpty(line))
+                    ortc.RTCIceCandidate ice = null;//new org.ortc.RTCIceCandidate();
+                    try
                     {
-                        string[] substrings = line.Split(' ');
+                        //candidate:704553097 1 udp 2122260223 192.168.1.3 62723 typ host generation 0
+                        TextReader reader = new StringReader(sdp);
+                        string line = reader.ReadLine() ?? sdp;
 
-                        if (substrings.Length == 10)
+                        if (!String.IsNullOrEmpty(line))
                         {
-                            ice.Foundation = substrings[0];
-                            ice.Protocol = String.Equals(substrings[2], "udp") ? RTCIceProtocol.Udp : RTCIceProtocol.Tcp;
-                            ice.Priority = uint.Parse(substrings[3]);
-                            ice.Ip = substrings[4];
-                            ice.Port = ushort.Parse(substrings[5]);
-                            ice.CandidateType = ToIceCandidateType(substrings[7]);
+                            ice = new ortc.RTCIceCandidate();
+                            string[] substrings = line.Split(' ');
+
+                            if (substrings.Length >= 10)
+                            {
+                                ice.Foundation = substrings[0];
+                                ice.Protocol = String.Equals(substrings[2], "udp") ? RTCIceProtocol.Udp : RTCIceProtocol.Tcp;
+                                ice.Priority = uint.Parse(substrings[3]);
+                                ice.Ip = substrings[4];
+                                ice.Port = ushort.Parse(substrings[5]);
+                                ice.CandidateType = ToIceCandidateType(substrings[7]);
+
+                                if (substrings.Length > 10)
+                                {
+                                    ice.RelatedAddress = substrings[9];
+                                    ice.RelatedPort = ushort.Parse(substrings[11]);
+                                }
+                            }
                         }
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine($"Exception ice parsing: {e.Message}");
+                        //Common.Logger.Warn("Disconnected during socket read operation due to exception", e);
                     }
                     return ice;
                 }
 
                 public static Constraints ToApiConstraints(RTCMediaStreamConstraints mediaStreamConstraints)
                 {
-                    Constraints ret = new Constraints();
+                    Constraints ret = new Constraints
+                    {
+                        Audio = mediaStreamConstraints.audioEnabled ? new MediaTrackConstraints() : null,
+                        Video = mediaStreamConstraints.videoEnabled ? new MediaTrackConstraints() : null
+                    };
 
-                    ret.Audio = mediaStreamConstraints.audioEnabled ? new MediaTrackConstraints() : null;
-                    ret.Video = mediaStreamConstraints.videoEnabled ? new MediaTrackConstraints() : null;
 
                     return ret;
                 }
@@ -398,6 +423,33 @@ namespace org
 
                     localCaps.Codecs = newList;
                 }
+
+                public static RTCIceGatherOptions ToGatherOptions(RTCConfiguration configuration)
+                {
+                    RTCIceGatherOptions options = new RTCIceGatherOptions();
+                    options.IceServers = new List<ortc.RTCIceServer>();
+
+                    foreach (RTCIceServer server in configuration.IceServers)
+                    {
+                        ortc.RTCIceServer ortcServer = new ortc.RTCIceServer();
+                        ortcServer.Urls = new List<string>();
+
+                        if (!string.IsNullOrEmpty(server.Credential))
+                        {
+                            ortcServer.Credential = server.Credential;
+                        }
+
+                        if (!string.IsNullOrEmpty(server.Username))
+                        {
+                            ortcServer.UserName = server.Username;
+                        }
+
+                        ortcServer.Urls.Add(server.Url);
+                        options.IceServers.Add(ortcServer);
+                    }
+                    return options;
+                }
+
             }
         }
     }

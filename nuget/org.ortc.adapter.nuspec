@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/01/nuspec.xsd">
+    <metadata minClientVersion="2.5">
+        <id>org.ortc.adapter</id>
+        <version></version>
+        <title>org.ortc.adapter</title>
+        <authors>Hookflash</authors>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>org.ortc.adapter is a WebRTC wrapper for ORTC WinRT library.</description>
+        <dependencies>
+            <dependency id="org.ortc" version="1.0.1-Beta" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="build\native\org.ortc.adapter.targets" target="build\native\org.ortc.adapter.targets" />
+        <file src="runtimes\win10-arm\native\org.ortc.adapter.dll" target="runtimes\win10-arm\native\org.ortc.adapter.dll" />
+        <file src="runtimes\win10-x64\native\org.ortc.adapter.dll" target="runtimes\win10-x64\native\org.ortc.adapter.dll" />
+        <file src="runtimes\win10-x86\native\org.ortc.adapter.dll" target="runtimes\win10-x86\native\org.ortc.adapter.dll" />
+    </files>
+</package>
