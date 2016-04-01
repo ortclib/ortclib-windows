@@ -147,10 +147,85 @@ namespace org
                         NumChannels = caps.NumChannels,
                         PayloadType = caps.PreferredPayloadType,
                         RtcpFeedback = caps.RtcpFeedback,
-                        Parameters = caps.Parameters
+                        Parameters = null
                     };
 
+                    if (null != caps.Parameters)
+                    {
+                        if (caps.Parameters is RTCRtpOpusCodecCapabilityParameters)
+                            result.Parameters = CodecCapabilityToParameters(caps.Parameters as RTCRtpOpusCodecCapabilityParameters);
+                        if (caps.Parameters is RTCRtpVp8CodecCapabilityParameters)
+                            result.Parameters = CodecCapabilityToParameters(caps.Parameters as RTCRtpVp8CodecCapabilityParameters);
+                        if (caps.Parameters is RTCRtpH264CodecCapabilityParameters)
+                            result.Parameters = CodecCapabilityToParameters(caps.Parameters as RTCRtpH264CodecCapabilityParameters);
+                        if (caps.Parameters is RTCRtpRtxCodecCapabilityParameters)
+                            result.Parameters = CodecCapabilityToParameters(caps.Parameters as RTCRtpRtxCodecCapabilityParameters);
+                        if (caps.Parameters is RTCRtpFlexFecCodecCapabilityParameters)
+                            result.Parameters = CodecCapabilityToParameters(caps.Parameters as RTCRtpFlexFecCodecCapabilityParameters);
+                    }
 
+                    return result;
+                }
+
+                public static RTCRtpOpusCodecParameters CodecCapabilityToParameters(
+                    RTCRtpOpusCodecCapabilityParameters capability
+                    )
+                {
+                    var result = new RTCRtpOpusCodecParameters();
+                    result.MaxPlaybackRate = capability.MaxPlaybackRate;
+                    result.SpropMaxCaptureRate = capability.SpropMaxCaptureRate;
+                    result.MaxAverageBitrate = capability.MaxAverageBitrate;
+                    result.Cbr = capability.Cbr;
+                    result.UseInbandFec = capability.UseInbandFec;
+                    result.UseDtx = capability.UseDtx;
+                    return result;
+                }
+
+                public static RTCRtpVp8CodecParameters CodecCapabilityToParameters(
+                    RTCRtpVp8CodecCapabilityParameters capability
+                    )
+                {
+                    var result = new RTCRtpVp8CodecParameters();
+                    result.MaxFs = capability.MaxFs;
+                    result.MaxFt = capability.MaxFt;
+                    return result;
+                }
+
+                public static RTCRtpH264CodecParameters CodecCapabilityToParameters(
+                    RTCRtpH264CodecCapabilityParameters capability
+                    )
+                {
+                    var result = new RTCRtpH264CodecParameters();
+                    result.ProfileLevelId = capability.ProfileLevelId;
+                    result.PacketizationModes = capability.PacketizationModes;
+                    result.MaxMbps = capability.MaxMbps;
+                    result.MaxSmbps = capability.MaxSmbps;
+                    result.MaxFs = capability.MaxFs;
+                    result.MaxCpb = capability.MaxCpb;
+                    result.MaxDpb = capability.MaxDpb;
+                    result.MaxBr = capability.MaxBr;
+                    return result;
+                }
+
+                public static RTCRtpRtxCodecParameters CodecCapabilityToParameters(
+                    RTCRtpRtxCodecCapabilityParameters capability
+                    )
+                {
+                    var result = new RTCRtpRtxCodecParameters();
+                    result.RtxTime = capability.RtxTime;
+                    result.Apt = capability.Apt;
+                    return result;
+                }
+
+                public static RTCRtpFlexFecCodecParameters CodecCapabilityToParameters(
+                    RTCRtpFlexFecCodecCapabilityParameters capability
+                    )
+                {
+                    var result = new RTCRtpFlexFecCodecParameters();
+                    result.RepairWindow = capability.RepairWindow;
+                    result.L = capability.L;
+                    result.D = capability.D;
+                    result.ToP = capability.ToP;
                     return result;
                 }
 

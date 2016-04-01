@@ -110,6 +110,31 @@ namespace org
       //static RTCRtpH264CodecCapabilityParameters^ FromJsonString(Platform::String^ jsonString);
     };
 
+    public ref class RTCRtpRtxCodecCapabilityParameters sealed
+    {
+    public:
+      property uint32                   RtxTime;
+      property uint8                    Apt;
+
+    public:
+      //Platform::String^ ToJsonString();
+      //static RTCRtpRtxCodecCapabilityParameters^ FromJsonString(Platform::String^ jsonString);
+    };
+
+    public ref class RTCRtpFlexFecCodecCapabilityParameters sealed
+    {
+    public:
+      property uint64                   RepairWindow;
+
+      property Platform::IBox<uint32>^  L;
+      property Platform::IBox<uint32>^  D;
+      property Platform::IBox<uint16>^  ToP;
+
+    public:
+      //Platform::String^ ToJsonString();
+      //static RTCRtpFlexFecCodecCapabilityParameters^ FromJsonString(Platform::String^ jsonString);
+    };
+
     public ref class RTCRtpHeaderExtension sealed
     {
     public:
