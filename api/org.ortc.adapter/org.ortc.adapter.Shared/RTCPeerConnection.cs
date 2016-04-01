@@ -460,6 +460,7 @@ namespace org
                         IceGatherer.OnICEGathererLocalCandidateGone += RTCIceGatherer_onICEGathererLocalCandidateGone;
                         IceGatherer.OnICEGathererError += RTCIceGatherer_onICEGathererError;
                         IceGatherer.OnICEGathererStateChanged += RTCIceGatherer_OnStateChangedDelegate;
+                        IceGatherer.Gather(null);
                         _installedIceEvents = true;
                     }
 
