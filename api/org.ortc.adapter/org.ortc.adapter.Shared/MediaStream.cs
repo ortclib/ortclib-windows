@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace org
@@ -12,9 +13,10 @@ namespace org
         {
             public class MediaStream
             {
+                private SemaphoreSlim _lock = new SemaphoreSlim(1, 1);
+
                 IList<MediaAudioTrack> _audioTracks;
                 IList<MediaVideoTrack> _videoTracks;
-                IList<IMediaStreamTrack> _mediaTracks;
 
                 public string Id { get; set; }
 
@@ -22,7 +24,6 @@ namespace org
                 {
                     _audioTracks = new List<MediaAudioTrack>();
                     _videoTracks = new List<MediaVideoTrack>();
-                    _mediaTracks = new List<IMediaStreamTrack>();
                     Id = Guid.NewGuid().ToString();
                 }
 
@@ -31,47 +32,56 @@ namespace org
                     Id = Guid.NewGuid().ToString();
                     _audioTracks = audioTracks;
                     _videoTracks = videoTracks;
-                    _mediaTracks = new List<IMediaStreamTrack>();
-                    if (null != audioTracks)
-                    {
-                        foreach (var track in audioTracks)
-                        {
-                            _mediaTracks.Add(track);
-                        }
-                    }
-                    if (null != videoTracks)
-                    {
-                        foreach (var track in videoTracks)
-                        {
-                            _mediaTracks.Add(track);
-                        }
-                    }
                 }
 
                 public IList<MediaAudioTrack> GetAudioTracks()
                 {
-                    return _audioTracks;
+                    IList<MediaAudioTrack> result = null;
+                    using (var @lock = new AutoLock(_lock))
+                    {
+                        @lock.WaitAsync().Wait();
+                        result = _audioTracks;
+                    }
+                    return result;
                 }
 
                 public IList<MediaVideoTrack> GetVideoTracks()
                 {
-                    return _videoTracks;
+                    IList<MediaVideoTrack> result = null;
+                    using (var @lock = new AutoLock(_lock))
+                    {
+                        @lock.WaitAsync().Wait();
+                        result = _videoTracks;
+                    }
+                    return result;
                 }
 
                 public IList<IMediaStreamTrack> GetTracks()
                 {
-                    return _mediaTracks;
+                    List<IMediaStreamTrack> ret = new List<IMediaStreamTrack>();
+                    using (var @lock = new AutoLock(_lock))
+                    {
+                        @lock.WaitAsync().Wait();
+                        if (null != _audioTracks)
+                            ret.AddRange(_audioTracks);
+                        if (null != _videoTracks)
+                            ret.AddRange(_videoTracks);
+                    }
+                    return ret;
                 }
 
                 public void RemoveTrack(IMediaStreamTrack track)
                 {
                     if (track != null)
                     {
-                        _mediaTracks.Remove(track);
-                        if (track.Kind.Equals("audio"))
-                            _audioTracks.Remove((MediaAudioTrack) track);
-                        else
-                            _videoTracks.Remove((MediaVideoTrack) track);
+                        using (var @lock = new AutoLock(_lock))
+                        {
+                            @lock.WaitAsync().Wait();
+                            if (track.Kind.Equals("audio"))
+                                _audioTracks.Remove((MediaAudioTrack) track);
+                            else
+                                _videoTracks.Remove((MediaVideoTrack) track);
+                        }
                     }
                 }
 
@@ -79,8 +89,11 @@ namespace org
                 {
                     if (track != null)
                     {
-                        _audioTracks.Add(track);
-                        _mediaTracks.Add(track);
+                        using (var @lock = new AutoLock(_lock))
+                        {
+                            @lock.WaitAsync().Wait();
+                            _audioTracks.Add(track);
+                        }
                     }
                 }
 
@@ -88,8 +101,11 @@ namespace org
                 {
                     if (track != null)
                     {
-                        _videoTracks.Add(track);
-                        _mediaTracks.Add(track);
+                        using (var @lock = new AutoLock(_lock))
+                        {
+                            @lock.WaitAsync().Wait();
+                            _videoTracks.Add(track);
+                        }
                     }
                 }
             }
