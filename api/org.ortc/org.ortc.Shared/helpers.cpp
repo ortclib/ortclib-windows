@@ -1725,6 +1725,85 @@ namespace org
       return result;
     }
 
+    RTCRtpRtxCodecCapabilityParameters^ ToCxCapabilityParameters(const IRTPTypes::RTXCodecCapabilityParameters &input)
+    {
+      auto result = ref new RTCRtpRtxCodecCapabilityParameters();
+      if (zsLib::Milliseconds() != input.mRTXTime)
+      {
+        result->RtxTime = SafeInt<uint32>(input.mRTXTime.count());
+      }
+      else
+      {
+        result->RtxTime = 0;
+      }
+      result->Apt = SafeInt<uint8>(input.mApt);
+      return result;
+    }
+
+    RTCRtpRtxCodecCapabilityParameters^ ToCxCapabilityParameters(IRTPTypes::RTXCodecCapabilityParametersPtr input)
+    {
+      if (!input) return nullptr;
+      return ToCxCapabilityParameters(*input);
+    }
+
+    IRTPTypes::RTXCodecCapabilityParametersPtr FromCx(RTCRtpRtxCodecCapabilityParameters^ input)
+    {
+      if (nullptr == input) return IRTPTypes::RTXCodecCapabilityParametersPtr();
+      auto result = make_shared<IRTPTypes::RTXCodecCapabilityParameters>();
+      result->mApt = SafeInt<decltype(result->mApt)>(input->Apt);
+      if (0 != input->RtxTime)
+      {
+        result->mRTXTime = zsLib::Milliseconds(SafeInt<Milliseconds::rep>(input->RtxTime));
+      }
+      return result;
+    }
+
+    RTCRtpFlexFecCodecCapabilityParameters^ ToCxCapabilityParameters(const IRTPTypes::FlexFECCodecCapabilityParameters &input)
+    {
+      auto result = ref new RTCRtpFlexFecCodecCapabilityParameters();
+      if (zsLib::Milliseconds() != input.mRepairWindow)
+      {
+        result->RepairWindow = SafeInt<uint64>(input.mRepairWindow.count());
+      }
+      else
+      {
+        result->RepairWindow = 0;
+      }
+
+      result->L = ToCx(input.mL);
+      result->D = ToCx(input.mD);
+
+      if (input.mToP.hasValue())
+      {
+        result->ToP = ref new Box<uint16>(SafeInt<uint16>(zsLib::to_underlying(input.mToP.value())));
+      }
+
+      return result;
+    }
+
+    RTCRtpFlexFecCodecCapabilityParameters^ ToCxCapabilityParameters(IRTPTypes::FlexFECCodecCapabilityParametersPtr input)
+    {
+      if (!input) return nullptr;
+      return ToCxCapabilityParameters(*input);
+    }
+
+    IRTPTypes::FlexFECCodecCapabilityParametersPtr FromCx(RTCRtpFlexFecCodecCapabilityParameters^ input)
+    {
+      if (nullptr == input) return IRTPTypes::FlexFECCodecCapabilityParametersPtr();
+      auto result = make_shared<IRTPTypes::FlexFECCodecCapabilityParameters>();
+      if (0 != input->RepairWindow)
+      {
+        result->mRepairWindow = zsLib::Milliseconds(SafeInt<Milliseconds::rep>(input->RepairWindow));
+      }
+      result->mL = FromCx(input->L);
+      result->mD = FromCx(input->D);
+      if (input->ToP)
+      {
+        result->mToP = static_cast<IRTPTypes::FlexFECCodecCapabilityParameters::ToPs>(input->ToP->Value);
+      }
+      return result;
+    }
+
     RTCRtpOpusCodecParameters^ ToCx(const IRTPTypes::OpusCodecParameters &input)
     {
       auto result = ref new RTCRtpOpusCodecParameters();
@@ -1861,6 +1940,7 @@ namespace org
       {
         result->RtxTime = 0;
       }
+      result->Apt = SafeInt<uint8>(input.mApt);
       return result;
     }
 
@@ -1874,8 +1954,11 @@ namespace org
     {
       if (nullptr == input) return IRTPTypes::RTXCodecParametersPtr();
       auto result = make_shared<IRTPTypes::RTXCodecParameters>();
-      if (0 == input->RtxTime) return result;
-      result->mRTXTime = zsLib::Milliseconds(SafeInt<Milliseconds::rep>(input->RtxTime));
+      result->mApt = SafeInt<decltype(result->mApt)>(input->Apt);
+      if (0 != input->RtxTime)
+      {
+        result->mRTXTime = zsLib::Milliseconds(SafeInt<Milliseconds::rep>(input->RtxTime));
+      }
       return result;
     }
 
@@ -2020,6 +2103,14 @@ namespace org
             goto done_convert_params;
           }
         }
+        {
+          auto value = IRTPTypes::RTXCodecCapabilityParameters::convert(input.mParameters);
+          if (value)
+          {
+            result->Parameters = ToCxCapabilityParameters(value);
+            goto done_convert_params;
+          }
+        }
       done_convert_params:
         {}
       }
@@ -2091,6 +2182,22 @@ namespace org
         }
         {
           RTCRtpH264CodecCapabilityParameters^ value = dynamic_cast<RTCRtpH264CodecCapabilityParameters^>(input->Parameters);
+          if (nullptr != value)
+          {
+            result->mParameters = FromCx(value);
+            goto done_convert_params;
+          }
+        }
+        {
+          RTCRtpRtxCodecCapabilityParameters^ value = dynamic_cast<RTCRtpRtxCodecCapabilityParameters^>(input->Parameters);
+          if (nullptr != value)
+          {
+            result->mParameters = FromCx(value);
+            goto done_convert_params;
+          }
+        }
+        {
+          RTCRtpFlexFecCodecCapabilityParameters^ value = dynamic_cast<RTCRtpFlexFecCodecCapabilityParameters^>(input->Parameters);
           if (nullptr != value)
           {
             result->mParameters = FromCx(value);
@@ -2419,7 +2526,6 @@ namespace org
     {
       auto result = ref new RTCRtpRtxParameters();
       result->Ssrc = ToCx(input.mSSRC);
-      result->PayloadType = ToCx(input.mPayloadType);
       return result;
     }
 
@@ -2434,7 +2540,6 @@ namespace org
       if (nullptr == input) return IRTPTypes::RTXParametersPtr();
       auto result = make_shared<IRTPTypes::RTXParameters>();
       result->mSSRC = FromCx(input->Ssrc);
-      result->mPayloadType = FromCx(input->PayloadType);
       return result;
     }
 

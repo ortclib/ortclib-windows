@@ -208,6 +208,8 @@ namespace org
       IVector<RTCIceCandidate^>^ GetLocalCandidates();
       RTCIceGatherer^ CreateAssociatedGatherer();
 
+      void Gather(RTCIceGatherOptions^ options);
+
       void Close();
 
     public:
@@ -227,72 +229,11 @@ namespace org
         RTCIceGathererState get();
       }
 
-      event RTCIceGathererStateChangedDelegate^       OnICEGathererStateChanged
-      {
-        Windows::Foundation::EventRegistrationToken add(RTCIceGathererStateChangedDelegate^ handler)
-        {
-          RaiseBufferedOnICEGathererStateChangedEvents(handler);
-          return _InternalOnICEGathererStateChanged += handler;
-        }
-
-        void remove(Windows::Foundation::EventRegistrationToken token)
-        {
-          _InternalOnICEGathererStateChanged -= token;
-        }
-      }
-
-      event RTCIceGathererLocalCandidateDelegate^     OnICEGathererLocalCandidate
-      {
-        Windows::Foundation::EventRegistrationToken add(RTCIceGathererLocalCandidateDelegate^ handler)
-        {
-          RaiseBufferedOnICEGathererLocalCandidateEvents(handler);
-          return _InternalOnICEGathererLocalCandidate += handler;
-        }
-
-        void remove(Windows::Foundation::EventRegistrationToken token)
-        {
-          _InternalOnICEGathererLocalCandidate -= token;
-        }
-      }
-
-      event RTCIceGathererCandidateCompleteDelegate^  OnICEGathererCandidateComplete
-      {
-        Windows::Foundation::EventRegistrationToken add(RTCIceGathererCandidateCompleteDelegate^ handler)
-        {
-          return RaiseBufferedOnICEGathererCandidateCompleteEvents(handler);
-        }
-
-        void remove(Windows::Foundation::EventRegistrationToken token)
-        {
-          _InternalOnICEGathererCandidateComplete -= token;
-        }
-      }
-
-      event RTCIceGathererLocalCandidateGoneDelegate^ OnICEGathererLocalCandidateGone
-      {
-        Windows::Foundation::EventRegistrationToken add(RTCIceGathererLocalCandidateGoneDelegate^ handler)
-        {
-          return RaiseBufferedOnICEGathererLocalCandidateGoneEvents(handler);
-        }
-
-        void remove(Windows::Foundation::EventRegistrationToken token)
-        {
-          _InternalOnICEGathererLocalCandidateGone -= token;
-        }
-      }
-
-      event RTCIceGathererErrorDelegate^              OnICEGathererError
-      {
-        Windows::Foundation::EventRegistrationToken add(RTCIceGathererErrorDelegate^ handler)
-        {
-          return RaiseBufferedOnICEGathererErrorEvents(handler);
-        }
-
-        void remove(Windows::Foundation::EventRegistrationToken token)
-        {
-          _InternalOnICEGathererError -= token;
-        }
-      }
+      event RTCIceGathererStateChangedDelegate^       OnICEGathererStateChanged;
+      event RTCIceGathererLocalCandidateDelegate^     OnICEGathererLocalCandidate;
+      event RTCIceGathererCandidateCompleteDelegate^  OnICEGathererCandidateComplete;
+      event RTCIceGathererLocalCandidateGoneDelegate^ OnICEGathererLocalCandidateGone;
+      event RTCIceGathererErrorDelegate^              OnICEGathererError;
 
     public:
       [Windows::Foundation::Metadata::DefaultOverloadAttribute]
@@ -309,33 +250,9 @@ namespace org
       static RTCIceGathererCredentialType ToCredentialType(Platform::String^ str);
 
     private:
-      Windows::Foundation::EventRegistrationToken RaiseBufferedOnICEGathererStateChangedEvents(RTCIceGathererStateChangedDelegate^ handler);
-      Windows::Foundation::EventRegistrationToken RaiseBufferedOnICEGathererLocalCandidateEvents(RTCIceGathererLocalCandidateDelegate^ handler);
-      Windows::Foundation::EventRegistrationToken RaiseBufferedOnICEGathererCandidateCompleteEvents(RTCIceGathererCandidateCompleteDelegate^ handler);
-      Windows::Foundation::EventRegistrationToken RaiseBufferedOnICEGathererLocalCandidateGoneEvents(RTCIceGathererLocalCandidateGoneDelegate^ handler);
-      Windows::Foundation::EventRegistrationToken RaiseBufferedOnICEGathererErrorEvents(RTCIceGathererErrorDelegate^ handler);
-
-      void RaiseOnICEGathererStateChangedEvent(RTCIceGathererStateChangeEvent^ evt);
-      void RaiseOnICEGathererLocalCandidateEvent(RTCIceGathererCandidateEvent^ evt);
-      void RaiseOnICEGathererCandidateCompleteEvent(RTCIceGathererCandidateCompleteEvent^ evt);
-      void RaiseOnICEGathererLocalCandidateGoneEvent(RTCIceGathererCandidateEvent^ evt);
-      void RaiseOnICEGathererErrorEvent(RTCIceGathererErrorEvent^ evt);
-
-      event RTCIceGathererStateChangedDelegate^       _InternalOnICEGathererStateChanged;
-      event RTCIceGathererLocalCandidateDelegate^     _InternalOnICEGathererLocalCandidate;
-      event RTCIceGathererCandidateCompleteDelegate^  _InternalOnICEGathererCandidateComplete;
-      event RTCIceGathererLocalCandidateGoneDelegate^ _InternalOnICEGathererLocalCandidateGone;
-      event RTCIceGathererErrorDelegate^              _InternalOnICEGathererError;
-
       zsLib::RecursiveLock _Lock;
       IICEGathererPtr _NativePointer;
       RTCIceGathererDelegatePtr _NativeDelegatePointer;
-
-      Vector<RTCIceGathererStateChangeEvent^>^        _RaisedOnICEGathererStateChangedEvents;
-      Vector<RTCIceGathererCandidateEvent^>^          _RaisedOnICEGathererLocalCandidateEvents;
-      Vector<RTCIceGathererCandidateCompleteEvent^>^  _RaisedOnICEGathererCandidateCompleteEvents;
-      Vector<RTCIceGathererCandidateEvent^>^          _RaisedOnICEGathererLocalCandidateGoneEvents;
-      Vector<RTCIceGathererErrorEvent^>^              _RaisedOnICEGathererErrorEvents;
     };
   }
 }
