@@ -27,6 +27,9 @@ namespace org
                 private MediaDevice _audioCaptureDevice;
                 private MediaDevice _audioPlaybackDevice;
                 private MediaDevice _videoDevice;
+                private int _preferredFrameWidth;
+                private int _preferredFrameHeight;
+                private int _preferredFPS;
 
                 public delegate void OnMediaCaptureDeviceFoundDelegate(MediaDevice param0);
 
@@ -70,6 +73,16 @@ namespace org
                             MediaDeviceKind.AudioInput, _audioCaptureDevice);
                         constraints = Helper.MakeConstraints(mediaStreamConstraints.videoEnabled, constraints,
                             MediaDeviceKind.Video, _videoDevice);
+                        if (constraints.Video != null && constraints.Video.Advanced.Count > 0)
+                        {
+                            MediaTrackConstraintSet constraintSet = constraints.Video.Advanced.First();
+                            constraintSet.Width = new ConstrainLong();
+                            constraintSet.Width.Value = _preferredFrameWidth;
+                            constraintSet.Height = new ConstrainLong();
+                            constraintSet.Height.Value = _preferredFrameHeight;
+                            constraintSet.FrameRate = new ConstrainDouble();
+                            constraintSet.FrameRate.Value = _preferredFPS;
+                        }
 
                         Task<IList<MediaStreamTrack>> task = MediaDevices.GetUserMedia(constraints).AsTask();
                         return task.ContinueWith(temp =>
@@ -183,6 +196,17 @@ namespace org
                     AudioPlaybackDevices = audioPlaybackList;
 
                     return Helper.ToMediaDevices(audioPlaybackList);
+                }
+
+                public void SetPreferredVideoCaptureFormat(int frameWidth, int frameHeight, int fps)
+                {
+                    using (var @lock = new AutoLock(_lock))
+                    {
+                        @lock.WaitAsync().Wait();
+                        _preferredFrameWidth = frameWidth;
+                        _preferredFrameHeight = frameHeight;
+                        _preferredFPS = fps;
+                    }
                 }
             }
         }
