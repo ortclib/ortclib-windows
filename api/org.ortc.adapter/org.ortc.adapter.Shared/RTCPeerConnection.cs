@@ -427,9 +427,17 @@ namespace org
                     {
                         AudioReceiver = new RTCRtpReceiver(MediaStreamTrackKind.Audio, DtlsTransport);
                         if (null == AudioReceiverRtpParameters)
-                            AudioReceiverRtpParameters = Helper.CapabilitiesToParameters(SsrcId, CnameSsrc, "a", AudioReceiverCaps);
+                            AudioReceiverRtpParameters = Helper.CapabilitiesToParameters(LocalStream.GetAudioTrackSsrc(), CnameSsrc, "a", AudioReceiverCaps);
+                        else
+                            AudioReceiverRtpParameters.Rtcp.Ssrc = LocalStream.GetAudioTrackSsrc();
 
-                        AudioReceiverRtpParameters.Rtcp.Ssrc = LocalStream.GetAudioTrackSsrc();
+                        if (null != AudioSenderRtpParameters && AudioReceiverRtpParameters.Encodings.Count == 0)
+                        {
+                            foreach (var encoding in AudioSenderRtpParameters.Encodings)
+                            {
+                                AudioReceiverRtpParameters.Encodings.Add(encoding);
+                            }
+                        }
                         /*
                         foreach (var encoding in AudioReceiverRtpParameters.Encodings)
                         {
@@ -445,10 +453,17 @@ namespace org
                         VideoReceiver = new RTCRtpReceiver(MediaStreamTrackKind.Video, DtlsTransport);
                         //var videoParams = VideoReceiverRtpParameters ?? Helper.CapabilitiesToParameters(SsrcId, CnameSsrc, "v", VideoReceiverCaps);
                         if (null == VideoReceiverRtpParameters)
-                            VideoReceiverRtpParameters = Helper.CapabilitiesToParameters(SsrcId, CnameSsrc, "v", VideoReceiverCaps);
+                            VideoReceiverRtpParameters = Helper.CapabilitiesToParameters(LocalStream.GetVideoTrackSsrc(), CnameSsrc, "v", VideoReceiverCaps);
+                        else
+                            VideoReceiverRtpParameters.Rtcp.Ssrc = LocalStream.GetVideoTrackSsrc();
 
-                        VideoReceiverRtpParameters.Rtcp.Ssrc = LocalStream.GetVideoTrackSsrc();
-
+                       if (null != VideoReceiverRtpParameters && VideoReceiverRtpParameters.Encodings.Count == 0)
+                        {
+                            foreach (var encoding in VideoSenderRtpParameters.Encodings)
+                            {
+                                VideoReceiverRtpParameters.Encodings.Add(encoding);
+                            }
+                        }
                         /*foreach (var encoding in VideoReceiverRtpParameters.Encodings)
                         {
                             encoding.Ssrc = LocalStream.GetVideoTrackSsrc();

@@ -44,6 +44,7 @@ namespace org
                         peerConnection.AudioReceiverRtpParameters = peerConnection.AudioSenderRtpParameters;
                         peerConnection.VideoReceiverRtpParameters = peerConnection.VideoSenderRtpParameters;
                     }
+
                 }
 
                 internal static bool ParseCommonSdp(string sdp, out string sessionId, out string sessionVersion,
@@ -379,7 +380,17 @@ namespace org
                                                 break;
                                             string ssrcId = attrValue.Substring(0, sep);
 
-                                            RTCRtpEncodingParameters encodingParameters = parameters.Encodings.FirstOrDefault(i => i.Ssrc == parameters.Rtcp.Ssrc);
+                                            RTCRtpEncodingParameters encodingParameters = null;
+                                            foreach (var i in parameters.Encodings)
+                                            {
+                                                if (i.Ssrc == parameters.Rtcp.Ssrc)
+                                                {
+                                                    encodingParameters = i;
+                                                    break;
+                                                }
+                                            }
+                                            parameters.Rtcp.Ssrc = uint.Parse(ssrcId);
+
                                             if (null == encodingParameters)
                                             {
                                                 encodingParameters = new RTCRtpEncodingParameters
@@ -389,7 +400,7 @@ namespace org
                                                 parameters.Encodings.Add(encodingParameters);
                                             }
 
-                                            parameters.Rtcp.Ssrc = uint.Parse(ssrcId);
+                                            
 
                                             string ssrcString = attrValue.Substring(sep+1);
                                             string[] ssrcStrings = ssrcString.Split(':');

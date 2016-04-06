@@ -126,7 +126,7 @@ namespace org
                                     if (null == peerConnection.AudioReceiverCaps)
                                         peerConnection.AudioReceiverCaps = RTCRtpReceiver.GetCapabilities("audio");
 
-                                    peerConnection.AudioReceiverRtpParameters = Helper.CapabilitiesToParameters(0,
+                                    peerConnection.AudioReceiverRtpParameters = Helper.CapabilitiesToParameters(0/*peerConnection.LocalStream.GetAudioTrackSsrc()*/,
                                         peerConnection.CnameSsrc, "a", peerConnection.AudioReceiverCaps);
                                 }
                                 if (null != peerConnection.AudioReceiverRtpParameters)
@@ -161,7 +161,7 @@ namespace org
                                     if (null == peerConnection.VideoReceiverCaps)
                                         peerConnection.VideoReceiverCaps = RTCRtpReceiver.GetCapabilities("video");
 
-                                    peerConnection.VideoReceiverRtpParameters = Helper.CapabilitiesToParameters(0,
+                                    peerConnection.VideoReceiverRtpParameters = Helper.CapabilitiesToParameters(0/*peerConnection.LocalStream.GetVideoTrackSsrc()*/,
                                         peerConnection.CnameSsrc, "v", peerConnection.VideoReceiverCaps);
                                 }
 
@@ -258,8 +258,8 @@ namespace org
                                 //------------- SSRC Parameters lines  -------------
                                 foreach (var track in tracks)
                                 {
-                                    track.Cname = cname;
-                                    string ssrc = GenerateSsrc(track.SsrcId, track.Cname, track.Label,
+                                    //track.Cname = cname;
+                                    string ssrc = GenerateSsrc(track.SsrcId, cname, track.Label,
                                     msid);
                                     if (!string.IsNullOrEmpty(ssrc))
                                         sb.Append(ssrc);

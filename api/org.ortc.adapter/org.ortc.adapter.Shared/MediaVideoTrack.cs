@@ -32,7 +32,7 @@ namespace org
 
                 public string Id => Track.Id;
 
-                public string Cname { get; set; }
+                //public string Cname { get; set; }
                 public string Label { get; set; }
 
                 //public string Kind => "video";

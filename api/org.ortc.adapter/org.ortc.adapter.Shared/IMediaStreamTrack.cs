@@ -29,7 +29,7 @@ namespace org
                 /// </summary>
                 String Id { get; }
 
-                String Cname { get; set; }
+                //String Cname { get; set; }
 
                 String Label { get; set; }
 
