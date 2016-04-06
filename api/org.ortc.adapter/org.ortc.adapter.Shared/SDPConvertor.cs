@@ -380,7 +380,7 @@ namespace org
                                             string ssrcId = attrValue.Substring(0, sep);
 
                                             RTCRtpEncodingParameters encodingParameters = parameters.Encodings.FirstOrDefault(i => i.Ssrc == parameters.Rtcp.Ssrc);
-                                            if (null != encodingParameters)
+                                            if (null == encodingParameters)
                                             {
                                                 encodingParameters = new RTCRtpEncodingParameters
                                                 {

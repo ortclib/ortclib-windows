@@ -447,10 +447,12 @@ namespace org
                         if (null == VideoReceiverRtpParameters)
                             VideoReceiverRtpParameters = Helper.CapabilitiesToParameters(SsrcId, CnameSsrc, "v", VideoReceiverCaps);
 
-                        foreach (var encoding in VideoReceiverRtpParameters.Encodings)
+                        VideoReceiverRtpParameters.Rtcp.Ssrc = LocalStream.GetVideoTrackSsrc();
+
+                        /*foreach (var encoding in VideoReceiverRtpParameters.Encodings)
                         {
                             encoding.Ssrc = LocalStream.GetVideoTrackSsrc();
-                        }
+                        }*/
                         VideoReceiver.Receive(VideoReceiverRtpParameters);
                         incomingVideoTrack = new MediaVideoTrack(VideoReceiver.Track);
                     }
