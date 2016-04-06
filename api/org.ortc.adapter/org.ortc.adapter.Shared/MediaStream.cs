@@ -108,6 +108,26 @@ namespace org
                         }
                     }
                 }
+
+                internal uint GetAudioTrackSsrc()
+                {
+                    if (_audioTracks.Count > 0)
+                    {
+                        MediaAudioTrack mat = _audioTracks[0];
+                        return mat.SsrcId;
+                    }
+                    return 0;
+                }
+
+                internal uint GetVideoTrackSsrc()
+                {
+                    if (_videoTracks.Count > 0)
+                    {
+                        MediaVideoTrack mat = _videoTracks[0];
+                        return mat.SsrcId;
+                    }
+                    return 0;
+                }
             }
         }
     }

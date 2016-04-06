@@ -31,7 +31,7 @@ namespace org
                             ret = "relay";
                             break;
                         case RTCIceCandidateType.Srflex:
-                            ret = "srflex";
+                            ret = "srflx";
                             break;
                     }
 
@@ -404,8 +404,6 @@ namespace org
                     UInt16 sdpMLineIndex = 0;
                     var ret = new RTCIceCandidate(sb.ToString(), sdpMid, sdpMLineIndex);
 
-                    //org.ortc.RTCIceCandidate iceCandidate2 = IceCandidateFromSdp(sb.ToString());
-
                     return ret;
                 }
 
@@ -443,7 +441,6 @@ namespace org
                     catch (Exception e)
                     {
                         Debug.WriteLine($"Exception ice parsing: {e.Message}");
-                        //Common.Logger.Warn("Disconnected during socket read operation due to exception", e);
                     }
                     return ice;
                 }

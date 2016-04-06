@@ -140,7 +140,7 @@ namespace org
 
                             if (null != mediaParams)
                             {
-                                string mediaLine = GenerateMediaSdp("audio", mediaParams, peerConnection.IceGatherer,
+                                string mediaLine = GenerateMediaSdp(sdpType, "audio", mediaParams, peerConnection.IceGatherer,
                                     peerConnection.DtlsTransport, "0.0.0.0", peerConnection.CnameSsrc, peerConnection.LocalStream.GetAudioTracks().Cast<IMediaStreamTrack>().ToList(),peerConnection.LocalStream.Id);
 
                                 if (!string.IsNullOrEmpty(mediaLine))
@@ -175,7 +175,7 @@ namespace org
 
                             if (null != mediaParams)
                             {
-                                string mediaLine = GenerateMediaSdp("video", mediaParams, peerConnection.IceGatherer,
+                                string mediaLine = GenerateMediaSdp(sdpType, "video", mediaParams, peerConnection.IceGatherer,
                                     peerConnection.DtlsTransport, "0.0.0.0", peerConnection.CnameSsrc, peerConnection.LocalStream.GetVideoTracks().Cast<IMediaStreamTrack>().ToList(), peerConnection.LocalStream.Id);
 
                                 if (!string.IsNullOrEmpty(mediaLine))
@@ -186,7 +186,7 @@ namespace org
                         return ret;
                     }
 
-                    internal static string GenerateMediaSdp(string type, RTCRtpParameters parameters,
+                    internal static string GenerateMediaSdp(RTCSdpType sdpType, string type, RTCRtpParameters parameters,
                         RTCIceGatherer iceGatherer, RTCDtlsTransport dtlsTransport, string ipAddress,
                         string cname, IList<IMediaStreamTrack> tracks, string msid)
                     {
@@ -215,7 +215,11 @@ namespace org
 
                                 //------------- DTLS Parameters lines  -------------
                                 RTCDtlsParameters dtlsParameters = dtlsTransport.GetLocalParameters();
-                                string fingerprintLines = GenerateFingerprintLines(dtlsParameters);
+#warning Check is this right logic to set DTLS Role
+                                /*dtlsParameters.Role = sdpType == RTCSdpType.Offer
+                                    ? RTCDtlsRole.Server
+                                    : RTCDtlsRole.Client;*/
+                                string fingerprintLines = GenerateFingerprintLines(sdpType, dtlsParameters);
                                 if (!string.IsNullOrEmpty(fingerprintLines))
                                     sb.Append(fingerprintLines);
 
@@ -242,7 +246,7 @@ namespace org
 
                                 if (parameters.Rtcp.ReducedSize)
                                 {
-                                    sb.Append("a=rtcp-rsize"); //WARNING - THIS IS HARDCODED, IT SHOULD BE HANDLED PROPERLY
+                                    sb.Append("a=rtcp-rsize");
                                     sb.Append("\r\n");
                                 }
 
@@ -251,6 +255,7 @@ namespace org
                                 if (!string.IsNullOrEmpty(codecLine))
                                     sb.Append(codecLine);
 
+                                //------------- SSRC Parameters lines  -------------
                                 foreach (var track in tracks)
                                 {
                                     track.Cname = cname;
@@ -259,8 +264,6 @@ namespace org
                                     if (!string.IsNullOrEmpty(ssrc))
                                         sb.Append(ssrc);
                                 }
-                                //------------- SSRC Parameters lines  -------------
-
                             }
                             ret = sb.ToString();
                         }
@@ -349,7 +352,7 @@ namespace org
                         return ret;
                     }
 
-                    internal static string GenerateFingerprintLines(RTCDtlsParameters dtlsParameters)
+                    internal static string GenerateFingerprintLines(RTCSdpType sdpType, RTCDtlsParameters dtlsParameters)
                     {
                         StringBuilder sb = new StringBuilder();
 
@@ -368,12 +371,17 @@ namespace org
                         switch (dtlsParameters.Role)
                         {
                             case RTCDtlsRole.Server:
-                            case RTCDtlsRole.Client:
-                            case RTCDtlsRole.Auto:
                                 sb.Append("actpass");
                                 break;
+                            case RTCDtlsRole.Client:
+                                sb.Append("active");
+                                break;
+#warning Check when setup should be set to passive
                             default:
-                                sb.Append("actpass");
+                            {
+                                string str = sdpType == RTCSdpType.Offer ? "actpass" : "active";
+                                sb.Append(str);
+                            }
                                 break;
                         }
                         sb.Append("\r\n");
@@ -505,6 +513,7 @@ namespace org
                         var ret = sb.ToString();
                         return ret;
                     }
+
                 }
             }
         }

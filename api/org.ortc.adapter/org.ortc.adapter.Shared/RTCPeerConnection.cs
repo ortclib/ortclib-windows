@@ -211,6 +211,9 @@ namespace org
                         CapabilitiesFinalTcs = capabilitiesFinalTcs;
                     }
                     Wake();
+                    //if (description.Type == RTCSdpType.Offer)
+                    if (null == AudioSenderRtpParameters || null == VideoSenderRtpParameters)
+                        capabilitiesFinalTcs.SetResult(null);
                     return capabilitiesFinalTcs.Task.AsAsyncAction();
                 }
 
@@ -410,6 +413,8 @@ namespace org
                     result = null;
 
                     if (null == CapabilitiesFinalTcs) return;
+                    if (null == AudioSenderRtpParameters && null == VideoSenderRtpParameters) return;
+                    //if (null == RemoteRtcDtlsParameters) return;
 
                     MediaAudioTrack incomingAudioTrack = null;
                     MediaVideoTrack incomingVideoTrack = null;
@@ -421,16 +426,32 @@ namespace org
                     if (hasAudio)
                     {
                         AudioReceiver = new RTCRtpReceiver(MediaStreamTrackKind.Audio, DtlsTransport);
-                        var audioParams = Helper.CapabilitiesToParameters(SsrcId, CnameSsrc, "a", AudioReceiverCaps);
-                        AudioReceiver.Receive(audioParams);
+                        if (null == AudioReceiverRtpParameters)
+                            AudioReceiverRtpParameters = Helper.CapabilitiesToParameters(SsrcId, CnameSsrc, "a", AudioReceiverCaps);
+
+                        AudioReceiverRtpParameters.Rtcp.Ssrc = LocalStream.GetAudioTrackSsrc();
+                        /*
+                        foreach (var encoding in AudioReceiverRtpParameters.Encodings)
+                        {
+                            encoding.Ssrc = LocalStream.GetAudioTrackSsrc();
+                        }*/
+
+                        AudioReceiver.Receive(AudioReceiverRtpParameters);
                         incomingAudioTrack = new MediaAudioTrack(AudioReceiver.Track);
                     }
 
                     if (hasVideo)
                     {
                         VideoReceiver = new RTCRtpReceiver(MediaStreamTrackKind.Video, DtlsTransport);
-                        var videoParams = Helper.CapabilitiesToParameters(SsrcId, CnameSsrc, "v", VideoReceiverCaps);
-                        VideoReceiver.Receive(videoParams);
+                        //var videoParams = VideoReceiverRtpParameters ?? Helper.CapabilitiesToParameters(SsrcId, CnameSsrc, "v", VideoReceiverCaps);
+                        if (null == VideoReceiverRtpParameters)
+                            VideoReceiverRtpParameters = Helper.CapabilitiesToParameters(SsrcId, CnameSsrc, "v", VideoReceiverCaps);
+
+                        foreach (var encoding in VideoReceiverRtpParameters.Encodings)
+                        {
+                            encoding.Ssrc = LocalStream.GetVideoTrackSsrc();
+                        }
+                        VideoReceiver.Receive(VideoReceiverRtpParameters);
                         incomingVideoTrack = new MediaVideoTrack(VideoReceiver.Track);
                     }
                     // ORTC allows for simulcasting so return the list of audio/video streams created to the
@@ -505,6 +526,10 @@ namespace org
 
                             if (null != track)
                             {
+                                foreach (var encoding in AudioSenderRtpParameters.Encodings)
+                                {
+                                    encoding.Ssrc = mediaTrack.SsrcId;
+                                }
                                 // If a track was found then setup the audio RtcRtpSender.
                                 AudioSender = new RTCRtpSender(track, DtlsTransport);
                                 AudioSender.Send(AudioSenderRtpParameters);
@@ -526,6 +551,10 @@ namespace org
 
                             if (null != track)
                             {
+                                foreach (var encoding in VideoSenderRtpParameters.Encodings)
+                                {
+                                    encoding.Ssrc = mediaTrack.SsrcId;
+                                }
                                 // If a track was found then setup the video RtcRtpSender.
                                 VideoSender = new RTCRtpSender(track, DtlsTransport);
                                 VideoSender.Send(VideoSenderRtpParameters);
