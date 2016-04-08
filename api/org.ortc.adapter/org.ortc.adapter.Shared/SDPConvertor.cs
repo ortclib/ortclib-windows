@@ -41,8 +41,32 @@ namespace org
                     if (type == RTCSdpType.Offer)
                     {
                         peerConnection.IceRole = RTCIceRole.Controlled;
-                        peerConnection.AudioReceiverRtpParameters = peerConnection.AudioSenderRtpParameters;
-                        peerConnection.VideoReceiverRtpParameters = peerConnection.VideoSenderRtpParameters;
+                        peerConnection.AudioReceiverRtpParameters = new RTCRtpParameters();
+                        peerConnection.AudioReceiverRtpParameters.Codecs = peerConnection.AudioSenderRtpParameters.Codecs;
+                        peerConnection.AudioReceiverRtpParameters.DegradationPreference = peerConnection.AudioSenderRtpParameters.DegradationPreference;
+                        peerConnection.AudioReceiverRtpParameters.HeaderExtensions = peerConnection.AudioSenderRtpParameters.HeaderExtensions;
+                        peerConnection.AudioReceiverRtpParameters.MuxId = peerConnection.AudioSenderRtpParameters.MuxId;
+                        peerConnection.AudioReceiverRtpParameters.Rtcp = peerConnection.AudioSenderRtpParameters.Rtcp;
+                        peerConnection.AudioReceiverRtpParameters.Encodings = new List<RTCRtpEncodingParameters>();
+                        foreach (var encoding in peerConnection.AudioSenderRtpParameters.Encodings)
+                        {
+                            RTCRtpEncodingParameters newEncoding = new RTCRtpEncodingParameters();
+                            newEncoding.Ssrc = encoding.Ssrc;
+                            peerConnection.AudioReceiverRtpParameters.Encodings.Add(newEncoding);
+                        }
+                        peerConnection.VideoReceiverRtpParameters = new RTCRtpParameters();
+                        peerConnection.VideoReceiverRtpParameters.Codecs = peerConnection.VideoSenderRtpParameters.Codecs;
+                        peerConnection.VideoReceiverRtpParameters.DegradationPreference = peerConnection.VideoSenderRtpParameters.DegradationPreference;
+                        peerConnection.VideoReceiverRtpParameters.HeaderExtensions = peerConnection.VideoSenderRtpParameters.HeaderExtensions;
+                        peerConnection.VideoReceiverRtpParameters.MuxId = peerConnection.VideoSenderRtpParameters.MuxId;
+                        peerConnection.VideoReceiverRtpParameters.Rtcp = peerConnection.VideoSenderRtpParameters.Rtcp;
+                        peerConnection.VideoReceiverRtpParameters.Encodings = new List<RTCRtpEncodingParameters>();
+                        foreach (var encoding in peerConnection.VideoSenderRtpParameters.Encodings)
+                        {
+                            RTCRtpEncodingParameters newEncoding = new RTCRtpEncodingParameters();
+                            newEncoding.Ssrc = encoding.Ssrc;
+                            peerConnection.VideoReceiverRtpParameters.Encodings.Add(newEncoding);
+                        }
                     }
 
                 }
