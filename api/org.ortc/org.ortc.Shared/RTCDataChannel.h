@@ -10,6 +10,14 @@ namespace org
 {
   namespace ortc
   {
+    ref class RTCDataChannelParameters;
+
+    namespace internal
+    {
+      RTCDataChannelParameters^ ToCx(IDataChannelTypes::ParametersPtr input);
+      IDataChannelTypes::ParametersPtr FromCx(RTCDataChannelParameters^ input);
+    }
+
     ZS_DECLARE_CLASS_PTR(RTCDataChannelDelegate)
     ref class RTCDataChannel;
     ref class RTCSctpTransport;

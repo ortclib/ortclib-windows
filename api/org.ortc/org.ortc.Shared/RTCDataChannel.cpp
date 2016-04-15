@@ -3,10 +3,62 @@
 #include "RTCDataChannel.h"
 #include "helpers.h"
 
+using zsLib::DWORD;
+
 namespace org
 {
   namespace ortc
   {
+    ZS_DECLARE_TYPEDEF_PTR(internal::Helper, UseHelper)
+
+    namespace internal
+    {
+#pragma region DataChannel conversion
+      RTCDataChannelParameters^ ToCx(const IDataChannelTypes::Parameters &input)
+      {
+        auto result = ref new RTCDataChannelParameters();
+
+        result->Label = Helper::ToCx(input.mLabel);
+        result->Ordered = input.mOrdered;
+        if (Milliseconds() != input.mMaxPacketLifetime)
+        {
+          result->MaxPacketLifetime = input.mMaxPacketLifetime.count();
+        }
+        else
+        {
+          result->MaxPacketLifetime = 0;
+        }
+        result->MaxRetransmits = Helper::ToCx(input.mMaxRetransmits);
+        result->Protocol = Helper::ToCx(input.mProtocol);
+        result->Negotiated = input.mNegotiated;
+        result->Id = Helper::ToCx(input.mID);
+
+        return result;
+      }
+
+      RTCDataChannelParameters^ ToCx(IDataChannelTypes::ParametersPtr input)
+      {
+        if (!input) return nullptr;
+        return ToCx(input);
+      }
+
+      IDataChannelTypes::ParametersPtr FromCx(RTCDataChannelParameters^ input)
+      {
+        if (nullptr == input) return IDataChannelTypes::ParametersPtr();
+        auto result = std::make_shared<IDataChannelTypes::Parameters>();
+
+        result->mLabel = Helper::FromCx(input->Label);
+        result->mOrdered = input->Ordered;
+        if (0 != input->MaxPacketLifetime) result->mMaxPacketLifetime = Milliseconds(SafeInt<Milliseconds::rep>(input->MaxPacketLifetime));
+        result->mMaxRetransmits = Helper::FromCx(input->MaxRetransmits);
+        result->mProtocol = Helper::FromCx(input->Protocol);
+        result->mNegotiated = input->Negotiated;
+        result->mID = Helper::FromCx(input->Id);
+
+        return result;
+      }
+#pragma endregion
+    }
 
     RTCDataChannel::RTCDataChannel() :
       mNativeDelegatePointer(nullptr),
@@ -25,7 +77,7 @@ namespace org
       if (FetchNativePointer::FromSctpTransport(dataTransport))
       {
         mNativeDelegatePointer->SetOwnerObject(this);
-        mNativePointer = IDataChannel::create(mNativeDelegatePointer, FetchNativePointer::FromSctpTransport(dataTransport), *FromCx(params));
+        mNativePointer = IDataChannel::create(mNativeDelegatePointer, FetchNativePointer::FromSctpTransport(dataTransport), *internal::FromCx(params));
       }
     }
 
@@ -41,7 +93,7 @@ namespace org
     {
       if (mNativePointer)
       {
-        mNativePointer->send(FromCx(data));
+        mNativePointer->send(UseHelper::FromCx(data));
       }
     }
 
@@ -69,17 +121,17 @@ namespace org
 
     RTCDataChannelParameters^ RTCDataChannel::GetParameters()
     {
-      return ToCx(mNativePointer->parameters());
+      return internal::ToCx(mNativePointer->parameters());
     }
 
     Platform::String^ RTCDataChannel::GetBinaryType()
     {
-      return ToCx(mNativePointer->binaryType());
+      return UseHelper::ToCx(mNativePointer->binaryType());
     }
 
     void RTCDataChannel::SetBinaryType(Platform::String^ binaryType)
     {
-      mNativePointer->binaryType(FromCx(binaryType).c_str());
+      mNativePointer->binaryType(UseHelper::FromCx(binaryType).c_str());
     }
 
     RTCDataChannelState RTCDataChannel::State::get()
@@ -108,7 +160,7 @@ namespace org
     {
       auto evt = ref new RTCDataChannelErrorEvent();
       evt->Error->ErrorCode = errorCode;
-      evt->Error->ErrorReason = ToCx(errorReason);
+      evt->Error->ErrorReason = UseHelper::ToCx(errorReason);
       _channel->OnDataChannelError(evt);
     }
 
@@ -126,8 +178,8 @@ namespace org
       )
     {
       auto evt = ref new RTCMessageEvent();
-      evt->Data->Binary = ref new Array<byte>(data->mBinary->BytePtr(), data->mBinary->SizeInBytes());
-      evt->Data->Text = ToCx(data->mText);
+      evt->Data->Binary = ref new Array<byte>(data->mBinary->BytePtr(), SafeInt<unsigned int>(data->mBinary->SizeInBytes()));
+      evt->Data->Text = UseHelper::ToCx(data->mText);
       _channel->OnDataChannelMessage(evt);
     }
 
@@ -136,14 +188,14 @@ namespace org
     //---------------------------------------------------------------------------
     Platform::String^ RTCDataChannelParameters::ToJsonString()
     {
-      auto params = FromCx(this);
-      return ToCx(openpeer::services::IHelper::toString(params->createElement("DataChannelParameters")));
+      auto params = internal::FromCx(this);
+      return UseHelper::ToCx(openpeer::services::IHelper::toString(params->createElement("DataChannelParameters")));
     }
 
     RTCDataChannelParameters^ RTCDataChannelParameters::FromJsonString(Platform::String^ jsonString)
     {
-      auto params = make_shared<IDataChannel::Parameters>(IDataChannel::Parameters::Parameters(openpeer::services::IHelper::toJSON(FromCx(jsonString).c_str())));
-      return ToCx(params);
+      auto params = make_shared<IDataChannel::Parameters>(IDataChannel::Parameters::Parameters(openpeer::services::IHelper::toJSON(UseHelper::FromCx(jsonString).c_str())));
+      return internal::ToCx(params);
     }
   } // namespace ortc
 } // namespace ortc

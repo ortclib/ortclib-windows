@@ -420,148 +420,154 @@ namespace org
 #pragma endregion
     } // namespace internal
 
+
+
+
+    namespace internal
+    {
 #pragma region Basic types
 
-    std::string FromCx(Platform::String^ inObj) {
-      if (nullptr == inObj) return std::string();
-      return rtc::ToUtf8(inObj->Data());
-    }
+      std::string Helper::FromCx(Platform::String^ inObj) {
+        if (nullptr == inObj) return std::string();
+        return rtc::ToUtf8(inObj->Data());
+      }
 
-    Platform::String^ ToCx(const std::string &inObj) {
-      return ref new Platform::String(rtc::ToUtf16(inObj).c_str());
-    }
+      Platform::String^ Helper::ToCx(const std::string &inObj) {
+        return ref new Platform::String(rtc::ToUtf16(inObj).c_str());
+      }
 
 #pragma endregion
 
 #pragma region Optional
 
-    Platform::IBox<Platform::Boolean>^ ToCx(const Optional<bool> &input)
-    {
-      if (!input.hasValue()) return nullptr;
-      return ref new Platform::Box<Platform::Boolean>(input.value());
-    }
+      Platform::IBox<Platform::Boolean>^ Helper::ToCx(const Optional<bool> &input)
+      {
+        if (!input.hasValue()) return nullptr;
+        return ref new Platform::Box<Platform::Boolean>(input.value());
+      }
 
-    Optional<bool> FromCx(Platform::IBox<Platform::Boolean>^ input)
-    {
-      Optional<bool> result;
-      if (nullptr == input) return result;
-      result = input->Value;
-      return result;
-    }
+      Optional<bool> Helper::FromCx(Platform::IBox<Platform::Boolean>^ input)
+      {
+        Optional<bool> result;
+        if (nullptr == input) return result;
+        result = input->Value;
+        return result;
+      }
 
-    Platform::IBox<uint8>^ ToCx(const Optional<BYTE> &input)
-    {
-      if (!input.hasValue()) return nullptr;
-      return ref new Platform::Box<uint8>(SafeInt<uint8>(input.value()));
-    }
+      Platform::IBox<uint8>^ Helper::ToCx(const Optional<BYTE> &input)
+      {
+        if (!input.hasValue()) return nullptr;
+        return ref new Platform::Box<uint8>(SafeInt<uint8>(input.value()));
+      }
 
-    Optional<BYTE> FromCx(Platform::IBox<uint8>^ input)
-    {
-      Optional<BYTE> result;
-      if (nullptr == input) return result;
-      result = SafeInt<BYTE>(input->Value);
-      return result;
-    }
+      Optional<BYTE> Helper::FromCx(Platform::IBox<uint8>^ input)
+      {
+        Optional<BYTE> result;
+        if (nullptr == input) return result;
+        result = SafeInt<BYTE>(input->Value);
+        return result;
+      }
 
-    Platform::IBox<int16>^ ToCx(const Optional<SHORT> &input)
-    {
-      if (!input.hasValue()) return nullptr;
-      return ref new Platform::Box<int16>(SafeInt<int16>(input.value()));
-    }
+      Platform::IBox<int16>^ Helper::ToCx(const Optional<SHORT> &input)
+      {
+        if (!input.hasValue()) return nullptr;
+        return ref new Platform::Box<int16>(SafeInt<int16>(input.value()));
+      }
 
-    Optional<SHORT> FromCx(Platform::IBox<int16>^ input)
-    {
-      Optional<SHORT> result;
-      if (nullptr == input) return result;
-      result = SafeInt<SHORT>(input->Value);
-      return result;
-    }
+      Optional<SHORT> FromCx(Platform::IBox<int16>^ input)
+      {
+        Optional<SHORT> result;
+        if (nullptr == input) return result;
+        result = SafeInt<SHORT>(input->Value);
+        return result;
+      }
 
-    Platform::IBox<uint16>^ ToCx(const Optional<USHORT> &input)
-    {
-      if (!input.hasValue()) return nullptr;
-      return ref new Platform::Box<uint16>(SafeInt<uint16>(input.value()));
-    }
+      Platform::IBox<uint16>^ Helper::ToCx(const Optional<USHORT> &input)
+      {
+        if (!input.hasValue()) return nullptr;
+        return ref new Platform::Box<uint16>(SafeInt<uint16>(input.value()));
+      }
 
-    Optional<USHORT> FromCx(Platform::IBox<uint16>^ input)
-    {
-      Optional<USHORT> result;
-      if (nullptr == input) return result;
-      result = SafeInt<USHORT>(input->Value);
-      return result;
-    }
+      Optional<USHORT> Helper::FromCx(Platform::IBox<uint16>^ input)
+      {
+        Optional<USHORT> result;
+        if (nullptr == input) return result;
+        result = SafeInt<USHORT>(input->Value);
+        return result;
+      }
 
-    Platform::IBox<int32>^ ToCx(const Optional<LONG> &input)
-    {
-      if (!input.hasValue()) return nullptr;
-      return ref new Platform::Box<int32>(SafeInt<int32>(input.value()));
-    }
+      Platform::IBox<int32>^ Helper::ToCx(const Optional<LONG> &input)
+      {
+        if (!input.hasValue()) return nullptr;
+        return ref new Platform::Box<int32>(SafeInt<int32>(input.value()));
+      }
 
-    Optional<LONG> FromCx(Platform::IBox<int32>^ input)
-    {
-      Optional<LONG> result;
-      if (nullptr == input) return result;
-      result = SafeInt<LONG>(input->Value);
-      return result;
-    }
+      Optional<LONG> Helper::FromCx(Platform::IBox<int32>^ input)
+      {
+        Optional<LONG> result;
+        if (nullptr == input) return result;
+        result = SafeInt<LONG>(input->Value);
+        return result;
+      }
 
-    Platform::IBox<uint32>^ ToCx(const Optional<ULONG> &input)
-    {
-      if (!input.hasValue()) return nullptr;
-      return ref new Platform::Box<uint32>(SafeInt<uint32>(input.value()));
-    }
+      Platform::IBox<uint32>^ Helper::ToCx(const Optional<ULONG> &input)
+      {
+        if (!input.hasValue()) return nullptr;
+        return ref new Platform::Box<uint32>(SafeInt<uint32>(input.value()));
+      }
 
-    Optional<ULONG> FromCx(Platform::IBox<uint32>^ input)
-    {
-      Optional<ULONG> result;
-      if (nullptr == input) return result;
-      result = SafeInt<ULONG>(input->Value);
-      return result;
-    }
+      Optional<ULONG> FromCx(Platform::IBox<uint32>^ input)
+      {
+        Optional<ULONG> result;
+        if (nullptr == input) return result;
+        result = SafeInt<ULONG>(input->Value);
+        return result;
+      }
 
-    Platform::IBox<uint64>^ ToCx(const Optional<ULONGLONG> &input)
-    {
-      if (!input.hasValue()) return nullptr;
-      return ref new Platform::Box<uint64>(SafeInt<uint64>(input.value()));
-    }
+      Platform::IBox<uint64>^ Helper::ToCx(const Optional<ULONGLONG> &input)
+      {
+        if (!input.hasValue()) return nullptr;
+        return ref new Platform::Box<uint64>(SafeInt<uint64>(input.value()));
+      }
 
-    Optional<ULONGLONG> FromCx(Platform::IBox<uint64>^ input)
-    {
-      Optional<ULONGLONG> result;
-      if (nullptr == input) return result;
-      result = SafeInt<ULONGLONG>(input->Value);
-      return result;
-    }
+      Optional<ULONGLONG> Helper::FromCx(Platform::IBox<uint64>^ input)
+      {
+        Optional<ULONGLONG> result;
+        if (nullptr == input) return result;
+        result = SafeInt<ULONGLONG>(input->Value);
+        return result;
+      }
 
-    Platform::IBox<float64>^ ToCx(const Optional<double> &input)
-    {
-      if (!input.hasValue()) return nullptr;
-      return ref new Platform::Box<float64>(input.value());
-    }
+      Platform::IBox<float64>^ Helper::ToCx(const Optional<double> &input)
+      {
+        if (!input.hasValue()) return nullptr;
+        return ref new Platform::Box<float64>(input.value());
+      }
 
-    Optional<double> FromCx(Platform::IBox<float64>^ input)
-    {
-      Optional<double> result;
-      if (nullptr == input) return result;
-      result = input->Value;
-      return result;
-    }
+      Optional<double> FromCx(Platform::IBox<float64>^ input)
+      {
+        Optional<double> result;
+        if (nullptr == input) return result;
+        result = input->Value;
+        return result;
+      }
 
-    Platform::String^ ToCx(const Optional<zsLib::String> &input)
-    {
-      if (!input.hasValue()) return nullptr;
-      return ToCx(input.value());
-    }
+      Platform::String^ Helper::ToCx(const Optional<zsLib::String> &input)
+      {
+        if (!input.hasValue()) return nullptr;
+        return ToCx(input.value());
+      }
 
-    Optional<zsLib::String> FromCxToOptional(Platform::String^ input)
-    {
-      Optional<zsLib::String> result;
-      if (nullptr == input) return result;
-      result = FromCx(input);
-      return result;
-    }
-
+      Optional<zsLib::String> Helper::FromCxToOptional(Platform::String^ input)
+      {
+        Optional<zsLib::String> result;
+        if (nullptr == input) return result;
+        result = FromCx(input);
+        return result;
+      }
 #pragma endregion
+
+    }
 
 #pragma region IceTypes
 
@@ -855,53 +861,6 @@ namespace org
 
 #pragma endregion
 
-#pragma region DataChannel
-
-    RTCDataChannelParameters^ ToCx(const IDataChannelTypes::Parameters &input)
-    {
-      auto result = ref new RTCDataChannelParameters();
-
-      result->Label = ToCx(input.mLabel);
-      result->Ordered = input.mOrdered;
-      if (Milliseconds() != input.mMaxPacketLifetime)
-      {
-        result->MaxPacketLifetime = input.mMaxPacketLifetime.count();
-      }
-      else
-      {
-        result->MaxPacketLifetime = 0;
-      }
-      result->MaxRetransmits = ToCx(input.mMaxRetransmits);
-      result->Protocol = ToCx(input.mProtocol);
-      result->Negotiated = input.mNegotiated;
-      result->Id = ToCx(input.mID);
-
-      return result;
-    }
-
-    RTCDataChannelParameters^ ToCx(IDataChannelTypes::ParametersPtr input)
-    {
-      if (!input) return nullptr;
-      return ToCx(input);
-    }
-
-    IDataChannelTypes::ParametersPtr FromCx(RTCDataChannelParameters^ input)
-    {
-      if (nullptr == input) return IDataChannelTypes::ParametersPtr();
-      auto result = std::make_shared<IDataChannelTypes::Parameters>();
-
-      result->mLabel = FromCx(input->Label);
-      result->mOrdered = input->Ordered;
-      if (0 != input->MaxPacketLifetime) result->mMaxPacketLifetime = Milliseconds(SafeInt<Milliseconds::rep>(input->MaxPacketLifetime));
-      result->mMaxRetransmits = FromCx(input->MaxRetransmits);
-      result->mProtocol = FromCx(input->Protocol);
-      result->mNegotiated = input->Negotiated;
-      result->mID = FromCx(input->Id);
-
-      return result;
-    }
-
-#pragma endregion
   
 #pragma region Sctp Transport
 

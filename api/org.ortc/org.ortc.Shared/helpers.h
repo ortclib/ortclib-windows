@@ -14,15 +14,49 @@
 #include "MediaDevices.h"
 #include "Logger.h"
 
+#include <zsLib/zsLib.h>
+
 namespace org
 {
   namespace ortc
   {
-    std::string FromCx(Platform::String^ inObj);
-    Platform::String^ ToCx(const std::string & inObj);
+    namespace internal
+    {
+      class Helper
+      {
+      public:
+        static std::string FromCx(Platform::String^ inObj);
+        static Platform::String^ ToCx(const std::string & inObj);
 
-    RTCDataChannelParameters^ ToCx(IDataChannelTypes::ParametersPtr input);
-    IDataChannelTypes::ParametersPtr FromCx(RTCDataChannelParameters^ input);
+        static Platform::IBox<Platform::Boolean>^ ToCx(const Optional<bool> &input);
+        static Optional<bool> FromCx(Platform::IBox<Platform::Boolean>^ input);
+
+        static Platform::IBox<uint8>^ ToCx(const Optional<BYTE> &input);
+        static Optional<BYTE> FromCx(Platform::IBox<uint8>^ input);
+
+        static Platform::IBox<int16>^ ToCx(const Optional<SHORT> &input);
+        static Optional<SHORT> FromCx(Platform::IBox<int16>^ input);
+
+        static Platform::IBox<uint16>^ ToCx(const Optional<USHORT> &input);
+        static Optional<USHORT> FromCx(Platform::IBox<uint16>^ input);
+
+        static Platform::IBox<int32>^ ToCx(const Optional<LONG> &input);
+        static Optional<LONG> FromCx(Platform::IBox<int32>^ input);
+
+        static Platform::IBox<uint32>^ ToCx(const Optional<ULONG> &input);
+        static Optional<ULONG> FromCx(Platform::IBox<uint32>^ input);
+
+        static Platform::IBox<uint64>^ ToCx(const Optional<ULONGLONG> &input);
+        static Optional<ULONGLONG> FromCx(Platform::IBox<uint64>^ input);
+
+        static Platform::IBox<float64>^ ToCx(const Optional<double> &input);
+        static Optional<double> FromCx(Platform::IBox<float64>^ input);
+
+        static Platform::String^ ToCx(const Optional<zsLib::String> &input);
+        static Optional<zsLib::String> FromCxToOptional(Platform::String^ input);
+      };
+    }
+
     ISCTPTransport::CapabilitiesPtr FromCx(RTCSctpCapabilities^ input);
 
     RTCDtlsFingerprint^ ToCx(ICertificateTypes::FingerprintPtr input);
