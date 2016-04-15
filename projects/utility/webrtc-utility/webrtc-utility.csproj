@@ -147,11 +147,11 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeClean">
+	<Message Text="Cleaning webrtc libs" Importance="high" />
+	<RemoveDir Directories="$(SolutionDir)..\..\libs\webrtc\WEBRTC_BUILD;$(SolutionDir)..\..\libs\webrtc\build_win10;$(SolutionDir)..\..\libs\webrtc\build_win10_arm;$(SolutionDir)..\..\libs\webrtc\build\Debug;$(SolutionDir)..\..\libs\webrtc\release\" />
+  </Target>
   <Target Name="BeforeBuild">
+	<Message Text="Building webrtc projects. This will take awhile." Importance="high" />
   </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

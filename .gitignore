@@ -12,3 +12,4 @@ projects/packages
 Build/
 nuget/package
 nuget/Output
+NugetOutput/
