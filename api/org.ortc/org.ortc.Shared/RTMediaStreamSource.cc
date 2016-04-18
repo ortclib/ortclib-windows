@@ -58,7 +58,7 @@ namespace org
       streamState->_id = id;
       streamState->_rtcRenderer = rtc::scoped_ptr<RTCRenderer>(
         new RTCRenderer(streamState));
-      CallPrivateMethod::SetMediaElement(track, (void*)streamState->_rtcRenderer.get());
+      CallPrivateMethod::SetVideoRenderCallback(track, (void*)streamState->_rtcRenderer.get());
       VideoEncodingProperties^ videoProperties;
       if (isH264) {
         videoProperties = VideoEncodingProperties::CreateH264();

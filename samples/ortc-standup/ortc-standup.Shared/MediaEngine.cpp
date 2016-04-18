@@ -282,7 +282,7 @@ namespace ortc_standup
 
         ortc::IMediaStreamTrackPtr remoteVideoTrack = mMediaEngine.lock()->mVideoRTPReceiver->track();
         IInspectable* remoteMediaElementPtr = reinterpret_cast<IInspectable*>(mMediaEngine.lock()->mRemoteMediaElement);
-        remoteVideoTrack->setMediaElement(remoteMediaElementPtr);
+        remoteVideoTrack->setVideoRenderCallback(remoteMediaElementPtr);
 
         mMediaEngine.lock()->mVideoRTPReceiver->receive(*videoRecvParams);
 
@@ -326,7 +326,7 @@ namespace ortc_standup
       ortc::IMediaDevicesTypes::MediaStreamTrackListPtr trackList = promise->value<ortc::IMediaDevicesTypes::MediaStreamTrackList>();
       mMediaEngine.lock()->mLocalVideoMediaStreamTrack = *trackList->begin();
       IInspectable* localMediaElementPtr = reinterpret_cast<IInspectable*>(mMediaEngine.lock()->mLocalMediaElement);
-      mMediaEngine.lock()->mLocalVideoMediaStreamTrack->setMediaElement(localMediaElementPtr);
+      mMediaEngine.lock()->mLocalVideoMediaStreamTrack->setVideoRenderCallback(localMediaElementPtr);
 
       ortc::IICEGathererTypes::Options gathererOptions;
       ortc::IICEGathererTypes::InterfacePolicy interfacePolicy;

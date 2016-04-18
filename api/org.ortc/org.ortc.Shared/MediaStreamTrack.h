@@ -201,6 +201,9 @@ namespace org
       MediaTrackConstraints^  GetConstraints();
       MediaTrackSettings^     GetSettings();
 
+      void SetH264Rendering(bool h264Rendering);
+      bool IsH264Rendering();
+
       IMediaSource^ CreateMediaSource();
 
       IAsyncAction^ ApplyConstraints(MediaTrackConstraints^ constraints);
@@ -211,7 +214,7 @@ namespace org
       event MediaStreamTrackOverConstrainedDelegate^  OnMediaStreamTrackOverConstrained;
 
     private:
-      void SetMediaElement(void* element);
+      void SetVideoRenderCallback(void* callback);
 
     public:
       [Windows::Foundation::Metadata::DefaultOverloadAttribute]

@@ -15,12 +15,13 @@
 #include <functional>
 #include "libyuv/convert.h"
 #include "WebRtcMediaStream.h"
+#include "MediaStreamTrack.h"
 
 using Microsoft::WRL::MakeAndInitialize;
 using Windows::System::Threading::TimerElapsedHandler;
 
 
-void MediaStreamTrack_SetMediaElement(Platform::Object^ obj, void* element);
+void MediaStreamTrack_SetVideoRenderCallback(Platform::Object^ obj, void* callback);
 
 
 namespace Microsoft
@@ -80,10 +81,8 @@ namespace org
       _track = track;
       _id = id;
       _rtcRenderer = rtc::scoped_ptr<RTCRenderer>(new RTCRenderer(this));
-#define H264_CURRENTLY_DISABLED_CHECK_IN_MEDIASTREAMTRACK 1
-#define H264_CURRENTLY_DISABLED_CHECK_IN_MEDIASTREAMTRACK 2
 
-      _isH264 = false;// track->GetImpl()->GetSource()->IsH264Source();
+      _isH264 = track->IsH264Rendering();
 
       // Create the helper with the callback functions.
       _helper.reset(new MediaSourceHelper(_isH264,
@@ -103,8 +102,8 @@ namespace org
 
       /* auto caller = new AccessPrivateMethod<MediaStreamTrack>();
 
-       caller->SetMediaElement(track, (void*) this);*/
-      MediaStreamTrack_SetMediaElement(track, _rtcRenderer.get());
+       caller->SetVideoRenderCallback(track, (void*) this);*/
+      MediaStreamTrack_SetVideoRenderCallback(track, _rtcRenderer.get());
 
       return S_OK;
     }

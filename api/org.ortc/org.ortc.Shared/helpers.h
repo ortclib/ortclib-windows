@@ -96,7 +96,7 @@ namespace org
     class CallPrivateMethod
     {
     public:
-      static void SetMediaElement(MediaStreamTrack^ track, void* element) { track->SetMediaElement(element); }
+      static void SetVideoRenderCallback(MediaStreamTrack^ track, void* callback) { track->SetVideoRenderCallback(callback); }
     };
 
     namespace internal

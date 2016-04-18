@@ -20,13 +20,13 @@ namespace Microsoft {
 
 using Microsoft::WRL::ComPtr;
 
-void MediaStreamTrack_SetMediaElement(Platform::Object^ obj, void* element)
+void MediaStreamTrack_SetVideoRenderCallback(Platform::Object^ obj, void* callback)
 {
   if (obj == nullptr) return;
 
   org::ortc::MediaStreamTrack^ track = static_cast<org::ortc::MediaStreamTrack^>(obj);
 
-  org::ortc::CallPrivateMethod::SetMediaElement(track, element);
+  org::ortc::CallPrivateMethod::SetVideoRenderCallback(track, callback);
 };
 
 namespace org
@@ -137,6 +137,24 @@ namespace org
       return nullptr;
     }
 
+    void MediaStreamTrack::SetH264Rendering(bool h264Rendering)
+    {
+      if (mNativePointer)
+      {
+        mNativePointer->setH264Rendering(h264Rendering);
+      }
+    }
+
+    bool MediaStreamTrack::IsH264Rendering()
+    {
+      if (mNativePointer)
+      {
+        return mNativePointer->isH264Rendering();
+      }
+
+      return false;
+    }
+
     IMediaSource^ MediaStreamTrack::CreateMediaSource()
     {
       //return globals::RunOnGlobalThread<IMediaSource^>([track, id]() -> IMediaSource^ {
@@ -184,11 +202,11 @@ namespace org
       return ret;
     }
 
-    void MediaStreamTrack::SetMediaElement(void* element)
+    void MediaStreamTrack::SetVideoRenderCallback(void* callback)
     {
       if (mNativePointer)
       {
-        mNativePointer->setMediaElement(element);
+        mNativePointer->setVideoRenderCallback(callback);
       }
     }
 
