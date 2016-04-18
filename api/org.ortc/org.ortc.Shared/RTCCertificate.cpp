@@ -3,6 +3,7 @@
 #include "RTCCertificate.h"
 #include "RTCDtlsTransport.h"
 #include "helpers.h"
+#include "Error.h"
 
 namespace org
 {
@@ -14,6 +15,45 @@ namespace org
 
     namespace internal
     {
+      class RTCGenerateCertificatePromiseObserver : public zsLib::IPromiseResolutionDelegate
+      {
+      public:
+        RTCGenerateCertificatePromiseObserver(Concurrency::task_completion_event<RTCCertificate^> tce);
+
+        virtual void onPromiseResolved(PromisePtr promise);
+        virtual void onPromiseRejected(PromisePtr promise);
+
+      private:
+        Concurrency::task_completion_event<RTCCertificate^> mTce;
+      };
+
+      RTCGenerateCertificatePromiseObserver::RTCGenerateCertificatePromiseObserver(Concurrency::task_completion_event<RTCCertificate^> tce) :
+        mTce(tce)
+      {
+      }
+
+      void RTCGenerateCertificatePromiseObserver::onPromiseResolved(PromisePtr promise)
+      {
+        ICertificate::PromiseWithCertificatePtr certificatePromise = ZS_DYNAMIC_PTR_CAST(ICertificate::PromiseWithCertificate, promise);
+        auto nativeCert = certificatePromise->value();
+        if (!nativeCert)
+        {
+          Error ^error = nullptr;
+          mTce.set_exception(error);
+          return;
+        }
+        auto ret = ref new RTCCertificate();
+        ret->_nativePointer = nativeCert;
+        mTce.set(ret);
+      }
+
+      void RTCGenerateCertificatePromiseObserver::onPromiseRejected(PromisePtr promise)
+      {
+        auto reason = promise->reason<Any>();
+        auto error = Error::CreateIfGeneric(reason);
+        mTce.set_exception(error);
+      }
+
     } // namespace internal
 
     RTCCertificate^ RTCCertificate::Convert(ICertificatePtr certificate)
@@ -29,7 +69,7 @@ namespace org
         Concurrency::task_completion_event<RTCCertificate^> tce;
 
         ICertificate::PromiseWithCertificatePtr promise = ICertificate::generateCertificate();
-        RTCGenerateCertificatePromiseObserverPtr pDelegate(make_shared<RTCGenerateCertificatePromiseObserver>(tce));
+        auto pDelegate(make_shared<internal::RTCGenerateCertificatePromiseObserver>(tce));
 
         promise->then(pDelegate);
         promise->background();
@@ -45,7 +85,7 @@ namespace org
         Concurrency::task_completion_event<RTCCertificate^> tce;
 
         ICertificate::PromiseWithCertificatePtr promise = ICertificate::generateCertificate(UseHelper::FromCx(algorithmIdentifier).c_str());
-        RTCGenerateCertificatePromiseObserverPtr pDelegate(make_shared<RTCGenerateCertificatePromiseObserver>(tce));
+        auto pDelegate(make_shared<internal::RTCGenerateCertificatePromiseObserver>(tce));
 
         promise->then(pDelegate);
         promise->background();
@@ -93,25 +133,6 @@ namespace org
         return internal::ToCx(_nativePointer->fingerprint());
       }
       return nullptr;
-    }
-
-    RTCGenerateCertificatePromiseObserver::RTCGenerateCertificatePromiseObserver(Concurrency::task_completion_event<RTCCertificate^> tce) :
-      mTce(tce)
-    {
-    }
-
-    void RTCGenerateCertificatePromiseObserver::onPromiseSettled(PromisePtr promise)
-    {
-      ICertificate::PromiseWithCertificatePtr certificatePromise = ZS_DYNAMIC_PTR_CAST(ICertificate::PromiseWithCertificate, promise);
-      auto nativeCert = certificatePromise->value();
-      if (!nativeCert)
-      {
-        mTce.set(nullptr);
-        return;
-      }
-      auto ret = ref new RTCCertificate();
-      ret->_nativePointer = nativeCert;
-      mTce.set(ret);
     }
 
   } // namespace ortc

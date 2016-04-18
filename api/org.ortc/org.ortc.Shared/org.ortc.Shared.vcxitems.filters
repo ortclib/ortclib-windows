@@ -56,5 +56,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)RtpTypes.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Capabilities.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Constraints.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Error.cpp" />
   </ItemGroup>
 </Project>

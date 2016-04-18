@@ -6,14 +6,48 @@
 #include "RTCRtpSender.h"
 #include "RtpTypes.h"
 #include "helpers.h"
+#include "Error.h"
 
 using namespace ortc;
+
+namespace ortc { ZS_DECLARE_SUBSYSTEM(ortclib) }
 
 namespace org
 {
   namespace ortc
   {
     ZS_DECLARE_TYPEDEF_PTR(internal::Helper, UseHelper)
+
+    namespace internal
+    {
+      class RTCSenderSetTrackPromiseObserver : public zsLib::IPromiseResolutionDelegate
+      {
+      public:
+        RTCSenderSetTrackPromiseObserver(Concurrency::task_completion_event<void> tce);
+
+        virtual void onPromiseResolved(PromisePtr promise) override;
+        virtual void onPromiseRejected(PromisePtr promise) override;
+
+      private:
+        Concurrency::task_completion_event<void> mTce;
+      };
+
+      RTCSenderSetTrackPromiseObserver::RTCSenderSetTrackPromiseObserver(Concurrency::task_completion_event<void> tce) : mTce(tce)
+      {
+      }
+
+      void RTCSenderSetTrackPromiseObserver::onPromiseResolved(PromisePtr promise)
+      {
+        mTce.set();
+      }
+
+      void RTCSenderSetTrackPromiseObserver::onPromiseRejected(PromisePtr promise)
+      {
+        auto reason = promise->reason<Any>();
+        auto error = Error::CreateIfGeneric(reason);
+        mTce.set_exception(error);
+      }
+    }
     
     RTCRtpSender::RTCRtpSender() :
       _nativeDelegatePointer(nullptr),
@@ -49,6 +83,8 @@ namespace org
 
     IAsyncAction^ RTCRtpSender::SetTrack(MediaStreamTrack^ track)
     {
+      ORTC_THROW_INVALID_STATE_IF(nullptr == _nativePointer)
+
       IAsyncAction^ ret = Concurrency::create_async([this, track]()
       {
         Concurrency::task_completion_event<void> tce;
@@ -57,12 +93,14 @@ namespace org
 
         if (!_nativePointer)
         {
-          tce.set();
-          return;
+          Error ^error = nullptr;
+          tce.set_exception(error);
+          auto tceTask = Concurrency::task<void>(tce);
+          return tceTask.get();
         }
 
         PromisePtr promise = _nativePointer->setTrack(nativeTrack);
-        RTCSenderPromiseObserverPtr pDelegate(make_shared<RTCSenderPromiseObserver>(tce));
+        auto pDelegate(make_shared<internal::RTCSenderSetTrackPromiseObserver>(tce));
 
         promise->then(pDelegate);
         promise->background();
@@ -86,7 +124,7 @@ namespace org
 
       return internal::ToCx(IRTPSender::getCapabilities());
     }
-
+    
     void RTCRtpSender::Send(RTCRtpParameters^ parameters)
     {
       if (_nativePointer)
@@ -147,15 +185,6 @@ namespace org
       auto evt = ref new RTCRtpSenderSSRCConflictEvent();
       evt->SSRCConflict = ssrc;
       _sender->OnRTCRtpSenderSSRCConflict(evt);
-    }
-
-    RTCSenderPromiseObserver::RTCSenderPromiseObserver(Concurrency::task_completion_event<void> tce) : mTce(tce)
-    {
-    }
-
-    void RTCSenderPromiseObserver::onPromiseSettled(PromisePtr promise)
-    {
-      mTce.set();
     }
 
   } // namespacr ortc

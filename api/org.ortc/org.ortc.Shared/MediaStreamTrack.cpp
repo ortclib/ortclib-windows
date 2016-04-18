@@ -241,21 +241,15 @@ namespace org
 
         virtual void onMediaStreamTrackOverConstrained(
                                                        IMediaStreamTrackPtr track,
-                                                       const char *constraint,
-                                                       const char *message
+                                                       IMediaStreamTrackTypes::OverconstrainedErrorPtr inError
                                                        ) override
         {
           if (!_track) return;
-          // OverconstrainedError
 
-          OverconstrainedError ^error = ref new OverconstrainedError();
-          error->Name = "OverconstrainedError";
-          error->Constraint = UseHelper::ToCx(constraint);
-          error->Message = UseHelper::ToCx(message);
-
+          auto error = org::ortc::OverconstrainedError::CreateIfOverconstrainedError(inError);
           OverconstrainedErrorEvent ^evt = ref new OverconstrainedErrorEvent(error);
 
-          _track->OnOverConstrained(evt);
+          _track->OnOverconstrained(evt);
         }
 
         void SetOwnerObject(MediaStreamTrack^ owner) { _track = owner; }
@@ -291,11 +285,38 @@ namespace org
 
       void MediaStreamTrackConstraintsPromiseObserver::onPromiseRejected(PromisePtr promise)
       {
+        auto reason = promise->reason<Any>();
+        auto overError = OverconstrainedError::CreateIfOverconstrainedError(reason);
+        if (nullptr != overError)
+        {
+          mTce.set_exception(overError);
+          return;
+        }
+
+        auto error = Error::CreateIfGeneric(reason);
+        mTce.set_exception(error);
       }
 
 #pragma endregion
 
     } // namespace internal
+
+    OverconstrainedError^ OverconstrainedError::CreateIfOverconstrainedError(AnyPtr any)
+    {
+      if (!any) return nullptr;
+
+      auto overError = ZS_DYNAMIC_PTR_CAST(IMediaStreamTrackTypes::OverconstrainedError, any);
+      if (!overError) return nullptr;
+
+      OverconstrainedError^ error = ref new OverconstrainedError();
+      error->Name = UseHelper::ToCx(overError->mName);
+      error->Constraint = UseHelper::ToCx(overError->mConstraint);
+      error->Message = UseHelper::ToCx(overError->mMessage);
+
+      return error;
+    }
+
+#pragma region MediaStreamTrack
 
     MediaStreamTrack^ MediaStreamTrack::Convert(IMediaStreamTrackPtr track)
     {
@@ -316,10 +337,8 @@ namespace org
 
     void MediaStreamTrack::SetMediaElement(void* element)
     {
-      if (_nativePointer)
-      {
-        _nativePointer->setMediaElement(element);
-      }
+      if (!_nativePointer) return;
+      _nativePointer->setMediaElement(element);
     }
 
     MediaStreamTrackKind  MediaStreamTrack::Kind::get()
@@ -374,50 +393,38 @@ namespace org
 
     MediaStreamTrack^ MediaStreamTrack::Clone()
     {
-      if (_nativePointer)
-      {
-        IMediaStreamTrackPtr newNativePointer = _nativePointer->clone();
-        if (newNativePointer)
-        {
-          auto ret = ref new MediaStreamTrack();
-          ret->_nativePointer = newNativePointer;
-          return ret;
-        }
-      }
+      if (!_nativePointer) return nullptr;
 
-      return nullptr;
+      IMediaStreamTrackPtr newNativePointer = _nativePointer->clone();
+      if (!newNativePointer) return nullptr;
+      auto ret = ref new MediaStreamTrack();
+      ret->_nativePointer = newNativePointer;
+      ret->SetupDelegate();
+      return ret;
     }
+
     void MediaStreamTrack::Stop()
     {
-      if (_nativePointer)
-        _nativePointer->stop();
+      if (!_nativePointer) return;
+      _nativePointer->stop();
     }
 
     MediaTrackCapabilities^		MediaStreamTrack::GetCapabilities()
     {
-      if (_nativePointer)
-      {
-        return internal::ToCx(_nativePointer->getCapabilities());
-      }
-      return nullptr;
+      if (!_nativePointer) return nullptr;
+      return internal::ToCx(_nativePointer->getCapabilities());
     }
 
     MediaTrackConstraints^		MediaStreamTrack::GetConstraints()
     {
-      if (_nativePointer)
-      {
-        return internal::ToCx(_nativePointer->getConstraints());
-      }
-      return nullptr;
+      if (!_nativePointer) return nullptr;
+      return internal::ToCx(_nativePointer->getConstraints());
     }
 
     MediaTrackSettings^			MediaStreamTrack::GetSettings()
     {
-      if (_nativePointer)
-      {
-        return internal::ToCx(_nativePointer->getSettings());
-      }
-      return nullptr;
+      if (!_nativePointer) return nullptr;
+      return internal::ToCx(_nativePointer->getSettings());    
     }
 
     IMediaSource^ MediaStreamTrack::CreateMediaSource()
@@ -451,10 +458,14 @@ namespace org
       {
         Concurrency::task_completion_event<void> tce;
 
-        if (constraints == nullptr || _nativePointer == nullptr)
+        if (!_nativePointer)
         {
-          tce.set();
-          return;
+          Error ^error = nullptr;
+          tce.set_exception(error);
+
+          auto tceTask = Concurrency::task<void>(tce);
+
+          return tceTask.get();
         }
 
         PromisePtr promise = _nativePointer->applyConstraints(*internal::FromCx(constraints));
@@ -469,6 +480,8 @@ namespace org
 
       return ret;
     }
+
+#pragma endregion
 
   } // namespace ortc
 } // namespace org

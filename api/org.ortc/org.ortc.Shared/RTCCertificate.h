@@ -13,23 +13,16 @@ namespace org
     ZS_DECLARE_TYPEDEF_PTR(::ortc::ICertificateTypes, ICertificateTypes)
 
     ZS_DECLARE_CLASS_PTR(RTCDtlsTransportDelegate)
-    ZS_DECLARE_CLASS_PTR(RTCGenerateCertificatePromiseObserver)
 
     using Windows::Foundation::IAsyncOperation;
 
     ref class RTCCertificate;
     ref struct RTCDtlsFingerprint;
 
-    class RTCGenerateCertificatePromiseObserver : public zsLib::IPromiseSettledDelegate
+    namespace internal
     {
-    public:
-      RTCGenerateCertificatePromiseObserver(Concurrency::task_completion_event<RTCCertificate^> tce);
-
-      virtual void onPromiseSettled(PromisePtr promise);
-
-    private:
-      Concurrency::task_completion_event<RTCCertificate^> mTce;
-    };
+      ZS_DECLARE_CLASS_PTR(RTCGenerateCertificatePromiseObserver)
+    } // namespace internal
 
     //--------------------------------------------------------------------
     // Helper classes
@@ -46,7 +39,7 @@ namespace org
     public ref class RTCCertificate sealed
     {
     private:
-      friend class RTCGenerateCertificatePromiseObserver;
+      friend class internal::RTCGenerateCertificatePromiseObserver;
       friend ref class RTCDtlsTransport;
 
     private:

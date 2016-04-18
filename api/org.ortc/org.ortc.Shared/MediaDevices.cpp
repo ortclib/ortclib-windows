@@ -3,6 +3,7 @@
 #include "MediaDevices.h"
 #include "MediaStreamTrack.h"
 #include "helpers.h"
+#include "Error.h"
 
 #include "webrtc/modules/video_capture/windows/video_capture_winrt.h"
 
@@ -199,7 +200,17 @@ namespace org
       void MediaDevicesPromiseObserver::onPromiseRejected(PromisePtr promise)
       {
         IMediaDevicesTypes::PromiseWithDeviceListPtr deviceListPromise = ZS_DYNAMIC_PTR_CAST(IMediaDevicesTypes::PromiseWithDeviceList, promise);
-        mTce.set_exception(deviceListPromise->reason());
+
+        auto reason = deviceListPromise->reason();
+
+        auto overError = OverconstrainedError::CreateIfOverconstrainedError(reason);
+        if (overError)
+        {
+          mTce.set_exception(overError);
+          return;
+        }
+        auto error = Error::CreateIfGeneric(reason);
+        mTce.set_exception(error);
       }
 
 

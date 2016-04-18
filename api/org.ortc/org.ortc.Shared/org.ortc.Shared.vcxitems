@@ -44,6 +44,7 @@
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Capabilities.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Constraints.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Error.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)helpers.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Logger.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MediaSourceHelper.cc" />

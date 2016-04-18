@@ -42,11 +42,14 @@ namespace org
 
     ZS_DECLARE_TYPEDEF_PTR(zsLib::Promise, Promise)
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IMediaStreamTrack, IMediaStreamTrack)
+    ZS_DECLARE_TYPEDEF_PTR(zsLib::Any, Any)
 
     namespace internal
     {
       ZS_DECLARE_CLASS_PTR(MediaStreamTrackDelegate)
       ZS_DECLARE_CLASS_PTR(MediaStreamTrackPromiseObserver)
+      ZS_DECLARE_CLASS_PTR(MediaDevicesPromiseObserver)
+      ZS_DECLARE_CLASS_PTR(MediaStreamTrackConstraintsPromiseObserver)
       ZS_DECLARE_TYPEDEF_PTR(::ortc::IMediaStreamTrackTypes, IMediaStreamTrackTypes)
 
       MediaTrackCapabilities^ ToCx(const IMediaStreamTrackTypes::Capabilities &input);
@@ -353,6 +356,14 @@ namespace org
     /// </summary>
     public ref struct OverconstrainedError sealed
     {
+    private:
+      friend class internal::MediaStreamTrackDelegate;
+      friend class internal::MediaDevicesPromiseObserver;
+      friend class internal::MediaStreamTrackConstraintsPromiseObserver;
+
+      static OverconstrainedError^ CreateIfOverconstrainedError(AnyPtr any);
+
+    public:
       /// <summary>
       /// Gets a string representing one of the error type names.
       /// </summary>
@@ -591,7 +602,7 @@ namespace org
       /// adjusts the constraints to accommodate the source's current
       /// effective capabilities.
       /// </summary>
-      event MediaStreamTrackOverConstrainedDelegate^  OnOverConstrained;
+      event MediaStreamTrackOverConstrainedDelegate^  OnOverconstrained;
 
     private:
       IMediaStreamTrackPtr _nativePointer;

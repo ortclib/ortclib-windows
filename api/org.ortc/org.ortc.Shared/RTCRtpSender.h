@@ -16,7 +16,6 @@ namespace org
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IRTPSenderDelegate, IRTPSenderDelegate)
 
     ZS_DECLARE_CLASS_PTR(RTCRtpSenderDelegate)
-    ZS_DECLARE_CLASS_PTR(RTCSenderPromiseObserver)
 
     ref class MediaStreamTrack;
     ref class RTCDtlsTransport;
@@ -24,6 +23,11 @@ namespace org
 
     ref struct RTCRtpCapabilities;
     ref struct RTCRtpParameters;
+
+    namespace internal
+    {
+      ZS_DECLARE_CLASS_PTR(RTCSenderSetTrackPromiseObserver)
+    } // namespace internal
 
     class RTCRtpSenderDelegate : public IRTPSenderDelegate
     {
@@ -82,17 +86,6 @@ namespace org
     // End Events and Delegates
     //------------------------------------------
 
-
-    class RTCSenderPromiseObserver : public zsLib::IPromiseSettledDelegate
-    {
-    public:
-      RTCSenderPromiseObserver(Concurrency::task_completion_event<void> tce);
-
-      virtual void onPromiseSettled(PromisePtr promise);
-
-    private:
-      Concurrency::task_completion_event<void> mTce;
-    };
 
     public ref class RTCRtpSender sealed
     {
