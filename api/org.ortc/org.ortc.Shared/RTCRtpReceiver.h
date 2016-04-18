@@ -1,25 +1,29 @@
+
 #pragma once
 
-#include "RTPTypes.h"
-#include <ortc/IRTPReceiver.h>
-#include <collection.h>
-#include "RTCRtpReceiver.h"
-#include "RTCDtlsTransport.h"
 #include "MediaStreamTrack.h"
-#include "helpers.h"
 
-using namespace ortc;
-
-using Windows::Foundation::Collections::IVector;
+#include <ortc/IRTPReceiver.h>
 
 namespace org
 {
   namespace ortc
   {
+    ZS_DECLARE_TYPEDEF_PTR(::ortc::IRTPReceiverDelegate, IRTPReceiverDelegate)
+    ZS_DECLARE_TYPEDEF_PTR(::ortc::IRTPReceiver, IRTPReceiver)
 
     ZS_DECLARE_CLASS_PTR(RTCRtpReceiverDelegate)
 
+    using Windows::Foundation::Collections::IVector;
+
+    ref class MediaStreamTrack;
+    ref class RTCDtlsTransport;
     ref class RTCRtpReceiver;
+
+    ref struct RTCRtpCapabilities;
+    ref struct RTCRtpParameters;
+
+    enum class MediaStreamTrackKind;
 
     class RTCRtpReceiverDelegate : public IRTPReceiverDelegate
     {
@@ -86,17 +90,10 @@ namespace org
     public  ref  class  RTCRtpReceiver sealed
     {
       friend class RTCRtpReceiverDelegate;
-      friend class ConvertObjectToCx;
-    private:
-      IRTPReceiverPtr mNativePointer;
-      RTCRtpReceiverDelegatePtr mNativeDelegatePointer;
-
-    private:
-      RTCDtlsTransport^ GetDtlsTransport(Platform::Boolean isRtcp);
-      MediaStreamTrack^ GetTrack();
 
     private:
       RTCRtpReceiver();
+
     public:
       RTCRtpReceiver(MediaStreamTrackKind kind, RTCDtlsTransport^ transport);
       RTCRtpReceiver(MediaStreamTrackKind kind, RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
@@ -111,40 +108,15 @@ namespace org
       IVector<RTCRtpContributingSource^>^ GetContributingSource();
       void Stop();
 
-      property MediaStreamTrack^ Track
-      {
-        MediaStreamTrack^ get()
-        {
-          if (mNativePointer)
-            return GetTrack();
-          else
-            return nullptr;
-        }
-      }
-
-      property RTCDtlsTransport^ Transport
-      {
-        RTCDtlsTransport^ get()
-        {
-          if (mNativePointer)
-            return GetDtlsTransport(false);
-          else
-            return nullptr;
-        }
-      }
-
-      property RTCDtlsTransport^ RtcpTransport
-      {
-        RTCDtlsTransport^ get()
-        {
-          if (mNativePointer)
-            return GetDtlsTransport(true);
-          else
-            return nullptr;
-        }
-      }
-
+      property MediaStreamTrack^ Track          { MediaStreamTrack^ get(); }
+      property RTCDtlsTransport^ Transport      { RTCDtlsTransport^ get(); }
+      property RTCDtlsTransport^ RtcpTransport  { RTCDtlsTransport^ get(); }
+      
       event RTCRtpReceiverErrorDelegate^              OnRTCRtpReceiverError;
+
+    private:
+      IRTPReceiverPtr _nativePointer;
+      RTCRtpReceiverDelegatePtr _nativeDelegatePointer;
     };
   }
 }

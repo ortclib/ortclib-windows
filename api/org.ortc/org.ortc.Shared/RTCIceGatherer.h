@@ -1,23 +1,46 @@
 ﻿#pragma once
 
-#include <ortc/IICEGatherer.h>
-#include <collection.h>
 #include "RTCIceTypes.h"
 
-using namespace ortc;
-
-using Windows::Foundation::Collections::IVector;
-using Platform::Collections::Vector;
-
+#include <ortc/IICEGatherer.h>
 
 namespace org
 {
   namespace ortc
   {
+    ZS_DECLARE_TYPEDEF_PTR(::ortc::IICEGatherer, IICEGatherer)
+    ZS_DECLARE_TYPEDEF_PTR(::ortc::IICEGathererDelegate, IICEGathererDelegate)
+
     ZS_DECLARE_CLASS_PTR(RTCIceGathererDelegate)
 
+    using Windows::Foundation::Collections::IVector;
+
     ref class RTCIceGatherer;
-    ref class RTCIceCandidate;
+    ref class RTCIceTransport;
+
+    ref struct RTCIceCandidate;
+    ref struct RTCIceCandidateComplete;
+    ref struct RTCIceInterfacePolicy;
+    ref struct RTCIceGatherOptions;
+    ref struct RTCIceParameters;
+    ref struct RTCIceServer;
+
+    namespace internal
+    {
+      ZS_DECLARE_TYPEDEF_PTR(::ortc::IICEGathererTypes, IICEGathererTypes)
+        
+      RTCIceInterfacePolicy^ ToCx(const IICEGathererTypes::InterfacePolicy &input);
+      RTCIceInterfacePolicy^ ToCx(IICEGathererTypes::InterfacePolicyPtr input);
+      IICEGathererTypes::InterfacePolicyPtr FromCx(RTCIceInterfacePolicy^ input);
+
+      RTCIceGatherOptions^ ToCx(const IICEGathererTypes::Options &input);
+      RTCIceGatherOptions^ ToCx(IICEGathererTypes::OptionsPtr input);
+      IICEGathererTypes::OptionsPtr FromCx(RTCIceGatherOptions^ options);
+
+      RTCIceServer^ ToCx(const IICEGathererTypes::Server &input);
+      RTCIceServer^ ToCx(IICEGathererTypes::ServerPtr input);
+      IICEGathererTypes::ServerPtr FromCx(RTCIceServer^ input);
+    }
 
     class RTCIceGathererDelegate : public IICEGathererDelegate
     {
@@ -94,36 +117,31 @@ namespace org
       Closed,
     };
 
-    public ref class RTCIceServer sealed
+    public ref struct RTCIceServer sealed
     {
-    public:
       property IVector<Platform::String^>^      Urls;
       property Platform::String^                UserName;
       property Platform::String^                Credential;
       property RTCIceGathererCredentialType     CredentialType;
     };
 
-    public ref class RTCIceInterfacePolicy sealed
+    public ref struct RTCIceInterfacePolicy sealed
     {
-    public:
       property Platform::String^                InterfaceType;
       property RTCIceGatherPolicy               GatherPolicy;
     };
 
-    public ref class RTCIceGatherOptions sealed
+    public ref struct RTCIceGatherOptions sealed
     {
-    public:
       property Platform::Boolean                ContinuousGathering;
       property IVector<RTCIceInterfacePolicy^>^ InterfacePolicies;
       property IVector<RTCIceServer^>^          IceServers;
 
-    public:
       RTCIceGatherOptions() { ContinuousGathering = true; }
     };
 
-    public ref class RTCIceGathererError sealed
+    public ref struct RTCIceGathererError sealed
     {
-    public:
       property uint16 ErrorCode;
       property Platform::String^ ErrorReason;
     };
@@ -196,10 +214,13 @@ namespace org
     public ref class RTCIceGatherer sealed
     {
       friend class RTCIceGathererDelegate;
-      friend class FetchNativePointer;
-      friend class ConvertObjectToCx;
+      friend ref class RTCIceTransport;
+
     private:
       RTCIceGatherer();
+
+      static RTCIceGatherer^ Convert(IICEGathererPtr gatherer);
+      static IICEGathererPtr Convert(RTCIceGatherer^ gatherer) { if (!gatherer) return nullptr; return gatherer->_nativePointer; }
 
     public:
       RTCIceGatherer(RTCIceGatherOptions^ options);
@@ -218,8 +239,8 @@ namespace org
       {
         RTCIceComponent get()
         {
-          if (_NativePointer)
-            return (RTCIceComponent)_NativePointer->component();
+          if (_nativePointer)
+            return (RTCIceComponent)_nativePointer->component();
           return RTCIceComponent::Rtp;
         }
       }
@@ -250,9 +271,9 @@ namespace org
       static RTCIceGathererCredentialType ToCredentialType(Platform::String^ str);
 
     private:
-      zsLib::RecursiveLock _Lock;
-      IICEGathererPtr _NativePointer;
-      RTCIceGathererDelegatePtr _NativeDelegatePointer;
+      zsLib::RecursiveLock _lock;
+      IICEGathererPtr _nativePointer;
+      RTCIceGathererDelegatePtr _nativeDelegatePointer;
     };
   }
 }

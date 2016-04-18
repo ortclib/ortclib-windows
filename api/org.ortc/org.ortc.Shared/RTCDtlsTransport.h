@@ -1,28 +1,45 @@
 #pragma once
 
-#include <ortc/IDTLSTransport.h>
 #include <ortc/ICertificate.h>
-#include <collection.h>
-#include "RTCIceTransport.h"
-
-using namespace ortc;
-
-using Platform::Array;
-using Windows::Foundation::Collections::IVector;
-using Windows::Foundation::IAsyncOperation;
+#include <ortc/IDTLSTransport.h>
 
 namespace org
 {
   namespace ortc
   {
+    ZS_DECLARE_TYPEDEF_PTR(::ortc::IDTLSTransportDelegate, IDTLSTransportDelegate)
+    ZS_DECLARE_TYPEDEF_PTR(::ortc::IDTLSTransport, IDTLSTransport)
+
+    using Windows::Foundation::Collections::IVector;
+
+    ref struct RTCDtlsFingerprint;
+    ref struct RTCDtlsParameters;
+    ref class RTCCertificate;
+    ref class RTCIceTransport;
+    ref class RTCRtpListener;
+    ref class RTCRtpReceiver;
+    ref class RTCSctpTransport;
+
+    namespace internal
+    {
+      ZS_DECLARE_TYPEDEF_PTR(::ortc::ICertificateTypes, ICertificateTypes)
+      ZS_DECLARE_TYPEDEF_PTR(::ortc::IDTLSTransportTypes, IDTLSTransportTypes)
+
+      RTCDtlsFingerprint^ ToCx(const ICertificateTypes::Fingerprint &input);
+      RTCDtlsFingerprint^ ToCx(ICertificateTypes::FingerprintPtr input);
+      ICertificateTypes::FingerprintPtr FromCx(RTCDtlsFingerprint^ input);
+
+      RTCDtlsParameters^ ToCx(const IDTLSTransportTypes::Parameters &input);
+      RTCDtlsParameters^ ToCx(IDTLSTransportTypes::ParametersPtr parameters);
+      IDTLSTransportTypes::ParametersPtr FromCx(RTCDtlsParameters^ parameters);
+    }
 
     ZS_DECLARE_CLASS_PTR(RTCDtlsTransportDelegate)
-      ZS_DECLARE_CLASS_PTR(RTCGenerateCertificatePromiseObserver)
 
-    ref class RTCDtlsTransport;
     ref class RTCCertificate;
+    ref class RTCDtlsTransport;
 
-    class RTCDtlsTransportDelegate : public IDtlsTransportDelegate
+    class RTCDtlsTransportDelegate : public IDTLSTransportDelegate
     {
     public:
       virtual void onDTLSTransportStateChange(
@@ -39,18 +56,6 @@ namespace org
       RTCDtlsTransport^ _transport;
 
       void SetOwnerObject(RTCDtlsTransport^ owner) { _transport = owner; }
-    };
-
-    class RTCGenerateCertificatePromiseObserver : public zsLib::IPromiseResolutionDelegate
-    {
-    public:
-      RTCGenerateCertificatePromiseObserver(Concurrency::task_completion_event<RTCCertificate^> tce);
-
-      virtual void onPromiseResolved(PromisePtr promise);
-      virtual void onPromiseRejected(PromisePtr promise);
-
-    private:
-      Concurrency::task_completion_event<RTCCertificate^> mTce;
     };
 
     //--------------------------------------------------------------------
@@ -73,14 +78,14 @@ namespace org
       Server,
     };
 
-    public ref class RTCDtlsFingerprint sealed
+    public ref struct RTCDtlsFingerprint sealed
     {
     public:
       property Platform::String^ Algorithm;
       property Platform::String^ Value;
     };
 
-    public ref class RTCDtlsParameters sealed
+    public ref struct RTCDtlsParameters sealed
     {
     public:
       property RTCDtlsRole                    Role;
@@ -136,56 +141,22 @@ namespace org
     // End Events and Delegates
     //------------------------------------------
 
-    public ref class RTCCertificate sealed
-    {
-      friend class RTCGenerateCertificatePromiseObserver;
-      friend class FetchNativePointer;
-      friend class ConvertObjectToCx;
-    public:
-      static IAsyncOperation<RTCCertificate^>^ GenerateCertificate();
-      static IAsyncOperation<RTCCertificate^>^ GenerateCertificate(Platform::String^ algorithmIdentifier);
-    private:
-
-      ICertificatePtr mNativePointer;
-      ICertificateTypes::PromiseWithCertificatePtr mCertificatePromise;
-
-    private:
-      Windows::Foundation::DateTime GetExpires();
-      RTCDtlsFingerprint^ GetFingerprint();
-
-    public:
-      property Windows::Foundation::DateTime Expires
-      {
-        Windows::Foundation::DateTime get()
-        {
-          if (mNativePointer)
-            return GetExpires();
-          else
-            return Windows::Foundation::DateTime();
-        }
-      }
-
-      property RTCDtlsFingerprint^ Fingerprint
-      {
-        RTCDtlsFingerprint^ get()
-        {
-          if (mNativePointer)
-            return GetFingerprint();
-          else
-            return nullptr;
-        }
-      }
-    };
-
     ZS_DECLARE_CLASS_PTR(RTCDtlsTransportDelegate)
 
-      public ref class RTCDtlsTransport sealed
+    public ref class RTCDtlsTransport sealed
     {
       friend class RTCDtlsTransportDelegate;
-      friend class FetchNativePointer;
-      friend class ConvertObjectToCx;
+      friend ref class RTCRtpListener;
+      friend ref class RTCRtpReceiver;
+      friend ref class RTCRtpSender;
+      friend ref class RTCSctpTransport;
+
     private:
       RTCDtlsTransport();
+
+      static RTCDtlsTransport^ Convert(IDTLSTransportPtr transport);
+      static IDTLSTransportPtr Convert(RTCDtlsTransport^ transport) { if (!transport) return nullptr; return transport->_nativePointer; }
+
     public:
       RTCDtlsTransport(RTCIceTransport^ transport, IVector<RTCCertificate^>^ certificates);
 
@@ -195,41 +166,11 @@ namespace org
       void                    Start(RTCDtlsParameters^ remoteParameters);
       void                    Stop();
 
-    private:
-      IDtlsTransportPtr mNativePointer;
-      RTCDtlsTransportDelegatePtr mNativeDelegatePointer;
-
-    private:
-      RTCIceTransport^ GetIceTransport();
-      IVector<RTCCertificate^>^ GetCertificates();
-
     public:
-      property IVector<RTCCertificate^>^ Certificates
-      {
-        IVector<RTCCertificate^>^ get()
-        {
-          if (mNativePointer)
-            return GetCertificates();
-          else
-            return nullptr;
-        }
-      }
+      property IVector<RTCCertificate^>^ Certificates { IVector<RTCCertificate^>^ get(); }
+      property RTCIceTransport^ IceTransport          { RTCIceTransport^ get(); }
+      property RTCDtlsTransportState State            { RTCDtlsTransportState get(); }
 
-      property RTCIceTransport^ IceTransport
-      {
-        RTCIceTransport^ get()
-        {
-          if (mNativePointer)
-            return GetIceTransport();
-          else
-            return nullptr;
-        }
-      }
-
-      property RTCDtlsTransportState State
-      {
-        RTCDtlsTransportState get();
-      }
     public:
       event RTCDtlsTransportStateChangedDelegate^           OnDtlsTransportStateChanged;
       event RTCDtlsTransportErrorDelegate^                  OnDtlsTransportError;
@@ -244,6 +185,10 @@ namespace org
 
       static RTCDtlsTransportState ToState(Platform::String^ str);
       static RTCDtlsRole ToRole(Platform::String^ str);
+
+    private:
+      IDTLSTransportPtr _nativePointer;
+      RTCDtlsTransportDelegatePtr _nativeDelegatePointer;
     };
   }
 }

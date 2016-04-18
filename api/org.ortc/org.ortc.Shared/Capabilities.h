@@ -1,13 +1,43 @@
 #pragma once
-#include <collection.h>
 
-using Windows::Foundation::Collections::IVector;
+#include <ortc/ICapabilities.h>
 
 namespace org
 {
   namespace ortc
   {
-    public ref struct CapabilityBool sealed
+    using Windows::Foundation::Collections::IVector;
+
+    ref struct CapabilityBoolean;
+    ref struct CapabilityLong;
+    ref struct CapabilityDouble;
+    ref struct CapabilityString;
+
+    namespace internal
+    {
+      using zsLib::Optional;
+
+      ZS_DECLARE_TYPEDEF_PTR(::ortc::ICapabilities, ICapabilities)
+
+      CapabilityBoolean^ ToCx(const ICapabilities::CapabilityBoolean &input);
+      CapabilityBoolean^ ToCx(const Optional<ICapabilities::CapabilityBoolean> &input);
+      Optional<ICapabilities::CapabilityBoolean> FromCx(CapabilityBoolean^ input);
+
+      CapabilityLong^ ToCx(const ICapabilities::CapabilityLong &input);
+      CapabilityLong^ ToCx(const Optional<ICapabilities::CapabilityLong> &input);
+      Optional<ICapabilities::CapabilityLong> FromCx(CapabilityLong^ input);
+
+      CapabilityDouble^ ToCx(const ICapabilities::CapabilityDouble &input);
+      CapabilityDouble^ ToCx(const Optional<ICapabilities::CapabilityDouble> &input);
+      Optional<ICapabilities::CapabilityDouble> FromCx(CapabilityDouble^ input);
+
+      CapabilityString^ ToCx(const ICapabilities::CapabilityString &input);
+      CapabilityString^ ToCx(const Optional<ICapabilities::CapabilityString> &input);
+      Optional<ICapabilities::CapabilityString> FromCx(CapabilityString^ input);
+
+    } // namespace internal
+
+    public ref struct CapabilityBoolean sealed
     {
       property IVector<Platform::Boolean>^ Values;
     };

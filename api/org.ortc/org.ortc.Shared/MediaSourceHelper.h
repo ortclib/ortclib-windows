@@ -8,20 +8,18 @@
 // be found in the AUTHORS file in the root of the source tree.
 
 #pragma once
-#include <mfidl.h>
-#include <functional>
-#include <list>
+
 #include "webrtc/system_wrappers/include/tick_util.h"
-#include "webrtc/base/scoped_ptr.h"
 #include "webrtc/system_wrappers/include/critical_section_wrapper.h"
 #include "webrtc/webrtc/video_frame.h"
 
-using Microsoft::WRL::ComPtr;
+#include <MFidl.h>
 
 namespace org
 {
   namespace ortc
   {
+    using Microsoft::WRL::ComPtr;
 
     struct SampleData {
       SampleData();

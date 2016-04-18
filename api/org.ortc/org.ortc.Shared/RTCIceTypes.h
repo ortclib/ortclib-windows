@@ -1,18 +1,39 @@
 ﻿#pragma once
 
-#include <ortc/IICEGatherer.h>
-#include <collection.h>
+#include <ortc/IICETypes.h>
 
-using namespace ortc;
-
-using Windows::Foundation::Collections::IVector;
+//#include <ortc/IICEGatherer.h>
+//#include <collection.h>
+//
+//using namespace ortc;
+//
+//using Windows::Foundation::Collections::IVector;
 
 
 namespace org
 {
   namespace ortc
   {
-    ref class RTCIceCandidate;
+    ZS_DECLARE_TYPEDEF_PTR(::ortc::IICETypes, IICETypes)
+
+    ref struct RTCIceCandidate;
+    ref struct RTCIceCandidateComplete;
+    ref struct RTCIceParameters;
+
+    namespace internal
+    {
+      RTCIceCandidate^ ToCx(IICETypes::CandidatePtr candidate);
+      RTCIceCandidate^ ToCx(const IICETypes::Candidate &candidate);
+      IICETypes::CandidatePtr FromCx(RTCIceCandidate^ candidate);
+
+      RTCIceCandidateComplete^ ToCx(IICETypes::CandidateCompletePtr candidate);
+      RTCIceCandidateComplete^ ToCx(const IICETypes::CandidateComplete &candidate);
+      IICETypes::CandidateCompletePtr FromCx(RTCIceCandidateComplete^ candidate);
+
+      RTCIceParameters^ ToCx(const IICETypes::Parameters &input);
+      RTCIceParameters^ ToCx(IICETypes::ParametersPtr input);
+      IICETypes::ParametersPtr FromCx(RTCIceParameters^ input);
+    } // namespace internal
 
     public enum class RTCIceRole
     {
@@ -45,9 +66,8 @@ namespace org
       So,
     };
 
-    public ref class RTCIceCandidate sealed
+    public ref struct RTCIceCandidate sealed
     {
-    public:
       property Platform::String^            InterfaceType;
       property Platform::String^            Foundation;
       property uint32                       Priority;
@@ -59,26 +79,23 @@ namespace org
       property RTCIceTcpCandidateType       TcpType;
       property Platform::String^            RelatedAddress;
       property uint16                       RelatedPort;
-    public:
+
       Platform::String^ ToJsonString();
       static RTCIceCandidate^ FromJsonString(Platform::String^ jsonString);
     };
 
-    public ref class RTCIceCandidateComplete sealed
+    public ref struct RTCIceCandidateComplete sealed
     {
-    public:
       property Platform::Boolean Complete;
     };
 
-    public ref class RTCIceParameters sealed
+    public ref struct RTCIceParameters sealed
     {
-    public:
       property Platform::Boolean  UseCandidateFreezePriority;
       property Platform::String^  UsernameFragment;
       property Platform::String^  Password;
       property Platform::Boolean  IceLite;
 
-    public:
       Platform::String^ ToJsonString();
       static RTCIceParameters^ FromJsonString(Platform::String^ jsonString);
     };

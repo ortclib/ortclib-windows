@@ -1,20 +1,25 @@
 #pragma once
 
 #include <ortc/IICETransportController.h>
-#include <collection.h>
-#include "RTCIceTransport.h"
-
-using namespace ortc;
-
-using Windows::Foundation::Collections::IVector;
-
+//#include <collection.h>
+//#include "RTCIceTransport.h"
+//
+//using namespace ortc;
+//
+//
 namespace org
 {
   namespace ortc
   {
+    using Windows::Foundation::Collections::IVector;
+
+    ZS_DECLARE_TYPEDEF_PTR(::ortc::IICETransportController, IICETransportController)
+    
+    ref class RTCIceTransport;
+
     public ref class RTCIceTransportController sealed
     {
-      friend class FetchNativePointer;
+
     public:
       RTCIceTransportController();
 
@@ -23,8 +28,9 @@ namespace org
       void                       AddTransport(RTCIceTransport^ transport);
       [Windows::Foundation::Metadata::OverloadAttribute("AddTransportAtIndex")]
       void                       AddTransport(RTCIceTransport^ transport, size_t index);
+
     private:
-      IICETransportControllerPtr mNativePointer;
+      IICETransportControllerPtr _nativePointer;
     };
   }
 }

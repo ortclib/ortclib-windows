@@ -90,7 +90,7 @@ namespace ortc_api_test
               List<RTCCertificate> certs = new List<RTCCertificate>();
               certs.Add(cert.Result);
               _dtlsTransport = new RTCDtlsTransport(_iceTransport, certs);
-              Constraints constraints = new Constraints();
+              MediaStreamConstraints constraints = new MediaStreamConstraints();
 
               constraints.Audio = new MediaTrackConstraints();
               constraints.Video = new MediaTrackConstraints();

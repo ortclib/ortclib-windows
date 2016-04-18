@@ -1,17 +1,27 @@
-#pragma once
-#include <ortc/IRTPListener.h>
-#include <collection.h>
-#include "RTCDtlsTransport.h"
 
-using namespace ortc;
+#pragma once
+
+#include <ortc/IRTPListener.h>
+
+//#include <collection.h>
+//#include "RTCDtlsTransport.h"
+//
+//using namespace ortc;
 
 namespace org
 {
   namespace ortc
   {
+    ZS_DECLARE_TYPEDEF_PTR(::ortc::IRTPListener, IRTPListener)
+    ZS_DECLARE_TYPEDEF_PTR(::ortc::IRTPListenerDelegate, IRTPListenerDelegate)
+
     ZS_DECLARE_CLASS_PTR(RTCRtpListenerDelegate)
 
+    using Windows::Foundation::Collections::IVector;
+
+    ref class RTCDtlsTransport;
     ref class RTCRtpListener;
+    ref struct RTCRtpHeaderExtensionParameters;
 
     class RTCRtpListenerDelegate : public IRTPListenerDelegate
     {
@@ -52,39 +62,25 @@ namespace org
     };
     public delegate void RTCRtpListenerUnhandledRtpDelegate(RTCRtpRListenerUnhandledRtpEvent^ evt);
 
-    ref class RTCRtpHeaderExtensionParameters;
-
     public ref class RTCRtpListener sealed
     {
-      friend class FetchNativePointer;
       friend class RTCRtpListenerDelegate;
-      friend class ConvertObjectToCx;
+
     public:
       [Windows::Foundation::Metadata::DefaultOverloadAttribute]
       RTCRtpListener(RTCDtlsTransport^ transport);
       [Windows::Foundation::Metadata::OverloadAttribute("CreateWithHeaderExtensions")]
       RTCRtpListener(RTCDtlsTransport^ transport, IVector<RTCRtpHeaderExtensionParameters^>^ headerExtensions);
-    private:
-      RTCDtlsTransport^ GetDtlsTransport();
 
     public:
-      property RTCDtlsTransport^ Transport
-      {
-        RTCDtlsTransport^ get()
-        {
-          if (mNativePointer)
-            return GetDtlsTransport();
-          else
-            return nullptr;
-        }
-      }
-
-    private:
-      IRTPListenerPtr mNativePointer;
-      RTCRtpListenerDelegatePtr mNativeDelegatePointer;
+      property RTCDtlsTransport^ Transport { RTCDtlsTransport^ get(); }
 
     public:
       event RTCRtpListenerUnhandledRtpDelegate^  OnRTCRtpListenerUnhandledRtp;
+
+    private:
+      IRTPListenerPtr _nativePointer;
+      RTCRtpListenerDelegatePtr _nativeDelegatePointer;
     };
   }
 }

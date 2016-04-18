@@ -8,24 +8,24 @@
 // be found in the AUTHORS file in the root of the source tree.
 
 #pragma once
-#include "pch.h"
-#include <windows.media.h>
+
 #include <windows.media.core.h>
+
+#include <wrl.h>
+#include <Mfidl.h>
+
 #include "webrtc/system_wrappers/include/critical_section_wrapper.h"
 #include "webrtc/base/scoped_ptr.h"
-#include "WebRtcMediaStream.h"
-
-interface IFrameSource;
-
-using Microsoft::WRL::ComPtr;
-using Microsoft::WRL::RuntimeClass;
-using Microsoft::WRL::RuntimeClassFlags;
-using Microsoft::WRL::RuntimeClassType;
 
 namespace org
 {
   namespace ortc
   {
+    using Microsoft::WRL::ComPtr;
+
+    using Microsoft::WRL::RuntimeClass;
+    using Microsoft::WRL::RuntimeClassFlags;
+    using Microsoft::WRL::RuntimeClassType;
 
     ref class MediaStreamTrack;
     class WebRtcMediaStream;

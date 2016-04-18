@@ -1,24 +1,29 @@
 #pragma once
 
 #include <ortc/IRTPSender.h>
-#include "RTCDtlsTransport.h"
-#include "RTCRtpReceiver.h"
-#include "MediaStreamTrack.h"
 
-using namespace ortc;
-
-using Windows::Foundation::IAsyncAction;
-using Windows::Foundation::Collections::IVector;
+#include <ppltasks.h>
 
 namespace org
 {
   namespace ortc
   {
-    ZS_DECLARE_CLASS_PTR(RTCRtpSenderDelegate)
-      ZS_DECLARE_CLASS_PTR(RTCSenderPromiseObserver)
+    using Windows::Foundation::IAsyncAction;
 
+    ZS_DECLARE_TYPEDEF_PTR(zsLib::Promise, Promise)
+
+    ZS_DECLARE_TYPEDEF_PTR(::ortc::IRTPSender, IRTPSender)
+    ZS_DECLARE_TYPEDEF_PTR(::ortc::IRTPSenderDelegate, IRTPSenderDelegate)
+
+    ZS_DECLARE_CLASS_PTR(RTCRtpSenderDelegate)
+    ZS_DECLARE_CLASS_PTR(RTCSenderPromiseObserver)
+
+    ref class MediaStreamTrack;
+    ref class RTCDtlsTransport;
     ref class RTCRtpSender;
 
+    ref struct RTCRtpCapabilities;
+    ref struct RTCRtpParameters;
 
     class RTCRtpSenderDelegate : public IRTPSenderDelegate
     {
@@ -78,30 +83,21 @@ namespace org
     //------------------------------------------
 
 
-    class RTCSenderPromiseObserver : public zsLib::IPromiseResolutionDelegate
+    class RTCSenderPromiseObserver : public zsLib::IPromiseSettledDelegate
     {
     public:
       RTCSenderPromiseObserver(Concurrency::task_completion_event<void> tce);
 
-      virtual void onPromiseResolved(PromisePtr promise);
-      virtual void onPromiseRejected(PromisePtr promise);
+      virtual void onPromiseSettled(PromisePtr promise);
 
     private:
       Concurrency::task_completion_event<void> mTce;
     };
 
-    public  ref  class  RTCRtpSender sealed
+    public ref class RTCRtpSender sealed
     {
       friend class RTCRtpSenderDelegate;
-      friend class FetchNativePointer;
-      friend class ConvertObjectToCx;
-    private:
-      IRTPSenderPtr mNativePointer;
-      RTCRtpSenderDelegatePtr mNativeDelegatePointer;
 
-    private:
-      RTCDtlsTransport^ GetDtlsTransport(Platform::Boolean isRtcp);
-      MediaStreamTrack^ GetTrack();
     private:
       RTCRtpSender();
     public:
@@ -116,39 +112,26 @@ namespace org
 
       property MediaStreamTrack^ Track
       {
-        MediaStreamTrack^ get()
-        {
-          if (mNativePointer)
-            return GetTrack();
-          else
-            return nullptr;
-        }
+        MediaStreamTrack^ get();
       }
 
       property RTCDtlsTransport^ Transport
       {
-        RTCDtlsTransport^ get()
-        {
-          if (mNativePointer)
-            return GetDtlsTransport(false);
-          else
-            return nullptr;
-        }
+        RTCDtlsTransport^ get();
       }
 
       property RTCDtlsTransport^ RtcpTransport
       {
-        RTCDtlsTransport^ get()
-        {
-          if (mNativePointer)
-            return GetDtlsTransport(true);
-          else
-            return nullptr;
-        }
+        RTCDtlsTransport^ get();
       }
 
       event RTCRtpSenderErrorDelegate^              OnRTCRtpSenderError;
       event RTCRtpSenderSSRCConflictDelegate^       OnRTCRtpSenderSSRCConflict;
+
+    private:
+      IRTPSenderPtr _nativePointer;
+      RTCRtpSenderDelegatePtr _nativeDelegatePointer;
     };
+
   } // namespace ortc
 } // namespace org

@@ -1,65 +1,64 @@
 #include "pch.h"
+
+#include "RTCDtlsTransport.h"
 #include "RTCRtpListener.h"
+#include "RtpTypes.h"
 #include "helpers.h"
 
-using namespace org::ortc;
 
-RTCRtpListener::RTCRtpListener(RTCDtlsTransport^ transport) :
-  mNativeDelegatePointer(new RTCRtpListenerDelegate())
+namespace org
 {
-  if (!transport)
+  namespace ortc
   {
-    return;
-  }
+    ZS_DECLARE_TYPEDEF_PTR(internal::Helper, UseHelper)
 
-  if (FetchNativePointer::FromDtlsTransport(transport))
-  {
-    mNativeDelegatePointer->SetOwnerObject(this);
-    mNativePointer = IRTPListener::create(mNativeDelegatePointer, FetchNativePointer::FromDtlsTransport(transport));
-  }
-}
-
-RTCRtpListener::RTCRtpListener(RTCDtlsTransport^ transport, IVector<RTCRtpHeaderExtensionParameters^>^ headerExtensions) :
-mNativeDelegatePointer(new RTCRtpListenerDelegate())
-{
-  if (!transport)
-  {
-    return;
-  }
-
-  if (FetchNativePointer::FromDtlsTransport(transport))
-  {
-    IRTPListener::HeaderExtensionParametersList list;
-    if (headerExtensions)
+    RTCRtpListener::RTCRtpListener(RTCDtlsTransport^ transport) :
+      _nativeDelegatePointer(new RTCRtpListenerDelegate())
     {
-      for (RTCRtpHeaderExtensionParameters^ ext : headerExtensions)
-      {
-        if (nullptr == ext) continue;
-        list.push_back(*FromCx(ext));
-      }
+      _nativeDelegatePointer->SetOwnerObject(this);
+      auto nativeTransport = RTCDtlsTransport::Convert(transport);
+      _nativePointer = IRTPListener::create(_nativeDelegatePointer, nativeTransport);
     }
-    mNativeDelegatePointer->SetOwnerObject(this);
-    mNativePointer = IRTPListener::create(mNativeDelegatePointer, FetchNativePointer::FromDtlsTransport(transport), list);
-  }
-}
 
-RTCDtlsTransport^ RTCRtpListener::GetDtlsTransport()
-{
-  return ConvertObjectToCx::ToDtlsTransport(IDTLSTransport::convert(mNativePointer->transport()));
-}
+    RTCRtpListener::RTCRtpListener(RTCDtlsTransport^ transport, IVector<RTCRtpHeaderExtensionParameters^>^ headerExtensions) :
+      _nativeDelegatePointer(new RTCRtpListenerDelegate())
+    {
+      _nativeDelegatePointer->SetOwnerObject(this);
 
-void RTCRtpListenerDelegate::onRTPListenerUnhandledRTP(
-  IRTPListenerPtr listener,
-  SSRCType ssrc,
-  PayloadType payloadType,
-  const char *mid,
-  const char *rid
-  )
-{
-  auto evt = ref new RTCRtpRListenerUnhandledRtpEvent();
-  evt->UnhandledRtp->Ssrc = ssrc;
-  evt->UnhandledRtp->PayloadType = payloadType;
-  evt->UnhandledRtp->MuxId = ToCx(zsLib::String(mid));
-  evt->UnhandledRtp->Rid = ToCx(zsLib::String(rid));
-  _listener->OnRTCRtpListenerUnhandledRtp(evt);
-}
+      IRTPListener::HeaderExtensionParametersList list;
+      if (headerExtensions)
+      {
+        for (RTCRtpHeaderExtensionParameters^ ext : headerExtensions)
+        {
+          if (nullptr == ext) continue;
+          list.push_back(*internal::FromCx(ext));
+        }
+      }
+      auto nativeTransport = RTCDtlsTransport::Convert(transport);
+      _nativePointer = IRTPListener::create(_nativeDelegatePointer, nativeTransport, list);
+    }
+
+    RTCDtlsTransport^ RTCRtpListener::Transport::get()
+    {
+      if (!_nativePointer) return nullptr;
+      return RTCDtlsTransport::Convert(IDTLSTransport::convert(_nativePointer->transport()));
+    }
+
+    void RTCRtpListenerDelegate::onRTPListenerUnhandledRTP(
+      IRTPListenerPtr listener,
+      SSRCType ssrc,
+      PayloadType payloadType,
+      const char *mid,
+      const char *rid
+      )
+    {
+      auto evt = ref new RTCRtpRListenerUnhandledRtpEvent();
+      evt->UnhandledRtp->Ssrc = ssrc;
+      evt->UnhandledRtp->PayloadType = payloadType;
+      evt->UnhandledRtp->MuxId = UseHelper::ToCx(mid);
+      evt->UnhandledRtp->Rid = UseHelper::ToCx(rid);
+      _listener->OnRTCRtpListenerUnhandledRtp(evt);
+    }
+
+  } // namespace ortc
+} // namespace org

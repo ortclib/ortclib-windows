@@ -9,24 +9,23 @@
 
 #pragma once
 
-//#include "Media.h"
-#include "MediaSourceHelper.h"
-//#include "talk/app/webrtc/mediastreaminterface.h"
-#include "webrtc/system_wrappers/include/tick_util.h"
-#include "webrtc/system_wrappers/include/critical_section_wrapper.h"
 #include "webrtc/modules/video_render/include/video_render.h"
 
-using Windows::Media::Core::MediaStreamSource;
-using Platform::WeakReference;
-using Windows::System::Threading::ThreadPoolTimer;
-using Windows::Media::Core::MediaStreamSourceSampleRequest;
+#include <Mfidl.h>
 
 namespace org
 {
   namespace ortc
   {
+    using Windows::Media::Core::MediaStreamSourceSampleRequest;
+    using Windows::System::Threading::ThreadPoolTimer;
+    using Windows::Media::Core::MediaStreamSource;
+    using Platform::WeakReference;
+
+    class MediaSourceHelper;
 
     ref class MediaStreamTrack;
+
     // Delegate used to notify an update of the frame per second on a video stream.
     public delegate void FramesPerSecondChangedEventHandler(Platform::String^ id,
       Platform::String^ fps);

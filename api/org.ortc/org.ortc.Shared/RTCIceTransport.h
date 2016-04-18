@@ -1,23 +1,50 @@
 #pragma once
 
-#include <ortc/IICETransport.h>
-#include <collection.h>
 #include "RTCIceTypes.h"
 
-using namespace ortc;
+#include <ortc/IICETransport.h>
 
-using Windows::Foundation::Collections::IVector;
+//#include <collection.h>
+//
+//using namespace ortc;
+//
 
 namespace org
 {
   namespace ortc
   {
+    using Windows::Foundation::Collections::IVector;
+
+    ZS_DECLARE_TYPEDEF_PTR(::ortc::IICETransport, IICETransport)
+    ZS_DECLARE_TYPEDEF_PTR(::ortc::IICETransportDelegate, IICETransportDelegate)
 
     ZS_DECLARE_CLASS_PTR(RTCIceTransportDelegate)
 
-    ref class RTCIceTransport;
     ref class RTCIceGatherer;
-    ref class RTCIceCandidate;
+    ref class RTCIceTransport;
+    ref class RTCIceTransportController;
+
+    ref struct RTCIceCandidate;
+    ref struct RTCIceCandidateComplete;
+    ref struct RTCIceCandidatePair;
+    ref struct RTCIceParameters;
+    ref struct RTCIceTransportOptions;
+
+    enum class RTCIceComponent;
+    enum class RTCIceRole;
+
+    namespace internal
+    {
+      ZS_DECLARE_TYPEDEF_PTR(::ortc::IICETransportTypes, IICETransportTypes)
+
+      RTCIceCandidatePair^ ToCx(const IICETransportTypes::CandidatePair &input);
+      RTCIceCandidatePair^ ToCx(IICETransportTypes::CandidatePairPtr input);
+      IICETransportTypes::CandidatePairPtr FromCx(RTCIceCandidatePair^ input);
+
+      RTCIceTransportOptions^ ToCx(const IICETransportTypes::Options &input);
+      RTCIceTransportOptions^ ToCx(IICETransportTypes::OptionsPtr input);
+      IICETransportTypes::OptionsPtr FromCx(RTCIceTransportOptions^ input);
+    }
 
     class RTCIceTransportDelegate : public IICETransportDelegate
     {
@@ -62,9 +89,14 @@ namespace org
       Closed,
     };
 
-    public ref class RTCIceCandidatePair sealed
+    public ref struct RTCIceTransportOptions sealed
     {
-    public:
+      property Platform::Boolean  AggressiveIce;
+      property RTCIceRole         Role;
+    };
+
+    public ref struct RTCIceCandidatePair sealed
+    {
       property RTCIceCandidate^ Local;
       property RTCIceCandidate^ Remote;
     };
@@ -112,12 +144,18 @@ namespace org
 
     public ref class RTCIceTransport sealed
     {
-      friend class RTCIceTransportDelegate;
-      friend class FetchNativePointer;
-      friend class ConvertObjectToCx;
-      friend class CreateEmptyCxObject;
     private:
-      RTCIceTransport(Platform::Boolean noop);
+      struct noop {};
+      friend class RTCIceTransportDelegate;
+      friend ref class RTCDtlsTransport;
+      friend ref class RTCIceTransportController;
+
+    private:
+      RTCIceTransport(const noop &);
+
+      static RTCIceTransport^ Convert(IICETransportPtr transport);
+      static IICETransportPtr Convert(RTCIceTransport^ gatherer) { return gatherer->_nativePointer; }
+
     public:
       RTCIceTransport();
       RTCIceTransport(RTCIceGatherer^ Gatherer);
@@ -128,6 +166,8 @@ namespace org
       void                       Start(RTCIceGatherer^ gatherer, RTCIceParameters^ remoteParameters);
       [Windows::Foundation::Metadata::OverloadAttribute("StartWithIceRole")]
       void                       Start(RTCIceGatherer^ gatherer, RTCIceParameters^ remoteParameters, RTCIceRole role);
+      [Windows::Foundation::Metadata::OverloadAttribute("StartWithOptions")]
+      void                       Start(RTCIceGatherer^ gatherer, RTCIceParameters^ remoteParameters, RTCIceTransportOptions^ options);
       void                       Stop();
       RTCIceParameters^          GetRemoteParameters();
       RTCIceTransport^           CreateAssociatedTransport();
@@ -140,65 +180,21 @@ namespace org
       void                       KeepWarm(RTCIceCandidatePair^ candidatePair);
       [Windows::Foundation::Metadata::OverloadAttribute("SetKeepWarm")]
       void                       KeepWarm(RTCIceCandidatePair^ candidatePair, Platform::Boolean keepWarm);
-    private:
-      IICETransportPtr mNativePointer;
-      RTCIceTransportDelegatePtr mNativeDelegatePointer;
 
-    private:
-      RTCIceGatherer^ GetIceGatherer();
-
-    public:
-
-      property RTCIceGatherer^ IceGatherer
-      {
-        RTCIceGatherer^ get()
-        {
-          if (mNativePointer)
-            return GetIceGatherer();
-          else
-            return nullptr;
-        }
-      }
-
-      property RTCIceComponent Component
-      {
-        RTCIceComponent get()
-        {
-          if (mNativePointer)
-            return (RTCIceComponent)mNativePointer->component();
-          else
-            return RTCIceComponent::Rtp;
-        }
-      }
-
-      property RTCIceRole Role
-      {
-        RTCIceRole get()
-        {
-          if (mNativePointer)
-            return (RTCIceRole)mNativePointer->role();
-          else
-            return RTCIceRole::Controlled;
-        }
-      }
-
-      property RTCIceTransportState State
-      {
-        RTCIceTransportState get()
-        {
-          if (mNativePointer)
-            return (RTCIceTransportState)mNativePointer->state();
-          else
-            return RTCIceTransportState::Closed;
-        }
-      }
+      property RTCIceGatherer^ IceGatherer  { RTCIceGatherer^ get(); }
+      property RTCIceComponent Component    { RTCIceComponent get(); }
+      property RTCIceRole Role              { RTCIceRole get(); }
+      property RTCIceTransportState State   { RTCIceTransportState get(); }
 
     public:
-
       event RTCIceTransportStateChangedDelegate^            OnICETransportStateChanged;
       event RTCIceTransportCandidatePairAvailableDelegate^  OnICETransportCandidatePairAvailable;
       event RTCIceTransportCandidatePairGoneDelegate^       OnICETransportCandidatePairGone;
       event RTCIceTransportCandidatePairChangedDelegate^    OnICETransportCandidatePairChanged;
+
+    private:
+      IICETransportPtr _nativePointer;
+      RTCIceTransportDelegatePtr _nativeDelegatePointer;
     };
   }
 }

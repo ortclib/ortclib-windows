@@ -1,65 +1,141 @@
 #include "pch.h"
+
+#include "RTCCertificate.h"
 #include "RTCDtlsTransport.h"
+#include "RTCIceTransport.h"
 #include "helpers.h"
 
 #include <openpeer/services/IHelper.h>
+
+#include <zsLib/SafeInt.h>
 
 using Platform::Collections::Vector;
 using Platform::Array;
 using Platform::Object;
 
-namespace Concurrency
-{
-  using ::LONG;
-}
+using namespace ortc;
+
+namespace ortc { ZS_DECLARE_SUBSYSTEM(ortclib) }
 
 namespace org
 {
   namespace ortc
   {
+    ZS_DECLARE_TYPEDEF_PTR(internal::Helper, UseHelper)
+
+    namespace internal
+    {
+
+      RTCDtlsFingerprint^ ToCx(const ICertificateTypes::Fingerprint &input)
+      {
+        auto result = ref new RTCDtlsFingerprint();
+        result->Algorithm = Helper::ToCx(input.mAlgorithm);
+        result->Value = Helper::ToCx(input.mValue);
+        return result;
+      }
+
+      RTCDtlsFingerprint^ ToCx(ICertificateTypes::FingerprintPtr input)
+      {
+        if (!input) return nullptr;
+        return ToCx(*input);
+      }
+
+      ICertificateTypes::FingerprintPtr FromCx(RTCDtlsFingerprint^ input)
+      {
+        if (nullptr == input) return ICertificateTypes::FingerprintPtr();
+        auto result = make_shared<ICertificateTypes::Fingerprint>();
+        result->mAlgorithm = Helper::FromCx(input->Algorithm);
+        result->mValue = Helper::FromCx(input->Value);
+        return result;
+      }
+
+      RTCDtlsParameters^ ToCx(const IDTLSTransportTypes::Parameters &input)
+      {
+        auto result = ref new RTCDtlsParameters();
+        result->Role = Helper::convert(input.mRole);
+        if (input.mFingerprints.size() > 0)
+        {
+          result->Fingerprints = ref new Vector<RTCDtlsFingerprint^>();
+          for (auto iter = input.mFingerprints.begin(); iter != input.mFingerprints.end(); ++iter)
+          {
+            auto &value = (*iter);
+            result->Fingerprints->Append(ToCx(value));
+          }
+        }
+        return result;
+      }
+
+      RTCDtlsParameters^ ToCx(IDTLSTransportTypes::ParametersPtr input)
+      {
+        if (!input) return nullptr;
+        return ToCx(*input);
+      }
+
+      IDTLSTransportTypes::ParametersPtr FromCx(RTCDtlsParameters^ input)
+      {
+        if (nullptr == input) return IDTLSTransportTypes::ParametersPtr();
+        auto result = make_shared<IDTLSTransportTypes::Parameters>();
+        result->mRole = Helper::convert(input->Role);
+        if (input->Fingerprints)
+        {
+          for (RTCDtlsFingerprint^ value : input->Fingerprints)
+          {
+            if (nullptr == value) continue;
+            result->mFingerprints.push_front(*FromCx(value));
+          }
+        }
+        return result;
+      }
+
+    } // namespace internal
+
+
     RTCDtlsTransport::RTCDtlsTransport() :
-      mNativeDelegatePointer(nullptr),
-      mNativePointer(nullptr)
+      _nativeDelegatePointer(nullptr),
+      _nativePointer(nullptr)
     {
     }
 
-    RTCDtlsTransport::RTCDtlsTransport(RTCIceTransport^ transport, IVector<RTCCertificate^>^ certificates) :
-      mNativeDelegatePointer(new RTCDtlsTransportDelegate())
+    RTCDtlsTransport^ RTCDtlsTransport::Convert(IDTLSTransportPtr transport)
     {
+      RTCDtlsTransport^ result = ref new RTCDtlsTransport();
+      result->_nativePointer = transport;
+      return result;
+    }
 
-      if (!transport || !certificates)
+    RTCDtlsTransport::RTCDtlsTransport(RTCIceTransport^ transport, IVector<RTCCertificate^>^ certificates) :
+      _nativeDelegatePointer(new RTCDtlsTransportDelegate())
+    {
+      ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == certificates)
+
+      _nativeDelegatePointer->SetOwnerObject(this);
+
+      auto nativeTransport = RTCIceTransport::Convert(transport);
+
+      IDTLSTransport::CertificateList coreCertificates;
+      for (RTCCertificate^ cert : certificates)
       {
-        return;
+        ICertificatePtr nativeCert = RTCCertificate::Convert(cert);
+        ORTC_THROW_INVALID_PARAMETERS_IF(!nativeCert)
+        coreCertificates.push_back(nativeCert);
       }
-
-      if (FetchNativePointer::FromIceTransport(transport))
-      {
-        mNativeDelegatePointer->SetOwnerObject(this);
-
-        IDTLSTransport::CertificateList coreCertificates;
-        for (RTCCertificate^ cert : certificates)
-        {
-          ICertificatePtr coreCert = FetchNativePointer::FromCertificate(cert);
-          coreCertificates.push_back(coreCert);
-        }
-        mNativePointer = IDTLSTransport::create(mNativeDelegatePointer, FetchNativePointer::FromIceTransport(transport), coreCertificates);
-      }
+      _nativePointer = IDTLSTransport::create(_nativeDelegatePointer, nativeTransport, coreCertificates);
     }
 
     RTCDtlsParameters^ RTCDtlsTransport::GetLocalParameters()
     {
-      if (mNativePointer)
+      if (_nativePointer)
       {
-        return ToCx(mNativePointer->getLocalParameters());
+        return internal::ToCx(_nativePointer->getLocalParameters());
       }
       return nullptr;
     }
 
     RTCDtlsParameters^ RTCDtlsTransport::GetRemoteParameters()
     {
-      if (mNativePointer)
+      if (_nativePointer)
       {
-        return ToCx(mNativePointer->getRemoteParameters());
+        return internal::ToCx(_nativePointer->getRemoteParameters());
       }
       return nullptr;
     }
@@ -68,15 +144,15 @@ namespace org
     {
       auto ret = ref new Vector<Object^>();
 
-      if (mNativePointer)
+      if (_nativePointer)
       {
-        IDTLSTransportTypes::SecureByteBlockListPtr certificates = mNativePointer->getRemoteCertificates();
+        IDTLSTransportTypes::SecureByteBlockListPtr certificates = _nativePointer->getRemoteCertificates();
 
         if (certificates->size() > 0)
         {
           for (IDTLSTransportTypes::SecureByteBlockList::iterator it = certificates->begin(); it != certificates->end(); ++it)
           {
-            Array<byte>^ arr = ref new Array<byte>((*it).BytePtr(), (*it).SizeInBytes());
+            Array<byte>^ arr = ref new Array<byte>((*it).BytePtr(), SafeInt<unsigned int>((*it).SizeInBytes()));
             ret->Append(arr);
           }
         }
@@ -87,40 +163,19 @@ namespace org
 
     void RTCDtlsTransport::Start(RTCDtlsParameters^ remoteParameters)
     {
-      if (mNativePointer)
+      if (_nativePointer)
       {
         assert(nullptr != remoteParameters);
-        mNativePointer->start(*FromCx(remoteParameters));
+        _nativePointer->start(*internal::FromCx(remoteParameters));
       }
     }
 
     void RTCDtlsTransport::Stop()
     {
-      if (mNativePointer)
+      if (_nativePointer)
       {
-        mNativePointer->stop();
+        _nativePointer->stop();
       }
-    }
-
-    RTCIceTransport^ RTCDtlsTransport::GetIceTransport()
-    {
-      return ConvertObjectToCx::ToIceTransport(mNativePointer->transport());
-    }
-
-    IVector<RTCCertificate^>^ RTCDtlsTransport::GetCertificates()
-    {
-      auto ret = ref new Vector<RTCCertificate^>();
-
-      if (mNativePointer)
-      {
-        IDTLSTransport::CertificateListPtr certificates = mNativePointer->certificates();
-        for (IDTLSTransport::CertificateList::iterator it = certificates->begin(); it != certificates->end(); ++it)
-        {
-          ret->Append(ConvertObjectToCx::ToCertificate(*it));
-        }
-      }
-
-      return ret;
     }
 
     Platform::String^ RTCDtlsTransport::ToString()
@@ -130,30 +185,51 @@ namespace org
 
     Platform::String^ RTCDtlsTransport::ToString(RTCDtlsTransportState value)
     {
-      return ToCx(IDtlsTransport::toString(internal::ConvertEnums::convert(value)));
+      return UseHelper::ToCx(IDTLSTransport::toString(UseHelper::convert(value)));
     }
 
     Platform::String^ RTCDtlsTransport::ToString(RTCDtlsRole value)
     {
-      return ToCx(IDtlsTransport::toString(internal::ConvertEnums::convert(value)));
+      return UseHelper::ToCx(IDTLSTransport::toString(UseHelper::convert(value)));
     }
 
     RTCDtlsTransportState RTCDtlsTransport::ToState(Platform::String^ str)
     {
-      return internal::ConvertEnums::convert(IDtlsTransport::toState(FromCx(str).c_str()));
+      return UseHelper::convert(IDTLSTransport::toState(UseHelper::FromCx(str).c_str()));
     }
 
     RTCDtlsRole RTCDtlsTransport::ToRole(Platform::String^ str)
     {
-      return internal::ConvertEnums::convert(IDtlsTransport::toRole(FromCx(str).c_str()));
+      return UseHelper::convert(IDTLSTransport::toRole(UseHelper::FromCx(str).c_str()));
     }
 
     RTCDtlsTransportState RTCDtlsTransport::State::get()
     {
-      if (mNativePointer)
-        return (RTCDtlsTransportState)mNativePointer->state();
+      if (_nativePointer)
+        return (RTCDtlsTransportState)_nativePointer->state();
       else
         return RTCDtlsTransportState::Closed;
+    }
+
+    IVector<RTCCertificate^>^ RTCDtlsTransport::Certificates::get()
+    {
+      if (!_nativePointer) return nullptr;
+
+      auto ret = ref new Vector<RTCCertificate^>();
+
+      IDTLSTransport::CertificateListPtr certificates = _nativePointer->certificates();
+      for (IDTLSTransport::CertificateList::iterator it = certificates->begin(); it != certificates->end(); ++it)
+      {
+        ret->Append(RTCCertificate::Convert(*it));
+      }
+    
+      return ret;
+    }
+
+    RTCIceTransport^ RTCDtlsTransport::IceTransport::get()
+    {
+      if (!_nativePointer) return nullptr;
+      return RTCIceTransport::Convert(_nativePointer->transport());
     }
 
     void RTCDtlsTransportDelegate::onDTLSTransportStateChange(
@@ -162,7 +238,7 @@ namespace org
       )
     {
       auto evt = ref new RTCDtlsTransportStateChangeEvent();
-      evt->State = internal::ConvertEnums::convert(state);
+      evt->State = UseHelper::convert(state);
       _transport->OnDtlsTransportStateChanged(evt);
     }
 
@@ -174,98 +250,8 @@ namespace org
     {
       auto evt = ref new RTCDtlsTransportErrorEvent();
       evt->Error->ErrorCode = errorCode;
-      evt->Error->ErrorReason = ToCx(errorReason);
+      evt->Error->ErrorReason = UseHelper::ToCx(errorReason);
       _transport->OnDtlsTransportError(evt);
-    }
-
-    IAsyncOperation<RTCCertificate^>^ RTCCertificate::GenerateCertificate() {
-
-      return Concurrency::create_async([]() -> RTCCertificate^ {
-        Concurrency::task_completion_event<RTCCertificate^> tce;
-
-        ICertificate::PromiseWithCertificatePtr promise = ICertificate::generateCertificate();
-        RTCGenerateCertificatePromiseObserverPtr pDelegate(make_shared<RTCGenerateCertificatePromiseObserver>(tce));
-
-        promise->then(pDelegate);
-        promise->background();
-        auto tceTask = Concurrency::task<RTCCertificate^>(tce);
-
-        return tceTask.get();
-      });
-    }
-
-    IAsyncOperation<RTCCertificate^>^ RTCCertificate::GenerateCertificate(Platform::String^ algorithmIdentifier) {
-
-      return Concurrency::create_async([algorithmIdentifier]() -> RTCCertificate^ {
-        Concurrency::task_completion_event<RTCCertificate^> tce;
-
-        ICertificate::PromiseWithCertificatePtr promise = ICertificate::generateCertificate(FromCx(algorithmIdentifier).c_str());
-        RTCGenerateCertificatePromiseObserverPtr pDelegate(make_shared<RTCGenerateCertificatePromiseObserver>(tce));
-
-        promise->then(pDelegate);
-        promise->background();
-        auto tceTask = Concurrency::task<RTCCertificate^>(tce);
-
-        return tceTask.get();
-      });
-    }
-
-    Windows::Foundation::DateTime RTCCertificate::GetExpires()
-    {
-      Windows::Foundation::DateTime ret;
-
-      if (mNativePointer)
-      {
-        auto coreTime = mNativePointer->expires();
-        time_t time = std::chrono::system_clock::to_time_t(coreTime);
-        tm dateTime;
-        gmtime_s(&dateTime, &time);
-
-        auto cal = ref new Windows::Globalization::Calendar();
-
-        cal->Year = dateTime.tm_year + 1900;
-        cal->Month = dateTime.tm_mon + 1;
-        cal->Day = dateTime.tm_mday;
-
-        // Microsoft magic number: 1 for AM, 2 for PM. 
-        // https://msdn.microsoft.com/en-us/library/windows/apps/windows.globalization.calendar.period
-        cal->Period = dateTime.tm_hour > 12 ? 2 /*PM*/ : 1 /*AM*/;
-
-        cal->Hour = dateTime.tm_hour > 12 ? dateTime.tm_hour - 12 : dateTime.tm_hour;
-        cal->Minute = dateTime.tm_min;
-        cal->Second = dateTime.tm_sec;
-
-        ret = cal->GetDateTime();
-      }
-
-      return ret;
-    }
-
-    RTCDtlsFingerprint^ RTCCertificate::GetFingerprint()
-    {
-      if (mNativePointer)
-      {
-        return ToCx(mNativePointer->fingerprint());
-      }
-      return nullptr;
-    }
-
-    RTCGenerateCertificatePromiseObserver::RTCGenerateCertificatePromiseObserver(Concurrency::task_completion_event<RTCCertificate^> tce) :
-      mTce(tce)
-    {
-    }
-
-    void RTCGenerateCertificatePromiseObserver::onPromiseResolved(PromisePtr promise)
-    {
-      auto ret = ref new RTCCertificate();
-
-      ICertificate::PromiseWithCertificatePtr certificatePromise = ZS_DYNAMIC_PTR_CAST(ICertificate::PromiseWithCertificate, promise);
-      ret->mNativePointer = certificatePromise->value();
-      mTce.set(ret);
-    }
-    void RTCGenerateCertificatePromiseObserver::onPromiseRejected(PromisePtr promise)
-    {
-      //mTce.set_exception(promise->reason());
     }
 
     //---------------------------------------------------------------------------
@@ -273,14 +259,14 @@ namespace org
     //---------------------------------------------------------------------------
     Platform::String^ RTCDtlsParameters::ToJsonString()
     {
-      IDtlsTransport::ParametersPtr params = FromCx(this);
-      return ToCx(openpeer::services::IHelper::toString(params->createElement("DtlsParameters")));
+      auto params = internal::FromCx(this);
+      return UseHelper::ToCx(openpeer::services::IHelper::toString(params->createElement("DtlsParameters")));
     }
 
     RTCDtlsParameters^ RTCDtlsParameters::FromJsonString(Platform::String^ jsonString)
     {
-      auto params = make_shared<IDtlsTransport::Parameters>(IDtlsTransport::Parameters::Parameters(openpeer::services::IHelper::toJSON(FromCx(jsonString).c_str())));
-      return ToCx(params);
+      auto params = make_shared<IDTLSTransport::Parameters>(IDTLSTransport::Parameters::Parameters(openpeer::services::IHelper::toJSON(UseHelper::FromCx(jsonString).c_str())));
+      return internal::ToCx(params);
     }
   } // namespace ortc
 } // namespace org

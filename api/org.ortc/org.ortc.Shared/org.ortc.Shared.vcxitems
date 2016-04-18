@@ -15,13 +15,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Capabilities.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Contraints.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Constraints.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)helpers.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Logger.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MediaSourceHelper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MediaStreamTrack.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Ortc.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MediaDevices.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTCCertificate.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCDataChannel.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCDtlsTransport.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCIceGatherer.h" />
@@ -34,18 +35,21 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCRtpSender.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCSctpTransport.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTMediaStreamSource.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)RTPTypes.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RtpTypes.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Settings.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)WebRtcMediaSource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)WebRtcMediaStream.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Capabilities.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Constraints.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)helpers.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Logger.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MediaSourceHelper.cc" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MediaStreamTrack.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Ortc.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MediaDevices.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RTCCertificate.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCDataChannel.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCDtlsTransport.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCIceGatherer.cpp" />
@@ -60,7 +64,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCRtpSender.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCSctpTransport.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTMediaStreamSource.cc" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)RTPTypes.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RtpTypes.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Settings.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WebRtcMediaSource.cc" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WebRtcMediaStream.cc" />

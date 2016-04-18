@@ -1,32 +1,66 @@
 #pragma once
 
-#include "RTCIceGatherer.h"
-#include "RTCIceTransport.h"
-#include "RTCDtlsTransport.h"
-#include "RTCSctpTransport.h"
-#include "RTCDataChannel.h"
-#include "RTCIceTransportController.h"
-#include "RTCRtpSender.h"
-#include "RTPTypes.h"
-#include "Contraints.h"
-#include "Capabilities.h"
-#include "MediaStreamTrack.h"
-#include "MediaDevices.h"
 #include "Logger.h"
 
-#include <zsLib/zsLib.h>
+#include <ortc/IDataChannel.h>
+#include <ortc/IDTLSTransport.h>
+#include <ortc/IICETypes.h>
+#include <ortc/IICEGatherer.h>
+#include <ortc/IICETransport.h>
+#include <ortc/IMediaDevices.h>
+#include <ortc/IRTPTypes.h>
+
+#include <zsLib/types.h>
 
 namespace org
 {
   namespace ortc
   {
+    enum class MediaDeviceKind;
+    enum class MediaStreamTrackState;
+    enum class MediaStreamTrackKind;
+
+    enum class RTCDataChannelState;
+    enum class RTCDegradationPreference;
+    enum class RTCDtlsTransportState;
+    enum class RTCDtlsRole;
+    enum class RTCIceCandidateType;
+    enum class RTCIceComponent;
+    enum class RTCIceGatherPolicy;
+    enum class RTCIceGathererCredentialType;
+    enum class RTCIceGathererState;
+    enum class RTCIceProtocol;
+    enum class RTCIceRole;
+    enum class RTCIceTransportState;
+    enum class RTCIceTcpCandidateType;
+    enum class RTCPriorityType;
+
+    ref class MediaStreamTrack;
+    ref class RTCCertificate;
+    ref class RTCDtlsTransport;
+    ref class RTCIceGatherer;
+    ref class RTCIceTransport;
+    ref class RTCSctpTransport;
+
     namespace internal
     {
+      using zsLib::Optional;
+
       class Helper
       {
+        typedef ::ortc::IDataChannelTypes IDataChannelTypes;
+        typedef ::ortc::IDTLSTransportTypes IDTLSTransportTypes;
+        typedef ::ortc::IICETypes IICETypes;
+        typedef ::ortc::IICEGathererTypes IICEGathererTypes;
+        typedef ::ortc::IICETransportTypes IICETransportTypes;
+        typedef ::ortc::IMediaDevicesTypes IMediaDevicesTypes;
+        typedef ::ortc::IMediaStreamTrackTypes IMediaStreamTrackTypes;
+        typedef ::ortc::IRTPTypes IRTPTypes;
+
       public:
         static std::string FromCx(Platform::String^ inObj);
         static Platform::String^ ToCx(const std::string & inObj);
+        static Platform::String^ ToCx(const char *str);
 
         static Platform::IBox<Platform::Boolean>^ ToCx(const Optional<bool> &input);
         static Optional<bool> FromCx(Platform::IBox<Platform::Boolean>^ input);
@@ -54,90 +88,7 @@ namespace org
 
         static Platform::String^ ToCx(const Optional<zsLib::String> &input);
         static Optional<zsLib::String> FromCxToOptional(Platform::String^ input);
-      };
-    }
 
-    ISCTPTransport::CapabilitiesPtr FromCx(RTCSctpCapabilities^ input);
-
-    RTCDtlsFingerprint^ ToCx(ICertificateTypes::FingerprintPtr input);
-    IDTLSTransportTypes::ParametersPtr FromCx(RTCDtlsParameters^ parameters);
-    RTCDtlsParameters^ ToCx(IDTLSTransportTypes::ParametersPtr parameters);
-
-    MediaDeviceInfo^ ToCx(const IMediaDevices::Device &input);
-    MediaDeviceInfo^ ToCx(IMediaDevices::DevicePtr input);
-
-    IMediaStreamTrackTypes::ConstraintsPtr FromCx(Constraints ^input);
-    MediaTrackCapabilities^ ToCx(IMediaStreamTrackTypes::CapabilitiesPtr input);
-    MediaTrackConstraints^ ToCx(IMediaStreamTrackTypes::TrackConstraintsPtr input);
-    IMediaStreamTrackTypes::TrackConstraintsPtr FromCx(MediaTrackConstraints^ input);
-    MediaTrackSettings^ ToCx(IMediaStreamTrackTypes::SettingsPtr input);
-    IMediaStreamTrackTypes::ConstraintSetPtr FromCx(MediaTrackConstraintSet^ input);
-
-    SupportedConstraints^ ToCx(IMediaDevices::SupportedConstraintsPtr input);
-    Constraints^ ToCx(IMediaStreamTrackTypes::ConstraintsPtr input);
-
-    RTCIceCandidate^ ToCx(IICETypes::CandidatePtr candidate);
-    RTCIceCandidate^ ToCx(const IICETypes::Candidate &candidate);
-    IICETypes::CandidatePtr FromCx(RTCIceCandidate^ candidate);
-    IICETypes::ParametersPtr FromCx(RTCIceParameters^ params);
-    RTCIceParameters^ ToCx(IICETypes::ParametersPtr input);
-    IICETypes::ParametersPtr FromCx(RTCIceParameters^ input);
-
-    IICEGatherer::OptionsPtr FromCx(RTCIceGatherOptions^ options);
-
-    RTCIceCandidatePair^ ToCx(IICETransport::CandidatePairPtr input);
-    IICETransport::CandidatePairPtr FromCx(RTCIceCandidatePair^ input);
-
-    IRTPTypes::HeaderExtensionParametersPtr FromCx(RTCRtpHeaderExtensionParameters^ input);
-    RTCRtpParameters ^ToCx(IRTPTypes::ParametersPtr input);
-    IRTPTypes::ParametersPtr FromCx(RTCRtpParameters^ input);
-    RTCRtpCapabilities ^ToCx(IRTPTypes::CapabilitiesPtr input);
-    IRTPTypes::CapabilitiesPtr FromCx(RTCRtpCapabilities^ input);
-    RTCRtpCodecCapability^ ToCx(IRTPTypes::CodecCapabilityPtr input);
-    IRTPTypes::CodecCapabilityPtr FromCx(RTCRtpCodecCapability^ input);
-    IRTPTypes::RTCPFeedback FromCx(RTCRtcpFeedback^ input);
-    IRTPTypes::HeaderExtensionPtr FromCx(RTCRtpHeaderExtension^ input);
-
-    class FetchNativePointer
-    {
-    public:
-      static IIceGathererPtr FromIceGatherer(RTCIceGatherer^ gatherer) { return gatherer->_NativePointer; }
-      static IIceTransportPtr FromIceTransport(RTCIceTransport^ transport) { return transport->mNativePointer; }
-      static IDtlsTransportPtr FromDtlsTransport(RTCDtlsTransport^ transport) { return transport->mNativePointer; }
-      static ICertificatePtr FromCertificate(RTCCertificate^ certificate) { return certificate->mNativePointer; }
-      static ISctpTransportPtr FromSctpTransport(RTCSctpTransport^ transport) { return transport->mNativePointer; }
-      static IMediaStreamTrackPtr FromMediaTrack(MediaStreamTrack^ track) { return track->mNativePointer; }
-    };
-
-    class ConvertObjectToCx
-    {
-    public:
-      static RTCIceGatherer^ ToIceGatherer(IIceGathererPtr iceGatherer);
-      static RTCIceTransport^ ToIceTransport(IIceTransportPtr iceTransport);
-      static RTCCertificate^ ToCertificate(ICertificatePtr certificate);
-      static RTCDtlsTransport^ ToDtlsTransport(IDtlsTransportPtr dtlsTransport);
-      static RTCSctpTransport^ ToSctpTransport(ISctpTransportPtr sctpTransport);
-
-      static MediaStreamTrack^ ToMediaStreamTrack(IMediaStreamTrackPtr mediaStreamTrackPtr);
-    };
-
-    class CreateEmptyCxObject
-    {
-    public:
-      static RTCIceTransport^ IceTransport() { return ref new RTCIceTransport(true); }
-    };
-
-    class CallPrivateMethod
-    {
-    public:
-      static void SetMediaElement(MediaStreamTrack^ track, void* element) { track->SetMediaElement(element); }
-    };
-
-    namespace internal
-    {
-      class ConvertEnums
-      {
-      public:
         // RTCIceGatherer convertors
         static IICEGathererTypes::FilterPolicies convert(RTCIceGatherPolicy policy);
         static RTCIceGatherPolicy convert(IICEGathererTypes::FilterPolicies policy);
@@ -149,15 +100,15 @@ namespace org
         static RTCIceGathererState convert(IICEGathererTypes::States state);
 
         // RTCDataChannel convertors
-        static IDataChannel::States convert(RTCDataChannelState state);
-        static RTCDataChannelState ConvertEnums::convert(IDataChannel::States state);
+        static IDataChannelTypes::States convert(RTCDataChannelState state);
+        static RTCDataChannelState convert(IDataChannelTypes::States state);
 
         // RTCDtlsTransport convertors
-        static IDtlsTransport::States convert(RTCDtlsTransportState state);
-        static RTCDtlsTransportState convert(IDtlsTransport::States state);
+        static IDTLSTransportTypes::States convert(RTCDtlsTransportState state);
+        static RTCDtlsTransportState convert(IDTLSTransportTypes::States state);
 
-        static IDtlsTransport::Roles convert(RTCDtlsRole role);
-        static RTCDtlsRole convert(IDtlsTransport::Roles role);
+        static IDTLSTransportTypes::Roles convert(RTCDtlsRole role);
+        static RTCDtlsRole convert(IDTLSTransportTypes::Roles role);
 
         // RTCIceTypes convertors
         static IICETypes::Roles convert(RTCIceRole role);
@@ -175,12 +126,20 @@ namespace org
         static IICETypes::TCPCandidateTypes convert(RTCIceTcpCandidateType candidateType);
         static RTCIceTcpCandidateType convert(IICETypes::TCPCandidateTypes candidateType);
 
-        // MediaStreamTrack convertors
-        static IMediaStreamTrack::States convert(MediaStreamTrackState state);
-        static MediaStreamTrackState convert(IMediaStreamTrack::States state);
+        // RTCIceTransport converters
+        static IICETransportTypes::States convert(RTCIceTransportState state);
+        static RTCIceTransportState convert(IICETransportTypes::States state);
 
-        static IMediaStreamTrack::Kinds convert(MediaStreamTrackKind kind);
-        static MediaStreamTrackKind convert(IMediaStreamTrack::Kinds kind);
+        // MediaDevice
+        static IMediaDevicesTypes::DeviceKinds convert(MediaDeviceKind kind);
+        static MediaDeviceKind convert(IMediaDevicesTypes::DeviceKinds kind);
+
+        // MediaStreamTrack convertors
+        static IMediaStreamTrackTypes::States convert(MediaStreamTrackState state);
+        static MediaStreamTrackState convert(IMediaStreamTrackTypes::States state);
+
+        static IMediaStreamTrackTypes::Kinds convert(MediaStreamTrackKind kind);
+        static MediaStreamTrackKind convert(IMediaStreamTrackTypes::Kinds kind);
 
         // RtpTypes convertors
         static IRTPTypes::PriorityTypes convert(RTCPriorityType priority);
@@ -193,6 +152,7 @@ namespace org
         static zsLib::Log::Level convert(Log::Level level);
         static const char *toComponent(Log::Component  component);
       };
-    }
-  }
-}
+
+    } // namespace internal
+  } // namespace ortc
+} // namespace org

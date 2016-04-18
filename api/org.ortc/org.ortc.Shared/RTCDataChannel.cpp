@@ -1,19 +1,29 @@
 #include "pch.h"
-#include <openpeer/services/IHelper.h>
+
 #include "RTCDataChannel.h"
+#include "RTCSctpTransport.h"
 #include "helpers.h"
 
-using zsLib::DWORD;
+#include <openpeer/services/IHelper.h>
+
+#include <zsLib/SafeInt.h>
+
+using Platform::Array;
+
+using namespace ortc;
+
+namespace ortc { ZS_DECLARE_SUBSYSTEM(ortclib) }
 
 namespace org
 {
   namespace ortc
   {
+    using zsLib::Milliseconds;
+
     ZS_DECLARE_TYPEDEF_PTR(internal::Helper, UseHelper)
 
     namespace internal
     {
-#pragma region DataChannel conversion
       RTCDataChannelParameters^ ToCx(const IDataChannelTypes::Parameters &input)
       {
         auto result = ref new RTCDataChannelParameters();
@@ -57,89 +67,103 @@ namespace org
 
         return result;
       }
-#pragma endregion
     }
 
     RTCDataChannel::RTCDataChannel() :
-      mNativeDelegatePointer(nullptr),
-      mNativePointer(nullptr)
+      _nativeDelegatePointer(nullptr),
+      _nativePointer(nullptr)
     {
     }
 
-    RTCDataChannel::RTCDataChannel(RTCSctpTransport^ dataTransport, RTCDataChannelParameters^ params) :
-      mNativeDelegatePointer(new RTCDataChannelDelegate())
+    RTCDataChannel::RTCDataChannel(RTCSctpTransport^ transport, RTCDataChannelParameters^ params) :
+      _nativeDelegatePointer(new RTCDataChannelDelegate())
     {
+      ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == params)
 
-      if (!dataTransport) return;
+      _nativeDelegatePointer->SetOwnerObject(this);
+      auto nativeTransport = RTCSctpTransport::Convert(transport);
 
-      assert(nullptr != params);
-
-      if (FetchNativePointer::FromSctpTransport(dataTransport))
-      {
-        mNativeDelegatePointer->SetOwnerObject(this);
-        mNativePointer = IDataChannel::create(mNativeDelegatePointer, FetchNativePointer::FromSctpTransport(dataTransport), *internal::FromCx(params));
-      }
+      _nativePointer = IDataChannel::create(_nativeDelegatePointer, nativeTransport, *internal::FromCx(params));
     }
 
     void RTCDataChannel::Close()
     {
-      if (mNativePointer)
+      if (_nativePointer)
       {
-        mNativePointer->close();
+        _nativePointer->close();
       }
     }
 
     void RTCDataChannel::Send(Platform::String^ data)
     {
-      if (mNativePointer)
+      if (_nativePointer)
       {
-        mNativePointer->send(UseHelper::FromCx(data));
+        _nativePointer->send(UseHelper::FromCx(data));
       }
     }
 
     void RTCDataChannel::Send(const Platform::Array<byte>^ data)
     {
-      if (mNativePointer)
+      if (_nativePointer)
       {
         SecureByteBlockPtr bytes = openpeer::services::IHelper::convertToBuffer(data->Data, data->Length);
-        mNativePointer->send(*bytes.get());
+        _nativePointer->send(*bytes.get());
       }
     }
 
     void RTCDataChannel::Send(const Platform::Array<byte>^ data, uint16 bufferSizeInBytes)
     {
-      if (mNativePointer)
+      if (_nativePointer)
       {
-        mNativePointer->send(data->Data, data->Length);
+        _nativePointer->send(data->Data, data->Length);
       }
     }
 
-    RTCSctpTransport^ RTCDataChannel::GetSctpTransport()
+    RTCSctpTransport^ RTCDataChannel::Transport::get()
     {
-      return ConvertObjectToCx::ToSctpTransport(ISctpTransport::convert(mNativePointer->transport()));
+      if (!_nativePointer) return nullptr;
+      return RTCSctpTransport::Convert(ISCTPTransport::convert(_nativePointer->transport()));
     }
 
-    RTCDataChannelParameters^ RTCDataChannel::GetParameters()
+    RTCDataChannelParameters^ RTCDataChannel::Parameters::get()
     {
-      return internal::ToCx(mNativePointer->parameters());
-    }
-
-    Platform::String^ RTCDataChannel::GetBinaryType()
-    {
-      return UseHelper::ToCx(mNativePointer->binaryType());
-    }
-
-    void RTCDataChannel::SetBinaryType(Platform::String^ binaryType)
-    {
-      mNativePointer->binaryType(UseHelper::FromCx(binaryType).c_str());
+      if (!_nativePointer) return nullptr;
+      return internal::ToCx(_nativePointer->parameters());
     }
 
     RTCDataChannelState RTCDataChannel::State::get()
     {
-      if (mNativePointer)
-        return internal::ConvertEnums::convert(mNativePointer->readyState());
-      else
-        return RTCDataChannelState::Closed;
+      if (!_nativePointer) return RTCDataChannelState::Closed;
+      return UseHelper::convert(_nativePointer->readyState());
+    }
+
+    uint64 RTCDataChannel::BufferedAmount::get()
+    {
+      if (_nativePointer) return _nativePointer->bufferedAmount();
+      return 0;
+    }
+
+    uint64 RTCDataChannel::BufferedAmountLowThreshold::get()
+    {
+      if (_nativePointer) return _nativePointer->bufferedAmountLowThreshold();
+      return 0;
+    }
+
+    void RTCDataChannel::BufferedAmountLowThreshold::set(uint64 threshold)
+    {
+      if (_nativePointer) _nativePointer->bufferedAmountLowThreshold(static_cast<size_t>(threshold));
+    }
+
+    Platform::String^ RTCDataChannel::BinaryType::get()
+    {
+      if (!_nativePointer) return nullptr;
+      return UseHelper::ToCx(_nativePointer->binaryType());
+    }
+
+    void RTCDataChannel::BinaryType::set(Platform::String^ binaryType)
+    {
+      if (!_nativePointer) return;
+      _nativePointer->binaryType(UseHelper::FromCx(binaryType).c_str());
     }
 
     void RTCDataChannelDelegate::onDataChannelStateChanged(
@@ -148,7 +172,7 @@ namespace org
       )
     {
       auto evt = ref new RTCDataChannelStateChangeEvent();
-      evt->State = internal::ConvertEnums::convert(state);
+      evt->State = UseHelper::convert(state);
       _channel->OnDataChannelStateChanged(evt);
     }
 
@@ -197,5 +221,6 @@ namespace org
       auto params = make_shared<IDataChannel::Parameters>(IDataChannel::Parameters::Parameters(openpeer::services::IHelper::toJSON(UseHelper::FromCx(jsonString).c_str())));
       return internal::ToCx(params);
     }
+    
   } // namespace ortc
 } // namespace ortc

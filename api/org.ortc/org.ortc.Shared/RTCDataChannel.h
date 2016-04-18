@@ -1,19 +1,23 @@
 #pragma once
 
-#include <collection.h>
 #include <ortc/IDataChannel.h>
-#include "RTCSctpTransport.h"
 
-using namespace ortc;
+#include <collection.h>
 
 namespace org
 {
   namespace ortc
   {
+    ZS_DECLARE_TYPEDEF_PTR(::ortc::IDataChannelTypes, IDataChannelTypes)
+    ZS_DECLARE_TYPEDEF_PTR(::ortc::IDataChannelDelegate, IDataChannelDelegate)
+    ZS_DECLARE_TYPEDEF_PTR(::ortc::IDataChannel, IDataChannel)
+
     ref class RTCDataChannelParameters;
+    enum class RTCDataChannelState;
 
     namespace internal
     {
+      RTCDataChannelParameters^ ToCx(const IDataChannelTypes::Parameters &input);
       RTCDataChannelParameters^ ToCx(IDataChannelTypes::ParametersPtr input);
       IDataChannelTypes::ParametersPtr FromCx(RTCDataChannelParameters^ input);
     }
@@ -79,15 +83,15 @@ namespace org
     public ref class RTCDataChannelError sealed
     {
     public:
-      property uint16 ErrorCode;
-      property Platform::String^ ErrorReason;
+      property uint16             ErrorCode;
+      property Platform::String^  ErrorReason;
     };
 
     public ref class RTCMessageEventData sealed
     {
     public:
-      property Array<byte>^      Binary;
-      property Platform::String^ Text;
+      property Platform::Array<byte>^ Binary;
+      property Platform::String^      Text;
     };
 
     //------------------------------------------
@@ -98,12 +102,12 @@ namespace org
     public:
       property RTCDataChannelState State
       {
-        RTCDataChannelState  get() { return m_state; }
-        void  set(RTCDataChannelState value) { m_state = value; }
+        RTCDataChannelState  get() { return _state; }
+        void  set(RTCDataChannelState value) { _state = value; }
       }
 
     private:
-      RTCDataChannelState m_state;
+      RTCDataChannelState _state;
     };
 
     public delegate void RTCDataChannelStateChangedDelegate(RTCDataChannelStateChangeEvent^ evt);
@@ -154,7 +158,7 @@ namespace org
     {
       friend class RTCDataChannelDelegate;
       friend class RTCSctpTransportDelegate;
-      friend class FetchNativePointer;
+
     private:
       RTCDataChannel();
     public:
@@ -169,76 +173,20 @@ namespace org
       [Windows::Foundation::Metadata::OverloadAttribute("SendWithSize")]
       void Send(const Platform::Array<byte>^ data, uint16 bufferSizeInBytes);
 
-    private:
-      IDataChannelPtr mNativePointer;
-      RTCDataChannelDelegatePtr mNativeDelegatePointer;
-
-    private:
-      RTCSctpTransport^ GetSctpTransport();
-      RTCDataChannelParameters^ GetParameters();
-      Platform::String^ GetBinaryType();
-      void SetBinaryType(Platform::String^ binaryType);
-
     public:
-      property RTCSctpTransport^ Transport
-      {
-        RTCSctpTransport^ get()
-        {
-          if (mNativePointer) return GetSctpTransport();
-          return nullptr;
-        }
-      }
-
-      property RTCDataChannelParameters^ Parameters
-      {
-        RTCDataChannelParameters^ get()
-        {
-          if (mNativePointer) return GetParameters();
-          return nullptr;
-        }
-      }
-
-      property RTCDataChannelState State
-      {
-        RTCDataChannelState get();
-      }
-
-      property uint64 BufferedAmount
-      {
-        uint64 get()
-        {
-          if (mNativePointer) return mNativePointer->bufferedAmount();
-          return 0;
-        }
-      }
-
+      property RTCSctpTransport^ Transport { RTCSctpTransport^ get(); }
+      property RTCDataChannelParameters^ Parameters { RTCDataChannelParameters^ get(); }
+      property RTCDataChannelState State { RTCDataChannelState get(); }
+      property uint64 BufferedAmount { uint64 get(); }
       property uint64 BufferedAmountLowThreshold
       {
-        uint64 get()
-        {
-          if (mNativePointer) return mNativePointer->bufferedAmountLowThreshold();
-          return 0;
-        }
-
-        void set(uint64 threshold)
-        {
-          if (mNativePointer) mNativePointer->bufferedAmountLowThreshold(static_cast<size_t>(threshold));
-        }
+        uint64 get();
+        void set(uint64 threshold);
       }
-
       property Platform::String^ BinaryType
       {
-        Platform::String^ get()
-        {
-          if (mNativePointer) return GetBinaryType();
-          return nullptr;
-        }
-
-        void set(Platform::String^ binaryType)
-        {
-          if (mNativePointer) return SetBinaryType(binaryType);
-          return;
-        }
+        Platform::String^ get();
+        void set(Platform::String^ binaryType);
       }
 
     public:
@@ -247,6 +195,10 @@ namespace org
       event RTCDataChannelErrorDelegate^                   OnDataChannelError;
       event RTCDataChannelBufferedAmountLowDelegate^       OnDataChannelBufferedAmountLow;
       event RTCDataChannelMessageEventDataDelegate^        OnDataChannelMessage;
+
+    private:
+      IDataChannelPtr _nativePointer;
+      RTCDataChannelDelegatePtr _nativeDelegatePointer;
     };
   }
 }

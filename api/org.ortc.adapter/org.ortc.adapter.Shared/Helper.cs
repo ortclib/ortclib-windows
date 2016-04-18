@@ -244,9 +244,9 @@ namespace org
                     return result;
                 }
 
-                public static Constraints MakeConstraints(
+                public static MediaStreamConstraints MakeConstraints(
                     bool shouldDoThis,
-                    Constraints existingConstraints,
+                    MediaStreamConstraints existingConstraints,
                     MediaDeviceKind kind,
                     MediaDevice device
                     )
@@ -254,7 +254,7 @@ namespace org
                     if (!shouldDoThis) return existingConstraints;
                     if (null == device) return existingConstraints;
 
-                    if (null == existingConstraints) existingConstraints = new Constraints();
+                    if (null == existingConstraints) existingConstraints = new MediaStreamConstraints();
                     MediaTrackConstraints trackConstraints = null;
 
                     switch (kind)
@@ -265,7 +265,7 @@ namespace org
                         case MediaDeviceKind.AudioOutput:
                             trackConstraints = existingConstraints.Audio;
                             break;
-                        case MediaDeviceKind.Video:
+                        case MediaDeviceKind.VideoInput:
                             trackConstraints = existingConstraints.Video;
                             break;
                     }
@@ -304,7 +304,7 @@ namespace org
                         case MediaDeviceKind.AudioOutput:
                             existingConstraints.Audio = trackConstraints;
                             break;
-                        case MediaDeviceKind.Video:
+                        case MediaDeviceKind.VideoInput:
                             existingConstraints.Video = trackConstraints;
                             break;
                     }
@@ -445,9 +445,9 @@ namespace org
                     return ice;
                 }
 
-                public static Constraints ToApiConstraints(RTCMediaStreamConstraints mediaStreamConstraints)
+                public static MediaStreamConstraints ToApiConstraints(RTCMediaStreamConstraints mediaStreamConstraints)
                 {
-                    Constraints ret = new Constraints
+                    MediaStreamConstraints ret = new MediaStreamConstraints
                     {
                         Audio = mediaStreamConstraints.audioEnabled ? new MediaTrackConstraints() : null,
                         Video = mediaStreamConstraints.videoEnabled ? new MediaTrackConstraints() : null

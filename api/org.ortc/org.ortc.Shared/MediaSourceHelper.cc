@@ -7,25 +7,10 @@
 // be found in the AUTHORS file in the root of the source tree.
 
 #include "pch.h"
+
 #include "MediaSourceHelper.h"
-#include <mfapi.h>
-#include <ppltasks.h>
-#include <mfidl.h>
-#include "libyuv/convert.h"
-#include "webrtc/system_wrappers/include/critical_section_wrapper.h"
 
-
-using Microsoft::WRL::ComPtr;
-using Platform::Collections::Vector;
-using Windows::Media::Core::VideoStreamDescriptor;
-using Windows::Media::Core::MediaStreamSourceSampleRequestedEventArgs;
-using Windows::Media::Core::MediaStreamSourceSampleRequest;
-using Windows::Media::Core::MediaStreamSourceStartingEventArgs;
-using Windows::Media::Core::MediaStreamSource;
-using Windows::Media::MediaProperties::VideoEncodingProperties;
-using Windows::Media::MediaProperties::MediaEncodingSubtypes;
-using Windows::System::Threading::TimerElapsedHandler;
-using Windows::System::Threading::ThreadPoolTimer;
+#include <MFapi.h>
 
 namespace org
 {
