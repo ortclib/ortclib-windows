@@ -27,5 +27,6 @@ namespace org
 
       static void Setup(CoreDispatcher ^dispatcher);
     };
+
   }
 }

@@ -12,6 +12,9 @@ namespace org
     using Windows::Foundation::IAsyncAction;
     using Windows::Foundation::Collections::IVector;
 
+    ref struct Error;
+    ref struct ErrorEvent;
+
     ref struct CapabilityBoolean;
     ref struct CapabilityLong;
     ref struct CapabilityDouble;
@@ -42,6 +45,7 @@ namespace org
 
     namespace internal
     {
+      ZS_DECLARE_CLASS_PTR(MediaStreamTrackDelegate)
       ZS_DECLARE_CLASS_PTR(MediaStreamTrackPromiseObserver)
       ZS_DECLARE_TYPEDEF_PTR(::ortc::IMediaStreamTrackTypes, IMediaStreamTrackTypes)
 
@@ -343,34 +347,81 @@ namespace org
       property IVector<MediaTrackConstraintSet^>^ Advanced;
     };
 
-    public ref class MediaStreamError sealed
+    /// <summary>
+    /// The constraint attribute is set to the name of any one of the
+    /// constraints that caused the error, if any.
+    /// </summary>
+    public ref struct OverconstrainedError sealed
     {
-    public:
+      /// <summary>
+      /// Gets a string representing one of the error type names.
+      /// </summary>
       property Platform::String^ Name;
+      /// <summary>
+      /// The constraint property name where the error originated.
+      /// </summary>
+      property Platform::String^ Constraint;
+      /// <summary>
+      /// A message describing the error condition for the constraint.
+      /// </summary>
       property Platform::String^ Message;
-      property Platform::String^ ConstraintName;
     };
 
-    public ref class MediaStreamErrorEvent sealed {
-    public:
-      property MediaStreamError ^ Error //it should be readonly    
+    /// <summary>
+    /// This error event fires for each affected track (when multiple tracks
+    /// share the same source) after the User Agent has evaluated the current
+    /// constraints against a given source and is not able to configure the
+    /// source within the limitations established by the intersection of
+    /// imposed constraints.
+    ///
+    /// Due to being over - constrained, the User Agent must mute each
+    /// affected track.
+    ///
+    /// The affected track(s) will remain muted until the application adjusts
+    /// the constraints to accommodate the source's current effective
+    /// capabilities.
+    /// </summary>
+    public ref struct OverconstrainedErrorEvent sealed
+    {
+    private:
+      friend class internal::MediaStreamTrackDelegate;
+
+      OverconstrainedErrorEvent(OverconstrainedError^ error)
       {
-        MediaStreamError ^  get() { return _error; }
-        void  set(MediaStreamError ^ value) { _error = value; }
+        _error = error;
+      }
+
+    public:
+      /// <summary>
+      /// Gets the OverconstrainedError describing the error associated with
+      /// the event (if any).
+      /// </summary>
+      property OverconstrainedError ^ Error
+      {
+        OverconstrainedError^ get() { return _error; }
       }
 
     private:
-      MediaStreamError ^ _error;
+      OverconstrainedError^ _error;
     };
 
     public delegate void MediaStreamTrackMuteDelegate();
     public delegate void MediaStreamTrackUnMuteDelegate();
-    public delegate void MediaStreamTrackEndedDelegate(MediaStreamErrorEvent^ evt);
-    public delegate void MediaStreamTrackOverConstrainedDelegate(MediaStreamErrorEvent^ evt);
+    public delegate void MediaStreamTrackOverConstrainedDelegate(OverconstrainedErrorEvent^ evt);
+    public delegate void MediaStreamTrackEndedDelegate(ErrorEvent^ evt);
 
+    /// <summary>
+    /// A MediaStreamTrack object represents a media source in the User Agent.
+    /// An example source is a device connected to the User Agent. Other
+    /// specifications may define sources for MediaStreamTrack that override
+    //// the behavior specified here. Several MediaStreamTrack objects can
+    //// represent the same media source, e.g., when the user chooses the same
+    //// camera in the UI shown by two consecutive calls to getUserMedia() .
+    /// </summary>
     public ref class MediaStreamTrack sealed
     {
     private:
+      friend class internal::MediaStreamTrackDelegate;
       friend class internal::MediaStreamTrackPromiseObserver;
       friend class WebRtcMediaStream;
       friend ref class RTMediaStreamSource;
@@ -381,84 +432,170 @@ namespace org
       static MediaStreamTrack^ Convert(IMediaStreamTrackPtr track);
       static IMediaStreamTrackPtr Convert(MediaStreamTrack^ track) { if (!track) return nullptr; return track->_nativePointer; }
 
+      void SetupDelegate();
+
       void SetMediaElement(void* element);
 
     public:
+      /// <summary>
+      /// Gets a kind attribute that must return the string "Audio" if this
+      /// object represents an audio track or "Video" if this object
+      /// represents a video track.
+      /// </summary>
       property MediaStreamTrackKind Kind
       {
         MediaStreamTrackKind  get();
       }
 
+      /// <summary>
+      /// Gets a User Agent generated an identifier string.
+      /// </summary>
       property Platform::String^ Id
       {
         Platform::String^  get();
       }
 
+      /// <summary>
+      /// Gets a unique identifier for the represented device.
+      /// </summary>
       property Platform::String^ DeviceId
       {
         Platform::String^  get();
       }
 
+      /// <summary>
+      /// Gets the label of the object's corresponding source, if any. If
+      /// the corresponding source has or had no label, the attribute must
+      /// instead return the empty string..
+      /// User Agents may label audio and video sources (e.g., "Internal
+      /// microphone" or "External USB Webcam").
+      /// </summary>
       property Platform::String^ Label
       {
         Platform::String^  get();
       }
 
+      /// <summary>
+      /// Gets or sets the enabled state for the object. On getting, the
+      /// attribute must return the value to which it was last set. On
+      /// setting, it must be set to the new value.
+      /// </summary>
       property Platform::Boolean Enabled
       {
         Platform::Boolean  get();
         void  set(Platform::Boolean value);
       }
 
+      /// <summary>
+      /// Gets or sets the muted state of the object.
+      /// </summary>
+      /// <returns>true if the track is muted, and false otherwise.</returns>
       property Platform::Boolean Muted
       {
         Platform::Boolean  get();
         void set(Platform::Boolean value);
       }
 
-      property Platform::Boolean ReadOnly
-      {
-        Platform::Boolean  get();
-      }
-
+      /// <summary>
+      /// Gets if the track source origin is local or remote.
+      /// </summary>
+      /// <returns>true if the source origin is remote, otherwise false</returns>
       property Platform::Boolean Remote
       {
         Platform::Boolean  get();
       }
 
+      /// <summary>
+      /// Gets the state of the track.
+      /// </summary>
+      /// <returns>The value as most recently set by the User Agent.</returns>
       property MediaStreamTrackState ReadyState
       {
         MediaStreamTrackState  get();
       }
 
+      /// <summary>
+      /// Clones this MediaStreamTrack.
+      /// </summary>
       MediaStreamTrack^       Clone();
+      /// When a MediaStreamTrack object's stop() method is invoked, the User Agent must run following steps:
+      /// 1. Let track be the current MediaStreamTrack object.
+      /// 2. Notify track's source that track is ended.
+      ///    A source that is notified of a track ending will be stopped,
+      ///    unless other MediaStreamTrack objects depend on it
+      /// 3. Set track's readyState attribute to ended.
       void                    Stop();
+      /// <summary>
+      /// Returns the dictionary of the names of the constrainable propertie
+      /// that the object supports.
+      /// </summary>
       MediaTrackCapabilities^ GetCapabilities();
+      /// <summary>
+      /// Returns the Constraints that were the argument to the most recent
+      /// successful call of ApplyConstraints(), maintaining the order in
+      /// which they were specified. Note that some of the optional
+      /// ConstraintSets returned may not be currently satisfied. To check
+      /// which ConstraintSets are currently in effect, the application should
+      /// use GetSettings.
+      /// </summary>
       MediaTrackConstraints^  GetConstraints();
+      /// <summary>
+      /// Returns the current settings of all the constrainable properties of
+      /// the object, whether they are platform defaults or have been set by
+      /// ApplyConstraints(). Note that the actual setting of a property must
+      /// be a single value.
+      /// </summary>
       MediaTrackSettings^     GetSettings();
 
+      /// <summary>
+      /// Create a IMediaSource capable of being rendered to an output
+      /// window based upon the current track.
+      /// </summary>
       IMediaSource^ CreateMediaSource();
 
+      /// <summary>
+      /// The User Agent may choose new settings for the constrainable
+      /// properties of the object at any time. When it does so it must
+      /// attempt to satisfy the current Constraints
+      /// </summary>
       IAsyncAction^ ApplyConstraints(MediaTrackConstraints^ constraints);
 
-      event MediaStreamTrackMuteDelegate^             OnMediaStreamTrackMuted;
-      event MediaStreamTrackUnMuteDelegate^           OnMediaStreamTrackUnMuted;
-      event MediaStreamTrackEndedDelegate^            OnMediaStreamTrackEnded;
-      event MediaStreamTrackOverConstrainedDelegate^  OnMediaStreamTrackOverConstrained;
-
-    public:
-      [Windows::Foundation::Metadata::DefaultOverloadAttribute]
-      static Platform::String^ ToString();
-      [Windows::Foundation::Metadata::OverloadAttribute("MediaStreamTrackStateToString")]
-      static Platform::String^ ToString(MediaStreamTrackState value);
-      [Windows::Foundation::Metadata::OverloadAttribute("MediaStreamTrackKindToString")]
-      static Platform::String^ ToString(MediaStreamTrackKind value);
-
-      static MediaStreamTrackState ToState(Platform::String^ str);
-      static MediaStreamTrackKind  ToKind(Platform::String^ str);
+      /// <summary>
+      /// The MediaStreamTrack object's source is temporarily unable to
+      /// provide data.
+      /// </summary>
+      event MediaStreamTrackMuteDelegate^             OnMute;
+      /// <summary>
+      /// The MediaStreamTrack object's source is live again after having been
+      /// temporarily unable to provide data.
+      /// </summary>
+      event MediaStreamTrackUnMuteDelegate^           OnUnmuted;
+      /// <summary>
+      /// The MediaStreamTrack object's source will no longer provide any
+      /// data, either because the user revoked the permissions, or because
+      /// the source device has been ejected, or because the remote peer
+      /// permanently stopped sending data.
+      /// </summary>
+      event MediaStreamTrackEndedDelegate^            OnEnded;
+      /// <summary>
+      /// This error event fires for each affected track(when multiple tracks
+      /// share the same source) after the User Agent has evaluated the
+      /// current constraints against a given source and is not able to
+      /// configure the source within the limitations established by the
+      /// intersection of imposed constraints.
+      ///
+      /// Due to being over - constrained, the User Agent must mute each
+      /// affected track.
+      ///
+      /// The affected track(s) will remain muted until the application
+      /// adjusts the constraints to accommodate the source's current
+      /// effective capabilities.
+      /// </summary>
+      event MediaStreamTrackOverConstrainedDelegate^  OnOverConstrained;
 
     private:
       IMediaStreamTrackPtr _nativePointer;
+      internal::MediaStreamTrackDelegatePtr _nativeDelegatePointer;
     };
 
   } // namespace ortc

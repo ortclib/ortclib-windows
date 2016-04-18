@@ -16,6 +16,7 @@
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Capabilities.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Constraints.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Error.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)helpers.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Logger.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MediaSourceHelper.h" />

@@ -136,12 +136,14 @@ namespace org
       public:
         void onMediaDevicesChanged()
         {
+          if (!_mediaDevices) return;
           _mediaDevices->OnDeviceChange();
         }
 
-        MediaDevices^ _mediaDevices;
-
         void SetOwnerObject(MediaDevices^ owner) { _mediaDevices = owner; }
+
+      private:
+        MediaDevices^ _mediaDevices;
       };
 
 #pragma endregion
@@ -218,7 +220,9 @@ namespace org
         {
           for (IMediaDevicesTypes::MediaStreamTrackList::iterator it = mediaStreamTrackListPtr->begin(); it != mediaStreamTrackListPtr->end(); ++it)
           {
-            MediaStreamTrack^ track = MediaStreamTrack::Convert(*it);
+            auto nativeTrack = (*it);
+            MediaStreamTrack^ track = MediaStreamTrack::Convert(nativeTrack);
+            track->SetupDelegate();
             ret->Append(track);
           }
         }
@@ -248,6 +252,20 @@ namespace org
 
 
 #pragma region MediaDevices
+
+    MediaDevices^ MediaDevices::_singleton = nullptr;
+
+    MediaDevices^ MediaDevices::Singleton::get()
+    {
+      if (nullptr != _singleton) return _singleton;
+
+      _singleton = ref new MediaDevices();
+      _singleton->_nativeDelegatePointer = make_shared<internal::MediaDevicesDelegate>();
+      _singleton->_nativeDelegatePointer->SetOwnerObject(_singleton);
+      
+      IMediaDevices::subscribe(_singleton->_nativeDelegatePointer);
+      return _singleton;
+    }
 
     MediaTrackSupportedConstraints^ MediaDevices::GetSupportedConstraints()
     {

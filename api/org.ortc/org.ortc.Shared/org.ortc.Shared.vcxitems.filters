@@ -26,6 +26,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCCertificate.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RtpTypes.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Constraints.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Error.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)pch.cpp">

@@ -1,8 +1,9 @@
 #include "pch.h"
 
+#include "MediaStreamTrack.h"
 #include "Capabilities.h"
 #include "Constraints.h"
-#include "MediaStreamTrack.h"
+#include "Error.h"
 #include "WebRtcMediaSource.h"
 #include "helpers.h"
 
@@ -10,6 +11,8 @@ using Microsoft::WRL::ComPtr;
 using Platform::Collections::Vector;
 
 using namespace ortc;
+
+namespace ortc { ZS_DECLARE_SUBSYSTEM(ortclib) }
 
 namespace org
 {
@@ -156,6 +159,8 @@ namespace org
 
 #pragma endregion
 
+#pragma region Settings
+
       MediaTrackSettings^ ToCx(const IMediaStreamTrackTypes::Settings &input)
       {
         auto result = ref new MediaTrackSettings();
@@ -201,6 +206,68 @@ namespace org
         return result;
       }
 
+#pragma endregion
+
+#pragma region MediaStreamTrack delegates
+
+      class MediaStreamTrackDelegate : public IMediaStreamTrackDelegate
+      {
+      public:
+        virtual void onMediaStreamTrackMute(
+                                            IMediaStreamTrackPtr track,
+                                            bool isMuted
+                                            ) override
+        {
+          if (!_track) return;
+          if (isMuted)
+          {
+            _track->OnMute();
+          }
+          else
+          {
+            _track->OnUnmuted();
+          }
+        }
+
+        virtual void onMediaStreamTrackEnded(IMediaStreamTrackPtr track)
+        {
+          if (!_track) return;
+
+          Error^ error = ref new Error;
+          error->Name = "Ended";
+          ErrorEvent^ evt = ref new ErrorEvent(error);
+          _track->OnEnded(evt);
+        }
+
+        virtual void onMediaStreamTrackOverConstrained(
+                                                       IMediaStreamTrackPtr track,
+                                                       const char *constraint,
+                                                       const char *message
+                                                       ) override
+        {
+          if (!_track) return;
+          // OverconstrainedError
+
+          OverconstrainedError ^error = ref new OverconstrainedError();
+          error->Name = "OverconstrainedError";
+          error->Constraint = UseHelper::ToCx(constraint);
+          error->Message = UseHelper::ToCx(message);
+
+          OverconstrainedErrorEvent ^evt = ref new OverconstrainedErrorEvent(error);
+
+          _track->OnOverConstrained(evt);
+        }
+
+        void SetOwnerObject(MediaStreamTrack^ owner) { _track = owner; }
+
+      private:
+        MediaStreamTrack^ _track;
+      };
+
+#pragma endregion
+
+#pragma region MediaStreamTrack observers
+
       class MediaStreamTrackConstraintsPromiseObserver : public zsLib::IPromiseResolutionDelegate
       {
       public:
@@ -226,6 +293,8 @@ namespace org
       {
       }
 
+#pragma endregion
+
     } // namespace internal
 
     MediaStreamTrack^ MediaStreamTrack::Convert(IMediaStreamTrackPtr track)
@@ -233,6 +302,24 @@ namespace org
       auto result = ref new MediaStreamTrack();
       result->_nativePointer = track;
       return result;
+    }
+
+    void MediaStreamTrack::SetupDelegate()
+    {
+      if (!_nativePointer) return;
+      if (nullptr != _nativeDelegatePointer) return;
+      _nativeDelegatePointer = make_shared<internal::MediaStreamTrackDelegate>();
+
+      _nativeDelegatePointer->SetOwnerObject(this);
+      _nativePointer->subscribe(_nativeDelegatePointer);
+    }
+
+    void MediaStreamTrack::SetMediaElement(void* element)
+    {
+      if (_nativePointer)
+      {
+        _nativePointer->setMediaElement(element);
+      }
     }
 
     MediaStreamTrackKind  MediaStreamTrack::Kind::get()
@@ -273,11 +360,6 @@ namespace org
     void MediaStreamTrack::Muted::set(Platform::Boolean value)
     {
       return _nativePointer->muted(value);
-    }
-
-    Platform::Boolean MediaStreamTrack::ReadOnly::get()
-    {
-      return _nativePointer->readOnly();
     }
 
     Platform::Boolean MediaStreamTrack::Remote::get()
@@ -362,6 +444,9 @@ namespace org
 
     IAsyncAction^ MediaStreamTrack::ApplyConstraints(MediaTrackConstraints^ constraints)
     {
+      ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == constraints)
+      ORTC_THROW_INVALID_STATE_IF(nullptr == _nativePointer)
+
       IAsyncAction^ ret = Concurrency::create_async([this, constraints]()
       {
         Concurrency::task_completion_event<void> tce;
@@ -383,39 +468,6 @@ namespace org
       });
 
       return ret;
-    }
-
-    void MediaStreamTrack::SetMediaElement(void* element)
-    {
-      if (_nativePointer)
-      {
-        _nativePointer->setMediaElement(element);
-      }
-    }
-
-    Platform::String^ MediaStreamTrack::ToString()
-    {
-      throw ref new Platform::NotImplementedException();
-    }
-
-    Platform::String^ MediaStreamTrack::ToString(MediaStreamTrackState value)
-    {
-      return UseHelper::ToCx(IMediaStreamTrack::toString(UseHelper::convert(value)));
-    }
-
-    Platform::String^ MediaStreamTrack::ToString(MediaStreamTrackKind value)
-    {
-      return UseHelper::ToCx(IMediaStreamTrack::toString(UseHelper::convert(value)));
-    }
-
-    MediaStreamTrackState MediaStreamTrack::ToState(Platform::String^ str)
-    {
-      return UseHelper::convert(IMediaStreamTrack::toState(UseHelper::FromCx(str).c_str()));
-    }
-
-    MediaStreamTrackKind MediaStreamTrack::ToKind(Platform::String^ str)
-    {
-      return UseHelper::convert(IMediaStreamTrack::toKind(UseHelper::FromCx(str).c_str()));
     }
 
   } // namespace ortc

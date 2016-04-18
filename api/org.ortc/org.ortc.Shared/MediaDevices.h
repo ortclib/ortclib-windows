@@ -148,6 +148,14 @@ namespace org
       friend class internal::MediaDevicesDelegate;
 
     public:
+      /// <summary>
+      /// Gets a singleton reference to the MediaDevices object.
+      /// </summary>
+      static property MediaDevices^ Singleton
+      {
+        MediaDevices ^get();
+      }
+
       ///<summary>
       /// Returns a dictionary whose members are the constrainable properties
       /// known to the User Agent. A supported constrainable property must be
@@ -192,6 +200,11 @@ namespace org
       /// </summary>
       /// <see cref="EnumerateDevices" />
       event MediaDevicesChangeDelegate^   OnDeviceChange;
+
+    private:
+      static MediaDevices^ _singleton;
+
+      internal::MediaDevicesDelegatePtr _nativeDelegatePointer;
     };
 
   }
