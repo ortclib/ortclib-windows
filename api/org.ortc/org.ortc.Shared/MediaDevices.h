@@ -21,6 +21,8 @@ namespace org
     ref struct MediaTrackSupportedConstraints;
     ref class MediaStreamTrack;
 
+    ZS_DECLARE_TYPEDEF_PTR(::ortc::IMediaDevicesSubscription, IMediaDevicesSubscription)
+
     namespace internal
     {
       ZS_DECLARE_CLASS_PTR(MediaDevicesDelegate)
@@ -205,6 +207,7 @@ namespace org
       static MediaDevices^ _singleton;
 
       internal::MediaDevicesDelegatePtr _nativeDelegatePointer;
+      IMediaDevicesSubscriptionPtr _nativeDelegateSubscription;
     };
 
   }

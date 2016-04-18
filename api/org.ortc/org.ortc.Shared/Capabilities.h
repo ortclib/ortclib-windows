@@ -37,25 +37,55 @@ namespace org
 
     } // namespace internal
 
+    /// <summary>
+    /// The allowed legal boolean values.
+    /// </summary?
     public ref struct CapabilityBoolean sealed
     {
+      /// <summary>
+      /// Gets or sets the allowed boolean values.
+      /// </summary?
       property IVector<Platform::Boolean>^ Values;
     };
 
+    /// <summary>
+    /// The minimum and maximum legal values for an interger value.
+    /// </summary?
     public ref struct CapabilityLong sealed
     {
+      /// <summary>
+      /// Gets or sets the minimum value of this property.
+      /// </summary?
       property int32    Min;
+      /// <summary>
+      /// Gets or sets the maximum legal value of this property.
+      /// </summary?
       property int32    Max;
     };
 
+    /// <summary>
+    /// The minimum and maximum legal values for an real value.
+    /// </summary?
     public ref struct CapabilityDouble sealed
     {
+      /// <summary>
+      /// Gets or sets the minimum value of this property.
+      /// </summary?
       property float64  Min;
+      /// <summary>
+      /// Gets or sets the maximum legal value of this property.
+      /// </summary?
       property float64  Max;
     };
 
+    /// <summary>
+    /// The allowed legal string values.
+    /// </summary?
     public ref struct CapabilityString sealed
     {
+      /// <summary>
+      /// Gets or sets the allowed values.
+      /// </summary?
       property IVector<Platform::String ^>^ Values;
     };
   }

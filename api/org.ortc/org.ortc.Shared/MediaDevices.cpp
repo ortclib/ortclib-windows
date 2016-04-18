@@ -272,9 +272,8 @@ namespace org
 
       _singleton = ref new MediaDevices();
       _singleton->_nativeDelegatePointer = make_shared<internal::MediaDevicesDelegate>();
-      _singleton->_nativeDelegatePointer->SetOwnerObject(_singleton);
-      
-      IMediaDevices::subscribe(_singleton->_nativeDelegatePointer);
+      _singleton->_nativeDelegatePointer->SetOwnerObject(_singleton);      
+      _singleton->_nativeDelegateSubscription = IMediaDevices::subscribe(_singleton->_nativeDelegatePointer);
       return _singleton;
     }
 
