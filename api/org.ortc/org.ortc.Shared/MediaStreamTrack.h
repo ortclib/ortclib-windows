@@ -44,6 +44,8 @@ namespace org
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IMediaStreamTrack, IMediaStreamTrack)
     ZS_DECLARE_TYPEDEF_PTR(zsLib::Any, Any)
 
+    ZS_DECLARE_TYPEDEF_PTR(::ortc::IMediaStreamTrackSubscription, IMediaStreamTrackSubscription)
+
     namespace internal
     {
       ZS_DECLARE_CLASS_PTR(MediaStreamTrackDelegate)
@@ -607,6 +609,7 @@ namespace org
     private:
       IMediaStreamTrackPtr _nativePointer;
       internal::MediaStreamTrackDelegatePtr _nativeDelegatePointer;
+      IMediaStreamTrackSubscriptionPtr _nativeDelegateSubscription;
     };
 
   } // namespace ortc

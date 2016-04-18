@@ -229,7 +229,7 @@ namespace org
           }
         }
 
-        virtual void onMediaStreamTrackEnded(IMediaStreamTrackPtr track)
+        virtual void onMediaStreamTrackEnded(IMediaStreamTrackPtr track) override
         {
           if (!_track) return;
 
@@ -301,6 +301,8 @@ namespace org
 
     } // namespace internal
 
+#pragma region MediaStreamTrack errors
+
     OverconstrainedError^ OverconstrainedError::CreateIfOverconstrainedError(AnyPtr any)
     {
       if (!any) return nullptr;
@@ -315,6 +317,8 @@ namespace org
 
       return error;
     }
+
+#pragma endregion
 
 #pragma region MediaStreamTrack
 
@@ -332,7 +336,7 @@ namespace org
       _nativeDelegatePointer = make_shared<internal::MediaStreamTrackDelegate>();
 
       _nativeDelegatePointer->SetOwnerObject(this);
-      _nativePointer->subscribe(_nativeDelegatePointer);
+      _nativeDelegateSubscription = _nativePointer->subscribe(_nativeDelegatePointer);
     }
 
     void MediaStreamTrack::SetMediaElement(void* element)
@@ -343,51 +347,61 @@ namespace org
 
     MediaStreamTrackKind  MediaStreamTrack::Kind::get()
     {
+      ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
       return UseHelper::convert(_nativePointer->kind());
     }
 
     Platform::String^ MediaStreamTrack::Id::get()
     {
+      ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
       return UseHelper::ToCx(_nativePointer->id());
     }
 
     Platform::String^ MediaStreamTrack::DeviceId::get()
     {
+      ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
       return UseHelper::ToCx(_nativePointer->deviceID());
     }
 
     Platform::String^ MediaStreamTrack::Label::get()
     {
+      ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
       return UseHelper::ToCx(_nativePointer->label());
     }
 
     Platform::Boolean MediaStreamTrack::Enabled::get()
     {
+      if (!_nativePointer) return false;
       return _nativePointer->enabled();
     }
 
     void MediaStreamTrack::Enabled::set(Platform::Boolean value)
     {
+      ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
       _nativePointer->enabled(value);
     }
 
     Platform::Boolean MediaStreamTrack::Muted::get()
     {
+      ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
       return _nativePointer->muted();
     }
 
     void MediaStreamTrack::Muted::set(Platform::Boolean value)
     {
+      ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
       return _nativePointer->muted(value);
     }
 
     Platform::Boolean MediaStreamTrack::Remote::get()
     {
+      ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
       return _nativePointer->remote();
     }
 
     MediaStreamTrackState MediaStreamTrack::ReadyState::get()
     {
+      if (!_nativePointer) return UseHelper::convert(IMediaStreamTrackTypes::State_Ended);
       return UseHelper::convert(_nativePointer->readyState());
     }
 
