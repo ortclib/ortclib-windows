@@ -180,6 +180,7 @@
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <AdditionalDependencies>dxguid.lib;MinCore.lib;WindowsApp.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib;webrtc.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\libs\webrtc\WEBRTC_BUILD\$(Configuration)\$(PlatformTarget)</AdditionalLibraryDirectories>
+      <AdditionalOptions>/IGNORE:4264,4221 %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PreBuildEvent>
       <Command>
@@ -202,6 +203,7 @@
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <AdditionalDependencies>dxguid.lib;MinCore.lib;WindowsApp.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib;webrtc.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\libs\webrtc\WEBRTC_BUILD\$(Configuration)\$(PlatformTarget)</AdditionalLibraryDirectories>
+      <AdditionalOptions>/IGNORE:4264,4221 %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PreBuildEvent>
       <Command>
@@ -224,6 +226,7 @@
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <AdditionalDependencies>dxguid.lib;MinCore.lib;WindowsApp.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib;webrtc.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\libs\webrtc\WEBRTC_BUILD\$(Configuration)\$(PlatformTarget)</AdditionalLibraryDirectories>
+      <AdditionalOptions>/IGNORE:4264,4221 %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PreBuildEvent>
       <Command>
@@ -246,6 +249,7 @@
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <AdditionalDependencies>dxguid.lib;MinCore.lib;WindowsApp.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib;webrtc.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\libs\webrtc\WEBRTC_BUILD\$(Configuration)\$(PlatformTarget)</AdditionalLibraryDirectories>
+      <AdditionalOptions>/IGNORE:4264,4221 %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PreBuildEvent>
       <Command>
@@ -269,6 +273,7 @@
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\libs\webrtc\WEBRTC_BUILD\$(Configuration)\$(PlatformTarget)</AdditionalLibraryDirectories>
       <AdditionalDependencies>dxguid.lib;MinCore.lib;WindowsApp.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib;webrtc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/IGNORE:4264,4221 %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PreBuildEvent>
       <Command>
@@ -291,6 +296,7 @@
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <AdditionalDependencies>dxguid.lib;MinCore.lib;WindowsApp.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib;webrtc.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\libs\webrtc\WEBRTC_BUILD\$(Configuration)\$(PlatformTarget)</AdditionalLibraryDirectories>
+      <AdditionalOptions>/IGNORE:4264,4221 %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PreBuildEvent>
       <Command>
