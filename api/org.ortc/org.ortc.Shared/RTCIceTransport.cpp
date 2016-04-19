@@ -21,6 +21,8 @@ namespace org
 
     namespace internal
     {
+#pragma region RTCIceTransport conversions
+
       RTCIceCandidatePair^ ToCx(const IICETransportTypes::CandidatePair &input)
       {
         auto result = ref new RTCIceCandidatePair();
@@ -66,7 +68,85 @@ namespace org
         result->mRole = Helper::Convert(input->Role);
         return result;
       }
+
+#pragma endregion
+
+#pragma region RTCIceTransport delegates
+
+      class RTCIceTransportDelegate : public IICETransportDelegate
+      {
+      public:
+        virtual void onICETransportStateChange(
+          IICETransportPtr transport,
+          IICETransport::States state
+          );
+
+        virtual void onICETransportCandidatePairAvailable(
+          IICETransportPtr transport,
+          CandidatePairPtr candidatePair
+          );
+
+        virtual void onICETransportCandidatePairGone(
+          IICETransportPtr transport,
+          CandidatePairPtr candidatePair
+          );
+
+        virtual void onICETransportCandidatePairChanged(
+          IICETransportPtr transport,
+          CandidatePairPtr candidatePair
+          );
+
+        void SetOwnerObject(RTCIceTransport^ owner) { _transport = owner; }
+
+      private:
+        RTCIceTransport^ _transport;
+      };
+
+      void RTCIceTransportDelegate::onICETransportStateChange(
+        IICETransportPtr transport,
+        IICETransport::States state
+        )
+      {
+        auto evt = ref new RTCIceTransportStateChangedEvent();
+        evt->_state = UseHelper::Convert(state);
+        _transport->OnStateChange(evt);
+      }
+
+      void RTCIceTransportDelegate::onICETransportCandidatePairAvailable(
+        IICETransportPtr transport,
+        CandidatePairPtr candidatePair
+        )
+      {
+        auto evt = ref new RTCIceCandidatePairChangedEvent();
+        evt->_candidatePair = internal::ToCx(candidatePair);
+        _transport->OnCandidatePairAvailable(evt);
+      }
+
+      void RTCIceTransportDelegate::onICETransportCandidatePairGone(
+        IICETransportPtr transport,
+        CandidatePairPtr candidatePair
+        )
+      {
+        auto evt = ref new RTCIceCandidatePairChangedEvent();
+        evt->_candidatePair = internal::ToCx(candidatePair);
+        _transport->OnCandidatePairGone(evt);
+      }
+
+      void RTCIceTransportDelegate::onICETransportCandidatePairChanged(
+        IICETransportPtr transport,
+        CandidatePairPtr candidatePair
+        )
+      {
+        auto evt = ref new RTCIceCandidatePairChangedEvent();
+        evt->_candidatePair = internal::ToCx(candidatePair);
+        _transport->OnCandidatePairChange(evt);
+      }
+
+#pragma endregion
+
     } // namespace internal
+
+#pragma region RTCIceTransport
 
     RTCIceTransport::RTCIceTransport(const noop &) :
       _nativeDelegatePointer(nullptr),
@@ -82,14 +162,14 @@ namespace org
     }
 
     RTCIceTransport::RTCIceTransport() :
-      _nativeDelegatePointer(new RTCIceTransportDelegate())
+      _nativeDelegatePointer(make_shared<internal::RTCIceTransportDelegate>())
     {
       _nativeDelegatePointer->SetOwnerObject(this);
       _nativePointer = IICETransport::create(_nativeDelegatePointer);
     }
 
     RTCIceTransport::RTCIceTransport(RTCIceGatherer^ gatherer) :
-      _nativeDelegatePointer(new RTCIceTransportDelegate())
+      _nativeDelegatePointer(make_shared<internal::RTCIceTransportDelegate>())
     {
       _nativeDelegatePointer->SetOwnerObject(this);
 
@@ -164,10 +244,12 @@ namespace org
 
       auto ret = ref new RTCIceTransport(noop{});
 
-      ret->_nativeDelegatePointer = make_shared<RTCIceTransportDelegate>(RTCIceTransportDelegate());
-      ret->_nativePointer = _nativePointer->createAssociatedTransport();
+      ret->_nativeDelegatePointer = make_shared<internal::RTCIceTransportDelegate>();
       ret->_nativeDelegatePointer->SetOwnerObject(ret);
-    
+      ret->_nativePointer = _nativePointer->createAssociatedTransport();
+      if (!ret->_nativePointer) return nullptr;
+
+      ret->_nativeDelegateSubscription = ret->_nativePointer->subscribe(ret->_nativeDelegatePointer);
       return ret;
     }
 
@@ -239,50 +321,7 @@ namespace org
       return UseHelper::Convert(_nativePointer->state());
     }
 
-    //-----------------------------------------------------------------
-    #pragma mark RTCIceTransportDelegate
-    //-----------------------------------------------------------------
-
-    // Triggered when media is received on a new stream from remote peer.
-    void RTCIceTransportDelegate::onICETransportStateChange(
-      IICETransportPtr transport,
-      IICETransport::States state
-      )
-    {
-      auto evt = ref new RTCIceTransportStateChangeEvent();
-      evt->State = (RTCIceTransportState)state;
-      _transport->OnICETransportStateChanged(evt);
-    }
-
-    void RTCIceTransportDelegate::onICETransportCandidatePairAvailable(
-      IICETransportPtr transport,
-      CandidatePairPtr candidatePair
-      )
-    {
-      auto evt = ref new RTCIceTransportCandidatePairEvent();
-      evt->CandidatePair = internal::ToCx(candidatePair);
-      _transport->OnICETransportCandidatePairAvailable(evt);
-    }
-
-    void RTCIceTransportDelegate::onICETransportCandidatePairGone(
-      IICETransportPtr transport,
-      CandidatePairPtr candidatePair
-      )
-    {
-      auto evt = ref new RTCIceTransportCandidatePairEvent();
-      evt->CandidatePair = internal::ToCx(candidatePair);
-      _transport->OnICETransportCandidatePairGone(evt);
-    }
-
-    void RTCIceTransportDelegate::onICETransportCandidatePairChanged(
-      IICETransportPtr transport,
-      CandidatePairPtr candidatePair
-      )
-    {
-      auto evt = ref new RTCIceTransportCandidatePairEvent();
-      evt->CandidatePair = internal::ToCx(candidatePair);
-      _transport->OnICETransportCandidatePairChanged(evt);
-    }
+#pragma endregion
 
   } // namespace ortc
 } // namespace org

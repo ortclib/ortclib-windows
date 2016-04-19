@@ -227,8 +227,8 @@ namespace org
     public ref struct RTCIceServer sealed
     {
       /// <summary>
-      /// STUN or TURN URI(s) as defined in RFC7064 and RFC7065 or other URI
-      /// types.
+      /// STUN or TURN URI(s) as defined in [RFC7064] and [RFC7065] or other
+      /// URI types.
       /// </summary>
       property IVector<Platform::String^>^      Urls;
       /// <summary>
