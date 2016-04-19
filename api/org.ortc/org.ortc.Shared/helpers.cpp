@@ -205,22 +205,16 @@ namespace org
         throw ref new Platform::NotImplementedException();
       }
 
-      //---------------------------------------------------------------------------
-      // RTCIceGatherPolicy convert methods
-      //---------------------------------------------------------------------------
-      IICEGathererTypes::FilterPolicies Helper::Convert(RTCIceGatherPolicy policy)
+      IICEGathererTypes::FilterPolicies Helper::Convert(RTCIceGatherFilterPolicy policy)
       {
         return static_cast<IICEGathererTypes::FilterPolicies>(zsLib::to_underlying(policy));
       }
 
-      RTCIceGatherPolicy Helper::Convert(IICEGathererTypes::FilterPolicies policy)
+      RTCIceGatherFilterPolicy Helper::Convert(IICEGathererTypes::FilterPolicies policy)
       {
-        return static_cast<RTCIceGatherPolicy>(zsLib::to_underlying(policy));
+        return static_cast<RTCIceGatherFilterPolicy>(zsLib::to_underlying(policy));
       }
 
-      //---------------------------------------------------------------------------
-      // RTCIceGathererCredentialType convert methods
-      //---------------------------------------------------------------------------
       IICEGathererTypes::CredentialTypes Helper::Convert(RTCIceGathererCredentialType credentialType)
       {
         switch (credentialType) {

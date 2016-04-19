@@ -325,12 +325,12 @@ namespace org
     }
 
 
-    Platform::String^ RTCIceGatherer::IceGatherPolicyToString(RTCIceGatherPolicy value)
+    Platform::String^ RTCIceGatherer::IceGatherPolicyToString(RTCIceGatherFilterPolicy value)
     {
       return UseHelper::ToCx(IICEGatherer::toString(UseHelper::Convert(value)));
     }
 
-    RTCIceGatherPolicy RTCIceGatherer::ToIceGatherPolicy(Platform::String^ str)
+    RTCIceGatherFilterPolicy RTCIceGatherer::ToIceGatherPolicy(Platform::String^ str)
     {
       return UseHelper::Convert(IICEGatherer::toPolicy(UseHelper::FromCx(str).c_str()));
     }

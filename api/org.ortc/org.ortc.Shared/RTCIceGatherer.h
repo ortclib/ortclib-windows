@@ -41,64 +41,262 @@ namespace org
       IICEGathererTypes::ServerPtr FromCx(RTCIceServer^ input);
     }
 
-    public enum class RTCIceGatherPolicy
+    /// <summary>
+    /// RTCIceGatherFilterPolicy represents the detailed gatherer filter
+    /// options to restrict ICE candidate discovery.
+    /// </summary>
+    public enum class RTCIceGatherFilterPolicy
     {
+      /// <summary>
+      /// No gatherer filtering is required.
+      /// </summary>
       None = 0,
+      /// <summary>
+      /// Filter all IPv4 host candidates.
+      /// </summary>
       NoIPv4Host = 0x00000001,
+      /// <summary>
+      /// Filter all IPv4 server reflexive candidates.
+      /// </summary>
       NoIPv4Srflx = 0x00000002,
+      /// <summary>
+      /// Filter all IPv4 peer reflexive candidates.
+      /// </summary>
       NoIPv4Prflx = 0x00000004,
+      /// <summary>
+      /// Filter all IPv4 relay candidates.
+      /// </summary>
       NoIPv4Relay = 0x00000008,
+      /// <summary>
+      /// Filter all IPv4 private candidates.
+      /// See: https://en.wikipedia.org/wiki/Private_network
+      /// </summary>
       NoIPv4Private = 0x00000010,
+      /// <summary>
+      /// Filter all IPv4 candidates.
+      /// </summary>
       NoIPv4 = 0x000000FF,
+      /// <summary>
+      /// Filter all IPv6 host candidates.
+      /// </summary>
       NoIPv6Host = 0x00000100,
+      /// <summary>
+      /// Filter all IPv6 server reflexive candidates.
+      /// </summary>
       NoIPv6Srflx = 0x00000200,
+      /// <summary>
+      /// Filter all IPv6 peer reflexive candidates.
+      /// </summary>
       NoIPv6Prflx = 0x00000400,
+      /// <summary>
+      /// Filter all IPv6 relay candidates.
+      /// </summary>
       NoIPv6Relay = 0x00000800,
+      /// <summary>
+      /// Filter all IPv6 private candidates.
+      /// See: https://en.wikipedia.org/wiki/Private_network
+      /// </summary>
       NoIPv6Private = 0x00001000,
+      /// <summary>
+      /// Filter all IPv6 Teredo tunnel or other tunneled candidates.
+      /// </summary>
       NoIPv6Tunnel = 0x00002000,
+      /// <summary>
+      /// Filter all IPv6 permanent candidates.
+      /// </summary>
       NoIPv6Permanent = 0x00004000,
+      /// <summary>
+      /// Filter all IPv6 candidates.
+      /// </summary>
       NoIPv6 = 0x0000FF00,
+      /// <summary>
+      /// Filter all host candidates.
+      /// </summary>
       NoHost = (NoIPv4Host | NoIPv6Host),
+      /// <summary>
+      /// Filter all server reflexive candidates.
+      /// </summary>
       NoSrflx = (NoIPv4Srflx | NoIPv6Srflx),
+      /// <summary>
+      /// Filter all server peer reflexive candidates.
+      /// </summary>
       NoPrflx = (NoIPv4Prflx | NoIPv6Prflx),
+      /// <summary>
+      /// Filter all relay candidates.
+      /// </summary>
       NoRelay = (NoIPv4Relay | NoIPv6Relay),
+      /// <summary>
+      /// Filter all private candidates.
+      /// See: https://en.wikipedia.org/wiki/Private_network
+      /// </summary>
       NoPrivate = (NoIPv4Private | NoIPv6Private),
+      /// <summary>
+      /// Filter all but relay candidates.
+      /// </summary>
       RelayOnly = (NoIPv4Host | NoSrflx | NoPrflx),
+      /// <summary>
+      /// Filter all candidates.
+      /// </summary>
       NoCandidates = (0x7FFFFFFF)
     };
 
+    /// <summary>
+    /// Use the string form of these enums with the RTCIceInterfacePolicy
+    /// Interface type variable to specify per interface type policies.
+    /// </summary>
+    public enum class RTCIceGatherInterfaceType
+    {
+      /// <summary>
+      /// Applies to all unknown interface types.
+      /// </summary>
+      Unknown,
+      /// <summary>
+      /// Applies to all interface types where there is no specific interface
+      /// type policy was specified.
+      /// </summary>
+      Default,
+      /// <summary>
+      /// Applies to all Local Area Network interface types.
+      /// </summary>
+      Lan,
+      /// <summary>
+      /// Applies to all Tunnel interface types.
+      /// </summary>
+      Tunnel,
+      /// <summary>
+      /// Applies to all Wireless Local Area Network interface types.
+      /// </summary>
+      Wlan,
+      /// <summary>
+      /// Applies to all Wireless Wide Area Network interface types.
+      /// </summary>
+      Wwan,
+      /// <summary>
+      /// Applies to all Virtual Private Network interface types.
+      /// </summary>
+      Vpn
+    };
+
+    /// <summary>
+    /// RTCIceCredentialType represents the type of credential used by a TURN
+    /// server.
+    /// </summary>
     public enum class RTCIceGathererCredentialType
     {
+      /// <summary>
+      /// The credential is a long-term authentication password.
+      /// </summary>
       Password,
+      /// <summary>
+      /// The credential is an access token.
+      /// </summary>
       Token,
     };
 
+    /// <summary>
+    /// RTCIceGathererState represents the current state of the ICE gatherer.
+    /// </summary>
     public enum class RTCIceGathererState
     {
+      /// <summary>
+      /// The object has been created but Gather() has not been called.
+      /// </summary>
       New,
+      /// <summary>
+      /// Gather() has been called, and the RTCIceGatherer is in the process
+      /// of gathering candidates (which includes adding new candidates and
+      /// removing invalidated candidates).
+      /// </summary>
       Gathering,
+      /// <summary>
+      /// The RTCIceGatherer has completed gathering. Events such as adding,
+      /// updating or removing an interface, or adding, changing or removing a
+      /// TURN server will cause the state to go back to gathering before
+      /// re-entering "complete" once all candidate changes are finalized.
+      /// </summary>
       Complete,
+      /// <summary>
+      /// The RTCIceGatherer has been closed intentionally (by calling
+      /// Close()) or as the result of an error.
+      /// </summary>
       Closed,
     };
 
+    /// <summary>
+    /// </summary>
     public ref struct RTCIceServer sealed
     {
+      /// <summary>
+      /// STUN or TURN URI(s) as defined in RFC7064 and RFC7065 or other URI
+      /// types.
+      /// </summary>
       property IVector<Platform::String^>^      Urls;
+      /// <summary>
+      /// Gets or sets the username to use with that TURN server, if this
+      /// RTCIceServer object represents a TURN Server.
+      /// </summary>
       property Platform::String^                UserName;
+      /// <summary>
+      /// Gets or sets the TURN server credential, if this RTCIceServer object
+      /// represents a TURN Server.
+      /// </summary>
       property Platform::String^                Credential;
+      /// <summary>
+      /// Gets or sets how credential should be used when that TURN server
+      /// requests authorization, if this RTCIceServer object represents a
+      /// TURN Server.
+      /// </summary>
       property RTCIceGathererCredentialType     CredentialType;
     };
 
+    /// <summary>
+    /// </summary>
     public ref struct RTCIceInterfacePolicy sealed
     {
+      /// <summary>
+      /// Gets or sets the string form of the RTCIceGatherInterfaceType enums
+      /// to specify which interface types this policy object applies.
+      /// </summary>
       property Platform::String^                InterfaceType;
-      property RTCIceGatherPolicy               GatherPolicy;
+      /// <summary>
+      /// Gets or sets the candidate filter policy to apply to the specified
+      /// interface types.
+      /// </summary>
+      property RTCIceGatherFilterPolicy         GatherPolicy;
     };
 
+    /// <summary>
+    /// RTCIceGatherOptions provides options relating to the gathering of ICE
+    /// candidates.
+    /// </summary>
     public ref struct RTCIceGatherOptions sealed
     {
+      /// <summary>
+      /// Gets or sets the option to specify continous gathering mode.
+      ///
+      /// If true, then the RTCIceGatherer will gather all candidates
+      /// available "for now" and fire a RTCIceGathererCandidateCompleteEvent.
+      /// However, should more candidates be discovered or Gather() get called
+      /// again after the the RTCIceGathererCandidateCompleteEvent then the
+      /// RTCIceGatherer is allowed to go back into the Gatherering state and
+      /// fire newly discovered candidates until another fired
+      /// RTCIceGathererCandidateCompleteEvent occurs.
+      ///
+      /// If false, then the RTCIceGatherer will not be able to discover any
+      /// new candidates after going into the Complete state, or go back
+      /// into the Gatherering state.
+      /// </summary>
       property Platform::Boolean                ContinuousGathering;
+      /// <summary>
+      /// Gets or sets the ICE gather policy per interface type.
+      /// </summary>
       property IVector<RTCIceInterfacePolicy^>^ InterfacePolicies;
+      /// <summary>
+      /// Gets or sets additional ICE servers to be configured. Since
+      /// implementations may provide default ICE servers, and applications
+      /// can desire to restrict communications to the local LAN, iceServers
+      /// need not be set.
+      /// </summary>
       property IVector<RTCIceServer^>^          IceServers;
 
       RTCIceGatherOptions() { ContinuousGathering = true; }
@@ -337,14 +535,14 @@ namespace org
 
     public:
       /// <summary>
-      /// Convert from an RTCIceGatherPolicy to a string.
+      /// Convert from an RTCIceGatherFilterPolicy to a string.
       /// </summary>
-      static Platform::String^ IceGatherPolicyToString(RTCIceGatherPolicy value);
+      static Platform::String^ IceGatherPolicyToString(RTCIceGatherFilterPolicy value);
 
       /// <summary>
-      /// Convert from a string to a RTCIceGatherPolicy.
+      /// Convert from a string to a RTCIceGatherFilterPolicy.
       /// </summary>
-      static RTCIceGatherPolicy ToIceGatherPolicy(Platform::String^ str);
+      static RTCIceGatherFilterPolicy ToIceGatherPolicy(Platform::String^ str);
 
     private:
       zsLib::RecursiveLock _lock;

@@ -26,7 +26,7 @@ namespace org
     enum class RTCDtlsRole;
     enum class RTCIceCandidateType;
     enum class RTCIceComponent;
-    enum class RTCIceGatherPolicy;
+    enum class RTCIceGatherFilterPolicy;
     enum class RTCIceGathererCredentialType;
     enum class RTCIceGathererState;
     enum class RTCIceProtocol;
@@ -90,8 +90,8 @@ namespace org
         static Optional<zsLib::String> FromCxToOptional(Platform::String^ input);
 
         // RTCIceGatherer convertors
-        static IICEGathererTypes::FilterPolicies Convert(RTCIceGatherPolicy policy);
-        static RTCIceGatherPolicy Convert(IICEGathererTypes::FilterPolicies policy);
+        static IICEGathererTypes::FilterPolicies Convert(RTCIceGatherFilterPolicy policy);
+        static RTCIceGatherFilterPolicy Convert(IICEGathererTypes::FilterPolicies policy);
 
         static IICEGathererTypes::CredentialTypes Convert(RTCIceGathererCredentialType credentialType);
         static RTCIceGathererCredentialType Convert(IICEGathererTypes::CredentialTypes credentialType);
