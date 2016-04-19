@@ -185,7 +185,7 @@ namespace org
       //---------------------------------------------------------------------------
       // MediaDeviceKind convert methods
       //---------------------------------------------------------------------------
-      IMediaDevicesTypes::DeviceKinds Helper::convert(MediaDeviceKind kind)
+      IMediaDevicesTypes::DeviceKinds Helper::Convert(MediaDeviceKind kind)
       {
         switch (kind) {
         case MediaDeviceKind::AudioInput:   return IMediaDevicesTypes::DeviceKinds::DeviceKind_AudioInput;
@@ -195,7 +195,7 @@ namespace org
         throw ref new Platform::NotImplementedException();
       }
 
-      MediaDeviceKind Helper::convert(IMediaDevicesTypes::DeviceKinds kind)
+      MediaDeviceKind Helper::Convert(IMediaDevicesTypes::DeviceKinds kind)
       {
         switch (kind) {
         case IMediaDevicesTypes::DeviceKinds::DeviceKind_AudioInput:   return MediaDeviceKind::AudioInput;
@@ -208,12 +208,12 @@ namespace org
       //---------------------------------------------------------------------------
       // RTCIceGatherPolicy convert methods
       //---------------------------------------------------------------------------
-      IICEGathererTypes::FilterPolicies Helper::convert(RTCIceGatherPolicy policy)
+      IICEGathererTypes::FilterPolicies Helper::Convert(RTCIceGatherPolicy policy)
       {
         return static_cast<IICEGathererTypes::FilterPolicies>(zsLib::to_underlying(policy));
       }
 
-      RTCIceGatherPolicy Helper::convert(IICEGathererTypes::FilterPolicies policy)
+      RTCIceGatherPolicy Helper::Convert(IICEGathererTypes::FilterPolicies policy)
       {
         return static_cast<RTCIceGatherPolicy>(zsLib::to_underlying(policy));
       }
@@ -221,7 +221,7 @@ namespace org
       //---------------------------------------------------------------------------
       // RTCIceGathererCredentialType convert methods
       //---------------------------------------------------------------------------
-      IICEGathererTypes::CredentialTypes Helper::convert(RTCIceGathererCredentialType credentialType)
+      IICEGathererTypes::CredentialTypes Helper::Convert(RTCIceGathererCredentialType credentialType)
       {
         switch (credentialType) {
         case RTCIceGathererCredentialType::Password:    return IICEGathererTypes::CredentialTypes::CredentialType_Password;
@@ -230,7 +230,7 @@ namespace org
         throw ref new Platform::NotImplementedException();
       }
 
-      RTCIceGathererCredentialType Helper::convert(IICEGathererTypes::CredentialTypes credentialType)
+      RTCIceGathererCredentialType Helper::Convert(IICEGathererTypes::CredentialTypes credentialType)
       {
         switch (credentialType) {
         case IICEGathererTypes::CredentialTypes::CredentialType_Password:    return RTCIceGathererCredentialType::Password;
@@ -242,7 +242,7 @@ namespace org
       //---------------------------------------------------------------------------
       // RTCIceGathererState convert methods
       //---------------------------------------------------------------------------
-      IICEGathererTypes::States Helper::convert(RTCIceGathererState state)
+      IICEGathererTypes::States Helper::Convert(RTCIceGathererState state)
       {
         switch (state) {
         case RTCIceGathererState::New:          return IICEGathererTypes::States::State_New;
@@ -253,7 +253,7 @@ namespace org
         throw ref new Platform::NotImplementedException();
       }
 
-      RTCIceGathererState Helper::convert(IICEGathererTypes::States state)
+      RTCIceGathererState Helper::Convert(IICEGathererTypes::States state)
       {
         switch (state) {
         case IICEGathererTypes::States::State_New:          return RTCIceGathererState::New;
@@ -267,7 +267,7 @@ namespace org
       //---------------------------------------------------------------------------
       // RTCDataChannelState convert methods
       //---------------------------------------------------------------------------
-      IDataChannel::States Helper::convert(RTCDataChannelState state)
+      IDataChannel::States Helper::Convert(RTCDataChannelState state)
       {
         switch (state) {
         case RTCDataChannelState::Connecting:   return IDataChannel::States::State_Connecting;
@@ -278,7 +278,7 @@ namespace org
         throw ref new Platform::NotImplementedException();
       }
 
-      RTCDataChannelState Helper::convert(IDataChannel::States state)
+      RTCDataChannelState Helper::Convert(IDataChannel::States state)
       {
         switch (state) {
         case IDataChannel::States::State_Connecting:   return RTCDataChannelState::Connecting;
@@ -292,7 +292,7 @@ namespace org
       //---------------------------------------------------------------------------
       // Logger convert methods
       //---------------------------------------------------------------------------
-      zsLib::Log::Level Helper::convert(Log::Level level)
+      zsLib::Log::Level Helper::Convert(Log::Level level)
       {
         switch (level) {
         case Log::Level::Basic:   return zsLib::Log::Basic;
@@ -304,7 +304,7 @@ namespace org
         throw ref new Platform::NotImplementedException();
       }
 
-      const char * Helper::toComponent(Log::Component  component)
+      const char *Helper::ToComponent(Log::Component  component)
       {
         switch (component) {
         case Log::Component::ZsLib:         return "zsLib";
@@ -320,7 +320,7 @@ namespace org
       //---------------------------------------------------------------------------
       // RTCDtlsTransportState convert methods
       //---------------------------------------------------------------------------
-      IDTLSTransport::States Helper::convert(RTCDtlsTransportState state)
+      IDTLSTransport::States Helper::Convert(RTCDtlsTransportState state)
       {
         switch (state) {
         case RTCDtlsTransportState::New:            return IDTLSTransport::States::State_New;
@@ -332,7 +332,7 @@ namespace org
         throw ref new Platform::NotImplementedException();
       }
 
-      RTCDtlsTransportState Helper::convert(IDTLSTransport::States state)
+      RTCDtlsTransportState Helper::Convert(IDTLSTransport::States state)
       {
         switch (state) {
         case IDTLSTransport::States::State_New:           return RTCDtlsTransportState::New;
@@ -347,7 +347,7 @@ namespace org
       //---------------------------------------------------------------------------
       // RTCDtlsRole convert methods
       //---------------------------------------------------------------------------
-      IDTLSTransport::Roles Helper::convert(RTCDtlsRole role)
+      IDTLSTransport::Roles Helper::Convert(RTCDtlsRole role)
       {
         switch (role) {
         case RTCDtlsRole::Auto:       return IDTLSTransport::Roles::Role_Auto;
@@ -357,7 +357,7 @@ namespace org
         throw ref new Platform::NotImplementedException();
       }
 
-      RTCDtlsRole Helper::convert(IDTLSTransport::Roles role)
+      RTCDtlsRole Helper::Convert(IDTLSTransport::Roles role)
       {
         switch (role) {
         case IDTLSTransport::Roles::Role_Auto:      return RTCDtlsRole::Auto;
@@ -370,7 +370,7 @@ namespace org
       //---------------------------------------------------------------------------
       // RTCIceRole convert methods
       //---------------------------------------------------------------------------
-      IICETypes::Roles Helper::convert(RTCIceRole role)
+      IICETypes::Roles Helper::Convert(RTCIceRole role)
       {
         switch (role) {
         case RTCIceRole::Controlling:   return IICETypes::Roles::Role_Controlling;
@@ -379,7 +379,7 @@ namespace org
         throw ref new Platform::NotImplementedException();
       }
 
-      RTCIceRole Helper::convert(IICETypes::Roles role)
+      RTCIceRole Helper::Convert(IICETypes::Roles role)
       {
         switch (role) {
         case IICETypes::Roles::Role_Controlling:   return RTCIceRole::Controlling;
@@ -391,7 +391,7 @@ namespace org
       //---------------------------------------------------------------------------
       // RTCIceComponent convert methods
       //---------------------------------------------------------------------------
-      IICETypes::Components Helper::convert(RTCIceComponent component)
+      IICETypes::Components Helper::Convert(RTCIceComponent component)
       {
         switch (component) {
         case RTCIceComponent::Rtp:   return IICETypes::Components::Component_RTP;
@@ -400,7 +400,7 @@ namespace org
         throw ref new Platform::NotImplementedException();
       }
 
-      RTCIceComponent Helper::convert(IICETypes::Components component)
+      RTCIceComponent Helper::Convert(IICETypes::Components component)
       {
         switch (component) {
         case IICETypes::Components::Component_RTP:   return RTCIceComponent::Rtp;
@@ -412,7 +412,7 @@ namespace org
       //---------------------------------------------------------------------------
       // RTCIceProtocol convert methods
       //---------------------------------------------------------------------------
-      IICETypes::Protocols Helper::convert(RTCIceProtocol protocol)
+      IICETypes::Protocols Helper::Convert(RTCIceProtocol protocol)
       {
         switch (protocol) {
         case RTCIceProtocol::Udp:   return IICETypes::Protocols::Protocol_UDP;
@@ -421,7 +421,7 @@ namespace org
         throw ref new Platform::NotImplementedException();
       }
 
-      RTCIceProtocol Helper::convert(IICETypes::Protocols protocol)
+      RTCIceProtocol Helper::Convert(IICETypes::Protocols protocol)
       {
         switch (protocol) {
         case IICETypes::Protocols::Protocol_UDP:   return RTCIceProtocol::Udp;
@@ -433,7 +433,7 @@ namespace org
       //---------------------------------------------------------------------------
       // RTCIceCandidateType convert methods
       //---------------------------------------------------------------------------
-      IICETypes::CandidateTypes Helper::convert(RTCIceCandidateType candidateType)
+      IICETypes::CandidateTypes Helper::Convert(RTCIceCandidateType candidateType)
       {
         switch (candidateType) {
         case RTCIceCandidateType::Host:   return IICETypes::CandidateTypes::CandidateType_Host;
@@ -444,7 +444,7 @@ namespace org
         throw ref new Platform::NotImplementedException();
       }
 
-      RTCIceCandidateType Helper::convert(IICETypes::CandidateTypes candidateType)
+      RTCIceCandidateType Helper::Convert(IICETypes::CandidateTypes candidateType)
       {
         switch (candidateType) {
         case IICETypes::CandidateTypes::CandidateType_Host:    return RTCIceCandidateType::Host;
@@ -455,7 +455,7 @@ namespace org
         throw ref new Platform::NotImplementedException();
       }
 
-      IICETransportTypes::States Helper::convert(RTCIceTransportState state)
+      IICETransportTypes::States Helper::Convert(RTCIceTransportState state)
       {
         switch (state) {
         case RTCIceTransportState::New:           return IICETransportTypes::State_New;
@@ -468,7 +468,7 @@ namespace org
         throw ref new Platform::NotImplementedException();
       }
 
-      RTCIceTransportState Helper::convert(IICETransportTypes::States state)
+      RTCIceTransportState Helper::Convert(IICETransportTypes::States state)
       {
         switch (state) {
         case IICETransportTypes::State_New:           return RTCIceTransportState::New;
@@ -484,7 +484,7 @@ namespace org
       //---------------------------------------------------------------------------
       // RTCIceTcpCandidateType convert methods
       //---------------------------------------------------------------------------
-      IICETypes::TCPCandidateTypes Helper::convert(RTCIceTcpCandidateType candidateType)
+      IICETypes::TCPCandidateTypes Helper::Convert(RTCIceTcpCandidateType candidateType)
       {
         switch (candidateType) {
         case RTCIceTcpCandidateType::Active:   return IICETypes::TCPCandidateTypes::TCPCandidateType_Active;
@@ -494,7 +494,7 @@ namespace org
         throw ref new Platform::NotImplementedException();
       }
 
-      RTCIceTcpCandidateType Helper::convert(IICETypes::TCPCandidateTypes candidateType)
+      RTCIceTcpCandidateType Helper::Convert(IICETypes::TCPCandidateTypes candidateType)
       {
         switch (candidateType) {
         case IICETypes::TCPCandidateTypes::TCPCandidateType_Active:    return RTCIceTcpCandidateType::Active;
@@ -507,7 +507,7 @@ namespace org
       //---------------------------------------------------------------------------
       // MediaStreamTrackState convert methods
       //---------------------------------------------------------------------------
-      IMediaStreamTrack::States Helper::convert(MediaStreamTrackState state)
+      IMediaStreamTrack::States Helper::Convert(MediaStreamTrackState state)
       {
         switch (state) {
         case MediaStreamTrackState::Live:   return IMediaStreamTrack::States::State_Live;
@@ -516,7 +516,7 @@ namespace org
         throw ref new Platform::NotImplementedException();
       }
 
-      MediaStreamTrackState Helper::convert(IMediaStreamTrack::States state)
+      MediaStreamTrackState Helper::Convert(IMediaStreamTrack::States state)
       {
         switch (state) {
         case IMediaStreamTrack::States::State_Live:   return MediaStreamTrackState::Live;
@@ -528,7 +528,7 @@ namespace org
       //---------------------------------------------------------------------------
       // MediaStreamTrackKind convert methods
       //---------------------------------------------------------------------------
-      IMediaStreamTrack::Kinds Helper::convert(MediaStreamTrackKind kind)
+      IMediaStreamTrack::Kinds Helper::Convert(MediaStreamTrackKind kind)
       {
         switch (kind) {
         case MediaStreamTrackKind::Audio:   return IMediaStreamTrack::Kinds::Kind_Audio;
@@ -537,7 +537,7 @@ namespace org
         throw ref new Platform::NotImplementedException();
       }
 
-      MediaStreamTrackKind Helper::convert(IMediaStreamTrack::Kinds kind)
+      MediaStreamTrackKind Helper::Convert(IMediaStreamTrack::Kinds kind)
       {
         switch (kind) {
         case IMediaStreamTrack::Kinds::Kind_Audio:   return MediaStreamTrackKind::Audio;
@@ -549,7 +549,7 @@ namespace org
       //---------------------------------------------------------------------------
       // RtpTypes convert methods
       //---------------------------------------------------------------------------
-      IRTPTypes::PriorityTypes Helper::convert(RTCPriorityType priority)
+      IRTPTypes::PriorityTypes Helper::Convert(RTCPriorityType priority)
       {
         switch (priority) {
         case RTCPriorityType::Unknown:    return IRTPTypes::PriorityTypes::PriorityType_Unknown;
@@ -561,7 +561,7 @@ namespace org
         throw ref new Platform::NotImplementedException();
       }
 
-      RTCPriorityType Helper::convert(IRTPTypes::PriorityTypes priority)
+      RTCPriorityType Helper::Convert(IRTPTypes::PriorityTypes priority)
       {
         switch (priority) {
         case IRTPTypes::PriorityTypes::PriorityType_Unknown:  return RTCPriorityType::Unknown;
@@ -573,7 +573,7 @@ namespace org
         throw ref new Platform::NotImplementedException();
       }
 
-      IRTPTypes::DegradationPreferences Helper::convert(RTCDegradationPreference preference)
+      IRTPTypes::DegradationPreferences Helper::Convert(RTCDegradationPreference preference)
       {
         switch (preference) {
         case RTCDegradationPreference::MaintainFramerate:    return IRTPTypes::DegradationPreferences::DegradationPreference_MaintainFramerate;
@@ -583,7 +583,7 @@ namespace org
         throw ref new Platform::NotImplementedException();
       }
 
-      RTCDegradationPreference Helper::convert(IRTPTypes::DegradationPreferences preference)
+      RTCDegradationPreference Helper::Convert(IRTPTypes::DegradationPreferences preference)
       {
         switch (preference) {
         case IRTPTypes::DegradationPreferences::DegradationPreference_MaintainFramerate:  return RTCDegradationPreference::MaintainFramerate;

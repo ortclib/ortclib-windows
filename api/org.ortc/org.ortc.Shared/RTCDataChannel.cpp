@@ -134,7 +134,7 @@ namespace org
     RTCDataChannelState RTCDataChannel::State::get()
     {
       if (!_nativePointer) return RTCDataChannelState::Closed;
-      return UseHelper::convert(_nativePointer->readyState());
+      return UseHelper::Convert(_nativePointer->readyState());
     }
 
     uint64 RTCDataChannel::BufferedAmount::get()
@@ -172,7 +172,7 @@ namespace org
       )
     {
       auto evt = ref new RTCDataChannelStateChangeEvent();
-      evt->State = UseHelper::convert(state);
+      evt->State = UseHelper::Convert(state);
       _channel->OnDataChannelStateChanged(evt);
     }
 

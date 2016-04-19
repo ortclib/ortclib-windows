@@ -18,6 +18,9 @@ namespace org
       ZS_DECLARE_CLASS_PTR(RTCSenderSetTrackPromiseObserver)
     } // namespace internal
 
+    /// <summary>
+    /// This object represents generic error information.
+    /// </summary>
     public ref struct Error sealed
     {
     private:
@@ -30,11 +33,14 @@ namespace org
 
     public:
       /// <summary>
-      /// Gets a string representing one of the error type names.
+      /// Gets or sets a string representing one of the error typename.
       /// </summary>
       property Platform::String^ Name;
     };
 
+    /// <summary>
+    /// This object represents the error event for event delegates.
+    /// </summary>
     public ref struct ErrorEvent sealed
     {
     private:
@@ -46,6 +52,9 @@ namespace org
       }
 
     public:
+      /// <summary>
+      /// Gets the error information associated with this event (if any).
+      /// </summary>
       property Error^ Error
       {
         ref struct Error^ get() { return _error; }

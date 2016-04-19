@@ -28,7 +28,7 @@ namespace org
     {
       _nativeDelegatePointer->SetOwnerObject(this);
       auto nativeTransport = RTCDtlsTransport::Convert(transport);
-      _nativePointer = IRTPReceiver::create(_nativeDelegatePointer, UseHelper::convert(kind), nativeTransport);
+      _nativePointer = IRTPReceiver::create(_nativeDelegatePointer, UseHelper::Convert(kind), nativeTransport);
     }
 
     RTCRtpReceiver::RTCRtpReceiver(MediaStreamTrackKind kind, RTCDtlsTransport ^ transport, RTCDtlsTransport^ rtcpTransport)
@@ -36,7 +36,7 @@ namespace org
       _nativeDelegatePointer->SetOwnerObject(this);
       auto nativeTransport = RTCDtlsTransport::Convert(transport);
       auto nativeRtcpTransport = RTCDtlsTransport::Convert(rtcpTransport);
-      _nativePointer = IRTPReceiver::create(_nativeDelegatePointer, UseHelper::convert(kind), nativeTransport, nativeRtcpTransport);
+      _nativePointer = IRTPReceiver::create(_nativeDelegatePointer, UseHelper::Convert(kind), nativeTransport, nativeRtcpTransport);
     }
 
     void RTCRtpReceiver::SetTransport(RTCDtlsTransport ^ transport)

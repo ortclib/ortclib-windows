@@ -3,9 +3,13 @@
 #include "RTCIceGatherer.h"
 #include "helpers.h"
 
+#include <zsLib/SafeInt.h>
+
 using namespace ortc;
 
 using Platform::Collections::Vector;
+
+namespace ortc { ZS_DECLARE_SUBSYSTEM(ortclib) }
 
 namespace org
 {
@@ -15,11 +19,14 @@ namespace org
 
     namespace internal
     {
+
+#pragma region RTCIceGatherer conversions
+
       RTCIceInterfacePolicy^ ToCx(const IICEGathererTypes::InterfacePolicy &input)
       {
         auto result = ref new RTCIceInterfacePolicy();
         result->InterfaceType = Helper::ToCx(input.mInterfaceType);
-        result->GatherPolicy = Helper::convert(input.mGatherPolicy);
+        result->GatherPolicy = Helper::Convert(input.mGatherPolicy);
         return result;
       }
 
@@ -34,7 +41,7 @@ namespace org
         if (nullptr == input) return IICEGatherer::InterfacePolicyPtr();
         auto result = make_shared<IICEGatherer::InterfacePolicy>();
         result->mInterfaceType = Helper::FromCx(input->InterfaceType);
-        result->mGatherPolicy = Helper::convert(input->GatherPolicy);
+        result->mGatherPolicy = Helper::Convert(input->GatherPolicy);
         return result;
       }
 
@@ -53,7 +60,7 @@ namespace org
         }
         result->UserName = Helper::ToCx(input.mUserName);
         result->Credential = Helper::ToCx(input.mCredential);
-        result->CredentialType = Helper::convert(input.mCredentialType);
+        result->CredentialType = Helper::Convert(input.mCredentialType);
         return result;
       }
 
@@ -76,7 +83,7 @@ namespace org
         }
         result->mUserName = Helper::FromCx(input->UserName);
         result->mCredential = Helper::FromCx(input->Credential);
-        result->mCredentialType = Helper::convert(input->CredentialType);
+        result->mCredentialType = Helper::Convert(input->CredentialType);
         return result;
       }
 
@@ -135,6 +142,102 @@ namespace org
         return result;
       }
 
+#pragma endregion
+
+#pragma region RTCIceGatherer delegates
+
+      class RTCIceGathererDelegate : public IICEGathererDelegate
+      {
+      public:
+        virtual void onICEGathererStateChange(
+          IICEGathererPtr gatherer,
+          IICEGatherer::States state
+          ) override;
+
+        virtual void onICEGathererLocalCandidate(
+          IICEGathererPtr gatherer,
+          CandidatePtr candidate
+          ) override;
+
+        virtual void onICEGathererLocalCandidateComplete(
+          IICEGathererPtr gatherer,
+          CandidateCompletePtr candidate
+          ) override;
+
+        virtual void onICEGathererLocalCandidateGone(
+          IICEGathererPtr gatherer,
+          CandidatePtr candidate
+          ) override;
+
+        virtual void onICEGathererError(
+          IICEGathererPtr gatherer,
+          ErrorEventPtr errorEvent
+          ) override;
+
+        void SetOwnerObject(RTCIceGatherer^ owner) { _gatherer = owner; }
+
+      private:
+        RTCIceGatherer^ _gatherer;
+      };
+
+      void RTCIceGathererDelegate::onICEGathererStateChange(
+        IICEGathererPtr gatherer,
+        IICEGatherer::States state
+        )
+      {
+        auto evt = ref new RTCIceGathererStateChangedEvent();
+        evt->_state = UseHelper::Convert(state);
+        _gatherer->OnStateChange(evt);
+      }
+
+      void RTCIceGathererDelegate::onICEGathererLocalCandidate(
+        IICEGathererPtr gatherer,
+        CandidatePtr candidate
+        )
+      {
+        auto evt = ref new RTCIceGathererCandidateEvent();
+        evt->_candidate = internal::ToCx(candidate);
+        _gatherer->OnLocalCandidate(evt);
+      }
+
+      void RTCIceGathererDelegate::onICEGathererLocalCandidateComplete(
+        IICEGathererPtr gatherer,
+        CandidateCompletePtr candidate
+        )
+      {
+        auto evt = ref new RTCIceGathererCandidateCompleteEvent();
+        evt->_candidate = ref new RTCIceCandidateComplete();;
+        evt->_candidate->Complete = true;
+        _gatherer->OnLocalCandidateComplete(evt);
+      }
+
+      void RTCIceGathererDelegate::onICEGathererLocalCandidateGone(
+        IICEGathererPtr gatherer,
+        CandidatePtr candidate
+        )
+      {
+        auto evt = ref new RTCIceGathererCandidateEvent();
+        evt->_candidate = internal::ToCx(candidate);
+        _gatherer->OnLocalCandidateGone(evt);
+      }
+
+      void RTCIceGathererDelegate::onICEGathererError(
+        IICEGathererPtr gatherer,
+        ErrorEventPtr errorEvent
+        )
+      {
+        auto evt = ref new RTCIceGathererIceErrorEvent();
+        if (errorEvent)
+        {
+          evt->_hostCandidate = internal::ToCx(errorEvent->mHostCandidate);
+          evt->_url = UseHelper::ToCx(errorEvent->mURL);
+          evt->_errorCode = SafeInt<decltype(evt->_errorCode)>(errorEvent->mErrorCode);
+          evt->_errorText = UseHelper::ToCx(errorEvent->mErrorText);
+        }
+        _gatherer->OnError(evt);
+      }
+#pragma endregion
+
     } // namespace internal
 
     RTCIceGatherer::RTCIceGatherer() :
@@ -151,175 +254,86 @@ namespace org
     }
 
     RTCIceGatherer::RTCIceGatherer(RTCIceGatherOptions^ options) :
-      _nativeDelegatePointer(new RTCIceGathererDelegate())
+      _nativeDelegatePointer(make_shared<internal::RTCIceGathererDelegate>())
     {
+      ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == options)
       _nativeDelegatePointer->SetOwnerObject(this);
-
-      assert(nullptr != options);
       _nativePointer = IICEGatherer::create(_nativeDelegatePointer, *internal::FromCx(options));
     }
 
     RTCIceParameters^ RTCIceGatherer::GetLocalParameters()
     {
-      if (_nativePointer)
-      {
-        return internal::ToCx(_nativePointer->getLocalParameters());
-      }
-
-      return nullptr;
+      if (!_nativePointer) return nullptr;
+      return internal::ToCx(_nativePointer->getLocalParameters());
     }
 
     IVector<RTCIceCandidate^>^ RTCIceGatherer::GetLocalCandidates()
     {
       auto ret = ref new Vector<RTCIceCandidate^>();
+      if (!_nativePointer) return ret;
 
-      if (_nativePointer)
-      {
-        auto candidates = _nativePointer->getLocalCandidates();
-        for (IICEGatherer::CandidateList::iterator it = candidates->begin(); it != candidates->end(); ++it) {
-          ret->Append(internal::ToCx(*it));
-        }
+      auto candidates = _nativePointer->getLocalCandidates();
+      for (IICEGatherer::CandidateList::iterator it = candidates->begin(); it != candidates->end(); ++it) {
+        ret->Append(internal::ToCx(*it));
       }
 
       return ret;
-
     }
 
     RTCIceGatherer^ RTCIceGatherer::CreateAssociatedGatherer()
     {
+      ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
+
       RTCIceGatherer^ ret = ref new RTCIceGatherer();
 
-      if (_nativePointer)
-      {
-        ret->_nativeDelegatePointer = make_shared<RTCIceGathererDelegate>(RTCIceGathererDelegate());
-        ret->_nativePointer = _nativePointer->createAssociatedGatherer(ret->_nativeDelegatePointer);
-        ret->_nativeDelegatePointer->SetOwnerObject(ret);
-      }
+      ret->_nativeDelegatePointer = make_shared<internal::RTCIceGathererDelegate>(internal::RTCIceGathererDelegate());
+      ret->_nativeDelegatePointer->SetOwnerObject(ret);
+      ret->_nativePointer = _nativePointer->createAssociatedGatherer(ret->_nativeDelegatePointer);
+
       return ret;
     }
 
     void RTCIceGatherer::Gather(RTCIceGatherOptions^ options)
     {
-      if (_nativePointer)
+      ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
+      if (nullptr != options)
       {
-        if (nullptr != options)
-        {
-          _nativePointer->gather(*internal::FromCx(options));
-        }
-        else
-        {
-          _nativePointer->gather();
-        }
+        _nativePointer->gather(*internal::FromCx(options));
+      }
+      else
+      {
+        _nativePointer->gather();
       }
     }
 
     void RTCIceGatherer::Close()
     {
-      if (_nativePointer)
-        _nativePointer->close();
+      if (!_nativePointer) return;
+      _nativePointer->close();
     }
-
-    Platform::String^ RTCIceGatherer::ToString()
+    
+    RTCIceComponent RTCIceGatherer::Component::get()
     {
-      throw ref new Platform::NotImplementedException();
-    }
-
-    Platform::String^ RTCIceGatherer::ToString(RTCIceGatherPolicy value)
-    {
-      return UseHelper::ToCx(IICEGatherer::toString(UseHelper::convert(value)));
-    }
-
-    Platform::String^ RTCIceGatherer::ToString(RTCIceGathererState value)
-    {
-      return UseHelper::ToCx(IICEGatherer::toString(UseHelper::convert(value)));
-    }
-
-    Platform::String^ RTCIceGatherer::ToString(RTCIceGathererCredentialType value)
-    {
-      return UseHelper::ToCx(IICEGatherer::toString(UseHelper::convert(value)));
-    }
-
-    RTCIceGatherPolicy RTCIceGatherer::ToPolicy(Platform::String^ str)
-    {
-      return UseHelper::convert(IICEGatherer::toPolicy(UseHelper::FromCx(str).c_str()));
-    }
-
-    RTCIceGathererState RTCIceGatherer::ToState(Platform::String^ str)
-    {
-      return UseHelper::convert(IICEGatherer::toState(UseHelper::FromCx(str).c_str()));
-    }
-
-    RTCIceGathererCredentialType RTCIceGatherer::ToCredentialType(Platform::String^ str)
-    {
-      return UseHelper::convert(IICEGatherer::toCredentialType(UseHelper::FromCx(str).c_str()));
+      ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
+      return UseHelper::Convert(_nativePointer->component());
     }
 
     RTCIceGathererState RTCIceGatherer::State::get()
     {
-      if (_nativePointer)
-        return UseHelper::convert(_nativePointer->state());
-      else
-        return RTCIceGathererState::Closed;
+      if (!_nativePointer) return RTCIceGathererState::Closed;
+      return UseHelper::Convert(_nativePointer->state());
     }
 
 
-//-----------------------------------------------------------------
-#pragma mark RTCIceGathererDelegate
-//-----------------------------------------------------------------
-
-// Triggered when media is received on a new stream from remote peer.
-    void RTCIceGathererDelegate::onICEGathererStateChange(
-      IICEGathererPtr gatherer,
-      IICEGatherer::States state
-      )
+    Platform::String^ RTCIceGatherer::IceGatherPolicyToString(RTCIceGatherPolicy value)
     {
-      auto evt = ref new RTCIceGathererStateChangeEvent();
-      evt->State = UseHelper::convert(state);
-      _gatherer->OnICEGathererStateChanged(evt);
+      return UseHelper::ToCx(IICEGatherer::toString(UseHelper::Convert(value)));
     }
 
-    void RTCIceGathererDelegate::onICEGathererLocalCandidate(
-      IICEGathererPtr gatherer,
-      CandidatePtr candidate
-      )
+    RTCIceGatherPolicy RTCIceGatherer::ToIceGatherPolicy(Platform::String^ str)
     {
-      auto evt = ref new RTCIceGathererCandidateEvent();
-      evt->Candidate = internal::ToCx(candidate);
-      _gatherer->OnICEGathererLocalCandidate(evt);
+      return UseHelper::Convert(IICEGatherer::toPolicy(UseHelper::FromCx(str).c_str()));
     }
 
-    void RTCIceGathererDelegate::onICEGathererLocalCandidateComplete(
-      IICEGathererPtr gatherer,
-      CandidateCompletePtr candidate
-      )
-    {
-      auto evt = ref new RTCIceGathererCandidateCompleteEvent();
-      RTCIceCandidateComplete^ temp = ref new RTCIceCandidateComplete();
-      temp->Complete = true;
-      evt->Completed = temp;
-      _gatherer->OnICEGathererCandidateComplete(evt);
-    }
-
-    void RTCIceGathererDelegate::onICEGathererLocalCandidateGone(
-      IICEGathererPtr gatherer,
-      CandidatePtr candidate
-      )
-    {
-      auto evt = ref new RTCIceGathererCandidateEvent();
-      evt->Candidate = internal::ToCx(candidate);
-      _gatherer->OnICEGathererLocalCandidateGone(evt);
-    }
-
-    void RTCIceGathererDelegate::onICEGathererError(
-      IICEGathererPtr gatherer,
-      ErrorCode errorCode,
-      zsLib::String errorReason
-      )
-    {
-      auto evt = ref new RTCIceGathererErrorEvent();
-      evt->Error->ErrorCode = errorCode;
-      evt->Error->ErrorReason = UseHelper::ToCx(errorReason);
-      _gatherer->OnICEGathererError(evt);
-    }
   } // namespace ortc
 } // namespace org

@@ -58,19 +58,19 @@ namespace ortc_api_test
           options.IceServers.Add(server);
           
           _iceGatherer = new RTCIceGatherer(options);
-          _iceGatherer.OnICEGathererStateChanged += this.RTCIceGatherer_onICEGathererStateChanged;
-          _iceGatherer.OnICEGathererLocalCandidate += this.RTCIceGatherer_onICEGathererLocalCandidate;
-          _iceGatherer.OnICEGathererCandidateComplete += this.RTCIceGatherer_onICEGathererCandidateComplete;
-          _iceGatherer.OnICEGathererLocalCandidateGone += this.RTCIceGatherer_onICEGathererLocalCandidateGone;
-          _iceGatherer.OnICEGathererError += this.RTCIceGatherer_onICEGathererError;
+          _iceGatherer.OnStateChange += this.RTCIceGatherer_onICEGathererStateChanged;
+          _iceGatherer.OnLocalCandidate += this.RTCIceGatherer_onICEGathererLocalCandidate;
+          _iceGatherer.OnLocalCandidateComplete += this.RTCIceGatherer_onICEGathererCandidateComplete;
+          _iceGatherer.OnLocalCandidateGone += this.RTCIceGatherer_onICEGathererLocalCandidateGone;
+          _iceGatherer.OnError += this.RTCIceGatherer_onICEGathererError;
 
 
           _iceGatherer2 = new RTCIceGatherer(options);
-          _iceGatherer2.OnICEGathererStateChanged += this.RTCIceGatherer_onICEGathererStateChanged2;
-          _iceGatherer2.OnICEGathererLocalCandidate += this.RTCIceGatherer_onICEGathererLocalCandidate2;
-          _iceGatherer2.OnICEGathererCandidateComplete += this.RTCIceGatherer_onICEGathererCandidateComplete2;
-          _iceGatherer2.OnICEGathererLocalCandidateGone += this.RTCIceGatherer_onICEGathererLocalCandidateGone2;
-          _iceGatherer2.OnICEGathererError += this.RTCIceGatherer_onICEGathererError;
+          _iceGatherer2.OnStateChange += this.RTCIceGatherer_onICEGathererStateChanged2;
+          _iceGatherer2.OnLocalCandidate += this.RTCIceGatherer_onICEGathererLocalCandidate2;
+          _iceGatherer2.OnLocalCandidateComplete += this.RTCIceGatherer_onICEGathererCandidateComplete2;
+          _iceGatherer2.OnLocalCandidateGone += this.RTCIceGatherer_onICEGathererLocalCandidateGone2;
+          _iceGatherer2.OnError += this.RTCIceGatherer_onICEGathererError;
 
           _iceTransport = new RTCIceTransport(_iceGatherer);
           _iceTransport.OnICETransportStateChanged += RTCIceTransport_onICETransportStateChanged;
@@ -137,7 +137,7 @@ namespace ortc_api_test
         // ICE GATHERER EVENT HANDLERS
         //----------------------------------------------------------------------------------
 
-        private void RTCIceGatherer_onICEGathererStateChanged(RTCIceGathererStateChangeEvent evt)
+        private void RTCIceGatherer_onICEGathererStateChanged(RTCIceGathererStateChangedEvent evt)
         {
           if(evt.State == RTCIceGathererState.Complete)
           {
@@ -162,7 +162,7 @@ namespace ortc_api_test
           i++;
         }
 
-        private void RTCIceGatherer_onICEGathererError(RTCIceGathererErrorEvent evt)
+        private void RTCIceGatherer_onICEGathererError(RTCIceGathererIceErrorEvent evt)
         {
           int i = 0;
           i++;
@@ -170,7 +170,7 @@ namespace ortc_api_test
 
       //***********************************************************************************************
 
-        private void RTCIceGatherer_onICEGathererStateChanged2(RTCIceGathererStateChangeEvent evt)
+        private void RTCIceGatherer_onICEGathererStateChanged2(RTCIceGathererStateChangedEvent evt)
         {
           if (evt.State == RTCIceGathererState.Complete)
           {
@@ -195,7 +195,7 @@ namespace ortc_api_test
           i++;
         }
 
-        private void RTCIceGatherer_onICEGathererError2(RTCIceGathererErrorEvent evt)
+        private void RTCIceGatherer_onICEGathererError2(RTCIceGathererIceErrorEvent evt)
         {
           int i = 0;
           i++;

@@ -1013,7 +1013,7 @@ namespace org
         if (input.mFEC.hasValue()) result->Fec = ToCx(input.mFEC.value());
         if (input.mRTX.hasValue()) result->Rtx = ToCx(input.mRTX.value());
 
-        result->Priority = Helper::convert(input.mPriority);
+        result->Priority = Helper::Convert(input.mPriority);
 
         result->MaxBitrate = SafeInt<uint64>(input.mMaxBitrate);
         result->MinQuality = input.mMinQuality;
@@ -1055,7 +1055,7 @@ namespace org
         {
           result->mRTX = *FromCx(input->Rtx);
         }
-        result->mPriority = Helper::convert(input->Priority);
+        result->mPriority = Helper::Convert(input->Priority);
         result->mMaxBitrate = SafeInt<decltype(result->mMaxBitrate)>(input->MaxBitrate);
         result->mMinQuality = input->MinQuality;
         result->mResolutionScale = input->ResolutionScale;
@@ -1135,7 +1135,7 @@ namespace org
         }
 
         result->Rtcp = ToCx(input.mRTCP);
-        result->DegradationPreference = Helper::convert(input.mDegredationPreference);
+        result->DegradationPreference = Helper::Convert(input.mDegredationPreference);
 
         return result;
       }
@@ -1182,7 +1182,7 @@ namespace org
         {
           result->mRTCP = *FromCx(input->Rtcp);
         }
-        result->mDegredationPreference = Helper::convert(input->DegradationPreference);
+        result->mDegredationPreference = Helper::Convert(input->DegradationPreference);
         return result;
       }
 

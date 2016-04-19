@@ -25,11 +25,11 @@ namespace org
         result->Foundation = Helper::ToCx(input.mFoundation);
         result->Priority = SafeInt<uint32>(input.mPriority);
         result->UnfreezePriority = SafeInt<uint32>(input.mUnfreezePriority);
-        result->Protocol = Helper::convert(input.mProtocol);
+        result->Protocol = Helper::Convert(input.mProtocol);
         result->Ip = Helper::ToCx(input.mIP);
         result->Port = SafeInt<uint16>(input.mPort);
-        result->CandidateType = Helper::convert(input.mCandidateType);
-        result->TcpType = Helper::convert(input.mTCPType);
+        result->CandidateType = Helper::Convert(input.mCandidateType);
+        result->TcpType = Helper::Convert(input.mTCPType);
         result->RelatedAddress = Helper::ToCx(input.mRelatedAddress);
         result->RelatedPort = input.mRelatedPort;
 
@@ -51,11 +51,11 @@ namespace org
         result->mFoundation = Helper::FromCx(input->Foundation);
         result->mPriority = SafeInt<uint32>(input->Priority);
         result->mUnfreezePriority = SafeInt<uint32>(input->UnfreezePriority);
-        result->mProtocol = Helper::convert(input->Protocol);
+        result->mProtocol = Helper::Convert(input->Protocol);
         result->mIP = Helper::FromCx(input->Ip);
         result->mPort = SafeInt<uint16>(input->Port);
-        result->mCandidateType = Helper::convert(input->CandidateType);
-        result->mTCPType = Helper::convert(input->TcpType);
+        result->mCandidateType = Helper::Convert(input->CandidateType);
+        result->mTCPType = Helper::Convert(input->TcpType);
         result->mRelatedAddress = Helper::FromCx(input->RelatedAddress);
         result->mRelatedPort = input->RelatedPort;
 
@@ -119,53 +119,53 @@ namespace org
 
     Platform::String^ RTCIceTypes::ToString(RTCIceRole value)
     {
-      return UseHelper::ToCx(IICETypes::toString(UseHelper::convert(value)));
+      return UseHelper::ToCx(IICETypes::toString(UseHelper::Convert(value)));
     }
 
     Platform::String^ RTCIceTypes::ToString(RTCIceComponent value)
     {
-      return UseHelper::ToCx(IICETypes::toString(UseHelper::convert(value)));
+      return UseHelper::ToCx(IICETypes::toString(UseHelper::Convert(value)));
     }
 
     Platform::String^ RTCIceTypes::ToString(RTCIceProtocol value)
     {
-      return UseHelper::ToCx(IICETypes::toString(UseHelper::convert(value)));
+      return UseHelper::ToCx(IICETypes::toString(UseHelper::Convert(value)));
     }
 
     Platform::String^ RTCIceTypes::ToString(RTCIceCandidateType value)
     {
-      return UseHelper::ToCx(IICETypes::toString(UseHelper::convert(value)));
+      return UseHelper::ToCx(IICETypes::toString(UseHelper::Convert(value)));
     }
 
     Platform::String^ RTCIceTypes::ToString(RTCIceTcpCandidateType value)
     {
-      return UseHelper::ToCx(IICETypes::toString(UseHelper::convert(value)));
+      return UseHelper::ToCx(IICETypes::toString(UseHelper::Convert(value)));
     }
 
 
     RTCIceRole RTCIceTypes::ToRole(Platform::String^ str)
     {
-      return UseHelper::convert(IICETypes::toRole(UseHelper::FromCx(str).c_str()));
+      return UseHelper::Convert(IICETypes::toRole(UseHelper::FromCx(str).c_str()));
     }
 
     RTCIceComponent RTCIceTypes::ToComponent(Platform::String^ str)
     {
-      return UseHelper::convert(IICETypes::toComponent(UseHelper::FromCx(str).c_str()));
+      return UseHelper::Convert(IICETypes::toComponent(UseHelper::FromCx(str).c_str()));
     }
 
     RTCIceProtocol RTCIceTypes::ToProtocol(Platform::String^ str)
     {
-      return UseHelper::convert(IICETypes::toProtocol(UseHelper::FromCx(str).c_str()));
+      return UseHelper::Convert(IICETypes::toProtocol(UseHelper::FromCx(str).c_str()));
     }
 
     RTCIceCandidateType RTCIceTypes::ToCandidateType(Platform::String^ str)
     {
-      return UseHelper::convert(IICETypes::toCandidateType(UseHelper::FromCx(str).c_str()));
+      return UseHelper::Convert(IICETypes::toCandidateType(UseHelper::FromCx(str).c_str()));
     }
 
     RTCIceTcpCandidateType RTCIceTypes::ToTcpCandidateType(Platform::String^ str)
     {
-      return UseHelper::convert(IICETypes::toTCPCandidateType(UseHelper::FromCx(str).c_str()));
+      return UseHelper::Convert(IICETypes::toTCPCandidateType(UseHelper::FromCx(str).c_str()));
     }
 
     //---------------------------------------------------------------------------

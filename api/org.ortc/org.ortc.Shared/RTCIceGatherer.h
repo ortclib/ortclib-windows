@@ -11,8 +11,6 @@ namespace org
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IICEGatherer, IICEGatherer)
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IICEGathererDelegate, IICEGathererDelegate)
 
-    ZS_DECLARE_CLASS_PTR(RTCIceGathererDelegate)
-
     using Windows::Foundation::Collections::IVector;
 
     ref class RTCIceGatherer;
@@ -28,6 +26,7 @@ namespace org
     namespace internal
     {
       ZS_DECLARE_TYPEDEF_PTR(::ortc::IICEGathererTypes, IICEGathererTypes)
+      ZS_DECLARE_CLASS_PTR(RTCIceGathererDelegate)
         
       RTCIceInterfacePolicy^ ToCx(const IICEGathererTypes::InterfacePolicy &input);
       RTCIceInterfacePolicy^ ToCx(IICEGathererTypes::InterfacePolicyPtr input);
@@ -41,42 +40,6 @@ namespace org
       RTCIceServer^ ToCx(IICEGathererTypes::ServerPtr input);
       IICEGathererTypes::ServerPtr FromCx(RTCIceServer^ input);
     }
-
-    class RTCIceGathererDelegate : public IICEGathererDelegate
-    {
-    public:
-      virtual void onICEGathererStateChange(
-        IICEGathererPtr gatherer,
-        IICEGatherer::States state
-        );
-
-      virtual void onICEGathererLocalCandidate(
-        IICEGathererPtr gatherer,
-        CandidatePtr candidate
-        );
-
-      virtual void onICEGathererLocalCandidateComplete(
-        IICEGathererPtr gatherer,
-        CandidateCompletePtr candidate
-        );
-
-      virtual void onICEGathererLocalCandidateGone(
-        IICEGathererPtr gatherer,
-        CandidatePtr candidate
-        );
-
-      virtual void onICEGathererError(
-        IICEGathererPtr gatherer,
-        ErrorCode errorCode,
-        zsLib::String errorReason
-        );
-
-      RTCIceGatherer^ _gatherer;
-
-      void SetOwnerObject(RTCIceGatherer^ owner) { _gatherer = owner; }
-
-    private:
-    };
 
     public enum class RTCIceGatherPolicy
     {
@@ -110,7 +73,8 @@ namespace org
       Token,
     };
 
-    public enum class RTCIceGathererState {
+    public enum class RTCIceGathererState
+    {
       New,
       Gathering,
       Complete,
@@ -140,80 +104,145 @@ namespace org
       RTCIceGatherOptions() { ContinuousGathering = true; }
     };
 
-    public ref struct RTCIceGathererError sealed
+#pragma region RTCIceGatherer events
+
+    /// <summary>
+    /// This object represents the error event when the RTCIceGatherer object
+    /// has experienced an ICE gathering failure (such as an authentication
+    /// failure with TURN credentials).
+    /// </summary>
+    public ref struct RTCIceGathererIceErrorEvent sealed
     {
-      property uint16 ErrorCode;
-      property Platform::String^ ErrorReason;
+      friend class internal::RTCIceGathererDelegate;
+
+      /// <summary>
+      /// Gets the local IP address and port used to communicate with the
+      /// STUN or TURN server.
+      /// </summary>
+      property RTCIceCandidate^ HostCandidate
+      {
+        RTCIceCandidate^ get() { return _hostCandidate; }
+      }
+      /// <summary>
+      /// Gets the STUN or TURN URL identifying the server on which the
+      /// failure ocurred.
+      /// </summary>
+      property Platform::String^ Url
+      {
+        Platform::String^ get() { return _url; }
+      }
+      /// <summary>
+      /// Gets the numeric STUN error code returned by the STUN or TURN
+      /// server.
+      /// </summary>
+      property uint16            ErrorCode
+      {
+        uint16 get() { return _errorCode; }
+      }
+      /// <summary>
+      /// Gets the STUN reason text returned by the STUN or TURN server.
+      /// </summary>
+      property Platform::String^ ErrorText
+      {
+        Platform::String^ get() { return _errorText; }
+      }
+
+    private:
+      RTCIceCandidate^  _hostCandidate;
+      Platform::String^ _url;
+      uint16            _errorCode;
+      Platform::String^ _errorText;
     };
 
+    /// <summary>
+    /// This object represents the event for when the RTCIceGathererState
+    /// changed.
+    /// </summary>
+    public ref struct RTCIceGathererStateChangedEvent sealed
+    {
+      friend class internal::RTCIceGathererDelegate;
 
-    //------------------------------------------
-    // Events and Delegates
-    //------------------------------------------
-
-    // State change event and delegate
-    public ref class RTCIceGathererStateChangeEvent sealed {
-    public:
+      /// <summary>
+      /// Gets the new RTCIceGathererState that caused the event.
+      /// </summary>
       property RTCIceGathererState State
       {
-        RTCIceGathererState  get() { return _State; }
-        void  set(RTCIceGathererState value) { _State = value; }
+        RTCIceGathererState  get() { return _state; }
       }
 
     private:
-      RTCIceGathererState _State;
+      RTCIceGathererState _state;
     };
 
-    public delegate void RTCIceGathererStateChangedDelegate(RTCIceGathererStateChangeEvent^ evt);
+    /// <summary>
+    /// This object represents the event for when a new RTCIceGatherCandidate
+    /// is made available (or is gone).
+    /// </summary>
+    public ref struct RTCIceGathererCandidateEvent sealed
+    {
+      friend class internal::RTCIceGathererDelegate;
 
-
-    // Candidate event and delegate
-    public ref class RTCIceGathererCandidateEvent sealed {
-    public:
+      /// <summary>
+      /// Gets the ICE candidate that caused the event.
+      /// </summary>
       property RTCIceCandidate^ Candidate
       {
-        RTCIceCandidate^  get() { return _Candidate; }
-        void  set(RTCIceCandidate^ value) { _Candidate = value; }
+        RTCIceCandidate^  get() { return _candidate; }
+      }
+      /// <summary>
+      /// Gets the URL of the server from which the candidate was obtained.
+      /// </summary>
+      property Platform::String^ Url
+      {
+        Platform::String^ get() { return _url; }
       }
 
     private:
-      RTCIceCandidate^ _Candidate;
+      RTCIceCandidate^ _candidate;
+      Platform::String^ _url;
     };
+
+    /// <summary>
+    /// This object represents the event for when a new
+    /// RTCIceCandidateComplete is made available.
+    /// </summary>
+    public ref struct RTCIceGathererCandidateCompleteEvent sealed
+    {
+      friend class internal::RTCIceGathererDelegate;
+
+      /// <summary>
+      /// Gets the ICE candidate that caused the event.
+      /// </summary>
+      property RTCIceCandidateComplete^ Candidate
+      {
+        RTCIceCandidateComplete^  get() { return _candidate; }
+      }
+
+    private:
+      RTCIceCandidateComplete^ _candidate;
+    };
+
+#pragma endregion
 
     public delegate void RTCIceGathererLocalCandidateDelegate(RTCIceGathererCandidateEvent^ evt);
     public delegate void RTCIceGathererLocalCandidateGoneDelegate(RTCIceGathererCandidateEvent^ evt);
+    public delegate void RTCIceGathererLocalCandidateCompleteDelegate(RTCIceGathererCandidateCompleteEvent^ evt);
+    public delegate void RTCIceGathererErrorDelegate(RTCIceGathererIceErrorEvent^ evt);
+    public delegate void RTCIceGathererStateChangedDelegate(RTCIceGathererStateChangedEvent^ evt);
 
-    // Candidate complete event and delegate
+#pragma region RTCIceGatherer
 
-    public ref class RTCIceGathererCandidateCompleteEvent sealed {
-    public:
-      property RTCIceCandidateComplete^ Completed;
-    };
-
-    public delegate void RTCIceGathererCandidateCompleteDelegate(RTCIceGathererCandidateCompleteEvent^ evt);
-
-    // Error event and delegate
-    public ref class RTCIceGathererErrorEvent sealed {
-    public:
-      property RTCIceGathererError^ Error
-      {
-        RTCIceGathererError^  get() { return _Error; }
-        void  set(RTCIceGathererError^ value) { _Error = value; }
-      }
-
-    private:
-      RTCIceGathererError^ _Error;
-    };
-
-    public delegate void RTCIceGathererErrorDelegate(RTCIceGathererErrorEvent^ evt);
-
-    //------------------------------------------
-    // End Events and Delegates
-    //------------------------------------------
-
+    /// <summary>
+    /// The RTCIceGatherer gathers local host, server reflexive and relay
+    /// candidates, as well as enabling the retrieval of local Interactive
+    /// Connectivity Establishment (ICE) parameters which can be exchanged in
+    /// signaling. By enabling an endpoint to use a set of local candidates to
+    /// construct multiple RTCIceTransport objects, the RTCIceGatherer enables
+    /// support for scenarios such as parallel forking.
+    /// </summary>
     public ref class RTCIceGatherer sealed
     {
-      friend class RTCIceGathererDelegate;
+      friend class internal::RTCIceGathererDelegate;
       friend ref class RTCIceTransport;
 
     private:
@@ -223,57 +252,107 @@ namespace org
       static IICEGathererPtr Convert(RTCIceGatherer^ gatherer) { if (!gatherer) return nullptr; return gatherer->_nativePointer; }
 
     public:
+      /// <summary>
+      /// Constructs an instance of an RTCIceGatherer.
+      /// </summary>
       RTCIceGatherer(RTCIceGatherOptions^ options);
 
+      /// <summary>
+      /// Obtain the ICE parameters of the RTCIceGatherer.
+      /// </summary>
       RTCIceParameters^ GetLocalParameters();
+      /// <summary>
+      /// Retrieve the sequence of valid local candidates associated with the
+      /// RTCIceGatherer. This retrieves all unpruned local candidates
+      /// currently known (except for peer reflexive candidates), even if an
+      /// onlocalcandidate event hasn't been processed yet. Prior to calling
+      /// Gather() an empty list will be returned.
+      /// </summary>
       IVector<RTCIceCandidate^>^ GetLocalCandidates();
+      /// <summary>
+      /// Create an associated RTCIceGatherer for RTCP, with the same
+      /// RTCIceParameters and RTCIceGatherOptions. If state is "closed",
+      /// throw an InvalidStateError exception. If an RTCIceGatherer calls the
+      /// method more than once, or if component is "RTCP", throw an
+      /// InvalidStateError exception.
+      /// </summary>
       RTCIceGatherer^ CreateAssociatedGatherer();
 
+      /// <summary>
+      /// Gather ICE candidates. If options is omitted, utilize the value of
+      /// options passed in the constructor.
+      /// </summary>
       void Gather(RTCIceGatherOptions^ options);
 
+      /// <summary>
+      /// Prunes all local candidates, and closes the port. Associated
+      /// RTCIceTransport objects transition to the "disconnected" state
+      /// (unless they were in the "failed" state). Calling close() when state
+      /// is "closed" has no effect.
+      /// </summary>
       void Close();
 
     public:
 
+      /// <summary>
+      /// Gets the component-id of the RTCIceGatherer object. In
+      /// RTCIceGatherer objects returned by createAssociatedGatherer() the
+      /// value of component is "RTCP". In all other RTCIceGatherer objects,
+      /// the value of component is "RTP".
+      /// </summary>
       property RTCIceComponent Component
       {
-        RTCIceComponent get()
-        {
-          if (_nativePointer)
-            return (RTCIceComponent)_nativePointer->component();
-          return RTCIceComponent::Rtp;
-        }
+        RTCIceComponent get();
       }
 
+      /// <summary>
+      /// Gets the current state of the ICE gatherer.
+      /// </summary>
       property RTCIceGathererState State
       {
         RTCIceGathererState get();
       }
 
-      event RTCIceGathererStateChangedDelegate^       OnICEGathererStateChanged;
-      event RTCIceGathererLocalCandidateDelegate^     OnICEGathererLocalCandidate;
-      event RTCIceGathererCandidateCompleteDelegate^  OnICEGathererCandidateComplete;
-      event RTCIceGathererLocalCandidateGoneDelegate^ OnICEGathererLocalCandidateGone;
-      event RTCIceGathererErrorDelegate^              OnICEGathererError;
+      /// <summary>
+      /// The RTCIceGathererState changed.
+      /// </summary>
+      event RTCIceGathererStateChangedDelegate^           OnStateChange;
+      /// <summary>
+      /// A new RTCIceGatherCandidate is made available.
+      /// </summary>
+      event RTCIceGathererLocalCandidateDelegate^         OnLocalCandidate;
+      /// <summary>
+      /// A new RTCIceGatherCandidateComplete is made available.
+      /// </summary>
+      event RTCIceGathererLocalCandidateCompleteDelegate^ OnLocalCandidateComplete;
+      /// <summary>
+      /// A new RTCIceGatherCandidate is no longer available.
+      /// </summary>
+      event RTCIceGathererLocalCandidateGoneDelegate^     OnLocalCandidateGone;
+      /// <summary>
+      /// The RTCIceGatherer object has experienced an ICE gathering failure
+      /// (such as an authentication failure with TURN credentials).
+      /// </summary>
+      event RTCIceGathererErrorDelegate^                  OnError;
 
     public:
-      [Windows::Foundation::Metadata::DefaultOverloadAttribute]
-      static Platform::String^ ToString();
-      [Windows::Foundation::Metadata::OverloadAttribute("IceGatherPolicyToString")]
-      static Platform::String^ ToString(RTCIceGatherPolicy value);
-      [Windows::Foundation::Metadata::OverloadAttribute("IceGathererStateToString")]
-      static Platform::String^ ToString(RTCIceGathererState value);
-      [Windows::Foundation::Metadata::OverloadAttribute("IceGathererCredentialTypeToString")]
-      static Platform::String^ ToString(RTCIceGathererCredentialType value);
+      /// <summary>
+      /// Convert from an RTCIceGatherPolicy to a string.
+      /// </summary>
+      static Platform::String^ IceGatherPolicyToString(RTCIceGatherPolicy value);
 
-      static RTCIceGatherPolicy ToPolicy(Platform::String^ str);
-      static RTCIceGathererState ToState(Platform::String^ str);
-      static RTCIceGathererCredentialType ToCredentialType(Platform::String^ str);
+      /// <summary>
+      /// Convert from a string to a RTCIceGatherPolicy.
+      /// </summary>
+      static RTCIceGatherPolicy ToIceGatherPolicy(Platform::String^ str);
 
     private:
       zsLib::RecursiveLock _lock;
       IICEGathererPtr _nativePointer;
-      RTCIceGathererDelegatePtr _nativeDelegatePointer;
+      internal::RTCIceGathererDelegatePtr _nativeDelegatePointer;
     };
+
+#pragma endregion
+
   }
 }

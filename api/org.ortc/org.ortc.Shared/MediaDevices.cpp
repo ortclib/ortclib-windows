@@ -57,7 +57,7 @@ namespace org
       MediaDeviceInfo^ ToCx(const IMediaDevicesTypes::Device &input)
       {
         auto result = ref new MediaDeviceInfo();
-        result->Kind = Helper::convert(input.mKind);
+        result->Kind = Helper::Convert(input.mKind);
         result->Label = Helper::ToCx(input.mLabel);
         result->DeviceId = Helper::ToCx(input.mDeviceID);
         result->GroupId = Helper::ToCx(input.mGroupID);
@@ -74,7 +74,7 @@ namespace org
       {
         if (nullptr == input) return IMediaDevicesTypes::DevicePtr();
         auto result(make_shared<IMediaDevicesTypes::Device>());
-        result->mKind = Helper::convert(input->Kind);
+        result->mKind = Helper::Convert(input->Kind);
         result->mLabel = Helper::FromCx(input->Label);
         result->mDeviceID = Helper::FromCx(input->DeviceId);
         result->mGroupID = Helper::FromCx(input->GroupId);

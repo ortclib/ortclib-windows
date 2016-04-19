@@ -566,11 +566,9 @@ void MediaEngine::onICEGathererLocalCandidateGone(
 
 void MediaEngine::onICEGathererError(
                                      ortc::IICEGathererPtr gatherer,
-                                     ortc::IICEGathererDelegate::ErrorCode errorCode,
-                                     zsLib::String errorReason
+                                     ortc::IICEGathererTypes::ErrorEventPtr errorEvent
                                      )
 {
-
 }
 
 void MediaEngine::onDTLSTransportStateChange(

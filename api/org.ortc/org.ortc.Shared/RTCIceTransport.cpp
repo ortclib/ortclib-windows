@@ -48,7 +48,7 @@ namespace org
       {
         auto result = ref new RTCIceTransportOptions();
         result->AggressiveIce = input.mAggressiveICE;
-        result->Role = Helper::convert(input.mRole);
+        result->Role = Helper::Convert(input.mRole);
         return result;
       }
 
@@ -63,7 +63,7 @@ namespace org
         if (nullptr == input) return IICETransport::OptionsPtr();
         auto result = make_shared<IICETransport::Options>();
         result->mAggressiveICE = input->AggressiveIce;
-        result->mRole = Helper::convert(input->Role);
+        result->mRole = Helper::Convert(input->Role);
         return result;
       }
     } // namespace internal
@@ -224,19 +224,19 @@ namespace org
     RTCIceComponent RTCIceTransport::Component::get()
     {
       ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
-      return UseHelper::convert(_nativePointer->component());
+      return UseHelper::Convert(_nativePointer->component());
     }
 
     RTCIceRole RTCIceTransport::Role::get()
     {
       ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
-      return UseHelper::convert(_nativePointer->role());
+      return UseHelper::Convert(_nativePointer->role());
     }
 
     RTCIceTransportState RTCIceTransport::State::get()
     {
       if (!_nativePointer) return RTCIceTransportState::Closed;
-      return UseHelper::convert(_nativePointer->state());
+      return UseHelper::Convert(_nativePointer->state());
     }
 
     //-----------------------------------------------------------------

@@ -90,67 +90,67 @@ namespace org
         static Optional<zsLib::String> FromCxToOptional(Platform::String^ input);
 
         // RTCIceGatherer convertors
-        static IICEGathererTypes::FilterPolicies convert(RTCIceGatherPolicy policy);
-        static RTCIceGatherPolicy convert(IICEGathererTypes::FilterPolicies policy);
+        static IICEGathererTypes::FilterPolicies Convert(RTCIceGatherPolicy policy);
+        static RTCIceGatherPolicy Convert(IICEGathererTypes::FilterPolicies policy);
 
-        static IICEGathererTypes::CredentialTypes convert(RTCIceGathererCredentialType credentialType);
-        static RTCIceGathererCredentialType convert(IICEGathererTypes::CredentialTypes credentialType);
+        static IICEGathererTypes::CredentialTypes Convert(RTCIceGathererCredentialType credentialType);
+        static RTCIceGathererCredentialType Convert(IICEGathererTypes::CredentialTypes credentialType);
 
-        static IICEGathererTypes::States convert(RTCIceGathererState state);
-        static RTCIceGathererState convert(IICEGathererTypes::States state);
+        static IICEGathererTypes::States Convert(RTCIceGathererState state);
+        static RTCIceGathererState Convert(IICEGathererTypes::States state);
 
         // RTCDataChannel convertors
-        static IDataChannelTypes::States convert(RTCDataChannelState state);
-        static RTCDataChannelState convert(IDataChannelTypes::States state);
+        static IDataChannelTypes::States Convert(RTCDataChannelState state);
+        static RTCDataChannelState Convert(IDataChannelTypes::States state);
 
         // RTCDtlsTransport convertors
-        static IDTLSTransportTypes::States convert(RTCDtlsTransportState state);
-        static RTCDtlsTransportState convert(IDTLSTransportTypes::States state);
+        static IDTLSTransportTypes::States Convert(RTCDtlsTransportState state);
+        static RTCDtlsTransportState Convert(IDTLSTransportTypes::States state);
 
-        static IDTLSTransportTypes::Roles convert(RTCDtlsRole role);
-        static RTCDtlsRole convert(IDTLSTransportTypes::Roles role);
+        static IDTLSTransportTypes::Roles Convert(RTCDtlsRole role);
+        static RTCDtlsRole Convert(IDTLSTransportTypes::Roles role);
 
         // RTCIceTypes convertors
-        static IICETypes::Roles convert(RTCIceRole role);
-        static RTCIceRole convert(IICETypes::Roles role);
+        static IICETypes::Roles Convert(RTCIceRole role);
+        static RTCIceRole Convert(IICETypes::Roles role);
 
-        static IICETypes::Components convert(RTCIceComponent component);
-        static RTCIceComponent convert(IICETypes::Components component);
+        static IICETypes::Components Convert(RTCIceComponent component);
+        static RTCIceComponent Convert(IICETypes::Components component);
 
-        static IICETypes::Protocols convert(RTCIceProtocol protocol);
-        static RTCIceProtocol convert(IICETypes::Protocols protocol);
+        static IICETypes::Protocols Convert(RTCIceProtocol protocol);
+        static RTCIceProtocol Convert(IICETypes::Protocols protocol);
 
-        static IICETypes::CandidateTypes convert(RTCIceCandidateType candidateType);
-        static RTCIceCandidateType convert(IICETypes::CandidateTypes candidateType);
+        static IICETypes::CandidateTypes Convert(RTCIceCandidateType candidateType);
+        static RTCIceCandidateType Convert(IICETypes::CandidateTypes candidateType);
 
-        static IICETypes::TCPCandidateTypes convert(RTCIceTcpCandidateType candidateType);
-        static RTCIceTcpCandidateType convert(IICETypes::TCPCandidateTypes candidateType);
+        static IICETypes::TCPCandidateTypes Convert(RTCIceTcpCandidateType candidateType);
+        static RTCIceTcpCandidateType Convert(IICETypes::TCPCandidateTypes candidateType);
 
         // RTCIceTransport converters
-        static IICETransportTypes::States convert(RTCIceTransportState state);
-        static RTCIceTransportState convert(IICETransportTypes::States state);
+        static IICETransportTypes::States Convert(RTCIceTransportState state);
+        static RTCIceTransportState Convert(IICETransportTypes::States state);
 
         // MediaDevice
-        static IMediaDevicesTypes::DeviceKinds convert(MediaDeviceKind kind);
-        static MediaDeviceKind convert(IMediaDevicesTypes::DeviceKinds kind);
+        static IMediaDevicesTypes::DeviceKinds Convert(MediaDeviceKind kind);
+        static MediaDeviceKind Convert(IMediaDevicesTypes::DeviceKinds kind);
 
         // MediaStreamTrack convertors
-        static IMediaStreamTrackTypes::States convert(MediaStreamTrackState state);
-        static MediaStreamTrackState convert(IMediaStreamTrackTypes::States state);
+        static IMediaStreamTrackTypes::States Convert(MediaStreamTrackState state);
+        static MediaStreamTrackState Convert(IMediaStreamTrackTypes::States state);
 
-        static IMediaStreamTrackTypes::Kinds convert(MediaStreamTrackKind kind);
-        static MediaStreamTrackKind convert(IMediaStreamTrackTypes::Kinds kind);
+        static IMediaStreamTrackTypes::Kinds Convert(MediaStreamTrackKind kind);
+        static MediaStreamTrackKind Convert(IMediaStreamTrackTypes::Kinds kind);
 
         // RtpTypes convertors
-        static IRTPTypes::PriorityTypes convert(RTCPriorityType priority);
-        static RTCPriorityType convert(IRTPTypes::PriorityTypes priority);
+        static IRTPTypes::PriorityTypes Convert(RTCPriorityType priority);
+        static RTCPriorityType Convert(IRTPTypes::PriorityTypes priority);
 
-        static IRTPTypes::DegradationPreferences convert(RTCDegradationPreference preference);
-        static RTCDegradationPreference convert(IRTPTypes::DegradationPreferences preference);
+        static IRTPTypes::DegradationPreferences Convert(RTCDegradationPreference preference);
+        static RTCDegradationPreference Convert(IRTPTypes::DegradationPreferences preference);
 
         // Logger convertors
-        static zsLib::Log::Level convert(Log::Level level);
-        static const char *toComponent(Log::Component  component);
+        static zsLib::Log::Level Convert(Log::Level level);
+        static const char *ToComponent(Log::Component  component);
       };
 
     } // namespace internal

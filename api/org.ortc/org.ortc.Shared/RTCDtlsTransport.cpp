@@ -52,7 +52,7 @@ namespace org
       RTCDtlsParameters^ ToCx(const IDTLSTransportTypes::Parameters &input)
       {
         auto result = ref new RTCDtlsParameters();
-        result->Role = Helper::convert(input.mRole);
+        result->Role = Helper::Convert(input.mRole);
         if (input.mFingerprints.size() > 0)
         {
           result->Fingerprints = ref new Vector<RTCDtlsFingerprint^>();
@@ -75,7 +75,7 @@ namespace org
       {
         if (nullptr == input) return IDTLSTransportTypes::ParametersPtr();
         auto result = make_shared<IDTLSTransportTypes::Parameters>();
-        result->mRole = Helper::convert(input->Role);
+        result->mRole = Helper::Convert(input->Role);
         if (input->Fingerprints)
         {
           for (RTCDtlsFingerprint^ value : input->Fingerprints)
@@ -185,22 +185,22 @@ namespace org
 
     Platform::String^ RTCDtlsTransport::ToString(RTCDtlsTransportState value)
     {
-      return UseHelper::ToCx(IDTLSTransport::toString(UseHelper::convert(value)));
+      return UseHelper::ToCx(IDTLSTransport::toString(UseHelper::Convert(value)));
     }
 
     Platform::String^ RTCDtlsTransport::ToString(RTCDtlsRole value)
     {
-      return UseHelper::ToCx(IDTLSTransport::toString(UseHelper::convert(value)));
+      return UseHelper::ToCx(IDTLSTransport::toString(UseHelper::Convert(value)));
     }
 
     RTCDtlsTransportState RTCDtlsTransport::ToState(Platform::String^ str)
     {
-      return UseHelper::convert(IDTLSTransport::toState(UseHelper::FromCx(str).c_str()));
+      return UseHelper::Convert(IDTLSTransport::toState(UseHelper::FromCx(str).c_str()));
     }
 
     RTCDtlsRole RTCDtlsTransport::ToRole(Platform::String^ str)
     {
-      return UseHelper::convert(IDTLSTransport::toRole(UseHelper::FromCx(str).c_str()));
+      return UseHelper::Convert(IDTLSTransport::toRole(UseHelper::FromCx(str).c_str()));
     }
 
     RTCDtlsTransportState RTCDtlsTransport::State::get()
@@ -238,7 +238,7 @@ namespace org
       )
     {
       auto evt = ref new RTCDtlsTransportStateChangeEvent();
-      evt->State = UseHelper::convert(state);
+      evt->State = UseHelper::Convert(state);
       _transport->OnDtlsTransportStateChanged(evt);
     }
 

@@ -348,7 +348,7 @@ namespace org
     MediaStreamTrackKind  MediaStreamTrack::Kind::get()
     {
       ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
-      return UseHelper::convert(_nativePointer->kind());
+      return UseHelper::Convert(_nativePointer->kind());
     }
 
     Platform::String^ MediaStreamTrack::Id::get()
@@ -401,8 +401,8 @@ namespace org
 
     MediaStreamTrackState MediaStreamTrack::ReadyState::get()
     {
-      if (!_nativePointer) return UseHelper::convert(IMediaStreamTrackTypes::State_Ended);
-      return UseHelper::convert(_nativePointer->readyState());
+      if (!_nativePointer) return UseHelper::Convert(IMediaStreamTrackTypes::State_Ended);
+      return UseHelper::Convert(_nativePointer->readyState());
     }
 
     MediaStreamTrack^ MediaStreamTrack::Clone()

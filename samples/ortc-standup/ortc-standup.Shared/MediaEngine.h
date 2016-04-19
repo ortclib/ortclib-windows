@@ -108,8 +108,7 @@ namespace ortc_standup
 
     virtual void onICEGathererError(
                                     ortc::IICEGathererPtr gatherer,
-                                    ortc::IICEGathererDelegate::ErrorCode errorCode,
-                                    zsLib::String errorReason
+                                    ortc::IICEGathererTypes::ErrorEventPtr errorEvent
                                     ) override;
 
     //-----------------------------------------------------------------------

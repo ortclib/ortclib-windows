@@ -136,9 +136,9 @@ namespace org
                         @lock.WaitAsync().Wait();
                         if (_installedIceEvents)
                         {
-                            IceGatherer.OnICEGathererLocalCandidate -= RTCIceGatherer_onICEGathererLocalCandidate;
-                            IceGatherer.OnICEGathererCandidateComplete -= RTCIceGatherer_onICEGathererCandidateComplete;
-                            IceGatherer.OnICEGathererLocalCandidateGone -= RTCIceGatherer_onICEGathererLocalCandidateGone;
+                            IceGatherer.OnLocalCandidate -= RTCIceGatherer_onICEGathererLocalCandidate;
+                            IceGatherer.OnLocalCandidateComplete -= RTCIceGatherer_onICEGathererCandidateComplete;
+                            IceGatherer.OnLocalCandidateGone -= RTCIceGatherer_onICEGathererLocalCandidateGone;
                             _installedIceEvents = false;
                         }
 
@@ -293,13 +293,13 @@ namespace org
                     
                 }
 
-                private void RTCIceGatherer_onICEGathererError(RTCIceGathererErrorEvent evt)
+                private void RTCIceGatherer_onICEGathererError(RTCIceGathererIceErrorEvent evt)
                 {
                     
                     
                 }
 
-                private void RTCIceGatherer_OnStateChangedDelegate(RTCIceGathererStateChangeEvent evt)
+                private void RTCIceGatherer_OnStateChangedDelegate(RTCIceGathererStateChangedEvent evt)
                 {
 
 
@@ -493,11 +493,11 @@ namespace org
 
                     if (!_installedIceEvents)
                     {
-                        IceGatherer.OnICEGathererLocalCandidate += RTCIceGatherer_onICEGathererLocalCandidate;
-                        IceGatherer.OnICEGathererCandidateComplete += RTCIceGatherer_onICEGathererCandidateComplete;
-                        IceGatherer.OnICEGathererLocalCandidateGone += RTCIceGatherer_onICEGathererLocalCandidateGone;
-                        IceGatherer.OnICEGathererError += RTCIceGatherer_onICEGathererError;
-                        IceGatherer.OnICEGathererStateChanged += RTCIceGatherer_OnStateChangedDelegate;
+                        IceGatherer.OnLocalCandidate += RTCIceGatherer_onICEGathererLocalCandidate;
+                        IceGatherer.OnLocalCandidateComplete += RTCIceGatherer_onICEGathererCandidateComplete;
+                        IceGatherer.OnLocalCandidateGone += RTCIceGatherer_onICEGathererLocalCandidateGone;
+                        IceGatherer.OnError += RTCIceGatherer_onICEGathererError;
+                        IceGatherer.OnStateChange += RTCIceGatherer_OnStateChangedDelegate;
                         IceGatherer.Gather(null);
                         _installedIceEvents = true;
                     }
