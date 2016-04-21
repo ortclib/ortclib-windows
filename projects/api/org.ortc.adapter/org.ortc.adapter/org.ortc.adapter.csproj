@@ -119,7 +119,7 @@
     <EmbeddedResource Include="Properties\org.ortc.adapter.rd.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\org.ortc\org.ortc\org.ortc.vcxproj">
+    <ProjectReference Include="..\..\org.ortc\org.ortc\org.ortc.vcxproj" Condition="'$(Platform)'!='AnyCPU'">
       <Project>{f12c67f3-12a0-4532-bdde-4be043dbc140}</Project>
       <Name>org.ortc</Name>
     </ProjectReference>

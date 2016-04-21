@@ -4,6 +4,7 @@
 *.sdf
 *.suo
 *.user
+project.lock.json
 [Rr]elease/
 projects/ipch
 projects/samples/ortc-standup/**/Generated Files
