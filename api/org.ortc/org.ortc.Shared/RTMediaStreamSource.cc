@@ -331,7 +331,10 @@ namespace org
           static_cast<int>(frame->width()),
           static_cast<int>(frame->height()));
       }
-      catch (...) {
+      catch (...)
+      {
+#define WARNING_DO_NOT_CATCH_ALL_AND_THEN_SILENTLY_FAIL 1
+#define WARNING_DO_NOT_CATCH_ALL_AND_THEN_SILENTLY_FAIL 2
         //LOG(LS_ERROR) << "Exception caught in RTMediaStreamSource::ConvertFrame()";
       }
       imageBuffer->Unlock2D();
@@ -377,7 +380,10 @@ namespace org
           return;
         }
       }
-      catch (...) {
+      catch (...)
+      {
+#define WARNING_DO_NOT_CATCH_ALL_AND_THEN_SILENTLY_FAIL 1
+#define WARNING_DO_NOT_CATCH_ALL_AND_THEN_SILENTLY_FAIL 2
         //LOG(LS_ERROR) << "Exception in RTMediaStreamSource::OnSampleRequested.";
       }
     }

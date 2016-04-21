@@ -4,6 +4,7 @@
 #include "RTCDtlsTransport.h"
 #include "RtpTypes.h"
 #include "helpers.h"
+#include "Error.h"
 
 using namespace ortc;
 
@@ -16,6 +17,55 @@ namespace org
     using Windows::Foundation::Collections::IVector;
 
     ZS_DECLARE_TYPEDEF_PTR(internal::Helper, UseHelper)
+
+    namespace internal
+    {
+#pragma region RTCRtpReceiver delegates
+
+      class RTCRtpReceiverDelegate : public IRTPReceiverDelegate
+      {
+      public:
+        void SetOwnerObject(RTCRtpReceiver^ owner) { _owner = owner; }
+
+      private:
+        RTCRtpReceiver^ _owner;
+      };
+
+#pragma endregion
+
+#pragma region RTCRtpReceiver observers 
+
+      class RTCRtpReceiverPromiseObserver : public zsLib::IPromiseResolutionDelegate
+      {
+      public:
+        RTCRtpReceiverPromiseObserver(Concurrency::task_completion_event<void> tce);
+
+        virtual void onPromiseResolved(PromisePtr promise) override;
+        virtual void onPromiseRejected(PromisePtr promise) override;
+
+      private:
+        Concurrency::task_completion_event<void> mTce;
+      };
+
+      RTCRtpReceiverPromiseObserver::RTCRtpReceiverPromiseObserver(Concurrency::task_completion_event<void> tce) : mTce(tce)
+      {
+      }
+
+      void RTCRtpReceiverPromiseObserver::onPromiseResolved(PromisePtr promise)
+      {
+        mTce.set();
+      }
+
+      void RTCRtpReceiverPromiseObserver::onPromiseRejected(PromisePtr promise)
+      {
+        auto reason = promise->reason<Any>();
+        auto error = Error::CreateIfGeneric(reason);
+        mTce.set_exception(error);
+      }
+
+#pragma endregion
+
+    }
     
     RTCRtpReceiver::RTCRtpReceiver() :
       _nativeDelegatePointer(nullptr),
@@ -24,7 +74,7 @@ namespace org
     }
 
     RTCRtpReceiver::RTCRtpReceiver(MediaStreamTrackKind kind, RTCDtlsTransport ^ transport) :
-      _nativeDelegatePointer(new RTCRtpReceiverDelegate())
+      _nativeDelegatePointer(make_shared<internal::RTCRtpReceiverDelegate>())
     {
       _nativeDelegatePointer->SetOwnerObject(this);
       auto nativeTransport = RTCDtlsTransport::Convert(transport);
@@ -71,14 +121,40 @@ namespace org
       return internal::ToCx(IRTPReceiver::getCapabilities());
     }
 
-
-    void RTCRtpReceiver::Receive(RTCRtpParameters^ parameters)
+    IAsyncAction^ RTCRtpReceiver::Receive(RTCRtpParameters^ parameters)
     {
-      if (_nativePointer)
+      ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
+      ORG_ORTC_THROW_INVALID_PARAMETERS_IF(!parameters)
+
+      PromisePtr promise;
+
+      try
       {
-        assert(nullptr != parameters);
-        _nativePointer->receive(*internal::FromCx(parameters));
+        promise = _nativePointer->receive(*internal::FromCx(parameters));
       }
+      catch (const InvalidParameters & e)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS()
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
+
+      IAsyncAction^ ret = Concurrency::create_async([this, promise]()
+      {
+        Concurrency::task_completion_event<void> tce;
+
+        auto observer = make_shared<internal::RTCRtpReceiverPromiseObserver>(tce);
+
+        promise->then(observer);
+        promise->background();
+        auto tceTask = Concurrency::task<void>(tce);
+
+        return tceTask.get();
+      });
+
+      return ret;
     }
 
     IVector<RTCRtpContributingSource^>^ org::ortc::RTCRtpReceiver::GetContributingSource()
@@ -122,17 +198,6 @@ namespace org
     {
       if (!_nativePointer) return nullptr;
       return RTCDtlsTransport::Convert(IDTLSTransport::convert(_nativePointer->rtcpTransport()));
-    }
-
-    //-----------------------------------------------------------------
-    #pragma mark RTCRtpReceiverDelegate
-    //-----------------------------------------------------------------
-    void RTCRtpReceiverDelegate::onRTPReceiverError(IRTPReceiverPtr receiver, ErrorCode errorCode, zsLib::String errorReason)
-    {
-      auto evt = ref new RTCRtpReceiverErrorEvent();
-      evt->Error->ErrorCode = errorCode;
-      evt->Error->ErrorReason = UseHelper::ToCx(errorReason);
-      _owner->OnRTCRtpReceiverError(evt);
     }
 
   } // namespace ortc

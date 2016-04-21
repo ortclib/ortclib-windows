@@ -39,12 +39,12 @@ namespace org
 
     /// <summary>
     /// The allowed legal boolean values.
-    /// </summary?
+    /// </summary>
     public ref struct CapabilityBoolean sealed
     {
       /// <summary>
       /// Gets or sets the allowed boolean values.
-      /// </summary?
+      /// </summary>
       property IVector<Platform::Boolean>^ Values;
     };
 
@@ -55,11 +55,11 @@ namespace org
     {
       /// <summary>
       /// Gets or sets the minimum value of this property.
-      /// </summary?
+      /// </summary>
       property int32    Min;
       /// <summary>
       /// Gets or sets the maximum legal value of this property.
-      /// </summary?
+      /// </summary>
       property int32    Max;
     };
 
@@ -70,22 +70,22 @@ namespace org
     {
       /// <summary>
       /// Gets or sets the minimum value of this property.
-      /// </summary?
+      /// </summary>
       property float64  Min;
       /// <summary>
       /// Gets or sets the maximum legal value of this property.
-      /// </summary?
+      /// </summary>
       property float64  Max;
     };
 
     /// <summary>
     /// The allowed legal string values.
-    /// </summary?
+    /// </summary>
     public ref struct CapabilityString sealed
     {
       /// <summary>
       /// Gets or sets the allowed values.
-      /// </summary?
+      /// </summary>
       property IVector<Platform::String ^>^ Values;
     };
   }

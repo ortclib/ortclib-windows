@@ -3,6 +3,7 @@
 #include "RTCDataChannel.h"
 #include "RTCSctpTransport.h"
 #include "helpers.h"
+#include "Error.h"
 
 #include <openpeer/services/IHelper.h>
 
@@ -11,8 +12,6 @@
 using Platform::Array;
 
 using namespace ortc;
-
-namespace ortc { ZS_DECLARE_SUBSYSTEM(ortclib) }
 
 namespace org
 {
@@ -78,7 +77,7 @@ namespace org
     RTCDataChannel::RTCDataChannel(RTCSctpTransport^ transport, RTCDataChannelParameters^ params) :
       _nativeDelegatePointer(new RTCDataChannelDelegate())
     {
-      ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == params)
+      ORG_ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == params)
 
       _nativeDelegatePointer->SetOwnerObject(this);
       auto nativeTransport = RTCSctpTransport::Convert(transport);

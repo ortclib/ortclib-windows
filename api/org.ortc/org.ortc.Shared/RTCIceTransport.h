@@ -189,8 +189,11 @@ namespace org
     public delegate void RTCIceTransportCandidatePairChangedDelegate(RTCIceCandidatePairChangedEvent^ evt);
 
     /// <summary>
-    /// The RTCIceTransport includes information relating to Interactive
-    /// Connectivity Establishment (ICE).
+    /// The RTCIceTransport allows an application access to information about
+    /// the Interactive Connectivity Establishment(ICE) transport over which
+    /// packets are sent and received. In particular, ICE manages
+    /// peer - to - peer connections which involve state which the
+    /// application may want to access.
     /// </summary>
     public ref class RTCIceTransport sealed
     {

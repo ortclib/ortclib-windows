@@ -17,6 +17,9 @@ namespace org
 
     namespace internal
     {
+
+#pragma region ICE types conversions
+
       RTCIceCandidate^ ToCx(const IICETypes::Candidate &input)
       {
         auto result = ref new RTCIceCandidate();
@@ -86,7 +89,7 @@ namespace org
       RTCIceParameters^ ToCx(const IICETypes::Parameters &input)
       {
         auto result = ref new RTCIceParameters();
-        result->UseCandidateFreezePriority = input.mUseCandidateFreezePriority;
+        result->UseUnfreezePriority = input.mUseUnfreezePriority;
         result->UsernameFragment = Helper::ToCx(input.mUsernameFragment);
         result->Password = Helper::ToCx(input.mPassword);
         result->IceLite = input.mICELite;
@@ -103,74 +106,19 @@ namespace org
       {
         if (nullptr == input) return IICETypes::ParametersPtr();
         auto result = make_shared<IICETypes::Parameters>();
-        result->mUseCandidateFreezePriority = input->UseCandidateFreezePriority;
+        result->mUseUnfreezePriority = input->UseUnfreezePriority;
         result->mUsernameFragment = Helper::FromCx(input->UsernameFragment);
         result->mPassword = Helper::FromCx(input->Password);
         result->mICELite = input->IceLite;
         return result;
       }
 
-    }
+#pragma endregion
 
-    Platform::String^ RTCIceTypes::ToString()
-    {
-      throw ref new Platform::NotImplementedException();
-    }
+    } // namespace internal
 
-    Platform::String^ RTCIceTypes::ToString(RTCIceRole value)
-    {
-      return UseHelper::ToCx(IICETypes::toString(UseHelper::Convert(value)));
-    }
+#pragma region RTCIceParameters
 
-    Platform::String^ RTCIceTypes::ToString(RTCIceComponent value)
-    {
-      return UseHelper::ToCx(IICETypes::toString(UseHelper::Convert(value)));
-    }
-
-    Platform::String^ RTCIceTypes::ToString(RTCIceProtocol value)
-    {
-      return UseHelper::ToCx(IICETypes::toString(UseHelper::Convert(value)));
-    }
-
-    Platform::String^ RTCIceTypes::ToString(RTCIceCandidateType value)
-    {
-      return UseHelper::ToCx(IICETypes::toString(UseHelper::Convert(value)));
-    }
-
-    Platform::String^ RTCIceTypes::ToString(RTCIceTcpCandidateType value)
-    {
-      return UseHelper::ToCx(IICETypes::toString(UseHelper::Convert(value)));
-    }
-
-
-    RTCIceRole RTCIceTypes::ToRole(Platform::String^ str)
-    {
-      return UseHelper::Convert(IICETypes::toRole(UseHelper::FromCx(str).c_str()));
-    }
-
-    RTCIceComponent RTCIceTypes::ToComponent(Platform::String^ str)
-    {
-      return UseHelper::Convert(IICETypes::toComponent(UseHelper::FromCx(str).c_str()));
-    }
-
-    RTCIceProtocol RTCIceTypes::ToProtocol(Platform::String^ str)
-    {
-      return UseHelper::Convert(IICETypes::toProtocol(UseHelper::FromCx(str).c_str()));
-    }
-
-    RTCIceCandidateType RTCIceTypes::ToCandidateType(Platform::String^ str)
-    {
-      return UseHelper::Convert(IICETypes::toCandidateType(UseHelper::FromCx(str).c_str()));
-    }
-
-    RTCIceTcpCandidateType RTCIceTypes::ToTcpCandidateType(Platform::String^ str)
-    {
-      return UseHelper::Convert(IICETypes::toTCPCandidateType(UseHelper::FromCx(str).c_str()));
-    }
-
-    //---------------------------------------------------------------------------
-    // RTCIceParameters methods
-    //---------------------------------------------------------------------------
     Platform::String^ RTCIceParameters::ToJsonString()
     {
       auto params = internal::FromCx(this);
@@ -183,9 +131,10 @@ namespace org
       return internal::ToCx(make_shared<IICETypes::Parameters>(IICETypes::Parameters::Parameters(openpeer::services::IHelper::toJSON(UseHelper::FromCx(jsonString).c_str()))));
     }
 
-    //---------------------------------------------------------------------------
-    // RTCIceCandidate methods
-    //---------------------------------------------------------------------------
+#pragma endregion
+
+#pragma region RTCIceCandidate
+
     Platform::String^ RTCIceCandidate::ToJsonString()
     {
       auto candidate = internal::FromCx(this);
@@ -196,5 +145,8 @@ namespace org
     {
       return internal::ToCx(make_shared<IICETypes::Candidate>(IICETypes::Candidate::Candidate(openpeer::services::IHelper::toJSON(UseHelper::FromCx(jsonString).c_str()))));
     }
+
+#pragma endregion
+
   } // namespace ortc
 } // namespace org

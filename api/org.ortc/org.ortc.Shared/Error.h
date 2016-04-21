@@ -3,6 +3,13 @@
 
 #include <ortc/types.h>
 
+#define ORG_ORTC_THROW_INVALID_PARAMETERS_IF(xExpression) if (xExpression) {throw ref new Platform::InvalidArgumentException();}
+#define ORG_ORTC_THROW_INVALID_PARAMETERS() {throw ref new Platform::InvalidArgumentException();}
+#define ORG_ORTC_THROW_INVALID_STATE_IF(xExpression) if (xExpression) {throw ref new Platform::COMException(E_ILLEGAL_METHOD_CALL, #xExpression);}
+#define ORG_ORTC_THROW_INVALID_STATE_MESSAGE(xStr) {throw ref new Platform::COMException(E_ILLEGAL_METHOD_CALL, #xStr);}
+#define ORG_ORTC_THROW_INVALID_STATE(xStr) {throw ref new Platform::COMException(E_ILLEGAL_METHOD_CALL, xStr);}
+#define ORG_ORTC_THROW_UNEXPECTED_IF(xExpression) if (xExpression) {throw ref new Platform::COMException(E_UNEXPECTED, #xExpression);}
+
 namespace org
 {
   namespace ortc
@@ -15,7 +22,8 @@ namespace org
       ZS_DECLARE_CLASS_PTR(MediaDevicesPromiseObserver)
       ZS_DECLARE_CLASS_PTR(MediaStreamTrackConstraintsPromiseObserver)
       ZS_DECLARE_CLASS_PTR(RTCGenerateCertificatePromiseObserver)
-      ZS_DECLARE_CLASS_PTR(RTCSenderSetTrackPromiseObserver)
+      ZS_DECLARE_CLASS_PTR(RTCRtpSenderPromiseObserver)
+      ZS_DECLARE_CLASS_PTR(RTCRtpReceiverPromiseObserver)
     } // namespace internal
 
     /// <summary>
@@ -27,7 +35,8 @@ namespace org
       friend class internal::MediaDevicesPromiseObserver;
       friend class internal::MediaStreamTrackConstraintsPromiseObserver;
       friend class internal::RTCGenerateCertificatePromiseObserver;
-      friend class internal::RTCSenderSetTrackPromiseObserver;
+      friend class internal::RTCRtpSenderPromiseObserver;
+      friend class internal::RTCRtpReceiverPromiseObserver;
 
       static Error^ CreateIfGeneric(AnyPtr any);
 

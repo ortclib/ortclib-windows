@@ -3,14 +3,13 @@
 #include "RTCDataChannel.h"
 #include "RTCSctpTransport.h"
 #include "helpers.h"
+#include "Error.h"
 
 #include <openpeer/services/IHelper.h>
 
 #include <zsLib/SafeInt.h>
 
 using namespace ortc;
-
-namespace ortc { ZS_DECLARE_SUBSYSTEM(ortclib) }
 
 namespace org
 {
@@ -111,7 +110,7 @@ namespace org
 
     uint16 RTCSctpTransport::Port::get()
     {
-      ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
+      ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
       return _nativePointer->port();
     }
 

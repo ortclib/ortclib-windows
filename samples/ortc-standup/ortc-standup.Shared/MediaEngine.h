@@ -132,12 +132,6 @@ namespace ortc_standup
     #pragma mark MediaEngine => IRTPSenderDelegate
     #pragma mark
 
-    virtual void onRTPSenderError(
-                                  ortc::IRTPSenderPtr sender,
-                                  IRTPSenderDelegate::ErrorCode errorCode,
-                                  zsLib::String errorReason
-                                  ) override;
-
     virtual void onRTPSenderSSRCConflict(
                                          ortc::IRTPSenderPtr sender,
                                          SSRCType ssrc
@@ -147,12 +141,6 @@ namespace ortc_standup
     #pragma mark
     #pragma mark MediaEngine => IRTPReceiverDelegate
     #pragma mark
-
-    virtual void onRTPReceiverError(
-                                    ortc::IRTPReceiverPtr sender,
-                                    IRTPReceiverDelegate::ErrorCode errorCode,
-                                    zsLib::String errorReason
-                                    ) override;
 
     //-----------------------------------------------------------------------
     #pragma mark

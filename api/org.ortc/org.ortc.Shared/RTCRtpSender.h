@@ -15,8 +15,6 @@ namespace org
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IRTPSender, IRTPSender)
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IRTPSenderDelegate, IRTPSenderDelegate)
 
-    ZS_DECLARE_CLASS_PTR(RTCRtpSenderDelegate)
-
     ref class MediaStreamTrack;
     ref class RTCDtlsTransport;
     ref class RTCRtpSender;
@@ -26,70 +24,28 @@ namespace org
 
     namespace internal
     {
-      ZS_DECLARE_CLASS_PTR(RTCSenderSetTrackPromiseObserver)
+      ZS_DECLARE_CLASS_PTR(RTCRtpSenderDelegate)
+      ZS_DECLARE_CLASS_PTR(RTCRtpSenderPromiseObserver)
     } // namespace internal
 
-    class RTCRtpSenderDelegate : public IRTPSenderDelegate
+    public ref struct RTCSsrcConflictEvent sealed
     {
-    public:
-      virtual void onRTPSenderError(
-        IRTPSenderPtr sender,
-        ErrorCode errorCode,
-        zsLib::String errorReason
-        );
+      friend class internal::RTCRtpSenderDelegate;
 
-      virtual void onRTPSenderSSRCConflict(
-        IRTPSenderPtr sender,
-        SSRCType ssrc
-        );
-
-      RTCRtpSender^ _sender;
-
-      void SetOwnerObject(RTCRtpSender^ owner) { _sender = owner; }
-    };
-
-
-    public ref class RTCRtpSenderError sealed
-    {
-    public:
-      property uint16 ErrorCode;
-      property Platform::String^ ErrorReason;
-    };
-
-    //------------------------------------------
-    // Events and Delegates
-    //------------------------------------------
-
-    // Error event and delegate
-    public ref class RTCRtpSenderErrorEvent sealed {
-    public:
-      property RTCRtpSenderError^ Error
+      property uint32 Ssrc
       {
-        RTCRtpSenderError^  get() { return m_error; }
-        void  set(RTCRtpSenderError^ value) { m_error = value; }
+        uint32 get() { return _ssrc; }
       }
 
     private:
-      RTCRtpSenderError^ m_error;
+      uint32 _ssrc;
     };
 
-    public delegate void RTCRtpSenderErrorDelegate(RTCRtpSenderErrorEvent^ evt);
-
-    // SSRC conflict event and delegate
-    public ref class RTCRtpSenderSSRCConflictEvent sealed {
-    public:
-      property uint64 SSRCConflict;
-    };
-
-    public delegate void RTCRtpSenderSSRCConflictDelegate(RTCRtpSenderSSRCConflictEvent^ evt);
-    //------------------------------------------
-    // End Events and Delegates
-    //------------------------------------------
-
+    public delegate void RTCRtpSenderSSRCConflictDelegate(RTCSsrcConflictEvent^ evt);
 
     public ref class RTCRtpSender sealed
     {
-      friend class RTCRtpSenderDelegate;
+      friend class internal::RTCRtpSenderDelegate;
 
     private:
       RTCRtpSender();
@@ -97,11 +53,12 @@ namespace org
       RTCRtpSender(MediaStreamTrack^ track, RTCDtlsTransport^ transport);
       RTCRtpSender(MediaStreamTrack^ track, RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
 
-      void SetTransport(RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
-      IAsyncAction^   SetTrack(MediaStreamTrack^ track);
-      static RTCRtpCapabilities^          GetCapabilities(Platform::String^ kind);
-      void                                Send(RTCRtpParameters^ parameters);
-      void                                Stop();
+      static RTCRtpCapabilities^  GetCapabilities(Platform::String^ kind);
+
+      void                        SetTransport(RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
+      IAsyncAction^               SetTrack(MediaStreamTrack^ track);
+      IAsyncAction^               Send(RTCRtpParameters^ parameters);
+      void                        Stop();
 
       property MediaStreamTrack^ Track
       {
@@ -118,12 +75,11 @@ namespace org
         RTCDtlsTransport^ get();
       }
 
-      event RTCRtpSenderErrorDelegate^              OnRTCRtpSenderError;
-      event RTCRtpSenderSSRCConflictDelegate^       OnRTCRtpSenderSSRCConflict;
+      event RTCRtpSenderSSRCConflictDelegate^       OnSsrcConflict;
 
     private:
       IRTPSenderPtr _nativePointer;
-      RTCRtpSenderDelegatePtr _nativeDelegatePointer;
+      internal::RTCRtpSenderDelegatePtr _nativeDelegatePointer;
     };
 
   } // namespace ortc

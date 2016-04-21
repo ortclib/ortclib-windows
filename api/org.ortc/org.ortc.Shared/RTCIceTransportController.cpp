@@ -2,6 +2,7 @@
 
 #include "RTCIceTransportController.h"
 #include "RTCIceTransport.h"
+#include "Error.h"
 
 using namespace ortc;
 
@@ -20,30 +21,31 @@ namespace org
     IVector<RTCIceTransport^>^ RTCIceTransportController::GetTransports()
     {
       auto ret = ref new Vector<RTCIceTransport^>();
-      if (_nativePointer)
-      {
-        auto candidates = _nativePointer->getTransports();
-        for (IICETransportControllerTypes::ICETransportList::iterator it = candidates.begin(); it != candidates.end(); ++it) {
-          ret->Append(RTCIceTransport::Convert(*it));
-        }
+      if (!_nativePointer) return ret;
+      auto candidates = _nativePointer->getTransports();
+      for (IICETransportControllerTypes::ICETransportList::iterator it = candidates.begin(); it != candidates.end(); ++it) {
+        ret->Append(RTCIceTransport::Convert(*it));
       }
       return ret;
     }
 
     void RTCIceTransportController::AddTransport(RTCIceTransport^ transport)
     {
-      if (_nativePointer)
+      ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
+        try
       {
         _nativePointer->addTransport(RTCIceTransport::Convert(transport));
+      }
+      catch (const InvalidParameters &)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS()
       }
     }
 
     void RTCIceTransportController::AddTransport(RTCIceTransport^ transport, size_t index)
     {
-      if (_nativePointer)
-      {
-        _nativePointer->addTransport(RTCIceTransport::Convert(transport), index);
-      }
+      ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
+      _nativePointer->addTransport(RTCIceTransport::Convert(transport), index);
     }
 
   } // namespace ortc

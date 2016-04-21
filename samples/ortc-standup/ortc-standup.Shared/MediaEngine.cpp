@@ -588,27 +588,10 @@ void MediaEngine::onDTLSTransportError(
 
 }
 
-void MediaEngine::onRTPSenderError(
-                                   ortc::IRTPSenderPtr sender,
-                                   IRTPSenderDelegate::ErrorCode errorCode,
-                                   zsLib::String errorReason
-                                   )
-{
-}
-
 void MediaEngine::onRTPSenderSSRCConflict(
                                           ortc::IRTPSenderPtr sender,
                                           SSRCType ssrc
                                           )
-{
-
-}
-
-void MediaEngine::onRTPReceiverError(
-                                     ortc::IRTPReceiverPtr sender,
-                                     IRTPReceiverDelegate::ErrorCode errorCode,
-                                     zsLib::String errorReason
-                                     )
 {
 
 }

@@ -2,14 +2,13 @@
 
 #include "RTCIceGatherer.h"
 #include "helpers.h"
+#include "Error.h"
 
 #include <zsLib/SafeInt.h>
 
 using namespace ortc;
 
 using Platform::Collections::Vector;
-
-namespace ortc { ZS_DECLARE_SUBSYSTEM(ortclib) }
 
 namespace org
 {
@@ -256,7 +255,7 @@ namespace org
     RTCIceGatherer::RTCIceGatherer(RTCIceGatherOptions^ options) :
       _nativeDelegatePointer(make_shared<internal::RTCIceGathererDelegate>())
     {
-      ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == options)
+      ORG_ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == options)
       _nativeDelegatePointer->SetOwnerObject(this);
       _nativePointer = IICEGatherer::create(_nativeDelegatePointer, *internal::FromCx(options));
     }
@@ -282,20 +281,28 @@ namespace org
 
     RTCIceGatherer^ RTCIceGatherer::CreateAssociatedGatherer()
     {
-      ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
+      ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
 
       RTCIceGatherer^ ret = ref new RTCIceGatherer();
 
       ret->_nativeDelegatePointer = make_shared<internal::RTCIceGathererDelegate>(internal::RTCIceGathererDelegate());
       ret->_nativeDelegatePointer->SetOwnerObject(ret);
-      ret->_nativePointer = _nativePointer->createAssociatedGatherer(ret->_nativeDelegatePointer);
+
+      try
+      {
+        ret->_nativePointer = _nativePointer->createAssociatedGatherer(ret->_nativeDelegatePointer);
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
 
       return ret;
     }
 
     void RTCIceGatherer::Gather(RTCIceGatherOptions^ options)
     {
-      ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
+      ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
       if (nullptr != options)
       {
         _nativePointer->gather(*internal::FromCx(options));
@@ -314,7 +321,7 @@ namespace org
     
     RTCIceComponent RTCIceGatherer::Component::get()
     {
-      ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
+      ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
       return UseHelper::Convert(_nativePointer->component());
     }
 

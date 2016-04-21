@@ -3,16 +3,14 @@
 #include "MediaStreamTrack.h"
 #include "Capabilities.h"
 #include "Constraints.h"
-#include "Error.h"
 #include "WebRtcMediaSource.h"
 #include "helpers.h"
+#include "Error.h"
 
 using Microsoft::WRL::ComPtr;
 using Platform::Collections::Vector;
 
 using namespace ortc;
-
-namespace ortc { ZS_DECLARE_SUBSYSTEM(ortclib) }
 
 namespace org
 {
@@ -347,25 +345,25 @@ namespace org
 
     MediaStreamTrackKind  MediaStreamTrack::Kind::get()
     {
-      ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
+      ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
       return UseHelper::Convert(_nativePointer->kind());
     }
 
     Platform::String^ MediaStreamTrack::Id::get()
     {
-      ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
+      ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
       return UseHelper::ToCx(_nativePointer->id());
     }
 
     Platform::String^ MediaStreamTrack::DeviceId::get()
     {
-      ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
+      ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
       return UseHelper::ToCx(_nativePointer->deviceID());
     }
 
     Platform::String^ MediaStreamTrack::Label::get()
     {
-      ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
+      ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
       return UseHelper::ToCx(_nativePointer->label());
     }
 
@@ -377,25 +375,25 @@ namespace org
 
     void MediaStreamTrack::Enabled::set(Platform::Boolean value)
     {
-      ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
+      ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
       _nativePointer->enabled(value);
     }
 
     Platform::Boolean MediaStreamTrack::Muted::get()
     {
-      ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
+      ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
       return _nativePointer->muted();
     }
 
     void MediaStreamTrack::Muted::set(Platform::Boolean value)
     {
-      ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
+      ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
       return _nativePointer->muted(value);
     }
 
     Platform::Boolean MediaStreamTrack::Remote::get()
     {
-      ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
+      ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
       return _nativePointer->remote();
     }
 
@@ -465,8 +463,8 @@ namespace org
 
     IAsyncAction^ MediaStreamTrack::ApplyConstraints(MediaTrackConstraints^ constraints)
     {
-      ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == constraints)
-      ORTC_THROW_INVALID_STATE_IF(nullptr == _nativePointer)
+      ORG_ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == constraints)
+      ORG_ORTC_THROW_INVALID_STATE_IF(nullptr == _nativePointer)
 
       IAsyncAction^ ret = Concurrency::create_async([this, constraints]()
       {

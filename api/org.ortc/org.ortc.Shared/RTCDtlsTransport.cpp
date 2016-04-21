@@ -4,6 +4,7 @@
 #include "RTCDtlsTransport.h"
 #include "RTCIceTransport.h"
 #include "helpers.h"
+#include "Error.h"
 
 #include <openpeer/services/IHelper.h>
 
@@ -14,8 +15,6 @@ using Platform::Array;
 using Platform::Object;
 
 using namespace ortc;
-
-namespace ortc { ZS_DECLARE_SUBSYSTEM(ortclib) }
 
 namespace org
 {
@@ -106,7 +105,7 @@ namespace org
     RTCDtlsTransport::RTCDtlsTransport(RTCIceTransport^ transport, IVector<RTCCertificate^>^ certificates) :
       _nativeDelegatePointer(new RTCDtlsTransportDelegate())
     {
-      ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == certificates)
+      ORG_ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == certificates)
 
       _nativeDelegatePointer->SetOwnerObject(this);
 
@@ -116,10 +115,22 @@ namespace org
       for (RTCCertificate^ cert : certificates)
       {
         ICertificatePtr nativeCert = RTCCertificate::Convert(cert);
-        ORTC_THROW_INVALID_PARAMETERS_IF(!nativeCert)
+        ORG_ORTC_THROW_INVALID_PARAMETERS_IF(!nativeCert)
         coreCertificates.push_back(nativeCert);
       }
-      _nativePointer = IDTLSTransport::create(_nativeDelegatePointer, nativeTransport, coreCertificates);
+
+      try
+      {
+        _nativePointer = IDTLSTransport::create(_nativeDelegatePointer, nativeTransport, coreCertificates);
+      }
+      catch (const InvalidParameters & e)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS()
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
     }
 
     RTCDtlsParameters^ RTCDtlsTransport::GetLocalParameters()
@@ -163,10 +174,20 @@ namespace org
 
     void RTCDtlsTransport::Start(RTCDtlsParameters^ remoteParameters)
     {
-      if (_nativePointer)
+      ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
+      ORG_ORTC_THROW_INVALID_PARAMETERS_IF(!remoteParameters)
+
+      try
       {
-        assert(nullptr != remoteParameters);
         _nativePointer->start(*internal::FromCx(remoteParameters));
+      }
+      catch (const InvalidParameters & e)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS()
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
       }
     }
 
