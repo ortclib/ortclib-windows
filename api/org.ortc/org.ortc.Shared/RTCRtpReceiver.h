@@ -67,6 +67,7 @@ namespace org
 
       [Windows::Foundation::Metadata::DefaultOverloadAttribute]
       static RTCRtpCapabilities^          GetCapabilities();
+      /// MediaStreamTrackKind
       [Windows::Foundation::Metadata::OverloadAttribute("GetCapabilitiesWithKind")]
       static RTCRtpCapabilities^          GetCapabilities(Platform::String^ kind);
 

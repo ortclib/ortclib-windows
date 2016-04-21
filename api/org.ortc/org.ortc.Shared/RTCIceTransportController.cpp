@@ -2,6 +2,7 @@
 
 #include "RTCIceTransportController.h"
 #include "RTCIceTransport.h"
+#include "helpers.h"
 #include "Error.h"
 
 using namespace ortc;
@@ -12,6 +13,7 @@ namespace org
 {
   namespace ortc
   {
+    ZS_DECLARE_TYPEDEF_PTR(internal::Helper, UseHelper)
     
     RTCIceTransportController::RTCIceTransportController()
     {
@@ -40,12 +42,28 @@ namespace org
       {
         ORG_ORTC_THROW_INVALID_PARAMETERS()
       }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
     }
 
     void RTCIceTransportController::AddTransport(RTCIceTransport^ transport, size_t index)
     {
       ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
-      _nativePointer->addTransport(RTCIceTransport::Convert(transport), index);
+
+      try
+      {
+        _nativePointer->addTransport(RTCIceTransport::Convert(transport), index);
+      }
+      catch (const InvalidParameters &)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS()
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
     }
 
   } // namespace ortc

@@ -18,6 +18,7 @@ namespace org
     ref class MediaStreamTrack;
     ref class RTCDtlsTransport;
     ref class RTCRtpSender;
+    ref class RTCDtmfSender;
 
     ref struct RTCRtpCapabilities;
     ref struct RTCRtpParameters;
@@ -46,9 +47,14 @@ namespace org
     public ref class RTCRtpSender sealed
     {
       friend class internal::RTCRtpSenderDelegate;
+      friend RTCDtmfSender;
 
     private:
       RTCRtpSender();
+
+      static RTCRtpSender^ Convert(IRTPSenderPtr sender);
+      static IRTPSenderPtr Convert(RTCRtpSender^ sender) { if (!sender) return nullptr; return sender->_nativePointer; }
+
     public:
       RTCRtpSender(MediaStreamTrack^ track, RTCDtlsTransport^ transport);
       RTCRtpSender(MediaStreamTrack^ track, RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);

@@ -218,7 +218,6 @@ namespace org
     /// some kind of network change occurs where new candidates were
     /// discovered.
     /// </summary>
-    /// <see cref="RTCIceGatherer" />
     public ref struct RTCIceCandidateComplete sealed
     {
       /// <summary>

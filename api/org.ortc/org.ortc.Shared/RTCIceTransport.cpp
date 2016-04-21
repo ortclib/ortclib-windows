@@ -234,7 +234,7 @@ namespace org
       {
         _nativePointer->start(nativeGatherer, *internal::FromCx(remoteParameters), *internal::FromCx(options));
       }
-      catch (const InvalidParameters &e)
+      catch (const InvalidParameters &)
       {
         ORG_ORTC_THROW_INVALID_PARAMETERS()
       }

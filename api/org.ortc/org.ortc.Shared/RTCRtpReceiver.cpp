@@ -73,12 +73,20 @@ namespace org
     {
     }
 
-    RTCRtpReceiver::RTCRtpReceiver(MediaStreamTrackKind kind, RTCDtlsTransport ^ transport) :
+    RTCRtpReceiver::RTCRtpReceiver(MediaStreamTrackKind kind, RTCDtlsTransport^ transport) :
       _nativeDelegatePointer(make_shared<internal::RTCRtpReceiverDelegate>())
     {
       _nativeDelegatePointer->SetOwnerObject(this);
       auto nativeTransport = RTCDtlsTransport::Convert(transport);
-      _nativePointer = IRTPReceiver::create(_nativeDelegatePointer, UseHelper::Convert(kind), nativeTransport);
+
+      try
+      {
+        _nativePointer = IRTPReceiver::create(_nativeDelegatePointer, UseHelper::Convert(kind), nativeTransport);
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
     }
 
     RTCRtpReceiver::RTCRtpReceiver(MediaStreamTrackKind kind, RTCDtlsTransport ^ transport, RTCDtlsTransport^ rtcpTransport)
@@ -99,7 +107,14 @@ namespace org
     {
       auto nativeTransport = RTCDtlsTransport::Convert(transport);
       auto nativeRtcpTransport = RTCDtlsTransport::Convert(rtcpTransport);
-      _nativePointer->setTransport(nativeTransport, nativeRtcpTransport);
+      try
+      {
+        _nativePointer->setTransport(nativeTransport, nativeRtcpTransport);
+      }
+      catch (const InvalidParameters &)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS()
+      }
     }
 
     RTCRtpCapabilities^ RTCRtpReceiver::GetCapabilities()
@@ -111,10 +126,10 @@ namespace org
     {
       if (nullptr != kind)
       {
-        if (Platform::String::CompareOrdinal(kind, "audio") == 0)
+        if (Platform::String::CompareOrdinal(kind, MediaStreamTrackKind::Audio.ToString()) == 0)
           return internal::ToCx(IRTPReceiver::getCapabilities(IMediaStreamTrackTypes::Kinds::Kind_Audio));
 
-        if (Platform::String::CompareOrdinal(kind, "video") == 0)
+        if (Platform::String::CompareOrdinal(kind, MediaStreamTrackKind::Video.ToString()) == 0)
           return internal::ToCx(IRTPReceiver::getCapabilities(IMediaStreamTrackTypes::Kinds::Kind_Video));
       }
 
@@ -132,7 +147,7 @@ namespace org
       {
         promise = _nativePointer->receive(*internal::FromCx(parameters));
       }
-      catch (const InvalidParameters & e)
+      catch (const InvalidParameters & )
       {
         ORG_ORTC_THROW_INVALID_PARAMETERS()
       }

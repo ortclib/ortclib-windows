@@ -123,7 +123,7 @@ namespace org
       {
         _nativePointer = IDTLSTransport::create(_nativeDelegatePointer, nativeTransport, coreCertificates);
       }
-      catch (const InvalidParameters & e)
+      catch (const InvalidParameters &)
       {
         ORG_ORTC_THROW_INVALID_PARAMETERS()
       }
@@ -181,7 +181,7 @@ namespace org
       {
         _nativePointer->start(*internal::FromCx(remoteParameters));
       }
-      catch (const InvalidParameters & e)
+      catch (const InvalidParameters &)
       {
         ORG_ORTC_THROW_INVALID_PARAMETERS()
       }
@@ -193,50 +193,20 @@ namespace org
 
     void RTCDtlsTransport::Stop()
     {
-      if (_nativePointer)
-      {
-        _nativePointer->stop();
-      }
-    }
-
-    Platform::String^ RTCDtlsTransport::ToString()
-    {
-      throw ref new Platform::NotImplementedException();
-    }
-
-    Platform::String^ RTCDtlsTransport::ToString(RTCDtlsTransportState value)
-    {
-      return UseHelper::ToCx(IDTLSTransport::toString(UseHelper::Convert(value)));
-    }
-
-    Platform::String^ RTCDtlsTransport::ToString(RTCDtlsRole value)
-    {
-      return UseHelper::ToCx(IDTLSTransport::toString(UseHelper::Convert(value)));
-    }
-
-    RTCDtlsTransportState RTCDtlsTransport::ToState(Platform::String^ str)
-    {
-      return UseHelper::Convert(IDTLSTransport::toState(UseHelper::FromCx(str).c_str()));
-    }
-
-    RTCDtlsRole RTCDtlsTransport::ToRole(Platform::String^ str)
-    {
-      return UseHelper::Convert(IDTLSTransport::toRole(UseHelper::FromCx(str).c_str()));
+      if (!_nativePointer) return;
+      _nativePointer->stop();
     }
 
     RTCDtlsTransportState RTCDtlsTransport::State::get()
     {
-      if (_nativePointer)
-        return (RTCDtlsTransportState)_nativePointer->state();
-      else
-        return RTCDtlsTransportState::Closed;
+      if (!_nativePointer) return RTCDtlsTransportState::Closed;
+      return UseHelper::Convert(_nativePointer->state());
     }
 
     IVector<RTCCertificate^>^ RTCDtlsTransport::Certificates::get()
     {
-      if (!_nativePointer) return nullptr;
-
       auto ret = ref new Vector<RTCCertificate^>();
+      if (!_nativePointer) return ret;
 
       IDTLSTransport::CertificateListPtr certificates = _nativePointer->certificates();
       for (IDTLSTransport::CertificateList::iterator it = certificates->begin(); it != certificates->end(); ++it)

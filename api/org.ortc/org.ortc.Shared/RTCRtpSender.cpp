@@ -124,11 +124,29 @@ namespace org
       }
     }
 
+    RTCRtpSender^ RTCRtpSender::Convert(IRTPSenderPtr sender)
+    {
+      RTCRtpSender^ result = ref new RTCRtpSender();
+      result->_nativePointer = sender;
+      return result;
+    }
+
     void RTCRtpSender::SetTransport(RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport)
     {
       auto nativeTransport = RTCDtlsTransport::Convert(transport);
       auto nativeRtcpTransport = RTCDtlsTransport::Convert(rtcpTransport);
-      _nativePointer->setTransport(nativeTransport, nativeRtcpTransport);
+      try
+      {
+        _nativePointer->setTransport(nativeTransport, nativeRtcpTransport);
+      }
+      catch (const InvalidParameters &)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS()
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
     }
 
     IAsyncAction^ RTCRtpSender::SetTrack(MediaStreamTrack^ track)
@@ -143,7 +161,7 @@ namespace org
       {
         promise = _nativePointer->setTrack(nativeTrack);
       }
-      catch (const InvalidParameters &e)
+      catch (const InvalidParameters &)
       {
         ORG_ORTC_THROW_INVALID_PARAMETERS()
       }
@@ -173,9 +191,9 @@ namespace org
     {
       if (kind != nullptr)
       {
-        if (Platform::String::CompareOrdinal(kind, "audio") == 0)
+        if (Platform::String::CompareOrdinal(kind, MediaStreamTrackKind::Audio.ToString()) == 0)
           return internal::ToCx(IRTPSender::getCapabilities(IMediaStreamTrackTypes::Kinds::Kind_Audio));
-        if (Platform::String::CompareOrdinal(kind, "video") == 0)
+        if (Platform::String::CompareOrdinal(kind, MediaStreamTrackKind::Video.ToString()) == 0)
           return internal::ToCx(IRTPSender::getCapabilities(IMediaStreamTrackTypes::Kinds::Kind_Video));
       }
 
@@ -193,7 +211,7 @@ namespace org
       {
         promise = _nativePointer->send(*internal::FromCx(parameters));
       }
-      catch (const InvalidParameters & e)
+      catch (const InvalidParameters &)
       {
         ORG_ORTC_THROW_INVALID_PARAMETERS()
       }
@@ -220,10 +238,8 @@ namespace org
 
     void RTCRtpSender::Stop()
     {
-      if (_nativePointer)
-      {
-        _nativePointer->stop();
-      }
+      if (!_nativePointer) return;
+      _nativePointer->stop();
     }
 
     MediaStreamTrack^ RTCRtpSender::Track::get()
