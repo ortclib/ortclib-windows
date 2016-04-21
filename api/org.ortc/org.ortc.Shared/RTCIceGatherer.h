@@ -314,8 +314,10 @@ namespace org
       friend class internal::RTCIceGathererDelegate;
 
       /// <summary>
-      /// Gets the local IP address and port used to communicate with the
-      /// STUN or TURN server.
+      /// Gets the RTCIceCandidate used to communicate with the STUN or TURN
+      /// server. On a multihomed system, multiple interfaces may be sed to
+      /// contact the server, and this attribute allows the application to
+      /// figure out on which one the failure occurred.
       /// </summary>
       property RTCIceCandidate^ HostCandidate
       {
@@ -331,7 +333,10 @@ namespace org
       }
       /// <summary>
       /// Gets the numeric STUN error code returned by the STUN or TURN
-      /// server.
+      /// server. If the server could not be reached on all interfaces,
+      /// ErrorCode will be set to a TBD value in the 7XX range, as this does
+      /// not conflict with the STUN error code range, and HostCandidate will
+      /// be null.
       /// </summary>
       property uint16            ErrorCode
       {

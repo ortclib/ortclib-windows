@@ -229,7 +229,7 @@ namespace org
 
     /// <summary>
     /// The local RTCIceParameters object includes the ICE username fragment
-    /// and password and other ICe related settings. The RTCIceParameters
+    /// and password and other ICE-related parameters. The RTCIceParameters
     /// object corresponding to a remote peer may also include an iceLite
     /// attribute (set to "true" if the remote peer only supports ICE-lite).
     /// </summary>
@@ -252,10 +252,11 @@ namespace org
       /// </summary>
       property Platform::String^  Password;
       /// <summary>
-      /// If only ICE-lite is supported by the remote peer (true) or not
-      /// (false or unset). Since [draft-ietf-rtcweb-transports] Section 3.4
-      /// requires client RTC engines/browsers support for full ICE not
-      /// ICE-lite, GetLocalParameters().IceLite must not be set.
+      /// If only ICE-lite is supported (true) or not (false or unset). Since
+      /// [draft-ietf-rtcweb-transports] Section 3.4 requires client RTC
+      /// engines/browsers support for full ICE, IceLite will only be "true"
+      /// for a remote peer such as a gateway. GetLocalParameters().IceLite
+      /// will not return true.
       /// </summary>
       property Platform::Boolean  IceLite;
 
