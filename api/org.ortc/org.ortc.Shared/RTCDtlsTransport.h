@@ -65,11 +65,6 @@ namespace org
       /// </summary>
       Connected,
       /// <summary>
-      /// DTLS has completed negotiation of a secure connection and verified
-      /// the remote fingerprint. Outgoing data and media can now flow through.
-      /// </summary>
-      Validated,
-      /// <summary>
       /// The DTLS connection has been closed intentionally via a call to
       /// Stop() or receipt of a close_notify alert. Calling transport.Stop()
       /// will also result in a transition to the "closed" state.

@@ -86,13 +86,20 @@ namespace org
       RTCRtpSender(MediaStreamTrack^ track, RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
 
       /// <summary>
-      /// Obtain the sender capabilities, based on kind. If kind is omitted or
-      /// is set to "", then all capabilities are returned. Capabilities such
-      /// as retransmission [RFC4588], redundancy [RFC2198], and Forward Error
+      /// Obtain all sender capabilities. Capabilities such as retransmission
+      /// [RFC4588], redundancy [RFC2198], and Forward Error Correction that
+      /// do not have an associated value of kind are always included.
+      /// </summary>
+      [Windows::Foundation::Metadata::DefaultOverloadAttribute]
+      static RTCRtpCapabilities^          GetCapabilities();
+      /// <summary>
+      /// Obtain the sender capabilities, based on kind. Capabilities such as
+      /// retransmission [RFC4588], redundancy [RFC2198], and Forward Error
       /// Correction that do not have an associated value of kind are always
       /// included, regardless of the value of kind passed to
       /// GetCapabilities().
       /// </summary>
+      [Windows::Foundation::Metadata::OverloadAttribute("GetCapabilitiesWithKind")]
       static RTCRtpCapabilities^  GetCapabilities(Platform::String^ kind);
 
       /// <summary>

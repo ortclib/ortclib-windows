@@ -188,6 +188,11 @@ namespace org
       return ret;
     }
 
+    RTCRtpCapabilities^ RTCRtpSender::GetCapabilities()
+    {
+      return internal::ToCx(IRTPSender::getCapabilities());
+    }
+
     RTCRtpCapabilities^ RTCRtpSender::GetCapabilities(Platform::String^ kind)
     {
       if (kind != nullptr)

@@ -6,7 +6,11 @@
 #include "helpers.h"
 #include "Error.h"
 
+#include <zsLib/date.h>
+#include <zsLib/SafeInt.h>
+
 using namespace ortc;
+using namespace date;
 
 using Platform::Collections::Vector;
 
@@ -67,6 +71,25 @@ namespace org
 
     }
     
+    Windows::Foundation::DateTime RTCRtpContributingSource::TimeStamp::get()
+    {
+      Windows::Foundation::DateTime result {};
+      auto t = day_point(jan / 1 / 1601);
+
+      auto diff = _timeStamp - t;
+      zsLib::Nanoseconds nano = zsLib::toNanoseconds(diff);
+
+      result.UniversalTime = SafeInt<decltype(result.UniversalTime)>(nano.count() / static_cast<zsLib::Nanoseconds::rep>(100));
+      return result;
+    }
+
+    Platform::IBox<Platform::Boolean>^ RTCRtpContributingSource::VoiceActivityFlag::get()
+    {
+      return UseHelper::ToCx(_voiceActivityFlag);
+    }
+
+#pragma region RTCRtpReceiver
+
     RTCRtpReceiver::RTCRtpReceiver() :
       _nativeDelegatePointer(nullptr),
       _nativePointer(nullptr)
@@ -183,8 +206,10 @@ namespace org
         {
           RTCRtpContributingSource^ source = ref new RTCRtpContributingSource();
 
-          source->mSource = it->mCSRC;
-          source->mAudioLevel = it->mAudioLevel;
+          source->_source = it->mCSRC;
+          source->_audioLevel = it->mAudioLevel;
+          source->_timeStamp = it->mTimestamp;
+          source->_voiceActivityFlag = it->mVoiceActivityFlag;
         }
       }
 
@@ -214,6 +239,8 @@ namespace org
       if (!_nativePointer) return nullptr;
       return RTCDtlsTransport::Convert(IDTLSTransport::convert(_nativePointer->rtcpTransport()));
     }
+
+#pragma endregion
 
   } // namespace ortc
 } // namespace org
