@@ -5,6 +5,9 @@
 #include "RtpTypes.h"
 #include "helpers.h"
 
+#include <zsLib/SafeInt.h>
+
+using std::make_shared;
 
 namespace org
 {
@@ -12,8 +15,35 @@ namespace org
   {
     ZS_DECLARE_TYPEDEF_PTR(internal::Helper, UseHelper)
 
+    namespace internal
+    {
+      class RTCRtpListenerDelegate : public IRTPListenerDelegate
+      {
+      public:
+        virtual void onRTPListenerUnhandledRTP(
+          IRTPListenerPtr listener,
+          SSRCType ssrc,
+          PayloadType payloadType,
+          const char *mid,
+          const char *rid
+          ) override
+        {
+          auto evt = ref new RTCRtpUnhandledEvent();
+          evt->_ssrc = SafeInt<decltype(evt->_ssrc)>(ssrc);
+          evt->_payloadType = SafeInt<decltype(evt->_payloadType)>(payloadType);
+          evt->_muxId = UseHelper::ToCx(mid);
+          evt->_rid = UseHelper::ToCx(rid);
+          _listener->OnUnhandledRtp(evt);
+        }
+
+        RTCRtpListener^ _listener;
+
+        void SetOwnerObject(RTCRtpListener^ owner) { _listener = owner; }
+      };
+    }
+
     RTCRtpListener::RTCRtpListener(RTCDtlsTransport^ transport) :
-      _nativeDelegatePointer(new RTCRtpListenerDelegate())
+      _nativeDelegatePointer(make_shared<internal::RTCRtpListenerDelegate>())
     {
       _nativeDelegatePointer->SetOwnerObject(this);
       auto nativeTransport = RTCDtlsTransport::Convert(transport);
@@ -21,7 +51,7 @@ namespace org
     }
 
     RTCRtpListener::RTCRtpListener(RTCDtlsTransport^ transport, IVector<RTCRtpHeaderExtensionParameters^>^ headerExtensions) :
-      _nativeDelegatePointer(new RTCRtpListenerDelegate())
+      _nativeDelegatePointer(make_shared<internal::RTCRtpListenerDelegate>())
     {
       _nativeDelegatePointer->SetOwnerObject(this);
 
@@ -42,22 +72,6 @@ namespace org
     {
       if (!_nativePointer) return nullptr;
       return RTCDtlsTransport::Convert(IDTLSTransport::convert(_nativePointer->transport()));
-    }
-
-    void RTCRtpListenerDelegate::onRTPListenerUnhandledRTP(
-      IRTPListenerPtr listener,
-      SSRCType ssrc,
-      PayloadType payloadType,
-      const char *mid,
-      const char *rid
-      )
-    {
-      auto evt = ref new RTCRtpRListenerUnhandledRtpEvent();
-      evt->UnhandledRtp->Ssrc = ssrc;
-      evt->UnhandledRtp->PayloadType = payloadType;
-      evt->UnhandledRtp->MuxId = UseHelper::ToCx(mid);
-      evt->UnhandledRtp->Rid = UseHelper::ToCx(rid);
-      _listener->OnRTCRtpListenerUnhandledRtp(evt);
     }
 
   } // namespace ortc

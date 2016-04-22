@@ -207,7 +207,7 @@ namespace org
           RTCRtpContributingSource^ source = ref new RTCRtpContributingSource();
 
           source->_source = it->mCSRC;
-          source->_audioLevel = it->mAudioLevel;
+          source->_audioLevel = SafeInt<decltype(source->_audioLevel)>(it->mAudioLevel);
           source->_timeStamp = it->mTimestamp;
           source->_voiceActivityFlag = it->mVoiceActivityFlag;
         }

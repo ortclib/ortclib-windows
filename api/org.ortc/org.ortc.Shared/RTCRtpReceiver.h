@@ -72,9 +72,9 @@ namespace org
       /// system could possibly encode. Thus, 0 represents the loudest signal
       /// the system could possibly encode, and 127 represents silence.
       /// </summary>
-      property byte AudioLevel
+      property uint8 AudioLevel
       {
-        byte  get() { return _audioLevel; }
+        uint8 get() { return _audioLevel; }
       }
 
       /// <summary>
@@ -94,7 +94,7 @@ namespace org
     private:
       std::chrono::system_clock::time_point _timeStamp {};
       uint32                                _source {};
-      byte		                              _audioLevel {};
+      uint8		                              _audioLevel {};
       zsLib::Optional<bool>                 _voiceActivityFlag {};
     };
 
