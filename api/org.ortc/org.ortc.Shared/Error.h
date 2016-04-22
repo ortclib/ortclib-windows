@@ -15,10 +15,12 @@ namespace org
   namespace ortc
   {
     ZS_DECLARE_TYPEDEF_PTR(zsLib::Any, Any)
+    ZS_DECLARE_TYPEDEF_PTR(::ortc::ErrorAny, ErrorAny)
 
     namespace internal
     {
       ZS_DECLARE_CLASS_PTR(MediaStreamTrackDelegate)
+      ZS_DECLARE_CLASS_PTR(RTCDtlsTransportDelegate)
       ZS_DECLARE_CLASS_PTR(MediaDevicesPromiseObserver)
       ZS_DECLARE_CLASS_PTR(MediaStreamTrackConstraintsPromiseObserver)
       ZS_DECLARE_CLASS_PTR(RTCGenerateCertificatePromiseObserver)
@@ -32,6 +34,7 @@ namespace org
     public ref struct Error sealed
     {
     private:
+      friend class internal::RTCDtlsTransportDelegate;
       friend class internal::MediaDevicesPromiseObserver;
       friend class internal::MediaStreamTrackConstraintsPromiseObserver;
       friend class internal::RTCGenerateCertificatePromiseObserver;
@@ -39,12 +42,22 @@ namespace org
       friend class internal::RTCRtpReceiverPromiseObserver;
 
       static Error^ CreateIfGeneric(AnyPtr any);
+      static Error^ CreateIfGeneric(ErrorAnyPtr error);
 
     public:
+      /// <summary>
+      /// Gets or sets a string representing the error code (see HTTP
+      /// status codes).
+      /// </summary>
+      property uint16            ErrorCode;
       /// <summary>
       /// Gets or sets a string representing one of the error typename.
       /// </summary>
       property Platform::String^ Name;
+      /// <summary>
+      /// Gets or sets a string representing one of the error reason.
+      /// </summary>
+      property Platform::String^ Reason;
     };
 
     /// <summary>
@@ -54,6 +67,7 @@ namespace org
     {
     private:
       friend class internal::MediaStreamTrackDelegate;
+      friend class internal::RTCDtlsTransportDelegate;
 
       ErrorEvent(ref struct Error ^error)
       {

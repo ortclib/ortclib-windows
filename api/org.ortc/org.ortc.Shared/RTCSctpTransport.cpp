@@ -71,7 +71,19 @@ namespace org
       _nativeDelegatePointer->SetOwnerObject(this);
 
       auto nativeTransport = RTCDtlsTransport::Convert(transport);
-      _nativePointer = ISCTPTransport::create(_nativeDelegatePointer, nativeTransport, port);
+
+      try
+      {
+        _nativePointer = ISCTPTransport::create(_nativeDelegatePointer, nativeTransport, port);
+      }
+      catch (const InvalidParameters &)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS()
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
     }
 
     RTCSctpCapabilities^ RTCSctpTransport::GetCapabilities()

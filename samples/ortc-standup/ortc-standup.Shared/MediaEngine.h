@@ -123,8 +123,7 @@ namespace ortc_standup
 
     virtual void onDTLSTransportError(
                                       ortc::IDTLSTransportPtr transport,
-                                      IDTLSTransportDelegate::ErrorCode errorCode,
-                                      zsLib::String errorReason
+                                      ortc::ErrorAnyPtr error
                                       ) override;
 
     //-----------------------------------------------------------------------

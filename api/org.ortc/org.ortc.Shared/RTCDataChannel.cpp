@@ -82,39 +82,65 @@ namespace org
       _nativeDelegatePointer->SetOwnerObject(this);
       auto nativeTransport = RTCSctpTransport::Convert(transport);
 
-      _nativePointer = IDataChannel::create(_nativeDelegatePointer, nativeTransport, *internal::FromCx(params));
+      try
+      {
+        _nativePointer = IDataChannel::create(_nativeDelegatePointer, nativeTransport, *internal::FromCx(params));
+      }
+      catch (const InvalidParameters &)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS()
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
     }
 
     void RTCDataChannel::Close()
     {
-      if (_nativePointer)
-      {
-        _nativePointer->close();
-      }
+      if (!_nativePointer) return;
+      _nativePointer->close();
     }
 
     void RTCDataChannel::Send(Platform::String^ data)
     {
-      if (_nativePointer)
-      {
+      ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
         _nativePointer->send(UseHelper::FromCx(data));
-      }
     }
 
     void RTCDataChannel::Send(const Platform::Array<byte>^ data)
     {
-      if (_nativePointer)
+      ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
+
+      try
       {
         SecureByteBlockPtr bytes = openpeer::services::IHelper::convertToBuffer(data->Data, data->Length);
         _nativePointer->send(*bytes.get());
+      }
+      catch (const InvalidParameters &)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS()
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
       }
     }
 
     void RTCDataChannel::Send(const Platform::Array<byte>^ data, uint16 bufferSizeInBytes)
     {
-      if (_nativePointer)
+      try
       {
+        ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
         _nativePointer->send(data->Data, data->Length);
+      }
+      catch (const InvalidParameters &)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS()
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
       }
     }
 

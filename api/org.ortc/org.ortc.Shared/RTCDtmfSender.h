@@ -53,6 +53,8 @@ namespace org
 
     public:
       /// <summary>
+      /// Construct an instance of the RTCDtmfSender associated to an
+      /// RTCRtpSender.
       /// </summary>
       RTCDtmfSender(RTCRtpSender^ sender);
 

@@ -25,6 +25,8 @@ namespace org
     namespace internal
     {
 
+#pragma region RTCDtlsTransport conversions
+
       RTCDtlsFingerprint^ ToCx(const ICertificateTypes::Fingerprint &input)
       {
         auto result = ref new RTCDtlsFingerprint();
@@ -86,8 +88,42 @@ namespace org
         return result;
       }
 
+#pragma endregion
+
+#pragma region RTCDtlsTransport delegates
+
+      class RTCDtlsTransportDelegate : public IDTLSTransportDelegate
+      {
+      public:
+        virtual void onDTLSTransportStateChange(
+          IDTLSTransportPtr transport,
+          IDTLSTransport::States state
+          ) override
+        {
+          auto evt = ref new RTCDtlsTransportStateChangedEvent();
+          evt->_state = UseHelper::Convert(state);
+          _transport->OnStateChange(evt);
+        }
+
+        virtual void onDTLSTransportError(
+          IDTLSTransportPtr transport,
+          ErrorAnyPtr error
+          ) override
+        {
+          auto evt = ref new ErrorEvent(Error::CreateIfGeneric(error));
+          _transport->OnError(evt);
+        }
+
+        void SetOwnerObject(RTCDtlsTransport^ owner) { _transport = owner; }
+      private:
+        RTCDtlsTransport^ _transport;
+      };
+
+#pragma endregion
+
     } // namespace internal
 
+#pragma region RTCDtlsTransport
 
     RTCDtlsTransport::RTCDtlsTransport() :
       _nativeDelegatePointer(nullptr),
@@ -103,7 +139,7 @@ namespace org
     }
 
     RTCDtlsTransport::RTCDtlsTransport(RTCIceTransport^ transport, IVector<RTCCertificate^>^ certificates) :
-      _nativeDelegatePointer(new RTCDtlsTransportDelegate())
+      _nativeDelegatePointer(make_shared<internal::RTCDtlsTransportDelegate>())
     {
       ORG_ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == certificates)
 
@@ -135,37 +171,29 @@ namespace org
 
     RTCDtlsParameters^ RTCDtlsTransport::GetLocalParameters()
     {
-      if (_nativePointer)
-      {
-        return internal::ToCx(_nativePointer->getLocalParameters());
-      }
-      return nullptr;
+      if (!_nativePointer) return nullptr;
+      return internal::ToCx(_nativePointer->getLocalParameters());
     }
 
     RTCDtlsParameters^ RTCDtlsTransport::GetRemoteParameters()
     {
-      if (_nativePointer)
-      {
-        return internal::ToCx(_nativePointer->getRemoteParameters());
-      }
-      return nullptr;
+      if (!_nativePointer) return nullptr;
+      return internal::ToCx(_nativePointer->getRemoteParameters());
     }
 
     IVector<Object^>^ RTCDtlsTransport::GetRemoteCertificates()
     {
       auto ret = ref new Vector<Object^>();
+      if (!_nativePointer) return ret;
 
-      if (_nativePointer)
+      IDTLSTransportTypes::SecureByteBlockListPtr certificates = _nativePointer->getRemoteCertificates();
+
+      if (certificates->size() > 0)
       {
-        IDTLSTransportTypes::SecureByteBlockListPtr certificates = _nativePointer->getRemoteCertificates();
-
-        if (certificates->size() > 0)
+        for (IDTLSTransportTypes::SecureByteBlockList::iterator it = certificates->begin(); it != certificates->end(); ++it)
         {
-          for (IDTLSTransportTypes::SecureByteBlockList::iterator it = certificates->begin(); it != certificates->end(); ++it)
-          {
-            Array<byte>^ arr = ref new Array<byte>((*it).BytePtr(), SafeInt<unsigned int>((*it).SizeInBytes()));
-            ret->Append(arr);
-          }
+          Array<byte>^ arr = ref new Array<byte>((*it).BytePtr(), SafeInt<unsigned int>((*it).SizeInBytes()));
+          ret->Append(arr);
         }
       }
 
@@ -217,37 +245,13 @@ namespace org
       return ret;
     }
 
-    RTCIceTransport^ RTCDtlsTransport::IceTransport::get()
+    RTCIceTransport^ RTCDtlsTransport::Transport::get()
     {
       if (!_nativePointer) return nullptr;
       return RTCIceTransport::Convert(_nativePointer->transport());
     }
 
-    void RTCDtlsTransportDelegate::onDTLSTransportStateChange(
-      IDTLSTransportPtr transport,
-      IDTLSTransport::States state
-      )
-    {
-      auto evt = ref new RTCDtlsTransportStateChangeEvent();
-      evt->State = UseHelper::Convert(state);
-      _transport->OnDtlsTransportStateChanged(evt);
-    }
 
-    void RTCDtlsTransportDelegate::onDTLSTransportError(
-      IDTLSTransportPtr transport,
-      ErrorCode errorCode,
-      zsLib::String errorReason
-      )
-    {
-      auto evt = ref new RTCDtlsTransportErrorEvent();
-      evt->Error->ErrorCode = errorCode;
-      evt->Error->ErrorReason = UseHelper::ToCx(errorReason);
-      _transport->OnDtlsTransportError(evt);
-    }
-
-    //---------------------------------------------------------------------------
-    // RTCDtlsParameters methods
-    //---------------------------------------------------------------------------
     Platform::String^ RTCDtlsParameters::ToJsonString()
     {
       auto params = internal::FromCx(this);
@@ -259,5 +263,8 @@ namespace org
       auto params = make_shared<IDTLSTransport::Parameters>(IDTLSTransport::Parameters::Parameters(openpeer::services::IHelper::toJSON(UseHelper::FromCx(jsonString).c_str())));
       return internal::ToCx(params);
     }
+
+#pragma endregion
+
   } // namespace ortc
 } // namespace org

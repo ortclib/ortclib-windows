@@ -320,8 +320,8 @@ namespace org
         case RTCDtlsTransportState::New:            return IDTLSTransport::States::State_New;
         case RTCDtlsTransportState::Connecting:     return IDTLSTransport::States::State_Connecting;
         case RTCDtlsTransportState::Connected:      return IDTLSTransport::States::State_Connected;
-        case RTCDtlsTransportState::Validated:      return IDTLSTransport::States::State_Validated;
         case RTCDtlsTransportState::Closed:         return IDTLSTransport::States::State_Closed;
+        case RTCDtlsTransportState::Failed:         return IDTLSTransport::States::State_Failed;
         }
         throw ref new Platform::NotImplementedException();
       }
@@ -332,8 +332,8 @@ namespace org
         case IDTLSTransport::States::State_New:           return RTCDtlsTransportState::New;
         case IDTLSTransport::States::State_Connecting:    return RTCDtlsTransportState::Connecting;
         case IDTLSTransport::States::State_Connected:     return RTCDtlsTransportState::Connected;
-        case IDTLSTransport::States::State_Validated:     return RTCDtlsTransportState::Validated;
         case IDTLSTransport::States::State_Closed:        return RTCDtlsTransportState::Closed;
+        case IDTLSTransport::States::State_Failed:        return RTCDtlsTransportState::Failed;
         }
         throw ref new Platform::NotImplementedException();
       }

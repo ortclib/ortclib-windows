@@ -576,16 +576,13 @@ void MediaEngine::onDTLSTransportStateChange(
                                              ortc::IDTLSTransport::States state
                                              )
 {
-
 }
 
 void MediaEngine::onDTLSTransportError(
                                        ortc::IDTLSTransportPtr transport,
-                                       IDTLSTransportDelegate::ErrorCode errorCode,
-                                       zsLib::String errorReason
+                                       ortc::ErrorAnyPtr error
                                        )
 {
-
 }
 
 void MediaEngine::onRTPSenderSSRCConflict(
