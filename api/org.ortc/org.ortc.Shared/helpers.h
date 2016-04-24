@@ -58,6 +58,7 @@ namespace org
         typedef ::ortc::IRTPTypes IRTPTypes;
 
       public:
+        static bool IsNullOrEmpty(Platform::String ^input);
         static std::string FromCx(Platform::String^ inObj);
         static Platform::String^ ToCx(const std::string & inObj);
         static Platform::String^ ToCx(const char *str);

@@ -34,16 +34,26 @@ namespace org
     {
 #pragma region Basic types
 
-      std::string Helper::FromCx(Platform::String^ inObj) {
+      bool Helper::IsNullOrEmpty(Platform::String ^input)
+      {
+        if (nullptr == input) return true;
+        if (input->IsEmpty()) return true;
+        return false;
+      }
+
+      std::string Helper::FromCx(Platform::String^ inObj)
+      {
         if (nullptr == inObj) return std::string();
         return rtc::ToUtf8(inObj->Data());
       }
 
-      Platform::String^ Helper::ToCx(const std::string &inObj) {
+      Platform::String^ Helper::ToCx(const std::string &inObj)
+      {
         return ref new Platform::String(rtc::ToUtf16(inObj).c_str());
       }
 
-      Platform::String^ Helper::ToCx(const char *str) {
+      Platform::String^ Helper::ToCx(const char *str)
+      {
         if (NULL == str) return nullptr;
         return ref new Platform::String(rtc::ToUtf16(str, strlen(str)).c_str());
       }
@@ -546,7 +556,6 @@ namespace org
       IRTPTypes::PriorityTypes Helper::Convert(RTCPriorityType priority)
       {
         switch (priority) {
-        case RTCPriorityType::Unknown:    return IRTPTypes::PriorityTypes::PriorityType_Unknown;
         case RTCPriorityType::Very_Low:   return IRTPTypes::PriorityTypes::PriorityType_VeryLow;
         case RTCPriorityType::Low:        return IRTPTypes::PriorityTypes::PriorityType_Low;
         case RTCPriorityType::Medium:     return IRTPTypes::PriorityTypes::PriorityType_Medium;
@@ -558,7 +567,7 @@ namespace org
       RTCPriorityType Helper::Convert(IRTPTypes::PriorityTypes priority)
       {
         switch (priority) {
-        case IRTPTypes::PriorityTypes::PriorityType_Unknown:  return RTCPriorityType::Unknown;
+        case IRTPTypes::PriorityTypes::PriorityType_Unknown:  break;
         case IRTPTypes::PriorityTypes::PriorityType_VeryLow:  return RTCPriorityType::Very_Low;
         case IRTPTypes::PriorityTypes::PriorityType_Low:      return RTCPriorityType::Low;
         case IRTPTypes::PriorityTypes::PriorityType_Medium:   return RTCPriorityType::Medium;

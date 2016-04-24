@@ -187,7 +187,7 @@ namespace org
                 {
                     var result = new RTCRtpVp8CodecParameters();
                     result.MaxFs = capability.MaxFs;
-                    result.MaxFt = capability.MaxFt;
+                    result.MaxFr = capability.MaxFr;
                     return result;
                 }
 

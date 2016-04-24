@@ -3,10 +3,13 @@
 
 #include "RtpTypes.h"
 #include "helpers.h"
+#include "Error.h"
 
 #include <openpeer/services/IHelper.h>
 
 #include <zsLib/SafeInt.h>
+
+using namespace ortc;
 
 using namespace Platform;
 using Platform::Collections::Vector;
@@ -50,8 +53,8 @@ namespace org
       {
         auto result = ref new RTCRtpOpusCodecCapabilityOptions();
         result->Complexity = input.mComplexity;
-        result->Signal = input.mSignal;
-        result->Application = input.mApplication;
+        result->Signal = UseHelper::ToCx(IRTPTypes::OpusCodecCapabilityOptions::toString(input.mSignal));
+        result->Application = UseHelper::ToCx(IRTPTypes::OpusCodecCapabilityOptions::toString(input.mApplication));
         result->PacketLossPerc = input.mPacketLossPerc;
         result->PredictionDisabled = input.mPredictionDisabled;
         return result;
@@ -66,12 +69,27 @@ namespace org
       IRTPTypes::OpusCodecCapabilityOptionsPtr FromCx(RTCRtpOpusCodecCapabilityOptions^ input)
       {
         if (nullptr == input) return IRTPTypes::OpusCodecCapabilityOptionsPtr();
+
         auto result = make_shared<IRTPTypes::OpusCodecCapabilityOptions>();
-        result->mComplexity = input->Complexity;
-        result->mSignal = input->Signal;
-        result->mApplication = input->Application;
-        result->mPacketLossPerc = input->PacketLossPerc;
-        result->mPredictionDisabled = input->PredictionDisabled;
+
+        try
+        {
+          result->mComplexity = input->Complexity;
+          if (!UseHelper::IsNullOrEmpty(input->Signal))
+          {
+            result->mSignal = IRTPTypes::OpusCodecCapabilityOptions::toSignal(UseHelper::FromCx(input->Signal).c_str());
+          }
+          if (!UseHelper::IsNullOrEmpty(input->Application))
+          {
+            result->mApplication = IRTPTypes::OpusCodecCapabilityOptions::toApplication(UseHelper::FromCx(input->Application).c_str());
+          }
+          result->mPacketLossPerc = input->PacketLossPerc;
+          result->mPredictionDisabled = input->PredictionDisabled;
+        }
+        catch (const InvalidParameters &)
+        {
+          ORG_ORTC_THROW_INVALID_PARAMETERS()
+        }
         return result;
       }
 
@@ -79,7 +97,6 @@ namespace org
       {
         auto result = ref new RTCRtpOpusCodecCapabilityParameters();
         result->MaxPlaybackRate = Helper::ToCx(input.mMaxPlaybackRate);
-        result->Ptime = Helper::ToCx(input.mPTime);
         result->MaxAverageBitrate = Helper::ToCx(input.mMaxAverageBitrate);
         result->Stereo = Helper::ToCx(input.mStereo);
         result->Cbr = Helper::ToCx(input.mCBR);
@@ -101,7 +118,6 @@ namespace org
         if (nullptr == input) return IRTPTypes::OpusCodecCapabilityParametersPtr();
         auto result = make_shared<IRTPTypes::OpusCodecCapabilityParameters>();
         result->mMaxPlaybackRate = Helper::FromCx(input->MaxPlaybackRate);
-        result->mPTime = Helper::FromCx(input->Ptime);
         result->mMaxAverageBitrate = Helper::FromCx(input->MaxAverageBitrate);
         result->mStereo = Helper::FromCx(input->Stereo);
         result->mCBR = Helper::FromCx(input->Cbr);
@@ -115,7 +131,7 @@ namespace org
       RTCRtpVp8CodecCapabilityParameters^ ToCxCapabilityParameters(const IRTPTypes::VP8CodecCapabilityParameters &input)
       {
         auto result = ref new RTCRtpVp8CodecCapabilityParameters();
-        result->MaxFt = Helper::ToCx(input.mMaxFT);
+        result->MaxFr = Helper::ToCx(input.mMaxFR);
         result->MaxFs = Helper::ToCx(input.mMaxFS);
         return result;
       }
@@ -130,7 +146,7 @@ namespace org
       {
         if (nullptr == input) return IRTPTypes::VP8CodecCapabilityParametersPtr();
         auto result = make_shared<IRTPTypes::VP8CodecCapabilityParameters>();
-        result->mMaxFT = Helper::FromCx(input->MaxFt);
+        result->mMaxFR = Helper::FromCx(input->MaxFr);
         result->mMaxFS = Helper::FromCx(input->MaxFs);
         return result;
       }
@@ -269,7 +285,6 @@ namespace org
       {
         auto result = ref new RTCRtpOpusCodecParameters();
         result->MaxPlaybackRate = Helper::ToCx(input.mMaxPlaybackRate);
-        result->Ptime = Helper::ToCx(input.mPTime);
         result->MaxAverageBitrate = Helper::ToCx(input.mMaxAverageBitrate);
         result->Stereo = Helper::ToCx(input.mStereo);
         result->Cbr = Helper::ToCx(input.mCBR);
@@ -277,8 +292,8 @@ namespace org
         result->UseDtx = Helper::ToCx(input.mUseDTX);
 
         result->Complexity = Helper::ToCx(input.mComplexity);
-        result->Signal = Helper::ToCx(zsLib::String(IRTPTypes::OpusCodecParameters::toString(input.mSignal)));
-        result->Application = Helper::ToCx(zsLib::String(IRTPTypes::OpusCodecParameters::toString(input.mApplication)));
+        result->Signal = Helper::ToCx(zsLib::String(IRTPTypes::OpusCodecCapabilityOptions::toString(input.mSignal)));
+        result->Application = Helper::ToCx(zsLib::String(IRTPTypes::OpusCodecCapabilityOptions::toString(input.mApplication)));
         result->PacketLossPerc = Helper::ToCx(input.mPacketLossPerc);
         result->PredictionDisabled = Helper::ToCx(input.mPredictionDisabled);
 
@@ -297,29 +312,36 @@ namespace org
       {
         if (nullptr == input) return IRTPTypes::OpusCodecParametersPtr();
         auto result = make_shared<IRTPTypes::OpusCodecParameters>();
-        result->mMaxPlaybackRate = Helper::FromCx(input->MaxPlaybackRate);
-        result->mPTime = Helper::FromCx(input->Ptime);
-        result->mMaxAverageBitrate = Helper::FromCx(input->MaxAverageBitrate);
-        result->mStereo = Helper::FromCx(input->Stereo);
-        result->mCBR = Helper::FromCx(input->Cbr);
-        result->mUseInbandFEC = Helper::FromCx(input->UseInbandFec);
-        result->mUseDTX = Helper::FromCx(input->UseDtx);
 
-        result->mComplexity = Helper::FromCx(input->Complexity);
-        result->mSignal = IRTPTypes::OpusCodecParameters::toSignal(Helper::FromCx(input->Signal).c_str());
-        result->mApplication = IRTPTypes::OpusCodecParameters::toApplication(Helper::FromCx(input->Application).c_str());
-        result->mPacketLossPerc = Helper::FromCx(input->PacketLossPerc);
-        result->mPredictionDisabled = Helper::FromCx(input->PredictionDisabled);
+        try
+        {
+          result->mMaxPlaybackRate = Helper::FromCx(input->MaxPlaybackRate);
+          result->mMaxAverageBitrate = Helper::FromCx(input->MaxAverageBitrate);
+          result->mStereo = Helper::FromCx(input->Stereo);
+          result->mCBR = Helper::FromCx(input->Cbr);
+          result->mUseInbandFEC = Helper::FromCx(input->UseInbandFec);
+          result->mUseDTX = Helper::FromCx(input->UseDtx);
 
-        result->mSPropMaxCaptureRate = Helper::FromCx(input->SpropMaxCaptureRate);
-        result->mSPropStereo = Helper::FromCx(input->SpropStereo);
+          result->mComplexity = Helper::FromCx(input->Complexity);
+          result->mSignal = IRTPTypes::OpusCodecCapabilityOptions::toSignal(Helper::FromCx(input->Signal).c_str());
+          result->mApplication = IRTPTypes::OpusCodecCapabilityOptions::toApplication(Helper::FromCx(input->Application).c_str());
+          result->mPacketLossPerc = Helper::FromCx(input->PacketLossPerc);
+          result->mPredictionDisabled = Helper::FromCx(input->PredictionDisabled);
+
+          result->mSPropMaxCaptureRate = Helper::FromCx(input->SpropMaxCaptureRate);
+          result->mSPropStereo = Helper::FromCx(input->SpropStereo);
+        }
+        catch (const InvalidParameters &)
+        {
+          ORG_ORTC_THROW_INVALID_PARAMETERS()
+        }
         return result;
       }
 
       RTCRtpVp8CodecParameters^ ToCxParameters(const IRTPTypes::VP8CodecParameters &input)
       {
         auto result = ref new RTCRtpVp8CodecParameters();
-        result->MaxFt = Helper::ToCx(input.mMaxFT);
+        result->MaxFr = Helper::ToCx(input.mMaxFR);
         result->MaxFs = Helper::ToCx(input.mMaxFS);
         return result;
       }
@@ -334,7 +356,7 @@ namespace org
       {
         if (nullptr == input) return IRTPTypes::VP8CodecCapabilityParametersPtr();
         auto result = make_shared<IRTPTypes::VP8CodecCapabilityParameters>();
-        result->mMaxFT = Helper::FromCx(input->MaxFt);
+        result->mMaxFR = Helper::FromCx(input->MaxFr);
         result->mMaxFS = Helper::FromCx(input->MaxFs);
         return result;
       }
@@ -512,9 +534,10 @@ namespace org
         result->Kind = Helper::ToCx(input.mKind);
         result->ClockRate = SafeInt<uint32>(input.mClockRate);
         result->PreferredPayloadType = SafeInt<uint8>(input.mPreferredPayloadType);
-        result->Maxptime = SafeInt<uint32>(input.mMaxPTime);
-        result->NumChannels = SafeInt<uint32>(input.mNumChannels);
-
+        result->Ptime = SafeInt<decltype(result->Ptime)>(input.mPTime.count());
+        result->Maxptime = SafeInt<decltype(result->Maxptime)>(input.mMaxPTime.count());
+        result->NumChannels = UseHelper::ToCx(input.mNumChannels);
+      
         if (input.mRTCPFeedback.size() > 0) {
           result->RtcpFeedback = ref new Vector<RTCRtcpFeedback^>();
 
@@ -598,8 +621,9 @@ namespace org
         result->mKind = Helper::FromCx(input->Kind);
         result->mClockRate = SafeInt<decltype(result->mClockRate)>(input->ClockRate);
         result->mPreferredPayloadType = SafeInt<decltype(result->mPreferredPayloadType)>(input->PreferredPayloadType);
-        result->mMaxPTime = SafeInt<decltype(result->mMaxPTime)>(input->Maxptime);
-        result->mNumChannels = SafeInt<decltype(result->mNumChannels)>(input->NumChannels);
+        result->mPTime = Milliseconds(SafeInt<Milliseconds::rep>(input->Ptime));
+        result->mMaxPTime = Milliseconds(SafeInt<Milliseconds::rep>(input->Maxptime));
+        result->mNumChannels = UseHelper::FromCx(input->NumChannels);
 
         if (input->RtcpFeedback)
         {
@@ -809,8 +833,9 @@ namespace org
         result->Name = Helper::ToCx(input.mName);
         result->PayloadType = SafeInt<uint8>(input.mPayloadType);
         result->ClockRate = Helper::ToCx(input.mClockRate);
-        result->Maxptime = SafeInt<uint32>(input.mMaxPTime);
-        result->NumChannels = SafeInt<uint32>(input.mNumChannels);
+        result->Ptime = SafeInt<decltype(result->Ptime)>(input.mPTime.count());
+        result->Maxptime = SafeInt<decltype(result->Maxptime)>(input.mMaxPTime.count());
+        result->NumChannels = UseHelper::ToCx(input.mNumChannels);
 
         if (input.mRTCPFeedback.size() > 0) {
           result->RtcpFeedback = ref new Vector<RTCRtcpFeedback^>();
@@ -892,8 +917,9 @@ namespace org
         result->mName = Helper::FromCx(input->Name);
         result->mPayloadType = SafeInt<decltype(result->mPayloadType)>(input->PayloadType);
         result->mClockRate = Helper::FromCx(input->ClockRate);
-        result->mMaxPTime = SafeInt<decltype(result->mMaxPTime)>(input->Maxptime);
-        result->mNumChannels = SafeInt<decltype(result->mNumChannels)>(input->NumChannels);
+        result->mPTime = Milliseconds(SafeInt<Milliseconds::rep>(input->Ptime));
+        result->mMaxPTime = Milliseconds(SafeInt<Milliseconds::rep>(input->Maxptime));
+        result->mNumChannels = UseHelper::FromCx(input->NumChannels);
 
         if (input->RtcpFeedback)
         {
@@ -1015,10 +1041,10 @@ namespace org
 
         result->Priority = Helper::Convert(input.mPriority);
 
-        result->MaxBitrate = SafeInt<uint64>(input.mMaxBitrate);
-        result->MinQuality = input.mMinQuality;
-        result->ResolutionScale = input.mResolutionScale;
-        result->FramerateScale = input.mFramerateScale;
+        result->MaxBitrate = UseHelper::ToCx(input.mMaxBitrate);
+        result->MinQuality = UseHelper::ToCx(input.mMinQuality);
+        result->ResolutionScale = UseHelper::ToCx(input.mResolutionScale);
+        result->FramerateScale = UseHelper::ToCx(input.mFramerateScale);
         result->Active = input.mActive;
         result->EncodingId = Helper::ToCx(input.mEncodingID);
 
@@ -1056,10 +1082,10 @@ namespace org
           result->mRTX = *FromCx(input->Rtx);
         }
         result->mPriority = Helper::Convert(input->Priority);
-        result->mMaxBitrate = SafeInt<decltype(result->mMaxBitrate)>(input->MaxBitrate);
-        result->mMinQuality = input->MinQuality;
-        result->mResolutionScale = input->ResolutionScale;
-        result->mFramerateScale = input->FramerateScale;
+        result->mMaxBitrate = UseHelper::FromCx(input->MaxBitrate);
+        result->mMinQuality = UseHelper::FromCx(input->MinQuality);
+        result->mResolutionScale = UseHelper::FromCx(input->ResolutionScale);
+        result->mFramerateScale = UseHelper::FromCx(input->FramerateScale);
         result->mEncodingID = Helper::FromCx(input->EncodingId);
 
         if (input->DependencyEncodingIds)
