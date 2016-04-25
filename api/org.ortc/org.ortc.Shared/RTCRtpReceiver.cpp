@@ -6,11 +6,9 @@
 #include "helpers.h"
 #include "Error.h"
 
-#include <zsLib/date.h>
 #include <zsLib/SafeInt.h>
 
 using namespace ortc;
-using namespace date;
 
 using Platform::Collections::Vector;
 
@@ -73,14 +71,7 @@ namespace org
     
     Windows::Foundation::DateTime RTCRtpContributingSource::TimeStamp::get()
     {
-      Windows::Foundation::DateTime result {};
-      auto t = day_point(jan / 1 / 1601);
-
-      auto diff = _timeStamp - t;
-      zsLib::Nanoseconds nano = zsLib::toNanoseconds(diff);
-
-      result.UniversalTime = SafeInt<decltype(result.UniversalTime)>(nano.count() / static_cast<zsLib::Nanoseconds::rep>(100));
-      return result;
+      return UseHelper::ToCx(_timeStamp);
     }
 
     Platform::IBox<Platform::Boolean>^ RTCRtpContributingSource::VoiceActivityFlag::get()

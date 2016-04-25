@@ -93,6 +93,9 @@ namespace org
         static Platform::String^ ToCx(const Optional<zsLib::String> &input);
         static Optional<zsLib::String> FromCxToOptional(Platform::String^ input);
 
+        static Windows::Foundation::DateTime ToCx(const zsLib::Time &value);
+        static zsLib::Time FromCx(Windows::Foundation::DateTime value);
+
         // RTCIceGatherer convertors
         static IICEGathererTypes::FilterPolicies Convert(RTCIceGatherFilterPolicy policy);
         static RTCIceGatherFilterPolicy Convert(IICEGathererTypes::FilterPolicies policy);

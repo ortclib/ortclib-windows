@@ -12,12 +12,14 @@
 
 #include "webrtc/base/win32.h"
 
+#include <zsLib/date.h>
 #include <zsLib/SafeInt.h>
 
 using namespace Platform;
 using Platform::Collections::Vector;
 using zsLib::Optional;
 using namespace ortc;
+using namespace date;
 
 namespace org
 {
@@ -187,6 +189,29 @@ namespace org
         if (nullptr == input) return result;
         result = FromCx(input);
         return result;
+      }
+
+      Windows::Foundation::DateTime Helper::ToCx(const zsLib::Time &value)
+      {
+        Windows::Foundation::DateTime result {};
+        auto t = day_point(jan / 1 / 1601);
+
+        auto diff = value - t;
+        auto nano = zsLib::toNanoseconds(diff);
+
+        result.UniversalTime = SafeInt<decltype(result.UniversalTime)>(nano.count() / static_cast<zsLib::Nanoseconds::rep>(100));
+        return result;
+      }
+
+      zsLib::Time Helper::FromCx(Windows::Foundation::DateTime value)
+      {
+        zsLib::Time t = day_point(jan / 1 / 1601);
+
+        auto nano = zsLib::toMilliseconds(zsLib::Nanoseconds(static_cast<zsLib::Nanoseconds::rep>(value.UniversalTime) * static_cast<zsLib::Nanoseconds::rep>(100)));
+
+        auto result = t + nano;
+
+        return zsLib::timeSinceEpoch(result);
       }
 
 #pragma endregion

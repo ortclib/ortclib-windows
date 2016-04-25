@@ -5,6 +5,8 @@
 #include "helpers.h"
 #include "Error.h"
 
+using namespace ortc;
+
 namespace org
 {
   namespace ortc
@@ -95,44 +97,18 @@ namespace org
       });
     }
 
-    Windows::Foundation::DateTime RTCCertificate::GetExpires()
+    Windows::Foundation::DateTime RTCCertificate::Expires::get()
     {
-      Windows::Foundation::DateTime ret;
+      ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
 
-      if (_nativePointer)
-      {
-        auto coreTime = _nativePointer->expires();
-        time_t time = std::chrono::system_clock::to_time_t(coreTime);
-        tm dateTime;
-        gmtime_s(&dateTime, &time);
-
-        auto cal = ref new Windows::Globalization::Calendar();
-
-        cal->Year = dateTime.tm_year + 1900;
-        cal->Month = dateTime.tm_mon + 1;
-        cal->Day = dateTime.tm_mday;
-
-        // Microsoft magic number: 1 for AM, 2 for PM. 
-        // https://msdn.microsoft.com/en-us/library/windows/apps/windows.globalization.calendar.period
-        cal->Period = dateTime.tm_hour > 12 ? 2 /*PM*/ : 1 /*AM*/;
-
-        cal->Hour = dateTime.tm_hour > 12 ? dateTime.tm_hour - 12 : dateTime.tm_hour;
-        cal->Minute = dateTime.tm_min;
-        cal->Second = dateTime.tm_sec;
-
-        ret = cal->GetDateTime();
-      }
-
-      return ret;
+      auto expires = _nativePointer->expires();
+      return UseHelper::ToCx(expires);
     }
 
-    RTCDtlsFingerprint^ RTCCertificate::GetFingerprint()
+    RTCDtlsFingerprint^ RTCCertificate::Fingerprint::get()
     {
-      if (_nativePointer)
-      {
-        return internal::ToCx(_nativePointer->fingerprint());
-      }
-      return nullptr;
+      if (!_nativePointer) return nullptr;
+      return internal::ToCx(_nativePointer->fingerprint());
     }
 
   } // namespace ortc
