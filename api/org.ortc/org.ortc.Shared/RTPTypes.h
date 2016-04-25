@@ -292,17 +292,43 @@ namespace org
       static RTCRtpCodecCapability^ FromJsonString(Platform::String^ jsonString);
     };
 
+    /// <summary>
+    /// Configures the type of signal being encoded.
+    /// </summary>
     enum class OpusCodecSignal
     {
+      /// <summary>
+      /// (default)
+      /// </summary>
       Auto,
+      /// <summary>
+      /// Bias thresholds towards choosing MDCT modes.
+      /// </summary>
       Music,
+      /// <summary>
+      /// Bias thresholds towards choosing LPC or Hybrid modes.
+      /// </summary>
       Voice
     };
 
+    /// <summary>
+    /// Opus coding mode.
+    /// </summary>
     enum class OpusCodecApplication
     {
+      /// <summary>
+      /// Gives best quality at a given bitrate for voice signals.
+      /// </summary>
       VoIP,
+      /// <summary>
+      /// Gives best quality at a given bitrate for most non-voice signals
+      /// like music. 
+      /// </summary>
       Audio,
+      /// <summary>
+      /// Configures low-delay mode that disables the speech-optimized mode in
+      /// exchange for slightly reduced delay. 
+      /// </summary>
       LowDelay
     };
 

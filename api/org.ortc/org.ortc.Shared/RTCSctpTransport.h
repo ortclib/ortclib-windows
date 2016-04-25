@@ -14,7 +14,6 @@ namespace org
     ZS_DECLARE_TYPEDEF_PTR(::ortc::ISCTPTransportTypes, ISCTPTransportTypes)
 
     ZS_DECLARE_CLASS_PTR(RTCDataChannelDelegate)
-    ZS_DECLARE_CLASS_PTR(RTCSctpTransportDelegate)
 
     ref class RTCDataChannel;
     ref class RTCDtlsTransport;
@@ -24,52 +23,51 @@ namespace org
 
     namespace internal
     {
-
+      ZS_DECLARE_CLASS_PTR(RTCSctpTransportDelegate)
+        
       RTCSctpCapabilities^ ToCx(const ISCTPTransportTypes::Capabilities &input);
       RTCSctpCapabilities^ ToCx(ISCTPTransportTypes::CapabilitiesPtr input);
       ISCTPTransportTypes::CapabilitiesPtr FromCx(RTCSctpCapabilities^ input);
     }
 
 
-    class RTCSctpTransportDelegate : public ISCTPTransportDelegate
-    {
-    public:
-      virtual void onSCTPTransportDataChannel(
-        ISCTPTransportPtr transport,
-        IDataChannelPtr channel
-        );
-
-      RTCSctpTransport^ _transport;
-
-      void SetOwnerObject(RTCSctpTransport^ owner) { _transport = owner; }
-    };
-
-    //--------------------------------------------------------------------
-    // Helper classes
-    //--------------------------------------------------------------------
-
+    /// <summary>
+    /// </summary>
     public ref struct RTCSctpCapabilities sealed
     {
+      /// <summary>
+      /// </summary>
       property uint32 MaxMessageSize;
+      /// <summary>
+      /// </summary>
       property uint16 MinPort;
+      /// <summary>
+      /// </summary>
       property uint16 MaxPort;
+      /// <summary>
+      /// </summary>
       property uint16 MaxUsablePorts;
+      /// <summary>
+      /// </summary>
       property uint16 MaxSessionsPerPort;
 
+      /// <summary>
+      /// </summary>
       Platform::String^ ToJsonString();
+      /// <summary>
+      /// </summary>
       static RTCSctpCapabilities^ FromJsonString(Platform::String^ jsonString);
     };
 
-    //------------------------------------------
-    // Events and Delegates
-    //------------------------------------------
-    // Data channel event and delegate
-    public ref class RTCDataChannelEvent sealed {
-    public:
+    /// <summary>
+    /// </summary>
+    public ref struct RTCDataChannelEvent sealed
+    {
+      /// <summary>
+      /// </summary>
       property RTCDataChannel^ DataChannel
       {
         RTCDataChannel^  get() { return m_channel; }
-        void  set(RTCDataChannel^ value) { m_channel = value; }
       }
 
     private:
@@ -77,13 +75,12 @@ namespace org
     };
 
     public delegate void RTCSctpTransportDataChannelDelegate(RTCDataChannelEvent^ evt);
-    //------------------------------------------
-    // End Events and Delegates
-    //------------------------------------------
 
+    /// <summary>
+    /// </summary>
     public ref class RTCSctpTransport sealed
     {
-      friend class RTCSctpTransportDelegate;
+      friend class internal::RTCSctpTransportDelegate;
       friend ref class RTCDataChannel;
 
     private:
@@ -93,22 +90,34 @@ namespace org
       static ISCTPTransportPtr Convert(RTCSctpTransport^ transport) { if (!transport) return nullptr; return transport->_nativePointer; }
 
     public:
+      /// <summary>
+      /// </summary>
       RTCSctpTransport(RTCDtlsTransport^ dtlsTransport, uint16 port);
 
+      /// <summary>
+      /// </summary>
       static RTCSctpCapabilities^ GetCapabilities();
+      /// <summary>
+      /// </summary>
       void                       Start(RTCSctpCapabilities^ remoteCaps);
+      /// <summary>
+      /// </summary>
       void                       Stop();
 
-    public:
+      /// <summary>
+      /// </summary>
       property RTCDtlsTransport^ Transport  { RTCDtlsTransport^ get(); }
+      /// <summary>
+      /// </summary>
       property uint16 Port                  { uint16 get(); }
 
-    public:
+      /// <summary>
+      /// </summary>
       event RTCSctpTransportDataChannelDelegate^            OnSCTPTransportDataChannel;
 
     private:
       ISCTPTransportPtr _nativePointer;
-      RTCSctpTransportDelegatePtr _nativeDelegatePointer;
+      internal::RTCSctpTransportDelegatePtr _nativeDelegatePointer;
     };
 
   } // namespace ortc

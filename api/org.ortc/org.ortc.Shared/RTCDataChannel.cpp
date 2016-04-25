@@ -23,6 +23,9 @@ namespace org
 
     namespace internal
     {
+
+#pragma region RTCDataChannel conversions
+
       RTCDataChannelParameters^ ToCx(const IDataChannelTypes::Parameters &input)
       {
         auto result = ref new RTCDataChannelParameters();
@@ -66,7 +69,92 @@ namespace org
 
         return result;
       }
-    }
+
+#pragma endregion
+
+#pragma region RTCDataChannel delegates
+
+      class RTCDataChannelDelegate : public IDataChannelDelegate
+      {
+      public:
+        virtual void onDataChannelStateChanged(
+          IDataChannelPtr channel,
+          States state
+          ) override;
+
+        virtual void onDataChannelError(
+          IDataChannelPtr channel,
+          ErrorAnyPtr error
+          ) override;
+
+        virtual void onDataChannelBufferedAmountLow(
+          IDataChannelPtr channel
+          ) override;
+
+        virtual void onDataChannelMessage(
+          IDataChannelPtr channel,
+          MessageEventDataPtr data
+          ) override;
+
+        void SetOwnerObject(RTCDataChannel^ owner) { _channel = owner; }
+
+      private:
+        RTCDataChannel^ _channel;
+      };
+
+      void RTCDataChannelDelegate::onDataChannelStateChanged(
+        IDataChannelPtr channel,
+        States state
+        )
+      {
+        auto evt = ref new RTCDataChannelStateChangeEvent();
+        evt->_state = UseHelper::Convert(state);
+        _channel->OnStateChange(evt);
+      }
+
+      void RTCDataChannelDelegate::onDataChannelError(
+        IDataChannelPtr channel,
+        ErrorAnyPtr error
+        )
+      {
+        auto evt = ref new ErrorEvent(Error::CreateIfGeneric(error));
+        _channel->OnError(evt);
+      }
+
+      void RTCDataChannelDelegate::onDataChannelBufferedAmountLow(
+        IDataChannelPtr channel
+        )
+      {
+        _channel->OnBufferedAmountLow();
+      }
+
+      void RTCDataChannelDelegate::onDataChannelMessage(
+        IDataChannelPtr channel,
+        MessageEventDataPtr data
+        )
+      {
+        auto evt = ref new RTCMessageEvent();
+
+        if (data)
+        {
+          evt->_data = ref new RTCMessageEventData();
+          if (data->mBinary)
+          {
+            evt->_data->_binary = ref new Array<byte>(data->mBinary->BytePtr(), SafeInt<unsigned int>(data->mBinary->SizeInBytes()));
+          }
+          else
+          {
+            evt->_data->_text = UseHelper::ToCx(data->mText);
+          }
+        }
+        _channel->OnMessage(evt);
+      }
+
+#pragma endregion
+
+    } // namespace internal
+
+#pragma region RTCDataChannel
 
     RTCDataChannel::RTCDataChannel() :
       _nativeDelegatePointer(nullptr),
@@ -75,7 +163,7 @@ namespace org
     }
 
     RTCDataChannel::RTCDataChannel(RTCSctpTransport^ transport, RTCDataChannelParameters^ params) :
-      _nativeDelegatePointer(new RTCDataChannelDelegate())
+      _nativeDelegatePointer(make_shared<internal::RTCDataChannelDelegate>())
     {
       ORG_ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == params)
 
@@ -191,50 +279,6 @@ namespace org
       _nativePointer->binaryType(UseHelper::FromCx(binaryType).c_str());
     }
 
-    void RTCDataChannelDelegate::onDataChannelStateChanged(
-      IDataChannelPtr channel,
-      States state
-      )
-    {
-      auto evt = ref new RTCDataChannelStateChangeEvent();
-      evt->State = UseHelper::Convert(state);
-      _channel->OnDataChannelStateChanged(evt);
-    }
-
-    void RTCDataChannelDelegate::onDataChannelError(
-      IDataChannelPtr channel,
-      ErrorCode errorCode,
-      String errorReason
-      )
-    {
-      auto evt = ref new RTCDataChannelErrorEvent();
-      evt->Error->ErrorCode = errorCode;
-      evt->Error->ErrorReason = UseHelper::ToCx(errorReason);
-      _channel->OnDataChannelError(evt);
-    }
-
-    void RTCDataChannelDelegate::onDataChannelBufferedAmountLow(
-      IDataChannelPtr channel
-      )
-    {
-      auto evt = ref new RTCDataChannelBufferedAmountLowEvent();
-      _channel->OnDataChannelBufferedAmountLow(evt);
-    }
-
-    void RTCDataChannelDelegate::onDataChannelMessage(
-      IDataChannelPtr channel,
-      MessageEventDataPtr data
-      )
-    {
-      auto evt = ref new RTCMessageEvent();
-      evt->Data->Binary = ref new Array<byte>(data->mBinary->BytePtr(), SafeInt<unsigned int>(data->mBinary->SizeInBytes()));
-      evt->Data->Text = UseHelper::ToCx(data->mText);
-      _channel->OnDataChannelMessage(evt);
-    }
-
-    //---------------------------------------------------------------------------
-    // RTCIceParameters methods
-    //---------------------------------------------------------------------------
     Platform::String^ RTCDataChannelParameters::ToJsonString()
     {
       auto params = internal::FromCx(this);
@@ -246,6 +290,8 @@ namespace org
       auto params = make_shared<IDataChannel::Parameters>(IDataChannel::Parameters::Parameters(openpeer::services::IHelper::toJSON(UseHelper::FromCx(jsonString).c_str())));
       return internal::ToCx(params);
     }
-    
+
+#pragma endregion
+
   } // namespace ortc
 } // namespace ortc

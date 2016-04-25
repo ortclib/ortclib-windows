@@ -19,7 +19,6 @@ namespace org
 
     namespace internal
     {
-
       RTCSctpCapabilities^ ToCx(const ISCTPTransportTypes::Capabilities &input)
       {
         auto result = ref new RTCSctpCapabilities();
@@ -49,6 +48,19 @@ namespace org
         result->mMaxSessionsPerPort = SafeInt<uint16>(input->MaxSessionsPerPort);
         return result;
       }
+
+      class RTCSctpTransportDelegate : public ISCTPTransportDelegate
+      {
+      public:
+        virtual void onSCTPTransportDataChannel(
+          ISCTPTransportPtr transport,
+          IDataChannelPtr channel
+          );
+
+        RTCSctpTransport^ _transport;
+
+        void SetOwnerObject(RTCSctpTransport^ owner) { _transport = owner; }
+      };
 
     } //namespace internal
 

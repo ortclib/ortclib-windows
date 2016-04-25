@@ -21,6 +21,7 @@ namespace org
     {
       ZS_DECLARE_CLASS_PTR(MediaStreamTrackDelegate)
       ZS_DECLARE_CLASS_PTR(RTCDtlsTransportDelegate)
+      ZS_DECLARE_CLASS_PTR(RTCDataChannelDelegate)
       ZS_DECLARE_CLASS_PTR(MediaDevicesPromiseObserver)
       ZS_DECLARE_CLASS_PTR(MediaStreamTrackConstraintsPromiseObserver)
       ZS_DECLARE_CLASS_PTR(RTCGenerateCertificatePromiseObserver)
@@ -36,6 +37,7 @@ namespace org
     private:
       friend class internal::RTCDtlsTransportDelegate;
       friend class internal::MediaDevicesPromiseObserver;
+      friend class internal::RTCDataChannelDelegate;
       friend class internal::MediaStreamTrackConstraintsPromiseObserver;
       friend class internal::RTCGenerateCertificatePromiseObserver;
       friend class internal::RTCRtpSenderPromiseObserver;
@@ -68,6 +70,7 @@ namespace org
     private:
       friend class internal::MediaStreamTrackDelegate;
       friend class internal::RTCDtlsTransportDelegate;
+      friend class internal::RTCDataChannelDelegate;
 
       ErrorEvent(ref struct Error ^error)
       {
