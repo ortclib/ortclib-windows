@@ -77,78 +77,59 @@ namespace org
       class RTCDataChannelDelegate : public IDataChannelDelegate
       {
       public:
-        virtual void onDataChannelStateChanged(
+        RTCDataChannelDelegate(RTCDataChannel^ owner) : _channel(owner) { }
+
+        virtual void onDataChannelStateChange(
           IDataChannelPtr channel,
-          States state
-          ) override;
+          IDataChannelTypes::States state
+          ) override
+        {
+          auto evt = ref new RTCDataChannelStateChangeEvent();
+          evt->_state = UseHelper::Convert(state);
+          _channel->OnStateChange(evt);
+        }
 
         virtual void onDataChannelError(
           IDataChannelPtr channel,
           ErrorAnyPtr error
-          ) override;
+          ) override
+        {
+          auto evt = ref new ErrorEvent(Error::CreateIfGeneric(error));
+          _channel->OnError(evt);
+        }
 
         virtual void onDataChannelBufferedAmountLow(
           IDataChannelPtr channel
-          ) override;
+          ) override
+        {
+          _channel->OnBufferedAmountLow();
+        }
 
         virtual void onDataChannelMessage(
           IDataChannelPtr channel,
           MessageEventDataPtr data
-          ) override;
+          ) override
+        {
+          auto evt = ref new RTCMessageEvent();
 
-        void SetOwnerObject(RTCDataChannel^ owner) { _channel = owner; }
+          if (data)
+          {
+            evt->_data = ref new RTCMessageEventData();
+            if (data->mBinary)
+            {
+              evt->_data->_binary = ref new Array<byte>(data->mBinary->BytePtr(), SafeInt<unsigned int>(data->mBinary->SizeInBytes()));
+            }
+            else
+            {
+              evt->_data->_text = UseHelper::ToCx(data->mText);
+            }
+          }
+          _channel->OnMessage(evt);
+        }
 
       private:
         RTCDataChannel^ _channel;
       };
-
-      void RTCDataChannelDelegate::onDataChannelStateChanged(
-        IDataChannelPtr channel,
-        States state
-        )
-      {
-        auto evt = ref new RTCDataChannelStateChangeEvent();
-        evt->_state = UseHelper::Convert(state);
-        _channel->OnStateChange(evt);
-      }
-
-      void RTCDataChannelDelegate::onDataChannelError(
-        IDataChannelPtr channel,
-        ErrorAnyPtr error
-        )
-      {
-        auto evt = ref new ErrorEvent(Error::CreateIfGeneric(error));
-        _channel->OnError(evt);
-      }
-
-      void RTCDataChannelDelegate::onDataChannelBufferedAmountLow(
-        IDataChannelPtr channel
-        )
-      {
-        _channel->OnBufferedAmountLow();
-      }
-
-      void RTCDataChannelDelegate::onDataChannelMessage(
-        IDataChannelPtr channel,
-        MessageEventDataPtr data
-        )
-      {
-        auto evt = ref new RTCMessageEvent();
-
-        if (data)
-        {
-          evt->_data = ref new RTCMessageEventData();
-          if (data->mBinary)
-          {
-            evt->_data->_binary = ref new Array<byte>(data->mBinary->BytePtr(), SafeInt<unsigned int>(data->mBinary->SizeInBytes()));
-          }
-          else
-          {
-            evt->_data->_text = UseHelper::ToCx(data->mText);
-          }
-        }
-        _channel->OnMessage(evt);
-      }
 
 #pragma endregion
 
@@ -156,18 +137,18 @@ namespace org
 
 #pragma region RTCDataChannel
 
-    RTCDataChannel::RTCDataChannel() :
-      _nativeDelegatePointer(nullptr),
-      _nativePointer(nullptr)
+    RTCDataChannel::RTCDataChannel(IDataChannelPtr nativePointer) :
+      _nativeDelegatePointer(make_shared<internal::RTCDataChannelDelegate>(this)),
+      _nativePointer(nativePointer)
     {
+      _nativeSubscriptionPointer = _nativePointer->subscribe(_nativeDelegatePointer);
     }
 
     RTCDataChannel::RTCDataChannel(RTCSctpTransport^ transport, RTCDataChannelParameters^ params) :
-      _nativeDelegatePointer(make_shared<internal::RTCDataChannelDelegate>())
+      _nativeDelegatePointer(make_shared<internal::RTCDataChannelDelegate>(this))
     {
       ORG_ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == params)
 
-      _nativeDelegatePointer->SetOwnerObject(this);
       auto nativeTransport = RTCSctpTransport::Convert(transport);
 
       try

@@ -9,6 +9,7 @@
 #include <ortc/IICETransport.h>
 #include <ortc/IMediaDevices.h>
 #include <ortc/IRTPTypes.h>
+#include <ortc/ISCTPTransport.h>
 
 #include <zsLib/types.h>
 
@@ -34,6 +35,7 @@ namespace org
     enum class RTCIceTransportState;
     enum class RTCIceTcpCandidateType;
     enum class RTCPriorityType;
+    enum class RTCSctpTransportState;
 
     ref class MediaStreamTrack;
     ref class RTCCertificate;
@@ -56,6 +58,7 @@ namespace org
         typedef ::ortc::IMediaDevicesTypes IMediaDevicesTypes;
         typedef ::ortc::IMediaStreamTrackTypes IMediaStreamTrackTypes;
         typedef ::ortc::IRTPTypes IRTPTypes;
+        typedef ::ortc::ISCTPTransportTypes ISCTPTransportTypes;
 
       public:
         static bool IsNullOrEmpty(Platform::String ^input);
@@ -148,6 +151,10 @@ namespace org
 
         static IRTPTypes::DegradationPreferences Convert(RTCDegradationPreference preference);
         static RTCDegradationPreference Convert(IRTPTypes::DegradationPreferences preference);
+
+        // SctpTransport converters
+        static ISCTPTransportTypes::States Convert(RTCSctpTransportState state);
+        static RTCSctpTransportState Convert(ISCTPTransportTypes::States state);
 
         // Logger convertors
         static zsLib::Log::Level Convert(Log::Level level);

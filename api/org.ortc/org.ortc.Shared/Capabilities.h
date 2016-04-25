@@ -50,7 +50,7 @@ namespace org
 
     /// <summary>
     /// The minimum and maximum legal values for an interger value.
-    /// </summary?
+    /// </summary>
     public ref struct CapabilityLong sealed
     {
       /// <summary>
@@ -65,7 +65,7 @@ namespace org
 
     /// <summary>
     /// The minimum and maximum legal values for an real value.
-    /// </summary?
+    /// </summary>
     public ref struct CapabilityDouble sealed
     {
       /// <summary>

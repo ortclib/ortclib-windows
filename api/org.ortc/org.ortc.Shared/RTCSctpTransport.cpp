@@ -55,12 +55,29 @@ namespace org
         virtual void onSCTPTransportDataChannel(
           ISCTPTransportPtr transport,
           IDataChannelPtr channel
-          );
+          ) override
+        {
+          auto evt = ref new RTCDataChannelEvent();
+          evt->_channel = RTCDataChannel::Convert(channel);
+          _transport->OnDataChannel(evt);
+        }
 
-        RTCSctpTransport^ _transport;
+        virtual void onSCTPTransportStateChange(
+          ISCTPTransportPtr transport,
+          ISCTPTransportTypes::States state
+          ) override
+        {
+          auto evt = ref new RTCSctpTransportStateChangeEvent();
+          evt->_state = UseHelper::Convert(state);
+          _transport->OnStateChange(evt);
+        }
 
         void SetOwnerObject(RTCSctpTransport^ owner) { _transport = owner; }
+
+      private:
+        RTCSctpTransport^ _transport;
       };
+
 
     } //namespace internal
 
@@ -77,8 +94,29 @@ namespace org
       return result;
     }
 
+    RTCSctpTransport::RTCSctpTransport(RTCDtlsTransport^ transport) :
+      _nativeDelegatePointer(make_shared<internal::RTCSctpTransportDelegate>())
+    {
+      _nativeDelegatePointer->SetOwnerObject(this);
+
+      auto nativeTransport = RTCDtlsTransport::Convert(transport);
+
+      try
+      {
+        _nativePointer = ISCTPTransport::create(_nativeDelegatePointer, nativeTransport);
+      }
+      catch (const InvalidParameters &)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS()
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
+    }
+
     RTCSctpTransport::RTCSctpTransport(RTCDtlsTransport^ transport, uint16 port) :
-      _nativeDelegatePointer(new RTCSctpTransportDelegate())
+      _nativeDelegatePointer(make_shared<internal::RTCSctpTransportDelegate>())
     {
       _nativeDelegatePointer->SetOwnerObject(this);
 
@@ -138,25 +176,6 @@ namespace org
       return _nativePointer->port();
     }
 
-    void RTCSctpTransportDelegate::onSCTPTransportDataChannel(
-      ISCTPTransportPtr transport,
-      IDataChannelPtr channel
-      )
-    {
-      auto evt = ref new RTCDataChannelEvent();
-      RTCDataChannelDelegatePtr delegate(make_shared<RTCDataChannelDelegate>());
-      RTCDataChannel^ dataChannel = ref new RTCDataChannel();
-      delegate->SetOwnerObject(dataChannel);
-      dataChannel->_nativeDelegatePointer = delegate;
-      dataChannel->_nativePointer = channel;
-
-      evt->DataChannel = dataChannel;
-      _transport->OnSCTPTransportDataChannel(evt);
-    }
-
-    //---------------------------------------------------------------------------
-    // RTCSctpCapabilities methods
-    //---------------------------------------------------------------------------
     Platform::String^ RTCSctpCapabilities::ToJsonString()
     {
       auto caps = internal::FromCx(this);

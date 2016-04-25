@@ -11,10 +11,11 @@ namespace org
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IDataChannelTypes, IDataChannelTypes)
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IDataChannelDelegate, IDataChannelDelegate)
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IDataChannel, IDataChannel)
+    ZS_DECLARE_TYPEDEF_PTR(::ortc::IDataChannelSubscription, IDataChannelSubscription)
 
     ref class RTCDataChannel;
     ref class RTCSctpTransport;
-    ref class RTCDataChannelParameters;
+    ref struct RTCDataChannelParameters;
     ref struct ErrorEvent;
 
     enum class RTCDataChannelState;
@@ -22,6 +23,7 @@ namespace org
     namespace internal
     {
       ZS_DECLARE_CLASS_PTR(RTCDataChannelDelegate)
+      ZS_DECLARE_CLASS_PTR(RTCSctpTransportDelegate)
 
       RTCDataChannelParameters^ ToCx(const IDataChannelTypes::Parameters &input);
       RTCDataChannelParameters^ ToCx(IDataChannelTypes::ParametersPtr input);
@@ -195,10 +197,13 @@ namespace org
     public ref class RTCDataChannel sealed
     {
       friend class internal::RTCDataChannelDelegate;
-      friend class RTCSctpTransportDelegate;
+      friend class internal::RTCSctpTransportDelegate;
 
     private:
-      RTCDataChannel();
+      RTCDataChannel(IDataChannelPtr nativePointer);
+
+      static RTCDataChannel^ Convert(IDataChannelPtr nativePointer) { if (!nativePointer) return nullptr; return ref new RTCDataChannel(nativePointer); }
+      static IDataChannelPtr Convert(RTCDataChannel^ channel) { if (!channel) return nullptr; return channel->_nativePointer; }
 
     public:
       /// <summary>
@@ -303,6 +308,7 @@ namespace org
     private:
       IDataChannelPtr _nativePointer;
       internal::RTCDataChannelDelegatePtr _nativeDelegatePointer;
+      IDataChannelSubscriptionPtr _nativeSubscriptionPointer;
     };
   }
 }

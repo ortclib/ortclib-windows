@@ -8,6 +8,7 @@
 #include "RTCIceGatherer.h"
 #include "RTCIceTransport.h"
 #include "RtpTypes.h"
+#include "RTCSctpTransport.h"
 
 #include "webrtc/base/win32.h"
 
@@ -294,34 +295,6 @@ namespace org
       }
 
       //---------------------------------------------------------------------------
-      // Logger convert methods
-      //---------------------------------------------------------------------------
-      zsLib::Log::Level Helper::Convert(Log::Level level)
-      {
-        switch (level) {
-        case Log::Level::Basic:   return zsLib::Log::Basic;
-        case Log::Level::Detail:  return zsLib::Log::Detail;
-        case Log::Level::Debug:   return zsLib::Log::Debug;
-        case Log::Level::Trace:   return zsLib::Log::Trace;
-        case Log::Level::Insane:  return zsLib::Log::Insane;
-        }
-        throw ref new Platform::NotImplementedException();
-      }
-
-      const char *Helper::ToComponent(Log::Component  component)
-      {
-        switch (component) {
-        case Log::Component::ZsLib:         return "zsLib";
-        case Log::Component::ZsLibSocket:   return "zsLib_socket";
-        case Log::Component::Services:      return "openpeer_services";
-        case Log::Component::ServicesTurn:  return "openpeer_services_turn";
-        case Log::Component::ServicesHttp:  return "openpeer_services_http";
-        case Log::Component::OrtcLib:       return "ortclib";
-        }
-        throw ref new Platform::NotImplementedException();
-      }
-
-      //---------------------------------------------------------------------------
       // RTCDtlsTransportState convert methods
       //---------------------------------------------------------------------------
       IDTLSTransport::States Helper::Convert(RTCDtlsTransportState state)
@@ -595,6 +568,60 @@ namespace org
         }
         throw ref new Platform::NotImplementedException();
       }
+
+      //---------------------------------------------------------------------------
+      // RTCSctpTransport convert methods
+      //---------------------------------------------------------------------------
+      ISCTPTransportTypes::States Helper::Convert(RTCSctpTransportState state)
+      {
+        switch (state) {
+        case RTCSctpTransportState::New:        return ISCTPTransportTypes::States::State_New;
+        case RTCSctpTransportState::Connecting: return ISCTPTransportTypes::States::State_Connecting;
+        case RTCSctpTransportState::Connected:  return ISCTPTransportTypes::States::State_Connected;
+        case RTCSctpTransportState::Closed:     return ISCTPTransportTypes::States::State_Closed;
+        }
+        throw ref new Platform::NotImplementedException();
+      }
+
+      RTCSctpTransportState Helper::Convert(ISCTPTransportTypes::States state)
+      {
+        switch (state) {
+        case ISCTPTransportTypes::States::State_New:        return RTCSctpTransportState::New;
+        case ISCTPTransportTypes::States::State_Connecting: return RTCSctpTransportState::Connecting;
+        case ISCTPTransportTypes::States::State_Connected:  return RTCSctpTransportState::Connected;
+        case ISCTPTransportTypes::States::State_Closed:     return RTCSctpTransportState::Closed;
+        }
+        throw ref new Platform::NotImplementedException();
+      }
+
+      //---------------------------------------------------------------------------
+      // Logger convert methods
+      //---------------------------------------------------------------------------
+      zsLib::Log::Level Helper::Convert(Log::Level level)
+      {
+        switch (level) {
+        case Log::Level::Basic:   return zsLib::Log::Basic;
+        case Log::Level::Detail:  return zsLib::Log::Detail;
+        case Log::Level::Debug:   return zsLib::Log::Debug;
+        case Log::Level::Trace:   return zsLib::Log::Trace;
+        case Log::Level::Insane:  return zsLib::Log::Insane;
+        }
+        throw ref new Platform::NotImplementedException();
+      }
+
+      const char *Helper::ToComponent(Log::Component  component)
+      {
+        switch (component) {
+        case Log::Component::ZsLib:         return "zsLib";
+        case Log::Component::ZsLibSocket:   return "zsLib_socket";
+        case Log::Component::Services:      return "openpeer_services";
+        case Log::Component::ServicesTurn:  return "openpeer_services_turn";
+        case Log::Component::ServicesHttp:  return "openpeer_services_http";
+        case Log::Component::OrtcLib:       return "ortclib";
+        }
+        throw ref new Platform::NotImplementedException();
+      }
+
 #pragma endregion
 
     } // namespace internal
