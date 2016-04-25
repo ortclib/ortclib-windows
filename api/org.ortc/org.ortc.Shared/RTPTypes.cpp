@@ -532,7 +532,7 @@ namespace org
 
         result->Name = Helper::ToCx(input.mName);
         result->Kind = Helper::ToCx(input.mKind);
-        result->ClockRate = SafeInt<uint32>(input.mClockRate);
+        result->ClockRate = UseHelper::ToCx(input.mClockRate);
         result->PreferredPayloadType = SafeInt<uint8>(input.mPreferredPayloadType);
         result->Ptime = SafeInt<decltype(result->Ptime)>(input.mPTime.count());
         result->Maxptime = SafeInt<decltype(result->Maxptime)>(input.mMaxPTime.count());
@@ -619,7 +619,7 @@ namespace org
 
         result->mName = Helper::FromCx(input->Name);
         result->mKind = Helper::FromCx(input->Kind);
-        result->mClockRate = SafeInt<decltype(result->mClockRate)>(input->ClockRate);
+        result->mClockRate = UseHelper::FromCx(input->ClockRate);
         result->mPreferredPayloadType = SafeInt<decltype(result->mPreferredPayloadType)>(input->PreferredPayloadType);
         result->mPTime = Milliseconds(SafeInt<Milliseconds::rep>(input->Ptime));
         result->mMaxPTime = Milliseconds(SafeInt<Milliseconds::rep>(input->Maxptime));

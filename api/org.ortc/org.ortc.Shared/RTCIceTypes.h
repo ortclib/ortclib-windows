@@ -221,6 +221,11 @@ namespace org
     public ref struct RTCIceCandidateComplete sealed
     {
       /// <summary>
+      /// Constructs an instance of an RTCIceCandidateComplete object.
+      /// </summary>
+      RTCIceCandidateComplete() { Complete = true; }
+
+      /// <summary>
       /// This attribute is always present and set to true, indicating that
       /// ICE candidate gathering is complete.
       /// </summary>

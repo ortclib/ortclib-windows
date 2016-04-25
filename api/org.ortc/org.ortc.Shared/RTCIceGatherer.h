@@ -227,6 +227,11 @@ namespace org
     public ref struct RTCIceServer sealed
     {
       /// <summary>
+      /// Constructs an instance of an RTCIceServer object.
+      /// </summary>
+      RTCIceServer() { CredentialType = RTCIceGathererCredentialType::Password; }
+
+      /// <summary>
       /// STUN or TURN URI(s) as defined in [RFC7064] and [RFC7065] or other
       /// URI types.
       /// </summary>

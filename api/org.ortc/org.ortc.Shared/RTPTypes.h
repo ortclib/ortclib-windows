@@ -203,6 +203,18 @@ namespace org
     public ref struct RTCRtpCodecCapability sealed
     {
       /// <summary>
+      /// Constructs an instance of an RTCRtpCodecCapability object.
+      /// </summary>
+      RTCRtpCodecCapability()
+      {
+        Ptime = 0;
+        Maxptime = 0;
+        MaxTemporalLayers = 0;
+        MaxSpatialLayers = 0;
+        SvcMultiStreamSupport = false;
+      }
+
+      /// <summary>
       /// Gets or sets the MIME media type. Valid types are listed in
       /// [iana.org/assignments/rtp-parameters/rtp-parameters.xhtml#rtp-parameters-2].
       /// </summary>
@@ -216,7 +228,7 @@ namespace org
       /// Gets or sets the codec clock rate expressed in Hertz. If unset, the
       /// codec is applicable to any clock rate.
       /// </summary>
-      property uint32                     ClockRate;
+      property Platform::IBox<uint32>^    ClockRate;
       /// <summary>
       /// Gets or sets the preferred RTP payload type for the codec denoted by
       /// RTCRtpCodecCapability.name. This attribute was added to make it
@@ -545,6 +557,14 @@ namespace org
     public ref struct RTCRtpHeaderExtension sealed
     {
       /// <summary>
+      /// Constructs an instance of an RTCRtpHeaderExtension object.
+      /// </summary>
+      RTCRtpHeaderExtension()
+      {
+        PreferredEncrypt = false;
+      }
+
+      /// <summary>
       /// Gets or sets the media supported by the header extension: "audio"
       /// for an audio codec, "video" for a video codec, and "" for both.
       /// </summary>
@@ -611,8 +631,17 @@ namespace org
     /// <summary>
     /// RTCRtcpParameters provides information on RTCP settings.
     /// </summary>
-    public ref struct  RTCRtcpParameters sealed
+    public ref struct RTCRtcpParameters sealed
     {
+      /// <summary>
+      /// Creates an instance of an RTCRtcpParameters object.
+      /// </summary>
+      RTCRtcpParameters()
+      {
+        ReducedSize = false;
+        Mux = true;
+      }
+
       /// <summary>
       /// Gets or sets the SSRC to be used in the "SSRC of packet sender"
       /// field defined in [RFC3550] Section 6.4.2 (Receiver Report) and
@@ -900,6 +929,14 @@ namespace org
     public ref struct  RTCRtpHeaderExtensionParameters sealed
     {
       /// <summary>
+      /// Constructs an instance of an RTCRtpHeaderExtensionParameters object.
+      /// </summary>
+      RTCRtpHeaderExtensionParameters()
+      {
+        Encrypt = false;
+      }
+
+      /// <summary>
       /// Gets or sets the URI of the RTP header extension, as defined in
       /// [RFC5285].
       /// </summary>
@@ -912,7 +949,7 @@ namespace org
       /// Gets or sets the value in the header is encrypted as per [RFC6904],
       /// if true. Default is unencrypted.
       /// </summary>
-      property Platform::Boolean        Encrypt; //default = false;
+      property Platform::Boolean        Encrypt;
     };
 
     /// <summary>
@@ -978,6 +1015,15 @@ namespace org
     public ref struct RTCRtpEncodingParameters sealed
     {
       /// <summary>
+      /// Constructs an instance of the RTCRtpEncodingParameters.
+      /// </summary>
+      RTCRtpEncodingParameters()
+      {
+        Active = true;
+        Priority = RTCPriorityType::Medium;
+      }
+
+      /// <summary>
       /// Gets or sets the SSRC for this layering/encoding.
       /// </summary>
       property Platform::IBox<uint32>^      Ssrc;
@@ -1033,15 +1079,6 @@ namespace org
       /// Gets or sets the EncodingIds on which this layer depends.
       /// </summary>
       property IVector<Platform::String^>^  DependencyEncodingIds;
-
-      /// <summary>
-      /// Constructs an instance of the RTCRtpEncodingParameters.
-      /// </summary>
-      RTCRtpEncodingParameters()
-      {
-        Active = true;
-        Priority = RTCPriorityType::Medium;
-      }
     };
 
     /// <summary>
@@ -1049,6 +1086,11 @@ namespace org
     /// </summary>
     public ref struct RTCRtpParameters sealed
     {
+      /// <summary>
+      /// Constructs an instance of RTCRtpParameters.
+      /// </summary>
+      RTCRtpParameters() { DegradationPreference = RTCDegradationPreference::Balanced; }
+
       /// <summary>
       /// Gets or sets the muxId assigned to the RTP stream, if any.
       /// </summary>
@@ -1080,11 +1122,6 @@ namespace org
       /// resolution or degrading framerate.
       /// </summary>
       property RTCDegradationPreference                   DegradationPreference;
-
-      /// <summary>
-      /// Constructs an instance of RTCRtpParameters.
-      /// </summary>
-      RTCRtpParameters() { DegradationPreference = RTCDegradationPreference::Balanced; }
     };
   }
 }

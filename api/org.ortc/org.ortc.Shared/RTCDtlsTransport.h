@@ -142,6 +142,11 @@ namespace org
     public ref struct RTCDtlsParameters sealed
     {
       /// <summary>
+      /// Constructs an instance of an RTCDtlsParameters object.
+      /// </summary>
+      RTCDtlsParameters() { Role = RTCDtlsRole::Auto; }
+
+      /// <summary>
       /// The DTLS role, with a default of Auto.
       /// </summary>
       property RTCDtlsRole                    Role;

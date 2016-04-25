@@ -4,11 +4,6 @@
 
 #include <ortc/IICETransport.h>
 
-//#include <collection.h>
-//
-//using namespace ortc;
-//
-
 namespace org
 {
   namespace ortc

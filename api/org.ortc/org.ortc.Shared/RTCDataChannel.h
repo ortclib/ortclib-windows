@@ -44,6 +44,15 @@ namespace org
     public ref struct RTCDataChannelParameters sealed
     {
       /// <summary>
+      /// Constructs an instance of an RTCDataChannelParameters object.
+      /// </summary>
+      RTCDataChannelParameters()
+      {
+        Ordered = true;
+        Negotiated = false;
+      }
+
+      /// <summary>
       /// Gets or sets a label that can be used to distinguish this
       /// RTCDataChannel object from other RTCDataChannel objects.
       /// </summary>
