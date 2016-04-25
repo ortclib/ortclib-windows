@@ -211,6 +211,8 @@ namespace org
       class MediaStreamTrackDelegate : public IMediaStreamTrackDelegate
       {
       public:
+        MediaStreamTrackDelegate(MediaStreamTrack^ owner) { _track = owner; }
+
         virtual void onMediaStreamTrackMute(
                                             IMediaStreamTrackPtr track,
                                             bool isMuted
@@ -249,8 +251,6 @@ namespace org
 
           _track->OnOverconstrained(evt);
         }
-
-        void SetOwnerObject(MediaStreamTrack^ owner) { _track = owner; }
 
       private:
         MediaStreamTrack^ _track;
@@ -320,21 +320,19 @@ namespace org
 
 #pragma region MediaStreamTrack
 
-    MediaStreamTrack^ MediaStreamTrack::Convert(IMediaStreamTrackPtr track)
+    MediaStreamTrack::MediaStreamTrack(IMediaStreamTrackPtr nativeTrack) :
+      _nativePointer(nativeTrack),
+      _nativeDelegatePointer(make_shared<internal::MediaStreamTrackDelegate>(this))
     {
-      auto result = ref new MediaStreamTrack();
-      result->_nativePointer = track;
-      return result;
+      if (_nativePointer) {
+        _nativeDelegateSubscription = _nativePointer->subscribe(_nativeDelegatePointer);
+      }
     }
 
-    void MediaStreamTrack::SetupDelegate()
+    MediaStreamTrack^ MediaStreamTrack::Convert(IMediaStreamTrackPtr track)
     {
-      if (!_nativePointer) return;
-      if (nullptr != _nativeDelegatePointer) return;
-      _nativeDelegatePointer = make_shared<internal::MediaStreamTrackDelegate>();
-
-      _nativeDelegatePointer->SetOwnerObject(this);
-      _nativeDelegateSubscription = _nativePointer->subscribe(_nativeDelegatePointer);
+      if (!track) return nullptr;
+      return ref new MediaStreamTrack(track);
     }
 
     void MediaStreamTrack::SetMediaElement(void* element)
@@ -406,13 +404,7 @@ namespace org
     MediaStreamTrack^ MediaStreamTrack::Clone()
     {
       if (!_nativePointer) return nullptr;
-
-      IMediaStreamTrackPtr newNativePointer = _nativePointer->clone();
-      if (!newNativePointer) return nullptr;
-      auto ret = ref new MediaStreamTrack();
-      ret->_nativePointer = newNativePointer;
-      ret->SetupDelegate();
-      return ret;
+      return ref new  MediaStreamTrack(_nativePointer->clone());
     }
 
     void MediaStreamTrack::Stop()

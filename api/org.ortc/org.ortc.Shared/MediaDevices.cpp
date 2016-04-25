@@ -233,7 +233,6 @@ namespace org
           {
             auto nativeTrack = (*it);
             MediaStreamTrack^ track = MediaStreamTrack::Convert(nativeTrack);
-            track->SetupDelegate();
             ret->Append(track);
           }
         }

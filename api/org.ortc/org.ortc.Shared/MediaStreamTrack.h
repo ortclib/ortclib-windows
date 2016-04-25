@@ -442,10 +442,10 @@ namespace org
       friend ref class RTCRtpSender;
 
     private:
+      MediaStreamTrack(IMediaStreamTrackPtr track);
+
       static MediaStreamTrack^ Convert(IMediaStreamTrackPtr track);
       static IMediaStreamTrackPtr Convert(MediaStreamTrack^ track) { if (!track) return nullptr; return track->_nativePointer; }
-
-      void SetupDelegate();
 
       void SetMediaElement(void* element);
 
