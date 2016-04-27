@@ -95,6 +95,8 @@ namespace org
       class RTCDtlsTransportDelegate : public IDTLSTransportDelegate
       {
       public:
+        RTCDtlsTransportDelegate(RTCDtlsTransport^ owner) { _owner = owner; }
+
         virtual void onDTLSTransportStateChange(
           IDTLSTransportPtr transport,
           IDTLSTransport::States state
@@ -102,7 +104,7 @@ namespace org
         {
           auto evt = ref new RTCDtlsTransportStateChangedEvent();
           evt->_state = UseHelper::Convert(state);
-          _transport->OnStateChange(evt);
+          _owner->OnStateChange(evt);
         }
 
         virtual void onDTLSTransportError(
@@ -111,12 +113,11 @@ namespace org
           ) override
         {
           auto evt = ref new ErrorEvent(Error::CreateIfGeneric(error));
-          _transport->OnError(evt);
+          _owner->OnError(evt);
         }
 
-        void SetOwnerObject(RTCDtlsTransport^ owner) { _transport = owner; }
       private:
-        RTCDtlsTransport^ _transport;
+        RTCDtlsTransport^ _owner;
       };
 
 #pragma endregion
@@ -125,25 +126,19 @@ namespace org
 
 #pragma region RTCDtlsTransport
 
-    RTCDtlsTransport::RTCDtlsTransport() :
-      _nativeDelegatePointer(nullptr),
-      _nativePointer(nullptr)
+    RTCDtlsTransport::RTCDtlsTransport(IDTLSTransportPtr transport) :
+      _nativeDelegatePointer(make_shared<internal::RTCDtlsTransportDelegate>(this)),
+      _nativePointer(transport)
     {
-    }
-
-    RTCDtlsTransport^ RTCDtlsTransport::Convert(IDTLSTransportPtr transport)
-    {
-      RTCDtlsTransport^ result = ref new RTCDtlsTransport();
-      result->_nativePointer = transport;
-      return result;
+      if (_nativePointer) {
+        _nativeSubscriptionPointer = _nativePointer->subscribe(_nativeDelegatePointer);
+      }
     }
 
     RTCDtlsTransport::RTCDtlsTransport(RTCIceTransport^ transport, IVector<RTCCertificate^>^ certificates) :
-      _nativeDelegatePointer(make_shared<internal::RTCDtlsTransportDelegate>())
+      _nativeDelegatePointer(make_shared<internal::RTCDtlsTransportDelegate>(this))
     {
       ORG_ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == certificates)
-
-      _nativeDelegatePointer->SetOwnerObject(this);
 
       auto nativeTransport = RTCIceTransport::Convert(transport);
 

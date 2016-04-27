@@ -26,25 +26,22 @@ namespace org
       class RTCRtpSenderDelegate : public IRTPSenderDelegate
       {
       public:
+        RTCRtpSenderDelegate(RTCRtpSender^ owner) { _owner = owner; }
+
         virtual void onRTPSenderSSRCConflict(
           IRTPSenderPtr sender,
           SSRCType ssrc
-          );
+          ) override
+        {
+          auto evt = ref new RTCSsrcConflictEvent();
+          evt->_ssrc = SafeInt<decltype(evt->_ssrc)>(ssrc);
+          _owner->OnSsrcConflict(evt);
+        }
 
-        RTCRtpSender^ _sender;
+      private:
+        RTCRtpSender^ _owner;
 
-        void SetOwnerObject(RTCRtpSender^ owner) { _sender = owner; }
       };
-
-      void RTCRtpSenderDelegate::onRTPSenderSSRCConflict(
-        IRTPSenderPtr sender,
-        SSRCType ssrc
-        )
-      {
-        auto evt = ref new RTCSsrcConflictEvent();
-        evt->_ssrc = SafeInt<decltype(evt->_ssrc)>(ssrc);
-        _sender->OnSsrcConflict(evt);
-      }
 
 #pragma endregion
 
@@ -53,30 +50,23 @@ namespace org
       class RTCRtpSenderPromiseObserver : public zsLib::IPromiseResolutionDelegate
       {
       public:
-        RTCRtpSenderPromiseObserver(Concurrency::task_completion_event<void> tce);
+        RTCRtpSenderPromiseObserver(Concurrency::task_completion_event<void> tce) : mTce(tce) {}
 
-        virtual void onPromiseResolved(PromisePtr promise) override;
-        virtual void onPromiseRejected(PromisePtr promise) override;
+        virtual void onPromiseResolved(PromisePtr promise) override
+        {
+          mTce.set();
+        }
+
+        virtual void onPromiseRejected(PromisePtr promise) override
+        {
+          auto reason = promise->reason<Any>();
+          auto error = Error::CreateIfGeneric(reason);
+          mTce.set_exception(error);
+        }
 
       private:
         Concurrency::task_completion_event<void> mTce;
       };
-
-      RTCRtpSenderPromiseObserver::RTCRtpSenderPromiseObserver(Concurrency::task_completion_event<void> tce) : mTce(tce)
-      {
-      }
-
-      void RTCRtpSenderPromiseObserver::onPromiseResolved(PromisePtr promise)
-      {
-        mTce.set();
-      }
-
-      void RTCRtpSenderPromiseObserver::onPromiseRejected(PromisePtr promise)
-      {
-        auto reason = promise->reason<Any>();
-        auto error = Error::CreateIfGeneric(reason);
-        mTce.set_exception(error);
-      }
 
 #pragma endregion
 
@@ -84,16 +74,19 @@ namespace org
 
 #pragma region RTCRtpSender 
 
-    RTCRtpSender::RTCRtpSender() :
-      _nativeDelegatePointer(nullptr),
-      _nativePointer(nullptr)
+    RTCRtpSender::RTCRtpSender(IRTPSenderPtr nativeSender) :
+      _nativeDelegatePointer(make_shared<internal::RTCRtpSenderDelegate>(this)),
+      _nativePointer(nativeSender)
     {
+      if (_nativePointer)
+      {
+        _nativeSubscriptionPointer = _nativePointer->subscribe(_nativeDelegatePointer);
+      }
     }
 
     RTCRtpSender::RTCRtpSender(MediaStreamTrack^ track, RTCDtlsTransport^ transport) :
-      _nativeDelegatePointer(make_shared<internal::RTCRtpSenderDelegate>())
+      _nativeDelegatePointer(make_shared<internal::RTCRtpSenderDelegate>(this))
     {
-      _nativeDelegatePointer->SetOwnerObject(this);
       auto nativeTrack = MediaStreamTrack::Convert(track);
       auto nativeTransport = RTCDtlsTransport::Convert(transport);
 
@@ -108,9 +101,8 @@ namespace org
     }
 
     RTCRtpSender::RTCRtpSender(MediaStreamTrack^ track, RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport) :
-      _nativeDelegatePointer(make_shared<internal::RTCRtpSenderDelegate>())
+      _nativeDelegatePointer(make_shared<internal::RTCRtpSenderDelegate>(this))
     {
-      _nativeDelegatePointer->SetOwnerObject(this);
       auto nativeTrack = MediaStreamTrack::Convert(track);
       auto nativeTransport = RTCDtlsTransport::Convert(transport);
       auto nativeRtcpTransport = RTCDtlsTransport::Convert(rtcpTransport);
@@ -123,13 +115,6 @@ namespace org
       {
         ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
       }
-    }
-
-    RTCRtpSender^ RTCRtpSender::Convert(IRTPSenderPtr sender)
-    {
-      RTCRtpSender^ result = ref new RTCRtpSender();
-      result->_nativePointer = sender;
-      return result;
     }
 
     void RTCRtpSender::SetTransport(RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport)
@@ -174,7 +159,6 @@ namespace org
       IAsyncAction^ ret = Concurrency::create_async([this, track, promise]()
       {
         Concurrency::task_completion_event<void> tce;
-
 
         auto observer = make_shared<internal::RTCRtpSenderPromiseObserver>(tce);
 

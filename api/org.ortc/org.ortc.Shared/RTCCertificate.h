@@ -35,6 +35,8 @@ namespace org
       friend ref class RTCDtlsTransport;
 
     private:
+      RTCCertificate(ICertificatePtr certificate);
+
       static RTCCertificate^ Convert(ICertificatePtr certificate);
       static ICertificatePtr Convert(RTCCertificate^ certificate) { if (!certificate) return nullptr; return certificate->_nativePointer; }
 
@@ -80,7 +82,6 @@ namespace org
 
     private:
       ICertificatePtr _nativePointer;
-      ICertificateTypes::PromiseWithCertificatePtr _certificatePromise;
     };
 
   }

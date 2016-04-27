@@ -263,37 +263,30 @@ namespace org
       class MediaStreamTrackConstraintsPromiseObserver : public zsLib::IPromiseResolutionDelegate
       {
       public:
-        MediaStreamTrackConstraintsPromiseObserver(Concurrency::task_completion_event<void> tce);
+        MediaStreamTrackConstraintsPromiseObserver(Concurrency::task_completion_event<void> tce) : mTce(tce) {}
 
-        virtual void onPromiseResolved(PromisePtr promise);
-        virtual void onPromiseRejected(PromisePtr promise);
+        virtual void onPromiseResolved(PromisePtr promise) override
+        {
+          mTce.set();
+        }
+
+        virtual void onPromiseRejected(PromisePtr promise) override
+        {
+          auto reason = promise->reason<Any>();
+          auto overError = OverconstrainedError::CreateIfOverconstrainedError(reason);
+          if (nullptr != overError)
+          {
+            mTce.set_exception(overError);
+            return;
+          }
+
+          auto error = Error::CreateIfGeneric(reason);
+          mTce.set_exception(error);
+        }
 
       private:
         Concurrency::task_completion_event<void> mTce;
       };
-
-      MediaStreamTrackConstraintsPromiseObserver::MediaStreamTrackConstraintsPromiseObserver(Concurrency::task_completion_event<void> tce) : mTce(tce)
-      {
-      }
-
-      void MediaStreamTrackConstraintsPromiseObserver::onPromiseResolved(PromisePtr promise)
-      {
-        mTce.set();
-      }
-
-      void MediaStreamTrackConstraintsPromiseObserver::onPromiseRejected(PromisePtr promise)
-      {
-        auto reason = promise->reason<Any>();
-        auto overError = OverconstrainedError::CreateIfOverconstrainedError(reason);
-        if (nullptr != overError)
-        {
-          mTce.set_exception(overError);
-          return;
-        }
-
-        auto error = Error::CreateIfGeneric(reason);
-        mTce.set_exception(error);
-      }
 
 #pragma endregion
 
@@ -327,12 +320,6 @@ namespace org
       if (_nativePointer) {
         _nativeDelegateSubscription = _nativePointer->subscribe(_nativeDelegatePointer);
       }
-    }
-
-    MediaStreamTrack^ MediaStreamTrack::Convert(IMediaStreamTrackPtr track)
-    {
-      if (!track) return nullptr;
-      return ref new MediaStreamTrack(track);
     }
 
     void MediaStreamTrack::SetMediaElement(void* element)

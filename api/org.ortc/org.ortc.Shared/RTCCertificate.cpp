@@ -20,49 +20,44 @@ namespace org
       class RTCGenerateCertificatePromiseObserver : public zsLib::IPromiseResolutionDelegate
       {
       public:
-        RTCGenerateCertificatePromiseObserver(Concurrency::task_completion_event<RTCCertificate^> tce);
+        RTCGenerateCertificatePromiseObserver(Concurrency::task_completion_event<RTCCertificate^> tce) : mTce(tce) {}
 
-        virtual void onPromiseResolved(PromisePtr promise);
-        virtual void onPromiseRejected(PromisePtr promise);
+        virtual void onPromiseResolved(PromisePtr promise) override
+        {
+          ICertificate::PromiseWithCertificatePtr certificatePromise = ZS_DYNAMIC_PTR_CAST(ICertificate::PromiseWithCertificate, promise);
+          auto nativeCert = certificatePromise->value();
+          if (!nativeCert)
+          {
+            Error ^error = nullptr;
+            mTce.set_exception(error);
+            return;
+          }
+          auto ret = RTCCertificate::Convert(nativeCert);
+          mTce.set(ret);
+        }
+
+        virtual void onPromiseRejected(PromisePtr promise) override
+        {
+          auto reason = promise->reason<Any>();
+          auto error = Error::CreateIfGeneric(reason);
+          mTce.set_exception(error);
+        }
 
       private:
         Concurrency::task_completion_event<RTCCertificate^> mTce;
       };
 
-      RTCGenerateCertificatePromiseObserver::RTCGenerateCertificatePromiseObserver(Concurrency::task_completion_event<RTCCertificate^> tce) :
-        mTce(tce)
-      {
-      }
-
-      void RTCGenerateCertificatePromiseObserver::onPromiseResolved(PromisePtr promise)
-      {
-        ICertificate::PromiseWithCertificatePtr certificatePromise = ZS_DYNAMIC_PTR_CAST(ICertificate::PromiseWithCertificate, promise);
-        auto nativeCert = certificatePromise->value();
-        if (!nativeCert)
-        {
-          Error ^error = nullptr;
-          mTce.set_exception(error);
-          return;
-        }
-        auto ret = ref new RTCCertificate();
-        ret->_nativePointer = nativeCert;
-        mTce.set(ret);
-      }
-
-      void RTCGenerateCertificatePromiseObserver::onPromiseRejected(PromisePtr promise)
-      {
-        auto reason = promise->reason<Any>();
-        auto error = Error::CreateIfGeneric(reason);
-        mTce.set_exception(error);
-      }
-
     } // namespace internal
+
+    RTCCertificate::RTCCertificate(ICertificatePtr certificate) :
+      _nativePointer(certificate)
+    {
+    }
 
     RTCCertificate^ RTCCertificate::Convert(ICertificatePtr certificate)
     {
-      RTCCertificate^ result = ref new RTCCertificate();
-      result->_nativePointer = certificate;
-      return result;
+      if (!certificate) return nullptr;
+      return ref new RTCCertificate(certificate);
     }
 
     IAsyncOperation<RTCCertificate^>^ RTCCertificate::GenerateCertificate() {

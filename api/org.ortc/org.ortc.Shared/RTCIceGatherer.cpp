@@ -148,115 +148,89 @@ namespace org
       class RTCIceGathererDelegate : public IICEGathererDelegate
       {
       public:
+        RTCIceGathererDelegate(RTCIceGatherer^ owner) { _owner = owner; }
+
         virtual void onICEGathererStateChange(
           IICEGathererPtr gatherer,
           IICEGatherer::States state
-          ) override;
+          ) override
+        {
+          auto evt = ref new RTCIceGathererStateChangedEvent();
+          evt->_state = UseHelper::Convert(state);
+          _owner->OnStateChange(evt);
+        }
 
         virtual void onICEGathererLocalCandidate(
           IICEGathererPtr gatherer,
           CandidatePtr candidate
-          ) override;
+          ) override
+        {
+          auto evt = ref new RTCIceGathererCandidateEvent();
+          evt->_candidate = internal::ToCx(candidate);
+          _owner->OnLocalCandidate(evt);
+        }
+
 
         virtual void onICEGathererLocalCandidateComplete(
           IICEGathererPtr gatherer,
           CandidateCompletePtr candidate
-          ) override;
+          ) override
+        {
+          auto evt = ref new RTCIceGathererCandidateCompleteEvent();
+          evt->_candidate = ref new RTCIceCandidateComplete();;
+          evt->_candidate->Complete = true;
+          _owner->OnLocalCandidateComplete(evt);
+        }
 
         virtual void onICEGathererLocalCandidateGone(
           IICEGathererPtr gatherer,
           CandidatePtr candidate
-          ) override;
+          ) override
+        {
+          auto evt = ref new RTCIceGathererCandidateEvent();
+          evt->_candidate = internal::ToCx(candidate);
+          _owner->OnLocalCandidateGone(evt);
+        }
 
         virtual void onICEGathererError(
           IICEGathererPtr gatherer,
           ErrorEventPtr errorEvent
-          ) override;
-
-        void SetOwnerObject(RTCIceGatherer^ owner) { _gatherer = owner; }
+          ) override
+        {
+          auto evt = ref new RTCIceGathererIceErrorEvent();
+          if (errorEvent)
+          {
+            evt->_hostCandidate = internal::ToCx(errorEvent->mHostCandidate);
+            evt->_url = UseHelper::ToCx(errorEvent->mURL);
+            evt->_errorCode = SafeInt<decltype(evt->_errorCode)>(errorEvent->mErrorCode);
+            evt->_errorText = UseHelper::ToCx(errorEvent->mErrorText);
+          }
+          _owner->OnError(evt);
+        }
 
       private:
-        RTCIceGatherer^ _gatherer;
+        RTCIceGatherer^ _owner;
       };
 
-      void RTCIceGathererDelegate::onICEGathererStateChange(
-        IICEGathererPtr gatherer,
-        IICEGatherer::States state
-        )
-      {
-        auto evt = ref new RTCIceGathererStateChangedEvent();
-        evt->_state = UseHelper::Convert(state);
-        _gatherer->OnStateChange(evt);
-      }
-
-      void RTCIceGathererDelegate::onICEGathererLocalCandidate(
-        IICEGathererPtr gatherer,
-        CandidatePtr candidate
-        )
-      {
-        auto evt = ref new RTCIceGathererCandidateEvent();
-        evt->_candidate = internal::ToCx(candidate);
-        _gatherer->OnLocalCandidate(evt);
-      }
-
-      void RTCIceGathererDelegate::onICEGathererLocalCandidateComplete(
-        IICEGathererPtr gatherer,
-        CandidateCompletePtr candidate
-        )
-      {
-        auto evt = ref new RTCIceGathererCandidateCompleteEvent();
-        evt->_candidate = ref new RTCIceCandidateComplete();;
-        evt->_candidate->Complete = true;
-        _gatherer->OnLocalCandidateComplete(evt);
-      }
-
-      void RTCIceGathererDelegate::onICEGathererLocalCandidateGone(
-        IICEGathererPtr gatherer,
-        CandidatePtr candidate
-        )
-      {
-        auto evt = ref new RTCIceGathererCandidateEvent();
-        evt->_candidate = internal::ToCx(candidate);
-        _gatherer->OnLocalCandidateGone(evt);
-      }
-
-      void RTCIceGathererDelegate::onICEGathererError(
-        IICEGathererPtr gatherer,
-        ErrorEventPtr errorEvent
-        )
-      {
-        auto evt = ref new RTCIceGathererIceErrorEvent();
-        if (errorEvent)
-        {
-          evt->_hostCandidate = internal::ToCx(errorEvent->mHostCandidate);
-          evt->_url = UseHelper::ToCx(errorEvent->mURL);
-          evt->_errorCode = SafeInt<decltype(evt->_errorCode)>(errorEvent->mErrorCode);
-          evt->_errorText = UseHelper::ToCx(errorEvent->mErrorText);
-        }
-        _gatherer->OnError(evt);
-      }
 #pragma endregion
 
     } // namespace internal
 
-    RTCIceGatherer::RTCIceGatherer() :
-      _nativeDelegatePointer(nullptr),
-      _nativePointer(nullptr)
+    RTCIceGatherer::RTCIceGatherer(const noop &) :
+      _nativeDelegatePointer(make_shared<internal::RTCIceGathererDelegate>(this))
     {
     }
 
-    RTCIceGatherer^ RTCIceGatherer::Convert(IICEGathererPtr gatherer)
+    RTCIceGatherer::RTCIceGatherer(IICEGathererPtr gatherer) :
+      _nativeDelegatePointer(make_shared<internal::RTCIceGathererDelegate>(this)),
+      _nativePointer(gatherer)
     {
-      RTCIceGatherer^ result = ref new RTCIceGatherer();
-      result->_nativePointer = gatherer;
-      return result;
     }
 
     RTCIceGatherer::RTCIceGatherer(RTCIceGatherOptions^ options) :
-      _nativeDelegatePointer(make_shared<internal::RTCIceGathererDelegate>())
+      _nativeDelegatePointer(make_shared<internal::RTCIceGathererDelegate>(this))
     {
       ORG_ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == options)
-      _nativeDelegatePointer->SetOwnerObject(this);
       _nativePointer = IICEGatherer::create(_nativeDelegatePointer, *internal::FromCx(options));
     }
 
@@ -283,10 +257,7 @@ namespace org
     {
       ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
 
-      RTCIceGatherer^ ret = ref new RTCIceGatherer();
-
-      ret->_nativeDelegatePointer = make_shared<internal::RTCIceGathererDelegate>(internal::RTCIceGathererDelegate());
-      ret->_nativeDelegatePointer->SetOwnerObject(ret);
+      RTCIceGatherer^ ret = ref new RTCIceGatherer(noop{});
 
       try
       {

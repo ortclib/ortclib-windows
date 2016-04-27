@@ -444,7 +444,7 @@ namespace org
     private:
       MediaStreamTrack(IMediaStreamTrackPtr track);
 
-      static MediaStreamTrack^ Convert(IMediaStreamTrackPtr track);
+      static MediaStreamTrack^ Convert(IMediaStreamTrackPtr track) { if (!track) return nullptr; return ref new MediaStreamTrack(track); }
       static IMediaStreamTrackPtr Convert(MediaStreamTrack^ track) { if (!track) return nullptr; return track->_nativePointer; }
 
       void SetMediaElement(void* element);

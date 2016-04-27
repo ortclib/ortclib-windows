@@ -7,6 +7,8 @@
 
 #include "webrtc/modules/video_capture/windows/video_capture_winrt.h"
 
+#include <openpeer/services/IHelper.h>
+
 using Platform::Collections::Vector;
 
 using namespace ortc;
@@ -18,6 +20,7 @@ namespace org
     using std::make_shared;
 
     ZS_DECLARE_TYPEDEF_PTR(internal::Helper, UseHelper)
+    ZS_DECLARE_TYPEDEF_PTR(openpeer::services::IHelper, UseServicesHelper)
 
     namespace internal
     {
@@ -135,16 +138,15 @@ namespace org
       class MediaDevicesDelegate : public IMediaDevicesDelegate
       {
       public:
+        MediaDevicesDelegate(MediaDevices^ owner) : _owner(owner) { }
+
         void onMediaDevicesChanged()
         {
-          if (!_mediaDevices) return;
-          _mediaDevices->OnDeviceChange();
+          _owner->OnDeviceChange();
         }
 
-        void SetOwnerObject(MediaDevices^ owner) { _mediaDevices = owner; }
-
       private:
-        MediaDevices^ _mediaDevices;
+        MediaDevices^ _owner;
       };
 
 #pragma endregion
@@ -154,10 +156,41 @@ namespace org
       class MediaDevicesPromiseObserver : public zsLib::IPromiseResolutionDelegate
       {
       public:
-        MediaDevicesPromiseObserver(Concurrency::task_completion_event<IVector<MediaDeviceInfo^>^> tce);
+        MediaDevicesPromiseObserver(Concurrency::task_completion_event<IVector<MediaDeviceInfo^>^> tce) : mTce(tce) {}
 
-        virtual void onPromiseResolved(PromisePtr promise);
-        virtual void onPromiseRejected(PromisePtr promise);
+        virtual void onPromiseResolved(PromisePtr promise) override
+        {
+          auto ret = ref new Vector<MediaDeviceInfo^>();
+
+          IMediaDevicesTypes::DeviceListPtr deviceList = promise->value<IMediaDevicesTypes::DeviceList>();
+
+          if (deviceList)
+          {
+            for (IMediaDevicesTypes::DeviceList::iterator it = deviceList->begin(); it != deviceList->end(); ++it)
+            {
+              MediaDeviceInfo^ med = internal::ToCx(*it);
+              ret->Append(med);
+            }
+          }
+
+          mTce.set(ret);
+        }
+
+        virtual void onPromiseRejected(PromisePtr promise) override
+        {
+          IMediaDevicesTypes::PromiseWithDeviceListPtr deviceListPromise = ZS_DYNAMIC_PTR_CAST(IMediaDevicesTypes::PromiseWithDeviceList, promise);
+
+          auto reason = deviceListPromise->reason();
+
+          auto overError = OverconstrainedError::CreateIfOverconstrainedError(reason);
+          if (overError)
+          {
+            mTce.set_exception(overError);
+            return;
+          }
+          auto error = Error::CreateIfGeneric(reason);
+          mTce.set_exception(error);
+        }
 
       private:
         Concurrency::task_completion_event<IVector<MediaDeviceInfo^>^> mTce;
@@ -166,84 +199,37 @@ namespace org
       class MediaStreamTrackPromiseObserver : public zsLib::IPromiseResolutionDelegate
       {
       public:
-        MediaStreamTrackPromiseObserver(Concurrency::task_completion_event<IVector<MediaStreamTrack^>^> tce);
+        MediaStreamTrackPromiseObserver(Concurrency::task_completion_event<IVector<MediaStreamTrack^>^> tce) : mTce(tce) {}
 
-        virtual void onPromiseResolved(PromisePtr promise);
-        virtual void onPromiseRejected(PromisePtr promise);
+        virtual void onPromiseResolved(PromisePtr promise) override
+        {
+          auto ret = ref new Vector<MediaStreamTrack^>();
+
+          IMediaDevicesTypes::MediaStreamTrackListPtr mediaStreamTrackListPtr2 = ZS_DYNAMIC_PTR_CAST(IMediaDevicesTypes::MediaStreamTrackList, promise);
+
+          IMediaDevicesTypes::MediaStreamTrackListPtr mediaStreamTrackListPtr = promise->value<IMediaDevicesTypes::MediaStreamTrackList>();
+
+          if (mediaStreamTrackListPtr)
+          {
+            for (IMediaDevicesTypes::MediaStreamTrackList::iterator it = mediaStreamTrackListPtr->begin(); it != mediaStreamTrackListPtr->end(); ++it)
+            {
+              auto nativeTrack = (*it);
+              MediaStreamTrack^ track = MediaStreamTrack::Convert(nativeTrack);
+              ret->Append(track);
+            }
+          }
+          mTce.set(ret);
+        }
+
+        virtual void onPromiseRejected(PromisePtr promise) override
+        {
+          IMediaDevicesTypes::PromiseWithMediaStreamTrackListPtr streamTrackPromise = ZS_DYNAMIC_PTR_CAST(IMediaDevicesTypes::PromiseWithMediaStreamTrackList, promise);
+          mTce.set_exception(streamTrackPromise->reason());
+        }
 
       private:
         Concurrency::task_completion_event<IVector<MediaStreamTrack^>^> mTce;
       };
-
-      MediaDevicesPromiseObserver::MediaDevicesPromiseObserver(Concurrency::task_completion_event<IVector<MediaDeviceInfo^>^> tce) : mTce(tce)
-      {
-      }
-
-      void MediaDevicesPromiseObserver::onPromiseResolved(PromisePtr promise)
-      {
-        auto ret = ref new Vector<MediaDeviceInfo^>();
-
-        IMediaDevicesTypes::DeviceListPtr deviceList = promise->value<IMediaDevicesTypes::DeviceList>();
-
-        if (deviceList)
-        {
-          for (IMediaDevicesTypes::DeviceList::iterator it = deviceList->begin(); it != deviceList->end(); ++it)
-          {
-            MediaDeviceInfo^ med = internal::ToCx(*it);
-            ret->Append(med);
-          }
-        }
-
-        mTce.set(ret);
-      }
-
-      void MediaDevicesPromiseObserver::onPromiseRejected(PromisePtr promise)
-      {
-        IMediaDevicesTypes::PromiseWithDeviceListPtr deviceListPromise = ZS_DYNAMIC_PTR_CAST(IMediaDevicesTypes::PromiseWithDeviceList, promise);
-
-        auto reason = deviceListPromise->reason();
-
-        auto overError = OverconstrainedError::CreateIfOverconstrainedError(reason);
-        if (overError)
-        {
-          mTce.set_exception(overError);
-          return;
-        }
-        auto error = Error::CreateIfGeneric(reason);
-        mTce.set_exception(error);
-      }
-
-
-      MediaStreamTrackPromiseObserver::MediaStreamTrackPromiseObserver(Concurrency::task_completion_event<IVector<MediaStreamTrack^>^> tce) :
-        mTce(tce)
-      {
-      }
-
-      void MediaStreamTrackPromiseObserver::onPromiseResolved(PromisePtr promise)
-      {
-        auto ret = ref new Vector<MediaStreamTrack^>();
-
-        IMediaDevicesTypes::MediaStreamTrackListPtr mediaStreamTrackListPtr2 = ZS_DYNAMIC_PTR_CAST(IMediaDevicesTypes::MediaStreamTrackList, promise);
-
-        IMediaDevicesTypes::MediaStreamTrackListPtr mediaStreamTrackListPtr = promise->value<IMediaDevicesTypes::MediaStreamTrackList>();
-
-        if (mediaStreamTrackListPtr)
-        {
-          for (IMediaDevicesTypes::MediaStreamTrackList::iterator it = mediaStreamTrackListPtr->begin(); it != mediaStreamTrackListPtr->end(); ++it)
-          {
-            auto nativeTrack = (*it);
-            MediaStreamTrack^ track = MediaStreamTrack::Convert(nativeTrack);
-            ret->Append(track);
-          }
-        }
-        mTce.set(ret);
-      }
-
-      void MediaStreamTrackPromiseObserver::onPromiseRejected(PromisePtr promise)
-      {
-        IMediaDevicesTypes::PromiseWithMediaStreamTrackListPtr streamTrackPromise = ZS_DYNAMIC_PTR_CAST(IMediaDevicesTypes::PromiseWithMediaStreamTrackList, promise);
-        mTce.set_exception(streamTrackPromise->reason());
-      }
 
 #pragma endregion
 
@@ -263,16 +249,20 @@ namespace org
 
 #pragma region MediaDevices
 
+    MediaDevices::MediaDevices() :
+      _nativeDelegatePointer(make_shared<internal::MediaDevicesDelegate>(this))
+    {
+      _nativeDelegateSubscription = IMediaDevices::subscribe(_nativeDelegatePointer);
+    }
+
     MediaDevices^ MediaDevices::_singleton = nullptr;
 
     MediaDevices^ MediaDevices::Singleton::get()
     {
+      zsLib::AutoRecursiveLock lock(*UseServicesHelper::getGlobalLock());
       if (nullptr != _singleton) return _singleton;
 
       _singleton = ref new MediaDevices();
-      _singleton->_nativeDelegatePointer = make_shared<internal::MediaDevicesDelegate>();
-      _singleton->_nativeDelegatePointer->SetOwnerObject(_singleton);      
-      _singleton->_nativeDelegateSubscription = IMediaDevices::subscribe(_singleton->_nativeDelegatePointer);
       return _singleton;
     }
 

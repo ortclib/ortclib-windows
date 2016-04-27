@@ -13,6 +13,7 @@ namespace org
     ZS_DECLARE_TYPEDEF_PTR(zsLib::Promise, Promise)
 
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IRTPSender, IRTPSender)
+    ZS_DECLARE_TYPEDEF_PTR(::ortc::IRTPSenderSubscription, IRTPSenderSubscription)
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IRTPSenderDelegate, IRTPSenderDelegate)
 
     ref class MediaStreamTrack;
@@ -62,9 +63,9 @@ namespace org
       friend RTCDtmfSender;
 
     private:
-      RTCRtpSender();
+      RTCRtpSender(IRTPSenderPtr sender);
 
-      static RTCRtpSender^ Convert(IRTPSenderPtr sender);
+      static RTCRtpSender^ Convert(IRTPSenderPtr sender) { if (!sender) return nullptr; return ref new RTCRtpSender(sender); }
       static IRTPSenderPtr Convert(RTCRtpSender^ sender) { if (!sender) return nullptr; return sender->_nativePointer; }
 
     public:
@@ -199,6 +200,7 @@ namespace org
     private:
       IRTPSenderPtr _nativePointer;
       internal::RTCRtpSenderDelegatePtr _nativeDelegatePointer;
+      IRTPSenderSubscriptionPtr _nativeSubscriptionPointer;
     };
 
   } // namespace ortc

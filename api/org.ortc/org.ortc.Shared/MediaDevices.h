@@ -149,6 +149,8 @@ namespace org
     private:
       friend class internal::MediaDevicesDelegate;
 
+      MediaDevices();
+
     public:
       /// <summary>
       /// Gets a singleton reference to the MediaDevices object.

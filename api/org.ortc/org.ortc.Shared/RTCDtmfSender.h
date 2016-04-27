@@ -8,6 +8,7 @@ namespace org
   {
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IDTMFSender, IDTMFSender)
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IDTMFSenderDelegate, IDTMFSenderDelegate)
+    ZS_DECLARE_TYPEDEF_PTR(::ortc::IDTMFSenderSubscription, IDTMFSenderSubscription)
 
     ref class RTCDtmfSender;
     ref class RTCRtpSender;
@@ -49,7 +50,6 @@ namespace org
       friend class internal::RTCDtmfSenderDelegate;
 
     private:
-      RTCDtmfSender();
 
     public:
       /// <summary>
@@ -142,6 +142,7 @@ namespace org
     private:
       IDTMFSenderPtr _nativePointer;
       internal::RTCDtmfSenderDelegatePtr _nativeDelegatePointer;
+      IDTMFSenderSubscriptionPtr _nativeSubscriptionPointer;
     };
 
   } // namespace ortc

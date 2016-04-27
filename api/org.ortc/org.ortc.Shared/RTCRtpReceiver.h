@@ -106,9 +106,6 @@ namespace org
     {
       friend class internal::RTCRtpReceiverDelegate;
 
-    private:
-      RTCRtpReceiver();
-
     public:
       /// <summary>
       /// Constructs an instance of RTCRtpReceiver from a value of kind and an
@@ -129,14 +126,6 @@ namespace org
       /// </summary>
       RTCRtpReceiver(MediaStreamTrackKind kind, RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
 
-      /// <summary>
-      /// Obtain all the receiver capabilities. Capabilities such as
-      /// retransmission [RFC4588], redundancy [RFC2198], and Forward Error
-      /// Correction that do not have an associated value of kind are always
-      /// included.
-      /// </summary>
-      [Windows::Foundation::Metadata::DefaultOverloadAttribute]
-      static RTCRtpCapabilities^          GetCapabilities();
       /// <summary>
       /// Obtain the receiver capabilities, based on kind. Capabilities such
       /// as retransmission [RFC4588], redundancy [RFC2198], and Forward Error

@@ -77,7 +77,7 @@ namespace org
       class RTCDataChannelDelegate : public IDataChannelDelegate
       {
       public:
-        RTCDataChannelDelegate(RTCDataChannel^ owner) : _channel(owner) { }
+        RTCDataChannelDelegate(RTCDataChannel^ owner) : _owner(owner) { }
 
         virtual void onDataChannelStateChange(
           IDataChannelPtr channel,
@@ -86,7 +86,7 @@ namespace org
         {
           auto evt = ref new RTCDataChannelStateChangeEvent();
           evt->_state = UseHelper::Convert(state);
-          _channel->OnStateChange(evt);
+          _owner->OnStateChange(evt);
         }
 
         virtual void onDataChannelError(
@@ -95,14 +95,14 @@ namespace org
           ) override
         {
           auto evt = ref new ErrorEvent(Error::CreateIfGeneric(error));
-          _channel->OnError(evt);
+          _owner->OnError(evt);
         }
 
         virtual void onDataChannelBufferedAmountLow(
           IDataChannelPtr channel
           ) override
         {
-          _channel->OnBufferedAmountLow();
+          _owner->OnBufferedAmountLow();
         }
 
         virtual void onDataChannelMessage(
@@ -124,11 +124,11 @@ namespace org
               evt->_data->_text = UseHelper::ToCx(data->mText);
             }
           }
-          _channel->OnMessage(evt);
+          _owner->OnMessage(evt);
         }
 
       private:
-        RTCDataChannel^ _channel;
+        RTCDataChannel^ _owner;
       };
 
 #pragma endregion
@@ -141,7 +141,9 @@ namespace org
       _nativeDelegatePointer(make_shared<internal::RTCDataChannelDelegate>(this)),
       _nativePointer(nativePointer)
     {
-      _nativeSubscriptionPointer = _nativePointer->subscribe(_nativeDelegatePointer);
+      if (_nativePointer) {
+        _nativeSubscriptionPointer = _nativePointer->subscribe(_nativeDelegatePointer);
+      }
     }
 
     RTCDataChannel::RTCDataChannel(RTCSctpTransport^ transport, RTCDataChannelParameters^ params) :

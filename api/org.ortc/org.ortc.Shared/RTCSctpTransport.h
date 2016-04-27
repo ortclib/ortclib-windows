@@ -12,6 +12,7 @@ namespace org
     ZS_DECLARE_TYPEDEF_PTR(::ortc::ISCTPTransport, ISCTPTransport)
     ZS_DECLARE_TYPEDEF_PTR(::ortc::ISCTPTransportDelegate, ISCTPTransportDelegate)
     ZS_DECLARE_TYPEDEF_PTR(::ortc::ISCTPTransportTypes, ISCTPTransportTypes)
+    ZS_DECLARE_TYPEDEF_PTR(::ortc::ISCTPTransportSubscription, ISCTPTransportSubscription)
 
     ZS_DECLARE_CLASS_PTR(RTCDataChannelDelegate)
 
@@ -150,9 +151,9 @@ namespace org
       friend ref class RTCDataChannel;
 
     private:
-      RTCSctpTransport();
+      RTCSctpTransport(ISCTPTransportPtr transport);
 
-      static RTCSctpTransport^ Convert(ISCTPTransportPtr transport);
+      static RTCSctpTransport^ Convert(ISCTPTransportPtr transport) { if (!transport) return nullptr; return ref new RTCSctpTransport(transport); }
       static ISCTPTransportPtr Convert(RTCSctpTransport^ transport) { if (!transport) return nullptr; return transport->_nativePointer; }
 
     public:
@@ -204,6 +205,7 @@ namespace org
     private:
       ISCTPTransportPtr _nativePointer;
       internal::RTCSctpTransportDelegatePtr _nativeDelegatePointer;
+      ISCTPTransportSubscriptionPtr _nativeSubscriptionPointer;
     };
 
   } // namespace ortc

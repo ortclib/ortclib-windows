@@ -27,7 +27,7 @@ namespace org
       class RTCRtpReceiverDelegate : public IRTPReceiverDelegate
       {
       public:
-        void SetOwnerObject(RTCRtpReceiver^ owner) { _owner = owner; }
+        RTCRtpReceiverDelegate(RTCRtpReceiver^ owner) { _owner = owner; }
 
       private:
         RTCRtpReceiver^ _owner;
@@ -40,30 +40,23 @@ namespace org
       class RTCRtpReceiverPromiseObserver : public zsLib::IPromiseResolutionDelegate
       {
       public:
-        RTCRtpReceiverPromiseObserver(Concurrency::task_completion_event<void> tce);
+        RTCRtpReceiverPromiseObserver(Concurrency::task_completion_event<void> tce) : mTce(tce) {}
 
-        virtual void onPromiseResolved(PromisePtr promise) override;
-        virtual void onPromiseRejected(PromisePtr promise) override;
+        virtual void onPromiseResolved(PromisePtr promise) override
+        {
+          mTce.set();
+        }
+
+        virtual void onPromiseRejected(PromisePtr promise) override
+        {
+          auto reason = promise->reason<Any>();
+          auto error = Error::CreateIfGeneric(reason);
+          mTce.set_exception(error);
+        }
 
       private:
         Concurrency::task_completion_event<void> mTce;
       };
-
-      RTCRtpReceiverPromiseObserver::RTCRtpReceiverPromiseObserver(Concurrency::task_completion_event<void> tce) : mTce(tce)
-      {
-      }
-
-      void RTCRtpReceiverPromiseObserver::onPromiseResolved(PromisePtr promise)
-      {
-        mTce.set();
-      }
-
-      void RTCRtpReceiverPromiseObserver::onPromiseRejected(PromisePtr promise)
-      {
-        auto reason = promise->reason<Any>();
-        auto error = Error::CreateIfGeneric(reason);
-        mTce.set_exception(error);
-      }
 
 #pragma endregion
 
@@ -81,16 +74,9 @@ namespace org
 
 #pragma region RTCRtpReceiver
 
-    RTCRtpReceiver::RTCRtpReceiver() :
-      _nativeDelegatePointer(nullptr),
-      _nativePointer(nullptr)
-    {
-    }
-
     RTCRtpReceiver::RTCRtpReceiver(MediaStreamTrackKind kind, RTCDtlsTransport^ transport) :
-      _nativeDelegatePointer(make_shared<internal::RTCRtpReceiverDelegate>())
+      _nativeDelegatePointer(make_shared<internal::RTCRtpReceiverDelegate>(this))
     {
-      _nativeDelegatePointer->SetOwnerObject(this);
       auto nativeTransport = RTCDtlsTransport::Convert(transport);
 
       try
@@ -103,9 +89,9 @@ namespace org
       }
     }
 
-    RTCRtpReceiver::RTCRtpReceiver(MediaStreamTrackKind kind, RTCDtlsTransport ^ transport, RTCDtlsTransport^ rtcpTransport)
+    RTCRtpReceiver::RTCRtpReceiver(MediaStreamTrackKind kind, RTCDtlsTransport ^ transport, RTCDtlsTransport^ rtcpTransport) :
+      _nativeDelegatePointer(make_shared<internal::RTCRtpReceiverDelegate>(this))
     {
-      _nativeDelegatePointer->SetOwnerObject(this);
       auto nativeTransport = RTCDtlsTransport::Convert(transport);
       auto nativeRtcpTransport = RTCDtlsTransport::Convert(rtcpTransport);
       _nativePointer = IRTPReceiver::create(_nativeDelegatePointer, UseHelper::Convert(kind), nativeTransport, nativeRtcpTransport);
@@ -129,11 +115,6 @@ namespace org
       {
         ORG_ORTC_THROW_INVALID_PARAMETERS()
       }
-    }
-
-    RTCRtpCapabilities^ RTCRtpReceiver::GetCapabilities()
-    {
-      return internal::ToCx(IRTPReceiver::getCapabilities());
     }
 
     RTCRtpCapabilities^ RTCRtpReceiver::GetCapabilities(Platform::String^ kind)

@@ -34,7 +34,8 @@ namespace org
     void RTCIceTransportController::AddTransport(RTCIceTransport^ transport)
     {
       ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
-        try
+
+      try
       {
         _nativePointer->addTransport(RTCIceTransport::Convert(transport));
       }

@@ -10,6 +10,7 @@ namespace org
   {
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IICEGatherer, IICEGatherer)
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IICEGathererDelegate, IICEGathererDelegate)
+    ZS_DECLARE_TYPEDEF_PTR(::ortc::IICEGathererSubscription, IICEGathererSubscription)
 
     using Windows::Foundation::Collections::IVector;
 
@@ -453,10 +454,13 @@ namespace org
       friend class internal::RTCIceGathererDelegate;
       friend ref class RTCIceTransport;
 
-    private:
-      RTCIceGatherer();
+      struct noop {};
 
-      static RTCIceGatherer^ Convert(IICEGathererPtr gatherer);
+    private:
+      RTCIceGatherer(const noop &);
+      RTCIceGatherer(IICEGathererPtr gatherer);
+
+      static RTCIceGatherer^ Convert(IICEGathererPtr gatherer) { if (!gatherer) return nullptr; return ref new RTCIceGatherer(gatherer); }
       static IICEGathererPtr Convert(RTCIceGatherer^ gatherer) { if (!gatherer) return nullptr; return gatherer->_nativePointer; }
 
     public:
@@ -558,6 +562,7 @@ namespace org
       zsLib::RecursiveLock _lock;
       IICEGathererPtr _nativePointer;
       internal::RTCIceGathererDelegatePtr _nativeDelegatePointer;
+      IICEGathererSubscriptionPtr _nativeSubscriptionPointer;
     };
 
 #pragma endregion

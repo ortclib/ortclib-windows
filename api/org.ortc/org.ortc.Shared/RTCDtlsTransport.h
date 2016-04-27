@@ -9,6 +9,7 @@ namespace org
   {
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IDTLSTransportDelegate, IDTLSTransportDelegate)
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IDTLSTransport, IDTLSTransport)
+    ZS_DECLARE_TYPEDEF_PTR(::ortc::IDTLSTransportSubscription, IDTLSTransportSubscription)
 
     using Windows::Foundation::Collections::IVector;
 
@@ -203,9 +204,9 @@ namespace org
       friend ref class RTCSctpTransport;
 
     private:
-      RTCDtlsTransport();
+      RTCDtlsTransport(IDTLSTransportPtr transport);
 
-      static RTCDtlsTransport^ Convert(IDTLSTransportPtr transport);
+      static RTCDtlsTransport^ Convert(IDTLSTransportPtr transport) { if (!transport) return nullptr; return ref new RTCDtlsTransport(transport); }
       static IDTLSTransportPtr Convert(RTCDtlsTransport^ transport) { if (!transport) return nullptr; return transport->_nativePointer; }
 
     public:
@@ -278,6 +279,7 @@ namespace org
     private:
       IDTLSTransportPtr _nativePointer;
       internal::RTCDtlsTransportDelegatePtr _nativeDelegatePointer;
+      IDTLSTransportSubscriptionPtr _nativeSubscriptionPointer;
     };
   }
 }

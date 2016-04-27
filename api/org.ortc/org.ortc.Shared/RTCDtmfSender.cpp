@@ -23,6 +23,8 @@ namespace org
       class RTCDtmfSenderDelegate : public IDTMFSenderDelegate
       {
       public:
+        RTCDtmfSenderDelegate(RTCDtmfSender^ owner) { _owner = owner; }
+
         void onDTMFSenderToneChanged(
           IDTMFSenderPtr sender,
           String tone
@@ -30,13 +32,11 @@ namespace org
         {
           auto evt = ref new RTCDTMFToneChangeEvent();
           evt->_tone = UseHelper::ToCx(tone);
-          _sender->OnToneChange(evt);
+          _owner->OnToneChange(evt);
         }
 
-        void SetOwnerObject(RTCDtmfSender^ owner) { _sender = owner; }
-
       private:
-        RTCDtmfSender^ _sender;
+        RTCDtmfSender^ _owner;
       };
 
 #pragma endregion
@@ -45,16 +45,9 @@ namespace org
 
 #pragma region RTCDtmfSender 
 
-    RTCDtmfSender::RTCDtmfSender() :
-      _nativeDelegatePointer(nullptr),
-      _nativePointer(nullptr)
-    {
-    }
-
     RTCDtmfSender::RTCDtmfSender(RTCRtpSender^ sender) :
-      _nativeDelegatePointer(make_shared<internal::RTCDtmfSenderDelegate>())
+      _nativeDelegatePointer(make_shared<internal::RTCDtmfSenderDelegate>(this))
     {
-      _nativeDelegatePointer->SetOwnerObject(this);
       auto nativeSender = RTCRtpSender::Convert(sender);
 
       try

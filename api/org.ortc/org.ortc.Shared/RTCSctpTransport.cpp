@@ -52,6 +52,8 @@ namespace org
       class RTCSctpTransportDelegate : public ISCTPTransportDelegate
       {
       public:
+        RTCSctpTransportDelegate(RTCSctpTransport^ owner) { _owner = owner; }
+
         virtual void onSCTPTransportDataChannel(
           ISCTPTransportPtr transport,
           IDataChannelPtr channel
@@ -59,7 +61,7 @@ namespace org
         {
           auto evt = ref new RTCDataChannelEvent();
           evt->_channel = RTCDataChannel::Convert(channel);
-          _transport->OnDataChannel(evt);
+          _owner->OnDataChannel(evt);
         }
 
         virtual void onSCTPTransportStateChange(
@@ -69,36 +71,29 @@ namespace org
         {
           auto evt = ref new RTCSctpTransportStateChangeEvent();
           evt->_state = UseHelper::Convert(state);
-          _transport->OnStateChange(evt);
+          _owner->OnStateChange(evt);
         }
 
-        void SetOwnerObject(RTCSctpTransport^ owner) { _transport = owner; }
-
       private:
-        RTCSctpTransport^ _transport;
+        RTCSctpTransport^ _owner;
       };
 
 
     } //namespace internal
 
-    RTCSctpTransport::RTCSctpTransport() :
-      _nativeDelegatePointer(nullptr),
-      _nativePointer(nullptr)
+    RTCSctpTransport::RTCSctpTransport(ISCTPTransportPtr transport) :
+      _nativeDelegatePointer(make_shared<internal::RTCSctpTransportDelegate>(this)),
+      _nativePointer(transport)
     {
-    }
-
-    RTCSctpTransport^ RTCSctpTransport::Convert(ISCTPTransportPtr transport)
-    {
-      RTCSctpTransport^ result = ref new RTCSctpTransport();
-      result->_nativePointer = transport;
-      return result;
+      if (_nativePointer)
+      {
+        _nativeSubscriptionPointer = _nativePointer->subscribe(_nativeDelegatePointer);
+      }
     }
 
     RTCSctpTransport::RTCSctpTransport(RTCDtlsTransport^ transport) :
-      _nativeDelegatePointer(make_shared<internal::RTCSctpTransportDelegate>())
+      _nativeDelegatePointer(make_shared<internal::RTCSctpTransportDelegate>(this))
     {
-      _nativeDelegatePointer->SetOwnerObject(this);
-
       auto nativeTransport = RTCDtlsTransport::Convert(transport);
 
       try
@@ -116,10 +111,8 @@ namespace org
     }
 
     RTCSctpTransport::RTCSctpTransport(RTCDtlsTransport^ transport, uint16 port) :
-      _nativeDelegatePointer(make_shared<internal::RTCSctpTransportDelegate>())
+      _nativeDelegatePointer(make_shared<internal::RTCSctpTransportDelegate>(this))
     {
-      _nativeDelegatePointer->SetOwnerObject(this);
-
       auto nativeTransport = RTCDtlsTransport::Convert(transport);
 
       try

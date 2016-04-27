@@ -20,6 +20,8 @@ namespace org
       class RTCRtpListenerDelegate : public IRTPListenerDelegate
       {
       public:
+        RTCRtpListenerDelegate(RTCRtpListener^ owner) { _owner = owner; }
+
         virtual void onRTPListenerUnhandledRTP(
           IRTPListenerPtr listener,
           SSRCType ssrc,
@@ -33,29 +35,26 @@ namespace org
           evt->_payloadType = SafeInt<decltype(evt->_payloadType)>(payloadType);
           evt->_muxId = UseHelper::ToCx(mid);
           evt->_rid = UseHelper::ToCx(rid);
-          _listener->OnUnhandledRtp(evt);
+          _owner->OnUnhandledRtp(evt);
         }
 
-        RTCRtpListener^ _listener;
-
-        void SetOwnerObject(RTCRtpListener^ owner) { _listener = owner; }
+      private:
+        RTCRtpListener^ _owner;
       };
     }
 
     RTCRtpListener::RTCRtpListener(RTCDtlsTransport^ transport) :
-      _nativeDelegatePointer(make_shared<internal::RTCRtpListenerDelegate>())
+      _nativeDelegatePointer(make_shared<internal::RTCRtpListenerDelegate>(this))
     {
-      _nativeDelegatePointer->SetOwnerObject(this);
       auto nativeTransport = RTCDtlsTransport::Convert(transport);
       _nativePointer = IRTPListener::create(_nativeDelegatePointer, nativeTransport);
     }
 
     RTCRtpListener::RTCRtpListener(RTCDtlsTransport^ transport, IVector<RTCRtpHeaderExtensionParameters^>^ headerExtensions) :
-      _nativeDelegatePointer(make_shared<internal::RTCRtpListenerDelegate>())
+      _nativeDelegatePointer(make_shared<internal::RTCRtpListenerDelegate>(this))
     {
-      _nativeDelegatePointer->SetOwnerObject(this);
-
       IRTPListener::HeaderExtensionParametersList list;
+
       if (headerExtensions)
       {
         for (RTCRtpHeaderExtensionParameters^ ext : headerExtensions)

@@ -200,9 +200,10 @@ namespace org
 
     private:
       RTCIceTransport(const noop &);
+      RTCIceTransport(IICETransportPtr transport);
 
-      static RTCIceTransport^ Convert(IICETransportPtr transport);
-      static IICETransportPtr Convert(RTCIceTransport^ gatherer) { return gatherer->_nativePointer; }
+      static RTCIceTransport^ Convert(IICETransportPtr transport) { if (!transport) return nullptr; return ref new RTCIceTransport(transport); }
+      static IICETransportPtr Convert(RTCIceTransport^ transport) { if (!transport) return nullptr; return transport->_nativePointer; }
 
     public:
       /// <summary>
@@ -361,7 +362,7 @@ namespace org
     private:
       IICETransportPtr _nativePointer;
       internal::RTCIceTransportDelegatePtr _nativeDelegatePointer;
-      IICETransportSubscriptionPtr _nativeDelegateSubscription;
+      IICETransportSubscriptionPtr _nativeSubscriptionPointer;
     };
   }
 }
