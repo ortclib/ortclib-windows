@@ -13,4 +13,6 @@ projects/packages
 Build/
 nuget/package
 nuget/Output
+nuget/org.ortc.adapter.version
 NugetOutput/
+test/
