@@ -2,6 +2,8 @@
 #pragma once
 
 #include <ortc/types.h>
+#include "../../../../libs/zsLib/zsLib/types.h"
+#include "../../../../libs/zsLib/zsLib/internal/types.h"
 
 #define ORG_ORTC_THROW_INVALID_PARAMETERS_IF(xExpression) if (xExpression) {throw ref new Platform::InvalidArgumentException();}
 #define ORG_ORTC_THROW_INVALID_PARAMETERS() {throw ref new Platform::InvalidArgumentException();}
@@ -22,6 +24,7 @@ namespace org
       ZS_DECLARE_CLASS_PTR(MediaStreamTrackDelegate)
       ZS_DECLARE_CLASS_PTR(RTCDtlsTransportDelegate)
       ZS_DECLARE_CLASS_PTR(RTCDataChannelDelegate)
+      ZS_DECLARE_CLASS_PTR(RTCSrtpSdesTransportDelegate)
       ZS_DECLARE_CLASS_PTR(MediaDevicesPromiseObserver)
       ZS_DECLARE_CLASS_PTR(MediaStreamTrackConstraintsPromiseObserver)
       ZS_DECLARE_CLASS_PTR(RTCGenerateCertificatePromiseObserver)
@@ -38,6 +41,7 @@ namespace org
       friend class internal::RTCDtlsTransportDelegate;
       friend class internal::MediaDevicesPromiseObserver;
       friend class internal::RTCDataChannelDelegate;
+      friend class internal::RTCSrtpSdesTransportDelegate;
       friend class internal::MediaStreamTrackConstraintsPromiseObserver;
       friend class internal::RTCGenerateCertificatePromiseObserver;
       friend class internal::RTCRtpSenderPromiseObserver;
@@ -71,6 +75,7 @@ namespace org
       friend class internal::MediaStreamTrackDelegate;
       friend class internal::RTCDtlsTransportDelegate;
       friend class internal::RTCDataChannelDelegate;
+      friend class internal::RTCSrtpSdesTransportDelegate;
 
       ErrorEvent(ref struct Error ^error)
       {

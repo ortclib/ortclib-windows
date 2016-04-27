@@ -36,6 +36,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCRtpReceiver.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCRtpSender.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCSctpTransport.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTCSrtpSdesTransport.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTMediaStreamSource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RtpTypes.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Settings.h" />
@@ -67,6 +68,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCRtpReceiver.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCRtpSender.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCSctpTransport.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RTCSrtpSdesTransport.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTMediaStreamSource.cc" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RtpTypes.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Settings.cpp" />

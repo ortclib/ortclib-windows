@@ -272,7 +272,7 @@ namespace org
       /// </summary>
       event RTCDtlsTransportStateChangedDelegate^           OnStateChange;
       /// <summary>
-      /// This event is be fired on reception of a DTLS error alert.
+      /// This event is fired on reception of a DTLS error alert.
       /// </summary>
       event RTCDtlsTransportErrorDelegate^                  OnError;
 

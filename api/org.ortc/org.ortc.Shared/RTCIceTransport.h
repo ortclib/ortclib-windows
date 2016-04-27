@@ -197,6 +197,7 @@ namespace org
       friend class internal::RTCIceTransportDelegate;
       friend ref class RTCDtlsTransport;
       friend ref class RTCIceTransportController;
+      friend ref class RTCSrtpSdesTransport;
 
     private:
       RTCIceTransport(const noop &);
