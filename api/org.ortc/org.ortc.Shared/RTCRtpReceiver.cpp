@@ -2,6 +2,8 @@
 
 #include "RTCRtpReceiver.h"
 #include "RTCDtlsTransport.h"
+#include "RTCIceTransport.h"
+#include "RTCSrtpSdesTransport.h"
 #include "RtpTypes.h"
 #include "helpers.h"
 #include "Error.h"
@@ -83,6 +85,29 @@ namespace org
       {
         _nativePointer = IRTPReceiver::create(_nativeDelegatePointer, UseHelper::Convert(kind), nativeTransport);
       }
+      catch (const InvalidParameters &)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS()
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
+    }
+
+    RTCRtpReceiver::RTCRtpReceiver(MediaStreamTrackKind kind, RTCSrtpSdesTransport^ transport) :
+      _nativeDelegatePointer(make_shared<internal::RTCRtpReceiverDelegate>(this))
+    {
+      auto nativeTransport = RTCSrtpSdesTransport::Convert(transport);
+
+      try
+      {
+        _nativePointer = IRTPReceiver::create(_nativeDelegatePointer, UseHelper::Convert(kind), nativeTransport);
+      }
+      catch (const InvalidParameters &)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS()
+      }
       catch (const InvalidStateError &e)
       {
         ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
@@ -94,13 +119,71 @@ namespace org
     {
       auto nativeTransport = RTCDtlsTransport::Convert(transport);
       auto nativeRtcpTransport = RTCDtlsTransport::Convert(rtcpTransport);
-      _nativePointer = IRTPReceiver::create(_nativeDelegatePointer, UseHelper::Convert(kind), nativeTransport, nativeRtcpTransport);
+      try
+      {
+        _nativePointer = IRTPReceiver::create(_nativeDelegatePointer, UseHelper::Convert(kind), nativeTransport, nativeRtcpTransport);
+      }
+      catch (const InvalidParameters &)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS()
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
+    }
+
+    RTCRtpReceiver::RTCRtpReceiver(MediaStreamTrackKind kind, RTCSrtpSdesTransport ^ transport, RTCIceTransport^ rtcpTransport) :
+      _nativeDelegatePointer(make_shared<internal::RTCRtpReceiverDelegate>(this))
+    {
+      auto nativeTransport = RTCSrtpSdesTransport::Convert(transport);
+      auto nativeRtcpTransport = RTCIceTransport::Convert(rtcpTransport);
+      try
+      {
+        _nativePointer = IRTPReceiver::create(_nativeDelegatePointer, UseHelper::Convert(kind), nativeTransport, nativeRtcpTransport);
+      }
+      catch (const InvalidParameters &)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS()
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
     }
 
     void RTCRtpReceiver::SetTransport(RTCDtlsTransport ^ transport)
     {
       auto nativeTransport = RTCDtlsTransport::Convert(transport);
-      _nativePointer->setTransport(nativeTransport);
+      try
+      {
+        _nativePointer->setTransport(nativeTransport);
+      }
+      catch (const InvalidParameters &)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS()
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
+    }
+
+    void RTCRtpReceiver::SetTransport(RTCSrtpSdesTransport ^ transport)
+    {
+      auto nativeTransport = RTCSrtpSdesTransport::Convert(transport);
+      try
+      {
+        _nativePointer->setTransport(nativeTransport);
+      }
+      catch (const InvalidParameters &)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS()
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
     }
 
     void RTCRtpReceiver::SetTransport(RTCDtlsTransport ^ transport, RTCDtlsTransport ^ rtcpTransport)
@@ -115,20 +198,41 @@ namespace org
       {
         ORG_ORTC_THROW_INVALID_PARAMETERS()
       }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
+    }
+
+    void RTCRtpReceiver::SetTransport(RTCSrtpSdesTransport ^ transport, RTCIceTransport ^ rtcpTransport)
+    {
+      auto nativeTransport = RTCSrtpSdesTransport::Convert(transport);
+      auto nativeRtcpTransport = RTCIceTransport::Convert(rtcpTransport);
+      try
+      {
+        _nativePointer->setTransport(nativeTransport, nativeRtcpTransport);
+      }
+      catch (const InvalidParameters &)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS()
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
     }
 
     RTCRtpCapabilities^ RTCRtpReceiver::GetCapabilities(Platform::String^ kind)
     {
-      if (nullptr != kind)
-      {
-        if (Platform::String::CompareOrdinal(kind, MediaStreamTrackKind::Audio.ToString()) == 0)
-          return internal::ToCx(IRTPReceiver::getCapabilities(IMediaStreamTrackTypes::Kinds::Kind_Audio));
+      ORG_ORTC_THROW_INVALID_STATE_IF(kind == nullptr)
 
-        if (Platform::String::CompareOrdinal(kind, MediaStreamTrackKind::Video.ToString()) == 0)
-          return internal::ToCx(IRTPReceiver::getCapabilities(IMediaStreamTrackTypes::Kinds::Kind_Video));
-      }
+      if (Platform::String::CompareOrdinal(kind, MediaStreamTrackKind::Audio.ToString()) == 0)
+        return internal::ToCx(IRTPReceiver::getCapabilities(IMediaStreamTrackTypes::Kinds::Kind_Audio));
 
-      return internal::ToCx(IRTPReceiver::getCapabilities());
+      if (Platform::String::CompareOrdinal(kind, MediaStreamTrackKind::Video.ToString()) == 0)
+        return internal::ToCx(IRTPReceiver::getCapabilities(IMediaStreamTrackTypes::Kinds::Kind_Video));
+
+      ORG_ORTC_THROW_INVALID_PARAMETERS()
     }
 
     IAsyncAction^ RTCRtpReceiver::Receive(RTCRtpParameters^ parameters)
@@ -200,16 +304,44 @@ namespace org
       return MediaStreamTrack::Convert(_nativePointer->track());
     }
 
-    RTCDtlsTransport^ RTCRtpReceiver::Transport::get()
+    Platform::Object^ RTCRtpReceiver::Transport::get()
     {
       if (!_nativePointer) return nullptr;
-      return RTCDtlsTransport::Convert(IDTLSTransport::convert(_nativePointer->transport()));
+      auto nativeTransport = _nativePointer->transport();
+      if (!nativeTransport) return nullptr;
+      {
+        auto dtlsTransport = IDTLSTransport::convert(nativeTransport);
+        if (nullptr != dtlsTransport) {
+          return RTCDtlsTransport::Convert(dtlsTransport);
+        }
+      }
+      {
+        auto srtpTransport = ISRTPSDESTransport::convert(nativeTransport);
+        if (nullptr != srtpTransport) {
+          return RTCSrtpSdesTransport::Convert(srtpTransport);
+        }
+      }
+      return nullptr;
     }
 
-    RTCDtlsTransport^ RTCRtpReceiver::RtcpTransport::get()
+    Platform::Object^ RTCRtpReceiver::RtcpTransport::get()
     {
       if (!_nativePointer) return nullptr;
-      return RTCDtlsTransport::Convert(IDTLSTransport::convert(_nativePointer->rtcpTransport()));
+      auto nativeTransport = _nativePointer->rtcpTransport();
+      if (!nativeTransport) return nullptr;
+      {
+        auto dtlsTransport = IDTLSTransport::convert(nativeTransport);
+        if (nullptr != dtlsTransport) {
+          return RTCDtlsTransport::Convert(dtlsTransport);
+        }
+      }
+      {
+        auto iceTransport = IICETransport::convert(nativeTransport);
+        if (nullptr != iceTransport) {
+          return RTCIceTransport::Convert(iceTransport);
+        }
+      }
+      return nullptr;
     }
 
 #pragma endregion

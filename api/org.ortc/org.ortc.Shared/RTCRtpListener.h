@@ -14,6 +14,7 @@ namespace org
 
     ref class RTCDtlsTransport;
     ref class RTCRtpListener;
+    ref class RTCSrtpSdesTransport;
     ref struct RTCRtpHeaderExtensionParameters;
 
     namespace internal
@@ -98,16 +99,29 @@ namespace org
       RTCRtpListener(RTCDtlsTransport^ transport);
       /// <summary>
       /// Construct an instance of RTCRtpListener from an RTCDtlsTransport
+      /// object.
+      /// </summary>
+      [Windows::Foundation::Metadata::OverloadAttribute("CreateWithSrptSdesTransport")]
+      RTCRtpListener(RTCSrtpSdesTransport^ transport);
+      /// <summary>
+      /// Construct an instance of RTCRtpListener from an RTCDtlsTransport
       /// object and the mapped header extensions to properly intepret
       /// RTP header extensions.
       /// </summary>
       [Windows::Foundation::Metadata::OverloadAttribute("CreateWithHeaderExtensions")]
       RTCRtpListener(RTCDtlsTransport^ transport, IVector<RTCRtpHeaderExtensionParameters^>^ headerExtensions);
+      /// <summary>
+      /// Construct an instance of RTCRtpListener from an RTCDtlsTransport
+      /// object and the mapped header extensions to properly intepret
+      /// RTP header extensions.
+      /// </summary>
+      [Windows::Foundation::Metadata::OverloadAttribute("CreateWithSrtpSdesTransportAndHeaderExtensions")]
+      RTCRtpListener(RTCSrtpSdesTransport^ transport, IVector<RTCRtpHeaderExtensionParameters^>^ headerExtensions);
 
       /// <summary>
-      /// Gets the RTP RTCDtlsTransport instance.
+      /// Gets the RTP RTPDtlsTransport or RTPSrtpSdesTransport instance.
       /// </summary>
-      property RTCDtlsTransport^ Transport { RTCDtlsTransport^ get(); }
+      property Platform::Object^ Transport { Platform::Object^ get(); }
 
       /// <summary>
       /// The event handler emits the RTCRtpUnhandledEvent, which is fired

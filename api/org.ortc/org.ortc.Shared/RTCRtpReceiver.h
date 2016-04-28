@@ -16,6 +16,8 @@ namespace org
 
     ref class MediaStreamTrack;
     ref class RTCDtlsTransport;
+    ref class RTCSrtpSdesTransport;
+    ref class RTCIceTransport;
     ref class RTCRtpReceiver;
 
     ref struct RTCRtpCapabilities;
@@ -109,22 +111,42 @@ namespace org
     public:
       /// <summary>
       /// Constructs an instance of RTCRtpReceiver from a value of kind and an
-      /// RTCDtlsTransport object.If an attempt is made to construct an
+      /// RTCDtlsTransport object. If an attempt is made to construct an
       /// RTCRtpReceiver object with transport.State  "closed", throw an
       /// InvalidStateError exception. Upon construction, Track is set, and
       /// the value of track.Kind is determined based on the value of kind
       /// passed in the constructor.      
       /// </summary>
+      [Windows::Foundation::Metadata::DefaultOverloadAttribute()]
       RTCRtpReceiver(MediaStreamTrackKind kind, RTCDtlsTransport^ transport);
       /// <summary>
       /// Constructs an instance of RTCRtpReceiver from a value of kind and an
-      /// RTCDtlsTransport object.If an attempt is made to construct an
+      /// RTCSrtpSdesTransport object. Upon construction, Track is set, and
+      /// the value of track.Kind is determined based on the value of kind
+      /// passed in the constructor.      
+      /// </summary>
+      [Windows::Foundation::Metadata::OverloadAttribute("CreateWithSrtpSdesTransport")]
+      RTCRtpReceiver(MediaStreamTrackKind kind, RTCSrtpSdesTransport^ transport);
+      /// <summary>
+      /// Constructs an instance of RTCRtpReceiver from a value of kind and an
+      /// RTCDtlsTransport object. If an attempt is made to construct an
       /// RTCRtpReceiver object with transport.State or rtcpTransport.State
       /// "closed", throw an InvalidStateError exception. Upon construction,
       /// Track is set, and the value of track.Kind is determined based on
       /// the value of kind passed in the constructor.      
       /// </summary>
+      [Windows::Foundation::Metadata::OverloadAttribute("CreateWithRtcpTransport")]
       RTCRtpReceiver(MediaStreamTrackKind kind, RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
+      /// <summary>
+      /// Constructs an instance of RTCRtpReceiver from a value of kind and an
+      /// RTCSrtpSdesTransport and an RTCIceTransport object. If an attempt is
+      /// made to construct an RTCRtpReceiver object with
+      /// rtcpTransport.State "closed", throw an InvalidStateError exception.
+      /// Upon construction, Track is set, and the value of track.Kind is determined based on
+      /// the value of kind passed in the constructor.      
+      /// </summary>
+      [Windows::Foundation::Metadata::OverloadAttribute("CreateWithSdesSrtpAndIceRtcpTransport")]
+      RTCRtpReceiver(MediaStreamTrackKind kind, RTCSrtpSdesTransport^ transport, RTCIceTransport^ rtcpTransport);
 
       /// <summary>
       /// Obtain the receiver capabilities, based on kind. Capabilities such
@@ -133,23 +155,37 @@ namespace org
       /// included, regardless of the value of kind passed to
       /// GetCapabilities().
       /// </summary>
-      [Windows::Foundation::Metadata::OverloadAttribute("GetCapabilitiesWithKind")]
       static RTCRtpCapabilities^          GetCapabilities(Platform::String^ kind);
 
       /// <summary>
-      /// Set the RTP RTCDtlsTransport (and if used) RTCP RTCDtlsTransport. If
-      /// the last call to receive(parameters) had parameters.Rtcp.Mux set to
-      /// false, throw an InvalidParameters exception. If SetTransport() is
-      /// called and transport.State is "closed", throw an InvalidParameters
-      /// exception.
+      /// Set the RTP RTCDtlsTransport. If the last call to
+      /// receive(parameters) had parameters.Rtcp.Mux set to false, throw an
+      /// InvalidParameters exception. If SetTransport() is called and
+      /// transport.State is "closed", throw an InvalidParameters exception.
       /// </summary>
+      [Windows::Foundation::Metadata::DefaultOverloadAttribute]
       void                                SetTransport(RTCDtlsTransport^ transport);
       /// <summary>
-      /// Set the RTP RTCDtlsTransport (and if used) RTCP RTCDtlsTransport. If
+      /// Set the RTP RTCSrtpSdesTransport. If the last call to
+      /// receive(parameters) had parameters.Rtcp.Mux set to false, throw an
+      /// InvalidParameters exception.
+      /// </summary>
+      [Windows::Foundation::Metadata::OverloadAttribute("SetSrtpSdesTransport")]
+      void                                SetTransport(RTCSrtpSdesTransport^ transport);
+      /// <summary>
+      /// Set the RTP RTCDtlsTransport and RTCP RTCDtlsTransport. If
       /// SetTransport() is called and transport.State or rtcpTransport.State
       /// is "closed", throw an InvalidParameters exception.
       /// </summary>
+      [Windows::Foundation::Metadata::OverloadAttribute("SetTransportWithRtcpTransport")]
       void                                SetTransport(RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
+      /// <summary>
+      /// Set the RTP RTCSrtpSdesTransport and RTCP RTCIceTransport. If
+      /// SetTransport() is called and rtcpTransport.State is "closed"
+      /// throw an InvalidParameters exception.
+      /// </summary>
+      [Windows::Foundation::Metadata::OverloadAttribute("SetSrtpSdesTransportWithRtcpTransport")]
+      void                                SetTransport(RTCSrtpSdesTransport^ transport, RTCIceTransport^ rtcpTransport);
 
       /// <summary>
       /// Media to be received is controlled by parameters. If
@@ -197,9 +233,9 @@ namespace org
       /// <summary>
       /// The associated RTP RTCDtlsTransport instance.
       /// </summary>
-      property RTCDtlsTransport^ Transport
+      property Platform::Object^ Transport
       {
-        RTCDtlsTransport^ get(); 
+        Platform::Object^ get();
       }
       /// <summary>
       /// Gets the RTCDtlsTransport instance over which RTCP is sent and
@@ -209,9 +245,9 @@ namespace org
       /// null, and both RTP and RTCP traffic will flow over the
       /// RTCDtlsTransport transport.
       /// </summary>
-      property RTCDtlsTransport^ RtcpTransport
+      property Platform::Object^ RtcpTransport
       {
-        RTCDtlsTransport^ get(); 
+        Platform::Object^ get();
       }
       
     private:

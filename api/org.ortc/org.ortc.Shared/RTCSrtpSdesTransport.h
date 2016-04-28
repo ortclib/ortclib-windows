@@ -160,8 +160,8 @@ namespace org
     };
 
 
-    public delegate void RTCDtlsTransportLifetimeRemainingDelegate(RTCSrtpSdesTransportLifetimeRemainingEvent^ evt);
-    public delegate void RTCDtlsTransportErrorDelegate(ErrorEvent^ evt);
+    public delegate void RTCSrtpSdesTransportLifetimeRemainingDelegate(RTCSrtpSdesTransportLifetimeRemainingEvent^ evt);
+    public delegate void RTCSrtpSdesTransportErrorDelegate(ErrorEvent^ evt);
 
     /// <summary>
     /// The RTCSrtpSdesTransport includes information relating to SRTP/SDES
@@ -170,6 +170,9 @@ namespace org
     public ref class RTCSrtpSdesTransport sealed
     {
       friend class internal::RTCSrtpSdesTransportDelegate;
+      friend ref class RTCRtpReceiver;
+      friend ref class RTCRtpSender;
+      friend ref class RTCRtpListener;
 
     private:
       RTCSrtpSdesTransport(ISRTPSDESTransportPtr transport);
@@ -192,12 +195,12 @@ namespace org
       /// This event is fired when the lifetime of the keying material
       /// percentage remaining has changed.
       /// </summary>
-      event RTCDtlsTransportLifetimeRemainingDelegate^      OnLifetimeRemaining;
+      event RTCSrtpSdesTransportLifetimeRemainingDelegate^  OnLifetimeRemaining;
 
       /// <summary>
       /// This event is fired on reception of an error.
       /// </summary>
-      event RTCDtlsTransportErrorDelegate^                  OnError;
+      event RTCSrtpSdesTransportErrorDelegate^              OnError;
 
     private:
       ISRTPSDESTransportPtr _nativePointer;

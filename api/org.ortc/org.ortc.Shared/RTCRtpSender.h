@@ -20,6 +20,8 @@ namespace org
     ref class RTCDtlsTransport;
     ref class RTCRtpSender;
     ref class RTCDtmfSender;
+    ref class RTCSrtpSdesTransport;
+    ref class RTCIceTransport;
 
     ref struct RTCRtpCapabilities;
     ref struct RTCRtpParameters;
@@ -76,7 +78,16 @@ namespace org
       /// "closed", or if track.readyState is "ended", throw an
       /// InvalidStateError exception.
       /// </summary>
+      [Windows::Foundation::Metadata::DefaultOverloadAttribute]
       RTCRtpSender(MediaStreamTrack^ track, RTCDtlsTransport^ transport);
+      /// <summary>
+      /// Constructs an instance of an RTCRtpSender from an MediaStreamTrack
+      /// object and associated to an RTCSrtpSdesTransport. If an attempt is
+      /// made to construct an RTCRtpSender object with track.readyState is
+      /// "ended", throw an InvalidStateError exception.
+      /// </summary>
+      [Windows::Foundation::Metadata::OverloadAttribute("CreateWithSrtpSdesTransport")]
+      RTCRtpSender(MediaStreamTrack^ track, RTCSrtpSdesTransport^ transport);
       /// <summary>
       /// Constructs an instance of an RTCRtpSender from an MediaStreamTrack
       /// object and associated to an RTCDtlsTransport. If an attempt is made
@@ -84,15 +95,18 @@ namespace org
       /// rtcpTransport.State "closed", or if track.readyState is "ended",
       /// throw an InvalidStateError exception.
       /// </summary>
+      [Windows::Foundation::Metadata::OverloadAttribute("CreateWithRtcpTransport")]
       RTCRtpSender(MediaStreamTrack^ track, RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
-
       /// <summary>
-      /// Obtain all sender capabilities. Capabilities such as retransmission
-      /// [RFC4588], redundancy [RFC2198], and Forward Error Correction that
-      /// do not have an associated value of kind are always included.
+      /// Constructs an instance of an RTCRtpSender from an MediaStreamTrack
+      /// object and associated to an RTCSrtpSdesTransport and
+      /// RTCIceTransport. If an attempt is made to construct an RTCRtpSender
+      /// object with track.readyState is "ended", throw an
+      /// InvalidStateError exception.
       /// </summary>
-      [Windows::Foundation::Metadata::DefaultOverloadAttribute]
-      static RTCRtpCapabilities^          GetCapabilities();
+      [Windows::Foundation::Metadata::OverloadAttribute("CreateWithSdesSrtpAndIceRtcpTransport")]
+      RTCRtpSender(MediaStreamTrack^ track, RTCSrtpSdesTransport^ transport, RTCIceTransport^ rtcpTransport);
+
       /// <summary>
       /// Obtain the sender capabilities, based on kind. Capabilities such as
       /// retransmission [RFC4588], redundancy [RFC2198], and Forward Error
@@ -100,19 +114,38 @@ namespace org
       /// included, regardless of the value of kind passed to
       /// GetCapabilities().
       /// </summary>
-      [Windows::Foundation::Metadata::OverloadAttribute("GetCapabilitiesWithKind")]
       static RTCRtpCapabilities^  GetCapabilities(Platform::String^ kind);
 
       /// <summary>
-      /// Set the RTP RTCDtlsTransport (and if used) RTCP RTCDtlsTransport. If
-      /// SetTransport() is called with a single argument or if rtcpTransport
-      /// is not set, and the last call to sender.Send(parameters) had
-      /// parameters.rtcp.mux set to false, throw an InvalidParameters
-      /// exception. If SetTransport() is called when transport.State or
-      /// rtcpTransport.State is "closed", throw an InvalidStateError
+      /// Set the RTP RTCDtlsTransport. If the last call to
+      /// sender.Send(parameters) had parameters.rtcp.mux set to false,
+      /// throw an InvalidParameters exception. If SetTransport() is called
+      /// when transport.State is "closed", throw an InvalidStateError
       /// exception.
       /// </summary>
+      [Windows::Foundation::Metadata::DefaultOverloadAttribute]
+      void                        SetTransport(RTCDtlsTransport^ transport);
+      /// <summary>
+      /// Set the RTP RTCSrtpSdesTransport. If the last call to
+      /// sender.Send(parameters) had parameters.rtcp.mux set to false,
+      /// throw an InvalidParameters exception.
+      /// </summary>
+      [Windows::Foundation::Metadata::OverloadAttribute("SetSrtpSdesTransport")]
+      void                        SetTransport(RTCSrtpSdesTransport^ transport);
+      /// <summary>
+      /// Set the RTP RTCDtlsTransport and RTCP RTCDtlsTransport. If
+      /// SetTransport() is called when transport.State or rtcpTransport.State
+      /// is "closed", throw an InvalidStateError exception.
+      /// </summary>
+      [Windows::Foundation::Metadata::OverloadAttribute("SetTransportWithRtcpTransport")]
       void                        SetTransport(RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
+      /// <summary>
+      /// Set the RTP RTCSrtpSdesTransport and RTCP RTCIceTransport. If
+      /// SetTransport() is called when rtcpTransport.State is "closed",
+      /// throw an InvalidStateError exception.
+      /// </summary>
+      [Windows::Foundation::Metadata::OverloadAttribute("SetSrtpSdesTransportWithRtcpTransport")]
+      void                        SetTransport(RTCSrtpSdesTransport^ transport, RTCIceTransport^ rtcpTransport);
       /// <summary>
       /// Attempts to replace the track being sent with another track provided.
       /// </summary>
@@ -171,9 +204,9 @@ namespace org
       /// and both RTP and RTCP traffic will flow over the RTCDtlsTransport
       /// transport.
       /// </summary>
-      property RTCDtlsTransport^ Transport
+      property Platform::Object^ Transport
       {
-        RTCDtlsTransport^ get();
+        Platform::Object^ get();
       }
 
       /// <summary>
@@ -182,9 +215,9 @@ namespace org
       /// will be null, and both RTP and RTCP traffic will flow over the
       /// RTCDtlsTransport transport.
       /// </summary>
-      property RTCDtlsTransport^ RtcpTransport
+      property Platform::Object^ RtcpTransport
       {
-        RTCDtlsTransport^ get();
+        Platform::Object^ get();
       }
 
       /// <summary>

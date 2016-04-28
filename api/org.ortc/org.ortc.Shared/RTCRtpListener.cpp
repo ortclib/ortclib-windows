@@ -2,6 +2,7 @@
 
 #include "RTCDtlsTransport.h"
 #include "RTCRtpListener.h"
+#include "RTCSrtpSdesTransport.h"
 #include "RtpTypes.h"
 #include "helpers.h"
 
@@ -50,6 +51,13 @@ namespace org
       _nativePointer = IRTPListener::create(_nativeDelegatePointer, nativeTransport);
     }
 
+    RTCRtpListener::RTCRtpListener(RTCSrtpSdesTransport^ transport) :
+      _nativeDelegatePointer(make_shared<internal::RTCRtpListenerDelegate>(this))
+    {
+      auto nativeTransport = RTCSrtpSdesTransport::Convert(transport);
+      _nativePointer = IRTPListener::create(_nativeDelegatePointer, nativeTransport);
+    }
+
     RTCRtpListener::RTCRtpListener(RTCDtlsTransport^ transport, IVector<RTCRtpHeaderExtensionParameters^>^ headerExtensions) :
       _nativeDelegatePointer(make_shared<internal::RTCRtpListenerDelegate>(this))
     {
@@ -67,10 +75,41 @@ namespace org
       _nativePointer = IRTPListener::create(_nativeDelegatePointer, nativeTransport, list);
     }
 
-    RTCDtlsTransport^ RTCRtpListener::Transport::get()
+    RTCRtpListener::RTCRtpListener(RTCSrtpSdesTransport^ transport, IVector<RTCRtpHeaderExtensionParameters^>^ headerExtensions) :
+      _nativeDelegatePointer(make_shared<internal::RTCRtpListenerDelegate>(this))
+    {
+      IRTPListener::HeaderExtensionParametersList list;
+
+      if (headerExtensions)
+      {
+        for (RTCRtpHeaderExtensionParameters^ ext : headerExtensions)
+        {
+          if (nullptr == ext) continue;
+          list.push_back(*internal::FromCx(ext));
+        }
+      }
+      auto nativeTransport = RTCSrtpSdesTransport::Convert(transport);
+      _nativePointer = IRTPListener::create(_nativeDelegatePointer, nativeTransport, list);
+    }
+
+    Platform::Object^ RTCRtpListener::Transport::get()
     {
       if (!_nativePointer) return nullptr;
-      return RTCDtlsTransport::Convert(IDTLSTransport::convert(_nativePointer->transport()));
+      auto nativeTransport = _nativePointer->transport();
+      if (!nativeTransport) return nullptr;
+      {
+        auto dtlsTransport = IDTLSTransport::convert(nativeTransport);
+        if (nullptr != dtlsTransport) {
+          return RTCDtlsTransport::Convert(dtlsTransport);
+        }
+      }
+      {
+        auto srtpTransport = ISRTPSDESTransport::convert(nativeTransport);
+        if (nullptr != srtpTransport) {
+          return RTCSrtpSdesTransport::Convert(srtpTransport);
+        }
+      }
+      return nullptr;
     }
 
   } // namespace ortc
