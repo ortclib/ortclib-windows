@@ -226,10 +226,12 @@ namespace org
     {
       ORG_ORTC_THROW_INVALID_STATE_IF(kind == nullptr)
 
-      if (Platform::String::CompareOrdinal(kind, MediaStreamTrackKind::Audio.ToString()) == 0)
+      String kindStr = UseHelper::FromCx(kind);
+
+      if (0 == kindStr.compareNoCase(UseHelper::FromCx(MediaStreamTrackKind::Audio.ToString())))
         return internal::ToCx(IRTPReceiver::getCapabilities(IMediaStreamTrackTypes::Kinds::Kind_Audio));
 
-      if (Platform::String::CompareOrdinal(kind, MediaStreamTrackKind::Video.ToString()) == 0)
+      if (0 == kindStr.compareNoCase(UseHelper::FromCx(MediaStreamTrackKind::Video.ToString())))
         return internal::ToCx(IRTPReceiver::getCapabilities(IMediaStreamTrackTypes::Kinds::Kind_Video));
 
       ORG_ORTC_THROW_INVALID_PARAMETERS()
