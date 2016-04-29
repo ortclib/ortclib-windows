@@ -14,7 +14,7 @@
 //#include "talk/app/webrtc/mediastreaminterface.h"
 #include "webrtc/system_wrappers/include/tick_util.h"
 #include "webrtc/system_wrappers/include/critical_section_wrapper.h"
-#include "webrtc/modules/video_render/include/video_render.h"
+#include "webrtc/modules/video_render/video_render.h"
 
 using Windows::Media::Core::MediaStreamSource;
 using Platform::WeakReference;

@@ -16,7 +16,7 @@
 #include "webrtc/base/scoped_ptr.h"
 #include "MediaSourceHelper.h"
 #include "WebRtcMediaSource.h"
-#include "webrtc/modules/video_render/include/video_render.h"
+#include "webrtc/modules/video_render/video_render.h"
 
 using Microsoft::WRL::ComPtr;
 using Microsoft::WRL::RuntimeClass;
