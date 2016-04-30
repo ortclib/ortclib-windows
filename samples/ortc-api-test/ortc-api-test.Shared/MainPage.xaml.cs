@@ -58,31 +58,31 @@ namespace ortc_api_test
           options.IceServers.Add(server);
           
           _iceGatherer = new RTCIceGatherer(options);
-          _iceGatherer.OnICEGathererStateChanged += this.RTCIceGatherer_onICEGathererStateChanged;
-          _iceGatherer.OnICEGathererLocalCandidate += this.RTCIceGatherer_onICEGathererLocalCandidate;
-          _iceGatherer.OnICEGathererCandidateComplete += this.RTCIceGatherer_onICEGathererCandidateComplete;
-          _iceGatherer.OnICEGathererLocalCandidateGone += this.RTCIceGatherer_onICEGathererLocalCandidateGone;
-          _iceGatherer.OnICEGathererError += this.RTCIceGatherer_onICEGathererError;
+          _iceGatherer.OnStateChange += this.RTCIceGatherer_onICEGathererStateChanged;
+          _iceGatherer.OnLocalCandidate += this.RTCIceGatherer_onICEGathererLocalCandidate;
+          _iceGatherer.OnLocalCandidateComplete += this.RTCIceGatherer_onICEGathererCandidateComplete;
+          _iceGatherer.OnLocalCandidateGone += this.RTCIceGatherer_onICEGathererLocalCandidateGone;
+          _iceGatherer.OnError += this.RTCIceGatherer_onICEGathererError;
 
 
           _iceGatherer2 = new RTCIceGatherer(options);
-          _iceGatherer2.OnICEGathererStateChanged += this.RTCIceGatherer_onICEGathererStateChanged2;
-          _iceGatherer2.OnICEGathererLocalCandidate += this.RTCIceGatherer_onICEGathererLocalCandidate2;
-          _iceGatherer2.OnICEGathererCandidateComplete += this.RTCIceGatherer_onICEGathererCandidateComplete2;
-          _iceGatherer2.OnICEGathererLocalCandidateGone += this.RTCIceGatherer_onICEGathererLocalCandidateGone2;
-          _iceGatherer2.OnICEGathererError += this.RTCIceGatherer_onICEGathererError;
+          _iceGatherer2.OnStateChange += this.RTCIceGatherer_onICEGathererStateChanged2;
+          _iceGatherer2.OnLocalCandidate += this.RTCIceGatherer_onICEGathererLocalCandidate2;
+          _iceGatherer2.OnLocalCandidateComplete += this.RTCIceGatherer_onICEGathererCandidateComplete2;
+          _iceGatherer2.OnLocalCandidateGone += this.RTCIceGatherer_onICEGathererLocalCandidateGone2;
+          _iceGatherer2.OnError += this.RTCIceGatherer_onICEGathererError;
 
           _iceTransport = new RTCIceTransport(_iceGatherer);
-          _iceTransport.OnICETransportStateChanged += RTCIceTransport_onICETransportStateChanged;
-          _iceTransport.OnICETransportCandidatePairAvailable += RTCIceTransport_onICETransportCandidatePairAvailable;
-          _iceTransport.OnICETransportCandidatePairGone += RTCIceTransport_onICETransportCandidatePairGone;
-          _iceTransport.OnICETransportCandidatePairChanged += RTCIceTransport_onICETransportCandidatePairChanged;
+          _iceTransport.OnStateChange += RTCIceTransport_onICETransportStateChanged;
+          _iceTransport.OnCandidatePairAvailable += RTCIceTransport_onICETransportCandidatePairAvailable;
+          _iceTransport.OnCandidatePairGone += RTCIceTransport_onICETransportCandidatePairGone;
+          _iceTransport.OnCandidatePairChange += RTCIceTransport_onICETransportCandidatePairChanged;
 
           _iceTransport2 = new RTCIceTransport(_iceGatherer);
-          _iceTransport2.OnICETransportStateChanged += RTCIceTransport_onICETransportStateChanged2;
-          _iceTransport2.OnICETransportCandidatePairAvailable += RTCIceTransport_onICETransportCandidatePairAvailable2;
-          _iceTransport2.OnICETransportCandidatePairGone += RTCIceTransport_onICETransportCandidatePairGone2;
-          _iceTransport2.OnICETransportCandidatePairChanged += RTCIceTransport_onICETransportCandidatePairChanged2;
+          _iceTransport2.OnStateChange += RTCIceTransport_onICETransportStateChanged2;
+          _iceTransport2.OnCandidatePairAvailable += RTCIceTransport_onICETransportCandidatePairAvailable2;
+          _iceTransport2.OnCandidatePairGone += RTCIceTransport_onICETransportCandidatePairGone2;
+          _iceTransport2.OnCandidatePairChange += RTCIceTransport_onICETransportCandidatePairChanged2;
 
           RTCCertificate.GenerateCertificate().AsTask<RTCCertificate>().ContinueWith((cert) => 
           {
@@ -90,7 +90,7 @@ namespace ortc_api_test
               List<RTCCertificate> certs = new List<RTCCertificate>();
               certs.Add(cert.Result);
               _dtlsTransport = new RTCDtlsTransport(_iceTransport, certs);
-              Constraints constraints = new Constraints();
+              MediaStreamConstraints constraints = new MediaStreamConstraints();
 
               constraints.Audio = new MediaTrackConstraints();
               constraints.Video = new MediaTrackConstraints();
@@ -137,7 +137,7 @@ namespace ortc_api_test
         // ICE GATHERER EVENT HANDLERS
         //----------------------------------------------------------------------------------
 
-        private void RTCIceGatherer_onICEGathererStateChanged(RTCIceGathererStateChangeEvent evt)
+        private void RTCIceGatherer_onICEGathererStateChanged(RTCIceGathererStateChangedEvent evt)
         {
           if(evt.State == RTCIceGathererState.Complete)
           {
@@ -162,7 +162,7 @@ namespace ortc_api_test
           i++;
         }
 
-        private void RTCIceGatherer_onICEGathererError(RTCIceGathererErrorEvent evt)
+        private void RTCIceGatherer_onICEGathererError(RTCIceGathererIceErrorEvent evt)
         {
           int i = 0;
           i++;
@@ -170,7 +170,7 @@ namespace ortc_api_test
 
       //***********************************************************************************************
 
-        private void RTCIceGatherer_onICEGathererStateChanged2(RTCIceGathererStateChangeEvent evt)
+        private void RTCIceGatherer_onICEGathererStateChanged2(RTCIceGathererStateChangedEvent evt)
         {
           if (evt.State == RTCIceGathererState.Complete)
           {
@@ -195,7 +195,7 @@ namespace ortc_api_test
           i++;
         }
 
-        private void RTCIceGatherer_onICEGathererError2(RTCIceGathererErrorEvent evt)
+        private void RTCIceGatherer_onICEGathererError2(RTCIceGathererIceErrorEvent evt)
         {
           int i = 0;
           i++;
@@ -205,23 +205,23 @@ namespace ortc_api_test
       // ICE TRANSPORT EVENT HANDLERS
       //----------------------------------------------------------------------------------
 
-        private void RTCIceTransport_onICETransportStateChanged(RTCIceTransportStateChangeEvent evt)
+        private void RTCIceTransport_onICETransportStateChanged(RTCIceTransportStateChangedEvent evt)
         {
           int i = 0;
           i++;
         }
 
-        private void RTCIceTransport_onICETransportCandidatePairAvailable(RTCIceTransportCandidatePairEvent evt)
+        private void RTCIceTransport_onICETransportCandidatePairAvailable(RTCIceCandidatePairChangedEvent evt)
         {
           int i = 0;
           i++;
         }
-        private void RTCIceTransport_onICETransportCandidatePairGone(RTCIceTransportCandidatePairEvent evt)
+        private void RTCIceTransport_onICETransportCandidatePairGone(RTCIceCandidatePairChangedEvent evt)
         {
           int i = 0;
           i++;
         }
-        private void RTCIceTransport_onICETransportCandidatePairChanged(RTCIceTransportCandidatePairEvent evt)
+        private void RTCIceTransport_onICETransportCandidatePairChanged(RTCIceCandidatePairChangedEvent evt)
         {
           int i = 0;
           i++;
@@ -229,23 +229,23 @@ namespace ortc_api_test
 
       //****************************************************************************************************
 
-        private void RTCIceTransport_onICETransportStateChanged2(RTCIceTransportStateChangeEvent evt)
+        private void RTCIceTransport_onICETransportStateChanged2(RTCIceTransportStateChangedEvent evt)
         {
           int i = 0;
           i++;
         }
 
-        private void RTCIceTransport_onICETransportCandidatePairAvailable2(RTCIceTransportCandidatePairEvent evt)
+        private void RTCIceTransport_onICETransportCandidatePairAvailable2(RTCIceCandidatePairChangedEvent evt)
         {
           int i = 0;
           i++;
         }
-        private void RTCIceTransport_onICETransportCandidatePairGone2(RTCIceTransportCandidatePairEvent evt)
+        private void RTCIceTransport_onICETransportCandidatePairGone2(RTCIceCandidatePairChangedEvent evt)
         {
           int i = 0;
           i++;
         }
-        private void RTCIceTransport_onICETransportCandidatePairChanged2(RTCIceTransportCandidatePairEvent evt)
+        private void RTCIceTransport_onICETransportCandidatePairChanged2(RTCIceCandidatePairChangedEvent evt)
         {
           int i = 0;
           i++;

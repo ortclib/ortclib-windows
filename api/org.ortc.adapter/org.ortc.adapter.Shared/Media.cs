@@ -72,7 +72,7 @@ namespace org
                         var constraints = Helper.MakeConstraints(mediaStreamConstraints.audioEnabled, null,
                             MediaDeviceKind.AudioInput, _audioCaptureDevice);
                         constraints = Helper.MakeConstraints(mediaStreamConstraints.videoEnabled, constraints,
-                            MediaDeviceKind.Video, _videoDevice);
+                            MediaDeviceKind.VideoInput, _videoDevice);
                         if (constraints.Video != null && constraints.Video.Advanced.Count > 0)
                         {
                             MediaTrackConstraintSet constraintSet = constraints.Video.Advanced.First();
@@ -114,7 +114,7 @@ namespace org
 
                         var audioCaptureList = Helper.Filter(MediaDeviceKind.AudioInput, devices);
                         //var audioPlaybackList = Helper.Filter(MediaDeviceKind.AudioOutput, devices);
-                        var videoList = Helper.Filter(MediaDeviceKind.Video, devices);
+                        var videoList = Helper.Filter(MediaDeviceKind.VideoInput, devices);
 
                         //_audioCaptureDevices = audioCaptureList;
                         //_videoDevices = videoList;

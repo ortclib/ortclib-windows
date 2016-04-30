@@ -6,43 +6,24 @@
 // in the file PATENTS.  All contributing project authors may
 // be found in the AUTHORS file in the root of the source tree.
 #include "pch.h"
-#include "RTMediaStreamSource.h"
-#include <mfapi.h>
-#include <ppltasks.h>
-#include <mfidl.h>
-#include "libyuv/convert.h"
-#include "webrtc/system_wrappers/include/critical_section_wrapper.h"
-#include "Ortc.h"
-#include "helpers.h"
 
-using Microsoft::WRL::ComPtr;
-using Platform::Collections::Vector;
+#include "MediaSourceHelper.h"
+#include "MediaStreamTrack.h"
+#include "Ortc.h"
+#include "RTMediaStreamSource.h"
+
+#include "webrtc/system_wrappers/include/critical_section_wrapper.h"
+#include "libyuv/convert.h"
+
+#include <Mfapi.h>
+
 using Windows::Media::Core::VideoStreamDescriptor;
 using Windows::Media::Core::MediaStreamSourceSampleRequestedEventArgs;
-using Windows::Media::Core::MediaStreamSourceSampleRequest;
 using Windows::Media::Core::MediaStreamSourceStartingEventArgs;
 using Windows::Media::Core::MediaStreamSource;
 using Windows::Media::MediaProperties::VideoEncodingProperties;
 using Windows::Media::MediaProperties::MediaEncodingSubtypes;
 using Windows::System::Threading::TimerElapsedHandler;
-using Windows::System::Threading::ThreadPoolTimer;
-
-namespace Microsoft
-{
-  namespace WRL
-  {
-    using ::ULONG;
-    using ::DWORD;
-    using ::UINT;
-    using ::LONG;
-    using ::BYTE;
-  }
-}
-
-namespace Concurrency
-{
-  using ::LONG;
-}
 
 namespace org
 {
@@ -58,7 +39,10 @@ namespace org
       streamState->_id = id;
       streamState->_rtcRenderer = rtc::scoped_ptr<RTCRenderer>(
         new RTCRenderer(streamState));
-      CallPrivateMethod::SetMediaElement(track, (void*)streamState->_rtcRenderer.get());
+
+      if (track)
+        track->SetMediaElement((void*)streamState->_rtcRenderer.get());
+
       VideoEncodingProperties^ videoProperties;
       if (isH264) {
         videoProperties = VideoEncodingProperties::CreateH264();
@@ -347,7 +331,10 @@ namespace org
           static_cast<int>(frame->width()),
           static_cast<int>(frame->height()));
       }
-      catch (...) {
+      catch (...)
+      {
+#define WARNING_DO_NOT_CATCH_ALL_AND_THEN_SILENTLY_FAIL 1
+#define WARNING_DO_NOT_CATCH_ALL_AND_THEN_SILENTLY_FAIL 2
         //LOG(LS_ERROR) << "Exception caught in RTMediaStreamSource::ConvertFrame()";
       }
       imageBuffer->Unlock2D();
@@ -393,7 +380,10 @@ namespace org
           return;
         }
       }
-      catch (...) {
+      catch (...)
+      {
+#define WARNING_DO_NOT_CATCH_ALL_AND_THEN_SILENTLY_FAIL 1
+#define WARNING_DO_NOT_CATCH_ALL_AND_THEN_SILENTLY_FAIL 2
         //LOG(LS_ERROR) << "Exception in RTMediaStreamSource::OnSampleRequested.";
       }
     }

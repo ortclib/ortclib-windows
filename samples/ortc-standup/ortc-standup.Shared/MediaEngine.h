@@ -108,8 +108,7 @@ namespace ortc_standup
 
     virtual void onICEGathererError(
                                     ortc::IICEGathererPtr gatherer,
-                                    ortc::IICEGathererDelegate::ErrorCode errorCode,
-                                    zsLib::String errorReason
+                                    ortc::IICEGathererTypes::ErrorEventPtr errorEvent
                                     ) override;
 
     //-----------------------------------------------------------------------
@@ -124,20 +123,13 @@ namespace ortc_standup
 
     virtual void onDTLSTransportError(
                                       ortc::IDTLSTransportPtr transport,
-                                      IDTLSTransportDelegate::ErrorCode errorCode,
-                                      zsLib::String errorReason
+                                      ortc::ErrorAnyPtr error
                                       ) override;
 
     //-----------------------------------------------------------------------
     #pragma mark
     #pragma mark MediaEngine => IRTPSenderDelegate
     #pragma mark
-
-    virtual void onRTPSenderError(
-                                  ortc::IRTPSenderPtr sender,
-                                  IRTPSenderDelegate::ErrorCode errorCode,
-                                  zsLib::String errorReason
-                                  ) override;
 
     virtual void onRTPSenderSSRCConflict(
                                          ortc::IRTPSenderPtr sender,
@@ -148,12 +140,6 @@ namespace ortc_standup
     #pragma mark
     #pragma mark MediaEngine => IRTPReceiverDelegate
     #pragma mark
-
-    virtual void onRTPReceiverError(
-                                    ortc::IRTPReceiverPtr sender,
-                                    IRTPReceiverDelegate::ErrorCode errorCode,
-                                    zsLib::String errorReason
-                                    ) override;
 
     //-----------------------------------------------------------------------
     #pragma mark

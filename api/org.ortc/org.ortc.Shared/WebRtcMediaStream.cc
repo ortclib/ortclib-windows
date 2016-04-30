@@ -6,39 +6,22 @@
 // tree. An additional intellectual property rights grant can be found
 // in the file PATENTS.  All contributing project authors may
 // be found in the AUTHORS file in the root of the source tree.
+
 #include "pch.h"
-#include <mfapi.h>
-#include <mfidl.h>
+
+#include "WebRtcMediaStream.h"
+#include "MediaSourceHelper.h"
+#include "MediaStreamTrack.h"
+#include "WebRtcMediaSource.h"
+
+#include "webrtc/system_wrappers/include/critical_section_wrapper.h"
+#include "libyuv/convert.h"
+
+#include <MFapi.h>
 #include <mferror.h>
 #include <d3d11_2.h>
-#include <d2d1_2.h>
-#include <functional>
-#include "libyuv/convert.h"
-#include "WebRtcMediaStream.h"
 
-using Microsoft::WRL::MakeAndInitialize;
 using Windows::System::Threading::TimerElapsedHandler;
-
-
-void MediaStreamTrack_SetMediaElement(Platform::Object^ obj, void* element);
-
-
-namespace Microsoft
-{
-  namespace WRL
-  {
-    using ::ULONG;
-    using ::DWORD;
-    using ::UINT;
-    using ::LONG;
-    using ::BYTE;
-  }
-}
-
-namespace Concurrency
-{
-  using ::LONG;
-}
 
 namespace org
 {
@@ -101,11 +84,9 @@ namespace org
       RETURN_ON_FAIL(_streamDescriptor->GetMediaTypeHandler(&mediaTypeHandler));
       RETURN_ON_FAIL(mediaTypeHandler->SetCurrentMediaType(_mediaType.Get()));
 
-      /* auto caller = new AccessPrivateMethod<MediaStreamTrack>();
-
-       caller->SetMediaElement(track, (void*) this);*/
-      MediaStreamTrack_SetMediaElement(track, _rtcRenderer.get());
-
+      if (nullptr != track)
+        track->SetMediaElement(_rtcRenderer.get());
+    
       return S_OK;
     }
 

@@ -1,42 +1,71 @@
 #include "pch.h"
-#include "RTCIceTransportController.h"
-#include "helpers.h"
 
-using namespace org::ortc;
+#include "RTCIceTransportController.h"
+#include "RTCIceTransport.h"
+#include "helpers.h"
+#include "Error.h"
+
+using namespace ortc;
 
 using Platform::Collections::Vector;
 
-RTCIceTransportController::RTCIceTransportController()
+namespace org
 {
-  mNativePointer = IICETransportController::create();
-}
-
-IVector<RTCIceTransport^>^ RTCIceTransportController::GetTransports()
-{
-  auto ret = ref new Vector<RTCIceTransport^>();
-  if (mNativePointer)
+  namespace ortc
   {
-    auto candidates = mNativePointer->getTransports();
-    for (IICETransportControllerTypes::ICETransportList::iterator it = candidates.begin(); it != candidates.end(); ++it) {
-      RTCIceTransport^ transport = CreateEmptyCxObject::IceTransport();
-      ret->Append(ConvertObjectToCx::ToIceTransport(*it));
+    ZS_DECLARE_TYPEDEF_PTR(internal::Helper, UseHelper)
+    
+    RTCIceTransportController::RTCIceTransportController()
+    {
+      _nativePointer = IICETransportController::create();
     }
-  }
-  return ret;
-}
 
-void RTCIceTransportController::AddTransport(RTCIceTransport^ transport)
-{
-  if (mNativePointer)
-  {
-    mNativePointer->addTransport(FetchNativePointer::FromIceTransport(transport));
-  }
-}
+    IVector<RTCIceTransport^>^ RTCIceTransportController::GetTransports()
+    {
+      auto ret = ref new Vector<RTCIceTransport^>();
+      if (!_nativePointer) return ret;
+      auto candidates = _nativePointer->getTransports();
+      for (IICETransportControllerTypes::ICETransportList::iterator it = candidates.begin(); it != candidates.end(); ++it) {
+        ret->Append(RTCIceTransport::Convert(*it));
+      }
+      return ret;
+    }
 
-void RTCIceTransportController::AddTransport(RTCIceTransport^ transport, size_t index)
-{
-  if (mNativePointer)
-  {
-    mNativePointer->addTransport(FetchNativePointer::FromIceTransport(transport), index);
-  }
-}
+    void RTCIceTransportController::AddTransport(RTCIceTransport^ transport)
+    {
+      ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
+
+      try
+      {
+        _nativePointer->addTransport(RTCIceTransport::Convert(transport));
+      }
+      catch (const InvalidParameters &)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS()
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
+    }
+
+    void RTCIceTransportController::AddTransport(RTCIceTransport^ transport, size_t index)
+    {
+      ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
+
+      try
+      {
+        _nativePointer->addTransport(RTCIceTransport::Convert(transport), index);
+      }
+      catch (const InvalidParameters &)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS()
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
+    }
+
+  } // namespace ortc
+} // namespace org

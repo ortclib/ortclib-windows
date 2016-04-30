@@ -7,8 +7,12 @@
 // in the file PATENTS.  All contributing project authors may
 // be found in the AUTHORS file in the root of the source tree.
 #include "pch.h"
-#include <mferror.h>
+
 #include "WebRtcMediaSource.h"
+#include "WebRtcMediaStream.h"
+
+#include <mferror.h>
+#include <Mfapi.h>
 
 using Microsoft::WRL::MakeAndInitialize;
 

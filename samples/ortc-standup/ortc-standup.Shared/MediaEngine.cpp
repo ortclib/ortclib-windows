@@ -566,11 +566,9 @@ void MediaEngine::onICEGathererLocalCandidateGone(
 
 void MediaEngine::onICEGathererError(
                                      ortc::IICEGathererPtr gatherer,
-                                     ortc::IICEGathererDelegate::ErrorCode errorCode,
-                                     zsLib::String errorReason
+                                     ortc::IICEGathererTypes::ErrorEventPtr errorEvent
                                      )
 {
-
 }
 
 void MediaEngine::onDTLSTransportStateChange(
@@ -578,23 +576,12 @@ void MediaEngine::onDTLSTransportStateChange(
                                              ortc::IDTLSTransport::States state
                                              )
 {
-
 }
 
 void MediaEngine::onDTLSTransportError(
                                        ortc::IDTLSTransportPtr transport,
-                                       IDTLSTransportDelegate::ErrorCode errorCode,
-                                       zsLib::String errorReason
+                                       ortc::ErrorAnyPtr error
                                        )
-{
-
-}
-
-void MediaEngine::onRTPSenderError(
-                                   ortc::IRTPSenderPtr sender,
-                                   IRTPSenderDelegate::ErrorCode errorCode,
-                                   zsLib::String errorReason
-                                   )
 {
 }
 
@@ -602,15 +589,6 @@ void MediaEngine::onRTPSenderSSRCConflict(
                                           ortc::IRTPSenderPtr sender,
                                           SSRCType ssrc
                                           )
-{
-
-}
-
-void MediaEngine::onRTPReceiverError(
-                                     ortc::IRTPReceiverPtr sender,
-                                     IRTPReceiverDelegate::ErrorCode errorCode,
-                                     zsLib::String errorReason
-                                     )
 {
 
 }

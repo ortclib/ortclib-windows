@@ -1,97 +1,152 @@
 ﻿#include "pch.h"
+
 #include "RTCIceTypes.h"
 #include "helpers.h"
 
 #include <openpeer/services/IHelper.h>
 
+#include <zsLib/SafeInt.h>
+
 namespace org
 {
   namespace ortc
   {
+    using std::make_shared;
 
-    Platform::String^ RTCIceTypes::ToString()
+    ZS_DECLARE_TYPEDEF_PTR(internal::Helper, UseHelper)
+
+    namespace internal
     {
-      throw ref new Platform::NotImplementedException();
-    }
 
-    Platform::String^ RTCIceTypes::ToString(RTCIceRole value)
-    {
-      return ToCx(IICETypes::toString(internal::ConvertEnums::convert(value)));
-    }
+#pragma region ICE types conversions
 
-    Platform::String^ RTCIceTypes::ToString(RTCIceComponent value)
-    {
-      return ToCx(IICETypes::toString(internal::ConvertEnums::convert(value)));
-    }
+      RTCIceCandidate^ ToCx(const IICETypes::Candidate &input)
+      {
+        auto result = ref new RTCIceCandidate();
 
-    Platform::String^ RTCIceTypes::ToString(RTCIceProtocol value)
-    {
-      return ToCx(IICETypes::toString(internal::ConvertEnums::convert(value)));
-    }
+        result->InterfaceType = Helper::ToCx(input.mInterfaceType);
+        result->Foundation = Helper::ToCx(input.mFoundation);
+        result->Priority = SafeInt<uint32>(input.mPriority);
+        result->UnfreezePriority = SafeInt<uint32>(input.mUnfreezePriority);
+        result->Protocol = Helper::Convert(input.mProtocol);
+        result->Ip = Helper::ToCx(input.mIP);
+        result->Port = SafeInt<uint16>(input.mPort);
+        result->CandidateType = Helper::Convert(input.mCandidateType);
+        result->TcpType = Helper::Convert(input.mTCPType);
+        result->RelatedAddress = Helper::ToCx(input.mRelatedAddress);
+        result->RelatedPort = input.mRelatedPort;
 
-    Platform::String^ RTCIceTypes::ToString(RTCIceCandidateType value)
-    {
-      return ToCx(IICETypes::toString(internal::ConvertEnums::convert(value)));
-    }
+        return result;
+      }
 
-    Platform::String^ RTCIceTypes::ToString(RTCIceTcpCandidateType value)
-    {
-      return ToCx(IICETypes::toString(internal::ConvertEnums::convert(value)));
-    }
+      RTCIceCandidate^ ToCx(IICETypes::CandidatePtr input)
+      {
+        if (!input) return nullptr;
+        return ToCx(*input);
+      }
 
+      IICETypes::CandidatePtr FromCx(RTCIceCandidate^ input)
+      {
+        if (nullptr == input) return IICETypes::CandidatePtr();
+        auto result = make_shared<IICETypes::Candidate>();
 
-    RTCIceRole RTCIceTypes::ToRole(Platform::String^ str)
-    {
-      return internal::ConvertEnums::convert(IICETypes::toRole(FromCx(str).c_str()));
-    }
+        result->mInterfaceType = Helper::FromCx(input->InterfaceType);
+        result->mFoundation = Helper::FromCx(input->Foundation);
+        result->mPriority = SafeInt<uint32>(input->Priority);
+        result->mUnfreezePriority = SafeInt<uint32>(input->UnfreezePriority);
+        result->mProtocol = Helper::Convert(input->Protocol);
+        result->mIP = Helper::FromCx(input->Ip);
+        result->mPort = SafeInt<uint16>(input->Port);
+        result->mCandidateType = Helper::Convert(input->CandidateType);
+        result->mTCPType = Helper::Convert(input->TcpType);
+        result->mRelatedAddress = Helper::FromCx(input->RelatedAddress);
+        result->mRelatedPort = input->RelatedPort;
 
-    RTCIceComponent RTCIceTypes::ToComponent(Platform::String^ str)
-    {
-      return internal::ConvertEnums::convert(IICETypes::toComponent(FromCx(str).c_str()));
-    }
+        return result;
+      }
 
-    RTCIceProtocol RTCIceTypes::ToProtocol(Platform::String^ str)
-    {
-      return internal::ConvertEnums::convert(IICETypes::toProtocol(FromCx(str).c_str()));
-    }
+      RTCIceCandidateComplete^ ToCx(const IICETypes::CandidateComplete &input)
+      {
+        auto result = ref new RTCIceCandidateComplete();
+        result->Complete = input.mComplete;
+        return result;
+      }
 
-    RTCIceCandidateType RTCIceTypes::ToCandidateType(Platform::String^ str)
-    {
-      return internal::ConvertEnums::convert(IICETypes::toCandidateType(FromCx(str).c_str()));
-    }
+      RTCIceCandidateComplete^ ToCx(IICETypes::CandidateCompletePtr input)
+      {
+        if (!input) return nullptr;
+        return ToCx(*input);
+      }
 
-    RTCIceTcpCandidateType RTCIceTypes::ToTcpCandidateType(Platform::String^ str)
-    {
-      return internal::ConvertEnums::convert(IICETypes::toTCPCandidateType(FromCx(str).c_str()));
-    }
+      IICETypes::CandidateCompletePtr FromCx(RTCIceCandidateComplete^ input)
+      {
+        if (nullptr == input) return IICETypes::CandidateCompletePtr();
+        auto result = make_shared<IICETypes::CandidateComplete>();
+        result->mComplete = input->Complete;
+        return result;
+      }
 
-    //---------------------------------------------------------------------------
-    // RTCIceParameters methods
-    //---------------------------------------------------------------------------
+      RTCIceParameters^ ToCx(const IICETypes::Parameters &input)
+      {
+        auto result = ref new RTCIceParameters();
+        result->UseUnfreezePriority = input.mUseUnfreezePriority;
+        result->UsernameFragment = Helper::ToCx(input.mUsernameFragment);
+        result->Password = Helper::ToCx(input.mPassword);
+        result->IceLite = input.mICELite;
+        return result;
+      }
+
+      RTCIceParameters^ ToCx(IICETypes::ParametersPtr input)
+      {
+        if (!input) return nullptr;
+        return ToCx(*input);
+      }
+
+      IICETypes::ParametersPtr FromCx(RTCIceParameters^ input)
+      {
+        if (nullptr == input) return IICETypes::ParametersPtr();
+        auto result = make_shared<IICETypes::Parameters>();
+        result->mUseUnfreezePriority = input->UseUnfreezePriority;
+        result->mUsernameFragment = Helper::FromCx(input->UsernameFragment);
+        result->mPassword = Helper::FromCx(input->Password);
+        result->mICELite = input->IceLite;
+        return result;
+      }
+
+#pragma endregion
+
+    } // namespace internal
+
+#pragma region RTCIceParameters
+
     Platform::String^ RTCIceParameters::ToJsonString()
     {
-      auto params = FromCx(this);
-      return ToCx(openpeer::services::IHelper::toString(params->createElement("IceParameters")));
+      auto params = internal::FromCx(this);
+      return UseHelper::ToCx(openpeer::services::IHelper::toString(params->createElement("IceParameters")));
 
     }
 
     RTCIceParameters^ RTCIceParameters::FromJsonString(Platform::String^ jsonString)
     {
-      return ToCx(make_shared<IICETypes::Parameters>(IICETypes::Parameters::Parameters(openpeer::services::IHelper::toJSON(FromCx(jsonString).c_str()))));
+      return internal::ToCx(make_shared<IICETypes::Parameters>(IICETypes::Parameters::Parameters(openpeer::services::IHelper::toJSON(UseHelper::FromCx(jsonString).c_str()))));
     }
 
-    //---------------------------------------------------------------------------
-    // RTCIceCandidate methods
-    //---------------------------------------------------------------------------
+#pragma endregion
+
+#pragma region RTCIceCandidate
+
     Platform::String^ RTCIceCandidate::ToJsonString()
     {
-      auto candidate = FromCx(this);
-      return ToCx(openpeer::services::IHelper::toString(candidate->createElement("IceCandidate")));
+      auto candidate = internal::FromCx(this);
+      return UseHelper::ToCx(openpeer::services::IHelper::toString(candidate->createElement("IceCandidate")));
     }
 
     RTCIceCandidate^ RTCIceCandidate::FromJsonString(Platform::String^ jsonString)
     {
-      return ToCx(make_shared<IICETypes::Candidate>(IICETypes::Candidate::Candidate(openpeer::services::IHelper::toJSON(FromCx(jsonString).c_str()))));
+      return internal::ToCx(make_shared<IICETypes::Candidate>(IICETypes::Candidate::Candidate(openpeer::services::IHelper::toJSON(UseHelper::FromCx(jsonString).c_str()))));
     }
+
+#pragma endregion
+
   } // namespace ortc
 } // namespace org

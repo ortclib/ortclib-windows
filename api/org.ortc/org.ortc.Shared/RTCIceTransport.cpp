@@ -1,215 +1,352 @@
 #include "pch.h"
-#include "RTCIceTransport.h"
-#include "helpers.h"
 
-using namespace org::ortc;
+#include "RTCIceGatherer.h"
+#include "RTCIceTransport.h"
+#include "RTCIceTypes.h"
+#include "helpers.h"
+#include "Error.h"
+
+using namespace ortc;
 
 using Platform::Collections::Vector;
 
-RTCIceTransport::RTCIceTransport(Platform::Boolean noop) :
-  mNativeDelegatePointer(nullptr),
-  mNativePointer(nullptr)
+namespace org
 {
-}
-
-RTCIceTransport::RTCIceTransport() :
-  mNativeDelegatePointer(new RTCIceTransportDelegate())
-{
-  mNativeDelegatePointer->SetOwnerObject(this);
-  mNativePointer = IICETransport::create(mNativeDelegatePointer);
-}
-
-RTCIceTransport::RTCIceTransport(RTCIceGatherer^ gatherer) :
-mNativeDelegatePointer(new RTCIceTransportDelegate())
-{
-
-  if (!gatherer)
+  namespace ortc
   {
-    return;
-  }
+    using std::make_shared;
 
-  if (FetchNativePointer::FromIceGatherer(gatherer))
-  {
-    mNativeDelegatePointer->SetOwnerObject(this);
-    mNativePointer = IICETransport::create(mNativeDelegatePointer, FetchNativePointer::FromIceGatherer(gatherer));
-  }
-}
+    ZS_DECLARE_TYPEDEF_PTR(internal::Helper, UseHelper)
 
-IVector<RTCIceCandidate^>^ RTCIceTransport::GetRemoteCandidates()
-{
-  auto ret = ref new Vector<RTCIceCandidate^>();
-  if (mNativePointer)
-  {
-    auto candidates = mNativePointer->getRemoteCandidates();
-    for (IICETransport::CandidateList::iterator it = candidates->begin(); it != candidates->end(); ++it) {
-      ret->Append(ToCx(*it));
-    }
-  }
-  return ret;
-}
-
-RTCIceCandidatePair^ RTCIceTransport::GetSelectedCandidatePair()
-{
-  if (mNativePointer)
-  {
-    return ToCx(mNativePointer->getSelectedCandidatePair()); // should it be getSelectedCandidatePair???
-  }
-
-  return nullptr;
-}
-
-void RTCIceTransport::Start(RTCIceGatherer^ gatherer, RTCIceParameters^ remoteParameters)
-{
-  if (mNativePointer && FetchNativePointer::FromIceGatherer(gatherer))
-  {
-    assert(nullptr != remoteParameters);
-    mNativePointer->start(FetchNativePointer::FromIceGatherer(gatherer), *FromCx(remoteParameters));
-  }
-}
-
-void RTCIceTransport::Start(RTCIceGatherer^ gatherer, RTCIceParameters^ remoteParameters, RTCIceRole role)
-{
-  if (mNativePointer && FetchNativePointer::FromIceGatherer(gatherer))
-  {
-    assert(nullptr != remoteParameters);
-
-    IIceTransport::Options options;
-    options.mRole = internal::ConvertEnums::convert(role);
-
-    mNativePointer->start(FetchNativePointer::FromIceGatherer(gatherer), *FromCx(remoteParameters), options);
-  }
-}
-
-void RTCIceTransport::Stop()
-{
-  if (mNativePointer)
-  {
-    mNativePointer->stop();
-  }
-}
-
-RTCIceParameters^ RTCIceTransport::GetRemoteParameters()
-{
-  if (mNativePointer)
-  {
-    return ToCx(mNativePointer->getRemoteParameters());
-  }
-  return nullptr;
-}
-
-RTCIceTransport^ RTCIceTransport::CreateAssociatedTransport()
-{
-  auto ret = ref new RTCIceTransport();
-
-  if (mNativePointer)
-  {
-    ret->mNativeDelegatePointer = make_shared<RTCIceTransportDelegate>(RTCIceTransportDelegate());
-    ret->mNativePointer = mNativePointer->createAssociatedTransport();
-    ret->mNativeDelegatePointer->SetOwnerObject(ret);
-  }
-
-  return ret;
-}
-
-void RTCIceTransport::AddRemoteCandidate(RTCIceCandidate^ remoteCandidate)
-{
-  if (mNativePointer)
-  {
-    assert(nullptr != remoteCandidate);
-    mNativePointer->addRemoteCandidate(*FromCx(remoteCandidate));
-  }
-}
-
-void RTCIceTransport::AddRemoteCandidate(RTCIceCandidateComplete^ remoteCandidate)
-{
-  if (mNativePointer)
-  {
-    IICETypes::CandidateComplete complete;
-    mNativePointer->addRemoteCandidate(complete);
-  }
-}
-
-void RTCIceTransport::SetRemoteCandidates(IVector<RTCIceCandidate^>^ remoteCandidates)
-{
-  if (mNativePointer)
-  {
-    assert(nullptr != remoteCandidates);
-
-    IICETypes::CandidateList list;
-    for (RTCIceCandidate^ candidate : remoteCandidates)
+    namespace internal
     {
-      if (nullptr == candidate) continue;
-      list.push_back(*FromCx(candidate));
+#pragma region RTCIceTransport conversions
+
+      RTCIceCandidatePair^ ToCx(const IICETransportTypes::CandidatePair &input)
+      {
+        auto result = ref new RTCIceCandidatePair();
+        result->Local = ToCx(input.mLocal);
+        result->Remote = ToCx(input.mRemote);
+        return result;
+      }
+
+      RTCIceCandidatePair^ ToCx(IICETransportTypes::CandidatePairPtr input)
+      {
+        if (!input) return nullptr;
+        return ToCx(*input);
+      }
+
+      IICETransportTypes::CandidatePairPtr FromCx(RTCIceCandidatePair^ input)
+      {
+        if (nullptr == input) return IICETransport::CandidatePairPtr();
+        auto result = make_shared<IICETransport::CandidatePair>();
+        result->mLocal = FromCx(input->Local);
+        result->mRemote = FromCx(input->Remote);
+        return result;
+      }
+
+      RTCIceTransportOptions^ ToCx(const IICETransportTypes::Options &input)
+      {
+        auto result = ref new RTCIceTransportOptions();
+        result->AggressiveIce = input.mAggressiveICE;
+        result->Role = Helper::Convert(input.mRole);
+        return result;
+      }
+
+      RTCIceTransportOptions^ ToCx(IICETransportTypes::OptionsPtr input)
+      {
+        if (!input) return nullptr;
+        return ToCx(*input);
+      }
+
+      IICETransportTypes::OptionsPtr FromCx(RTCIceTransportOptions^ input)
+      {
+        if (nullptr == input) return IICETransport::OptionsPtr();
+        auto result = make_shared<IICETransport::Options>();
+        result->mAggressiveICE = input->AggressiveIce;
+        result->mRole = Helper::Convert(input->Role);
+        return result;
+      }
+
+#pragma endregion
+
+#pragma region RTCIceTransport delegates
+
+      class RTCIceTransportDelegate : public IICETransportDelegate
+      {
+      public:
+        RTCIceTransportDelegate(RTCIceTransport^ owner) { _owner = owner; }
+
+        virtual void onICETransportStateChange(
+          IICETransportPtr transport,
+          IICETransport::States state
+          ) override
+        {
+          auto evt = ref new RTCIceTransportStateChangedEvent();
+          evt->_state = UseHelper::Convert(state);
+          _owner->OnStateChange(evt);
+        }
+
+        virtual void onICETransportCandidatePairAvailable(
+          IICETransportPtr transport,
+          CandidatePairPtr candidatePair
+          ) override
+        {
+          auto evt = ref new RTCIceCandidatePairChangedEvent();
+          evt->_candidatePair = internal::ToCx(candidatePair);
+          _owner->OnCandidatePairAvailable(evt);
+        }
+
+        virtual void onICETransportCandidatePairGone(
+          IICETransportPtr transport,
+          CandidatePairPtr candidatePair
+          )
+        {
+          auto evt = ref new RTCIceCandidatePairChangedEvent();
+          evt->_candidatePair = internal::ToCx(candidatePair);
+          _owner->OnCandidatePairGone(evt);
+        }
+
+        virtual void onICETransportCandidatePairChanged(
+          IICETransportPtr transport,
+          CandidatePairPtr candidatePair
+          ) override
+        {
+          auto evt = ref new RTCIceCandidatePairChangedEvent();
+          evt->_candidatePair = internal::ToCx(candidatePair);
+          _owner->OnCandidatePairChange(evt);
+        }
+
+      private:
+        RTCIceTransport^ _owner;
+      };
+
+#pragma endregion
+
+    } // namespace internal
+
+#pragma region RTCIceTransport
+
+    RTCIceTransport::RTCIceTransport(const noop &) :
+      _nativeDelegatePointer(make_shared<internal::RTCIceTransportDelegate>(this)),
+      _nativePointer(nullptr)
+    {
     }
 
-    mNativePointer->setRemoteCandidates(list);
-  }
-}
+    RTCIceTransport::RTCIceTransport(IICETransportPtr transport) :
+      _nativeDelegatePointer(make_shared<internal::RTCIceTransportDelegate>(this)),
+      _nativePointer(transport)
+    {
+      if (_nativePointer) {
+        _nativeSubscriptionPointer = _nativePointer->subscribe(_nativeDelegatePointer);
+      }
+    }
 
-void RTCIceTransport::KeepWarm(RTCIceCandidatePair^ candidatePair)
-{
-  if (mNativePointer)
-  {
-    assert(nullptr != candidatePair);
-    mNativePointer->keepWarm(*FromCx(candidatePair));
-  }
-}
+    RTCIceTransport::RTCIceTransport() :
+      _nativeDelegatePointer(make_shared<internal::RTCIceTransportDelegate>(this))
+    {
+      try
+      {
+        _nativePointer = IICETransport::create(_nativeDelegatePointer);
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
+    }
 
-void RTCIceTransport::KeepWarm(RTCIceCandidatePair^ candidatePair, Platform::Boolean keepWarm)
-{
-  if (mNativePointer)
-  {
-    assert(nullptr != candidatePair);
-    mNativePointer->keepWarm(*FromCx(candidatePair), keepWarm);
-  }
-}
+    RTCIceTransport::RTCIceTransport(RTCIceGatherer^ gatherer) :
+      _nativeDelegatePointer(make_shared<internal::RTCIceTransportDelegate>(this))
+    {
+      auto nativeGatherer = RTCIceGatherer::Convert(gatherer);
+      _nativePointer = IICETransport::create(_nativeDelegatePointer, nativeGatherer);
+    }
 
-RTCIceGatherer^ RTCIceTransport::GetIceGatherer()
-{
-  return ConvertObjectToCx::ToIceGatherer(mNativePointer->iceGatherer());
-}
+    IVector<RTCIceCandidate^>^ RTCIceTransport::GetRemoteCandidates()
+    {
+      auto ret = ref new Vector<RTCIceCandidate^>();
 
-//-----------------------------------------------------------------
-#pragma mark RTCIceTransportDelegate
-//-----------------------------------------------------------------
+      if (_nativePointer)
+      {
+        auto candidates = _nativePointer->getRemoteCandidates();
+        for (IICETransport::CandidateList::iterator it = candidates->begin(); it != candidates->end(); ++it)
+        {
+          ret->Append(internal::ToCx(*it));
+        }
+      }
+      return ret;
+    }
 
-// Triggered when media is received on a new stream from remote peer.
-void RTCIceTransportDelegate::onICETransportStateChange(
-  IICETransportPtr transport,
-  IICETransport::States state
-  )
-{
-  auto evt = ref new RTCIceTransportStateChangeEvent();
-  evt->State = (RTCIceTransportState)state;
-  _transport->OnICETransportStateChanged(evt);
-}
+    RTCIceCandidatePair^ RTCIceTransport::GetSelectedCandidatePair()
+    {
+      if (!_nativePointer) return nullptr;
+      return internal::ToCx(_nativePointer->getSelectedCandidatePair()); // should it be getSelectedCandidatePair???
+    }
 
-void RTCIceTransportDelegate::onICETransportCandidatePairAvailable(
-  IICETransportPtr transport,
-  CandidatePairPtr candidatePair
-  )
-{
-  auto evt = ref new RTCIceTransportCandidatePairEvent();
-  evt->CandidatePair = ToCx(candidatePair);
-  _transport->OnICETransportCandidatePairAvailable(evt);
-}
+    void RTCIceTransport::Start(RTCIceGatherer^ gatherer, RTCIceParameters^ remoteParameters)
+    {
+      ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
+      ORG_ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == remoteParameters)
 
-void RTCIceTransportDelegate::onICETransportCandidatePairGone(
-  IICETransportPtr transport,
-  CandidatePairPtr candidatePair
-  )
-{
-  auto evt = ref new RTCIceTransportCandidatePairEvent();
-  evt->CandidatePair = ToCx(candidatePair);
-  _transport->OnICETransportCandidatePairGone(evt);
-}
+      auto nativeGatherer = RTCIceGatherer::Convert(gatherer);
+      _nativePointer->start(nativeGatherer, *internal::FromCx(remoteParameters));
+    }
 
-void RTCIceTransportDelegate::onICETransportCandidatePairChanged(
-  IICETransportPtr transport,
-  CandidatePairPtr candidatePair
-  )
-{
-  auto evt = ref new RTCIceTransportCandidatePairEvent();
-  evt->CandidatePair = ToCx(candidatePair);
-  _transport->OnICETransportCandidatePairChanged(evt);
-}
+    void RTCIceTransport::Start(RTCIceGatherer^ gatherer, RTCIceParameters^ remoteParameters, RTCIceRole role)
+    {
+      RTCIceTransportOptions^ options = ref new RTCIceTransportOptions;
+      options->AggressiveIce = true;
+      options->Role = role;
+
+      Start(gatherer, remoteParameters, options);
+    }
+
+    void RTCIceTransport::Start(RTCIceGatherer^ gatherer, RTCIceParameters^ remoteParameters, RTCIceTransportOptions^ options)
+    {
+      ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
+      ORG_ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == remoteParameters)
+      ORG_ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == options)
+
+      auto nativeGatherer = RTCIceGatherer::Convert(gatherer);
+
+      try
+      {
+        _nativePointer->start(nativeGatherer, *internal::FromCx(remoteParameters), *internal::FromCx(options));
+      }
+      catch (const InvalidParameters &)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS()
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
+    }
+
+    void RTCIceTransport::Stop()
+    {
+      if (!_nativePointer) return;
+      _nativePointer->stop();
+    }
+
+    RTCIceParameters^ RTCIceTransport::GetRemoteParameters()
+    {
+      if (!_nativePointer) return nullptr;
+      return internal::ToCx(_nativePointer->getRemoteParameters());
+    }
+
+    RTCIceTransport^ RTCIceTransport::CreateAssociatedTransport()
+    {
+      ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
+
+      RTCIceTransport^ ret = nullptr;
+
+      try
+      {
+        auto nativePointer = _nativePointer->createAssociatedTransport();
+        ORG_ORTC_THROW_UNEXPECTED_IF(!nativePointer)
+        ret = RTCIceTransport::Convert(nativePointer);
+      } 
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
+
+      return ret;
+    }
+
+    void RTCIceTransport::AddRemoteCandidate(RTCIceCandidate^ remoteCandidate)
+    {
+      ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
+      ORG_ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == remoteCandidate)
+
+      try
+      {
+        _nativePointer->addRemoteCandidate(*internal::FromCx(remoteCandidate));
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
+    }
+
+    void RTCIceTransport::AddRemoteCandidate(RTCIceCandidateComplete^ remoteCandidate)
+    {
+      ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
+      ORG_ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == remoteCandidate)
+      try
+      {
+        _nativePointer->addRemoteCandidate(*internal::FromCx(remoteCandidate));
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
+    }
+
+    void RTCIceTransport::SetRemoteCandidates(IVector<RTCIceCandidate^>^ remoteCandidates)
+    {
+      ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
+      ORG_ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == remoteCandidates)
+
+      IICETypes::CandidateList list;
+
+      for (RTCIceCandidate^ candidate : remoteCandidates)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == candidate)
+        list.push_back(*internal::FromCx(candidate));
+      }
+
+      try
+      {
+        _nativePointer->setRemoteCandidates(list);
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
+    }
+
+    void RTCIceTransport::KeepWarm(RTCIceCandidatePair^ candidatePair)
+    {
+      ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
+      ORG_ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == candidatePair)
+      _nativePointer->keepWarm(*internal::FromCx(candidatePair));
+    }
+
+    void RTCIceTransport::KeepWarm(RTCIceCandidatePair^ candidatePair, Platform::Boolean keepWarm)
+    {
+      ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
+      ORG_ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == candidatePair)
+      _nativePointer->keepWarm(*internal::FromCx(candidatePair), keepWarm);
+    }
+
+    RTCIceGatherer^ RTCIceTransport::IceGatherer::get()
+    {
+      if (!_nativePointer) return nullptr;
+      return RTCIceGatherer::Convert(_nativePointer->iceGatherer());
+    }
+
+    RTCIceComponent RTCIceTransport::Component::get()
+    {
+      ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
+      return UseHelper::Convert(_nativePointer->component());
+    }
+
+    RTCIceRole RTCIceTransport::Role::get()
+    {
+      ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
+      return UseHelper::Convert(_nativePointer->role());
+    }
+
+    RTCIceTransportState RTCIceTransport::State::get()
+    {
+      if (!_nativePointer) return RTCIceTransportState::Closed;
+      return UseHelper::Convert(_nativePointer->state());
+    }
+
+#pragma endregion
+
+  } // namespace ortc
+} // namespace org
+

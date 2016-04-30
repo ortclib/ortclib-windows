@@ -8,28 +8,29 @@
 // be found in the AUTHORS file in the root of the source tree.
 
 #pragma once
-#include "pch.h"
-#include <wrl.h>
-#include <mfapi.h>
-#include <vector>
-#include "webrtc/system_wrappers/include/critical_section_wrapper.h"
-#include "webrtc/base/scoped_ptr.h"
-#include "MediaSourceHelper.h"
-#include "WebRtcMediaSource.h"
+
 #include "webrtc/modules/video_render/video_render.h"
 
-using Microsoft::WRL::ComPtr;
-using Microsoft::WRL::RuntimeClass;
-using Microsoft::WRL::RuntimeClassFlags;
-using Microsoft::WRL::RuntimeClassType;
-using Windows::System::Threading::ThreadPoolTimer;
+#include <wrl.h>
+#include <Mfidl.h>
 
 namespace org
 {
   namespace ortc
   {
-    class WebRtcMediaSource;
+    using Microsoft::WRL::ComPtr;
+
+    using Microsoft::WRL::RuntimeClass;
+    using Microsoft::WRL::RuntimeClassFlags;
+    using Microsoft::WRL::RuntimeClassType;
+
+    using Windows::System::Threading::ThreadPoolTimer;
+
+    class MediaSourceHelper;
+
     ref class MediaStreamTrack;
+
+    class WebRtcMediaSource;
 
     class WebRtcMediaStream :
       public RuntimeClass<RuntimeClassFlags<RuntimeClassType::WinRtClassicComMix>,

@@ -36,7 +36,7 @@ namespace org
                 public string Label { get; set; }
 
                 //public string Kind => "video";
-                public string Kind => MediaStreamTrack.ToString(Track.Kind);
+                public string Kind => Track.Kind.ToString();
 
                 public void Stop()
                 {

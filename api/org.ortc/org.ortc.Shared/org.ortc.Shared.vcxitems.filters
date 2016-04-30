@@ -12,7 +12,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCIceTransportController.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCRtpSender.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MediaStreamTrack.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)RTPTypes.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCRtpListener.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Ortc.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Settings.h" />
@@ -23,8 +22,13 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)WebRtcMediaStream.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MediaSourceHelper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTMediaStreamSource.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Contraints.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Capabilities.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTCCertificate.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RtpTypes.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Constraints.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Error.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTCDtmfSender.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTCSrtpSdesTransport.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)pch.cpp">
@@ -46,10 +50,16 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)MediaDevices.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Logger.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCIceTypes.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)RTPTypes.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WebRtcMediaSource.cc" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WebRtcMediaStream.cc" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MediaSourceHelper.cc" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTMediaStreamSource.cc" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RTCCertificate.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RtpTypes.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Capabilities.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Constraints.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Error.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RTCDtmfSender.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RTCSrtpSdesTransport.cpp" />
   </ItemGroup>
 </Project>

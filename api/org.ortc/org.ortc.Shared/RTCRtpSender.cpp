@@ -1,170 +1,383 @@
+
 #include "pch.h"
-#include <ortc/types.h>
+
+#include "MediaStreamTrack.h"
+#include "RTCDtlsTransport.h"
+#include "RTCIceTransport.h"
+#include "RTCSrtpSdesTransport.h"
 #include "RTCRtpSender.h"
+#include "RtpTypes.h"
 #include "helpers.h"
+#include "Error.h"
 
+#include <zsLib/SafeInt.h>
 
-using namespace org::ortc;
+using namespace ortc;
 
-using Platform::Collections::Vector;
-using Windows::Foundation::IAsyncAction;
-namespace Concurrency
+namespace org
 {
-	using ::LONG;
-}
-
-RTCRtpSender::RTCRtpSender() :
-mNativeDelegatePointer(nullptr),
-mNativePointer(nullptr)
-{
-}
-
-RTCRtpSender::RTCRtpSender(MediaStreamTrack^ track, RTCDtlsTransport^ transport) :
-mNativeDelegatePointer(new RTCRtpSenderDelegate())
-{
-  if (!track && !transport)
+  namespace ortc
   {
-    return;
-  }
+    ZS_DECLARE_TYPEDEF_PTR(internal::Helper, UseHelper)
 
-  if (FetchNativePointer::FromDtlsTransport(transport)) // add mediaStreamTrack too
-  {
-    mNativeDelegatePointer->SetOwnerObject(this);
-    mNativePointer = IRTPSender::create(mNativeDelegatePointer, FetchNativePointer::FromMediaTrack(track), FetchNativePointer::FromDtlsTransport(transport));
-  }
-}
+    namespace internal
+    {
 
-RTCRtpSender::RTCRtpSender(MediaStreamTrack^ track, RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport) :
-mNativeDelegatePointer(new RTCRtpSenderDelegate())
-{
-  if (!track && !transport && !rtcpTransport)
-  {
-    return;
-  }
+#pragma region RTCRtpSender delegates 
 
-  if (FetchNativePointer::FromDtlsTransport(transport) && FetchNativePointer::FromDtlsTransport(rtcpTransport)) // add mediaStreamTrack too
-  {
-    mNativeDelegatePointer->SetOwnerObject(this);
-    mNativePointer = IRTPSender::create(mNativeDelegatePointer, FetchNativePointer::FromMediaTrack(track), FetchNativePointer::FromDtlsTransport(transport), FetchNativePointer::FromDtlsTransport(rtcpTransport));
-  }
-}
+      class RTCRtpSenderDelegate : public IRTPSenderDelegate
+      {
+      public:
+        RTCRtpSenderDelegate(RTCRtpSender^ owner) { _owner = owner; }
 
-MediaStreamTrack^ RTCRtpSender::GetTrack()
-{
-		return ConvertObjectToCx::ToMediaStreamTrack(mNativePointer->track());
-}
+        virtual void onRTPSenderSSRCConflict(
+          IRTPSenderPtr sender,
+          SSRCType ssrc
+          ) override
+        {
+          auto evt = ref new RTCSsrcConflictEvent();
+          evt->_ssrc = SafeInt<decltype(evt->_ssrc)>(ssrc);
+          _owner->OnSsrcConflict(evt);
+        }
 
-RTCDtlsTransport^ RTCRtpSender::GetDtlsTransport(Platform::Boolean isRtcp)
-{
-  if (!isRtcp)
-  {
-    return ConvertObjectToCx::ToDtlsTransport(IDTLSTransport::convert(mNativePointer->transport()));
-  }
-  else
-  {
-    return ConvertObjectToCx::ToDtlsTransport(IDTLSTransport::convert(mNativePointer->rtcpTransport()));
-  }
-}
+      private:
+        RTCRtpSender^ _owner;
 
-void RTCRtpSender::SetTransport(RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport)
-{
-  if (mNativePointer)
-  {
-    mNativePointer->setTransport(FetchNativePointer::FromDtlsTransport(transport), FetchNativePointer::FromDtlsTransport(rtcpTransport));
-  }
-}
+      };
 
-IAsyncAction^ RTCRtpSender::SetTrack(MediaStreamTrack^ track)
-{
-	IAsyncAction^ ret = Concurrency::create_async([this,track]()
-	{
-		Concurrency::task_completion_event<void> tce;
+#pragma endregion
 
-		if (track == nullptr || mNativePointer == nullptr)
-		{
-			tce.set();
-			return;
-		}
-		PromisePtr promise = mNativePointer->setTrack(FetchNativePointer::FromMediaTrack(track));
-		RTCSenderPromiseObserverPtr pDelegate(make_shared<RTCSenderPromiseObserver>(tce));
+#pragma region RTCRtpSender observers 
 
-		promise->then(pDelegate);
-		promise->background();
-		auto tceTask = Concurrency::task<void>(tce);
+      class RTCRtpSenderPromiseObserver : public zsLib::IPromiseResolutionDelegate
+      {
+      public:
+        RTCRtpSenderPromiseObserver(Concurrency::task_completion_event<void> tce) : mTce(tce) {}
 
-		return tceTask.get();
-	});
-	
-	return ret;
-}
+        virtual void onPromiseResolved(PromisePtr promise) override
+        {
+          mTce.set();
+        }
 
-RTCRtpCapabilities^ RTCRtpSender::GetCapabilities(Platform::String^ kind)
-{
-  if (kind != nullptr)
-  {
-    if (Platform::String::CompareOrdinal(kind, "audio") == 0)
-      return ToCx(IRtpReceiver::getCapabilities(IRTPReceiverTypes::Kinds::Kind_Audio));
-    if (Platform::String::CompareOrdinal(kind, "video") == 0)
-      return ToCx(IRtpReceiver::getCapabilities(IRTPReceiverTypes::Kinds::Kind_Video));
-  }
+        virtual void onPromiseRejected(PromisePtr promise) override
+        {
+          auto reason = promise->reason<Any>();
+          auto error = Error::CreateIfGeneric(reason);
+          mTce.set_exception(error);
+        }
 
-  return ToCx(IRtpReceiver::getCapabilities());
-}
+      private:
+        Concurrency::task_completion_event<void> mTce;
+      };
 
-void RTCRtpSender::Send(RTCRtpParameters^ parameters)
-{
-	if (mNativePointer)
-	{
-    assert(nullptr != parameters);
-		mNativePointer->send(*FromCx(parameters));
-	}
-}
+#pragma endregion
 
-void RTCRtpSender::Stop()
-{
-  if (mNativePointer)
-  {
-    mNativePointer->stop();
-  }
-}
+    }
 
-//-----------------------------------------------------------------
-#pragma mark RTCRtpSenderDelegate
-//-----------------------------------------------------------------
+#pragma region RTCRtpSender 
 
-void RTCRtpSenderDelegate::onRTPSenderError(
-		IRTPSenderPtr sender,
-		ErrorCode errorCode,
-		String errorReason
-		)
-{
-	auto evt = ref new RTCRtpSenderErrorEvent();
-	evt->Error->ErrorCode = errorCode;
-	evt->Error->ErrorReason = ToCx(errorReason);
-	_sender->OnRTCRtpSenderError(evt);
-}
+    RTCRtpSender::RTCRtpSender(IRTPSenderPtr nativeSender) :
+      _nativeDelegatePointer(make_shared<internal::RTCRtpSenderDelegate>(this)),
+      _nativePointer(nativeSender)
+    {
+      if (_nativePointer)
+      {
+        _nativeSubscriptionPointer = _nativePointer->subscribe(_nativeDelegatePointer);
+      }
+    }
 
-void RTCRtpSenderDelegate::onRTPSenderSSRCConflict(
-		IRTPSenderPtr sender,
-		SSRCType ssrc
-		)
-{
-	auto evt = ref new RTCRtpSenderSSRCConflictEvent();
-	evt->SSRCConflict = ssrc;
-	_sender->OnRTCRtpSenderSSRCConflict(evt);
-}
+    RTCRtpSender::RTCRtpSender(MediaStreamTrack^ track, RTCDtlsTransport^ transport) :
+      _nativeDelegatePointer(make_shared<internal::RTCRtpSenderDelegate>(this))
+    {
+      auto nativeTrack = MediaStreamTrack::Convert(track);
+      auto nativeTransport = RTCDtlsTransport::Convert(transport);
 
-RTCSenderPromiseObserver::RTCSenderPromiseObserver(Concurrency::task_completion_event<void> tce) : mTce(tce)
-{
+      try
+      {
+        _nativePointer = IRTPSender::create(_nativeDelegatePointer, nativeTrack, nativeTransport);
+      }
+      catch (const InvalidParameters &)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS()
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
+    }
 
-}
+    RTCRtpSender::RTCRtpSender(MediaStreamTrack^ track, RTCSrtpSdesTransport^ transport) :
+      _nativeDelegatePointer(make_shared<internal::RTCRtpSenderDelegate>(this))
+    {
+      auto nativeTrack = MediaStreamTrack::Convert(track);
+      auto nativeTransport = RTCSrtpSdesTransport::Convert(transport);
 
-void RTCSenderPromiseObserver::onPromiseResolved(PromisePtr promise)
-{
-	mTce.set();
-}
-	
-void RTCSenderPromiseObserver::onPromiseRejected(PromisePtr promise)
-{
+      try
+      {
+        _nativePointer = IRTPSender::create(_nativeDelegatePointer, nativeTrack, nativeTransport);
+      }
+      catch (const InvalidParameters &)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS()
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
+    }
 
-}
+    RTCRtpSender::RTCRtpSender(MediaStreamTrack^ track, RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport) :
+      _nativeDelegatePointer(make_shared<internal::RTCRtpSenderDelegate>(this))
+    {
+      auto nativeTrack = MediaStreamTrack::Convert(track);
+      auto nativeTransport = RTCDtlsTransport::Convert(transport);
+      auto nativeRtcpTransport = RTCDtlsTransport::Convert(rtcpTransport);
+
+      try
+      {
+        _nativePointer = IRTPSender::create(_nativeDelegatePointer, nativeTrack, nativeTransport, nativeRtcpTransport);
+      }
+      catch (const InvalidParameters &)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS()
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
+    }
+
+    RTCRtpSender::RTCRtpSender(MediaStreamTrack^ track, RTCSrtpSdesTransport^ transport, RTCIceTransport^ rtcpTransport) :
+      _nativeDelegatePointer(make_shared<internal::RTCRtpSenderDelegate>(this))
+    {
+      auto nativeTrack = MediaStreamTrack::Convert(track);
+      auto nativeTransport = RTCSrtpSdesTransport::Convert(transport);
+      auto nativeRtcpTransport = RTCIceTransport::Convert(rtcpTransport);
+
+      try
+      {
+        _nativePointer = IRTPSender::create(_nativeDelegatePointer, nativeTrack, nativeTransport, nativeRtcpTransport);
+      }
+      catch (const InvalidParameters &)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS()
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
+    }
+
+    void RTCRtpSender::SetTransport(RTCDtlsTransport^ transport)
+    {
+      auto nativeTransport = RTCDtlsTransport::Convert(transport);
+      try
+      {
+        _nativePointer->setTransport(nativeTransport);
+      }
+      catch (const InvalidParameters &)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS()
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
+    }
+
+    void RTCRtpSender::SetTransport(RTCSrtpSdesTransport^ transport)
+    {
+      auto nativeTransport = RTCSrtpSdesTransport::Convert(transport);
+      try
+      {
+        _nativePointer->setTransport(nativeTransport);
+      }
+      catch (const InvalidParameters &)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS()
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
+    }
+
+    void RTCRtpSender::SetTransport(RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport)
+    {
+      auto nativeTransport = RTCDtlsTransport::Convert(transport);
+      auto nativeRtcpTransport = RTCDtlsTransport::Convert(rtcpTransport);
+      try
+      {
+        _nativePointer->setTransport(nativeTransport, nativeRtcpTransport);
+      }
+      catch (const InvalidParameters &)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS()
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
+    }
+
+    void RTCRtpSender::SetTransport(RTCSrtpSdesTransport^ transport, RTCIceTransport^ rtcpTransport)
+    {
+      auto nativeTransport = RTCSrtpSdesTransport::Convert(transport);
+      auto nativeRtcpTransport = RTCIceTransport::Convert(rtcpTransport);
+      try
+      {
+        _nativePointer->setTransport(nativeTransport, nativeRtcpTransport);
+      }
+      catch (const InvalidParameters &)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS()
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
+    }
+
+    IAsyncAction^ RTCRtpSender::SetTrack(MediaStreamTrack^ track)
+    {
+      ORG_ORTC_THROW_INVALID_STATE_IF(nullptr == _nativePointer)
+
+      auto nativeTrack = MediaStreamTrack::Convert(track);
+
+      PromisePtr promise;
+      
+      try
+      {
+        promise = _nativePointer->setTrack(nativeTrack);
+      }
+      catch (const InvalidParameters &)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS()
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
+
+      IAsyncAction^ ret = Concurrency::create_async([this, track, promise]()
+      {
+        Concurrency::task_completion_event<void> tce;
+
+        auto observer = make_shared<internal::RTCRtpSenderPromiseObserver>(tce);
+
+        promise->then(observer);
+        promise->background();
+        auto tceTask = Concurrency::task<void>(tce);
+
+        return tceTask.get();
+      });
+
+      return ret;
+    }
+
+    RTCRtpCapabilities^ RTCRtpSender::GetCapabilities(Platform::String^ kind)
+    {
+      ORG_ORTC_THROW_INVALID_STATE_IF(kind == nullptr)
+
+      String kindStr = UseHelper::FromCx(kind);
+
+      if (0 == kindStr.compareNoCase(UseHelper::FromCx(MediaStreamTrackKind::Audio.ToString())))
+        return internal::ToCx(IRTPSender::getCapabilities(IMediaStreamTrackTypes::Kinds::Kind_Audio));
+      if (0 == kindStr.compareNoCase(UseHelper::FromCx(MediaStreamTrackKind::Video.ToString())))
+        return internal::ToCx(IRTPSender::getCapabilities(IMediaStreamTrackTypes::Kinds::Kind_Video));
+
+      ORG_ORTC_THROW_INVALID_PARAMETERS()
+    }
+    
+    IAsyncAction^ RTCRtpSender::Send(RTCRtpParameters^ parameters)
+    {
+      ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
+      ORG_ORTC_THROW_INVALID_PARAMETERS_IF(!parameters)
+
+      PromisePtr promise;
+
+      try
+      {
+        promise = _nativePointer->send(*internal::FromCx(parameters));
+      }
+      catch (const InvalidParameters &)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS()
+      }
+      catch (const InvalidStateError &e)
+      {
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+      }
+
+      IAsyncAction^ ret = Concurrency::create_async([this, promise]()
+      {
+        Concurrency::task_completion_event<void> tce;
+
+        auto observer = make_shared<internal::RTCRtpSenderPromiseObserver>(tce);
+
+        promise->then(observer);
+        promise->background();
+        auto tceTask = Concurrency::task<void>(tce);
+
+        return tceTask.get();
+      });
+
+      return ret;
+    }
+
+    void RTCRtpSender::Stop()
+    {
+      if (!_nativePointer) return;
+      _nativePointer->stop();
+    }
+
+    MediaStreamTrack^ RTCRtpSender::Track::get()
+    {
+      if (!_nativePointer) return nullptr;
+      return MediaStreamTrack::Convert(_nativePointer->track());
+    }
+
+    Platform::Object^ RTCRtpSender::Transport::get()
+    {
+      if (!_nativePointer) return nullptr;
+      auto nativeTransport = _nativePointer->transport();
+      if (!nativeTransport) return nullptr;
+      {
+        auto dtlsTransport = IDTLSTransport::convert(nativeTransport);
+        if (nullptr != dtlsTransport) {
+          return RTCDtlsTransport::Convert(dtlsTransport);
+        }
+      }
+      {
+        auto srtpTransport = ISRTPSDESTransport::convert(nativeTransport);
+        if (nullptr != srtpTransport) {
+          return RTCSrtpSdesTransport::Convert(srtpTransport);
+        }
+      }
+      return nullptr;
+    }
+
+    Platform::Object^ RTCRtpSender::RtcpTransport::get()
+    {
+      if (!_nativePointer) return nullptr;
+      auto nativeTransport = _nativePointer->rtcpTransport();
+      if (!nativeTransport) return nullptr;
+      {
+        auto dtlsTransport = IDTLSTransport::convert(nativeTransport);
+        if (nullptr != dtlsTransport) {
+          return RTCDtlsTransport::Convert(dtlsTransport);
+        }
+      }
+      {
+        auto iceTransport = IICETransport::convert(nativeTransport);
+        if (nullptr != iceTransport) {
+          return RTCIceTransport::Convert(iceTransport);
+        }
+      }
+      return nullptr;
+    }
+
+#pragma endregion
+
+  } // namespacr ortc
+} // namespace org
