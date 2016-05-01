@@ -12,6 +12,7 @@
 #include "webrtc/system_wrappers/include/tick_util.h"
 #include "webrtc/system_wrappers/include/critical_section_wrapper.h"
 #include "webrtc/webrtc/video_frame.h"
+#include <webrtc/webrtc/base/scoped_ptr.h>
 
 #include <MFidl.h>
 
