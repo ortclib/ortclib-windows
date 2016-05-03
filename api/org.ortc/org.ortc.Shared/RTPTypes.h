@@ -169,7 +169,7 @@ namespace org
       /// Values enumerated in [iana.org/assignments/sdp-parameters/sdp-parameters.xhtml#sdp-parameters-14]
       /// ("ack", "ccm", "nack", etc.), as well as "goog-remb"
       /// [draft-alvestrand-rmcat-remb] and "transport-cc"
-      /// [draft-holmer-rmcat-transport-wide-cc-extensions].
+      /// [draft-holmer-rmcat-transport-wide-cc-extensions-01].
       /// </summary>
       property Platform::String^ Type;
       /// <summary>
