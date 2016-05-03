@@ -44,6 +44,12 @@ namespace org
     ref class RTCIceTransport;
     ref class RTCSctpTransport;
 
+    class CallPrivateMethod
+    {
+    public:
+      static void SetVideoRenderCallback(MediaStreamTrack^ track, void* callback);
+    };
+
     namespace internal
     {
       using zsLib::Optional;

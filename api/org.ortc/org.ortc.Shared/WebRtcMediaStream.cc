@@ -13,6 +13,7 @@
 #include "MediaSourceHelper.h"
 #include "MediaStreamTrack.h"
 #include "WebRtcMediaSource.h"
+#include "MediaStreamTrack.h"
 
 #include "webrtc/system_wrappers/include/critical_section_wrapper.h"
 #include "libyuv/convert.h"
@@ -22,6 +23,8 @@
 #include <d3d11_2.h>
 
 using Windows::System::Threading::TimerElapsedHandler;
+
+void MediaStreamTrack_SetVideoRenderCallback(Platform::Object^ obj, void* callback);
 
 namespace org
 {
@@ -63,10 +66,9 @@ namespace org
       _track = track;
       _id = id;
       _rtcRenderer = rtc::scoped_ptr<RTCRenderer>(new RTCRenderer(this));
-#define H264_CURRENTLY_DISABLED_CHECK_IN_MEDIASTREAMTRACK 1
-#define H264_CURRENTLY_DISABLED_CHECK_IN_MEDIASTREAMTRACK 2
 
-      _isH264 = false;// track->GetImpl()->GetSource()->IsH264Source();
+      if (nullptr != track)
+        _isH264 = track->IsH264Rendering();
 
       // Create the helper with the callback functions.
       _helper.reset(new MediaSourceHelper(_isH264,
@@ -85,7 +87,7 @@ namespace org
       RETURN_ON_FAIL(mediaTypeHandler->SetCurrentMediaType(_mediaType.Get()));
 
       if (nullptr != track)
-        track->SetMediaElement(_rtcRenderer.get());
+        MediaStreamTrack_SetVideoRenderCallback(track, _rtcRenderer.get());
     
       return S_OK;
     }

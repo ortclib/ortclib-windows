@@ -12,6 +12,15 @@ using Platform::Collections::Vector;
 
 using namespace ortc;
 
+void MediaStreamTrack_SetVideoRenderCallback(Platform::Object^ obj, void* callback)
+{
+  if (obj == nullptr) return;
+
+  org::ortc::MediaStreamTrack^ track = static_cast<org::ortc::MediaStreamTrack^>(obj);
+
+  org::ortc::CallPrivateMethod::SetVideoRenderCallback(track, callback);
+}
+
 namespace org
 {
   namespace ortc
@@ -322,12 +331,6 @@ namespace org
       }
     }
 
-    void MediaStreamTrack::SetMediaElement(void* element)
-    {
-      if (!_nativePointer) return;
-      _nativePointer->setMediaElement(element);
-    }
-
     MediaStreamTrackKind  MediaStreamTrack::Kind::get()
     {
       ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
@@ -418,6 +421,18 @@ namespace org
       return internal::ToCx(_nativePointer->getSettings());    
     }
 
+    void MediaStreamTrack::SetH264Rendering(bool h264Rendering)
+    {
+      if (!_nativePointer) return;
+      _nativePointer->setH264Rendering(h264Rendering);
+    }
+
+    bool MediaStreamTrack::IsH264Rendering()
+    {
+      if (!_nativePointer) return false;
+      return _nativePointer->isH264Rendering();
+    }
+
     IMediaSource^ MediaStreamTrack::CreateMediaSource()
     {
       //return globals::RunOnGlobalThread<IMediaSource^>([track, id]() -> IMediaSource^ {
@@ -438,6 +453,12 @@ namespace org
       IMediaSource^ source = reinterpret_cast<IMediaSource^>(comSource.Get());
       return source;
 #endif
+    }
+
+    void MediaStreamTrack::SetVideoRenderCallback(Platform::IntPtr callback)
+    {
+      if (!_nativePointer) return;
+      _nativePointer->setVideoRenderCallback((void *)callback);
     }
 
     IAsyncAction^ MediaStreamTrack::ApplyConstraints(MediaTrackConstraints^ constraints)

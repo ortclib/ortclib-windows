@@ -33,6 +33,11 @@ namespace org
     using zsLib::LONGLONG;
     using zsLib::ULONGLONG;
 
+    void CallPrivateMethod::SetVideoRenderCallback(MediaStreamTrack^ track, void* callback)
+    {
+      track->SetVideoRenderCallback(callback);
+    }
+
     namespace internal
     {
 #pragma region Basic types

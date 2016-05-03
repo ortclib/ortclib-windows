@@ -33,7 +33,9 @@ namespace org
     MediaStreamSource^ RTMediaStreamSource::CreateMediaSource(
       MediaStreamTrack^ track, uint32 frameRate, Platform::String^ id) {
 
-      bool isH264 = false; // track->GetImpl()->GetSource()->IsH264Source();
+      bool isH264 = false;
+      if (nullptr != track)
+        isH264 = track->IsH264Rendering();
 
       auto streamState = ref new RTMediaStreamSource(track, isH264);
       streamState->_id = id;
@@ -41,7 +43,7 @@ namespace org
         new RTCRenderer(streamState));
 
       if (track)
-        track->SetMediaElement((void*)streamState->_rtcRenderer.get());
+        track->SetVideoRenderCallback((void*)streamState->_rtcRenderer.get());
 
       VideoEncodingProperties^ videoProperties;
       if (isH264) {
