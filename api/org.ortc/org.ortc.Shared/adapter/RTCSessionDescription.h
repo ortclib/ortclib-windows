@@ -232,6 +232,66 @@ namespace org
       /// and senders related to the media lines. This format can be
       /// converted to/from SDP and JSON.
       /// </summary>
+      /// <example>
+      /// <code>
+      /// {
+      ///  "session": {
+      ///    "transports": {
+      ///      "transport": {
+      ///        "id": "transport1",
+      ///        "rtp": {
+      ///          "ice": {
+      ///            "parameters": {
+      ///              "usernameFragment": "ufrag1",
+      ///              "password": "password1",
+      ///              "useUnfreezePriority": "true",
+      ///              "iceLite": "false"
+      ///            }
+      ///          },
+      ///          "dtls": {
+      ///            "parameters": {
+      ///              "role": "auto",
+      ///              "fingerprints": {
+      ///                "fingerprint": [
+      ///                  "AB:32:...",
+      ///                  "FF:EE:..."
+      ///                ]
+      ///              }
+      ///            }
+      ///          },
+      ///          "sdesSrtp": { "parameters": "..." },
+      ///          "candidates": {
+      ///            "candidate": [
+      ///              {
+      ///                "mid": "a1",
+      ///                "index": "0"
+      ///              },
+      ///              { "complete": "true" }
+      ///            ]
+      ///          }
+      ///        },
+      ///        "rtcp": {...}
+      ///      }
+      ///    }
+      ///  },
+      ///  "rtpMediaLines" : {
+      ///    "rtpMediaLine": {
+      ///    },
+      ///    ...
+      ///  },
+      ///  "sctpMediaLines" : {
+      ///    "sctpMediaLine": {
+      ///    },
+      ///    ...
+      ///  },
+      ///  "rtpSenders" : {
+      ///    "rtpSender": {
+      ///    },
+      ///    ...
+      ///  },
+      ///}
+      /// </code>
+      /// </example>
       public ref struct RTCSessionDescriptionDescription sealed
       {
         /// <summary>
