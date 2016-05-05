@@ -14,6 +14,9 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)adapter\MediaStream.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)adapter\RTCPeerConnection.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)adapter\RTCSessionDescription.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Capabilities.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Constraints.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Error.h" />
@@ -44,6 +47,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)WebRtcMediaStream.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)adapter\MediaStream.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)adapter\RTCPeerConnection.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)adapter\RTCSessionDescription.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Capabilities.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Constraints.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Error.cpp" />

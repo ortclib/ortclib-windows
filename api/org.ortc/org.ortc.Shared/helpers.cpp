@@ -9,6 +9,8 @@
 #include "RTCIceTransport.h"
 #include "RtpTypes.h"
 #include "RTCSctpTransport.h"
+#include "adapter/RTCSessionDescription.h"
+#include "adapter/RTCPeerConnection.h"
 
 #include "webrtc/base/win32.h"
 
@@ -19,6 +21,7 @@ using namespace Platform;
 using Platform::Collections::Vector;
 using zsLib::Optional;
 using namespace ortc;
+using namespace ortc::adapter;
 using namespace date;
 
 namespace org
@@ -619,9 +622,9 @@ namespace org
         throw ref new Platform::NotImplementedException();
       }
 
-      //---------------------------------------------------------------------------
+      //-----------------------------------------------------------------------
       // Logger convert methods
-      //---------------------------------------------------------------------------
+      //-----------------------------------------------------------------------
       zsLib::Log::Level Helper::Convert(Log::Level level)
       {
         switch (level) {
@@ -643,6 +646,231 @@ namespace org
         case Log::Component::ServicesTurn:  return "openpeer_services_turn";
         case Log::Component::ServicesHttp:  return "openpeer_services_http";
         case Log::Component::OrtcLib:       return "ortclib";
+        }
+        throw ref new Platform::NotImplementedException();
+      }
+
+      //-----------------------------------------------------------------------
+      // SessionDescription convert methods
+      //-----------------------------------------------------------------------
+
+      ISessionDescriptionTypes::SignalingTypes Helper::Convert(adapter::RTCSessionDescriptionSignalingType type)
+      {
+        switch (type)
+        {
+        case adapter::RTCSessionDescriptionSignalingType::Json:         return ISessionDescription::SignalingType_JSON;
+        case adapter::RTCSessionDescriptionSignalingType::SdpOffer:     return ISessionDescription::SignalingType_SDPOffer;
+        case adapter::RTCSessionDescriptionSignalingType::SdpPreanswer: return ISessionDescription::SignalingType_SDPPreanswer;
+        case adapter::RTCSessionDescriptionSignalingType::SdpAnswer:    return ISessionDescription::SignalingType_SDPAnswer;
+        case adapter::RTCSessionDescriptionSignalingType::SdpRollback:  return ISessionDescription::SignalingType_SDPRollback;
+        }
+        throw ref new Platform::NotImplementedException();
+      }
+      adapter::RTCSessionDescriptionSignalingType Helper::Convert(ISessionDescription::SignalingTypes type)
+      {
+        switch (type)
+        {
+        case ISessionDescription::SignalingType_JSON:           return adapter::RTCSessionDescriptionSignalingType::Json;
+        case ISessionDescription::SignalingType_SDPOffer:       return adapter::RTCSessionDescriptionSignalingType::SdpOffer;
+        case ISessionDescription::SignalingType_SDPPreanswer:   return adapter::RTCSessionDescriptionSignalingType::SdpPreanswer;
+        case ISessionDescription::SignalingType_SDPAnswer:      return adapter::RTCSessionDescriptionSignalingType::SdpAnswer;
+        case ISessionDescription::SignalingType_SDPRollback:    return adapter::RTCSessionDescriptionSignalingType::SdpRollback;
+        }
+        throw ref new Platform::NotImplementedException();
+      }
+
+      ISessionDescriptionTypes::MediaTypes Helper::Convert(adapter::RTCSessionDescriptionMediaType type)
+      {
+        switch (type)
+        {
+        case adapter::RTCSessionDescriptionMediaType::Unknown:      return ISessionDescriptionTypes::MediaType_Unknown;
+        case adapter::RTCSessionDescriptionMediaType::Audio:        return ISessionDescriptionTypes::MediaType_Audio;
+        case adapter::RTCSessionDescriptionMediaType::Video:        return ISessionDescriptionTypes::MediaType_Video;
+        case adapter::RTCSessionDescriptionMediaType::Text:         return ISessionDescriptionTypes::MediaType_Text;
+        case adapter::RTCSessionDescriptionMediaType::Application:  return ISessionDescriptionTypes::MediaType_Application;
+        }
+        throw ref new Platform::NotImplementedException();
+      }
+
+      adapter::RTCSessionDescriptionMediaType Helper::Convert(ISessionDescriptionTypes::MediaTypes type)
+      {
+        switch (type)
+        {
+        case ISessionDescriptionTypes::MediaType_Unknown:      return adapter::RTCSessionDescriptionMediaType::Unknown;
+        case ISessionDescriptionTypes::MediaType_Audio:        return adapter::RTCSessionDescriptionMediaType::Audio;
+        case ISessionDescriptionTypes::MediaType_Video:        return adapter::RTCSessionDescriptionMediaType::Video;
+        case ISessionDescriptionTypes::MediaType_Text:         return adapter::RTCSessionDescriptionMediaType::Text;
+        case ISessionDescriptionTypes::MediaType_Application:  return adapter::RTCSessionDescriptionMediaType::Application;
+        }
+        throw ref new Platform::NotImplementedException();
+      }
+
+      ISessionDescriptionTypes::MediaDirections Helper::Convert(adapter::RTCSessionDescriptionMediaDirection type)
+      {
+        switch (type)
+        {
+        case adapter::RTCSessionDescriptionMediaDirection::SendReceive:     return ISessionDescriptionTypes::MediaDirection_SendReceive;
+        case adapter::RTCSessionDescriptionMediaDirection::SendOnly:        return ISessionDescriptionTypes::MediaDirection_SendOnly;
+        case adapter::RTCSessionDescriptionMediaDirection::ReceiveOnly:     return ISessionDescriptionTypes::MediaDirection_ReceiveOnly;
+        case adapter::RTCSessionDescriptionMediaDirection::Inactive:        return ISessionDescriptionTypes::MediaDirection_Inactive;
+        }
+        throw ref new Platform::NotImplementedException();
+      }
+      adapter::RTCSessionDescriptionMediaDirection Helper::Convert(ISessionDescriptionTypes::MediaDirections type)
+      {
+        switch (type)
+        {
+        case ISessionDescriptionTypes::MediaDirection_SendReceive:    return adapter::RTCSessionDescriptionMediaDirection::SendReceive;
+        case ISessionDescriptionTypes::MediaDirection_SendOnly:       return adapter::RTCSessionDescriptionMediaDirection::SendOnly;
+        case ISessionDescriptionTypes::MediaDirection_ReceiveOnly:    return adapter::RTCSessionDescriptionMediaDirection::ReceiveOnly;
+        case ISessionDescriptionTypes::MediaDirection_Inactive:       return adapter::RTCSessionDescriptionMediaDirection::Inactive;
+        }
+        throw ref new Platform::NotImplementedException();
+      }
+
+      //-----------------------------------------------------------------------
+      // PeerSessionDescriptionManager convert methods
+      //-----------------------------------------------------------------------
+      IPeerConnectionTypes::BundlePolicies Helper::Convert(adapter::RTCBundlePolicy policy)
+      {
+        switch (policy)
+        {
+        case adapter::RTCBundlePolicy::Balanced:        return IPeerConnectionTypes::BundlePolicy_Balanced;
+        case adapter::RTCBundlePolicy::MaxBundle:       return IPeerConnectionTypes::BundlePolicy_MaxBundle;
+        case adapter::RTCBundlePolicy::MaxCompat:       return IPeerConnectionTypes::BundlePolity_MaxCompat;
+        }
+        throw ref new Platform::NotImplementedException();
+      }
+      adapter::RTCBundlePolicy Helper::Convert(IPeerConnectionTypes::BundlePolicies policy)
+      {
+        switch (policy)
+        {
+        case IPeerConnectionTypes::BundlePolicy_Balanced:        return adapter::RTCBundlePolicy::Balanced;
+        case IPeerConnectionTypes::BundlePolicy_MaxBundle:       return adapter::RTCBundlePolicy::MaxBundle;
+        case IPeerConnectionTypes::BundlePolity_MaxCompat:       return adapter::RTCBundlePolicy::MaxCompat;
+        }
+        throw ref new Platform::NotImplementedException();
+      }
+
+      IPeerConnectionTypes::RTCPMuxPolicies Helper::Convert(adapter::RTCRtcpMuxPolicy policy)
+      {
+        switch (policy)
+        {
+        case adapter::RTCRtcpMuxPolicy::Negotiated:    return IPeerConnectionTypes::RTCPMuxPolicy_Negotiated;
+        case adapter::RTCRtcpMuxPolicy::Require:       return IPeerConnectionTypes::RTCPMuxPolicy_Require;
+        }
+        throw ref new Platform::NotImplementedException();
+      }
+
+      adapter::RTCRtcpMuxPolicy Helper::Convert(IPeerConnectionTypes::RTCPMuxPolicies policy)
+      {
+        switch (policy)
+        {
+        case IPeerConnectionTypes::RTCPMuxPolicy_Negotiated:    return adapter::RTCRtcpMuxPolicy::Negotiated;
+        case IPeerConnectionTypes::RTCPMuxPolicy_Require:       return adapter::RTCRtcpMuxPolicy::Require;
+        }
+        throw ref new Platform::NotImplementedException();
+      }
+
+      IPeerConnectionTypes::SignalingStates Helper::Convert(adapter::RTCSignalingState state)
+      {
+        switch (state)
+        {
+        case adapter::RTCSignalingState::Stable:              return IPeerConnectionTypes::SignalingState_Stable;
+        case adapter::RTCSignalingState::HaveLocalOffer:      return IPeerConnectionTypes::SignalingState_HaveLocalOffer;
+        case adapter::RTCSignalingState::HaveRemoteOffer:     return IPeerConnectionTypes::SignalingState_HaveRemoteOffer;
+        case adapter::RTCSignalingState::HaveLocalPranswer:   return IPeerConnectionTypes::SignalingState_HaveLocalPranswer;
+        case adapter::RTCSignalingState::HaveRemotePranswer:  return IPeerConnectionTypes::SignalingState_HaveRemotePranswer;
+        case adapter::RTCSignalingState::Closed:              return IPeerConnectionTypes::SignalingState_Closed;
+        }
+        throw ref new Platform::NotImplementedException();
+      }
+      adapter::RTCSignalingState Helper::Convert(IPeerConnectionTypes::SignalingStates state)
+      {
+        switch (state)
+        {
+        case IPeerConnectionTypes::SignalingState_Stable:               return adapter::RTCSignalingState::Stable;
+        case IPeerConnectionTypes::SignalingState_HaveLocalOffer:       return adapter::RTCSignalingState::HaveLocalOffer;
+        case IPeerConnectionTypes::SignalingState_HaveRemoteOffer:      return adapter::RTCSignalingState::HaveRemoteOffer;
+        case IPeerConnectionTypes::SignalingState_HaveLocalPranswer:    return adapter::RTCSignalingState::HaveLocalPranswer;
+        case IPeerConnectionTypes::SignalingState_HaveRemotePranswer:   return adapter::RTCSignalingState::HaveRemotePranswer;
+        case IPeerConnectionTypes::SignalingState_Closed:               return adapter::RTCSignalingState::Closed;
+        }
+        throw ref new Platform::NotImplementedException();
+      }
+
+      IPeerConnectionTypes::ICEGatheringStates Helper::Convert(adapter::RTCIceGatheringState state)
+      {
+        switch (state)
+        {
+        case adapter::RTCIceGatheringState::New:         return IICEGathererTypes::State_New;
+        case adapter::RTCIceGatheringState::Gathering:   return IICEGathererTypes::State_Gathering;
+        case adapter::RTCIceGatheringState::Complete:    return IICEGathererTypes::State_Complete;
+        }
+        throw ref new Platform::NotImplementedException();
+      }
+
+      adapter::RTCIceGatheringState Helper::ConvertToGatheringState(IPeerConnectionTypes::ICEGatheringStates state)
+      {
+        switch (state)
+        {
+        case IICEGathererTypes::State_New:          return adapter::RTCIceGatheringState::New;
+        case IICEGathererTypes::State_Gathering:    return adapter::RTCIceGatheringState::Gathering;
+        case IICEGathererTypes::State_Complete:     return adapter::RTCIceGatheringState::Complete;
+        case IICEGathererTypes::State_Closed:       return adapter::RTCIceGatheringState::Complete;
+        }
+        throw ref new Platform::NotImplementedException();
+      }
+
+      IPeerConnectionTypes::ICEConnectionStates Helper::Convert(adapter::RTCIceConnectionState state)
+      {
+        switch (state)
+        {
+        case adapter::RTCIceConnectionState::New:           return IICETransportTypes::State_New;
+        case adapter::RTCIceConnectionState::Checking:      return IICETransportTypes::State_Checking;
+        case adapter::RTCIceConnectionState::Connected:     return IICETransportTypes::State_Connected;
+        case adapter::RTCIceConnectionState::Completed:     return IICETransportTypes::State_Completed;
+        case adapter::RTCIceConnectionState::Failed:        return IICETransportTypes::State_Failed;
+        case adapter::RTCIceConnectionState::Disconnected:  return IICETransportTypes::State_Disconnected;
+        }
+        throw ref new Platform::NotImplementedException();
+      }
+
+      adapter::RTCIceConnectionState Helper::ConvertToConnectionState(IPeerConnectionTypes::ICEConnectionStates state)
+      {
+        switch (state)
+        {
+        case IICETransportTypes::State_New:           return adapter::RTCIceConnectionState::New;
+        case IICETransportTypes::State_Checking:      return adapter::RTCIceConnectionState::Checking;
+        case IICETransportTypes::State_Connected:     return adapter::RTCIceConnectionState::Connected;
+        case IICETransportTypes::State_Completed:     return adapter::RTCIceConnectionState::Completed;
+        case IICETransportTypes::State_Failed:        return adapter::RTCIceConnectionState::Failed;
+        case IICETransportTypes::State_Disconnected:  return adapter::RTCIceConnectionState::Disconnected;
+        }
+        throw ref new Platform::NotImplementedException();
+      }
+
+      IPeerConnectionTypes::PeerConnectionStates Helper::Convert(adapter::RTCPeerConnectionState state)
+      {
+        switch (state)
+        {
+        case adapter::RTCPeerConnectionState::New:          return IPeerConnectionTypes::PeerConnectionState_New;
+        case adapter::RTCPeerConnectionState::Connecting:   return IPeerConnectionTypes::PeerConnectionState_Connecting;
+        case adapter::RTCPeerConnectionState::Connected:    return IPeerConnectionTypes::PeerConnectionState_Connected;
+        case adapter::RTCPeerConnectionState::Disconnected: return IPeerConnectionTypes::PeerConnectionState_Disconnected;
+        case adapter::RTCPeerConnectionState::Failed:       return IPeerConnectionTypes::PeerConnectionState_Failed;
+        }
+        throw ref new Platform::NotImplementedException();
+      }
+      adapter::RTCPeerConnectionState Helper::Convert(IPeerConnectionTypes::PeerConnectionStates state)
+      {
+        switch (state)
+        {
+        case IPeerConnectionTypes::PeerConnectionState_New:          return adapter::RTCPeerConnectionState::New;
+        case IPeerConnectionTypes::PeerConnectionState_Connecting:   return adapter::RTCPeerConnectionState::Connecting;
+        case IPeerConnectionTypes::PeerConnectionState_Connected:    return adapter::RTCPeerConnectionState::Connected;
+        case IPeerConnectionTypes::PeerConnectionState_Disconnected: return adapter::RTCPeerConnectionState::Disconnected;
+        case IPeerConnectionTypes::PeerConnectionState_Failed:       return adapter::RTCPeerConnectionState::Failed;
         }
         throw ref new Platform::NotImplementedException();
       }

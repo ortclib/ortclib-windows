@@ -72,6 +72,18 @@ namespace org
       IMediaStreamTrackTypes::SettingsPtr FromCx(MediaTrackSettings^ input);
     }
 
+    namespace adapter
+    {
+      ref class MediaStream;
+      ref class RTCPeerConnection;
+
+      namespace internal
+      {
+        ZS_DECLARE_CLASS_PTR(RTCPeerConnectionDelegate);
+        ZS_DECLARE_CLASS_PTR(MediaStreamDelegate)
+      } // namespace internal
+    } // namespace adpater
+
     /// <summary>
     /// The kind attribute must represent either an audio or video track.
     /// </summary>
@@ -436,7 +448,11 @@ namespace org
     private:
       friend class internal::MediaStreamTrackDelegate;
       friend class internal::MediaStreamTrackPromiseObserver;
+      friend class adapter::internal::RTCPeerConnectionDelegate;
+      friend class adapter::internal::MediaStreamDelegate;
       friend class WebRtcMediaStream;
+      friend ref class adapter::MediaStream;
+      friend ref class adapter::RTCPeerConnection;
       friend ref class RTMediaStreamSource;
       friend ref class RTCRtpReceiver;
       friend ref class RTCRtpSender;

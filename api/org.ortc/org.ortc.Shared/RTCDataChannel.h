@@ -30,6 +30,16 @@ namespace org
       IDataChannelTypes::ParametersPtr FromCx(RTCDataChannelParameters^ input);
     }
 
+    namespace adapter
+    {
+      ref class RTCPeerConnection;
+
+      namespace internal
+      {
+        ZS_DECLARE_CLASS_PTR(RTCPeerConnectionDelegate);
+      } // namespace internal
+    } // namespace adapter
+
     /// <summary>
     /// An RTCDataChannel can be configured to operate in different
     /// reliability modes. A reliable channel ensures that the data is
@@ -207,6 +217,8 @@ namespace org
     {
       friend class internal::RTCDataChannelDelegate;
       friend class internal::RTCSctpTransportDelegate;
+      friend ref class adapter::RTCPeerConnection;
+      friend class adapter::internal::RTCPeerConnectionDelegate;      
 
     private:
       RTCDataChannel(IDataChannelPtr nativePointer);

@@ -29,6 +29,15 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Error.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCDtmfSender.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCSrtpSdesTransport.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)adapter\RTCPeerConnection.h">
+      <Filter>adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)adapter\RTCSessionDescription.h">
+      <Filter>adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)adapter\MediaStream.h">
+      <Filter>adapter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)pch.cpp">
@@ -61,5 +70,19 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Error.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCDtmfSender.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCSrtpSdesTransport.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)adapter\RTCPeerConnection.cpp">
+      <Filter>adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)adapter\RTCSessionDescription.cpp">
+      <Filter>adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)adapter\MediaStream.cpp">
+      <Filter>adapter</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="adapter">
+      <UniqueIdentifier>{0d0b2ba3-4fe3-44d1-8ac1-b18379ac403f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

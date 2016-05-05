@@ -32,6 +32,11 @@ namespace org
       ZS_DECLARE_CLASS_PTR(RTCRtpSenderPromiseObserver)
     } // namespace internal
 
+    namespace adapter
+    {
+      ref class RTCPeerConnection;
+    } // namespace adapter
+
     /// <summary>
     /// This object is fired if an SSRC conflict is detected within the RTP
     /// session or an SSRC misconfiguration is detected after Send() or
@@ -62,7 +67,8 @@ namespace org
     public ref class RTCRtpSender sealed
     {
       friend class internal::RTCRtpSenderDelegate;
-      friend RTCDtmfSender;
+      friend ref class RTCDtmfSender;
+      friend ref class adapter::RTCPeerConnection;
 
     private:
       RTCRtpSender(IRTPSenderPtr sender);

@@ -88,7 +88,8 @@ namespace org
     /// <summary>
     /// The RTCIceCandidateType includes the type of the ICE candidate.
     /// </summary>
-    public enum class RTCIceCandidateType {
+    public enum class RTCIceCandidateType
+    {
       /// <summary>
       /// A host candidate, defined in [RFC5245] Section 3.
       /// </summary>
@@ -111,7 +112,8 @@ namespace org
     /// The RTCIceTcpCandidateType includes the type of the ICE TCP candidate,
     /// as described in [RFC6544]. 
     /// </summary>
-    public enum class RTCIceTcpCandidateType {
+    public enum class RTCIceTcpCandidateType
+    {
       /// <summary>
       /// An active TCP candidate is one for which the transport will attempt
       /// to open an outbound connection but will not receive incoming
@@ -137,17 +139,17 @@ namespace org
     public ref struct RTCIceCandidate sealed
     {
       /// <summary>
-      /// The type of interface this candidate was gathered from.
+      /// Gets or sets the type of interface this candidate was gathered from.
       /// </summary>
       property Platform::String^            InterfaceType;
       /// <summary>
-      /// A unique identifier that allows ICE to correlate candidates that
-      /// appear on multiple RTCIceTransports.
+      /// Gets or sets a unique identifier that allows ICE to correlate
+      /// candidates that appear on multiple RTCIceTransports.
       /// </summary>
       property Platform::String^            Foundation;
       /// <summary>
-      /// The assigned usage priority of the candidate. This priority
-      /// represents the priority to choose this candidate over other
+      /// Gets or sets the assigned usage priority of the candidate. This
+      /// priority represents the priority to choose this candidate over other
       /// candidates as described in [RFC5245]. If
       /// RTCIceParameters.UseUnfreezePriority is false then this priority
       /// also represents the priority in which to unfreeze ICE candidates.
@@ -155,48 +157,50 @@ namespace org
       /// </summary>
       property uint32                       Priority;
       /// <summary>
-      /// If RTCIceParameters.UseUnfreezePriority is true then this priority
-      /// is used to determine the unfreezing search order in which to check
-      /// ICE candidates. The higher priority candidates will be searched
-      /// as posssible pairings before lower priority candidates.
-      /// This is a useful option as setting up a connection via a relay
-      /// may be faster than exhaustively searching for the most optimal
-      /// candidate pairing which is determined by standard Priority.
+      /// Gets or sets the unfreeze priority. If
+      /// RTCIceParameters.UseUnfreezePriority is true then this priority is
+      /// used to determine the unfreezing search order in which to check ICE
+      /// candidates. The higher priority candidates will be searched as
+      /// posssible pairings before lower priority candidates. This is a
+      /// useful option as setting up a connection via a relay may be faster
+      /// than exhaustively searching for the most optimal candidate pairing
+      /// which is determined by standard Priority.
       /// </summary>
       /// <see cref="RTCIceParameters" />
       property uint32                       UnfreezePriority;
       /// <summary>
-      /// The protocol of the candidate (UDP/TCP).
+      /// Gets or sets the protocol of the candidate (UDP/TCP).
       /// </summary>
       property RTCIceProtocol               Protocol;
       /// <summary>
-      /// The IP address of the candidate.
+      /// Gets or sets the IP address of the candidate.
       /// </summary>
       property Platform::String^            Ip;
       /// <summary>
-      /// The port for the candidate.
+      /// Gets or sets the port for the candidate.
       /// </summary>
       property uint16                       Port;
       /// <summary>
-      /// The type of candidate.
+      /// Gets or sets the type of candidate.
       /// </summary>
       property RTCIceCandidateType          CandidateType;
       /// <summary>
-      /// The type of TCP candidate.
+      /// Gets or sets the type of TCP candidate.
       /// </summary>
       property RTCIceTcpCandidateType       TcpType;
       /// <summary>
-      /// For candidates that are derived from others, such as relay or
-      /// reflexive candidates, the relatedAddress refers to the candidate
-      /// that these are derived from. For host candidates, the RelatedAddress
-      /// is set to the empty string.
+      /// Gets or sets the related address if not a host candidate type. For
+      /// candidates that are derived from others, such as relay or reflexive
+      /// candidates, the relatedAddress refers to the candidate that these
+      /// are derived from. For host candidates, the RelatedAddress is set to
+      /// the empty string.
       /// </summary>
       property Platform::String^            RelatedAddress;
       /// <summary>
-      /// For candidates that are derived from others, such as relay or
-      /// reflexive candidates, the relatedPort refers to the host candidate
-      /// that these are derived from. For host candidates, the RelatedPort is
-      /// null.
+      /// Gets or sets the related port if not a host candidate type. For
+      /// candidates that are derived from others, such as relay or reflexive
+      /// candidates, the relatedPort refers to the host candidate that these
+      /// are derived from. For host candidates, the RelatedPort is null.
       /// </summary>
       property uint16                       RelatedPort;
 
@@ -210,6 +214,20 @@ namespace org
       /// RTCIceCandidate object.
       /// </summary>
       static RTCIceCandidate^ FromJsonString(Platform::String^ jsonString);
+
+      /// <summary>
+      /// Constructs an instance of an RTCIceCandidate object.
+      /// </summary>
+      RTCIceCandidate()
+      {
+        Priority = 0;
+        UnfreezePriority = 0;
+        Protocol = RTCIceProtocol::Udp;
+        CandidateType = RTCIceCandidateType::Host;
+        TcpType = RTCIceTcpCandidateType::Passive;
+        Port = 0;
+        RelatedPort = 0;
+      }
     };
 
     /// <summary>

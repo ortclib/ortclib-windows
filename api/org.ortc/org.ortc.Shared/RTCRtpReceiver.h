@@ -9,8 +9,9 @@ namespace org
 {
   namespace ortc
   {
-    ZS_DECLARE_TYPEDEF_PTR(::ortc::IRTPReceiverDelegate, IRTPReceiverDelegate)
-    ZS_DECLARE_TYPEDEF_PTR(::ortc::IRTPReceiver, IRTPReceiver)
+    ZS_DECLARE_TYPEDEF_PTR(::ortc::IRTPReceiverDelegate, IRTPReceiverDelegate);
+    ZS_DECLARE_TYPEDEF_PTR(::ortc::IRTPReceiver, IRTPReceiver);
+    ZS_DECLARE_TYPEDEF_PTR(::ortc::IRTPReceiverSubscription, IRTPReceiverSubscription);
 
     using Windows::Foundation::Collections::IVector;
 
@@ -27,9 +28,19 @@ namespace org
 
     namespace internal
     {
-      ZS_DECLARE_CLASS_PTR(RTCRtpReceiverDelegate)
-      ZS_DECLARE_CLASS_PTR(RTCRtpReceiverPromiseObserver)
-    }
+      ZS_DECLARE_CLASS_PTR(RTCRtpReceiverDelegate);
+      ZS_DECLARE_CLASS_PTR(RTCRtpReceiverPromiseObserver);
+    } // namespace internal
+
+    namespace adapter
+    {
+      ref class RTCPeerConnection;
+
+      namespace internal
+      {
+        ZS_DECLARE_CLASS_PTR(RTCPeerConnectionDelegate);
+      } // namespace internal
+    } // namespace adpater
 
     /// <summary>
     /// The RTCRtpContributingSource object contains information about a
@@ -107,6 +118,14 @@ namespace org
     public ref class RTCRtpReceiver sealed
     {
       friend class internal::RTCRtpReceiverDelegate;
+      friend class adapter::internal::RTCPeerConnectionDelegate;
+      friend ref class adapter::RTCPeerConnection;
+
+    private:
+      RTCRtpReceiver(IRTPReceiverPtr receiver);
+
+      static RTCRtpReceiver^ Convert(IRTPReceiverPtr receiver) { if (!receiver) return nullptr; return ref new RTCRtpReceiver(receiver); }
+      static IRTPReceiverPtr Convert(RTCRtpReceiver^ receiver) { if (!receiver) return nullptr; return receiver->_nativePointer; }
 
     public:
       /// <summary>
@@ -253,6 +272,7 @@ namespace org
     private:
       IRTPReceiverPtr _nativePointer;
       internal::RTCRtpReceiverDelegatePtr _nativeDelegatePointer;
+      IRTPReceiverSubscriptionPtr _nativeSubscriptionPointer;
     };
   }
 }

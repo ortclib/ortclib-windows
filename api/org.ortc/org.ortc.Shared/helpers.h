@@ -10,6 +10,8 @@
 #include <ortc/IMediaDevices.h>
 #include <ortc/IRTPTypes.h>
 #include <ortc/ISCTPTransport.h>
+#include <ortc/adapter/ISessionDescription.h>
+#include <ortc/adapter/IPeerConnection.h>
 
 #include <zsLib/types.h>
 
@@ -44,6 +46,19 @@ namespace org
     ref class RTCIceTransport;
     ref class RTCSctpTransport;
 
+    namespace adapter
+    {
+      enum class RTCSessionDescriptionMediaType;
+      enum class RTCSessionDescriptionSignalingType;
+      enum class RTCSessionDescriptionMediaDirection;
+      enum class RTCBundlePolicy;
+      enum class RTCRtcpMuxPolicy;
+      enum class RTCIceGatheringState;
+      enum class RTCIceConnectionState;
+      enum class RTCPeerConnectionState;
+      enum class RTCSignalingState;
+    }
+
     namespace internal
     {
       using zsLib::Optional;
@@ -59,6 +74,9 @@ namespace org
         typedef ::ortc::IMediaStreamTrackTypes IMediaStreamTrackTypes;
         typedef ::ortc::IRTPTypes IRTPTypes;
         typedef ::ortc::ISCTPTransportTypes ISCTPTransportTypes;
+        typedef ::ortc::adapter::ISessionDescriptionTypes ISessionDescriptionTypes;
+        typedef ::ortc::adapter::ISessionDescription ISessionDescription;
+        typedef ::ortc::adapter::IPeerConnectionTypes IPeerConnectionTypes;
 
       public:
         static bool IsNullOrEmpty(Platform::String ^input);
@@ -162,8 +180,38 @@ namespace org
         // Logger convertors
         static zsLib::Log::Level Convert(Log::Level level);
         static const char *ToComponent(Log::Component  component);
+
+        // SessionDescription convertors
+        static ISessionDescriptionTypes::SignalingTypes Convert(adapter::RTCSessionDescriptionSignalingType type);
+        static adapter::RTCSessionDescriptionSignalingType Convert(ISessionDescriptionTypes::SignalingTypes type);
+
+        static ISessionDescriptionTypes::MediaTypes Convert(adapter::RTCSessionDescriptionMediaType type);
+        static adapter::RTCSessionDescriptionMediaType Convert(ISessionDescriptionTypes::MediaTypes type);
+
+        static ISessionDescriptionTypes::MediaDirections Convert(adapter::RTCSessionDescriptionMediaDirection type);
+        static adapter::RTCSessionDescriptionMediaDirection Convert(ISessionDescriptionTypes::MediaDirections type);
+
+        // PeerSessionDescriptionManager convertors
+        static IPeerConnectionTypes::BundlePolicies Convert(adapter::RTCBundlePolicy policy);
+        static adapter::RTCBundlePolicy Convert(IPeerConnectionTypes::BundlePolicies policy);
+
+        static IPeerConnectionTypes::RTCPMuxPolicies Convert(adapter::RTCRtcpMuxPolicy policy);
+        static adapter::RTCRtcpMuxPolicy Convert(IPeerConnectionTypes::RTCPMuxPolicies policy);
+
+        static IPeerConnectionTypes::SignalingStates Convert(adapter::RTCSignalingState state);
+        static adapter::RTCSignalingState Convert(IPeerConnectionTypes::SignalingStates state);
+
+        static IPeerConnectionTypes::ICEGatheringStates Convert(adapter::RTCIceGatheringState state);
+        static adapter::RTCIceGatheringState ConvertToGatheringState(IPeerConnectionTypes::ICEGatheringStates state);
+
+        static IPeerConnectionTypes::ICEConnectionStates Convert(adapter::RTCIceConnectionState state);
+        static adapter::RTCIceConnectionState ConvertToConnectionState(IPeerConnectionTypes::ICEConnectionStates state);
+
+        static IPeerConnectionTypes::PeerConnectionStates Convert(adapter::RTCPeerConnectionState state);
+        static adapter::RTCPeerConnectionState Convert(IPeerConnectionTypes::PeerConnectionStates state);
       };
 
     } // namespace internal
+
   } // namespace ortc
 } // namespace org

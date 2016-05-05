@@ -211,32 +211,32 @@ namespace org
       class MediaStreamTrackDelegate : public IMediaStreamTrackDelegate
       {
       public:
-        MediaStreamTrackDelegate(MediaStreamTrack^ owner) { _track = owner; }
+        MediaStreamTrackDelegate(MediaStreamTrack^ owner) { _owner = owner; }
 
         virtual void onMediaStreamTrackMute(
                                             IMediaStreamTrackPtr track,
                                             bool isMuted
                                             ) override
         {
-          if (!_track) return;
+          if (!_owner) return;
           if (isMuted)
           {
-            _track->OnMute();
+            _owner->OnMute();
           }
           else
           {
-            _track->OnUnmuted();
+            _owner->OnUnmuted();
           }
         }
 
         virtual void onMediaStreamTrackEnded(IMediaStreamTrackPtr track) override
         {
-          if (!_track) return;
+          if (!_owner) return;
 
           Error^ error = ref new Error;
           error->Name = "Ended";
           ErrorEvent^ evt = ref new ErrorEvent(error);
-          _track->OnEnded(evt);
+          _owner->OnEnded(evt);
         }
 
         virtual void onMediaStreamTrackOverConstrained(
@@ -244,16 +244,16 @@ namespace org
                                                        IMediaStreamTrackTypes::OverconstrainedErrorPtr inError
                                                        ) override
         {
-          if (!_track) return;
+          if (!_owner) return;
 
           auto error = org::ortc::OverconstrainedError::CreateIfOverconstrainedError(inError);
           OverconstrainedErrorEvent ^evt = ref new OverconstrainedErrorEvent(error);
 
-          _track->OnOverconstrained(evt);
+          _owner->OnOverconstrained(evt);
         }
 
       private:
-        MediaStreamTrack^ _track;
+        MediaStreamTrack^ _owner;
       };
 
 #pragma endregion
@@ -442,24 +442,15 @@ namespace org
 
     IAsyncAction^ MediaStreamTrack::ApplyConstraints(MediaTrackConstraints^ constraints)
     {
-      ORG_ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == constraints)
-      ORG_ORTC_THROW_INVALID_STATE_IF(nullptr == _nativePointer)
+      ORG_ORTC_THROW_INVALID_PARAMETERS_IF(!constraints);
+      ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer);
 
-      IAsyncAction^ ret = Concurrency::create_async([this, constraints]()
+      auto promise = _nativePointer->applyConstraints(*internal::FromCx(constraints));
+
+      IAsyncAction^ ret = Concurrency::create_async([promise, constraints]()
       {
         Concurrency::task_completion_event<void> tce;
 
-        if (!_nativePointer)
-        {
-          Error ^error = nullptr;
-          tce.set_exception(error);
-
-          auto tceTask = Concurrency::task<void>(tce);
-
-          return tceTask.get();
-        }
-
-        PromisePtr promise = _nativePointer->applyConstraints(*internal::FromCx(constraints));
         internal::MediaStreamTrackConstraintsPromiseObserverPtr pDelegate(make_shared<internal::MediaStreamTrackConstraintsPromiseObserver>(tce));
 
         promise->then(pDelegate);

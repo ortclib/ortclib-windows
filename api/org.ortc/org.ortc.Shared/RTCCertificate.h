@@ -24,6 +24,14 @@ namespace org
       ZS_DECLARE_CLASS_PTR(RTCGenerateCertificatePromiseObserver)
     } // namespace internal
 
+    namespace adapter
+    {
+      namespace internal
+      {
+        class RTCPeerConnectionHelper;
+      } // namespace internal
+    } // namespace adapter
+
     /// <summary>
     /// The RTCCertificate interface enables the certificates used by an
     /// RTCDtlsTransport in its constructor. 
@@ -32,12 +40,13 @@ namespace org
     {
     private:
       friend class internal::RTCGenerateCertificatePromiseObserver;
+      friend class adapter::internal::RTCPeerConnectionHelper;
       friend ref class RTCDtlsTransport;
 
     private:
       RTCCertificate(ICertificatePtr certificate);
 
-      static RTCCertificate^ Convert(ICertificatePtr certificate);
+      static RTCCertificate^ Convert(ICertificatePtr certificate) { if (!certificate) return nullptr; return ref new RTCCertificate(certificate); }
       static ICertificatePtr Convert(RTCCertificate^ certificate) { if (!certificate) return nullptr; return certificate->_nativePointer; }
 
     public:

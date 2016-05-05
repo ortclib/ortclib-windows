@@ -54,18 +54,13 @@ namespace org
     {
     }
 
-    RTCCertificate^ RTCCertificate::Convert(ICertificatePtr certificate)
-    {
-      if (!certificate) return nullptr;
-      return ref new RTCCertificate(certificate);
-    }
-
     IAsyncOperation<RTCCertificate^>^ RTCCertificate::GenerateCertificate() {
 
-      return Concurrency::create_async([]() -> RTCCertificate^ {
+      auto promise = ICertificate::generateCertificate();
+
+      return Concurrency::create_async([promise]() -> RTCCertificate^ {
         Concurrency::task_completion_event<RTCCertificate^> tce;
 
-        ICertificate::PromiseWithCertificatePtr promise = ICertificate::generateCertificate();
         auto pDelegate(make_shared<internal::RTCGenerateCertificatePromiseObserver>(tce));
 
         promise->then(pDelegate);
@@ -78,10 +73,11 @@ namespace org
 
     IAsyncOperation<RTCCertificate^>^ RTCCertificate::GenerateCertificate(Platform::String^ algorithmIdentifier) {
 
-      return Concurrency::create_async([algorithmIdentifier]() -> RTCCertificate^ {
+      auto promise = ICertificate::generateCertificate(UseHelper::FromCx(algorithmIdentifier).c_str());
+
+      return Concurrency::create_async([promise]() -> RTCCertificate^ {
         Concurrency::task_completion_event<RTCCertificate^> tce;
 
-        ICertificate::PromiseWithCertificatePtr promise = ICertificate::generateCertificate(UseHelper::FromCx(algorithmIdentifier).c_str());
         auto pDelegate(make_shared<internal::RTCGenerateCertificatePromiseObserver>(tce));
 
         promise->then(pDelegate);

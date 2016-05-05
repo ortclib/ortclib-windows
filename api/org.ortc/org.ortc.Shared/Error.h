@@ -32,6 +32,15 @@ namespace org
       ZS_DECLARE_CLASS_PTR(RTCRtpReceiverPromiseObserver)
     } // namespace internal
 
+    namespace adapter
+    {
+      namespace internal
+      {
+        ZS_DECLARE_CLASS_PTR(RTCPeerConnectionPromiseWithDescriptionObserver);
+        ZS_DECLARE_CLASS_PTR(RTCPeerConnectionPromiseObserver);
+      } // namespace internal
+    } // namespace adapter
+
     /// <summary>
     /// This object represents generic error information.
     /// </summary>
@@ -46,6 +55,8 @@ namespace org
       friend class internal::RTCGenerateCertificatePromiseObserver;
       friend class internal::RTCRtpSenderPromiseObserver;
       friend class internal::RTCRtpReceiverPromiseObserver;
+      friend class adapter::internal::RTCPeerConnectionPromiseWithDescriptionObserver;
+      friend class adapter::internal::RTCPeerConnectionPromiseObserver;
 
       static Error^ CreateIfGeneric(AnyPtr any);
       static Error^ CreateIfGeneric(ErrorAnyPtr error);

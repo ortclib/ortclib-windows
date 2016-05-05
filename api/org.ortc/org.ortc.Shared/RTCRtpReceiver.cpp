@@ -76,6 +76,17 @@ namespace org
 
 #pragma region RTCRtpReceiver
 
+    RTCRtpReceiver::RTCRtpReceiver(IRTPReceiverPtr receiver) :
+      _nativePointer(receiver),
+      _nativeDelegatePointer(make_shared<internal::RTCRtpReceiverDelegate>(this))
+    {
+      if (_nativePointer)
+      {
+        _nativeSubscriptionPointer = _nativePointer->subscribe(_nativeDelegatePointer);
+      }
+
+    }
+
     RTCRtpReceiver::RTCRtpReceiver(MediaStreamTrackKind kind, RTCDtlsTransport^ transport) :
       _nativeDelegatePointer(make_shared<internal::RTCRtpReceiverDelegate>(this))
     {
@@ -257,7 +268,7 @@ namespace org
         ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
       }
 
-      IAsyncAction^ ret = Concurrency::create_async([this, promise]()
+      IAsyncAction^ ret = Concurrency::create_async([promise]()
       {
         Concurrency::task_completion_event<void> tce;
 

@@ -259,7 +259,7 @@ namespace org
         ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
       }
 
-      IAsyncAction^ ret = Concurrency::create_async([this, track, promise]()
+      IAsyncAction^ ret = Concurrency::create_async([promise]()
       {
         Concurrency::task_completion_event<void> tce;
 
@@ -309,7 +309,7 @@ namespace org
         ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
       }
 
-      IAsyncAction^ ret = Concurrency::create_async([this, promise]()
+      IAsyncAction^ ret = Concurrency::create_async([promise]()
       {
         Concurrency::task_completion_event<void> tce;
 

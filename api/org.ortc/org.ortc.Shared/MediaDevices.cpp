@@ -273,11 +273,12 @@ namespace org
 
     IAsyncOperation<IVector<MediaDeviceInfo^>^>^ MediaDevices::EnumerateDevices()
     {
-      IAsyncOperation<IVector<MediaDeviceInfo^>^>^ ret = Concurrency::create_async([]() -> IVector<MediaDeviceInfo^>^
+      auto promise = IMediaDevices::enumerateDevices();
+
+      IAsyncOperation<IVector<MediaDeviceInfo^>^>^ ret = Concurrency::create_async([promise]() -> IVector<MediaDeviceInfo^>^
       {
         Concurrency::task_completion_event<IVector<MediaDeviceInfo^>^> tce;
 
-        IMediaDevicesTypes::PromiseWithDeviceListPtr promise = IMediaDevices::enumerateDevices();
         internal::MediaDevicesPromiseObserverPtr pDelegate(make_shared<internal::MediaDevicesPromiseObserver>(tce));
 
         promise->then(pDelegate);
@@ -292,13 +293,13 @@ namespace org
 
     IAsyncOperation<IVector<MediaStreamTrack^>^>^ MediaDevices::GetUserMedia(MediaStreamConstraints^ constraints)
     {
-      IAsyncOperation<IVector<MediaStreamTrack^>^>^ ret = Concurrency::create_async([constraints]() -> IVector<MediaStreamTrack^>^
+      ORG_ORTC_THROW_INVALID_PARAMETERS_IF(!constraints)
+      auto promise = IMediaDevices::getUserMedia(*(internal::FromCx(constraints).get()));
+
+      IAsyncOperation<IVector<MediaStreamTrack^>^>^ ret = Concurrency::create_async([promise]() -> IVector<MediaStreamTrack^>^
       {
         Concurrency::task_completion_event<IVector<MediaStreamTrack^>^> tce;
 
-        assert(nullptr != constraints);
-
-        IMediaDevicesTypes::PromiseWithMediaStreamTrackListPtr promise = IMediaDevices::getUserMedia(*(internal::FromCx(constraints).get()));
         internal::MediaStreamTrackPromiseObserverPtr pDelegate(make_shared<internal::MediaStreamTrackPromiseObserver>(tce));
 
         promise->then(pDelegate);

@@ -1,10 +1,7 @@
 
 #pragma once
-//#include <collection.h>
+
 #include <ortc\IRTPTypes.h>
-//
-//
-//using namespace ortc;
 
 namespace org
 {
