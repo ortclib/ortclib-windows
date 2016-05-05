@@ -428,7 +428,6 @@ namespace org
         return ret;
       }
 
-
       IAsyncOperation<RTCSessionDescription^>^ RTCPeerConnection::CreateCapabilities()
       {
         ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer);

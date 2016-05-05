@@ -289,7 +289,7 @@ namespace org
       ///    },
       ///    ...
       ///  },
-      ///}
+      /// }
       /// </code>
       /// </example>
       public ref struct RTCSessionDescriptionDescription sealed

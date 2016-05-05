@@ -861,9 +861,15 @@ namespace org
           RTCMediaStreamTrackConfiguration^ configuration
           );
 
+        /// <summary>
+        /// Stops sending media from sender. The RTCRtpSender will still
+        /// appear in getSenders
+        /// </summary>
         void                                                RemoveTrack(RTCRtpSender^ track);
 
         /// <summary>
+        /// Creates a new RTCDataChannel object with the given data channel
+        /// parameters.
         /// </summary>
         RTCDataChannel^                                     CreateDataChannel(RTCDataChannelParameters^ parameters);
 
