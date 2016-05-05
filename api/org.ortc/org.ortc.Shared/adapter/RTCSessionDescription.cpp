@@ -279,6 +279,7 @@ namespace org
           }
           result->Protocol = UseHelper::ToCx(input.mProtocol);
           result->ConnectionData = ToCx(input.mConnectionData);
+          result->MediaDirection = UseHelper::Convert(input.mMediaDirection);
           return result;
         }
         RTCSessionDescriptionMediaLineDetails^ ToCx(ISessionDescriptionTypes::MediaLine::DetailsPtr input)
@@ -299,6 +300,7 @@ namespace org
           }
           result->mProtocol = UseHelper::FromCx(input->Protocol);
           result->mConnectionData = FromCx(input->ConnectionData);
+          result->mMediaDirection = UseHelper::Convert(input->MediaDirection);
           return result;
         }
 
@@ -308,7 +310,6 @@ namespace org
           result->Id = UseHelper::ToCx(input.mID);
           result->TransportId = UseHelper::ToCx(input.mTransportID);
           result->MediaType = UseHelper::ToCx(input.mMediaType);
-          result->MediaDirection = UseHelper::Convert(input.mMediaDirection);
           result->Details = ToCx(input.mDetails);
           result->Capabilities = ortc::internal::ToCx(input.mCapabilities);
           return result;
@@ -325,7 +326,6 @@ namespace org
           result->mID = UseHelper::FromCx(input->Id);
           result->mTransportID = UseHelper::FromCx(input->TransportId);
           result->mMediaType = UseHelper::FromCx(input->MediaType);
-          result->mMediaDirection = UseHelper::Convert(input->MediaDirection);
           result->mDetails = FromCx(input->Details);
           result->mCapabilities = ortc::internal::FromCx(input->Capabilities);
           return result;

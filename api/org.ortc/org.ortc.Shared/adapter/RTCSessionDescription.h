@@ -599,6 +599,20 @@ namespace org
         /// [RFC4566] Section 5.7 for RTP and [RFC3605] Section 2.1 for RTCP.
         /// </summary>
         property RTCSessionDescriptionConnectionData^   ConnectionData;
+        /// <summary>
+        /// Gets or sets the media direction flow expectations for the media
+        /// line as described in [RFC4566] Section 6.
+        /// </summary>
+        property RTCSessionDescriptionMediaDirection    MediaDirection;
+
+        /// <summary>
+        /// Constructs and instance of an
+        /// RTCSessionDescriptionMediaLineDetails object.
+        /// </summary>
+        RTCSessionDescriptionMediaLineDetails()
+        {
+          MediaDirection = RTCSessionDescriptionMediaDirection::SendReceive;
+        }
       };
 
       /// <summary>
@@ -676,11 +690,6 @@ namespace org
         /// </summary>
         property Platform::String^                      MediaType;
         /// <summary>
-        /// Gets or sets the media direction flow expectations for the media
-        /// line as described in [RFC4566] Section 6.
-        /// </summary>
-        property RTCSessionDescriptionMediaDirection    MediaDirection;
-        /// <summary>
         /// Gets or sets the details of the media line which are required for
         /// SDP but optional for JSON based signalling. If not usedt his value
         /// must be null.
@@ -697,15 +706,6 @@ namespace org
         /// parameters.
         /// </summary>
         property RTCRtpCapabilities^                    Capabilities;
-
-        /// <summary>
-        /// Constructs and instance of an
-        /// RTCSessionDescriptionMediaLineDetails object.
-        /// </summary>
-        RTCSessionDescriptionRtpMediaLine()
-        {
-          MediaDirection = RTCSessionDescriptionMediaDirection::SendReceive;
-        }
       };
 
       /// <summary>
