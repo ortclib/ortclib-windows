@@ -418,6 +418,18 @@ namespace org
       return internal::ToCx(_nativePointer->getSettings());    
     }
 
+    void MediaStreamTrack::SetH264Rendering(bool h264Rendering)
+    {
+      if (!_nativePointer) return;
+      _nativePointer->setH264Rendering(h264Rendering);
+    }
+
+    bool MediaStreamTrack::IsH264Rendering()
+    {
+      if (!_nativePointer) return false;
+      return _nativePointer->isH264Rendering();
+    }
+
     IMediaSource^ MediaStreamTrack::CreateMediaSource()
     {
       //return globals::RunOnGlobalThread<IMediaSource^>([track, id]() -> IMediaSource^ {
@@ -438,6 +450,12 @@ namespace org
       IMediaSource^ source = reinterpret_cast<IMediaSource^>(comSource.Get());
       return source;
 #endif
+    }
+
+    void MediaStreamTrack::SetVideoRenderCallback(Platform::IntPtr callback)
+    {
+      if (!_nativePointer) return;
+      _nativePointer->setVideoRenderCallback((void *)callback);
     }
 
     IAsyncAction^ MediaStreamTrack::ApplyConstraints(MediaTrackConstraints^ constraints)

@@ -463,7 +463,7 @@ namespace org
       static MediaStreamTrack^ Convert(IMediaStreamTrackPtr track) { if (!track) return nullptr; return ref new MediaStreamTrack(track); }
       static IMediaStreamTrackPtr Convert(MediaStreamTrack^ track) { if (!track) return nullptr; return track->_nativePointer; }
 
-      void SetMediaElement(void* element);
+      void SetVideoRenderCallback(void* callback);
 
     public:
       /// <summary>
@@ -577,10 +577,25 @@ namespace org
       MediaTrackSettings^     GetSettings();
 
       /// <summary>
+      /// Sets the H264 rendering mode. If this mode is used, compressed H264
+      /// samples are sent directly to rendering engine.
+      /// </summary>
+      void SetH264Rendering(bool h264Rendering);
+      /// <summary>
+      /// Returns whether H264 rendering mode is enabled.
+      /// </summary>
+      bool IsH264Rendering();
+
+      /// <summary>
       /// Create a IMediaSource capable of being rendered to an output
       /// window based upon the current track.
       /// </summary>
       IMediaSource^ CreateMediaSource();
+      /// <summary>
+      /// Sets a callback object that is passed as a void pointer and casted
+      /// back to original native pointer type by WebRTC engine.
+      /// </summary>
+      void SetVideoRenderCallback(Platform::IntPtr callback);
 
       /// <summary>
       /// The User Agent may choose new settings for the constrainable
