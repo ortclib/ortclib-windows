@@ -322,10 +322,10 @@ namespace org
       }
     }
 
-    void MediaStreamTrack::SetMediaElement(void* element)
+    void MediaStreamTrack::SetVideoRenderCallback(void* callback)
     {
       if (!_nativePointer) return;
-      _nativePointer->setMediaElement(element);
+      _nativePointer->setVideoRenderCallback(callback);
     }
 
     MediaStreamTrackKind  MediaStreamTrack::Kind::get()
