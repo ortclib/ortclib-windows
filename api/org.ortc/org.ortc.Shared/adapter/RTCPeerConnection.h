@@ -863,7 +863,7 @@ namespace org
 
         /// <summary>
         /// Stops sending media from sender. The RTCRtpSender will still
-        /// appear in getSenders
+        /// appear in GetSenders().
         /// </summary>
         void                                                RemoveTrack(RTCRtpSender^ track);
 

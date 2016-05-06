@@ -696,16 +696,27 @@ namespace org
         /// </summary>
         property RTCSessionDescriptionMediaLineDetails^ Details;
         /// <summary>
-        /// Gets or sets the RTP capabilities described for this media line.
-        /// The usage of each codec is optional within the parameters of a
-        /// sender within the media line but the payload type must not
+        /// Gets or sets the sender RTP capabilities described for this media
+        /// line. The usage of each codec is optional within the parameters of
+        /// a sender within the media line but the payload type must not
         /// be changed within the same media line. The RTP header extension
         /// IDs specified within the capabilies do not need to be used within
         /// the RTP parameters but the mapping between RTP header extension
         /// ID and header extension value must not be changed within the RTP
         /// parameters.
         /// </summary>
-        property RTCRtpCapabilities^                    Capabilities;
+        property RTCRtpCapabilities^                    SenderCapabilities;
+        /// <summary>
+        /// Gets or sets the sender RTP capabilities described for this media
+        /// line. The usage of each codec is optional within the parameters of
+        /// a sender within the media line but the payload type must not
+        /// be changed within the same media line. The RTP header extension
+        /// IDs specified within the capabilies do not need to be used within
+        /// the RTP parameters but the mapping between RTP header extension
+        /// ID and header extension value must not be changed within the RTP
+        /// parameters.
+        /// </summary>
+        property RTCRtpCapabilities^                    ReceiverCapabilities;
       };
 
       /// <summary>

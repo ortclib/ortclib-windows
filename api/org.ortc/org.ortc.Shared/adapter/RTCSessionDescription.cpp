@@ -311,7 +311,8 @@ namespace org
           result->TransportId = UseHelper::ToCx(input.mTransportID);
           result->MediaType = UseHelper::ToCx(input.mMediaType);
           result->Details = ToCx(input.mDetails);
-          result->Capabilities = ortc::internal::ToCx(input.mCapabilities);
+          result->SenderCapabilities = ortc::internal::ToCx(input.mSenderCapabilities);
+          result->ReceiverCapabilities = ortc::internal::ToCx(input.mReceiverCapabilities);
           return result;
         }
         RTCSessionDescriptionRtpMediaLine^ ToCx(ISessionDescriptionTypes::RTPMediaLinePtr input)
@@ -327,7 +328,8 @@ namespace org
           result->mTransportID = UseHelper::FromCx(input->TransportId);
           result->mMediaType = UseHelper::FromCx(input->MediaType);
           result->mDetails = FromCx(input->Details);
-          result->mCapabilities = ortc::internal::FromCx(input->Capabilities);
+          result->mSenderCapabilities = ortc::internal::FromCx(input->SenderCapabilities);
+          result->mReceiverCapabilities = ortc::internal::FromCx(input->ReceiverCapabilities);
           return result;
         }
 
