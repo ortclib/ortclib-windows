@@ -164,7 +164,14 @@ namespace org
       {
         ORG_ORTC_THROW_INVALID_PARAMETERS_IF(!track)
         ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer);
-        _nativePointer->addTrack(MediaStreamTrack::Convert(track));
+        try
+        {
+          _nativePointer->addTrack(MediaStreamTrack::Convert(track));
+        }
+        catch (const InvalidParameters &)
+        {
+          ORG_ORTC_THROW_INVALID_PARAMETERS()
+        }
       }
 
       void MediaStream::RemoveTrack(MediaStreamTrack^ track)
