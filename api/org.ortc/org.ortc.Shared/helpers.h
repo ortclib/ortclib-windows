@@ -13,6 +13,7 @@
 #include <ortc/adapter/ISessionDescription.h>
 #include <ortc/adapter/IPeerConnection.h>
 
+#include <zsLib/XML.h>
 #include <zsLib/types.h>
 
 namespace org
@@ -65,6 +66,8 @@ namespace org
 
       class Helper
       {
+        ZS_DECLARE_TYPEDEF_PTR(zsLib::XML::Element, Element);
+
         typedef ::ortc::IDataChannelTypes IDataChannelTypes;
         typedef ::ortc::IDTLSTransportTypes IDTLSTransportTypes;
         typedef ::ortc::IICETypes IICETypes;
@@ -113,6 +116,10 @@ namespace org
 
         static Windows::Foundation::DateTime ToCx(const zsLib::Time &value);
         static zsLib::Time FromCx(Windows::Foundation::DateTime value);
+
+        // JSON converters
+        static Platform::String^ ToCx(ElementPtr rootEl);
+        static ElementPtr FromJsonCx(Platform::String^ rootObject);
 
         // RTCIceGatherer convertors
         static IICEGathererTypes::FilterPolicies Convert(RTCIceGatherFilterPolicy policy);

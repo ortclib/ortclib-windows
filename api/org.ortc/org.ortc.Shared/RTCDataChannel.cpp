@@ -265,12 +265,12 @@ namespace org
     Platform::String^ RTCDataChannelParameters::ToJsonString()
     {
       auto params = internal::FromCx(this);
-      return UseHelper::ToCx(openpeer::services::IHelper::toString(params->createElement("DataChannelParameters")));
+      return UseHelper::ToCx(params->createElement("DataChannelParameters"));
     }
 
     RTCDataChannelParameters^ RTCDataChannelParameters::FromJsonString(Platform::String^ jsonString)
     {
-      auto params = make_shared<IDataChannel::Parameters>(IDataChannel::Parameters::Parameters(openpeer::services::IHelper::toJSON(UseHelper::FromCx(jsonString).c_str())));
+      auto params = make_shared<IDataChannel::Parameters>(IDataChannel::Parameters::Parameters(UseHelper::FromJsonCx(jsonString)));
       return internal::ToCx(params);
     }
 

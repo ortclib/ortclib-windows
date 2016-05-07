@@ -14,6 +14,8 @@
 
 #include "webrtc/base/win32.h"
 
+#include <openpeer/services/IHelper.h>
+
 #include <zsLib/date.h>
 #include <zsLib/SafeInt.h>
 
@@ -35,6 +37,8 @@ namespace org
     using zsLib::ULONG;
     using zsLib::LONGLONG;
     using zsLib::ULONGLONG;
+
+    ZS_DECLARE_TYPEDEF_PTR(openpeer::services::IHelper, UseServicesHelper);
 
     namespace internal
     {
@@ -215,6 +219,18 @@ namespace org
         auto result = t + nano;
 
         return zsLib::timeSinceEpoch(result);
+      }
+
+      Platform::String^ Helper::ToCx(ElementPtr rootEl)
+      {
+        if (!rootEl) return nullptr;
+        return ToCx(UseServicesHelper::toString(rootEl));
+      }
+
+      ElementPtr Helper::FromJsonCx(Platform::String^ rootStr)
+      {
+        if (!rootStr) return nullptr;
+        return UseServicesHelper::toJSON(FromCx(rootStr->ToString()).c_str());
       }
 
 #pragma endregion

@@ -16,6 +16,8 @@ namespace org
     ref struct RTCSctpCapabilities;
     ref struct RTCDtlsParameters;
     ref struct RTCSrtpSdesParameters;
+    ref struct RTCIceCandidate;
+    ref struct RTCIceCandidateComplete;
 
     namespace adapter
     {
@@ -93,13 +95,13 @@ namespace org
         RTCSessionDescriptionRtpSenderDetails^ ToCx(ISessionDescriptionTypes::RTPSender::DetailsPtr input);
         ISessionDescriptionTypes::RTPSender::DetailsPtr FromCx(RTCSessionDescriptionRtpSenderDetails^ input);
 
-        RTCIceCandidate^ ToIceCandidateCx(const ISessionDescriptionTypes::ICECandidate &input);
-        RTCIceCandidate^ ToIceCandidateCx(ISessionDescriptionTypes::ICECandidatePtr input);
-        ISessionDescriptionTypes::ICECandidatePtr FromCx(RTCIceCandidate^ input);
+        adapter::RTCIceCandidate^ ToIceCandidateCx(const ISessionDescriptionTypes::ICECandidate &input);
+        adapter::RTCIceCandidate^ ToIceCandidateCx(ISessionDescriptionTypes::ICECandidatePtr input);
+        ISessionDescriptionTypes::ICECandidatePtr FromCx(adapter::RTCIceCandidate^ input);
 
-        RTCIceCandidateComplete^ ToIceCandidateCompleteCx(const ISessionDescriptionTypes::ICECandidate &input);
-        RTCIceCandidateComplete^ ToIceCandidateCompleteCx(ISessionDescriptionTypes::ICECandidatePtr input);
-        ISessionDescriptionTypes::ICECandidatePtr FromCx(RTCIceCandidateComplete^ input);
+        adapter::RTCIceCandidateComplete^ ToIceCandidateCompleteCx(const ISessionDescriptionTypes::ICECandidate &input);
+        adapter::RTCIceCandidateComplete^ ToIceCandidateCompleteCx(ISessionDescriptionTypes::ICECandidatePtr input);
+        ISessionDescriptionTypes::ICECandidatePtr FromCx(adapter::RTCIceCandidateComplete^ input);
       }
 
       /// <summary>
@@ -205,9 +207,10 @@ namespace org
       public enum class RTCSessionDescriptionMediaDirection
       {
         /// <summary>
-        /// As defined in [RFC4566], media should be started in inactive mode.
+        /// As defined in [RFC4566], media should be started in send and
+        /// receive mode.
         /// </summary>
-        Inactive,
+        SendReceive,
         /// <summary>
         /// As defined in [RFC4566], media should be started in send-only mode.
         /// </summary>
@@ -218,10 +221,9 @@ namespace org
         /// </summary>
         ReceiveOnly,
         /// <summary>
-        /// As defined in [RFC4566], media should be started in send and
-        /// receive mode.
+        /// As defined in [RFC4566], media should be started in inactive mode.
         /// </summary>
-        SendReceive
+        Inactive
       };
 
       /// <summary>
@@ -554,7 +556,7 @@ namespace org
         /// <summary>
         /// Gets or sets the list of ICE candidates as described in [RFC5245].
         /// </summary>
-        property IVector<RTCIceCandidate^>^             IceCandidates;
+        property IVector<ortc::RTCIceCandidate^>^       IceCandidates;
         /// <summary>
         /// Gets or sets if the end-of-candidates flag as described in
         /// [draft-ietf-ice-trickle] Section 10.
@@ -846,7 +848,7 @@ namespace org
         ///        PI39StLS8W7ZbQl1sJsWUXkr3Zf12fJUvzQ1v0
         /// </code>
         /// </example>
-        property IVector<Platform::String^>^            MediaStreams;
+        property IVector<Platform::String^>^            MediaStreamIds;
       };
 
       /// <summary>

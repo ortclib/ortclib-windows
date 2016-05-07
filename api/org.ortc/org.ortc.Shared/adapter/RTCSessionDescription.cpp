@@ -225,7 +225,7 @@ namespace org
           result->IceParameters = ortc::internal::ToCx(input.mICEParameters);
           result->DtlsParameters = ortc::internal::ToCx(input.mDTLSParameters);
           result->SrtpSdesParameters = ortc::internal::ToCx(input.mSRTPSDESParameters);
-          result->IceCandidates = ref new Vector<RTCIceCandidate^>();
+          result->IceCandidates = ref new Vector<ortc::RTCIceCandidate^>();
           result->EndOfCandidates = input.mEndOfCandidates;
           for (auto iter = input.mICECandidates.begin(); iter != input.mICECandidates.end(); ++iter)
           {
@@ -233,13 +233,13 @@ namespace org
             if (nullptr == value) continue;
 
             {
-              auto converted = ZS_DYNAMIC_PTR_CAST(IICETypes::Candidate, value->mCandidate);
+              auto converted = ZS_DYNAMIC_PTR_CAST(IICETypes::Candidate, value);
               if (converted) {
-                result->IceCandidates->Append(ToIceCandidateCx(value));
+                result->IceCandidates->Append(org::ortc::internal::ToCx(value));
                 continue;
               }
               {
-                auto converted = ZS_DYNAMIC_PTR_CAST(IICETypes::CandidateComplete, value->mCandidate);
+                auto converted = ZS_DYNAMIC_PTR_CAST(IICETypes::CandidateComplete, value);
                 if (converted) {
                   result->EndOfCandidates = true;
                   continue;
@@ -261,10 +261,10 @@ namespace org
           result->mICEParameters = ortc::internal::FromCx(input->IceParameters);
           result->mDTLSParameters = ortc::internal::FromCx(input->DtlsParameters);
           result->mSRTPSDESParameters = ortc::internal::FromCx(input->SrtpSdesParameters);
-          for (RTCIceCandidate^ value : input->IceCandidates)
+          for (ortc::RTCIceCandidate^ value : input->IceCandidates)
           {
             if (nullptr == value) continue;
-            result->mICECandidates.push_back(FromCx(value));
+            result->mICECandidates.push_back(org::ortc::internal::FromCx(value));
           }
           result->mEndOfCandidates = input->EndOfCandidates;
           return result;
@@ -370,13 +370,13 @@ namespace org
           result->Id = UseHelper::ToCx(input.mID);
           result->RtpMediaLineId = UseHelper::ToCx(input.mRTPMediaLineID);
           result->Parameters = ortc::internal::ToCx(input.mParameters);
-          result->MediaStreams = ref new Vector<Platform::String^>();
+          result->MediaStreamIds = ref new Vector<Platform::String^>();
 
-          for (auto iter = input.mMediaStreams.begin(); iter != input.mMediaStreams.end(); ++iter)
+          for (auto iter = input.mMediaStreamIDs.begin(); iter != input.mMediaStreamIDs.end(); ++iter)
           {
             auto &value = (*iter);
             if (value.isEmpty()) continue;
-            result->MediaStreams->Append(UseHelper::ToCx(value));
+            result->MediaStreamIds->Append(UseHelper::ToCx(value));
           }
 
           return result;
@@ -395,10 +395,10 @@ namespace org
           result->mDetails = FromCx(input->Details);
           result->mParameters = ortc::internal::FromCx(input->Parameters);
 
-          for (Platform::String^ value : input->MediaStreams)
+          for (Platform::String^ value : input->MediaStreamIds)
           {
             if (nullptr == value) continue;
-            result->mMediaStreams.insert(UseHelper::FromCx(value));
+            result->mMediaStreamIDs.insert(UseHelper::FromCx(value));
           }
           return result;
         }
@@ -431,13 +431,13 @@ namespace org
           return result;
         }
 
-        RTCIceCandidate^ ToIceCandidateCx(const ISessionDescriptionTypes::ICECandidate &input)
+        adapter::RTCIceCandidate^ ToIceCandidateCx(const ISessionDescriptionTypes::ICECandidate &input)
         {
-          auto result = ref new RTCIceCandidate;
+          auto result = ref new adapter::RTCIceCandidate;
           auto candidate = ZS_DYNAMIC_PTR_CAST(IICETypes::Candidate, input.mCandidate);
           if (NULL == candidate) return nullptr;
 
-          result->Candidate = UseHelper::ToCx(input.toSDP());
+          result->Candidate = UseHelper::ToCx(input.getCandidateSDP());
           result->SdpMid = UseHelper::ToCx(input.mMid);
           if (input.mMLineIndex.hasValue()) {
             auto value = input.mMLineIndex.value();
@@ -457,12 +457,12 @@ namespace org
           result->RelatedPort = SafeInt<decltype(result->RelatedPort)>(candidate->mRelatedPort);
           return result;
         }
-        RTCIceCandidate^ ToIceCandidateCx(ISessionDescriptionTypes::ICECandidatePtr input)
+        adapter::RTCIceCandidate^ ToIceCandidateCx(ISessionDescriptionTypes::ICECandidatePtr input)
         {
           if (!input) return nullptr;
           return ToIceCandidateCx(*input);
         }
-        ISessionDescriptionTypes::ICECandidatePtr FromCx(RTCIceCandidate^ input)
+        ISessionDescriptionTypes::ICECandidatePtr FromCx(adapter::RTCIceCandidate^ input)
         {
           if (nullptr == input) return ISessionDescriptionTypes::ICECandidatePtr();
           auto result(make_shared<ISessionDescriptionTypes::ICECandidate>());
@@ -488,13 +488,13 @@ namespace org
           return result;
         }
 
-        RTCIceCandidateComplete^ ToIceCandidateCompleteCx(const ISessionDescriptionTypes::ICECandidate &input)
+        adapter::RTCIceCandidateComplete^ ToIceCandidateCompleteCx(const ISessionDescriptionTypes::ICECandidate &input)
         {
-          auto result = ref new RTCIceCandidateComplete;
+          auto result = ref new adapter::RTCIceCandidateComplete;
           auto candidate = ZS_DYNAMIC_PTR_CAST(IICETypes::CandidateComplete, input.mCandidate);
           if (NULL == candidate) return nullptr;
 
-          result->Candidate = UseHelper::ToCx(input.toSDP());
+          result->Candidate = UseHelper::ToCx(input.getCandidateSDP());
           result->SdpMid = UseHelper::ToCx(input.mMid);
           if (input.mMLineIndex.hasValue()) {
             auto value = input.mMLineIndex.value();
@@ -504,12 +504,12 @@ namespace org
           result->Complete = candidate->mComplete;
           return result;
         }
-        RTCIceCandidateComplete^ ToIceCandidateCompleteCx(ISessionDescriptionTypes::ICECandidatePtr input)
+        adapter::RTCIceCandidateComplete^ ToIceCandidateCompleteCx(ISessionDescriptionTypes::ICECandidatePtr input)
         {
           if (!input) return nullptr;
           return ToIceCandidateCompleteCx(*input);
         }
-        ISessionDescriptionTypes::ICECandidatePtr FromCx(RTCIceCandidateComplete^ input)
+        ISessionDescriptionTypes::ICECandidatePtr FromCx(adapter::RTCIceCandidateComplete^ input)
         {
           if (nullptr == input) return ISessionDescriptionTypes::ICECandidatePtr();
           auto result(make_shared<ISessionDescriptionTypes::ICECandidate>());
@@ -545,7 +545,7 @@ namespace org
       Platform::String^ RTCIceCandidate::ToSdpString()
       {
         auto nativeCandidate = internal::FromCx(this);
-        return UseHelper::ToCx(nativeCandidate->toSDP());
+        return UseHelper::ToCx(UseServicesHelper::toString(nativeCandidate->toSDP()));
       }
       RTCIceCandidate^ RTCIceCandidate::FromSdpString(Platform::String^ sdpString)
       {
@@ -571,7 +571,7 @@ namespace org
       Platform::String^ RTCIceCandidateComplete::ToSdpString()
       {
         auto nativeCandidate = internal::FromCx(this);
-        return UseHelper::ToCx(nativeCandidate->toSDP());
+        return UseHelper::ToCx(UseServicesHelper::toString(nativeCandidate->toSDP()));
       }
       RTCIceCandidateComplete^ RTCIceCandidateComplete::FromSdpString(Platform::String^ sdpString)
       {
