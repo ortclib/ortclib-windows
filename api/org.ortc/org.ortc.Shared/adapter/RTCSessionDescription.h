@@ -260,13 +260,20 @@ namespace org
       ///            }
       ///          },
       ///          "sdesSrtp": { "parameters": "..." },
-      ///          "candidates": {
-      ///            "candidate": [
+      ///          "iceCandidates": {
+      ///            "iceCandidate": [
       ///              {
       ///                "mid": "a1",
-      ///                "index": "0"
+      ///                "index": "0",
+      ///                "component": "rtp",
+      ///                "candidate": {...}
       ///              },
-      ///              { "complete": "true" }
+      ///              { 
+      ///                "mid": "a1",
+      ///                "index": "0",
+      ///                "component": "rtp",
+      ///                "candidateComplete": { complete: "true" }
+      ///              }
       ///            ]
       ///          }
       ///        },
@@ -827,6 +834,8 @@ namespace org
         /// a=mid:a1
         /// a=rtcp:20000 IN IP4 192.0.2.2
         /// a=msid:PI39StLS8W7ZbQl1sJsWUXkr3Zf12fJUvzQ1
+        ///        PI39StLS8W7ZbQl1sJsWUXkr3Zf12fJUvzQ1a0
+        /// a=msid:fdsafjdksajlfEjalkfjDlskajaflJakfjd1
         ///        PI39StLS8W7ZbQl1sJsWUXkr3Zf12fJUvzQ1a0
         /// ...
         /// m=video 20000 UDP/TLS/RTP/SAVPF 100 101
