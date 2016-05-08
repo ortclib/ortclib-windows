@@ -604,8 +604,8 @@ namespace org
         RTCPeerConnection(RTCConfiguration^ configuration);
 
         /// <summary>
-        /// The createOffer method generates a blob of SDP that contains an
-        /// RFC 3264 offer with the supported configurations for the session,
+        /// The CreateOffer method generates a blob of SDP that contains an
+        /// [RFC3264] offer with the supported configurations for the session,
         /// including descriptions of the local MediaStreamTracks attached to
         /// this RTCPeerConnection, the codec/RTP/RTCP options supported by
         /// this implementation, and any candidates that have been gathered by
@@ -616,16 +616,42 @@ namespace org
         IAsyncOperation<RTCSessionDescription^>^            CreateOffer();
 
         /// <summary>
-        /// The createOffer method generates a blob of SDP that contains an
-        /// RFC 3264 offer with the supported configurations for the session,
+        /// The CreateOffer method generates a blob of SDP that contains an
+        /// [RFC3264] offer with the supported configurations for the session,
         /// including descriptions of the local MediaStreamTracks attached to
         /// this RTCPeerConnection, the codec/RTP/RTCP options supported by
         /// this implementation, and any candidates that have been gathered by
         /// the ICE Agent. The options parameter may be supplied to provide
         /// additional control over the offer generated.
         /// </summary>
-        [Windows::Foundation::Metadata::OverloadAttribute("CreateOfferWithOfferOptions")]
+        [Windows::Foundation::Metadata::OverloadAttribute("CreateOfferWithOptions")]
         IAsyncOperation<RTCSessionDescription^>^            CreateOffer(RTCOfferOptions^ options);
+
+        /// <summary>
+        /// The CreateAnswer method generates an [RFC3264] answer with the
+        /// supported configuration for the session that is compatible with
+        /// the parameters in the remote configuration. Like createOffer, the
+        /// returned blob contains descriptions of the local MediaStreamTracks
+        /// attached to this RTCPeerConnection, the codec/RTP/RTCP options
+        /// negotiated for this session, and any candidates that have been
+        /// gathered by the ICE Agent. The options parameter may be supplied
+        /// to provide additional control over the generated answer.
+        /// </summary>
+        [Windows::Foundation::Metadata::DefaultOverloadAttribute]
+        IAsyncOperation<RTCSessionDescription^>^            CreateAnswer();
+
+        /// <summary>
+        /// The CreateAnswer method generates an [RFC3264] answer with the
+        /// supported configuration for the session that is compatible with
+        /// the parameters in the remote configuration. Like createOffer, the
+        /// returned blob contains descriptions of the local MediaStreamTracks
+        /// attached to this RTCPeerConnection, the codec/RTP/RTCP options
+        /// negotiated for this session, and any candidates that have been
+        /// gathered by the ICE Agent. The options parameter may be supplied
+        /// to provide additional control over the generated answer.
+        /// </summary>
+        [Windows::Foundation::Metadata::OverloadAttribute("CreateAnswerWithOptions")]
+        IAsyncOperation<RTCSessionDescription^>^            CreateAnswer(RTCAnswerOptions^ options);
 
         /// <summary>
         /// When operating in JSON signaling type, this method gets the local

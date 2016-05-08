@@ -428,6 +428,51 @@ namespace org
         return ret;
       }
 
+      IAsyncOperation<RTCSessionDescription^>^ RTCPeerConnection::CreateAnswer()
+      {
+        ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer);
+
+        auto promise = _nativePointer->createAnswer();
+
+        IAsyncOperation<RTCSessionDescription^>^ ret = Concurrency::create_async([promise]() -> RTCSessionDescription^
+        {
+          Concurrency::task_completion_event<RTCSessionDescription^> tce;
+
+          auto pDelegate(make_shared<internal::RTCPeerConnectionPromiseWithDescriptionObserver>(tce));
+
+          promise->then(pDelegate);
+          promise->background();
+
+          auto tceTask = Concurrency::task<RTCSessionDescription^>(tce);
+          return tceTask.get();
+        });
+
+        return ret;
+      }
+
+      IAsyncOperation<RTCSessionDescription^>^ RTCPeerConnection::CreateAnswer(RTCAnswerOptions^ options)
+      {
+        ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer);
+        ORG_ORTC_THROW_INVALID_PARAMETERS_IF(!options);
+
+        auto promise = _nativePointer->createAnswer(*internal::FromCx(options));
+
+        IAsyncOperation<RTCSessionDescription^>^ ret = Concurrency::create_async([promise]() -> RTCSessionDescription^
+        {
+          Concurrency::task_completion_event<RTCSessionDescription^> tce;
+
+          auto pDelegate(make_shared<internal::RTCPeerConnectionPromiseWithDescriptionObserver>(tce));
+
+          promise->then(pDelegate);
+          promise->background();
+
+          auto tceTask = Concurrency::task<RTCSessionDescription^>(tce);
+          return tceTask.get();
+        });
+
+        return ret;
+      }
+
       IAsyncOperation<RTCSessionDescription^>^ RTCPeerConnection::CreateCapabilities()
       {
         ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer);
