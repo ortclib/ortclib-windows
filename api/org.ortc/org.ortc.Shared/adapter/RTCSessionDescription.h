@@ -43,7 +43,7 @@ namespace org
       ref class RTCPeerConnection;
 
       ZS_DECLARE_TYPEDEF_PTR(::ortc::adapter::ISessionDescription, ISessionDescription)
-      
+
       namespace internal
       {
         ZS_DECLARE_CLASS_PTR(RTCPeerConnectionPromiseWithDescriptionObserver);
@@ -489,7 +489,6 @@ namespace org
         /// </summary>
         property Platform::String^                          ConnectionAddress;
       };
-
 
       /// <summary>
       /// The RTCSessionDescriptionTransport object represents the ICE and
