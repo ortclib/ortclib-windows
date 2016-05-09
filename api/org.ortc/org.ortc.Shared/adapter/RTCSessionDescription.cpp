@@ -277,6 +277,7 @@ namespace org
             Optional<WORD> value(SafeInt<WORD>(input.mInternalIndex.value()));
             result->InternalIndex = UseHelper::ToCx(value);
           }
+          result->PrivateTransportId = UseHelper::ToCx(input.mPrivateTransportID);
           result->Protocol = UseHelper::ToCx(input.mProtocol);
           result->ConnectionData = ToCx(input.mConnectionData);
           result->MediaDirection = UseHelper::Convert(input.mMediaDirection);
@@ -299,6 +300,7 @@ namespace org
             }
           }
           result->mProtocol = UseHelper::FromCx(input->Protocol);
+          result->mPrivateTransportID = UseHelper::FromCx(input->PrivateTransportId);
           result->mConnectionData = FromCx(input->ConnectionData);
           result->mMediaDirection = UseHelper::Convert(input->MediaDirection);
           return result;
