@@ -263,12 +263,14 @@ namespace org
             if (!_owner) return;
             _owner->OnConnectionStateChange();
           }
+
           virtual void onPeerConnectionTrack(
             IPeerConnectionPtr connection,
             MediaStreamTrackEventPtr event
             )
           {
             if (!_owner) return;
+
             auto evt = ref new RTCTrackEvent;
             if (!event)
             {
@@ -288,6 +290,34 @@ namespace org
             }
 
             _owner->OnTrack(evt);
+          }
+
+          virtual void onPeerConnectionTrackGone(
+            IPeerConnectionPtr connection,
+            MediaStreamTrackEventPtr event
+            )
+          {
+            if (!_owner) return;
+
+            auto evt = ref new RTCTrackEvent;
+            if (!event)
+            {
+              _owner->OnTrack(evt);
+              return;
+            }
+
+            evt->_receiver = RTCRtpReceiver::Convert(event->mReceiver);
+            evt->_track = MediaStreamTrack::Convert(event->mTrack);
+
+            evt->_streams = ref new Vector<MediaStream^>();
+
+            for (auto iter = event->mMediaStreams.begin(); iter != event->mMediaStreams.end(); ++iter)
+            {
+              auto nativeStream = (*iter);
+              evt->_streams->Append(MediaStream::Convert(nativeStream));
+            }
+
+            _owner->OnTrackGone(evt);
           }
 
           virtual void onPeerConnectionDataChannel(

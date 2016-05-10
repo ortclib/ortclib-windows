@@ -951,6 +951,12 @@ namespace org
         event RTCPeerConnectionTrackDelegate^                     OnTrack;
 
         /// <summary>
+        /// An incoming MediaStreamTrack has disappeared, and the associated
+        /// RTCRtpReceiver is now removed.
+        /// </summary>
+        event RTCPeerConnectionTrackDelegate^                     OnTrackGone;
+
+        /// <summary>
         /// A new RTCDataChannel is dispatched to the script in response to
         /// the other peer creating a channel.
         /// </summary>
