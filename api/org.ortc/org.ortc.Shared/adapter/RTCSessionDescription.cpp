@@ -372,6 +372,7 @@ namespace org
           result->Id = UseHelper::ToCx(input.mID);
           result->RtpMediaLineId = UseHelper::ToCx(input.mRTPMediaLineID);
           result->Parameters = ortc::internal::ToCx(input.mParameters);
+          result->MediaStreamTrackId = UseHelper::ToCx(input.mMediaStreamTrackID);
           result->MediaStreamIds = ref new Vector<Platform::String^>();
 
           for (auto iter = input.mMediaStreamIDs.begin(); iter != input.mMediaStreamIDs.end(); ++iter)
@@ -396,6 +397,7 @@ namespace org
           result->mRTPMediaLineID = UseHelper::FromCx(input->RtpMediaLineId);
           result->mDetails = FromCx(input->Details);
           result->mParameters = ortc::internal::FromCx(input->Parameters);
+          result->mMediaStreamTrackID = UseHelper::FromCx(input->MediaStreamTrackId);
 
           for (Platform::String^ value : input->MediaStreamIds)
           {

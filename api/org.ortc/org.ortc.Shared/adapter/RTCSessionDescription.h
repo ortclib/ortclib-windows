@@ -815,10 +815,20 @@ namespace org
         /// </summary>
         property Platform::String^                      RtpMediaLineId;
         /// <summary>
+        /// Gets or sets the configuration parameters associated with the
+        /// RTCRtpSender.
         /// </summary>
         property RTCRtpParameters^                      Parameters;
         /// <summary>
-        /// Gets or sets the media stream group ID associated with the media
+        /// Gets or sets the media stream track id associated with the
+        /// sender. This property should match the media stream track object
+        /// associated with the RTCRtpSender unless the RTCRtpSender's
+        /// track was chaneged without informing the associated
+        /// RTCRtpPeerConnection object.
+        /// </summary>
+        property Platform::String^                      MediaStreamTrackId;
+        /// <summary>
+        /// Gets or sets the media stream group IDs associated with the media
         /// line [RFC5888]  Section 5. All media lines that share the same
         /// group identification are considered part of the same group and
         /// thus are part of the same media stream.
