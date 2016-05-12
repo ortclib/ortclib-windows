@@ -888,17 +888,32 @@ namespace org
         /// Gets or sets the candidate-attribute as defined in section 15.1 of
         /// [RFC5245].
         /// </summary>
-        property Platform::String^            Candidate;
+        property Platform::String^            Candidate
+        {
+          Platform::String^ get();
+        }
         /// <summary>
         /// Gets or sets the identifier of the "media stream identification"
         /// as defined in [RFC5888] for the media component this candidate is
         /// associated with.
         /// </summary>
-        property Platform::String^            SdpMid;
+        property Platform::String^            Mid;
+        /// <summary>
+        /// Gets or sets the identifier of the "media stream identification"
+        /// as defined in [RFC5888] for the media component this candidate is
+        /// associated with.
+        /// </summary>
+        [Windows::Foundation::Metadata::Deprecated("Use Mid instead.", Windows::Foundation::Metadata::DeprecationType::Deprecate, 0)]
+        property Platform::String^            SdpMid
+        {
+          Platform::String^ get() { return Mid; }
+          void set(Platform::String^ value) { Mid = value; }
+        }
         /// <summary>
         /// Gets or sets the index (starting at zero) of the media description
         /// in the SDP this candidate is associated with.
         /// </summary>
+        [Windows::Foundation::Metadata::Deprecated("Use Mid instead.", Windows::Foundation::Metadata::DeprecationType::Deprecate, 0)]
         property Platform::IBox<uint16>^      SdpMLineIndex;
         /// <summary>
         /// Gets or sets the the component of the ICE candidate to indicate
@@ -993,7 +1008,19 @@ namespace org
         /// A helper routine to easily converty from a SDP-candidate string to
         /// an RTCIceCandidate object.
         /// </summary>
-        static RTCIceCandidate^ FromSdpString(Platform::String^ sdpString);
+        static RTCIceCandidate^ FromSdpStringWithMid(
+          Platform::String^ sdpString,
+          Platform::String^ mid
+          );
+        /// <summary>
+        /// A helper routine to easily converty from a SDP-candidate string to
+        /// an RTCIceCandidate object.
+        /// </summary>
+        [Windows::Foundation::Metadata::Deprecated("Use FromSdpStringWithMid instead.", Windows::Foundation::Metadata::DeprecationType::Deprecate, 0)]
+        static RTCIceCandidate^ FromSdpStringWithMLineIndex(
+          Platform::String^ sdpString,
+          uint16 mlineIndex
+          );
 
         /// <summary>
         /// Constructs and instance of an RTCIceCandidate object.
@@ -1021,13 +1048,27 @@ namespace org
         /// Gets or sets the candidate-attribute as defined in section 15.1 of
         /// [RFC5245].
         /// </summary>
-        property Platform::String^            Candidate;
+        property Platform::String^            Candidate
+        {
+          Platform::String^ get();
+        }
         /// <summary>
         /// Gets or sets the identifier of the "media stream identification"
         /// as defined in [RFC5888] for the media component this candidate is
         /// associated with.
         /// </summary>
-        property Platform::String^            SdpMid;
+        property Platform::String^            Mid;
+        /// <summary>
+        /// Gets or sets the identifier of the "media stream identification"
+        /// as defined in [RFC5888] for the media component this candidate is
+        /// associated with.
+        /// </summary>
+        [Windows::Foundation::Metadata::Deprecated("Use of sdp mid is discouraged. Use Mid instead", Windows::Foundation::Metadata::DeprecationType::Deprecate, 0)]
+        property Platform::String^            SdpMid
+        {
+          Platform::String^ get() { return Mid; }
+          void set(Platform::String^ value) { Mid = value; }
+        }
         /// <summary>
         /// Gets or sets the index (starting at zero) of the media description
         /// in the SDP this candidate is associated with.
@@ -1065,7 +1106,19 @@ namespace org
         /// A helper routine to easily converty from a SDP-candidate string to
         /// an RTCIceCandidateComplete object.
         /// </summary>
-        static RTCIceCandidateComplete^ FromSdpString(Platform::String^ sdpString);
+        static RTCIceCandidateComplete^ FromSdpStringWithMid(
+          Platform::String^ sdpString,
+          Platform::String^ sdpMid
+          );
+        /// <summary>
+        /// A helper routine to easily converty from a SDP-candidate string to
+        /// an RTCIceCandidateComplete object.
+        /// </summary>
+        [Windows::Foundation::Metadata::Deprecated("Use FromSdpStringWithMid instead.", Windows::Foundation::Metadata::DeprecationType::Deprecate, 0)]
+        static RTCIceCandidateComplete^ FromSdpStringWithMLineIndex(
+          Platform::String^ sdpString,
+          uint16 mlineIndex
+          );
 
         /// <summary>
         /// Constructs an instance of the RTCIceCandidateComplete object.
@@ -1177,6 +1230,7 @@ namespace org
         /// Gets the string representation of the SDP [RFC3264]. This property
         /// may only be obtained if the signaling type is SDP.
         /// </summary>
+        [Windows::Foundation::Metadata::Deprecated("Use FormattedDescription instead.", Windows::Foundation::Metadata::DeprecationType::Deprecate, 0)]
         property Platform::String^                  Sdp
         {
           Platform::String^ get();

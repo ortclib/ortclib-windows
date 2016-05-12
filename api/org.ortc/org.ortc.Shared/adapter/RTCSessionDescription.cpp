@@ -441,8 +441,7 @@ namespace org
           auto candidate = ZS_DYNAMIC_PTR_CAST(IICETypes::Candidate, input.mCandidate);
           if (NULL == candidate) return nullptr;
 
-          result->Candidate = UseHelper::ToCx(input.getCandidateSDP());
-          result->SdpMid = UseHelper::ToCx(input.mMid);
+          result->Mid = UseHelper::ToCx(input.mMid);
           if (input.mMLineIndex.hasValue()) {
             auto value = input.mMLineIndex.value();
             result->SdpMLineIndex = UseHelper::ToCx(Optional<WORD>(SafeInt<WORD>(value)));
@@ -498,8 +497,7 @@ namespace org
           auto candidate = ZS_DYNAMIC_PTR_CAST(IICETypes::CandidateComplete, input.mCandidate);
           if (NULL == candidate) return nullptr;
 
-          result->Candidate = UseHelper::ToCx(input.getCandidateSDP());
-          result->SdpMid = UseHelper::ToCx(input.mMid);
+          result->Mid = UseHelper::ToCx(input.mMid);
           if (input.mMLineIndex.hasValue()) {
             auto value = input.mMLineIndex.value();
             result->SdpMLineIndex = UseHelper::ToCx(Optional<WORD>(SafeInt<WORD>(value)));
@@ -535,6 +533,11 @@ namespace org
 
 #pragma region RTCIceCandidate
 
+      Platform::String^ RTCIceCandidate::Candidate::get()
+      {
+        return ToSdpString();
+      }
+
       Platform::String^ RTCIceCandidate::ToJsonString()
       {
         auto nativeCandidate = internal::FromCx(this);
@@ -542,24 +545,68 @@ namespace org
       }
       RTCIceCandidate^ RTCIceCandidate::FromJsonString(Platform::String^ jsonString)
       {
-        auto candidateEl = UseServicesHelper::toJSON(UseHelper::FromCx(jsonString).c_str());
-        auto nativeCandidate = ISessionDescription::ICECandidate::create(candidateEl);
-        return internal::ToIceCandidateCx(nativeCandidate);
+        try
+        {
+          auto candidateEl = UseServicesHelper::toJSON(UseHelper::FromCx(jsonString).c_str());
+          auto nativeCandidate = ISessionDescription::ICECandidate::create(candidateEl);
+          return internal::ToIceCandidateCx(nativeCandidate);
+        }
+        catch (const InvalidParameters &)
+        {
+          ORG_ORTC_THROW_INVALID_PARAMETERS();
+        }
       }
       Platform::String^ RTCIceCandidate::ToSdpString()
       {
         auto nativeCandidate = internal::FromCx(this);
         return UseHelper::ToCx(UseServicesHelper::toString(nativeCandidate->toSDP()));
       }
-      RTCIceCandidate^ RTCIceCandidate::FromSdpString(Platform::String^ sdpString)
+      RTCIceCandidate^ RTCIceCandidate::FromSdpStringWithMid(
+        Platform::String^ sdpString,
+        Platform::String^ sdpMid
+        )
       {
-        auto nativeCandidate = ISessionDescription::ICECandidate::createFromSDP(UseHelper::FromCx(sdpString).c_str());
-        return internal::ToIceCandidateCx(nativeCandidate);
+        try
+        {
+          auto nativeCandidate = ISessionDescription::ICECandidate::createFromSDP(UseHelper::FromCx(sdpString).c_str());
+          if (!nativeCandidate) return nullptr;
+          nativeCandidate->mMid = UseHelper::FromCx(sdpMid);
+          return internal::ToIceCandidateCx(nativeCandidate);
+        }
+        catch (const InvalidParameters &)
+        {
+          ORG_ORTC_THROW_INVALID_PARAMETERS();
+        }
+        return nullptr;
+      }
+
+      RTCIceCandidate^ RTCIceCandidate::FromSdpStringWithMLineIndex(
+        Platform::String^ sdpString,
+        uint16 mlineIndex
+        )
+      {
+        try
+        {
+          auto nativeCandidate = ISessionDescription::ICECandidate::createFromSDP(UseHelper::FromCx(sdpString).c_str());
+          if (!nativeCandidate) return nullptr;
+          nativeCandidate->mMLineIndex = SafeInt<decltype(nativeCandidate->mMLineIndex.mType)>(mlineIndex);
+          return internal::ToIceCandidateCx(nativeCandidate);
+        }
+        catch (const InvalidParameters &)
+        {
+          ORG_ORTC_THROW_INVALID_PARAMETERS();
+        }
+        return nullptr;
       }
 
 #pragma endregion
 
 #pragma region RTCIceCandidateComplete
+
+      Platform::String^ RTCIceCandidateComplete::Candidate::get()
+      {
+        return ToSdpString();
+      }
 
       Platform::String^ RTCIceCandidateComplete::ToJsonString()
       {
@@ -568,20 +615,57 @@ namespace org
       }
       RTCIceCandidateComplete^ RTCIceCandidateComplete::FromJsonString(Platform::String^ jsonString)
       {
-        auto candidateEl = UseServicesHelper::toJSON(UseHelper::FromCx(jsonString).c_str());
-        auto nativeCandidate = ISessionDescription::ICECandidate::create(candidateEl);
-        return internal::ToIceCandidateCompleteCx(nativeCandidate);
+        try
+        {
+          auto candidateEl = UseServicesHelper::toJSON(UseHelper::FromCx(jsonString).c_str());
+          auto nativeCandidate = ISessionDescription::ICECandidate::create(candidateEl);
+          return internal::ToIceCandidateCompleteCx(nativeCandidate);
+        }
+        catch (const InvalidParameters &)
+        {
+          ORG_ORTC_THROW_INVALID_PARAMETERS();
+        }
       }
       Platform::String^ RTCIceCandidateComplete::ToSdpString()
       {
         auto nativeCandidate = internal::FromCx(this);
         return UseHelper::ToCx(UseServicesHelper::toString(nativeCandidate->toSDP()));
       }
-      RTCIceCandidateComplete^ RTCIceCandidateComplete::FromSdpString(Platform::String^ sdpString)
+      RTCIceCandidateComplete^ RTCIceCandidateComplete::FromSdpStringWithMid(
+        Platform::String^ sdpString,
+        Platform::String^ sdpMid
+        )
       {
-        auto nativeCandidate = ISessionDescription::ICECandidate::createFromSDP(UseHelper::FromCx(sdpString).c_str());
-        return internal::ToIceCandidateCompleteCx(nativeCandidate);
+        try
+        {
+          auto nativeCandidate = ISessionDescription::ICECandidate::createFromSDP(UseHelper::FromCx(sdpString).c_str());
+          nativeCandidate->mMid = UseHelper::FromCx(sdpMid);
+          return internal::ToIceCandidateCompleteCx(nativeCandidate);
+        }
+        catch (const InvalidParameters &)
+        {
+          ORG_ORTC_THROW_INVALID_PARAMETERS();
+        }
       }
+
+      RTCIceCandidateComplete^ RTCIceCandidateComplete::FromSdpStringWithMLineIndex(
+        Platform::String^ sdpString,
+        uint16 mlineIndex
+        )
+      {
+        try
+        {
+          auto nativeCandidate = ISessionDescription::ICECandidate::createFromSDP(UseHelper::FromCx(sdpString).c_str());
+          if (!nativeCandidate) return nullptr;
+          nativeCandidate->mMLineIndex = SafeInt<decltype(nativeCandidate->mMLineIndex.mType)>(mlineIndex);
+          return internal::ToIceCandidateCompleteCx(nativeCandidate);
+        }
+        catch (const InvalidParameters &)
+        {
+          ORG_ORTC_THROW_INVALID_PARAMETERS();
+        }
+      }
+
 
 #pragma endregion
 
