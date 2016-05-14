@@ -47,7 +47,7 @@ namespace org
         {
           auto result = ref new RTCConfiguration;
           result->GatherOptions = ortc::internal::ToCx(input.mGatherOptions);
-          result->SignalingType = UseHelper::Convert(input.mSignalingType);
+          result->SignalingMode = UseHelper::Convert(input.mSignalingMode);
           result->BundlePolicy = UseHelper::Convert(input.mBundlePolicy);
           result->RtcpMuxPolicy = UseHelper::Convert(input.mRTCPMuxPolicy);
           result->Certificates = ref new Vector<RTCCertificate^>();
@@ -72,7 +72,7 @@ namespace org
           if (nullptr == input) return IPeerConnectionTypes::ConfigurationPtr();
           auto result(make_shared<IPeerConnectionTypes::Configuration>());
           result->mGatherOptions = ortc::internal::FromCx(input->GatherOptions);
-          result->mSignalingType = UseHelper::Convert(input->SignalingType);
+          result->mSignalingMode = UseHelper::Convert(input->SignalingMode);
           result->mBundlePolicy = UseHelper::Convert(input->BundlePolicy);
           result->mRTCPMuxPolicy = UseHelper::Convert(input->RtcpMuxPolicy);
 
@@ -239,7 +239,7 @@ namespace org
             if (!_owner) return;
             _owner->OnSignalingStateChange();
           }
-          virtual void onPeerConnectionIceGatheringStateChange(
+          virtual void onPeerConnectionICEGatheringStateChange(
             IPeerConnectionPtr connection,
             ICEGatheringStates state
             )
@@ -247,7 +247,7 @@ namespace org
             if (!_owner) return;
             _owner->OnIceGatheringStateChange();
           }
-          virtual void onPeerConnectionIceConnectionStateChange(
+          virtual void onPeerConnectionICEConnectionStateChange(
             IPeerConnectionPtr connection,
             ICEConnectionStates state
             )
@@ -644,14 +644,14 @@ namespace org
           return;
         }
 
-        _nativePointer->addIceCandidate(*internal::FromCx(candidate));
+        _nativePointer->addICECandidate(*internal::FromCx(candidate));
       }
 
       void RTCPeerConnection::AddIceCandidateComplete(RTCIceCandidateComplete^ candidate)
       {
         ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer);
 
-        _nativePointer->addIceCandidate(*internal::FromCx(candidate));
+        _nativePointer->addICECandidate(*internal::FromCx(candidate));
       }
 
       RTCSignalingState RTCPeerConnection::SignalingState::get()

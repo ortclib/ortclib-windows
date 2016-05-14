@@ -54,6 +54,7 @@ namespace org
       enum class RTCSessionDescriptionMediaDirection;
       enum class RTCBundlePolicy;
       enum class RTCRtcpMuxPolicy;
+      enum class RTCPeerConnectionSignalingMode;
       enum class RTCIceGatheringState;
       enum class RTCIceConnectionState;
       enum class RTCPeerConnectionState;
@@ -204,6 +205,9 @@ namespace org
 
         static IPeerConnectionTypes::RTCPMuxPolicies Convert(adapter::RTCRtcpMuxPolicy policy);
         static adapter::RTCRtcpMuxPolicy Convert(IPeerConnectionTypes::RTCPMuxPolicies policy);
+
+        static IPeerConnectionTypes::SignalingModes Convert(adapter::RTCPeerConnectionSignalingMode mode);
+        static adapter::RTCPeerConnectionSignalingMode Convert(IPeerConnectionTypes::SignalingModes mode);
 
         static IPeerConnectionTypes::SignalingStates Convert(adapter::RTCSignalingState state);
         static adapter::RTCSignalingState Convert(IPeerConnectionTypes::SignalingStates state);

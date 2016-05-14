@@ -275,6 +275,24 @@ namespace org
       };
 
       /// <summary>
+      /// The RTCPeerConnectionSignalingMode defines the signaling type to be
+      /// used with signaling modes.
+      /// </summary>
+      public enum class RTCPeerConnectionSignalingMode
+      {
+        /// <summary>
+        /// Use JSON capabilities exchange style signaling with the peer
+        /// connection.
+        /// </summary>
+        Json,
+        /// <summary>
+        ///  Use SDP offer/answer exchange style signaling with the peer
+        /// connection.
+        /// </summary>
+        Sdp
+      };
+
+      /// <summary>
       /// The RTCConfiguration defines a set of parameters to configure how
       /// the peer to peer communication established via RTCPeerConnection is
       /// established or re-established.
@@ -288,8 +306,16 @@ namespace org
         /// </summary>
         property RTCIceGatherOptions^                 GatherOptions;
         /// <summary>
+        /// Gets or sets the signaling mode as either JSON based or SDP based.
+        /// The signaling type must be specified as Json, SdpOffer, or
+        /// SdpAnswer.
         /// </summary>
-        property RTCSessionDescriptionSignalingType   SignalingType;
+        property RTCPeerConnectionSignalingMode       SignalingMode;
+        /// <summary>
+        /// Gets or sets if the SRTP/SDES should be used with the peer
+        /// connection.
+        /// </summary>
+        property Platform::Boolean                    NegotiateSrtpSdes;
         /// <summary>
         /// Gets or sets a media-bundling policy to use when gathering ICE.
         /// candidates.
@@ -311,7 +337,7 @@ namespace org
         /// </summary>
         RTCConfiguration()
         {
-          SignalingType = RTCSessionDescriptionSignalingType::Json;
+          SignalingMode = RTCPeerConnectionSignalingMode::Json;
           BundlePolicy = RTCBundlePolicy::Balanced;
           RtcpMuxPolicy = RTCRtcpMuxPolicy::Require;
         }
@@ -734,7 +760,7 @@ namespace org
         /// Gets the last remote RTCSessionDescription that was successfully
         /// negotiated the last time theRTCPeerConnection transitioned into
         /// the stable state plus any remote candidates that have been
-        /// supplied via addIceCandidate() since the offer or answer was
+        /// supplied via AddIceCandidate() since the offer or answer was
         /// created. This attribute is updated by SetRemoteDescription().
         /// </summary>
         property RTCSessionDescription^                     CurrentRemoteDescription
@@ -744,7 +770,7 @@ namespace org
         /// <summary>
         /// Gets a remote RTCSessionDescription that is in the process of
         /// being negotiated, completed with any remote candidates that have
-        /// been supplied via addIceCandidate() since the offer or answer was
+        /// been supplied via AddIceCandidate() since the offer or answer was
         /// created. If the RTCPeerConnection is in the stable state, the
         /// value is null. This attribute is updated by
         /// SetRemoteDescription().

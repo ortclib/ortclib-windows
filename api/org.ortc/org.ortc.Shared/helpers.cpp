@@ -788,6 +788,26 @@ namespace org
         throw ref new Platform::NotImplementedException();
       }
 
+      IPeerConnectionTypes::SignalingModes Helper::Convert(adapter::RTCPeerConnectionSignalingMode mode)
+      {
+        switch (mode)
+        {
+        case adapter::RTCPeerConnectionSignalingMode::Json:    return IPeerConnectionTypes::SignalingMode_JSON;
+        case adapter::RTCPeerConnectionSignalingMode::Sdp:       return IPeerConnectionTypes::SignalingMode_SDP;
+        }
+        throw ref new Platform::NotImplementedException();
+      }
+
+      adapter::RTCPeerConnectionSignalingMode Helper::Convert(IPeerConnectionTypes::SignalingModes mode)
+      {
+        switch (mode)
+        {
+        case IPeerConnectionTypes::SignalingMode_JSON:    return adapter::RTCPeerConnectionSignalingMode::Json;
+        case IPeerConnectionTypes::SignalingMode_SDP:     return adapter::RTCPeerConnectionSignalingMode::Sdp;
+        }
+        throw ref new Platform::NotImplementedException();
+      }
+
       IPeerConnectionTypes::SignalingStates Helper::Convert(adapter::RTCSignalingState state)
       {
         switch (state)
