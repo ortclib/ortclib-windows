@@ -137,6 +137,11 @@ namespace org
         /// </summary>
         Stable,
         /// <summary>
+        /// A local description, of type "offer", has been generated but not
+        /// yet set locally.
+        /// </summary>
+        WaitingLocalOffer,
+        /// <summary>
         /// A local description, of type "offer", has been successfully
         /// applied.
         /// </summary>
@@ -146,6 +151,11 @@ namespace org
         /// applied.
         /// </summary>
         HaveRemoteOffer,
+        /// <summary>
+        /// A local description, of type "answer", has been generated but not
+        /// yet set locally.
+        /// </summary>
+        WaitingLocalAnswer,
         /// <summary>
         /// A remote description of type "offer" has been successfully
         /// applied and a local description of type "pranswer" has been

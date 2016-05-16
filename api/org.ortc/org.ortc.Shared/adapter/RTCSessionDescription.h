@@ -121,7 +121,7 @@ namespace org
         /// description used as an SDP pranswer may be applied as a response
         /// to an SDP offer, or an update to a previously sent SDP pranswer.
         /// </summary>
-        SdpPreanswer,
+        SdpPranswer,
         /// <summary>
         /// The format of the description is that of an SDP answer.
         /// </summary>
@@ -148,7 +148,7 @@ namespace org
         /// <summary>
         /// The format of the description is that of an SDP pre-answer.
         /// </summary>
-        SdpPreanswer,
+        SdpPranswer,
         /// <summary>
         /// The format of the description is that of an SDP answer.
         /// </summary>

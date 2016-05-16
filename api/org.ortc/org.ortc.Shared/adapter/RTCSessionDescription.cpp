@@ -740,7 +740,7 @@ namespace org
         {
         case ISessionDescription::SignalingType_JSON:         throw ref new Platform::NotImplementedException();
         case ISessionDescription::SignalingType_SDPOffer:     return RTCSdpType::SdpOffer;
-        case ISessionDescription::SignalingType_SDPPreanswer: return RTCSdpType::SdpPreanswer;
+        case ISessionDescription::SignalingType_SDPPranswer:  return RTCSdpType::SdpPranswer;
         case ISessionDescription::SignalingType_SDPAnswer:    return RTCSdpType::SdpAnswer;
         case ISessionDescription::SignalingType_SDPRollback:  return RTCSdpType::SdpRollback;
         }
