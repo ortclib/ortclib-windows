@@ -232,10 +232,10 @@ namespace org
       /// possible for the sender and receiver to pick a matching payload type
       /// when creating sender and receiver parameters. When returned by
       /// RTCRtpSender.GetCapabilities(),
-      /// RTCRtpCapabilities.codecs.preferredPayloadtype represents the
+      /// RTCRtpCapabilities.Codecs.PreferredPayloadtype represents the
       /// preferred RTP payload type for sending. When returned by
       /// RTCRtpReceiver.GetCapabilities(),
-      /// RTCRtpCapabilities.codecs.preferredPayloadtype represents the
+      /// RTCRtpCapabilities.Codecs.PreferredPayloadtype represents the
       /// preferred RTP payload type for receiving. To avoid payload type
       /// conflicts, each value of preferredPayloadType must be unique.
       /// </summary>
@@ -613,6 +613,11 @@ namespace org
       /// mechanisms.
       /// </summary>
       property IVector<Platform::String^>^        FecMechanisms;
+
+      /// <summary>
+      /// Returns a copy of the RTCRtpCapabilities object.
+      /// </summary>
+      RTCRtpCapabilities^                         Clone();
 
       /// <summary>
       /// Helper routing to conver this object into a JSON string blob.
@@ -1119,6 +1124,21 @@ namespace org
       /// resolution or degrading framerate.
       /// </summary>
       property RTCDegradationPreference                   DegradationPreference;
+
+      /// <summary>
+      /// Returns a cloned copy of the RTCRtpParameters object.
+      /// </summary>
+      RTCRtpParameters^                                   Clone();
+
+      /// <summary>
+      /// Helper routing to conver this object into a JSON string blob.
+      /// </summary>
+      Platform::String^ ToJsonString();
+      /// <summary>
+      /// Helper routing to convert a JOSN string blob into an
+      /// RTCRtpParameters object.
+      /// </summary>
+      static RTCRtpParameters^ FromJsonString(Platform::String^ jsonString);
     };
   }
 }

@@ -35,6 +35,11 @@ namespace org
     namespace adapter
     {
       ref class RTCPeerConnection;
+
+      namespace internal
+      {
+        ZS_DECLARE_CLASS_PTR(RTCPeerConnectionPromiseWithSenderObserver);
+      }
     } // namespace adapter
 
     /// <summary>
@@ -67,6 +72,7 @@ namespace org
     public ref class RTCRtpSender sealed
     {
       friend class internal::RTCRtpSenderDelegate;
+      friend class adapter::internal::RTCPeerConnectionPromiseWithSenderObserver;
       friend ref class RTCDtmfSender;
       friend ref class adapter::RTCPeerConnection;
 

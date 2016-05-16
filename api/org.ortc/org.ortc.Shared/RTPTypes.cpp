@@ -1217,6 +1217,11 @@ namespace org
     //---------------------------------------------------------------------------
     // RTCRtpCapabilities methods
     //---------------------------------------------------------------------------
+    RTCRtpCapabilities^ RTCRtpCapabilities::Clone()
+    {
+      return internal::ToCx(internal::FromCx(this));
+    }
+
     Platform::String^ RTCRtpCapabilities::ToJsonString()
     {
       auto caps = internal::FromCx(this);
@@ -1275,6 +1280,29 @@ namespace org
     {
       auto ret = make_shared<IRTPTypes::HeaderExtension>(IRTPTypes::HeaderExtension::HeaderExtension(openpeer::services::IHelper::toJSON(UseHelper::FromCx(jsonString).c_str())));
       return internal::ToCx(ret);
+    }
+
+    //---------------------------------------------------------------------------
+    // RTCRtpCapabilities methods
+    //---------------------------------------------------------------------------
+    RTCRtpParameters^ RTCRtpParameters::Clone()
+    {
+      return internal::ToCx(internal::FromCx(this));
+    }
+
+    Platform::String^ RTCRtpParameters::ToJsonString()
+    {
+      auto caps = internal::FromCx(this);
+      return UseHelper::ToCx(openpeer::services::IHelper::toString(caps->createElement("RtpCapabilities")));
+    }
+
+    RTCRtpParameters^ RTCRtpParameters::FromJsonString(Platform::String^ jsonString)
+    {
+      auto ret = ref new RTCRtpCapabilities();
+
+      auto capabilitiesPtr = make_shared<IRTPTypes::Parameters>(IRTPTypes::Parameters::Parameters(openpeer::services::IHelper::toJSON(UseHelper::FromCx(jsonString).c_str())));
+
+      return internal::ToCx(capabilitiesPtr);
     }
 
   } // namespace ortc

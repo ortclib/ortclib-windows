@@ -47,11 +47,13 @@ namespace org
         {
           auto result = ref new RTCConfiguration;
           result->GatherOptions = ortc::internal::ToCx(input.mGatherOptions);
+          result->NegotiateSrtpSdes = input.mNegotiateSRTPSDES;
           result->SignalingMode = UseHelper::Convert(input.mSignalingMode);
           result->BundlePolicy = UseHelper::Convert(input.mBundlePolicy);
           result->RtcpMuxPolicy = UseHelper::Convert(input.mRTCPMuxPolicy);
+          result->IceCandidatePoolSize = SafeInt<decltype(result->IceCandidatePoolSize)>(input.mICECandidatePoolSize);
           result->Certificates = ref new Vector<RTCCertificate^>();
-
+         
           for (auto iter = input.mCertificates.begin(); iter != input.mCertificates.end(); ++iter)
           {
             auto cert = (*iter);
@@ -72,9 +74,11 @@ namespace org
           if (nullptr == input) return IPeerConnectionTypes::ConfigurationPtr();
           auto result(make_shared<IPeerConnectionTypes::Configuration>());
           result->mGatherOptions = ortc::internal::FromCx(input->GatherOptions);
+          result->mNegotiateSRTPSDES = input->NegotiateSrtpSdes;
           result->mSignalingMode = UseHelper::Convert(input->SignalingMode);
           result->mBundlePolicy = UseHelper::Convert(input->BundlePolicy);
           result->mRTCPMuxPolicy = UseHelper::Convert(input->RtcpMuxPolicy);
+          result->mICECandidatePoolSize = SafeInt<decltype(result->mICECandidatePoolSize)>(input->IceCandidatePoolSize);
 
           for (RTCCertificate^ value : input->Certificates)
           {
@@ -146,6 +150,7 @@ namespace org
         RTCMediaStreamTrackConfiguration^ ToCx(const IPeerConnectionTypes::MediaStreamTrackConfiguration &input)
         {
           auto result = ref new RTCMediaStreamTrackConfiguration;
+          result->Capabilities = ortc::internal::ToCx(input.mCapabilities);
           result->Parameters = ortc::internal::ToCx(input.mParameters);
           return result;
         }
@@ -158,6 +163,7 @@ namespace org
         {
           if (nullptr == input) return IPeerConnectionTypes::MediaStreamTrackConfigurationPtr();
           auto result(make_shared<IPeerConnectionTypes::MediaStreamTrackConfiguration>());
+          result->mCapabilities = ortc::internal::FromCx(input->Capabilities);
           result->mParameters = ortc::internal::FromCx(input->Parameters);
           return result;
         }
@@ -359,6 +365,54 @@ namespace org
 
         private:
           Concurrency::task_completion_event<RTCSessionDescription^> mTce;
+        };
+
+        class RTCPeerConnectionPromiseWithSenderObserver : public zsLib::IPromiseResolutionDelegate
+        {
+        public:
+          RTCPeerConnectionPromiseWithSenderObserver(Concurrency::task_completion_event<RTCRtpSender^> tce) : mTce(tce) {}
+
+          virtual void onPromiseResolved(PromisePtr promise) override
+          {
+            IRTPSenderPtr nativeSender = promise->value<IRTPSender>();
+
+            auto result = RTCRtpSender::Convert(nativeSender);
+            mTce.set(result);
+          }
+
+          virtual void onPromiseRejected(PromisePtr promise) override
+          {
+            auto reason = promise->reason<ErrorAny>();
+            auto error = Error::CreateIfGeneric(reason);
+            mTce.set_exception(error);
+          }
+
+        private:
+          Concurrency::task_completion_event<RTCRtpSender^> mTce;
+        };
+
+        class RTCPeerConnectionPromiseWitDataChannelObserver : public zsLib::IPromiseResolutionDelegate
+        {
+        public:
+          RTCPeerConnectionPromiseWitDataChannelObserver(Concurrency::task_completion_event<RTCDataChannel^> tce) : mTce(tce) {}
+
+          virtual void onPromiseResolved(PromisePtr promise) override
+          {
+            IDataChannelPtr nativeDataChannel = promise->value<IDataChannel>();
+
+            auto result = RTCDataChannel::Convert(nativeDataChannel);
+            mTce.set(result);
+          }
+
+          virtual void onPromiseRejected(PromisePtr promise) override
+          {
+            auto reason = promise->reason<ErrorAny>();
+            auto error = Error::CreateIfGeneric(reason);
+            mTce.set_exception(error);
+          }
+
+        private:
+          Concurrency::task_completion_event<RTCDataChannel^> mTce;
         };
 
         class RTCPeerConnectionPromiseObserver : public zsLib::IPromiseResolutionDelegate
@@ -750,14 +804,30 @@ namespace org
         return result;
       }
 
-      RTCRtpSender^ RTCPeerConnection::AddTrack(MediaStreamTrack^ track)
+      IAsyncOperation<RTCRtpSender^>^ RTCPeerConnection::AddTrack(MediaStreamTrack^ track)
       {
         ORG_ORTC_THROW_INVALID_PARAMETERS_IF(!track);
         ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer);
-        return RTCRtpSender::Convert(_nativePointer->addTrack(MediaStreamTrack::Convert(track)));
+
+        auto promise = _nativePointer->addTrack(MediaStreamTrack::Convert(track));
+
+        IAsyncOperation<RTCRtpSender^>^ ret = Concurrency::create_async([promise]() -> RTCRtpSender^
+        {
+          Concurrency::task_completion_event<RTCRtpSender^> tce;
+
+          auto pDelegate(make_shared<internal::RTCPeerConnectionPromiseWithSenderObserver>(tce));
+
+          promise->then(pDelegate);
+          promise->background();
+          auto tceTask = Concurrency::task<RTCRtpSender^>(tce);
+
+          return tceTask.get();
+        });
+
+        return ret;
       }
 
-      RTCRtpSender^ RTCPeerConnection::AddTrack(
+      IAsyncOperation<RTCRtpSender^>^ RTCPeerConnection::AddTrack(
         MediaStreamTrack^ track,
         IVector<MediaStream^>^ streams
         )
@@ -774,10 +844,25 @@ namespace org
           nativeStreams.push_back(MediaStream::Convert(stream));
         }
 
-        return RTCRtpSender::Convert(_nativePointer->addTrack(MediaStreamTrack::Convert(track), nativeStreams));
+        auto promise = _nativePointer->addTrack(MediaStreamTrack::Convert(track), nativeStreams);
+
+        IAsyncOperation<RTCRtpSender^>^ ret = Concurrency::create_async([promise]() -> RTCRtpSender^
+        {
+          Concurrency::task_completion_event<RTCRtpSender^> tce;
+
+          auto pDelegate(make_shared<internal::RTCPeerConnectionPromiseWithSenderObserver>(tce));
+
+          promise->then(pDelegate);
+          promise->background();
+          auto tceTask = Concurrency::task<RTCRtpSender^>(tce);
+
+          return tceTask.get();
+        });
+
+        return ret;
       }
 
-      RTCRtpSender^ RTCPeerConnection::AddTrack(
+      IAsyncOperation<RTCRtpSender^>^ RTCPeerConnection::AddTrack(
         MediaStreamTrack^ track,
         RTCMediaStreamTrackConfiguration^ configuration
         )
@@ -785,10 +870,26 @@ namespace org
         ORG_ORTC_THROW_INVALID_PARAMETERS_IF(!track);
         ORG_ORTC_THROW_INVALID_PARAMETERS_IF(!configuration);
         ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer);
-        return RTCRtpSender::Convert(_nativePointer->addTrack(MediaStreamTrack::Convert(track), *internal::FromCx(configuration)));
+
+        auto promise = _nativePointer->addTrack(MediaStreamTrack::Convert(track), *internal::FromCx(configuration));
+
+        IAsyncOperation<RTCRtpSender^>^ ret = Concurrency::create_async([promise]() -> RTCRtpSender^
+        {
+          Concurrency::task_completion_event<RTCRtpSender^> tce;
+
+          auto pDelegate(make_shared<internal::RTCPeerConnectionPromiseWithSenderObserver>(tce));
+
+          promise->then(pDelegate);
+          promise->background();
+          auto tceTask = Concurrency::task<RTCRtpSender^>(tce);
+
+          return tceTask.get();
+        });
+
+        return ret;
       }
 
-      RTCRtpSender^ RTCPeerConnection::AddTrack(
+      IAsyncOperation<RTCRtpSender^>^ RTCPeerConnection::AddTrack(
         MediaStreamTrack^ track,
         IVector<MediaStream^>^ streams,
         RTCMediaStreamTrackConfiguration^ configuration
@@ -806,7 +907,22 @@ namespace org
           nativeStreams.push_back(MediaStream::Convert(stream));
         }
 
-        return RTCRtpSender::Convert(_nativePointer->addTrack(MediaStreamTrack::Convert(track), nativeStreams, *internal::FromCx(configuration)));
+        auto promise = _nativePointer->addTrack(MediaStreamTrack::Convert(track), nativeStreams, *internal::FromCx(configuration));
+
+        IAsyncOperation<RTCRtpSender^>^ ret = Concurrency::create_async([promise]() -> RTCRtpSender^
+        {
+          Concurrency::task_completion_event<RTCRtpSender^> tce;
+
+          auto pDelegate(make_shared<internal::RTCPeerConnectionPromiseWithSenderObserver>(tce));
+
+          promise->then(pDelegate);
+          promise->background();
+          auto tceTask = Concurrency::task<RTCRtpSender^>(tce);
+
+          return tceTask.get();
+        });
+
+        return ret;
       }
 
       void RTCPeerConnection::RemoveTrack(RTCRtpSender^ track)
@@ -816,12 +932,27 @@ namespace org
         _nativePointer->removeTrack(RTCRtpSender::Convert(track));
       }
 
-      RTCDataChannel^ RTCPeerConnection::CreateDataChannel(RTCDataChannelParameters^ parameters)
+      IAsyncOperation<RTCDataChannel^>^ RTCPeerConnection::CreateDataChannel(RTCDataChannelParameters^ parameters)
       {
         ORG_ORTC_THROW_INVALID_PARAMETERS_IF(!parameters);
         ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer);
 
-        return RTCDataChannel::Convert(_nativePointer->createDataChannel(*ortc::internal::FromCx(parameters)));
+        auto promise =_nativePointer->createDataChannel(*ortc::internal::FromCx(parameters));
+
+        IAsyncOperation<RTCDataChannel^>^ ret = Concurrency::create_async([promise]() -> RTCDataChannel^
+        {
+          Concurrency::task_completion_event<RTCDataChannel^> tce;
+
+          auto pDelegate(make_shared<internal::RTCPeerConnectionPromiseWitDataChannelObserver>(tce));
+
+          promise->then(pDelegate);
+          promise->background();
+          auto tceTask = Concurrency::task<RTCDataChannel^>(tce);
+
+          return tceTask.get();
+        });
+
+        return ret;
       }
 
 #pragma endregion

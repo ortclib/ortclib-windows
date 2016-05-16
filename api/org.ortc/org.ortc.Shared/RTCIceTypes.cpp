@@ -26,6 +26,7 @@ namespace org
 
         result->InterfaceType = Helper::ToCx(input.mInterfaceType);
         result->Foundation = Helper::ToCx(input.mFoundation);
+        result->Component = Helper::Convert(input.mComponent);
         result->Priority = SafeInt<uint32>(input.mPriority);
         result->UnfreezePriority = SafeInt<uint32>(input.mUnfreezePriority);
         result->Protocol = Helper::Convert(input.mProtocol);
@@ -52,6 +53,7 @@ namespace org
 
         result->mInterfaceType = Helper::FromCx(input->InterfaceType);
         result->mFoundation = Helper::FromCx(input->Foundation);
+        result->mComponent = Helper::Convert(input->Component);
         result->mPriority = SafeInt<uint32>(input->Priority);
         result->mUnfreezePriority = SafeInt<uint32>(input->UnfreezePriority);
         result->mProtocol = Helper::Convert(input->Protocol);
@@ -68,6 +70,7 @@ namespace org
       RTCIceCandidateComplete^ ToCx(const IICETypes::CandidateComplete &input)
       {
         auto result = ref new RTCIceCandidateComplete();
+        result->Component = Helper::Convert(input.mComponent);
         result->Complete = input.mComplete;
         return result;
       }
@@ -82,6 +85,7 @@ namespace org
       {
         if (nullptr == input) return IICETypes::CandidateCompletePtr();
         auto result = make_shared<IICETypes::CandidateComplete>();
+        result->mComponent = Helper::Convert(input->Component);
         result->mComplete = input->Complete;
         return result;
       }

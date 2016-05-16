@@ -148,6 +148,11 @@ namespace org
       /// </summary>
       property Platform::String^            Foundation;
       /// <summary>
+      /// Gets or sets the the component of the ICE candidate to indicate
+      /// if the candidate is related to RTP or RTCP.
+      /// </summary>
+      property RTCIceComponent              Component;
+      /// <summary>
       /// Gets or sets the assigned usage priority of the candidate. This
       /// priority represents the priority to choose this candidate over other
       /// candidates as described in [RFC5245]. If
@@ -220,6 +225,7 @@ namespace org
       /// </summary>
       RTCIceCandidate()
       {
+        Component = RTCIceComponent::Rtp;
         Priority = 0;
         UnfreezePriority = 0;
         Protocol = RTCIceProtocol::Udp;
@@ -241,8 +247,17 @@ namespace org
       /// <summary>
       /// Constructs an instance of an RTCIceCandidateComplete object.
       /// </summary>
-      RTCIceCandidateComplete() { Complete = true; }
+      RTCIceCandidateComplete()
+      {
+        Component = RTCIceComponent::Rtp;
+        Complete = true;
+      }
 
+      /// <summary>
+      /// Gets or sets the the component of the ICE candidate to indicate
+      /// if the candidate is related to RTP or RTCP.
+      /// </summary>
+      property RTCIceComponent              Component;
       /// <summary>
       /// This attribute is always present and set to true, indicating that
       /// ICE candidate gathering is complete.

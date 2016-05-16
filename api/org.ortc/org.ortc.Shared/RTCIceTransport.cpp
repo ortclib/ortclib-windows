@@ -243,8 +243,8 @@ namespace org
 
       try
       {
-        auto nativePointer = _nativePointer->createAssociatedTransport();
-        ORG_ORTC_THROW_UNEXPECTED_IF(!nativePointer)
+        auto nativePointer = _nativePointer->createAssociatedTransport(IICETransportDelegatePtr());
+        ORG_ORTC_THROW_UNEXPECTED_IF(!nativePointer);
         ret = RTCIceTransport::Convert(nativePointer);
       } 
       catch (const InvalidStateError &e)
@@ -263,6 +263,10 @@ namespace org
       try
       {
         _nativePointer->addRemoteCandidate(*internal::FromCx(remoteCandidate));
+      }     
+      catch (const InvalidParameters &)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS();
       }
       catch (const InvalidStateError &e)
       {
@@ -277,6 +281,10 @@ namespace org
       try
       {
         _nativePointer->addRemoteCandidate(*internal::FromCx(remoteCandidate));
+      }
+      catch (const InvalidParameters &)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS();
       }
       catch (const InvalidStateError &e)
       {
@@ -300,6 +308,10 @@ namespace org
       try
       {
         _nativePointer->setRemoteCandidates(list);
+      }
+      catch (const InvalidParameters &)
+      {
+        ORG_ORTC_THROW_INVALID_PARAMETERS();
       }
       catch (const InvalidStateError &e)
       {

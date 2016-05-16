@@ -37,6 +37,7 @@ namespace org
       namespace internal
       {
         ZS_DECLARE_CLASS_PTR(RTCPeerConnectionDelegate);
+        ZS_DECLARE_CLASS_PTR(RTCPeerConnectionPromiseWitDataChannelObserver);
       } // namespace internal
     } // namespace adapter
 
@@ -218,7 +219,8 @@ namespace org
       friend class internal::RTCDataChannelDelegate;
       friend class internal::RTCSctpTransportDelegate;
       friend ref class adapter::RTCPeerConnection;
-      friend class adapter::internal::RTCPeerConnectionDelegate;      
+      friend class adapter::internal::RTCPeerConnectionDelegate;
+      friend class adapter::internal::RTCPeerConnectionPromiseWitDataChannelObserver;
 
     private:
       RTCDataChannel(IDataChannelPtr nativePointer);

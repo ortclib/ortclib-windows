@@ -446,7 +446,7 @@ namespace org
             auto value = input.mMLineIndex.value();
             result->SdpMLineIndex = UseHelper::ToCx(Optional<WORD>(SafeInt<WORD>(value)));
           }
-          result->Component = UseHelper::Convert(input.mComponent);
+          result->Component = UseHelper::Convert(candidate->mComponent);
           result->InterfaceType = UseHelper::ToCx(candidate->mInterfaceType);
           result->Foundation = UseHelper::ToCx(candidate->mFoundation);
           result->Priority = SafeInt<decltype(result->Priority)>(candidate->mPriority);
@@ -476,7 +476,7 @@ namespace org
           {
             result->mMLineIndex = UseHelper::FromCx(input->SdpMLineIndex);
           }
-          result->mComponent = UseHelper::Convert(input->Component);
+          candidate->mComponent = UseHelper::Convert(input->Component);
           candidate->mInterfaceType = UseHelper::FromCx(input->InterfaceType);
           candidate->mFoundation = UseHelper::FromCx(input->Foundation);
           candidate->mPriority = SafeInt<decltype(candidate->mPriority)>(input->Priority);
@@ -502,7 +502,6 @@ namespace org
             auto value = input.mMLineIndex.value();
             result->SdpMLineIndex = UseHelper::ToCx(Optional<WORD>(SafeInt<WORD>(value)));
           }
-          result->Component = UseHelper::Convert(input.mComponent);
           result->Complete = candidate->mComplete;
           return result;
         }
@@ -522,7 +521,6 @@ namespace org
           {
             result->mMLineIndex = UseHelper::FromCx(input->SdpMLineIndex);
           }
-          result->mComponent = UseHelper::Convert(input->Component);
           candidate->mComplete = input->Complete;
           return result;
         }

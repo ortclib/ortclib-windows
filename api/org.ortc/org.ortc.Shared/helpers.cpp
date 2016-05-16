@@ -753,7 +753,7 @@ namespace org
         {
         case adapter::RTCBundlePolicy::Balanced:        return IPeerConnectionTypes::BundlePolicy_Balanced;
         case adapter::RTCBundlePolicy::MaxBundle:       return IPeerConnectionTypes::BundlePolicy_MaxBundle;
-        case adapter::RTCBundlePolicy::MaxCompat:       return IPeerConnectionTypes::BundlePolity_MaxCompat;
+        case adapter::RTCBundlePolicy::MaxCompat:       return IPeerConnectionTypes::BundlePolicy_MaxCompat;
         }
         throw ref new Platform::NotImplementedException();
       }
@@ -763,7 +763,7 @@ namespace org
         {
         case IPeerConnectionTypes::BundlePolicy_Balanced:        return adapter::RTCBundlePolicy::Balanced;
         case IPeerConnectionTypes::BundlePolicy_MaxBundle:       return adapter::RTCBundlePolicy::MaxBundle;
-        case IPeerConnectionTypes::BundlePolity_MaxCompat:       return adapter::RTCBundlePolicy::MaxCompat;
+        case IPeerConnectionTypes::BundlePolicy_MaxCompat:       return adapter::RTCBundlePolicy::MaxCompat;
         }
         throw ref new Platform::NotImplementedException();
       }

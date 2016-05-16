@@ -326,10 +326,15 @@ namespace org
         /// </summary>
         property RTCRtcpMuxPolicy                     RtcpMuxPolicy;
         /// <summary>
-        /// A set of certificates that the RTCPeerConnection uses to
-        /// authenticate.
+        /// Gets or sets a list of certificates that the RTCPeerConnection
+        /// uses to authenticate.
         /// </summary>
         property IVector<RTCCertificate^>^            Certificates;
+        /// <summary>
+        /// Gets or sets the size of the prefetched ICE pool as defined in
+        /// [draft-ietf-rtcweb-jsep-14] (section 3.4.4. and section 4.1.1.).
+        /// </summary>
+        property uint16                               IceCandidatePoolSize;
 
         /// <summary>
         /// Consturcts an instance of an RTCConfiguration object.
@@ -338,6 +343,7 @@ namespace org
         RTCConfiguration()
         {
           SignalingMode = RTCPeerConnectionSignalingMode::Json;
+          NegotiateSrtpSdes = false;
           BundlePolicy = RTCBundlePolicy::Balanced;
           RtcpMuxPolicy = RTCRtcpMuxPolicy::Require;
         }
@@ -440,6 +446,11 @@ namespace org
       /// </summary>
       public ref struct RTCMediaStreamTrackConfiguration sealed
       {
+        /// <summary>
+        /// Gets or sets the RTP capabilities associated with the media
+        /// stream track configuration.
+        /// </summary>
+        property RTCRtpCapabilities^          Capabilities;
         /// <summary>
         /// Gets or sets the RTP parameters associated with the media
         /// stream track configuration.
@@ -883,13 +894,13 @@ namespace org
         /// Adds a new track to the RTCPeerConnection.
         /// </summary>
         [Windows::Foundation::Metadata::DefaultOverloadAttribute]
-        RTCRtpSender^                                       AddTrack(MediaStreamTrack^ track);
+        IAsyncOperation<RTCRtpSender^>^                     AddTrack(MediaStreamTrack^ track);
         /// <summary>
         /// Adds a new track to the RTCPeerConnection and specifies how the
         /// track must be encoded.
         /// </summary>
         [Windows::Foundation::Metadata::OverloadAttribute("AddTrackWithConfiguration")]
-        RTCRtpSender^                                       AddTrack(
+        IAsyncOperation<RTCRtpSender^>^                     AddTrack(
           MediaStreamTrack^ track,
           RTCMediaStreamTrackConfiguration^ configuration
           );
@@ -898,7 +909,7 @@ namespace org
         /// is contained in the specified MediaStreams.
         /// </summary>
         [Windows::Foundation::Metadata::OverloadAttribute("AddTrackWithStreams")]
-        RTCRtpSender^                                       AddTrack(
+        IAsyncOperation<RTCRtpSender^>^                     AddTrack(
           MediaStreamTrack^ track,
           IVector<MediaStream^>^ streams
           );
@@ -907,7 +918,7 @@ namespace org
         /// track must be encoded.
         /// </summary>
         [Windows::Foundation::Metadata::OverloadAttribute("AddTrackWithStreamsAndConfiguration")]
-        RTCRtpSender^                                       AddTrack(
+        IAsyncOperation<RTCRtpSender^>^                     AddTrack(
           MediaStreamTrack^ track,
           IVector<MediaStream^>^ streams,
           RTCMediaStreamTrackConfiguration^ configuration
@@ -923,7 +934,7 @@ namespace org
         /// Creates a new RTCDataChannel object with the given data channel
         /// parameters.
         /// </summary>
-        RTCDataChannel^                                     CreateDataChannel(RTCDataChannelParameters^ parameters);
+        IAsyncOperation<RTCDataChannel^>^                   CreateDataChannel(RTCDataChannelParameters^ parameters);
 
         /// <summary>
         /// The engine wishes to inform the application that session

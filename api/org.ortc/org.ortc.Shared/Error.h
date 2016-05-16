@@ -21,15 +21,15 @@ namespace org
 
     namespace internal
     {
-      ZS_DECLARE_CLASS_PTR(MediaStreamTrackDelegate)
-      ZS_DECLARE_CLASS_PTR(RTCDtlsTransportDelegate)
-      ZS_DECLARE_CLASS_PTR(RTCDataChannelDelegate)
-      ZS_DECLARE_CLASS_PTR(RTCSrtpSdesTransportDelegate)
-      ZS_DECLARE_CLASS_PTR(MediaDevicesPromiseObserver)
-      ZS_DECLARE_CLASS_PTR(MediaStreamTrackConstraintsPromiseObserver)
-      ZS_DECLARE_CLASS_PTR(RTCGenerateCertificatePromiseObserver)
-      ZS_DECLARE_CLASS_PTR(RTCRtpSenderPromiseObserver)
-      ZS_DECLARE_CLASS_PTR(RTCRtpReceiverPromiseObserver)
+      ZS_DECLARE_CLASS_PTR(MediaStreamTrackDelegate);
+      ZS_DECLARE_CLASS_PTR(RTCDtlsTransportDelegate);
+      ZS_DECLARE_CLASS_PTR(RTCDataChannelDelegate);
+      ZS_DECLARE_CLASS_PTR(RTCSrtpSdesTransportDelegate);
+      ZS_DECLARE_CLASS_PTR(MediaDevicesPromiseObserver);
+      ZS_DECLARE_CLASS_PTR(MediaStreamTrackConstraintsPromiseObserver);
+      ZS_DECLARE_CLASS_PTR(RTCGenerateCertificatePromiseObserver);
+      ZS_DECLARE_CLASS_PTR(RTCRtpSenderPromiseObserver);
+      ZS_DECLARE_CLASS_PTR(RTCRtpReceiverPromiseObserver);
     } // namespace internal
 
     namespace adapter
@@ -37,6 +37,8 @@ namespace org
       namespace internal
       {
         ZS_DECLARE_CLASS_PTR(RTCPeerConnectionPromiseWithDescriptionObserver);
+        ZS_DECLARE_CLASS_PTR(RTCPeerConnectionPromiseWithSenderObserver);
+        ZS_DECLARE_CLASS_PTR(RTCPeerConnectionPromiseWitDataChannelObserver);
         ZS_DECLARE_CLASS_PTR(RTCPeerConnectionPromiseObserver);
       } // namespace internal
     } // namespace adapter
@@ -56,6 +58,8 @@ namespace org
       friend class internal::RTCRtpSenderPromiseObserver;
       friend class internal::RTCRtpReceiverPromiseObserver;
       friend class adapter::internal::RTCPeerConnectionPromiseWithDescriptionObserver;
+      friend class adapter::internal::RTCPeerConnectionPromiseWithSenderObserver;
+      friend class adapter::internal::RTCPeerConnectionPromiseWitDataChannelObserver;
       friend class adapter::internal::RTCPeerConnectionPromiseObserver;
 
       static Error^ CreateIfGeneric(AnyPtr any);
