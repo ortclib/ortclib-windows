@@ -813,10 +813,8 @@ namespace org
         switch (state)
         {
         case adapter::RTCSignalingState::Stable:              return IPeerConnectionTypes::SignalingState_Stable;
-        case adapter::RTCSignalingState::WaitingLocalOffer:   return IPeerConnectionTypes::SignalingState_WaitingLocalOffer;
         case adapter::RTCSignalingState::HaveLocalOffer:      return IPeerConnectionTypes::SignalingState_HaveLocalOffer;
         case adapter::RTCSignalingState::HaveRemoteOffer:     return IPeerConnectionTypes::SignalingState_HaveRemoteOffer;
-        case adapter::RTCSignalingState::WaitingLocalAnswer:  return IPeerConnectionTypes::SignalingState_WaitingLocalAnswer;
         case adapter::RTCSignalingState::HaveLocalPranswer:   return IPeerConnectionTypes::SignalingState_HaveLocalPranswer;
         case adapter::RTCSignalingState::HaveRemotePranswer:  return IPeerConnectionTypes::SignalingState_HaveRemotePranswer;
         case adapter::RTCSignalingState::Closed:              return IPeerConnectionTypes::SignalingState_Closed;
@@ -828,10 +826,8 @@ namespace org
         switch (state)
         {
         case IPeerConnectionTypes::SignalingState_Stable:               return adapter::RTCSignalingState::Stable;
-        case IPeerConnectionTypes::SignalingState_WaitingLocalOffer:    return adapter::RTCSignalingState::WaitingLocalOffer;
         case IPeerConnectionTypes::SignalingState_HaveLocalOffer:       return adapter::RTCSignalingState::HaveLocalOffer;
         case IPeerConnectionTypes::SignalingState_HaveRemoteOffer:      return adapter::RTCSignalingState::HaveRemoteOffer;
-        case IPeerConnectionTypes::SignalingState_WaitingLocalAnswer:   return adapter::RTCSignalingState::WaitingLocalAnswer;
         case IPeerConnectionTypes::SignalingState_HaveLocalPranswer:    return adapter::RTCSignalingState::HaveLocalPranswer;
         case IPeerConnectionTypes::SignalingState_HaveRemotePranswer:   return adapter::RTCSignalingState::HaveRemotePranswer;
         case IPeerConnectionTypes::SignalingState_Closed:               return adapter::RTCSignalingState::Closed;
