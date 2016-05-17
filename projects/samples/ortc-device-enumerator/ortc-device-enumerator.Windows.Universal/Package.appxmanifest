@@ -7,11 +7,11 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="cd27cf33-8981-44cf-a07d-9f335266c5cd"
+    Name="c53ae3e6-e901-4e03-acd0-cc64fe7e0fd4"
     Publisher="CN=Sergej"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="cd27cf33-8981-44cf-a07d-9f335266c5cd" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="c53ae3e6-e901-4e03-acd0-cc64fe7e0fd4" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>ortc-device-enumerator.Windows.Universal</DisplayName>
