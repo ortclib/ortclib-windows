@@ -22,6 +22,21 @@ namespace org
   {
     using Microsoft::WRL::ComPtr;
 
+    /// <summary>
+    /// Delegate used to notify about first video frame rendering.
+    /// </summary>
+    public delegate void FirstFrameRenderedEventHandler(double timestamp);
+
+    public ref class FirstFrameRenderHelper sealed {
+    public:
+      /// <summary>
+      /// Event fires when the first video frame renders.
+      /// </summary>
+      static event FirstFrameRenderedEventHandler^ FirstFrameRendered;
+    internal:
+      static void FireEvent(double timestamp);
+    };
+
     struct SampleData {
       SampleData();
       ComPtr<IMFSample> sample;
@@ -32,13 +47,14 @@ namespace org
       LONGLONG renderTime;
     };
 
-    class MediaSourceHelper {
+    class MediaSourceHelper { 
     public:
       MediaSourceHelper(bool isH264,
         std::function<HRESULT(webrtc::VideoFrame* frame, IMFSample** sample)> mkSample,
         std::function<void(int)> fpsCallback);
       ~MediaSourceHelper();
 
+      void SetStartTimeNow();
       void QueueFrame(webrtc::VideoFrame* frame);
       rtc::scoped_ptr<SampleData> DequeueFrame();
       bool HasFrames();
@@ -81,6 +97,7 @@ namespace org
 
       // Are the frames H264 encoded.
       bool _isH264;
+      webrtc::TickTime _startTickTime;
     };
 
   } // namespace ortc

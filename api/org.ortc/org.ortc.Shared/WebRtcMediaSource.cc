@@ -128,7 +128,7 @@ namespace org
       IMFPresentationDescriptor *pPresentationDescriptor,
       const GUID *pguidTimeFormat, const PROPVARIANT *pvarStartPosition) {
       webrtc::CriticalSectionScoped csLock(_lock.get());
-      OutputDebugString(L"WebRtcMediaSource::Start\n");
+      OutputDebugString(L"WebRtcMediaSource::Start\r\n");
       if (_eventQueue == nullptr) {
         return MF_E_SHUTDOWN;
       }
@@ -149,7 +149,7 @@ namespace org
 
     IFACEMETHODIMP WebRtcMediaSource::Stop() {
       webrtc::CriticalSectionScoped csLock(_lock.get());
-      OutputDebugString(L"WebRtcMediaSource::Stop\n");
+      OutputDebugString(L"WebRtcMediaSource::Stop\r\n");
       if (_eventQueue == nullptr) {
         return MF_E_SHUTDOWN;
       }
@@ -164,7 +164,7 @@ namespace org
 
     IFACEMETHODIMP WebRtcMediaSource::Shutdown() {
       webrtc::CriticalSectionScoped csLock(_lock.get());
-      OutputDebugString(L"WebRtcMediaSource::Shutdown\n");
+      OutputDebugString(L"WebRtcMediaSource::Shutdown\r\n");
       if (_eventQueue != nullptr) {
         _eventQueue->Shutdown();
       }
@@ -205,8 +205,7 @@ namespace org
 
     IFACEMETHODIMP WebRtcMediaSource::GetService(
       REFGUID guidService, REFIID riid, LPVOID *ppvObject) {
-      if (guidService == MF_RATE_CONTROL_SERVICE || 
-        guidService == MF_MEDIASOURCE_SERVICE) {
+      if (guidService == MF_RATE_CONTROL_SERVICE || guidService == MF_MEDIASOURCE_SERVICE) {
         HRESULT hr = QueryInterface(riid, ppvObject);
         return hr;
       }

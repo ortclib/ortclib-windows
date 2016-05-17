@@ -41,8 +41,7 @@ namespace org
     public:
       static HRESULT CreateMediaSource(
         ABI::Windows::Media::Core::IMediaSource** source,
-        MediaStreamTrack^ track,
-        Platform::String^ id);
+        MediaStreamTrack^ track, Platform::String^ id);
 
       WebRtcMediaSource();
       virtual ~WebRtcMediaSource();
