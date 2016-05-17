@@ -21,6 +21,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>$(SolutionDir)..\Build\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
+	<BaseIntermediateOutputPath>$(SolutionDir)..\Build\Intermediate\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+	<IntermediateOutputPath>$(BaseIntermediateOutputPath)\</IntermediateOutputPath>
     <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
@@ -31,6 +33,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>$(SolutionDir)..\Build\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
+	<BaseIntermediateOutputPath>$(SolutionDir)..\Build\Intermediate\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+	<IntermediateOutputPath>$(BaseIntermediateOutputPath)\</IntermediateOutputPath>
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
@@ -44,6 +48,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>$(SolutionDir)..\Build\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
+	<BaseIntermediateOutputPath>$(SolutionDir)..\Build\Intermediate\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+	<IntermediateOutputPath>$(BaseIntermediateOutputPath)\</IntermediateOutputPath>
     <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
@@ -54,6 +60,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
     <OutputPath>$(SolutionDir)..\Build\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
+	<BaseIntermediateOutputPath>$(SolutionDir)..\Build\Intermediate\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+	<IntermediateOutputPath>$(BaseIntermediateOutputPath)\</IntermediateOutputPath>
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
@@ -67,6 +75,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>$(SolutionDir)..\Build\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
+	<BaseIntermediateOutputPath>$(SolutionDir)..\Build\Intermediate\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+	<IntermediateOutputPath>$(BaseIntermediateOutputPath)\</IntermediateOutputPath>
     <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
@@ -77,6 +87,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>$(SolutionDir)..\Build\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
+	<BaseIntermediateOutputPath>$(SolutionDir)..\Build\Intermediate\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+	<IntermediateOutputPath>$(BaseIntermediateOutputPath)\</IntermediateOutputPath>
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
