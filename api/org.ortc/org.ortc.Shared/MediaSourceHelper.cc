@@ -10,6 +10,9 @@
 
 #include "MediaSourceHelper.h"
 
+#include "webrtc/base/timing.h"
+#include "webrtc/base/timeutils.h"
+
 #include <MFapi.h>
 
 namespace org
@@ -90,19 +93,13 @@ namespace org
       // Set the timestamp property
       if (_isFirstFrame) {
         _isFirstFrame = false;
-        data->sample->SetSampleTime(0);
-      }
-      else {
+        FirstFrameRenderHelper::FireEvent(
+          rtc::Timing::WallTimeNow() * rtc::kNumMillisecsPerSec);
+        LONGLONG frameTime = GetNextSampleTimeHns(data->renderTime);
+        data->sample->SetSampleTime(frameTime);
+      } else {
 
         LONGLONG frameTime = GetNextSampleTimeHns(data->renderTime);
-#if 0
-        auto oldSampleTime = _lastSampleTime;
-        if (_isH264)
-          OutputDebugString((
-            L"queue:" + (_frames.size().ToString()) +
-            L"\tframeTime:" + frameTime +
-            L"\tdelta:" + ((frameTime - oldSampleTime) / 10000) + L"\n")->Data());
-#endif
 
         data->sample->SetSampleTime(frameTime);
 
@@ -130,7 +127,9 @@ namespace org
     // === Private functions below ===
 
     rtc::scoped_ptr<SampleData> MediaSourceHelper::DequeueH264Frame() {
-      DropFramesToIDR(_frames);
+
+      if (_frames.size() > 15)
+        DropFramesToIDR(_frames);
 
       rtc::scoped_ptr<webrtc::VideoFrame> frame(_frames.front());
       _frames.pop_front();
@@ -144,6 +143,12 @@ namespace org
           tmp->AddRef();
           data->sample.Attach(tmp);
           data->renderTime = frame->timestamp();
+
+          ComPtr<IMFAttributes> sampleAttributes;
+          data->sample.As(&sampleAttributes);
+          if (IsSampleIDR(tmp)) {
+            sampleAttributes->SetUINT32(MFSampleExtension_CleanPoint, TRUE);
+          }
         }
       }
 
@@ -231,7 +236,7 @@ namespace org
 
       // If we have an IDR frame, drop all older frames.
       if (idrFrame != nullptr) {
-        OutputDebugString(L"IDR found, dropping all other samples.\n");
+        OutputDebugString(L"IDR found, dropping all other samples.\r\n");
         while (!frames.empty()) {
           if (frames.front() == idrFrame) {
             break;
@@ -244,24 +249,41 @@ namespace org
       return idrFrame != nullptr;
     }
 
+    void MediaSourceHelper::SetStartTimeNow() {
+      webrtc::CriticalSectionScoped csLock(_lock.get());
+      _startTickTime = webrtc::TickTime::Now();
+      if (_isH264) {
+        if (!DropFramesToIDR(_frames)) {
+          // Flush all frames then.
+          while (!_frames.empty()) {
+            rtc::scoped_ptr<webrtc::VideoFrame> frame(_frames.front());
+            _frames.pop_front();
+          }
+        }
+      }
+    }
+
+#define USE_WALL_CLOCK
     LONGLONG MediaSourceHelper::GetNextSampleTimeHns(LONGLONG frameRenderTime) {
 
       if (_isH264) {
-
+#ifdef USE_WALL_CLOCK
+        if (_startTickTime.Ticks() == 0) {
+          _startTickTime = webrtc::TickTime::Now();
+          return 0;
+        }
+        LONGLONG frameTime = ((webrtc::TickTime::Now() - _startTickTime).Milliseconds() + _futureOffsetMs) * 1000 * 10;
+#else
         if (_startTime == 0) {
 
           _startTime = frameRenderTime;
+          // Return zero here so the first frame starts at zero.
+          // Only follow-up samples get an future offset.
+          return 0;
         }
 
-        LONGLONG frameTime = (frameRenderTime - _startTime) / 100;
-
-        // Sometimes we get requests so fast they have identical timestamp.
-        // Add a bit to the timetamp so it's different from the last sample.
-        if (_lastSampleTime >= frameTime) {
-          /*LOG(LS_WARNING) << "!!!!! Bad sample time "
-            << _lastSampleTime << "->" << frameTime;*/
-          frameTime = _lastSampleTime + 500;  // Make the timestamp slightly after the last one.
-        }
+        LONGLONG frameTime = (frameRenderTime - _startTime) / 100 + (_futureOffsetMs * 1000 * 10);
+#endif
 
         return frameTime;
       }
@@ -304,5 +326,8 @@ namespace org
       }
     }
 
+    void FirstFrameRenderHelper::FireEvent(double timestamp) {
+      FirstFrameRendered(timestamp);
+    }
   } // namespace ortc
 }  // namespace org

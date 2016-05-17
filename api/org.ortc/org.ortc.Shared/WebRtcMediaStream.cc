@@ -14,6 +14,7 @@
 #include "MediaStreamTrack.h"
 #include "WebRtcMediaSource.h"
 #include "MediaStreamTrack.h"
+#include "RTMediaStreamSource.h"
 
 #include "webrtc/system_wrappers/include/critical_section_wrapper.h"
 #include "libyuv/convert.h"
@@ -23,6 +24,20 @@
 #include <d3d11_2.h>
 
 using Windows::System::Threading::TimerElapsedHandler;
+
+namespace webrtc
+{
+  namespace vcm
+  {
+    // How we trigger a key frame request when
+    // registering an H264 renderer. We render
+    // encoded samples so we have to request a
+    // key frame as fast as possible otherwise
+    // we don't render anything until the next
+    // key frame.
+    extern bool globalRequestKeyFrame;
+  }
+}
 
 namespace org
 {
@@ -44,7 +59,8 @@ namespace org
     WebRtcMediaStream::WebRtcMediaStream() :
       _frameBufferIndex(0), _frameReady(0), _frameCount(0),
       _lock(webrtc::CriticalSectionWrapper::CreateCriticalSection()),
-      _gpuVideoBuffer(false), _frameSentThisTime(false) {
+      _gpuVideoBuffer(false),
+      _frameBeingQueued(0), _started(false) {
       _mediaBuffers.resize(BufferCount);
     }
 
@@ -52,6 +68,11 @@ namespace org
       // To be safe.  Sometimes we get destroyed
       // without having been shutdown.
       Shutdown();
+      // Wait until no frames are being queued
+      // from the webrtc callback.
+      while (_frameBeingQueued > 0) {
+        Sleep(1);
+      }
     }
 
     HRESULT WebRtcMediaStream::RuntimeClassInitialize(
@@ -65,8 +86,7 @@ namespace org
       _id = id;
       _rtcRenderer = rtc::scoped_ptr<RTCRenderer>(new RTCRenderer(this));
 
-      if (nullptr != track)
-        _isH264 = track->IsH264Rendering();
+      _isH264 = track->IsH264Rendering();
 
       // Create the helper with the callback functions.
       _helper.reset(new MediaSourceHelper(_isH264,
@@ -84,15 +104,16 @@ namespace org
       RETURN_ON_FAIL(_streamDescriptor->GetMediaTypeHandler(&mediaTypeHandler));
       RETURN_ON_FAIL(mediaTypeHandler->SetCurrentMediaType(_mediaType.Get()));
 
-      if (nullptr != track)
-        track->SetVideoRenderCallback(_rtcRenderer.get());
-    
+      track->SetVideoRenderCallback(_rtcRenderer.get());
+      if (_isH264) {
+        webrtc::vcm::globalRequestKeyFrame = true;
+      }
       return S_OK;
     }
 
     // IMFMediaEventGenerator
     IFACEMETHODIMP WebRtcMediaStream::GetEvent(
-      ::DWORD dwFlags, IMFMediaEvent **ppEvent) {
+      DWORD dwFlags, IMFMediaEvent **ppEvent) {
       webrtc::CriticalSectionScoped csLock(_lock.get());
       if (_eventQueue == nullptr) {
         return MF_E_SHUTDOWN;
@@ -165,6 +186,9 @@ namespace org
       unsigned int width, unsigned int height,
       unsigned int rotation, IMFMediaType** ppType, bool isH264) {
       // Create media type
+      // Make sure the dimensions are even
+      width &= ~((unsigned int)1);
+      height &= ~((unsigned int)1);
       ComPtr<IMFMediaType> mediaType;
       RETURN_ON_FAIL(MFCreateMediaType(&mediaType));
       RETURN_ON_FAIL(mediaType->SetGUID(MF_MT_MAJOR_TYPE, MFMediaType_Video));
@@ -193,16 +217,17 @@ namespace org
       ComPtr<IMFSample> spSample;
       RETURN_ON_FAIL(MFCreateSample(&spSample));
 
+      // Make sure the destination buffer in even. Crop one pixel if odd.
+      unsigned int destWidth = (unsigned int)(frame->width() & (~((size_t)1)));
+      unsigned int destHeight = (unsigned int)(frame->height() & (~((size_t)1)));
       // Make sure the buffers are the right size
       {
         unsigned int width, height;
         RETURN_ON_FAIL(MFGetAttributeSize(
           _mediaType.Get(), MF_MT_FRAME_SIZE, &width, &height));
-        if (frame->width() != width || frame->height() != height) {
-          RETURN_ON_FAIL(CreateMediaType((unsigned int)frame->width(),
-            (unsigned int)frame->height(),
-            frame->rotation(), &_mediaType,
-            _isH264));
+        if (destWidth != width || destHeight != height) {
+          RETURN_ON_FAIL(CreateMediaType(destWidth, destHeight,
+            frame->rotation(), &_mediaType, _isH264));
           ResetMediaBuffers();
         }
       }
@@ -220,10 +245,10 @@ namespace org
       ComPtr<IMF2DBuffer2> buffer2d;
       RETURN_ON_FAIL(buffer.As(&buffer2d));
 
-      ::BYTE* destRawData;
-      ::BYTE* bufferStart;
-      ::LONG pitch;
-      ::DWORD destMediaBufferSize;
+      BYTE* destRawData;
+      BYTE* bufferStart;
+      LONG pitch;
+      DWORD destMediaBufferSize;
 
       RETURN_ON_FAIL(buffer2d->Lock2DSize(MF2DBuffer_LockFlags_Write,
         &destRawData, &pitch, &bufferStart, &destMediaBufferSize));
@@ -239,8 +264,6 @@ namespace org
             frame->video_frame_buffer()->stride(webrtc::PlaneType::kYPlane),
             frame->video_frame_buffer()->stride(webrtc::PlaneType::kUPlane),
             frame->video_frame_buffer()->stride(webrtc::PlaneType::kVPlane));
-
-
 
         int32_t src_width = static_cast<int>(frame->video_frame_buffer()->width());
         int32_t src_height = static_cast<int>(frame->video_frame_buffer()->height());
@@ -258,29 +281,29 @@ namespace org
 
 
       // Convert to NV12
-      uint8* uvDest = destRawData + (pitch * frame->height());
+      uint8* uvDest = destRawData + (pitch * destHeight);
       libyuv::I420ToNV12(frame->video_frame_buffer()->data(webrtc::PlaneType::kYPlane), frame->video_frame_buffer()->stride(webrtc::PlaneType::kYPlane),
         frame->video_frame_buffer()->data(webrtc::PlaneType::kUPlane), frame->video_frame_buffer()->stride(webrtc::PlaneType::kUPlane),
         frame->video_frame_buffer()->data(webrtc::PlaneType::kVPlane), frame->video_frame_buffer()->stride(webrtc::PlaneType::kVPlane),
         reinterpret_cast<uint8*>(destRawData), pitch,
         uvDest, pitch,
-        static_cast<int>(frame->width()),
-        static_cast<int>(frame->height()));
+        static_cast<int>(destWidth),
+        static_cast<int>(destHeight));
 
       *sample = spSample.Detach();
       return S_OK;
     }
 
     void WebRtcMediaStream::FpsCallback(int fps) {
-      //Concurrency::create_async([this, fps] {
-      //  webrtc_winrt_api::FrameCounterHelper::FireEvent(
-      //    _id, fps.ToString());
-      //});
+      Concurrency::create_async([this, fps] {
+        FrameCounterHelper::FireEvent(
+          _id, fps.ToString());
+      });
     }
 
     HRESULT WebRtcMediaStream::ReplyToSampleRequest() {
       webrtc::CriticalSectionScoped csLock(_lock.get());
-      if (_frameReady == 0 || !_helper->HasFrames() || _frameSentThisTime) {
+      if (_frameReady == 0 || !_helper->HasFrames()) {
         return S_OK;
       }
 
@@ -313,37 +336,21 @@ namespace org
         }
 
         if (_isH264)
-          OutputDebugString((L"Frame format changed!!! "
+          OutputDebugString((L"Frame format changed: "
             + width.ToString() + L"x" + height.ToString()
-            + " rotation:" + rotation.ToString() + L"\n")->Data());
+            + " rotation:" + rotation.ToString() + L"\r\n")->Data());
 
         CreateMediaType(width, height, rotation, &_mediaType, _isH264);
         _eventQueue->QueueEventParamUnk(MEStreamFormatChanged,
           GUID_NULL, S_OK, _mediaType.Get());
         ResetMediaBuffers();
 
-        //webrtc_winrt_api::ResolutionHelper::FireEvent(
-        //  _id, sampleData->size.cx, sampleData->size.cy);
+        ResolutionHelper::FireEvent(
+          _id, width, height);
       }
 
       _eventQueue->QueueEventParamUnk(MEMediaSample,
         GUID_NULL, S_OK, sampleData->sample.Get());
-
-      // Create a timer which ensures we don't display frames faster that expected.
-      // Required because Media Foundation sometimes requests samples in burst mode
-      // but we use the wall clock to drive timestamps.
-      {
-        _frameSentThisTime = true;
-        if (_fpsTimer != nullptr)
-          _fpsTimer->Cancel();
-        _fpsTimer = nullptr;
-        auto handler = ref new TimerElapsedHandler([this](ThreadPoolTimer^ timer) {
-          this->FPSTimerElapsedExecute(timer);
-        });
-        auto timespan = Windows::Foundation::TimeSpan();
-        timespan.Duration = MAX_FRAME_DELAY_MS * 1000 * 10;
-        _fpsTimer = ThreadPoolTimer::CreateTimer(handler, timespan);
-      }
 
       InterlockedDecrement(&_frameReady);
       return S_OK;
@@ -357,7 +364,12 @@ namespace org
         return MF_E_SHUTDOWN;
       }
       // Start stream
-      RETURN_ON_FAIL(QueueEvent(MEStreamStarted, GUID_NULL, S_OK, nullptr));
+      RETURN_ON_FAIL(QueueEvent(MEStreamStarted, GUID_NULL, S_OK, pvarStartPosition));
+
+      if (!_started) {
+        _helper->SetStartTimeNow();
+        _started = true;
+      }
       return S_OK;
     }
 
@@ -373,11 +385,6 @@ namespace org
     STDMETHODIMP WebRtcMediaStream::Shutdown() {
       webrtc::CriticalSectionScoped csLock(_lock.get());
 
-      if (_fpsTimer != nullptr) {
-        _fpsTimer->Cancel();
-        _fpsTimer = nullptr;
-      }
-
       //_track->UnsetRenderer(this);
       if (_eventQueue != nullptr) {
         _eventQueue->Shutdown();
@@ -385,13 +392,14 @@ namespace org
 
       _deviceManager = nullptr;
       _eventQueue = nullptr;
+
+      _helper.reset();
       return S_OK;
     }
 
     STDMETHODIMP WebRtcMediaStream::SetD3DManager(
       ComPtr<IMFDXGIDeviceManager> manager) {
 
-      using ::BYTE;
       webrtc::CriticalSectionScoped csLock(_lock.get());
       _deviceManager = manager;
       HANDLE deviceHandle;
@@ -417,7 +425,6 @@ namespace org
     }
 
     HRESULT WebRtcMediaStream::ResetMediaBuffers() {
-      using ::BYTE;
       for (auto&& buffer : _mediaBuffers) {
         buffer.Reset();
       }
@@ -451,8 +458,6 @@ namespace org
           texDesc.Format = DXGI_FORMAT_NV12;
           texDesc.SampleDesc.Count = 1;
           texDesc.Usage = D3D11_USAGE_DEFAULT;
-          texDesc.BindFlags = D3D11_BIND_DECODER;
-          texDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
           if (FAILED(device->CreateTexture2D(&texDesc, nullptr,
             frameTexture.ReleaseAndGetAddressOf()))) {
             _gpuVideoBuffer = false;
@@ -475,12 +480,6 @@ namespace org
       return S_OK;
     }
 
-    void WebRtcMediaStream::FPSTimerElapsedExecute(ThreadPoolTimer^ source) {
-      webrtc::CriticalSectionScoped csLock(_lock.get());
-      _frameSentThisTime = false;
-      ReplyToSampleRequest();
-    }
-
     WebRtcMediaStream::RTCRenderer::RTCRenderer(
       WebRtcMediaStream* streamSource) {
       _streamSource = streamSource;
@@ -490,27 +489,22 @@ namespace org
       //LOG(LS_INFO) << "RTMediaStreamSource::RTCRenderer::~RTCRenderer";
     }
 
-    void WebRtcMediaStream::RTCRenderer::SetSize(
-      uint32 width, uint32 height, uint32 reserved) {
-      //auto stream = _streamSource.Resolve<WebRtcMediaStream>();
-      //if (stream != nullptr) {
-      //  stream->ResizeSource(width, height);
-      //}
-    }
-
     int32_t WebRtcMediaStream::RTCRenderer::RenderFrame(const uint32_t streamId,
       const webrtc::VideoFrame& frame) {
       webrtc::VideoFrame* frameCopy = new webrtc::VideoFrame();
       frameCopy->CopyFrame(frame);
-
       auto stream = _streamSource;
+      InterlockedIncrement(&stream->_frameBeingQueued);
       // Do the processing async because there's a risk of a deadlock otherwise.
       Concurrency::create_async([stream, frameCopy] {
-        webrtc::CriticalSectionScoped csLock(stream->_lock.get());
-        if (stream->_helper != nullptr) {
-          stream->_helper->QueueFrame(frameCopy);
-          stream->ReplyToSampleRequest();
+        {
+          webrtc::CriticalSectionScoped csLock(stream->_lock.get());
+          if (stream->_helper != nullptr) {
+            stream->_helper->QueueFrame(frameCopy);
+            stream->ReplyToSampleRequest();
+          }
         }
+        InterlockedDecrement(&stream->_frameBeingQueued);
       });
       return 0;
     }

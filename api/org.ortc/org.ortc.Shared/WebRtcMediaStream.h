@@ -72,7 +72,6 @@ namespace org
       public:
         explicit RTCRenderer(WebRtcMediaStream* streamSource);
         virtual ~RTCRenderer();
-        virtual void SetSize(uint32 width, uint32 height, uint32 reserved);
         virtual int32_t RenderFrame(const uint32_t streamId,
           const webrtc::VideoFrame& videoFrame);
         virtual bool CanApplyRotation() { return true; }
@@ -106,6 +105,7 @@ namespace org
       ULONGLONG _frameCount;
       int _index;
       ULONG _frameReady;
+      ULONG _frameBeingQueued;
 
       // From the sample manager.
       HRESULT ResetMediaBuffers();
@@ -113,14 +113,9 @@ namespace org
       std::vector<ComPtr<IMFMediaBuffer>> _mediaBuffers;
       int _frameBufferIndex;
 
-      // Used to smooth out frame samples to prevent sample being
-      // rendered faster than a certain rate.
-      ThreadPoolTimer^ _fpsTimer;
-      void FPSTimerElapsedExecute(ThreadPoolTimer^ source);
-      bool _frameSentThisTime;
-
       bool _gpuVideoBuffer;
       bool _isH264;
+      bool _started;
     };
   } // namespace ortc
 }  // namespace org
