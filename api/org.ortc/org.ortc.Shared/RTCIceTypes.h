@@ -62,12 +62,12 @@ namespace org
       /// Protocols multiplexed with RTP (e.g. SCTP data channel) share its
       /// component ID.
       /// </summary>
-      Rtp,
+      Rtp = 1,
       /// <summary>
       /// The RTCP component ID, defined (as '2') in [RFC5245] Section
       /// 4.1.1.1.
       /// </summary>
-      Rtcp
+      Rtcp = 2
     };
 
     /// <summary>
