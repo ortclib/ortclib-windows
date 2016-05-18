@@ -201,6 +201,7 @@ namespace org
           result->Id = UseHelper::ToCx(input.mID);
           result->Rtp = ToCx(input.mRTP);
           result->Rtcp = ToCx(input.mRTCP);
+          result->UseMux = input.mUseMux;
           return result;
         }
         RTCSessionDescriptionTransport^ ToCx(ISessionDescriptionTypes::TransportPtr input)
@@ -216,6 +217,7 @@ namespace org
           result->mID = UseHelper::FromCx(input->Id);
           result->mRTP = FromCx(input->Rtp);
           result->mRTCP = FromCx(input->Rtcp);
+          result->mUseMux = input->UseMux;
           return result;
         }
 

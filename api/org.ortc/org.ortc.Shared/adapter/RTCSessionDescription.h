@@ -526,6 +526,19 @@ namespace org
         /// information for use with RTCP.
         /// </summary>
         property RTCSessionDescriptionTransportParameters^  Rtcp;
+        /// <summary>
+        /// Gets or sets the mux policy for the transport. Mux is preferred
+        /// when possible.
+        /// </summary>
+        property Platform::Boolean                          UseMux;
+        /// <summary>
+        /// Constructs an instance of an RTCSessionDescriptionTransport
+        /// object.
+        /// </summary>
+        RTCSessionDescriptionTransport()
+        {
+          UseMux = true;
+        }
       };
 
       /// <summary>
