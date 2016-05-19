@@ -87,8 +87,8 @@ namespace org
               if (nullptr == value) continue;
               result->mCertificates.push_back(RTCPeerConnectionHelper::Convert(value));
             }
-            return result;
           }
+          return result;
         }
 
         RTCOfferOptions^ ToCx(const IPeerConnectionTypes::OfferOptions &input)
