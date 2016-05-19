@@ -84,25 +84,37 @@ namespace org
 
           result->mDetails = FromCx(input->Details);
 
-          for (RTCSessionDescriptionTransport^ value : input->Transports)
+          if (input->Transports)
           {
-            if (nullptr == value) continue;
-            result->mTransports.push_back(FromCx(value));
+            for (RTCSessionDescriptionTransport^ value : input->Transports)
+            {
+              if (nullptr == value) continue;
+              result->mTransports.push_back(FromCx(value));
+            }
           }
-          for (RTCSessionDescriptionRtpMediaLine^ value : input->RtpMediaLines)
+          if (input->RtpMediaLines)
           {
-            if (nullptr == value) continue;
-            result->mRTPMediaLines.push_back(FromCx(value));
+            for (RTCSessionDescriptionRtpMediaLine^ value : input->RtpMediaLines)
+            {
+              if (nullptr == value) continue;
+              result->mRTPMediaLines.push_back(FromCx(value));
+            }
           }
-          for (RTCSessionDescriptionSctpMediaLine^ value : input->SctpMediaLines)
+          if (input->SctpMediaLines)
           {
-            if (nullptr == value) continue;
-            result->mSCTPMediaLines.push_back(FromCx(value));
+            for (RTCSessionDescriptionSctpMediaLine^ value : input->SctpMediaLines)
+            {
+              if (nullptr == value) continue;
+              result->mSCTPMediaLines.push_back(FromCx(value));
+            }
           }
-          for (RTCSessionDescriptionRtpSender^ value : input->RtpSenders)
+          if (input->RtpSenders)
           {
-            if (nullptr == value) continue;
-            result->mRTPSenders.push_back(FromCx(value));
+            for (RTCSessionDescriptionRtpSender^ value : input->RtpSenders)
+            {
+              if (nullptr == value) continue;
+              result->mRTPSenders.push_back(FromCx(value));
+            }
           }
 
           return result;
