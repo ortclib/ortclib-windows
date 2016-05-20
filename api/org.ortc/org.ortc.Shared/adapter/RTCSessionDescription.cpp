@@ -571,7 +571,7 @@ namespace org
       Platform::String^ RTCIceCandidate::ToSdpString()
       {
         auto nativeCandidate = internal::FromCx(this);
-        return UseHelper::ToCx(UseServicesHelper::toString(nativeCandidate->toSDP()));
+        return UseHelper::ToCx(nativeCandidate->toSDP());
       }
       RTCIceCandidate^ RTCIceCandidate::FromSdpStringWithMid(
         Platform::String^ sdpString,
@@ -641,7 +641,7 @@ namespace org
       Platform::String^ RTCIceCandidateComplete::ToSdpString()
       {
         auto nativeCandidate = internal::FromCx(this);
-        return UseHelper::ToCx(UseServicesHelper::toString(nativeCandidate->toSDP()));
+        return UseHelper::ToCx(nativeCandidate->toSDP());
       }
       RTCIceCandidateComplete^ RTCIceCandidateComplete::FromSdpStringWithMid(
         Platform::String^ sdpString,
