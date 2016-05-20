@@ -80,10 +80,13 @@ namespace org
           result->mRTCPMuxPolicy = UseHelper::Convert(input->RtcpMuxPolicy);
           result->mICECandidatePoolSize = SafeInt<decltype(result->mICECandidatePoolSize)>(input->IceCandidatePoolSize);
 
-          for (RTCCertificate^ value : input->Certificates)
+          if (input->Certificates)
           {
-            if (nullptr == value) continue;
-            result->mCertificates.push_back(RTCPeerConnectionHelper::Convert(value));
+            for (RTCCertificate^ value : input->Certificates)
+            {
+              if (nullptr == value) continue;
+              result->mCertificates.push_back(RTCPeerConnectionHelper::Convert(value));
+            }
           }
           return result;
         }

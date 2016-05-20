@@ -82,6 +82,8 @@ namespace org
         auto result = ref new MediaTrackConstraints();
         if (input.mAdvanced.size() < 1) return result;
 
+        const IMediaStreamTrackTypes::ConstraintSet &baseSet = (input);
+        result->Set = ToCx(baseSet);
         result->Advanced = ref new Vector<MediaTrackConstraintSet^>();
         for (auto iter = input.mAdvanced.begin(); iter != input.mAdvanced.end(); ++iter)
         {
@@ -102,6 +104,12 @@ namespace org
         if (nullptr == input) return IMediaStreamTrackTypes::TrackConstraintsPtr();
         auto result(make_shared<IMediaStreamTrackTypes::TrackConstraints>());
         if (nullptr == input->Advanced) return result;
+
+        IMediaStreamTrackTypes::ConstraintSet &baseSet = *result;
+        auto baseResult = FromCx(input->Set);
+        if (baseResult) {
+          baseSet = *baseResult;
+        }
 
         for (MediaTrackConstraintSet^ value : input->Advanced)
         {

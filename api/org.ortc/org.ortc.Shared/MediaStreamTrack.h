@@ -346,20 +346,26 @@ namespace org
     public ref struct MediaTrackConstraints sealed
     {
       /// <summary>
-      /// This is the list of ConstraintSets that the User Agent must attempt
-      /// to satisfy, in order, skipping only those that cannot be satisfied.
-      /// The order of these ConstraintSets is significant. In particular,
-      /// when they are passed as an argument to applyConstraints, the User
-      /// Agent must try to satisfy them in the order that is specified. Thus
-      /// if optional ConstraintSets C1 and C2 can be satisfied individually,
-      /// but not together, then whichever of C1 and C2 is first in this list
-      /// will be satisfied, and the other will not. The User Agent must
-      /// attempt to satisfy all optional ConstraintSets in the list, even if
-      /// some cannot be satisfied. Thus, in the preceding example, if
-      /// optional constraint C3 is specified after C1 and C2, the User Agent
-      /// will attempt to satisfy C3 even though C2 cannot be satisfied. Note
-      /// that a given property name may occur only once in each ConstraintSet
-      /// but may occur in more than one ConstraintSet.
+      /// Gets or sets the base set of Constraints that the User Agent must
+      /// attempt to satisfy.
+      /// </summary>
+      property MediaTrackConstraintSet^ Set;
+      /// <summary>
+      /// Gets or sets the advanced list of ConstraintSets that the User Agent
+      /// must attempt to satisfy, in order, skipping only those that cannot
+      /// be satisfied. The order of these ConstraintSets is significant. In
+      /// particular, when they are passed as an argument to applyConstraints,
+      /// the User Agent must try to satisfy them in the order that is
+      /// specified. Thus if optional ConstraintSets C1 and C2 can be
+      /// satisfied individually, but not together, then whichever of C1 and
+      /// C2 is first in this list will be satisfied, and the other will not.
+      /// The User Agent must attempt to satisfy all optional ConstraintSets
+      /// in the list, even if some cannot be satisfied. Thus, in the
+      /// preceding example, if optional constraint C3 is specified after C1
+      /// and C2, the User Agent will attempt to satisfy C3 even though C2
+      /// cannot be satisfied. Note that a given property name may occur only
+      /// once in each ConstraintSet but may occur in more than one
+      /// ConstraintSet.
       /// </summary>
       property IVector<MediaTrackConstraintSet^>^ Advanced;
     };

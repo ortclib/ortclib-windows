@@ -271,7 +271,11 @@ namespace org
         /// Any of the RTCIceTransports or RTCDtlsTransports are in a failed
         /// state.
         /// </summary>
-        Failed
+        Failed,
+        /// <summary>
+        /// The RTCPeerConnection object's IsClosed slot is true.
+        /// </summary>
+        Closed
       };
 
       /// <summary>

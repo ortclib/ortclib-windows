@@ -895,6 +895,7 @@ namespace org
         case adapter::RTCPeerConnectionState::Connected:    return IPeerConnectionTypes::PeerConnectionState_Connected;
         case adapter::RTCPeerConnectionState::Disconnected: return IPeerConnectionTypes::PeerConnectionState_Disconnected;
         case adapter::RTCPeerConnectionState::Failed:       return IPeerConnectionTypes::PeerConnectionState_Failed;
+        case adapter::RTCPeerConnectionState::Closed:       return IPeerConnectionTypes::PeerConnectionState_Closed;
         }
         throw ref new Platform::NotImplementedException();
       }
@@ -907,6 +908,7 @@ namespace org
         case IPeerConnectionTypes::PeerConnectionState_Connected:    return adapter::RTCPeerConnectionState::Connected;
         case IPeerConnectionTypes::PeerConnectionState_Disconnected: return adapter::RTCPeerConnectionState::Disconnected;
         case IPeerConnectionTypes::PeerConnectionState_Failed:       return adapter::RTCPeerConnectionState::Failed;
+        case IPeerConnectionTypes::PeerConnectionState_Closed:       return adapter::RTCPeerConnectionState::Closed;
         }
         throw ref new Platform::NotImplementedException();
       }
