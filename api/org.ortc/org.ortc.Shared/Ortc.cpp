@@ -3,6 +3,7 @@
 #include "Ortc.h"
 
 #include <ortc/IORTC.h>
+#include <zsLib/SafeInt.h>
 
 using namespace ortc;
 
@@ -13,6 +14,16 @@ namespace org
   namespace ortc
   {
     CoreDispatcher ^OrtcWithDispatcher::_dispatcher = nullptr;
+
+    int64 Ortc::NtpServerTime::get()
+    {
+      return SafeInt<int64>(IORTC::ntpServerTime().count());
+    }
+
+    void Ortc::NtpServerTime::set(int64 value)
+    {
+      IORTC::ntpServerTime(Milliseconds(SafeInt<Milliseconds::rep>(value)));
+    }
 
     void Ortc::Setup()
     {

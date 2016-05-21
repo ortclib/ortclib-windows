@@ -571,7 +571,7 @@ namespace org
       Platform::String^ RTCIceCandidate::ToSdpString()
       {
         auto nativeCandidate = internal::FromCx(this);
-        return UseHelper::ToCx(UseServicesHelper::toString(nativeCandidate->toSDP()));
+        return UseHelper::ToCx(nativeCandidate->toSDP());
       }
       RTCIceCandidate^ RTCIceCandidate::FromSdpStringWithMid(
         Platform::String^ sdpString,
@@ -641,7 +641,7 @@ namespace org
       Platform::String^ RTCIceCandidateComplete::ToSdpString()
       {
         auto nativeCandidate = internal::FromCx(this);
-        return UseHelper::ToCx(UseServicesHelper::toString(nativeCandidate->toSDP()));
+        return UseHelper::ToCx(nativeCandidate->toSDP());
       }
       RTCIceCandidateComplete^ RTCIceCandidateComplete::FromSdpStringWithMid(
         Platform::String^ sdpString,
@@ -744,7 +744,13 @@ namespace org
         return ortc::internal::ToCx(converted);
       }
 
-      RTCSdpType RTCSessionDescription::Type::get()
+      RTCSessionDescriptionSignalingType RTCSessionDescription::Type::get()
+      {
+        ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer);
+        return UseHelper::Convert(_nativePointer->type());
+      }
+
+      RTCSdpType RTCSessionDescription::SdpType::get()
       {
         ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer);
         auto type = _nativePointer->type();
@@ -759,12 +765,6 @@ namespace org
         case ISessionDescription::SignalingType_SDPRollback:  return RTCSdpType::SdpRollback;
         }
         throw ref new Platform::NotImplementedException();
-      }
-
-      RTCSessionDescriptionSignalingType RTCSessionDescription::SignalingType::get()
-      {
-        ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer);
-        return UseHelper::Convert(_nativePointer->type());
       }
 
       Platform::Boolean RTCSessionDescription::IsJsonSignaling::get()
