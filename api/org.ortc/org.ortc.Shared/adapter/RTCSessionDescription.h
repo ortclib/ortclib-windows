@@ -1196,17 +1196,19 @@ namespace org
         /// Gets the SDP type of this RTCSessionDescription. This property
         /// may only be obtained if the signaling type is SDP.
         /// </summary>
-        property RTCSdpType Type
+        property RTCSessionDescriptionSignalingType Type
         {
-          RTCSdpType get();
+          RTCSessionDescriptionSignalingType get();
         }
 
         /// <summary>
-        /// Gets the type of this RTCSessionDescription.
+        /// Gets the SDP type of this RTCSessionDescription. This property
+        /// may only be obtained if the signaling type is SDP.
         /// </summary>
-        property RTCSessionDescriptionSignalingType SignalingType
+        [Windows::Foundation::Metadata::Deprecated("Use Type or SignalingType instead.", Windows::Foundation::Metadata::DeprecationType::Deprecate, 0)]
+        property RTCSdpType SdpType
         {
-          RTCSessionDescriptionSignalingType get();
+          RTCSdpType get();
         }
 
         /// <summary>

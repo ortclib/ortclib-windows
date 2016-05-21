@@ -744,7 +744,13 @@ namespace org
         return ortc::internal::ToCx(converted);
       }
 
-      RTCSdpType RTCSessionDescription::Type::get()
+      RTCSessionDescriptionSignalingType RTCSessionDescription::Type::get()
+      {
+        ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer);
+        return UseHelper::Convert(_nativePointer->type());
+      }
+
+      RTCSdpType RTCSessionDescription::SdpType::get()
       {
         ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer);
         auto type = _nativePointer->type();
@@ -759,12 +765,6 @@ namespace org
         case ISessionDescription::SignalingType_SDPRollback:  return RTCSdpType::SdpRollback;
         }
         throw ref new Platform::NotImplementedException();
-      }
-
-      RTCSessionDescriptionSignalingType RTCSessionDescription::SignalingType::get()
-      {
-        ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer);
-        return UseHelper::Convert(_nativePointer->type());
       }
 
       Platform::Boolean RTCSessionDescription::IsJsonSignaling::get()
