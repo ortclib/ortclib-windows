@@ -2,7 +2,7 @@
 
 #include <ortc/IStatsReport.h>
 
-#include "RTCDtlsTransport.h"
+#include "RTCDataChannel.h"
 #include "RTCIceTypes.h"
 
 //#include <ortc/IICEGatherer.h>
@@ -42,7 +42,7 @@ namespace org
     ref class RTCStatsReport;
     ref class RTCStatsProvider;
 
-    enum class RTCDtlsTransportState;
+    enum class RTCDataChannelState;
     enum class RTCIceCandidateType;
 
     namespace internal
@@ -109,12 +109,21 @@ namespace org
       /// </summary>
       Unknown,
       /// <summary>
+      /// Statistics for the inbound RTP stream that is currently received
+      /// with this RTCRtpReceiver object. It is accessed by the
+      /// RTCInboundRtpStreamStats.
       /// </summary>
       InboundRtp,
       /// <summary>
+      /// Statistics for the outbound RTP stream that is currently sent with
+      /// this RTCRtpSender object. It is accessed by the
+      // RTCOutboundRtpStreamStats.
       /// </summary>
       OutboundRtp,
       /// <summary>
+      /// Statistics for the RTP recevier or sender streams with this
+      /// RTCRtpSender or RTCRtpReceiver this RTCSender object. It is
+      /// accessed by the RTCCodec.
       /// </summary>
       Codec,
       /// <summary>
@@ -379,7 +388,7 @@ namespace org
       property Platform::String^              StreamId;
       /// <summary>
       /// </summary>
-      property IVector<Platform::String^>^    TrackId;
+      property IVector<Platform::String^>^    TrackIds;
     };
 
     /// <summary>
@@ -445,7 +454,7 @@ namespace org
       property int32                          DatachannelId;
       /// <summary>
       /// </summary>
-      property RTCDtlsTransportState          State;
+      property RTCDataChannelState            State;
       /// <summary>
       /// </summary>
       property uint32                         MessagesSent;
@@ -548,10 +557,10 @@ namespace org
       property Platform::String^              TransportId;
       /// <summary>
       /// </summary>
-      property Platform::String^              LocalCandidateID;
+      property Platform::String^              LocalCandidateId;
       /// <summary>
       /// </summary>
-      property Platform::String^              RemoteCandidateID;
+      property Platform::String^              RemoteCandidateId;
       /// <summary>
       /// </summary>
       property RTCStatsIceCandidatePairState  State;

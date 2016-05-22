@@ -74,6 +74,18 @@ namespace org
       {
         auto result = ref new RTCRTPStreamStats();
 
+        result->Ssrc = UseHelper::ToCx(input.mSSRC);
+        result->AssociatedStatId = UseHelper::ToCx(input.mAssociatedStatID);
+        result->IsRemote = input.mIsRemote;
+        result->MediaType = UseHelper::ToCx(input.mMediaType);
+        result->MediaTrackId = UseHelper::ToCx(input.mMediaTrackID);
+        result->TransportId = UseHelper::ToCx(input.mTransportID);
+        result->CodecId = UseHelper::ToCx(input.mCodecID);
+        result->FirCount = SafeInt<decltype(result->FirCount)>(input.mFIRCount);
+        result->PliCount = SafeInt<decltype(result->PliCount)>(input.mPLICount);
+        result->NackCount = SafeInt<decltype(result->FirCount)>(input.mNACKCount);
+        result->SliCount = SafeInt<decltype(result->FirCount)>(input.mSLICount);
+
         return result;
       }
 
@@ -86,6 +98,12 @@ namespace org
       RTCCodec^ ToCx(const IStatsReportTypes::Codec &input)
       {
         auto result = ref new RTCCodec();
+
+        result->PayloadType = UseHelper::ToCx(input.mPayloadType);
+        result->Codec = UseHelper::ToCx(input.mCodec);
+        result->ClockRate = SafeInt<decltype(result->ClockRate)>(input.mClockRate);
+        result->Channels = UseHelper::ToCx(input.mChannels);
+        result->Parameters = UseHelper::ToCx(input.mParameters);
 
         return result;
       }
@@ -100,6 +118,13 @@ namespace org
       {
         auto result = ref new RTCInboundRtpStreamStats();
 
+        result->RtpStreamStats = ToCx((const IStatsReportTypes::RTPStreamStats &)input);
+        result->PacketsReceived = SafeInt<decltype(result->PacketsReceived)>(input.mPacketsReceived);
+        result->BytesReceived = SafeInt<decltype(result->BytesReceived)>(input.mBytesReceived);
+        result->PacketsLost = SafeInt<decltype(result->PacketsLost)>(input.mPacketsLost);
+        result->Jitter = input.mJitter;
+        result->FractionLost = input.mFractionLost;
+
         return result;
       }
 
@@ -112,6 +137,12 @@ namespace org
       RTCOutboundRtpStreamStats^ ToCx(const IStatsReportTypes::OutboundRTPStreamStats &input)
       {
         auto result = ref new RTCOutboundRtpStreamStats();
+
+        result->RtpStreamStats = ToCx((const IStatsReportTypes::RTPStreamStats &)input);
+        result->PacketsSent = SafeInt<decltype(result->PacketsSent)>(input.mPacketsSent);
+        result->BytesSent = SafeInt<decltype(result->BytesSent)>(input.mBytesSent);
+        result->TargetBitrate = input.mTargetBitrate;
+        result->RoundTripTime = input.mRoundTripTime;
 
         return result;
       }
@@ -126,6 +157,9 @@ namespace org
       {
         auto result = ref new RTCSctpTransportStats();
 
+        result->DataChannelsOpened = SafeInt<decltype(result->DataChannelsOpened)>(input.mDataChannelsOpened);
+        result->DataChannelsClosed = SafeInt<decltype(result->DataChannelsClosed)>(input.mDataChannelsClosed);
+
         return result;
       }
 
@@ -138,6 +172,16 @@ namespace org
       RTCMediaStreamStats^ ToCx(const IStatsReportTypes::MediaStreamStats &input)
       {
         auto result = ref new RTCMediaStreamStats();
+
+        result->StreamId = UseHelper::ToCx(input.mStreamID);
+        result->TrackIds = ref new Vector<Platform::String^>();
+
+        result->StreamId = UseHelper::ToCx(input.mStreamID);
+        for (auto iter = input.mTrackIDs.begin(); iter != input.mTrackIDs.end(); ++iter)
+        {
+          auto &trackId = (*iter);
+          result->TrackIds->Append(UseHelper::ToCx(trackId));
+        }
 
         return result;
       }
@@ -152,6 +196,28 @@ namespace org
       {
         auto result = ref new RTCMediaStreamTrackStats();
 
+        result->TrackId = UseHelper::ToCx(input.mTrackID);
+        result->RemoteSource = input.mRemoteSource;
+        result->SsrcIds = ref new Vector<uint32>();
+
+        for (auto iter = input.mSSRCIDs.begin(); iter != input.mSSRCIDs.end(); ++iter)
+        {
+          auto &ssrc = (*iter);
+          result->SsrcIds->Append(SafeInt<uint32>(ssrc));
+        }
+
+        result->FrameWidth = SafeInt<decltype(result->FrameWidth)>(input.mFrameWidth);
+        result->FrameHeight = SafeInt<decltype(result->FrameHeight)>(input.mFrameHeight);
+        result->FramesPerSecond = input.mFramesPerSecond;
+        result->FramesSent = SafeInt<decltype(result->FramesSent)>(input.mFramesSent);
+        result->FramesReceived = SafeInt<decltype(result->FramesReceived)>(input.mFramesReceived);
+        result->FramesDecoded = SafeInt<decltype(result->FramesDecoded)>(input.mFramesDecoded);
+        result->FramesDropped = SafeInt<decltype(result->FramesDropped)>(input.mFramesDropped);
+        result->FramesCorrupted = SafeInt<decltype(result->FramesCorrupted)>(input.mFramesCorrupted);
+        result->AudioLevel = input.mAudioLevel;
+        result->EchoReturnLoss = input.mEchoReturnLoss;
+        result->EchoReturnLossEnhancement = input.mEchoReturnLossEnhancement;
+
         return result;
       }
 
@@ -164,6 +230,15 @@ namespace org
       RTCDataChannelStats^ ToCx(const IStatsReportTypes::DataChannelStats &input)
       {
         auto result = ref new RTCDataChannelStats();
+
+        result->Label = UseHelper::ToCx(input.mLabel);
+        result->Protocol = UseHelper::ToCx(input.mProtocol);
+        result->DatachannelId = SafeInt<decltype(result->DatachannelId)>(input.mDatachannelID);
+        result->State = UseHelper::Convert(input.mState);
+        result->MessagesSent = SafeInt<decltype(result->MessagesSent)>(input.mMessagesSent);
+        result->BytesSent = SafeInt<decltype(result->BytesSent)>(input.mBytesSent);
+        result->MessagesReceived = SafeInt<decltype(result->MessagesReceived)>(input.mMessagesReceived);
+        result->BytesReceived = SafeInt<decltype(result->BytesReceived)>(input.mBytesReceived);
 
         return result;
       }
@@ -178,6 +253,10 @@ namespace org
       {
         auto result = ref new RTCIceGathererStats();
 
+        result->BytesSent = SafeInt<decltype(result->BytesSent)>(input.mBytesSent);
+        result->BytesReceived = SafeInt<decltype(result->BytesReceived)>(input.mBytesReceived);
+        result->RtcpGathererStatsId = UseHelper::ToCx(input.mRTCPGathererStatsID);
+
         return result;
       }
 
@@ -191,6 +270,12 @@ namespace org
       {
         auto result = ref new RTCIceTransportStats();
 
+        result->BytesSent = SafeInt<decltype(result->BytesSent)>(input.mBytesSent);
+        result->BytesReceived = SafeInt<decltype(result->BytesReceived)>(input.mBytesReceived);
+        result->RtcpTransportStatsId = UseHelper::ToCx(input.mRTCPTransportStatsID);
+        result->ActiveConnection = input.mActiveConnection;
+        result->SelectedCandidatePairId = UseHelper::ToCx(input.mSelectedCandidatePairID);
+
         return result;
       }
 
@@ -203,6 +288,9 @@ namespace org
       RTCDtlsTransportStats^ ToCx(const IStatsReportTypes::DTLSTransportStats &input)
       {
         auto result = ref new RTCDtlsTransportStats();
+
+        result->LocalCertificateId = UseHelper::ToCx(input.mLocalCertificateID);
+        result->RemoteCertificateId = UseHelper::ToCx(input.mRemoteCertificateID);
 
         return result;
       }
@@ -230,6 +318,13 @@ namespace org
       {
         auto result = ref new RTCIceCandidateAttributes();
 
+        result->IpAddress = UseHelper::ToCx(input.mIPAddress);
+        result->PortNumber = SafeInt<decltype(result->PortNumber)>(input.mPortNumber);
+        result->Transport = UseHelper::ToCx(input.mTransport);
+        result->CandidateType = UseHelper::Convert(input.mCandidateType);
+        result->Priority = SafeInt<decltype(result->Priority)>(input.mPriority);
+        result->AddressSourceUrl = UseHelper::ToCx(input.mAddressSourceURL);
+
         return result;
       }
 
@@ -243,6 +338,20 @@ namespace org
       {
         auto result = ref new RTCIceCandidatePairStats();
 
+        result->TransportId = UseHelper::ToCx(input.mTransportID);
+        result->LocalCandidateId = UseHelper::ToCx(input.mLocalCandidateID);
+        result->RemoteCandidateId = UseHelper::ToCx(input.mRemoteCandidateID);
+        result->State = UseHelper::Convert(input.mState);
+        result->Priority = SafeInt<decltype(result->Priority)>(input.mPriority);
+        result->Nominated = input.mNominated;
+        result->Writable = input.mWritable;
+        result->Readable = input.mReadable;
+        result->BytesSent = SafeInt<decltype(result->BytesSent)>(input.mBytesSent);
+        result->BytesReceived = SafeInt<decltype(result->BytesReceived)>(input.mBytesReceived);
+        result->RoundTripTime = input.mRoundTripTime;
+        result->AvailableOutgoingBitrate = input.mAvailableOutgoingBitrate;
+        result->AvailableIncomingBitrate = input.mAvailableIncomingBitrate;
+
         return result;
       }
 
@@ -255,6 +364,11 @@ namespace org
       RTCCertificateStats^ ToCx(const IStatsReportTypes::CertificateStats &input)
       {
         auto result = ref new RTCCertificateStats();
+
+        result->Fingerprint = UseHelper::ToCx(input.mFingerprint);
+        result->FingerprintAlgorithm = UseHelper::ToCx(input.mFingerprintAlgorithm);
+        result->Base64Certificate = UseHelper::ToCx(input.mBase64Certificate);
+        result->IssuerCertificateId = UseHelper::ToCx(input.mIssuerCertificateID);
 
         return result;
       }
