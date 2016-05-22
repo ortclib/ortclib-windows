@@ -37,6 +37,7 @@ namespace org
     ref class RTMediaStreamSource;
     ref class RTCRtpReceiver;
     ref class RTCRtpSender;
+    ref class RTCStatsProvider;
 
     ZS_DECLARE_CLASS_PTR(WebRtcMediaStream)
 
@@ -462,6 +463,7 @@ namespace org
       friend ref class RTMediaStreamSource;
       friend ref class RTCRtpReceiver;
       friend ref class RTCRtpSender;
+      friend ref class RTCStatsProvider;
 
     private:
       MediaStreamTrack(IMediaStreamTrackPtr track);

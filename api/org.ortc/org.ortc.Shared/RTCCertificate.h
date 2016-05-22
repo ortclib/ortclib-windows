@@ -17,6 +17,8 @@ namespace org
     using Windows::Foundation::IAsyncOperation;
 
     ref class RTCCertificate;
+    ref class RTCStatsProvider;
+
     ref struct RTCDtlsFingerprint;
 
     namespace internal
@@ -42,6 +44,7 @@ namespace org
       friend class internal::RTCGenerateCertificatePromiseObserver;
       friend class adapter::internal::RTCPeerConnectionHelper;
       friend ref class RTCDtlsTransport;
+      friend ref class RTCStatsProvider;
 
     private:
       RTCCertificate(ICertificatePtr certificate);

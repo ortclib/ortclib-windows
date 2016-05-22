@@ -40,6 +40,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCRtpSender.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCSctpTransport.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCSrtpSdesTransport.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTCStatsProvider.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTCStatsReport.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RTMediaStreamSource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RtpTypes.h" />
@@ -76,6 +77,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCRtpSender.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCSctpTransport.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCSrtpSdesTransport.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RTCStatsProvider.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTCStatsReport.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RTMediaStreamSource.cc" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RtpTypes.cpp" />

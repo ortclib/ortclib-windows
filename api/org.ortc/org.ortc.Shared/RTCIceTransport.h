@@ -17,6 +17,7 @@ namespace org
     ref class RTCIceGatherer;
     ref class RTCIceTransport;
     ref class RTCIceTransportController;
+    ref class RTCStatsProvider;
 
     ref struct RTCIceCandidate;
     ref struct RTCIceCandidateComplete;
@@ -200,6 +201,7 @@ namespace org
       friend ref class RTCSrtpSdesTransport;
       friend ref class RTCRtpReceiver;
       friend ref class RTCRtpSender;
+      friend ref class RTCStatsProvider;
 
     private:
       RTCIceTransport(const noop &);

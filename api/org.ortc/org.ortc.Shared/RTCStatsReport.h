@@ -39,11 +39,15 @@ namespace org
     ref struct RTCIceCandidatePairStats;
     ref struct RTCCertificateStats;
 
+    ref class RTCStatsReport;
+    ref class RTCStatsProvider;
+
     enum class RTCDtlsTransportState;
     enum class RTCIceCandidateType;
 
     namespace internal
     {
+      ZS_DECLARE_CLASS_PTR(RTCStateReportHelper);
       ZS_DECLARE_CLASS_PTR(RTCStateProviderObserver);
 
       RTCStats^ ToCx(const IStatsReportTypes::Stats &input);
@@ -182,7 +186,7 @@ namespace org
     /// </summary>
     public ref struct RTCStats sealed
     {
-      friend class internal::RTCStateProviderObserver;
+      friend class internal::RTCStateReportHelper;
 
       /// <summary>
       /// </summary>
@@ -596,6 +600,34 @@ namespace org
       /// <summary>
       /// </summary>
       property Platform::String^              IssuerCertificateId;
+    };
+
+
+    /// <summary>
+    /// </summary>
+    public ref class RTCStatsReport sealed
+    {
+      friend class internal::RTCStateProviderObserver;
+      friend ref class RTCStatsProvider;
+
+    private:
+      RTCStatsReport(IStatsReportPtr nativePointer);
+
+      static RTCStatsReport^ Convert(IStatsReportPtr nativePointer) { return ref new RTCStatsReport(nativePointer); }
+      static IStatsReportPtr Convert(RTCStatsReport^ channel) { if (!channel) return nullptr; return channel->_nativePointer; }
+
+    public:
+      /// <summary>
+      /// </summary>
+      property IVector<Platform::String^>^ StatsIds
+      {
+        IVector<Platform::String^>^ get();
+      }
+
+      RTCStats^ GetStats(Platform::String^ statsId);
+
+    private:
+      IStatsReportPtr _nativePointer;
     };
 
   } // namespace ortc

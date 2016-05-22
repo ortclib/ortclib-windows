@@ -14,6 +14,8 @@ namespace org
     ref class RTCRtpReceiver;
     ref class MediaStreamTrack;
     ref class RTCDataChannel;
+    ref class RTCStatsProvider;
+
     ref struct RTCRtpParameters;
     ref struct RTCIceGatherOptions;
     ref struct RTCRtpCapabilities;
@@ -624,6 +626,7 @@ namespace org
       {
       private:
         friend class internal::RTCPeerConnectionDelegate;
+        friend ref class RTCStatsProvider;
 
       private:
         RTCPeerConnection(IPeerConnectionPtr session);

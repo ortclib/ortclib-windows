@@ -44,6 +44,11 @@ namespace org
       };
     }
 
+    RTCRtpListener::RTCRtpListener(IRTPListenerPtr nativePointer) :
+      _nativePointer(nativePointer)
+    {
+    }
+
     RTCRtpListener::RTCRtpListener(RTCDtlsTransport^ transport) :
       _nativeDelegatePointer(make_shared<internal::RTCRtpListenerDelegate>(this))
     {

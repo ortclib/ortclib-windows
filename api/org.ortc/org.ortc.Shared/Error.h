@@ -30,6 +30,7 @@ namespace org
       ZS_DECLARE_CLASS_PTR(RTCGenerateCertificatePromiseObserver);
       ZS_DECLARE_CLASS_PTR(RTCRtpSenderPromiseObserver);
       ZS_DECLARE_CLASS_PTR(RTCRtpReceiverPromiseObserver);
+      ZS_DECLARE_CLASS_PTR(RTCStateProviderObserver);
     } // namespace internal
 
     namespace adapter
@@ -57,6 +58,7 @@ namespace org
       friend class internal::RTCGenerateCertificatePromiseObserver;
       friend class internal::RTCRtpSenderPromiseObserver;
       friend class internal::RTCRtpReceiverPromiseObserver;
+      friend class internal::RTCStateProviderObserver;
       friend class adapter::internal::RTCPeerConnectionPromiseWithDescriptionObserver;
       friend class adapter::internal::RTCPeerConnectionPromiseWithSenderObserver;
       friend class adapter::internal::RTCPeerConnectionPromiseWitDataChannelObserver;

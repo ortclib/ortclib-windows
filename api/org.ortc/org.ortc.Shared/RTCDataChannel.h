@@ -15,6 +15,8 @@ namespace org
 
     ref class RTCDataChannel;
     ref class RTCSctpTransport;
+    ref class RTCStatsProvider;
+
     ref struct RTCDataChannelParameters;
     ref struct ErrorEvent;
 
@@ -219,6 +221,7 @@ namespace org
       friend class internal::RTCDataChannelDelegate;
       friend class internal::RTCSctpTransportDelegate;
       friend ref class adapter::RTCPeerConnection;
+      friend ref class RTCStatsProvider;
       friend class adapter::internal::RTCPeerConnectionDelegate;
       friend class adapter::internal::RTCPeerConnectionPromiseWitDataChannelObserver;
 

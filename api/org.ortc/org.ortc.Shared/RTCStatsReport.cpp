@@ -7,6 +7,8 @@
 
 #include <zsLib/SafeInt.h>
 
+using Platform::Collections::Vector;
+
 namespace org
 {
   namespace ortc
@@ -18,9 +20,9 @@ namespace org
     namespace internal
     {
 
-#pragma region RTCStateProviderObserver
+#pragma region RTCStateReportHelper
 
-      class RTCStateProviderObserver
+      class RTCStateReportHelper
       {
       public:
         static void setOriginal(
@@ -52,7 +54,7 @@ namespace org
       {
         if (!input) return nullptr;
         auto result = ToCx(*input);
-        RTCStateProviderObserver::setOriginal(result, input);
+        RTCStateReportHelper::setOriginal(result, input);
         return result;
       }
 
@@ -361,6 +363,37 @@ namespace org
     {
       if (!mOriginal) return nullptr;
       return internal::ToCx(ZS_DYNAMIC_PTR_CAST(IStatsReportTypes::ICECandidateAttributes, mOriginal));
+    }
+
+    RTCStatsReport::RTCStatsReport(IStatsReportPtr nativePointer) :
+      _nativePointer(nativePointer)
+    {
+    }
+
+    IVector<Platform::String^>^ RTCStatsReport::StatsIds::get()
+    {
+      auto result = ref new Vector<Platform::String^>();
+
+      if (_nativePointer)
+      {
+        auto ids = _nativePointer->getStatesIDs();
+        if (ids)
+        {
+          for (auto iter = ids->begin(); iter != ids->end(); ++iter)
+          {
+            result->Append(UseHelper::ToCx(*iter));
+          }
+        }
+      }
+
+      return result;
+    }
+
+    RTCStats^ RTCStatsReport::GetStats(Platform::String^ statsId)
+    {
+      if (!_nativePointer) return nullptr;
+
+      return internal::ToCx(_nativePointer->getStats(UseHelper::FromCx(statsId).c_str()));
     }
 
   } // namespace ortc

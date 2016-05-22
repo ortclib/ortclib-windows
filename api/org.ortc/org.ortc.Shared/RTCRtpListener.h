@@ -15,6 +15,8 @@ namespace org
     ref class RTCDtlsTransport;
     ref class RTCRtpListener;
     ref class RTCSrtpSdesTransport;
+    ref class RTCStatsProvider;
+
     ref struct RTCRtpHeaderExtensionParameters;
 
     namespace internal
@@ -89,6 +91,12 @@ namespace org
     public ref class RTCRtpListener sealed
     {
       friend class internal::RTCRtpListenerDelegate;
+      friend ref class RTCStatsProvider;
+
+      RTCRtpListener(IRTPListenerPtr nativePointer);
+
+      static RTCRtpListener^ Convert(IRTPListenerPtr listener) { if (!listener) return nullptr; return ref new RTCRtpListener(listener); }
+      static IRTPListenerPtr Convert(RTCRtpListener^ listener) { if (!listener) return nullptr; return listener->_nativePointer; }
 
     public:
       /// <summary>
