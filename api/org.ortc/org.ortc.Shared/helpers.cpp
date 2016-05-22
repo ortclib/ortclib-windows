@@ -9,6 +9,7 @@
 #include "RTCIceTransport.h"
 #include "RtpTypes.h"
 #include "RTCSctpTransport.h"
+#include "RTCStatsReport.h"
 #include "adapter/RTCSessionDescription.h"
 #include "adapter/RTCPeerConnection.h"
 
@@ -662,6 +663,82 @@ namespace org
         case Log::Component::ServicesTurn:  return "openpeer_services_turn";
         case Log::Component::ServicesHttp:  return "openpeer_services_http";
         case Log::Component::OrtcLib:       return "ortclib";
+        }
+        throw ref new Platform::NotImplementedException();
+      }
+
+      //-----------------------------------------------------------------------
+      // Stats convert methods
+      //-----------------------------------------------------------------------
+
+      RTCStatsType Helper::Convert(IStatsReportTypes::StatsTypes type)
+      {
+        switch (type) {
+        case IStatsReportTypes::StatsType_InboundRTP:         return RTCStatsType::InboundRtp;
+        case IStatsReportTypes::StatsType_OutboundRTP:        return RTCStatsType::OutboundRtp;
+        case IStatsReportTypes::StatsType_Codec:              return RTCStatsType::Codec;
+        case IStatsReportTypes::StatsType_SCTPTransport:      return RTCStatsType::SctpTransport;
+        case IStatsReportTypes::StatsType_DataChannel:        return RTCStatsType::DataChannel;
+        case IStatsReportTypes::StatsType_Stream:             return RTCStatsType::Stream;
+        case IStatsReportTypes::StatsType_Track:              return RTCStatsType::Track;
+        case IStatsReportTypes::StatsType_ICEGatherer:        return RTCStatsType::IceGatherer;
+        case IStatsReportTypes::StatsType_ICETransport:       return RTCStatsType::IceTransport;
+        case IStatsReportTypes::StatsType_DTLSTransport:      return RTCStatsType::DtlsTransport;
+        case IStatsReportTypes::StatsType_SRTPTransport:      return RTCStatsType::SrtpTransport;
+        case IStatsReportTypes::StatsType_Certificate:        return RTCStatsType::Certificate;
+        case IStatsReportTypes::StatsType_Candidate:          return RTCStatsType::Candidate;
+        case IStatsReportTypes::StatsType_CandidatePair:      return RTCStatsType::CandidatePair;
+        case IStatsReportTypes::StatsType_LocalCandidate:     return RTCStatsType::LocalCandidate;
+        case IStatsReportTypes::StatsType_RemoteCandidate:    return RTCStatsType::RemoteCandidate;
+        }
+        throw ref new Platform::NotImplementedException();
+      }
+
+      IStatsReportTypes::StatsTypes Helper::Convert(RTCStatsType type)
+      {
+        switch (type) {
+        case RTCStatsType::InboundRtp:        return IStatsReportTypes::StatsType_InboundRTP;
+        case RTCStatsType::OutboundRtp:       return IStatsReportTypes::StatsType_OutboundRTP;
+        case RTCStatsType::Codec:             return IStatsReportTypes::StatsType_Codec;
+        case RTCStatsType::SctpTransport:     return IStatsReportTypes::StatsType_SCTPTransport;
+        case RTCStatsType::DataChannel:       return IStatsReportTypes::StatsType_DataChannel;
+        case RTCStatsType::Stream:            return IStatsReportTypes::StatsType_Stream;
+        case RTCStatsType::Track:             return IStatsReportTypes::StatsType_Track;
+        case RTCStatsType::IceGatherer:       return IStatsReportTypes::StatsType_ICEGatherer;
+        case RTCStatsType::IceTransport:      return IStatsReportTypes::StatsType_ICETransport;
+        case RTCStatsType::DtlsTransport:     return IStatsReportTypes::StatsType_DTLSTransport;
+        case RTCStatsType::SrtpTransport:     return IStatsReportTypes::StatsType_SRTPTransport;
+        case RTCStatsType::Certificate:       return IStatsReportTypes::StatsType_Certificate;
+        case RTCStatsType::Candidate:         return IStatsReportTypes::StatsType_Candidate;
+        case RTCStatsType::CandidatePair:     return IStatsReportTypes::StatsType_CandidatePair;
+        case RTCStatsType::LocalCandidate:    return IStatsReportTypes::StatsType_LocalCandidate;
+        case RTCStatsType::RemoteCandidate:   return IStatsReportTypes::StatsType_RemoteCandidate;
+        }
+        throw ref new Platform::NotImplementedException();
+      }
+
+      RTCStatsIceCandidatePairState Helper::Convert(IStatsReportTypes::StatsICECandidatePairStates state)
+      {
+        switch (state) {
+        case IStatsReportTypes::StatsICECandidatePairState_Frozen:      return RTCStatsIceCandidatePairState::Frozen;
+        case IStatsReportTypes::StatsICECandidatePairState_Waiting:     return RTCStatsIceCandidatePairState::Waiting;
+        case IStatsReportTypes::StatsICECandidatePairState_InProgress:  return RTCStatsIceCandidatePairState::InProgress;
+        case IStatsReportTypes::StatsICECandidatePairState_Failed:      return RTCStatsIceCandidatePairState::Failed;
+        case IStatsReportTypes::StatsICECandidatePairState_Succeeded:   return RTCStatsIceCandidatePairState::Succeeded;
+        case IStatsReportTypes::StatsICECandidatePairState_Cancelled:   return RTCStatsIceCandidatePairState::Cancelled;
+        }
+        throw ref new Platform::NotImplementedException();
+      }
+
+      IStatsReportTypes::StatsICECandidatePairStates Helper::Convert(RTCStatsIceCandidatePairState state)
+      {
+        switch (state) {
+        case RTCStatsIceCandidatePairState::Frozen:       return IStatsReportTypes::StatsICECandidatePairState_Frozen;
+        case RTCStatsIceCandidatePairState::Waiting:      return IStatsReportTypes::StatsICECandidatePairState_Waiting;
+        case RTCStatsIceCandidatePairState::InProgress:   return IStatsReportTypes::StatsICECandidatePairState_InProgress;
+        case RTCStatsIceCandidatePairState::Failed:       return IStatsReportTypes::StatsICECandidatePairState_Failed;
+        case RTCStatsIceCandidatePairState::Succeeded:    return IStatsReportTypes::StatsICECandidatePairState_Succeeded;
+        case RTCStatsIceCandidatePairState::Cancelled:    return IStatsReportTypes::StatsICECandidatePairState_Cancelled;
         }
         throw ref new Platform::NotImplementedException();
       }

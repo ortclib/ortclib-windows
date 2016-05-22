@@ -265,7 +265,7 @@ namespace org
       }
       catch (const InvalidStateError &e)
       {
-        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()));
       }
 
       return ret;

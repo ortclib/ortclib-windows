@@ -16,6 +16,7 @@ namespace org
 
     ref class RTCIceGatherer;
     ref class RTCIceTransport;
+    ref class RTCStatsProvider;
 
     ref struct RTCIceCandidate;
     ref struct RTCIceCandidateComplete;
@@ -453,6 +454,7 @@ namespace org
     {
       friend class internal::RTCIceGathererDelegate;
       friend ref class RTCIceTransport;
+      friend ref class RTCStatsProvider;
 
       struct noop {};
 

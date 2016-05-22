@@ -20,6 +20,7 @@ namespace org
     ref class RTCSrtpSdesTransport;
     ref class RTCIceTransport;
     ref class RTCRtpReceiver;
+    ref class RTCStatsProvider;
 
     ref struct RTCRtpCapabilities;
     ref struct RTCRtpParameters;
@@ -120,6 +121,7 @@ namespace org
       friend class internal::RTCRtpReceiverDelegate;
       friend class adapter::internal::RTCPeerConnectionDelegate;
       friend ref class adapter::RTCPeerConnection;
+      friend ref class RTCStatsProvider;
 
     private:
       RTCRtpReceiver(IRTPReceiverPtr receiver);

@@ -10,6 +10,7 @@
 #include <ortc/IMediaDevices.h>
 #include <ortc/IRTPTypes.h>
 #include <ortc/ISCTPTransport.h>
+#include <ortc/IStatsReport.h>
 #include <ortc/adapter/ISessionDescription.h>
 #include <ortc/adapter/IPeerConnection.h>
 
@@ -23,7 +24,7 @@ namespace org
     enum class MediaDeviceKind;
     enum class MediaStreamTrackState;
     enum class MediaStreamTrackKind;
-
+    
     enum class RTCDataChannelState;
     enum class RTCDegradationPreference;
     enum class RTCDtlsTransportState;
@@ -39,6 +40,8 @@ namespace org
     enum class RTCIceTcpCandidateType;
     enum class RTCPriorityType;
     enum class RTCSctpTransportState;
+    enum class RTCStatsType;
+    enum class RTCStatsIceCandidatePairState;
 
     ref class MediaStreamTrack;
     ref class RTCCertificate;
@@ -78,6 +81,7 @@ namespace org
         typedef ::ortc::IMediaStreamTrackTypes IMediaStreamTrackTypes;
         typedef ::ortc::IRTPTypes IRTPTypes;
         typedef ::ortc::ISCTPTransportTypes ISCTPTransportTypes;
+        typedef ::ortc::IStatsReportTypes IStatsReportTypes;
         typedef ::ortc::adapter::ISessionDescriptionTypes ISessionDescriptionTypes;
         typedef ::ortc::adapter::ISessionDescription ISessionDescription;
         typedef ::ortc::adapter::IPeerConnectionTypes IPeerConnectionTypes;
@@ -188,6 +192,13 @@ namespace org
         // Logger convertors
         static zsLib::Log::Level Convert(Log::Level level);
         static const char *ToComponent(Log::Component  component);
+
+        // Stats convertors
+        static RTCStatsType Convert(IStatsReportTypes::StatsTypes type);
+        static IStatsReportTypes::StatsTypes Convert(RTCStatsType type);
+
+        static RTCStatsIceCandidatePairState Convert(IStatsReportTypes::StatsICECandidatePairStates state);
+        static IStatsReportTypes::StatsICECandidatePairStates Convert(RTCStatsIceCandidatePairState state);
 
         // SessionDescription convertors
         static ISessionDescriptionTypes::SignalingTypes Convert(adapter::RTCSessionDescriptionSignalingType type);

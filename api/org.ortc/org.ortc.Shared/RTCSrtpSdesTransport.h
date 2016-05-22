@@ -14,6 +14,7 @@ namespace org
     using Windows::Foundation::Collections::IVector;
 
     ref class RTCIceTransport;
+    ref class RTCStatsProvider;
 
     ref struct ErrorEvent;
 
@@ -173,6 +174,7 @@ namespace org
       friend ref class RTCRtpReceiver;
       friend ref class RTCRtpSender;
       friend ref class RTCRtpListener;
+      friend ref class RTCStatsProvider;
 
     private:
       RTCSrtpSdesTransport(ISRTPSDESTransportPtr transport);

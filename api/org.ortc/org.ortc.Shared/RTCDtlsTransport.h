@@ -23,6 +23,7 @@ namespace org
     ref class RTCSctpTransport;
     ref class RTCCertificate;
     ref class RTCDtlsTransport;
+    ref class RTCStatsProvider;
 
     ref struct ErrorEvent;
 
@@ -202,6 +203,7 @@ namespace org
       friend ref class RTCRtpReceiver;
       friend ref class RTCRtpSender;
       friend ref class RTCSctpTransport;
+      friend ref class RTCStatsProvider;
 
     private:
       RTCDtlsTransport(IDTLSTransportPtr transport);
