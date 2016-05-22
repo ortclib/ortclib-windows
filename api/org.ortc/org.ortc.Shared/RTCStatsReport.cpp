@@ -320,7 +320,7 @@ namespace org
 
         result->IpAddress = UseHelper::ToCx(input.mIPAddress);
         result->PortNumber = SafeInt<decltype(result->PortNumber)>(input.mPortNumber);
-        result->Transport = UseHelper::ToCx(input.mTransport);
+        result->TransportId = UseHelper::ToCx(input.mTransportID);
         result->CandidateType = UseHelper::Convert(input.mCandidateType);
         result->Priority = SafeInt<decltype(result->Priority)>(input.mPriority);
         result->AddressSourceUrl = UseHelper::ToCx(input.mAddressSourceURL);

@@ -102,10 +102,13 @@ namespace org
     } // namespace internal
 
     /// <summary>
+    /// RTCStatsType object is initialized to the name of the dictionary that
+    /// the RTCStats represents.
     /// </summary>
     public enum class RTCStatsType
     {
       /// <summary>
+      /// Statistics returned are unknown and thus should be ignored.
       /// </summary>
       Unknown,
       /// <summary>
@@ -117,76 +120,108 @@ namespace org
       /// <summary>
       /// Statistics for the outbound RTP stream that is currently sent with
       /// this RTCRtpSender object. It is accessed by the
-      // RTCOutboundRtpStreamStats.
+      /// RTCOutboundRtpStreamStats.
       /// </summary>
       OutboundRtp,
       /// <summary>
-      /// Statistics for the RTP recevier or sender streams with this
-      /// RTCRtpSender or RTCRtpReceiver this RTCSender object. It is
-      /// accessed by the RTCCodec.
+      /// Codec information for the RTCRtpReceiver or RTCRtpSender objects. It
+      /// is accessed by the RTCCodec.
       /// </summary>
       Codec,
       /// <summary>
+      /// Statistics for the RTCSctpTransport object. It is accessed by the
+      /// RTCSctpTransportStats.
       /// </summary>
       SctpTransport,
       /// <summary>
+      /// Statistics for the RTCDataChannel object. It is accessed by the
+      /// RTCDataChannelStats.
       /// </summary>
       DataChannel,
       /// <summary>
+      /// Statistics for the RTCMediaStream object. It is accessed by the
+      /// RTCMediaStreamStats.
       /// </summary>
       Stream,
       /// <summary>
+      /// Statistics for the RTCMediaStreamTrack object. It is accessed by the
+      /// RTCMediaStreamTrackStats.
       /// </summary>
       Track,
       /// <summary>
+      /// Statistics for the RTCIceGatherer object. It is accessed by the
+      /// RTCIceGathererStats.
       /// </summary>
       IceGatherer,
       /// <summary>
+      /// Statistics for the RTCIceTransport object. It is accessed by the
+      /// RTCIceTransportStats.
       /// </summary>
       IceTransport,
       /// <summary>
+      /// Statistics for the RTCDtlsTransport object. It is accessed by the
+      /// RTCDtlsTransportStats.
       /// </summary>
       DtlsTransport,
       /// <summary>
+      /// Statistics for the RTCSrtpTransport object. It is accessed by the
+      /// RTCSrtpTransportStats.
       /// </summary>
       SrtpTransport,
       /// <summary>
+      /// Statistics for the RTCCertificate object. It is accessed by the
+      /// RTCCertificateStats.
       /// </summary>
       Certificate,
       /// <summary>
+      /// Statistics for the RTCIceGatherer or RTCIceTransport object. It is
+      /// accessed by the RTCIceCandidateAttributes.
       /// </summary>
       Candidate,
       /// <summary>
+      /// Statistics for the RTCCandidate object. It is accessed by the
+      /// RTCIceCandidatePairStats.
       /// </summary>
       CandidatePair,
       /// <summary>
+      /// Statistics for the RTCIceGatherer or RTCIceTransport object. It is
+      /// accessed by the RTCIceCandidateAttributes.
       /// </summary>
       LocalCandidate,
       /// <summary>
+      /// Statistics for the RTCIceTransport object. It is accessed by the
+      /// RTCIceCandidateAttributes.
       /// </summary>
       RemoteCandidate
     };
 
     /// <summary>
+    /// Canadidate pair state is defined in Section 5.7.4 of [RFC5245].
     /// </summary>
     public enum class RTCStatsIceCandidatePairState
     {
       /// <summary>
+      /// Defined in Section 5.7.4 of [RFC5245].
       /// </summary>
       Frozen,
       /// <summary>
+      /// Defined in Section 5.7.4 of [RFC5245].
       /// </summary>
       Waiting,
       /// <summary>
+      /// Defined in Section 5.7.4 of [RFC5245].
       /// </summary>
       InProgress,
       /// <summary>
+      /// Defined in Section 5.7.4 of [RFC5245].
       /// </summary>
       Failed,
       /// <summary>
+      /// Defined in Section 5.7.4 of [RFC5245].
       /// </summary>
       Succeeded,
       /// <summary>
+      /// Defined in Section 5.7.4 of [RFC5245].
       /// </summary>
       Cancelled
     };
@@ -536,7 +571,7 @@ namespace org
       property uint32                         PortNumber;
       /// <summary>
       /// </summary>
-      property Platform::String^              Transport;
+      property Platform::String^              TransportId;
       /// <summary>
       /// </summary>
       property RTCIceCandidateType            CandidateType;
