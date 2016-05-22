@@ -38,6 +38,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)adapter\MediaStream.h">
       <Filter>adapter</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTCStatsReport.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)pch.cpp">
@@ -79,6 +80,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)adapter\MediaStream.cpp">
       <Filter>adapter</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)RTCStatsReport.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="adapter">
