@@ -13,8 +13,13 @@ namespace org
 {
   namespace ortc
   {
-    ZS_DECLARE_TYPEDEF_PTR(internal::Helper, UseHelper)
+    ZS_DECLARE_TYPEDEF_PTR(internal::Helper, UseHelper);
     
+    RTCIceTransportController::RTCIceTransportController(IICETransportControllerPtr nativePointer) :
+      _nativePointer(nativePointer)
+    {
+    }
+
     RTCIceTransportController::RTCIceTransportController()
     {
       _nativePointer = IICETransportController::create();

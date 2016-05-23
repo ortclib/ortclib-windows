@@ -19,6 +19,7 @@ namespace org
     ref class RTCDataChannel;
     ref class RTCDtlsTransport;
     ref class RTCSctpTransport;
+    ref class RTCStatsProvider;
 
     ref struct RTCSctpCapabilities;
 
@@ -149,6 +150,7 @@ namespace org
     {
       friend class internal::RTCSctpTransportDelegate;
       friend ref class RTCDataChannel;
+      friend ref class RTCStatsProvider;
 
     private:
       RTCSctpTransport(ISCTPTransportPtr transport);

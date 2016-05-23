@@ -7,6 +7,8 @@ namespace org
 {
   namespace ortc
   {
+    ref class RTCStatsProvider;
+
     namespace adapter
     {
       using Windows::Foundation::Collections::IVector;
@@ -39,6 +41,7 @@ namespace org
         friend class internal::MediaStreamDelegate;
         friend class internal::RTCPeerConnectionDelegate;
         friend ref class RTCPeerConnection;
+        friend ref class RTCStatsProvider;
 
       private:
         MediaStream(IMediaStreamPtr stream);

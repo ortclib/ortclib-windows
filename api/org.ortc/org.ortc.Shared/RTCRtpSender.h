@@ -22,6 +22,7 @@ namespace org
     ref class RTCDtmfSender;
     ref class RTCSrtpSdesTransport;
     ref class RTCIceTransport;
+    ref class RTCStatsProvider;
 
     ref struct RTCRtpCapabilities;
     ref struct RTCRtpParameters;
@@ -75,6 +76,7 @@ namespace org
       friend class adapter::internal::RTCPeerConnectionPromiseWithSenderObserver;
       friend ref class RTCDtmfSender;
       friend ref class adapter::RTCPeerConnection;
+      friend ref class RTCStatsProvider;
 
     private:
       RTCRtpSender(IRTPSenderPtr sender);

@@ -38,6 +38,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)adapter\MediaStream.h">
       <Filter>adapter</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTCStatsReport.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RTCStatsProvider.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)pch.cpp">
@@ -79,6 +81,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)adapter\MediaStream.cpp">
       <Filter>adapter</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)RTCStatsReport.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RTCStatsProvider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="adapter">

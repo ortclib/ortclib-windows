@@ -16,6 +16,7 @@ namespace org
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IICETransportController, IICETransportController)
     
     ref class RTCIceTransport;
+    ref class RTCStatsProvider;
 
     /// <summmary>
     /// The RTCIceTransportController object assists in the managing of ICE
@@ -23,6 +24,13 @@ namespace org
     /// </summmary>
     public ref class RTCIceTransportController sealed
     {
+      friend ref class RTCStatsProvider;
+
+      RTCIceTransportController(IICETransportControllerPtr nativePointer);
+
+      static RTCIceTransportController^ Convert(IICETransportControllerPtr controller) { if (!controller) return nullptr; return ref new RTCIceTransportController(controller); }
+      static IICETransportControllerPtr Convert(RTCIceTransportController^ controller) { if (!controller) return nullptr; return controller->_nativePointer; }
+
     public:
       /// <summmary>
       /// Constructs an instance of the RTCIceTransportController.
