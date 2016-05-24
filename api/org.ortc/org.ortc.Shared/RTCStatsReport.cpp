@@ -124,6 +124,7 @@ namespace org
         result->PacketsLost = SafeInt<decltype(result->PacketsLost)>(input.mPacketsLost);
         result->Jitter = input.mJitter;
         result->FractionLost = input.mFractionLost;
+        result->EndToEndDelay = SafeInt<decltype(result->EndToEndDelay)>(input.mEndToEndDelay.count());
 
         return result;
       }
