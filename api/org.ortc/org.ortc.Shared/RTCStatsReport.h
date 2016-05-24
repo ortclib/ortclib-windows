@@ -378,6 +378,9 @@ namespace org
       /// <summary>
       /// </summary>
       property float64                        FractionLost;
+      /// <summary>
+      /// </summary>
+      property uint64                         EndToEndDelay;
     };
 
 
