@@ -2,7 +2,7 @@
   "dependencies": {
     "HockeySDK.WINRT": "2.2.2",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
-    "ORTC.Adapter": "ORTC.Adapter.Version"
+    "ORTC": "ORTC.Version"
   },
   "frameworks": {
     "uap10.0": {}
