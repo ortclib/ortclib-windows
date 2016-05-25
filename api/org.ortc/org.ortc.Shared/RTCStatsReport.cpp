@@ -234,7 +234,7 @@ namespace org
 
         result->Label = UseHelper::ToCx(input.mLabel);
         result->Protocol = UseHelper::ToCx(input.mProtocol);
-        result->DatachannelId = SafeInt<decltype(result->DatachannelId)>(input.mDatachannelID);
+        result->DataChannelId = SafeInt<decltype(result->DataChannelId)>(input.mDataChannelID);
         result->State = UseHelper::Convert(input.mState);
         result->MessagesSent = SafeInt<decltype(result->MessagesSent)>(input.mMessagesSent);
         result->BytesSent = SafeInt<decltype(result->BytesSent)>(input.mBytesSent);
@@ -319,9 +319,10 @@ namespace org
       {
         auto result = ref new RTCIceCandidateAttributes();
 
+        result->RelatedId = UseHelper::ToCx(input.mRelatedID);
         result->IpAddress = UseHelper::ToCx(input.mIPAddress);
         result->PortNumber = SafeInt<decltype(result->PortNumber)>(input.mPortNumber);
-        result->TransportId = UseHelper::ToCx(input.mTransportID);
+        result->Transport = UseHelper::ToCx(input.mTransport);
         result->CandidateType = UseHelper::Convert(input.mCandidateType);
         result->Priority = SafeInt<decltype(result->Priority)>(input.mPriority);
         result->AddressSourceUrl = UseHelper::ToCx(input.mAddressSourceURL);
