@@ -9,6 +9,60 @@
 
 #pragma once
 
+namespace org
+{
+  namespace ortc
+  {
+
+    /// <summary>
+    /// Delegate used to notify an update of the frame per second on a video stream.
+    /// </summary>
+    public delegate void FramesPerSecondChangedEventHandler(Platform::String^ id, Platform::String^ fps);
+
+    /// <summary>
+    /// Class used to get frame rate events from renderer.
+    /// </summary>
+    public ref class FrameCounterHelper sealed
+    {
+    public:
+      /// <summary>
+      /// Event fires when the frame rate changes.
+      /// </summary>
+      static event FramesPerSecondChangedEventHandler^ FramesPerSecondChanged;
+
+    internal:
+      static void FireEvent(Platform::String^ id, Platform::String^ str);
+    };
+
+    /// <summary>
+    /// Delegate used to notify an update of the frame resolutions.
+    /// </summary>
+    public delegate void ResolutionChangedEventHandler(Platform::String^ id, unsigned int width, unsigned int height);
+
+    /// <summary>
+    /// Class used to get frame size change events from renderer.
+    /// </summary>
+    public ref class ResolutionHelper sealed
+    {
+    public:
+      /// <summary>
+      /// Event fires when the resolution changes.
+      /// </summary>
+      static event ResolutionChangedEventHandler^ ResolutionChanged;
+
+    internal:
+      static void FireEvent(
+        Platform::String^ id,
+        unsigned int width,
+        unsigned int height
+      );
+    };
+
+  } // namespace ortc
+}  // namespace org
+
+#ifdef USE_OLD_RENDERER
+
 #include "webrtc/modules/video_render/video_render.h"
 
 #include <Mfidl.h>
@@ -26,43 +80,6 @@ namespace org
     class MediaSourceHelper;
 
     ref class MediaStreamTrack;
-
-    /// <summary>
-    /// Delegate used to notify an update of the frame per second on a video stream.
-    /// </summary>
-    public delegate void FramesPerSecondChangedEventHandler(String^ id,
-      Platform::String^ fps);
-    /// <summary>
-    /// Delegate used to notify an update of the frame resolutions.
-    /// </summary>
-    public delegate void ResolutionChangedEventHandler(String^ id,
-      unsigned int width, unsigned int height);
-
-    /// <summary>
-    /// Class used to get frame rate events from renderer.
-    /// </summary>
-    public ref class FrameCounterHelper sealed {
-    public:
-      /// <summary>
-      /// Event fires when the frame rate changes.
-      /// </summary>
-      static event FramesPerSecondChangedEventHandler^ FramesPerSecondChanged;
-    internal:
-      static void FireEvent(String^ id, Platform::String^ str);
-    };
-
-    /// <summary>
-    /// Class used to get frame size change events from renderer.
-    /// </summary>
-    public ref class ResolutionHelper sealed {
-    public:
-      /// <summary>
-      /// Event fires when the resolution changes.
-      /// </summary>
-      static event ResolutionChangedEventHandler^ ResolutionChanged;
-    internal:
-      static void FireEvent(String^ id, unsigned int width, unsigned int height);
-    };
 
     ref class RTMediaStreamSource sealed {
     public:
@@ -126,3 +143,5 @@ namespace org
     };
   } // namespace ortc
 }  // namespace org
+
+#endif //USE_OLD_RENDERER

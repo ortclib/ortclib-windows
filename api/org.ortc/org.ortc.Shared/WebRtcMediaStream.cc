@@ -57,10 +57,9 @@ namespace org
     };
 
     WebRtcMediaStream::WebRtcMediaStream() :
-      _frameBufferIndex(0), _frameReady(0), _frameCount(0),
       _lock(webrtc::CriticalSectionWrapper::CreateCriticalSection()),
-      _gpuVideoBuffer(false),
-      _frameBeingQueued(0), _started(false) {
+      _selfReferenceHolder(std::make_shared<OuterReferenceHolder>(this))
+    {
       _mediaBuffers.resize(BufferCount);
     }
 
@@ -68,9 +67,12 @@ namespace org
       // To be safe.  Sometimes we get destroyed
       // without having been shutdown.
       Shutdown();
+
+      _selfReferenceHolder->_shuttingDown = true;
+
       // Wait until no frames are being queued
       // from the webrtc callback.
-      while (_frameBeingQueued > 0) {
+      while (_selfReferenceHolder->_framesBeingQueued > 0) {
         Sleep(1);
       }
     }
@@ -84,7 +86,7 @@ namespace org
       _source = source;
       _track = track;
       _id = id;
-      _rtcRenderer = rtc::scoped_ptr<RTCRenderer>(new RTCRenderer(this));
+      _rtcRenderer = std::make_shared<RTCRenderer>(_selfReferenceHolder);
 
       _isH264 = track->IsH264Rendering();
 
@@ -104,7 +106,7 @@ namespace org
       RETURN_ON_FAIL(_streamDescriptor->GetMediaTypeHandler(&mediaTypeHandler));
       RETURN_ON_FAIL(mediaTypeHandler->SetCurrentMediaType(_mediaType.Get()));
 
-      track->SetVideoRenderCallback(_rtcRenderer.get());
+      track->SetVideoRenderCallback(_rtcRenderer);
       if (_isH264) {
         webrtc::vcm::globalRequestKeyFrame = true;
       }
@@ -481,22 +483,34 @@ namespace org
     }
 
     WebRtcMediaStream::RTCRenderer::RTCRenderer(
-      WebRtcMediaStream* streamSource) {
-      _streamSource = streamSource;
+      OuterReferenceHolderPtr outer)
+    {
+      _outer = outer;
     }
 
     WebRtcMediaStream::RTCRenderer::~RTCRenderer() {
       //LOG(LS_INFO) << "RTMediaStreamSource::RTCRenderer::~RTCRenderer";
     }
 
-    int32_t WebRtcMediaStream::RTCRenderer::RenderFrame(const uint32_t streamId,
-      const webrtc::VideoFrame& frame) {
+    int32_t WebRtcMediaStream::RTCRenderer::RenderFrame(
+      const uint32_t streamId,
+      const webrtc::VideoFrame& frame
+    ) {
       webrtc::VideoFrame* frameCopy = new webrtc::VideoFrame();
       frameCopy->CopyFrame(frame);
-      auto stream = _streamSource;
-      InterlockedIncrement(&stream->_frameBeingQueued);
+      auto outer = _outer.lock();
+      if (!outer) return 0;
+
+      ++(outer->_framesBeingQueued);
+      if (outer->_shuttingDown) {
+        --(outer->_framesBeingQueued);
+        return 0;
+      }
+
+      auto stream = outer->_streamSource;
+
       // Do the processing async because there's a risk of a deadlock otherwise.
-      Concurrency::create_async([stream, frameCopy] {
+      Concurrency::create_async([outer, stream, frameCopy] {
         {
           webrtc::CriticalSectionScoped csLock(stream->_lock.get());
           if (stream->_helper != nullptr) {
@@ -504,8 +518,9 @@ namespace org
             stream->ReplyToSampleRequest();
           }
         }
-        InterlockedDecrement(&stream->_frameBeingQueued);
+        --(outer->_framesBeingQueued);
       });
+
       return 0;
     }
   } // namespace ortc

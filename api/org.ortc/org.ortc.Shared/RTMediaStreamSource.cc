@@ -7,9 +7,59 @@
 // be found in the AUTHORS file in the root of the source tree.
 #include "pch.h"
 
+#include "RTMediaStreamSource.h"
+
+#include "Ortc.h"
+
+namespace org
+{
+  namespace ortc
+  {
+
+    void FrameCounterHelper::FireEvent(
+      Platform::String^ id,
+      Platform::String^ str
+    )
+    {
+      if (OrtcWithDispatcher::Dispatcher != nullptr)
+      {
+        OrtcWithDispatcher::Dispatcher->RunAsync(
+          Windows::UI::Core::CoreDispatcherPriority::Normal,
+          ref new Windows::UI::Core::DispatchedHandler([id, str] { FramesPerSecondChanged(id, str); })
+        );
+      }
+      else 
+      {
+        FramesPerSecondChanged(id, str);
+      }
+    }
+
+    void ResolutionHelper::FireEvent(
+      Platform::String^ id,
+      unsigned int width,
+      unsigned int heigth
+    )
+    {
+      if (OrtcWithDispatcher::Dispatcher != nullptr)
+      {
+        OrtcWithDispatcher::Dispatcher->RunAsync(
+          Windows::UI::Core::CoreDispatcherPriority::Normal,
+          ref new Windows::UI::Core::DispatchedHandler([id, width, heigth] { ResolutionChanged(id, width, heigth); })
+        );
+      }
+      else
+      {
+        ResolutionChanged(id, width, heigth);
+      }
+    }
+
+  } // namespace ortc
+}  // namespace org
+
+#ifdef USE_OLD_RENDERER
+
 #include "MediaSourceHelper.h"
 #include "MediaStreamTrack.h"
-#include "Ortc.h"
 #include "RTMediaStreamSource.h"
 
 #include "webrtc/system_wrappers/include/critical_section_wrapper.h"
@@ -410,32 +460,7 @@ namespace org
     void RTMediaStreamSource::ResizeSource(uint32 width, uint32 height) {
     }
 
-    void FrameCounterHelper::FireEvent(Platform::String^ id,
-      Platform::String^ str) {
-      if (OrtcWithDispatcher::Dispatcher != nullptr) {
-        OrtcWithDispatcher::Dispatcher->RunAsync(
-          Windows::UI::Core::CoreDispatcherPriority::Normal,
-          ref new Windows::UI::Core::DispatchedHandler([id, str] {
-          FramesPerSecondChanged(id, str);
-        }));
-      }
-      else {
-        FramesPerSecondChanged(id, str);
-      }
-    }
-
-    void ResolutionHelper::FireEvent(Platform::String^ id,
-      unsigned int width, unsigned int heigth) {
-      if (OrtcWithDispatcher::Dispatcher != nullptr) {
-        OrtcWithDispatcher::Dispatcher->RunAsync(
-          Windows::UI::Core::CoreDispatcherPriority::Normal,
-          ref new Windows::UI::Core::DispatchedHandler([id, width, heigth] {
-          ResolutionChanged(id, width, heigth);
-        }));
-      }
-      else {
-        ResolutionChanged(id, width, heigth);
-      }
-    }
   } // namespace ortc
 }  // namespace org
+
+#endif //USE_OLD_RENDERER

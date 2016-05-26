@@ -15,6 +15,8 @@
 #include <wrl.h>
 #include <Mfidl.h>
 
+#include <ortc/IMediaStreamTrack.h>
+
 namespace org
 {
   namespace ortc
@@ -35,9 +37,14 @@ namespace org
 
     class WebRtcMediaStream :
       public RuntimeClass<RuntimeClassFlags<RuntimeClassType::WinRtClassicComMix>,
-      IMFMediaStream, IMFMediaEventGenerator,
-      IMFGetService> {
-      InspectableClass(L"WebRtcMediaStream", BaseTrust)
+                          IMFMediaStream, IMFMediaEventGenerator,
+                          IMFGetService>
+    {
+      InspectableClass(L"WebRtcMediaStream", BaseTrust);
+
+      ZS_DECLARE_CLASS_PTR(RTCRenderer);
+      ZS_DECLARE_STRUCT_PTR(OuterReferenceHolder);
+
     public:
       WebRtcMediaStream();
       virtual ~WebRtcMediaStream();
@@ -68,17 +75,29 @@ namespace org
       rtc::scoped_ptr<webrtc::CriticalSectionWrapper> _lock;
 
     private:
-      class RTCRenderer : public webrtc::VideoRenderCallback {
+      struct OuterReferenceHolder
+      {
+        OuterReferenceHolder(WebRtcMediaStream* streamSource) : _streamSource(streamSource) {}
+
+        WebRtcMediaStream* _streamSource;
+
+        std::atomic<bool> _shuttingDown{};
+        std::atomic<ULONG> _framesBeingQueued{};
+      };
+
+      class RTCRenderer : public ::ortc::IMediaStreamTrackRenderCallback,
+                          public webrtc::VideoRenderCallback
+      {
       public:
-        explicit RTCRenderer(WebRtcMediaStream* streamSource);
+        explicit RTCRenderer(OuterReferenceHolderPtr outer);
         virtual ~RTCRenderer();
         virtual int32_t RenderFrame(const uint32_t streamId,
-          const webrtc::VideoFrame& videoFrame);
+                                   const webrtc::VideoFrame& videoFrame) override;
         virtual bool CanApplyRotation() { return true; }
       private:
         // This object is owned by RTMediaStreamSource
         // so _streamSource must be a weak reference
-        WebRtcMediaStream* _streamSource;
+        OuterReferenceHolderWeakPtr _outer;
       };
 
     private:
@@ -96,26 +115,26 @@ namespace org
       HRESULT ReplyToSampleRequest();
 
       rtc::scoped_ptr<MediaSourceHelper> _helper;
-      rtc::scoped_ptr<RTCRenderer> _rtcRenderer;
+      RTCRendererPtr _rtcRenderer;
+      OuterReferenceHolderPtr _selfReferenceHolder;
 
       ComPtr<IMFMediaType> _mediaType;
       ComPtr<IMFDXGIDeviceManager> _deviceManager;
       ComPtr<IMFStreamDescriptor> _streamDescriptor;
-      ULONGLONG _startTickCount;
-      ULONGLONG _frameCount;
-      int _index;
-      ULONG _frameReady;
-      ULONG _frameBeingQueued;
+      ULONGLONG _startTickCount{};
+      ULONGLONG _frameCount{};
+      int _index{};
+      ULONG _frameReady{};
 
       // From the sample manager.
       HRESULT ResetMediaBuffers();
       static const int BufferCount = 3;
       std::vector<ComPtr<IMFMediaBuffer>> _mediaBuffers;
-      int _frameBufferIndex;
+      int _frameBufferIndex{};
 
-      bool _gpuVideoBuffer;
-      bool _isH264;
-      bool _started;
+      bool _gpuVideoBuffer{};
+      bool _isH264{};
+      bool _started{};
     };
   } // namespace ortc
 }  // namespace org

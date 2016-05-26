@@ -330,7 +330,7 @@ namespace org
       }
     }
 
-    void MediaStreamTrack::SetVideoRenderCallback(void* callback)
+    void MediaStreamTrack::SetVideoRenderCallback(IMediaStreamTrackRenderCallbackPtr callback)
     {
       if (!_nativePointer) return;
       _nativePointer->setVideoRenderCallback(callback);
@@ -460,11 +460,13 @@ namespace org
 #endif
     }
 
+#if 0
     void MediaStreamTrack::SetVideoRenderCallback(Platform::IntPtr callback)
     {
       if (!_nativePointer) return;
       _nativePointer->setVideoRenderCallback((void *)callback);
     }
+#endif //0
 
     IAsyncAction^ MediaStreamTrack::ApplyConstraints(MediaTrackConstraints^ constraints)
     {
