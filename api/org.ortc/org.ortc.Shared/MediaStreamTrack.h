@@ -471,7 +471,7 @@ namespace org
       static MediaStreamTrack^ Convert(IMediaStreamTrackPtr track) { if (!track) return nullptr; return ref new MediaStreamTrack(track); }
       static IMediaStreamTrackPtr Convert(MediaStreamTrack^ track) { if (!track) return nullptr; return track->_nativePointer; }
 
-      void SetVideoRenderCallback(void* callback);
+      void SetVideoRenderCallback(::ortc::IMediaStreamTrackRenderCallbackPtr callback);
 
     public:
       /// <summary>
@@ -599,11 +599,13 @@ namespace org
       /// window based upon the current track.
       /// </summary>
       IMediaSource^ CreateMediaSource();
+#if 0
       /// <summary>
       /// Sets a callback object that is passed as a void pointer and casted
       /// back to original native pointer type by WebRTC engine.
       /// </summary>
       void SetVideoRenderCallback(Platform::IntPtr callback);
+#endif //0
 
       /// <summary>
       /// The User Agent may choose new settings for the constrainable
