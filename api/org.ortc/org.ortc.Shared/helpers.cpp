@@ -945,6 +945,7 @@ namespace org
         case adapter::RTCIceConnectionState::Completed:     return IICETransportTypes::State_Completed;
         case adapter::RTCIceConnectionState::Failed:        return IICETransportTypes::State_Failed;
         case adapter::RTCIceConnectionState::Disconnected:  return IICETransportTypes::State_Disconnected;
+        case adapter::RTCIceConnectionState::Closed:        return IICETransportTypes::State_Closed;
         }
         throw ref new Platform::NotImplementedException();
       }
@@ -959,6 +960,7 @@ namespace org
         case IICETransportTypes::State_Completed:     return adapter::RTCIceConnectionState::Completed;
         case IICETransportTypes::State_Failed:        return adapter::RTCIceConnectionState::Failed;
         case IICETransportTypes::State_Disconnected:  return adapter::RTCIceConnectionState::Disconnected;
+        case IICETransportTypes::State_Closed:        return adapter::RTCIceConnectionState::Closed;
         }
         throw ref new Platform::NotImplementedException();
       }
