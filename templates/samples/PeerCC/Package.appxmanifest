@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <Package IgnorableNamespaces="uap mp" xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10">
-  <Identity Name="MacadamianTechnologies.PeerCCWin10" Publisher="CN=0BF51448-0221-4D5C-A9D3-036C6B759273" Version="9.9.9.9" />
-  <mp:PhoneIdentity PhoneProductId="8157982a-c28b-4ab7-b391-c4418a74c072" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="Hookflash.PeerCCWin10" Publisher="CN=0A0FCA1F-2941-475A-BF03-4C442FBE2358" Version="PeerCC.Version" />
+  <mp:PhoneIdentity PhoneProductId="8157982a-c28b-4ab7-b391-c4418a74c072" PhonePublisherId="a4ebe40b-5dfa-4fbf-822a-745d52739224" />
   <Properties>
     <DisplayName>PeerCC.Name</DisplayName>
-    <PublisherDisplayName>Macadamian Technologies</PublisherDisplayName>
+    <PublisherDisplayName>Hookflash</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
