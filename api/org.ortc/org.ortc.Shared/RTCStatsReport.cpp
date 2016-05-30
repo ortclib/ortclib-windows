@@ -44,7 +44,11 @@ namespace org
         auto result = ref new RTCStats();
 
         result->Timestamp = Helper::ToCx(input.mTimestamp);
-        result->StatsType = Helper::Convert(IStatsReportTypes::toStatsType(input.mStatsType));
+        result->StatsType = Helper::Convert(input.mStatsType.value());
+        if (!input.mStatsType.hasValue()) {
+          result->StatsTypeUnknown = Helper::ToCx(input.mStatsTypeOther);
+        }
+
         result->Id = Helper::ToCx(input.mID);
 
         return result;
@@ -64,7 +68,10 @@ namespace org
         auto result = make_shared<IStatsReportTypes::Stats>();
 
         result->mTimestamp = Helper::FromCx(input->Timestamp);
-        result->mStatsType = IStatsReportTypes::toString(Helper::Convert(input->StatsType));
+        result->mStatsType = Helper::Convert(input->StatsType);
+        if (!result->mStatsType.hasValue()) {
+          result->mStatsTypeOther = Helper::FromCx(input->StatsTypeUnknown);
+        }
         result->mID = Helper::FromCx(input->Id);
 
         return result;

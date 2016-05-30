@@ -194,8 +194,9 @@ namespace org
         static const char *ToComponent(Log::Component  component);
 
         // Stats convertors
+        static RTCStatsType Convert(const Optional<IStatsReportTypes::StatsTypes> &type);
         static RTCStatsType Convert(IStatsReportTypes::StatsTypes type);
-        static IStatsReportTypes::StatsTypes Convert(RTCStatsType type);
+        static Optional<IStatsReportTypes::StatsTypes> Convert(RTCStatsType type);
 
         static RTCStatsIceCandidatePairState Convert(IStatsReportTypes::StatsICECandidatePairStates state);
         static IStatsReportTypes::StatsICECandidatePairStates Convert(RTCStatsIceCandidatePairState state);

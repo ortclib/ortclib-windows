@@ -671,6 +671,12 @@ namespace org
       // Stats convert methods
       //-----------------------------------------------------------------------
 
+      RTCStatsType Helper::Convert(const Optional<IStatsReportTypes::StatsTypes> &type)
+      {
+        if (!type.hasValue()) return RTCStatsType::Unknown;
+        return Convert(type.value());
+      }
+
       RTCStatsType Helper::Convert(IStatsReportTypes::StatsTypes type)
       {
         switch (type) {
@@ -694,9 +700,10 @@ namespace org
         throw ref new Platform::NotImplementedException();
       }
 
-      IStatsReportTypes::StatsTypes Helper::Convert(RTCStatsType type)
+      Optional<IStatsReportTypes::StatsTypes> Helper::Convert(RTCStatsType type)
       {
         switch (type) {
+        case RTCStatsType::Unknown:           return Optional<IStatsReportTypes::StatsTypes>();
         case RTCStatsType::InboundRtp:        return IStatsReportTypes::StatsType_InboundRTP;
         case RTCStatsType::OutboundRtp:       return IStatsReportTypes::StatsType_OutboundRTP;
         case RTCStatsType::Codec:             return IStatsReportTypes::StatsType_Codec;

@@ -236,6 +236,11 @@ namespace org
       /// </summary>
       property RTCStatsType                   StatsType;
       /// <summary>
+      /// Gets or sets the type of statistics object when the type is not a
+      /// pre-known type.
+      /// </summary>
+      property Platform::String^              StatsTypeUnknown;
+      /// <summary>
       /// Gets or sets the identifer for the RTCStats object. The identifer
       /// is unique within a RTCStatsReport but is not guarenteed to be unique
       /// across RTCStatsReports.
