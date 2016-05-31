@@ -58,6 +58,10 @@ namespace org
         /// </summary>
         Services,
         /// <summary>
+        /// The DNS services support library for the ORTC library.
+        /// </summary>
+        ServicesDns,
+        /// <summary>
         /// The TURN services support library for the ORTC library.
         /// </summary>
         ServicesTurn,
@@ -66,9 +70,92 @@ namespace org
         /// </summary>
         ServicesHttp,
         /// <summary>
-        /// The C++ ORTC library.
+        /// The wire level tracing of services support for the ORTC library.
+        /// This component also includes the details of the STUN packet(s).
         /// </summary>
-        OrtcLib
+        ServicesWire,
+        /// <summary>
+        /// All STUN related request processing (minus the STUN on the wire).
+        /// </summary>
+        ServicesStun,
+        /// <summary>
+        /// The C++ ORTC library (for all objects who don't have their own
+        /// trace level).
+        /// </summary>
+        OrtcLib,
+        /// <summary>
+        /// The C++ ORTC media area.
+        /// </summary>
+        OrtcLibWebrtc,
+        /// <summary>
+        /// The C++ ORTC DTLS transport object.
+        /// </summary>
+        OrtcLibDtlsTransport,
+        /// <summary>
+        /// The C++ ORTC ICE gatherer object.
+        /// </summary>
+        OrtcLibIceGatherer,
+        /// <summary>
+        /// The C++ ORTC ICE gatherer router object.
+        /// </summary>
+        OrtcLibIceGathererRouter,
+        /// <summary>
+        /// The C++ ORTC ICE transport object.
+        /// </summary>
+        OrtcLibIceTransport,
+        /// <summary>
+        /// The C++ ORTC ICE transport controller object.
+        /// </summary>
+        OrtcLibIceTransportController,
+        /// <summary>
+        /// The C++ ORTC media devices object.
+        /// </summary>
+        OrtcLibMediaDevices,
+        /// <summary>
+        /// The C++ ORTC media stream track object.
+        /// </summary>
+        OrtcLibMediaStreamTrack,
+        /// <summary>
+        /// The C++ ORTC rtp / rtcp packet related traces.
+        /// </summary>
+        OrtcLibRtpRtcpPacket,
+        /// <summary>
+        /// The C++ ORTC rtp listener object.
+        /// </summary>
+        OrtcLibRtpListener,
+        /// <summary>
+        /// The C++ ORTC rtp listener object.
+        /// </summary>
+        OrtcLibRtpMediaEngine,
+        /// <summary>
+        /// The C++ ORTC rtp receiver object.
+        /// </summary>
+        OrtcLibRtpReceiver,
+        /// <summary>
+        /// The C++ ORTC rtp sender object.
+        /// </summary>
+        OrtcLibRtpSender,
+        /// <summary>
+        /// The C++ ORTC rtp type structure tracing (parsers, helpers and
+        /// other).
+        /// </summary>
+        OrtcLibRtpTypes,
+        /// <summary>
+        /// The C++ SCTP and data channel related objects.
+        /// </summary>
+        OrtcLibSctpDataChannel,
+        /// <summary>
+        /// The C++ SRTP related objects.
+        /// </summary>
+        OrtcLibSrtp,
+        /// <summary>
+        /// The C++ SRTP related objects.
+        /// </summary>
+        OrtcLibStats,
+        /// <summary>
+        /// The C++ ORTC Adapter library.
+        /// </summary>
+        OrtcLibAdapter,
       };
     }
 

@@ -657,16 +657,38 @@ namespace org
       const char *Helper::ToComponent(Log::Component  component)
       {
         switch (component) {
-        case Log::Component::ZsLib:         return "zsLib";
-        case Log::Component::ZsLibSocket:   return "zsLib_socket";
-        case Log::Component::Services:      return "openpeer_services";
-        case Log::Component::ServicesTurn:  return "openpeer_services_turn";
-        case Log::Component::ServicesHttp:  return "openpeer_services_http";
-        case Log::Component::OrtcLib:       return "ortclib";
+        case Log::Component::ZsLib:                         return "zsLib";
+        case Log::Component::ZsLibSocket:                   return "zsLib_socket";
+        case Log::Component::Services:                      return "openpeer_services";
+        case Log::Component::ServicesDns:                   return "openpeer_services_dns";
+        case Log::Component::ServicesHttp:                  return "openpeer_services_http";
+        case Log::Component::ServicesWire:                  return "openpeer_services_wire";
+        case Log::Component::ServicesStun:                  return "openpeer_services_stun";
+        case Log::Component::ServicesTurn:                  return "openpeer_services_turn";
+        case Log::Component::OrtcLib:                       return "ortclib";
+        case Log::Component::OrtcLibWebrtc:                 return "ortclib_webrtc";
+        case Log::Component::OrtcLibDtlsTransport:          return "ortclib_dtlstransport";
+        case Log::Component::OrtcLibIceGatherer:            return "ortclib_icegatherer";
+        case Log::Component::OrtcLibIceGathererRouter:      return "ortclib_icegatherer_router";
+        case Log::Component::OrtcLibIceTransport:           return "ortclib_icetransport";
+        case Log::Component::OrtcLibIceTransportController: return "ortclib_icetransport_controller";
+        case Log::Component::OrtcLibMediaDevices:           return "ortclib_mediadevices";
+        case Log::Component::OrtcLibMediaStreamTrack:       return "ortclib_mediastreamtrack";
+        case Log::Component::OrtcLibRtpRtcpPacket:          return "ortclib_rtp_rtcp_packet";
+        case Log::Component::OrtcLibRtpListener:            return "ortclib_rtplistener";
+        case Log::Component::OrtcLibRtpMediaEngine:         return "ortclib_rtpmediaengine";
+        case Log::Component::OrtcLibRtpReceiver:            return "ortclib_rtpreceiver";
+        case Log::Component::OrtcLibRtpSender:              return "ortclib_rtpsender";
+        case Log::Component::OrtcLibRtpTypes:               return "ortclib_rtptypes";
+        case Log::Component::OrtcLibSctpDataChannel:        return "ortclib_sctp_datachannel";
+        case Log::Component::OrtcLibSrtp:                   return "ortclib_srtp";
+        case Log::Component::OrtcLibStats:                  return "ortclib_stats";
+        case Log::Component::OrtcLibAdapter:                return "ortclib_adapter";
         }
         throw ref new Platform::NotImplementedException();
       }
-
+      
+      
       //-----------------------------------------------------------------------
       // Stats convert methods
       //-----------------------------------------------------------------------
