@@ -3,6 +3,8 @@
 #include "Logger.h"
 #include "helpers.h"
 
+#include <ortc/IORTC.h>
+
 #include <openpeer/services/ILogger.h>
 
 using namespace ortc;
@@ -16,17 +18,18 @@ namespace org
 
     void Logger::SetLogLevel(Log::Level level)
     {
-      UseServicesLogger::setLogLevel(UseHelper::Convert(level));
+      IORTC::setDefaultLogLevel(UseHelper::Convert(level));
+//      UseServicesLogger::setLogLevel(UseHelper::Convert(level));
     }
 
     void Logger::SetLogLevel(Log::Component component, Log::Level level)
     {
-      UseServicesLogger::setLogLevel(UseHelper::ToComponent(component), UseHelper::Convert(level));
+      IORTC::setLogLevel(UseHelper::ToComponent(component), UseHelper::Convert(level));
     }
 
     void Logger::SetLogLevel(Platform::String^ component, Log::Level level)
     {
-      UseServicesLogger::setLogLevel(UseHelper::FromCx(component).c_str(), UseHelper::Convert(level));
+      IORTC::setLogLevel(UseHelper::FromCx(component).c_str(), UseHelper::Convert(level));
     }
 
     void Logger::InstallStdOutLogger(Platform::Boolean colorizeOutput)
