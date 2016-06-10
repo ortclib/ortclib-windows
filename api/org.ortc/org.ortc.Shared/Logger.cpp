@@ -19,7 +19,6 @@ namespace org
     void Logger::SetLogLevel(Log::Level level)
     {
       IORTC::setDefaultLogLevel(UseHelper::Convert(level));
-//      UseServicesLogger::setLogLevel(UseHelper::Convert(level));
     }
 
     void Logger::SetLogLevel(Log::Component component, Log::Level level)
