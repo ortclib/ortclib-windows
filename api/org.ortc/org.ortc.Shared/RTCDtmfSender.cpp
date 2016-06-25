@@ -117,7 +117,7 @@ namespace org
     Platform::Boolean RTCDtmfSender::CanInsertDtmf::get()
     {
       if (!_nativePointer) return false;
-      return _nativePointer->canInsertDDTMF();
+      return _nativePointer->canInsertDTMF();
     }
 
     RTCRtpSender^ RTCDtmfSender::Sender::get()
