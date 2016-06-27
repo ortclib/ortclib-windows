@@ -26,6 +26,31 @@ namespace org
         int64 get();
         void set(int64 value);
       };
+
+      /// <summary>
+      /// Starts media engine trancing system. The collected traces can be
+      /// saved to file or sent to TCP listener. Traces can be visualised
+      /// further by importing the data into Chrome browser tool that can be
+      /// accessed using following option - chrome://tracing.
+      /// This method starts the tracing engine.
+      /// </summary>
+      static void StartMediaTracing();
+      /// <summary>
+      /// Stops media tracing process.
+      /// </summary>
+      static void StopMediaTracing();
+      /// <summary>
+      /// Indiceates whether tracing system is activated.
+      /// </summary>
+      static bool IsMediaTracing();
+      /// <summary>
+      /// Saves media trace data to the file specified by filename.
+      /// </summary>
+      static bool SaveMediaTrace(Platform::String ^filename);
+      /// <summary>
+      /// Sends all traced data to TCP listener specified by host name and port.
+      /// </summary>
+      static bool SaveMediaTrace(Platform::String ^host, int port);
     };
 
     [Windows::Foundation::Metadata::WebHostHiddenAttribute]

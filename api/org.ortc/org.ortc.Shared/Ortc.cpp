@@ -1,6 +1,7 @@
 #include "pch.h"
 
 #include "Ortc.h"
+#include "helpers.h"
 
 #include <ortc/IORTC.h>
 #include <zsLib/SafeInt.h>
@@ -28,6 +29,33 @@ namespace org
     void Ortc::Setup()
     {
       IORTC::setup(IMessageQueuePtr());
+    }
+
+    void Ortc::StartMediaTracing()
+    {
+      IORTC::startMediaTracing();
+    }
+
+    void Ortc::StopMediaTracing()
+    {
+      IORTC::stopMediaTracing();
+    }
+
+    bool Ortc::IsMediaTracing()
+    {
+      return IORTC::isMediaTracing();
+    }
+
+    bool Ortc::SaveMediaTrace(Platform::String ^filename)
+    {
+      std::string filenameValue = internal::Helper::FromCx(filename);
+      return IORTC::saveMediaTrace(filenameValue);
+    }
+
+    bool Ortc::SaveMediaTrace(Platform::String ^host, int port)
+    {
+      std::string hostValue = internal::Helper::FromCx(host);
+      return IORTC::saveMediaTrace(hostValue, port);
     }
 
     void OrtcWithDispatcher::Setup(Windows::UI::Core::CoreDispatcher ^dispatcher)
