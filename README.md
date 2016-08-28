@@ -1,2 +1,2 @@
-# ortc-lib-winrt
-WinRT samples for ORTC-lib SDK
+# ortclib-uwp
+UWP samples for ORTC Lib SDK
