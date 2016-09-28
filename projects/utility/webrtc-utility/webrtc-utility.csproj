@@ -141,7 +141,7 @@
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>call "$(SolutionDir)..\..\bin\buildWebRTC.bat"  "$(SolutionDir)..\..\libs\webrtc\webrtcForOrtc.vs2015.sln" $(Configuration) $(Platform)</PreBuildEvent>
+    <PreBuildEvent>call "$(SolutionDir)..\bin\buildWebRTC.bat"  "$(SolutionDir)..\webrtc\xplatform\webrtc\all_win10_arm.sln" $(Configuration) $(Platform)</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>

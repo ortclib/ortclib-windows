@@ -55,145 +55,145 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "usrsctplib", "usrsctplib", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "vp9", "vp9", "{6C9B70A4-4C8F-4C2A-8D1B-3BCD65FEA4D3}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "boringssl", "..\..\..\..\libs\webrtc\third_party\boringssl\boringssl.vcxproj", "{23D79827-E423-BA46-5AD6-622B0828F65C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "boringssl_win10_x64", ".\third_party\boringssl\boringssl_win10_x64.vcxproj", "{23D79827-E423-BA46-5AD6-622B0828F65C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jsoncpp", "..\..\..\..\libs\webrtc\third_party\jsoncpp\jsoncpp.vcxproj", "{6F671C55-9F91-D8A2-C8A2-29244B3477B4}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jsoncpp_win10_x64", ".\third_party\jsoncpp\jsoncpp_win10_x64.vcxproj", "{6F671C55-9F91-D8A2-C8A2-29244B3477B4}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libjpeg", "..\..\..\..\libs\webrtc\third_party\libjpeg_turbo\libjpeg.vcxproj", "{7ADFBD3A-4972-6013-57FF-FC245E80E675}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libjpeg_win10_x64", ".\third_party\libjpeg_turbo\libjpeg_win10_x64.vcxproj", "{7ADFBD3A-4972-6013-57FF-FC245E80E675}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libsrtp", "..\..\..\..\libs\webrtc\third_party\libsrtp\libsrtp.vcxproj", "{7F9A1B1F-D1D7-872F-CE15-A6CAB15CA0D5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libsrtp_win10_x64", ".\third_party\libsrtp\_win10_x64libsrtp.vcxproj", "{7F9A1B1F-D1D7-872F-CE15-A6CAB15CA0D5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_avx2", "..\..\..\..\libs\webrtc\third_party\libvpx_new\libvpx_intrinsics_avx2.vcxproj", "{63C8622D-5534-0C76-B3B1-F26C4EA6AF7A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_avx2_win10_x64", ".\third_party\libvpx_new\libvpx_intrinsics_avx2_win10_x64.vcxproj", "{63C8622D-5534-0C76-B3B1-F26C4EA6AF7A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_mmx", "..\..\..\..\libs\webrtc\third_party\libvpx_new\libvpx_intrinsics_mmx.vcxproj", "{1B58F597-C54D-EC65-FC57-D329BEE295E2}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_mmx_win10_x64", ".\third_party\libvpx_new\libvpx_intrinsics_mmx_win10_x64.vcxproj", "{1B58F597-C54D-EC65-FC57-D329BEE295E2}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_sse2", "..\..\..\..\libs\webrtc\third_party\libvpx_new\libvpx_intrinsics_sse2.vcxproj", "{6BC64832-129F-B382-8F90-995D4BE0C992}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_sse2_win10_x64", ".\third_party\libvpx_new\libvpx_intrinsics_sse2_win10_x64.vcxproj", "{6BC64832-129F-B382-8F90-995D4BE0C992}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_sse4_1", "..\..\..\..\libs\webrtc\third_party\libvpx_new\libvpx_intrinsics_sse4_1.vcxproj", "{F5D62AB9-418B-D134-AEB8-F6CE18429639}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_sse4_1_win10_x64", ".\third_party\libvpx_new\libvpx_intrinsics_sse4_1_win10_x64.vcxproj", "{F5D62AB9-418B-D134-AEB8-F6CE18429639}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_ssse3", "..\..\..\..\libs\webrtc\third_party\libvpx_new\libvpx_intrinsics_ssse3.vcxproj", "{42508579-C11E-D510-49DE-3555AF0DC8AA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_ssse3_win10_x64", ".\third_party\libvpx_new\libvpx_intrinsics_ssse3_win10_x64.vcxproj", "{42508579-C11E-D510-49DE-3555AF0DC8AA}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_new", "..\..\..\..\libs\webrtc\third_party\libvpx_new\libvpx_new.vcxproj", "{5B1619FA-038D-15DA-5EF0-880256B43AD5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_new_win10_x64", ".\third_party\libvpx_new\libvpx_new_win10_x64.vcxproj", "{5B1619FA-038D-15DA-5EF0-880256B43AD5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libyuv", "..\..\..\..\libs\webrtc\third_party\libyuv\libyuv.vcxproj", "{E4505A22-7591-FEDF-6B9F-4FF8AB727FF9}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libyuv_win10_x64", ".\third_party\libyuv\libyuv_win10_x64.vcxproj", "{E4505A22-7591-FEDF-6B9F-4FF8AB727FF9}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "openmax_dl", "..\..\..\..\libs\webrtc\third_party\openmax_dl\dl\openmax_dl.vcxproj", "{0E8DC429-AA74-1515-F004-DC6870B9E429}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "openmax_dl_win10_x64", ".\third_party\openmax_dl\dl\openmax_dl_win10_x64.vcxproj", "{0E8DC429-AA74-1515-F004-DC6870B9E429}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "opus", "..\..\..\..\libs\webrtc\third_party\opus\opus.vcxproj", "{272E163A-1206-8F4F-2E7A-4B12B331CE77}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "opus_win10_x64", ".\third_party\opus\opus_win10_x64.vcxproj", "{272E163A-1206-8F4F-2E7A-4B12B331CE77}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protobuf_full_do_not_use", "..\..\..\..\libs\webrtc\third_party\protobuf\protobuf_full_do_not_use.vcxproj", "{675E25D5-A4CD-586E-B0E9-A1093F2CBA32}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protobuf_full_do_not_use_win10_x64", ".\third_party\protobuf\protobuf_full_do_not_use_win10_x64.vcxproj", "{675E25D5-A4CD-586E-B0E9-A1093F2CBA32}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protobuf_lite", "..\..\..\..\libs\webrtc\third_party\protobuf\protobuf_lite.vcxproj", "{37B318DB-BCD8-3CC4-D824-0F21DC4500B6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protobuf_lite_win10_x64", ".\third_party\protobuf\protobuf_lite_win10_x64.vcxproj", "{37B318DB-BCD8-3CC4-D824-0F21DC4500B6}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protoc", "..\..\..\..\libs\webrtc\third_party\protobuf\protoc.vcxproj", "{19DB3105-D0A0-AF1C-C7B6-D51DFED26AD5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protoc_win10_x64", ".\third_party\protobuf\protoc_win10_x64.vcxproj", "{19DB3105-D0A0-AF1C-C7B6-D51DFED26AD5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "usrsctplib", "..\..\..\..\libs\webrtc\third_party\usrsctp\usrsctplib.vcxproj", "{F2A6B502-E789-7D12-61F4-7D038E5F8351}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "usrsctplib_win10_x64", ".\third_party\usrsctp\usrsctplib_win10_x64.vcxproj", "{F2A6B502-E789-7D12-61F4-7D038E5F8351}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_base_approved", "..\..\..\..\libs\webrtc\webrtc\base\rtc_base_approved.vcxproj", "{510DEDDC-ED2F-0A3B-ABE1-F7F1E6D75CF8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_base_approved_win10_x64", ".\webrtc\base\rtc_base_approved_win10_x64.vcxproj", "{510DEDDC-ED2F-0A3B-ABE1-F7F1E6D75CF8}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_base", "..\..\..\..\libs\webrtc\webrtc\base\rtc_base.vcxproj", "{93F855F4-EE6F-F00D-F4A3-35577B1D5F76}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_base_win10_x64", ".\webrtc\base\rtc_base_win10_x64.vcxproj", "{93F855F4-EE6F-F00D-F4A3-35577B1D5F76}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common_audio", "..\..\..\..\libs\webrtc\webrtc\common_audio\common_audio.vcxproj", "{39FE2BB0-C2E7-DB9C-D514-19B221F3CA00}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common_audio_win10_x64", ".\webrtc\common_audio\common_audio_win10_x64.vcxproj", "{39FE2BB0-C2E7-DB9C-D514-19B221F3CA00}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common_audio_sse2", "..\..\..\..\libs\webrtc\webrtc\common_audio\common_audio_sse2.vcxproj", "{B6B37B26-252C-247D-DBA3-D03511AC9509}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common_audio_sse2_win10_x64", ".\webrtc\common_audio\common_audio_sse2_win10_x64.vcxproj", "{B6B37B26-252C-247D-DBA3-D03511AC9509}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common_video", "..\..\..\..\libs\webrtc\webrtc\common_video\common_video.vcxproj", "{AC613F26-3B4F-2DF0-F78C-52B6D0770C2D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common_video_win10_x64", ".\webrtc\common_video\common_video_win10_x64.vcxproj", "{AC613F26-3B4F-2DF0-F78C-52B6D0770C2D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_vp8", "..\..\..\..\libs\webrtc\webrtc\modules\video_coding\codecs\vp8\webrtc_vp8.vcxproj", "{49724B5A-B74A-CC62-B1A0-04C1F9795A18}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_vp8_win10_x64", ".\webrtc\modules\video_coding\codecs\vp8\webrtc_vp8_win10_x64.vcxproj", "{49724B5A-B74A-CC62-B1A0-04C1F9795A18}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_vp9", "..\..\..\..\libs\webrtc\webrtc\modules\video_coding\codecs\vp9\webrtc_vp9.vcxproj", "{8D1A4B3A-2470-E83E-BEC7-08395F98C755}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_vp9_win10_x64", ".\webrtc\modules\video_coding\codecs\vp9\webrtc_vp9_win10_x64.vcxproj", "{8D1A4B3A-2470-E83E-BEC7-08395F98C755}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_coding_utility", "..\..\..\..\libs\webrtc\webrtc\modules\video_coding\utility\video_coding_utility.vcxproj", "{E3CC8540-9E4F-66F9-D430-EFDAE52DEDAC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_coding_utility_win10_x64", ".\webrtc\modules\video_coding\utility\video_coding_utility_win10_x64.vcxproj", "{E3CC8540-9E4F-66F9-D430-EFDAE52DEDAC}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_coding_module", "..\..\..\..\libs\webrtc\webrtc\modules\audio_coding_module.vcxproj", "{1DEAC0D1-003D-95F6-6693-EF0F1A5C733A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_coding_module_win10_x64", ".\webrtc\modules\audio_coding_module_win10_x64.vcxproj", "{1DEAC0D1-003D-95F6-6693-EF0F1A5C733A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_conference_mixer", "..\..\..\..\libs\webrtc\webrtc\modules\audio_conference_mixer.vcxproj", "{4F4686D2-D54D-340D-C56B-9726C2F88ACB}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_conference_mixer_win10_x64", ".\webrtc\modules\audio_conference_mixer_win10_x64.vcxproj", "{4F4686D2-D54D-340D-C56B-9726C2F88ACB}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_decoder_interface", "..\..\..\..\libs\webrtc\webrtc\modules\audio_decoder_interface.vcxproj", "{E0D5D60F-9FC0-7FEC-01E0-1F16AEFFE6A5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_decoder_interface_win10_x64", ".\webrtc\modules\audio_decoder_interface_win10_x64.vcxproj", "{E0D5D60F-9FC0-7FEC-01E0-1F16AEFFE6A5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_device", "..\..\..\..\libs\webrtc\webrtc\modules\audio_device.vcxproj", "{E7E494C8-F0D0-4376-4006-C691BB4233EF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_device_win10_x64", ".\webrtc\modules\audio_device_win10_x64.vcxproj", "{E7E494C8-F0D0-4376-4006-C691BB4233EF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_encoder_interface", "..\..\..\..\libs\webrtc\webrtc\modules\audio_encoder_interface.vcxproj", "{DB3AFA15-63EA-E717-86CF-0A1340C8EADC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_encoder_interface_win10_x64", ".\webrtc\modules\audio_encoder_interface_win10_x64.vcxproj", "{DB3AFA15-63EA-E717-86CF-0A1340C8EADC}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_processing", "..\..\..\..\libs\webrtc\webrtc\modules\audio_processing.vcxproj", "{7368DA7D-86E9-FCA1-6DED-7084D6530B89}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_processing_win10_x64", ".\webrtc\modules\audio_processing_win10_x64.vcxproj", "{7368DA7D-86E9-FCA1-6DED-7084D6530B89}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_processing_sse2", "..\..\..\..\libs\webrtc\webrtc\modules\audio_processing_sse2.vcxproj", "{209CE4F8-C42B-46A4-8E96-C4744CAC9F03}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_processing_sse2_win10_x64", ".\webrtc\modules\audio_processing_sse2_win10_x64.vcxproj", "{209CE4F8-C42B-46A4-8E96-C4744CAC9F03}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audioproc_debug_proto", "..\..\..\..\libs\webrtc\webrtc\modules\audioproc_debug_proto.vcxproj", "{AB034157-C366-A2A1-B66F-0A5087508DEC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audioproc_debug_proto_win10_x64", ".\webrtc\modules\audioproc_debug_proto_win10_x64.vcxproj", "{AB034157-C366-A2A1-B66F-0A5087508DEC}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bitrate_controller", "..\..\..\..\libs\webrtc\webrtc\modules\bitrate_controller.vcxproj", "{5045F80C-CB03-8FEF-CB6A-39C9DB75840B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bitrate_controller_win10_x64", ".\webrtc\modules\bitrate_controller_win10_x64.vcxproj", "{5045F80C-CB03-8FEF-CB6A-39C9DB75840B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cng", "..\..\..\..\libs\webrtc\webrtc\modules\cng.vcxproj", "{766ED9F0-F961-B512-F126-10F295A22C61}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cng_win10_x64", ".\webrtc\modules\cng_win10_x64.vcxproj", "{766ED9F0-F961-B512-F126-10F295A22C61}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "g711", "..\..\..\..\libs\webrtc\webrtc\modules\g711.vcxproj", "{D0E3E134-3654-E159-8B38-5D49813CDE33}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "g711_win10_x64", ".\webrtc\modules\g711_win10_x64.vcxproj", "{D0E3E134-3654-E159-8B38-5D49813CDE33}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "g722", "..\..\..\..\libs\webrtc\webrtc\modules\g722.vcxproj", "{E3CFF96B-1A3D-B391-68F3-E37AA9CCB267}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "g722_win10_x64", ".\webrtc\modules\g722_win10_x64.vcxproj", "{E3CFF96B-1A3D-B391-68F3-E37AA9CCB267}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ilbc", "..\..\..\..\libs\webrtc\webrtc\modules\ilbc.vcxproj", "{C206E668-DFE5-38C1-7F06-965AD9DABA16}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ilbc_win10_x64", ".\webrtc\modules\ilbc_win10_x64.vcxproj", "{C206E668-DFE5-38C1-7F06-965AD9DABA16}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "isac_common", "..\..\..\..\libs\webrtc\webrtc\modules\isac_common.vcxproj", "{F592FE45-4D65-C545-ABD7-7525FB74CC39}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "isac_common_win10_x64", ".\webrtc\modules\isac_common_win10_x64.vcxproj", "{F592FE45-4D65-C545-ABD7-7525FB74CC39}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "isac_fix", "..\..\..\..\libs\webrtc\webrtc\modules\isac_fix.vcxproj", "{C8382F35-C727-07B8-F2C5-F3B62FA30EB1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "isac_fix_win10_x64", ".\webrtc\modules\isac_fix_win10_x64.vcxproj", "{C8382F35-C727-07B8-F2C5-F3B62FA30EB1}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "isac", "..\..\..\..\libs\webrtc\webrtc\modules\isac.vcxproj", "{A297933D-6306-B45D-7DC9-B44CD98BBE51}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "isac_win10_x64", ".\webrtc\modules\isac_win10_x64.vcxproj", "{A297933D-6306-B45D-7DC9-B44CD98BBE51}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "media_file", "..\..\..\..\libs\webrtc\webrtc\modules\media_file.vcxproj", "{B0E00D28-2A97-C655-673E-89D1B2B176BA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "media_file_win10_x64", ".\webrtc\modules\media_file_win10_x64.vcxproj", "{B0E00D28-2A97-C655-673E-89D1B2B176BA}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "neteq", "..\..\..\..\libs\webrtc\webrtc\modules\neteq.vcxproj", "{AB2A4430-966D-CEA1-E7E8-EB99806E8F42}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "neteq_win10_x64", ".\webrtc\modules\neteq_win10_x64.vcxproj", "{AB2A4430-966D-CEA1-E7E8-EB99806E8F42}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "paced_sender", "..\..\..\..\libs\webrtc\webrtc\modules\paced_sender.vcxproj", "{A07C9726-2362-5111-EA42-F68BE933A199}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "paced_sender_win10_x64", ".\webrtc\modules\paced_sender_win10_x64.vcxproj", "{A07C9726-2362-5111-EA42-F68BE933A199}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pcm16b", "..\..\..\..\libs\webrtc\webrtc\modules\pcm16b.vcxproj", "{CBFC513E-1E82-BDF2-8831-883BE6C0713B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pcm16b_win10_x64", ".\webrtc\modules\pcm16b_win10_x64.vcxproj", "{CBFC513E-1E82-BDF2-8831-883BE6C0713B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "red", "..\..\..\..\libs\webrtc\webrtc\modules\red.vcxproj", "{1FDDB700-0F6F-58FA-B9DA-646141204613}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "red_win10_x64", ".\webrtc\modules\red_win10_x64.vcxproj", "{1FDDB700-0F6F-58FA-B9DA-646141204613}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "remote_bitrate_estimator", "..\..\..\..\libs\webrtc\webrtc\modules\remote_bitrate_estimator.vcxproj", "{1266D2F9-61EE-08B6-7F20-FB188AA8F8BF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "remote_bitrate_estimator_win10_x64", ".\webrtc\modules\remote_bitrate_estimator_win10_x64.vcxproj", "{1266D2F9-61EE-08B6-7F20-FB188AA8F8BF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rent_a_codec", "..\..\..\..\libs\webrtc\webrtc\modules\rent_a_codec.vcxproj", "{B023B61F-8DE9-7EBA-564E-179715881C3E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rent_a_codec_win10_x64", ".\webrtc\modules\rent_a_codec_win10_x64.vcxproj", "{B023B61F-8DE9-7EBA-564E-179715881C3E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtp_rtcp", "..\..\..\..\libs\webrtc\webrtc\modules\rtp_rtcp.vcxproj", "{0BC8B254-96AD-24C4-86E3-6D7F5796AA19}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtp_rtcp_win10_x64", ".\webrtc\modules\rtp_rtcp_win10_x64.vcxproj", "{0BC8B254-96AD-24C4-86E3-6D7F5796AA19}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_capture_module_internal_impl", "..\..\..\..\libs\webrtc\webrtc\modules\video_capture_module_internal_impl.vcxproj", "{58C4E66E-F613-82E0-C039-7A453BCAC1E4}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_capture_module_internal_impl_win10_x64", ".\webrtc\modules\video_capture_module_internal_impl_win10_x64.vcxproj", "{58C4E66E-F613-82E0-C039-7A453BCAC1E4}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_capture_module", "..\..\..\..\libs\webrtc\webrtc\modules\video_capture_module.vcxproj", "{BD794CBA-B6AC-1A8F-784E-89F56FDA8B8D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_capture_module_win10_x64", ".\webrtc\modules\video_capture_module_win10_x64.vcxproj", "{BD794CBA-B6AC-1A8F-784E-89F56FDA8B8D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_processing_sse2", "..\..\..\..\libs\webrtc\webrtc\modules\video_processing_sse2.vcxproj", "{05065105-0FA9-5EB6-3321-8EDD8FDADFFF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_processing_sse2_win10_x64", ".\webrtc\modules\video_processing_sse2_win10_x64.vcxproj", "{05065105-0FA9-5EB6-3321-8EDD8FDADFFF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_processing", "..\..\..\..\libs\webrtc\webrtc\modules\video_processing.vcxproj", "{8A6BDCAD-8F23-2F1C-52DC-3B8079585C70}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_processing_win10_x64", ".\webrtc\modules\video_processing_win10_x64.vcxproj", "{8A6BDCAD-8F23-2F1C-52DC-3B8079585C70}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_render_module", "..\..\..\..\libs\webrtc\webrtc\modules\video_render_module.vcxproj", "{E291967E-06CD-3CC7-3566-8077D89B4A9B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_render_module_win10_x64", ".\webrtc\modules\video_render_module_win10_x64.vcxproj", "{E291967E-06CD-3CC7-3566-8077D89B4A9B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_render_module_internal_impl", "..\..\..\..\libs\webrtc\webrtc\modules\video_render_module_internal_impl.vcxproj", "{C907B16B-732F-7333-F526-518EE17B9DC3}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_render_module_internal_impl_win10_x64", ".\webrtc\modules\video_render_module_internal_impl_win10_x64.vcxproj", "{C907B16B-732F-7333-F526-518EE17B9DC3}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_h264", "..\..\..\..\libs\webrtc\webrtc\modules\webrtc_h264.vcxproj", "{C93CB6A3-741A-2433-10D3-FC2CE462281B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_h264_win10_x64", ".\webrtc\modules\webrtc_h264_win10_x64.vcxproj", "{C93CB6A3-741A-2433-10D3-FC2CE462281B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_i420", "..\..\..\..\libs\webrtc\webrtc\modules\webrtc_i420.vcxproj", "{33BC69A0-1870-EFC9-CA1E-CAFA2EE60EE2}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_i420_win10_x64", ".\webrtc\modules\webrtc_i420_win10_x64.vcxproj", "{33BC69A0-1870-EFC9-CA1E-CAFA2EE60EE2}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_opus", "..\..\..\..\libs\webrtc\webrtc\modules\webrtc_opus.vcxproj", "{366854DC-2112-460B-7AF6-CD6357223F5A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_opus_win10_x64", ".\webrtc\modules\webrtc_opus_win10_x64.vcxproj", "{366854DC-2112-460B-7AF6-CD6357223F5A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_utility", "..\..\..\..\libs\webrtc\webrtc\modules\webrtc_utility.vcxproj", "{FD13189F-4037-1A90-3F67-3CA74542A87B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_utility_win10_x64", ".\webrtc\modules\webrtc_utility_win10_x64.vcxproj", "{FD13189F-4037-1A90-3F67-3CA74542A87B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_video_coding", "..\..\..\..\libs\webrtc\webrtc\modules\webrtc_video_coding.vcxproj", "{2AA3DB2C-E02D-39A9-DAD1-D01271A774B6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_video_coding_win10_x64", ".\webrtc\modules\webrtc_video_coding_win10_x64.vcxproj", "{2AA3DB2C-E02D-39A9-DAD1-D01271A774B6}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "field_trial_default", "..\..\..\..\libs\webrtc\webrtc\system_wrappers\field_trial_default.vcxproj", "{362C78A5-EFDF-FC91-F112-B13A3FDAE8A0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "field_trial_default_win10_x64", ".\webrtc\system_wrappers\field_trial_default_win10_x64.vcxproj", "{362C78A5-EFDF-FC91-F112-B13A3FDAE8A0}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "metrics_default", "..\..\..\..\libs\webrtc\webrtc\system_wrappers\metrics_default.vcxproj", "{5569B280-3A89-5837-BD37-C3A976C6F597}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "metrics_default_win10_x64", ".\webrtc\system_wrappers\metrics_default_win10_x64.vcxproj", "{5569B280-3A89-5837-BD37-C3A976C6F597}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "system_wrappers", "..\..\..\..\libs\webrtc\webrtc\system_wrappers\system_wrappers.vcxproj", "{16FE3FD5-AA01-BD2A-2BFF-7785FFEDEDEC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "system_wrappers_win10_x64", ".\webrtc\system_wrappers\system_wrappers_win10_x64.vcxproj", "{16FE3FD5-AA01-BD2A-2BFF-7785FFEDEDEC}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "field_trial", "..\..\..\..\libs\webrtc\webrtc\test\field_trial.vcxproj", "{70D0C577-EE1A-1784-0562-171BFB04F7C3}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "field_trial_win10_x64", ".\webrtc\test\field_trial_win10_x64.vcxproj", "{70D0C577-EE1A-1784-0562-171BFB04F7C3}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "voice_engine", "..\..\..\..\libs\webrtc\webrtc\voice_engine\voice_engine.vcxproj", "{D8A82102-EFAF-908D-DBC8-454C36431DE0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "voice_engine_win10_x64", ".\webrtc\voice_engine\voice_engine_win10_x64.vcxproj", "{D8A82102-EFAF-908D-DBC8-454C36431DE0}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_event_log_proto", "..\..\..\..\libs\webrtc\webrtc\rtc_event_log_proto.vcxproj", "{2B87CCFF-53C3-1EC9-1547-26050F8EFF7F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_event_log_proto_win10_x64", ".\webrtc\rtc_event_log_proto_win10_x64.vcxproj", "{2B87CCFF-53C3-1EC9-1547-26050F8EFF7F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_event_log", "..\..\..\..\libs\webrtc\webrtc\rtc_event_log.vcxproj", "{22E64358-4021-07DE-287B-4AA671A0529C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_event_log_win10_x64", ".\webrtc\rtc_event_log_win10_x64.vcxproj", "{22E64358-4021-07DE-287B-4AA671A0529C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_common", "..\..\..\..\libs\webrtc\webrtc\webrtc_common.vcxproj", "{4E00D9E2-1F74-8D2E-1878-DCFE215138F5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_common_win10_x64", ".\webrtc\webrtc_common_win10_x64.vcxproj", "{4E00D9E2-1F74-8D2E-1878-DCFE215138F5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc", "..\..\..\..\libs\webrtc\webrtc\webrtc.vcxproj", "{6A84C71C-99A5-0EB5-4684-082255418225}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_win10_x64", ".\webrtc\webrtc.vcxproj", "{6A84C71C-99A5-0EB5-4684-082255418225}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gtest", "..\..\..\..\libs\webrtc\testing\gtest.vcxproj", "{E72F768A-94C5-F56D-6D09-2D6BBCC1C711}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gtest_win10_x64", ".\testing\gtest_win10_x64.vcxproj", "{E72F768A-94C5-F56D-6D09-2D6BBCC1C711}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "webrtc x86", "webrtc x86", "{FC5991F4-77D1-4C52-9E8A-792AA1FFE7B8}"
 EndProject
@@ -201,11 +201,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "webrtc ARM", "webrtc ARM", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "testing", "testing", "{8F31D53A-F759-4041-9F6C-4EF8B0C0F696}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gtest_win10", "..\..\..\..\libs\webrtc\testing\gtest_win10.vcxproj", "{5F61AC28-56DB-DA1A-F95D-CC2528D6BC6F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gtest_win10_x86", ".\testing\gtest_win10_x86.vcxproj", "{5F61AC28-56DB-DA1A-F95D-CC2528D6BC6F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "testing", "testing", "{AD9D6E76-EE14-4EB4-9626-4172E8275772}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gtest_win10_arm", "..\..\..\..\libs\webrtc\testing\gtest_win10_arm.vcxproj", "{37104FB7-7D73-97B5-71E3-B0A46DB556C1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gtest_win10_arm", ".\testing\gtest_win10_arm.vcxproj", "{37104FB7-7D73-97B5-71E3-B0A46DB556C1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "third_party", "third_party", "{6DFD2545-43B1-4E58-9F27-AB6A99D0A645}"
 EndProject
@@ -215,17 +215,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "boringssl", "boringssl", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "boringssl", "boringssl", "{7F82E571-4709-42A8-8DEC-503DF517E004}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "boringssl_win10_arm", "..\..\..\..\libs\webrtc\third_party\boringssl\boringssl_win10_arm.vcxproj", "{6604C6EF-B7BE-CAF0-E6FE-04A143F668A0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "boringssl_win10_arm", ".\third_party\boringssl\boringssl_win10_arm.vcxproj", "{6604C6EF-B7BE-CAF0-E6FE-04A143F668A0}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "boringssl_win10", "..\..\..\..\libs\webrtc\third_party\boringssl\boringssl_win10.vcxproj", "{B6F1A9D0-0A8B-6BE5-7C37-64770495AA55}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "boringssl_win10_x86", ".\third_party\boringssl\boringssl_win10_x86.vcxproj", "{B6F1A9D0-0A8B-6BE5-7C37-64770495AA55}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "jsoncpp", "jsoncpp", "{34DBEB7A-A50C-4074-A45A-5FFCC0620DEA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "jsoncpp", "jsoncpp", "{FF989D0A-0E3E-401C-8FD4-26BE5B5C3514}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jsoncpp_win10_arm", "..\..\..\..\libs\webrtc\third_party\jsoncpp\jsoncpp_win10_arm.vcxproj", "{60344328-0188-1D48-DFA0-B8960830F40A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jsoncpp_win10_arm", ".\third_party\jsoncpp\jsoncpp_win10_arm.vcxproj", "{60344328-0188-1D48-DFA0-B8960830F40A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jsoncpp_win10", "..\..\..\..\libs\webrtc\third_party\jsoncpp\jsoncpp_win10.vcxproj", "{FC778470-D5E7-154C-82A6-095068BB3307}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jsoncpp_win10_x86", ".\third_party\jsoncpp\jsoncpp_win10_x86.vcxproj", "{FC778470-D5E7-154C-82A6-095068BB3307}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libjpeg_turbo", "libjpeg_turbo", "{F19960D8-2C04-4E53-8FEC-D4C740197274}"
 EndProject
@@ -259,39 +259,39 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "usrsctplib", "usrsctplib", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "usrsctplib", "usrsctplib", "{19AA6FF7-363D-431E-8E57-7711A4F687F4}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libjpeg_win10_arm", "..\..\..\..\libs\webrtc\third_party\libjpeg_turbo\libjpeg_win10_arm.vcxproj", "{1D1D7524-3216-DA64-5496-CFD008DB53F3}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libjpeg_win10_arm", ".\third_party\libjpeg_turbo\libjpeg_win10_arm.vcxproj", "{1D1D7524-3216-DA64-5496-CFD008DB53F3}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libsrtp_win10_arm", "..\..\..\..\libs\webrtc\third_party\libsrtp\libsrtp_win10_arm.vcxproj", "{29C9C326-EA1B-CFE9-BF90-7C1D6B4B9B6F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libsrtp_win10_arm", ".\third_party\libsrtp\libsrtp_win10_arm.vcxproj", "{29C9C326-EA1B-CFE9-BF90-7C1D6B4B9B6F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_new_win10_arm", "..\..\..\..\libs\webrtc\third_party\libvpx_new\libvpx_new_win10_arm.vcxproj", "{86379849-051B-1FA0-C622-08E65D2F89C9}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_new_win10_arm", ".\third_party\libvpx_new\libvpx_new_win10_arm.vcxproj", "{86379849-051B-1FA0-C622-08E65D2F89C9}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libyuv_win10_arm", "..\..\..\..\libs\webrtc\third_party\libyuv\libyuv_win10_arm.vcxproj", "{B59B0F79-BAB1-36E8-D038-1FC1F162301C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libyuv_win10_arm", ".\third_party\libyuv\libyuv_win10_arm.vcxproj", "{B59B0F79-BAB1-36E8-D038-1FC1F162301C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "openmax_dl_win10_arm", "..\..\..\..\libs\webrtc\third_party\openmax_dl\dl\openmax_dl_win10_arm.vcxproj", "{647D8B8A-7FDE-97A1-5FB5-233D6978E0AC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "openmax_dl_win10_arm", ".\third_party\openmax_dl\dl\openmax_dl_win10_arm.vcxproj", "{647D8B8A-7FDE-97A1-5FB5-233D6978E0AC}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "opus_win10_arm", "..\..\..\..\libs\webrtc\third_party\opus\opus_win10_arm.vcxproj", "{C8400370-B9D4-8A39-5EC1-6E2533D95ED1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "opus_win10_arm", ".\third_party\opus\opus_win10_arm.vcxproj", "{C8400370-B9D4-8A39-5EC1-6E2533D95ED1}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "usrsctplib_win10_arm", "..\..\..\..\libs\webrtc\third_party\usrsctp\usrsctplib_win10_arm.vcxproj", "{620E55E4-F933-9D0D-226E-C83C685972EF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "usrsctplib_win10_arm", ".\third_party\usrsctp\usrsctplib_win10_arm.vcxproj", "{620E55E4-F933-9D0D-226E-C83C685972EF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libjpeg_win10", "..\..\..\..\libs\webrtc\third_party\libjpeg_turbo\libjpeg_win10.vcxproj", "{A189E863-F319-E9A5-801B-05062D400341}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libjpeg_win10_x86", ".\third_party\libjpeg_turbo\libjpeg_win10_x86.vcxproj", "{A189E863-F319-E9A5-801B-05062D400341}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libsrtp_win10", "..\..\..\..\libs\webrtc\third_party\libsrtp\libsrtp_win10.vcxproj", "{41269CFD-333F-5144-F147-1941431CDA4A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libsrtp_win10_x86", ".\third_party\libsrtp\libsrtp_win10_x86.vcxproj", "{41269CFD-333F-5144-F147-1941431CDA4A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_new_win10", "..\..\..\..\libs\webrtc\third_party\libvpx_new\libvpx_new_win10.vcxproj", "{CCEEE1AC-1976-42B1-7E6F-02505C67C7DD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_new_win10_x86", ".\third_party\libvpx_new\libvpx_new_win10_x86.vcxproj", "{CCEEE1AC-1976-42B1-7E6F-02505C67C7DD}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libyuv_win10", "..\..\..\..\libs\webrtc\third_party\libyuv\libyuv_win10.vcxproj", "{B0F84536-CA1A-884C-9F94-7FE79E4E87A6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libyuv_win10_x86", ".\third_party\libyuv\libyuv_win10_x86.vcxproj", "{B0F84536-CA1A-884C-9F94-7FE79E4E87A6}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "openmax_dl_win10", "..\..\..\..\libs\webrtc\third_party\openmax_dl\dl\openmax_dl_win10.vcxproj", "{AD6D47D5-8529-75BF-702D-307B5104B192}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "openmax_dl_win10_x86", ".\third_party\openmax_dl\dl\openmax_dl_win10_x86.vcxproj", "{AD6D47D5-8529-75BF-702D-307B5104B192}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "opus_win10", "..\..\..\..\libs\webrtc\third_party\opus\opus_win10.vcxproj", "{0289660C-8EB6-0BFD-B0B7-C349BFC00FB9}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "opus_win10_x86", ".\third_party\opus\opus_win10_x86.vcxproj", "{0289660C-8EB6-0BFD-B0B7-C349BFC00FB9}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protobuf_full_do_not_use_win10", "..\..\..\..\libs\webrtc\third_party\protobuf\protobuf_full_do_not_use_win10.vcxproj", "{426B8A19-FF66-E6FC-E5AE-578D69548D4F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protobuf_full_do_not_use_win10_x86", ".\third_party\protobuf\protobuf_full_do_not_use_win10_x86.vcxproj", "{426B8A19-FF66-E6FC-E5AE-578D69548D4F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protoc_win10", "..\..\..\..\libs\webrtc\third_party\protobuf\protoc_win10.vcxproj", "{D2DA2AA5-6327-40C9-920B-65F37F29BEF5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protoc_win10_x86", ".\third_party\protobuf\protoc_win10_x86.vcxproj", "{D2DA2AA5-6327-40C9-920B-65F37F29BEF5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protobuf_lite_win10", "..\..\..\..\libs\webrtc\third_party\protobuf\protobuf_lite_win10.vcxproj", "{8AB65A7F-F34D-4414-D5B4-9EA9D8E49FC9}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protobuf_lite_win10_x86", ".\third_party\protobuf\protobuf_lite_win10_x86.vcxproj", "{8AB65A7F-F34D-4414-D5B4-9EA9D8E49FC9}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "usrsctplib_win10", "..\..\..\..\libs\webrtc\third_party\usrsctp\usrsctplib_win10.vcxproj", "{7F4C972E-FACD-ECF9-2DC7-BA050A850304}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "usrsctplib_win10_x86", ".\third_party\usrsctp\usrsctplib_win10_x86.vcxproj", "{7F4C972E-FACD-ECF9-2DC7-BA050A850304}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "webrtc", "webrtc", "{E2623DE8-37D5-42F5-A753-0D6040D13413}"
 EndProject
@@ -303,67 +303,67 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "base", "base", "{88D09F85-B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "base", "base", "{767963E8-277C-4C35-A0B4-C584DD327F2F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_common_win10_arm", "..\..\..\..\libs\webrtc\webrtc\webrtc_common_win10_arm.vcxproj", "{C5B35943-9ACD-0866-771E-B481B8A3D274}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_common_win10_arm", ".\webrtc\webrtc_common_win10_arm.vcxproj", "{C5B35943-9ACD-0866-771E-B481B8A3D274}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_win10_arm", "..\..\..\..\libs\webrtc\webrtc\webrtc_win10_arm.vcxproj", "{E2AD3C95-8D5D-09F6-C75F-165B4386C788}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_win10_arm", ".\webrtc\webrtc_win10_arm.vcxproj", "{E2AD3C95-8D5D-09F6-C75F-165B4386C788}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_common_win10", "..\..\..\..\libs\webrtc\webrtc\webrtc_common_win10.vcxproj", "{527A8162-3292-E73D-90C7-6EAE5AA1FFC2}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_common_win10_x86", ".\webrtc\webrtc_common_win10_x86.vcxproj", "{527A8162-3292-E73D-90C7-6EAE5AA1FFC2}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_win10", "..\..\..\..\libs\webrtc\webrtc\webrtc_win10.vcxproj", "{549ED39D-F100-999B-D152-0B23ECA2358B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_win10_x86", ".\webrtc\webrtc_win10_x86.vcxproj", "{549ED39D-F100-999B-D152-0B23ECA2358B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_base_approved_win10_arm", "..\..\..\..\libs\webrtc\webrtc\base\rtc_base_approved_win10_arm.vcxproj", "{A2F92EA1-AF6E-7C5E-A985-E392C8BD498B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_base_approved_win10_arm", ".\webrtc\base\rtc_base_approved_win10_arm.vcxproj", "{A2F92EA1-AF6E-7C5E-A985-E392C8BD498B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_base_win10_arm", "..\..\..\..\libs\webrtc\webrtc\base\rtc_base_win10_arm.vcxproj", "{321DD743-C48B-C90E-1B06-D5FC55F3AB75}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_base_win10_arm", ".\webrtc\base\rtc_base_win10_arm.vcxproj", "{321DD743-C48B-C90E-1B06-D5FC55F3AB75}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_base_approved_win10", "..\..\..\..\libs\webrtc\webrtc\base\rtc_base_approved_win10.vcxproj", "{84D4A611-317A-00D8-F40A-DEEBA274B8A0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_base_approved_win10_x86", ".\webrtc\base\rtc_base_approved_win10_x86.vcxproj", "{84D4A611-317A-00D8-F40A-DEEBA274B8A0}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_base_win10", "..\..\..\..\libs\webrtc\webrtc\base\rtc_base_win10.vcxproj", "{B9A1D6B5-EA5A-5FD8-7A0B-4E18023B2EAC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_base_win10_x86", ".\webrtc\base\rtc_base_win10_x86.vcxproj", "{B9A1D6B5-EA5A-5FD8-7A0B-4E18023B2EAC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common_audio", "common_audio", "{2A04F13D-3279-4969-84D8-4716247A9F3F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common_audio", "common_audio", "{40DDC23C-45D5-4028-9057-626B2CB6E87E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common_audio_neon_win10_arm", "..\..\..\..\libs\webrtc\webrtc\common_audio\common_audio_neon_win10_arm.vcxproj", "{CF7C0274-E7DC-CB83-92A6-532D1BB572EF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common_audio_neon_win10_arm", ".\webrtc\common_audio\common_audio_neon_win10_arm.vcxproj", "{CF7C0274-E7DC-CB83-92A6-532D1BB572EF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common_audio_win10_arm", "..\..\..\..\libs\webrtc\webrtc\common_audio\common_audio_win10_arm.vcxproj", "{0555F260-9525-1EF0-941A-5DE023D7E103}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common_audio_win10_arm", ".\webrtc\common_audio\common_audio_win10_arm.vcxproj", "{0555F260-9525-1EF0-941A-5DE023D7E103}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common_audio_sse2_win10", "..\..\..\..\libs\webrtc\webrtc\common_audio\common_audio_sse2_win10.vcxproj", "{02099371-7D46-6E99-C6A6-512C6909A1FC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common_audio_sse2_win10_x86", ".\webrtc\common_audio\common_audio_sse2_win10_x86.vcxproj", "{02099371-7D46-6E99-C6A6-512C6909A1FC}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common_audio_win10", "..\..\..\..\libs\webrtc\webrtc\common_audio\common_audio_win10.vcxproj", "{DBCD2BAE-2E02-943B-0A38-E793940C01EF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common_audio_win10_x86", ".\webrtc\common_audio\common_audio_win10_x86.vcxproj", "{DBCD2BAE-2E02-943B-0A38-E793940C01EF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common_video", "common_video", "{EC65742F-4824-4979-A859-692C6ECE2A8E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common_video", "common_video", "{0D908EDB-4F92-4517-8219-2F94BFC0CC97}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common_video_win10_arm", "..\..\..\..\libs\webrtc\webrtc\common_video\common_video_win10_arm.vcxproj", "{6549BF80-56B3-357F-0BBC-2FB92BE2B2AA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common_video_win10_arm", ".\webrtc\common_video\common_video_win10_arm.vcxproj", "{6549BF80-56B3-357F-0BBC-2FB92BE2B2AA}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common_video_win10", "..\..\..\..\libs\webrtc\webrtc\common_video\common_video_win10.vcxproj", "{5730F176-837B-C80D-F962-EAA4382AB176}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common_video_win10_x86", ".\webrtc\common_video\common_video_win10_x86.vcxproj", "{5730F176-837B-C80D-F962-EAA4382AB176}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "event_log", "event_log", "{B365F2DA-B59C-4670-8B8E-C9C5ACE86ACF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "event_log", "event_log", "{6D6D295B-532B-4933-82D1-CB6C1E0AD944}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_event_log_win10_arm", "..\..\..\..\libs\webrtc\webrtc\rtc_event_log_win10_arm.vcxproj", "{F3667DDF-E9FD-7BB5-3FC8-BE536116BB9D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_event_log_win10_arm", ".\webrtc\rtc_event_log_win10_arm.vcxproj", "{F3667DDF-E9FD-7BB5-3FC8-BE536116BB9D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_event_log_proto_win10", "..\..\..\..\libs\webrtc\webrtc\rtc_event_log_proto_win10.vcxproj", "{D8B88D84-C734-979A-3923-8BBFF9D23FE8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_event_log_proto_win10_x86", ".\webrtc\rtc_event_log_proto_win10_x86.vcxproj", "{D8B88D84-C734-979A-3923-8BBFF9D23FE8}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_event_log_win10", "..\..\..\..\libs\webrtc\webrtc\rtc_event_log_win10.vcxproj", "{158ED231-845A-EB19-85B8-D1EFD6273DD2}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtc_event_log_win10_x86", ".\webrtc\rtc_event_log_win10_x86.vcxproj", "{158ED231-845A-EB19-85B8-D1EFD6273DD2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "system_wrappers", "system_wrappers", "{4931DBA1-A532-4BD4-ADDC-91698DF24EB2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "system_wrappers", "system_wrappers", "{8C92C63B-FCF5-44CC-9E7A-3F63513402FF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "field_trial_default_win10_arm", "..\..\..\..\libs\webrtc\webrtc\system_wrappers\field_trial_default_win10_arm.vcxproj", "{2E8461E7-CD4E-D4D9-A610-FB050DCE3515}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "field_trial_default_win10_arm", ".\webrtc\system_wrappers\field_trial_default_win10_arm.vcxproj", "{2E8461E7-CD4E-D4D9-A610-FB050DCE3515}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "metrics_default_win10_arm", "..\..\..\..\libs\webrtc\webrtc\system_wrappers\metrics_default_win10_arm.vcxproj", "{843D75BE-9AE3-DE0B-46E0-149CE49CD0C1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "metrics_default_win10_arm", ".\webrtc\system_wrappers\metrics_default_win10_arm.vcxproj", "{843D75BE-9AE3-DE0B-46E0-149CE49CD0C1}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "system_wrappers_win10_arm", "..\..\..\..\libs\webrtc\webrtc\system_wrappers\system_wrappers_win10_arm.vcxproj", "{2CD188FD-2E36-3AA5-2315-B3E205707387}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "system_wrappers_win10_arm", ".\webrtc\system_wrappers\system_wrappers_win10_arm.vcxproj", "{2CD188FD-2E36-3AA5-2315-B3E205707387}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "field_trial_default_win10", "..\..\..\..\libs\webrtc\webrtc\system_wrappers\field_trial_default_win10.vcxproj", "{4F8CEFE0-E6EE-0F59-7190-32003F106DF5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "field_trial_default_win10_x86", ".\webrtc\system_wrappers\field_trial_default_win10_x86.vcxproj", "{4F8CEFE0-E6EE-0F59-7190-32003F106DF5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "metrics_default_win10", "..\..\..\..\libs\webrtc\webrtc\system_wrappers\metrics_default_win10.vcxproj", "{E63E727E-28B4-F4CD-DADB-1181D360CF2F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "metrics_default_win10_x86", ".\webrtc\system_wrappers\metrics_default_win10_x86.vcxproj", "{E63E727E-28B4-F4CD-DADB-1181D360CF2F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "system_wrappers_win10", "..\..\..\..\libs\webrtc\webrtc\system_wrappers\system_wrappers_win10.vcxproj", "{2F1C093F-5E27-7C22-DD32-E833B615F175}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "system_wrappers_win10_x86", ".\webrtc\system_wrappers\system_wrappers_win10_x86.vcxproj", "{2F1C093F-5E27-7C22-DD32-E833B615F175}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{323DA022-5FDE-40A5-BD81-B7802049839D}"
 EndProject
@@ -373,13 +373,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "voice_engine", "voice_engin
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "voice_engine", "voice_engine", "{E879AF9E-87F9-4CB0-97D9-BB466864DE02}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "field_trial_win10_arm", "..\..\..\..\libs\webrtc\webrtc\test\field_trial_win10_arm.vcxproj", "{ED002331-1B19-4746-E5DE-A2B5336FFCA4}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "field_trial_win10_arm", ".\webrtc\test\field_trial_win10_arm.vcxproj", "{ED002331-1B19-4746-E5DE-A2B5336FFCA4}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "field_trial_win10", "..\..\..\..\libs\webrtc\webrtc\test\field_trial_win10.vcxproj", "{68EC3799-3E7E-3656-69CD-866A19BDB482}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "field_trial_win10_x86", ".\webrtc\test\field_trial_win10_x86.vcxproj", "{68EC3799-3E7E-3656-69CD-866A19BDB482}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "voice_engine_win10_arm", "..\..\..\..\libs\webrtc\webrtc\voice_engine\voice_engine_win10_arm.vcxproj", "{8395A433-4103-3777-E330-A1303D525353}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "voice_engine_win10_arm", ".\webrtc\voice_engine\voice_engine_win10_arm.vcxproj", "{8395A433-4103-3777-E330-A1303D525353}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "voice_engine_win10", "..\..\..\..\libs\webrtc\webrtc\voice_engine\voice_engine_win10.vcxproj", "{79BD5F23-D820-209A-E5D3-00DAE8EAC674}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "voice_engine_win10_x86", ".\webrtc\voice_engine\voice_engine_win10_x86.vcxproj", "{79BD5F23-D820-209A-E5D3-00DAE8EAC674}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "modules", "modules", "{629002FB-2585-4C9C-8B60-7D50699BF71A}"
 EndProject
@@ -401,195 +401,195 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "vp8", "vp8", "{170399C4-35C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "vp9", "vp9", "{B27D1E09-57E5-408B-95A6-6AFF60A28998}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_vp8_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\video_coding\codecs\vp8\webrtc_vp8_win10_arm.vcxproj", "{3B474287-0410-5265-C6E8-FBEB6E338B01}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_vp8_win10_arm", ".\webrtc\modules\video_coding\codecs\vp8\webrtc_vp8_win10_arm.vcxproj", "{3B474287-0410-5265-C6E8-FBEB6E338B01}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_vp9_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\video_coding\codecs\vp9\webrtc_vp9_win10_arm.vcxproj", "{62A3DA82-F384-824F-B858-08C1B9649924}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_vp9_win10_arm", ".\webrtc\modules\video_coding\codecs\vp9\webrtc_vp9_win10_arm.vcxproj", "{62A3DA82-F384-824F-B858-08C1B9649924}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_vp8_win10", "..\..\..\..\libs\webrtc\webrtc\modules\video_coding\codecs\vp8\webrtc_vp8_win10.vcxproj", "{82737D1C-C1A5-5BE5-4DA1-12244D1CC08C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_vp8_win10_x86", ".\webrtc\modules\video_coding\codecs\vp8\webrtc_vp8_win10_x86.vcxproj", "{82737D1C-C1A5-5BE5-4DA1-12244D1CC08C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_vp9_win10", "..\..\..\..\libs\webrtc\webrtc\modules\video_coding\codecs\vp9\webrtc_vp9_win10.vcxproj", "{2C18B5F1-5089-8212-31AD-AA336D9E09A4}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_vp9_win10_x86", ".\webrtc\modules\video_coding\codecs\vp9\webrtc_vp9_win10_x86.vcxproj", "{2C18B5F1-5089-8212-31AD-AA336D9E09A4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "utility", "utility", "{6EDD2072-0B6E-4306-A65B-3A6FFF8761CA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "utility", "utility", "{5834F091-B877-4D4F-BEE9-481D3757BC8E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_coding_utility_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\video_coding\utility\video_coding_utility_win10_arm.vcxproj", "{4B755D0E-C97F-9DC7-F18C-A37F5AE2886C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_coding_utility_win10_arm", ".\webrtc\modules\video_coding\utility\video_coding_utility_win10_arm.vcxproj", "{4B755D0E-C97F-9DC7-F18C-A37F5AE2886C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_coding_utility_win10", "..\..\..\..\libs\webrtc\webrtc\modules\video_coding\utility\video_coding_utility_win10.vcxproj", "{09A66F8D-2D85-FD7C-0162-F1827859D971}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_coding_utility_win10_x86", ".\webrtc\modules\video_coding\utility\video_coding_utility_win10_x86.vcxproj", "{09A66F8D-2D85-FD7C-0162-F1827859D971}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_coding_module_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\audio_coding_module_win10_arm.vcxproj", "{119012FD-819A-BBE5-9446-FBF0EE5F0B4D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_coding_module_win10_arm", ".\webrtc\modules\audio_coding_module_win10_arm.vcxproj", "{119012FD-819A-BBE5-9446-FBF0EE5F0B4D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_conference_mixer_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\audio_conference_mixer_win10_arm.vcxproj", "{7C9635D9-290F-92E6-5794-700DC3B0A963}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_conference_mixer_win10_arm", ".\webrtc\modules\audio_conference_mixer_win10_arm.vcxproj", "{7C9635D9-290F-92E6-5794-700DC3B0A963}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_decoder_interface_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\audio_decoder_interface_win10_arm.vcxproj", "{9D56F82F-51DF-E50D-33B8-A42D1BC290D8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_decoder_interface_win10_arm", ".\webrtc\modules\audio_decoder_interface_win10_arm.vcxproj", "{9D56F82F-51DF-E50D-33B8-A42D1BC290D8}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_device_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\audio_device_win10_arm.vcxproj", "{A4B3ACA5-F3C5-1E99-11AB-9B3874D48D40}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_device_win10_arm", ".\webrtc\modules\audio_device_win10_arm.vcxproj", "{A4B3ACA5-F3C5-1E99-11AB-9B3874D48D40}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_encoder_interface_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\audio_encoder_interface_win10_arm.vcxproj", "{11CE9FFE-BAC8-ED4B-B62A-A3A289AA973D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_encoder_interface_win10_arm", ".\webrtc\modules\audio_encoder_interface_win10_arm.vcxproj", "{11CE9FFE-BAC8-ED4B-B62A-A3A289AA973D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_processing_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\audio_processing_win10_arm.vcxproj", "{C09A2BAB-6233-D62A-1378-2C805871FF74}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_processing_win10_arm", ".\webrtc\modules\audio_processing_win10_arm.vcxproj", "{C09A2BAB-6233-D62A-1378-2C805871FF74}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rent_a_codec_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\rent_a_codec_win10_arm.vcxproj", "{9F459DAE-DF98-9F35-6115-03E9C7143503}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rent_a_codec_win10_arm", ".\webrtc\modules\rent_a_codec_win10_arm.vcxproj", "{9F459DAE-DF98-9F35-6115-03E9C7143503}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_i420_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\webrtc_i420_win10_arm.vcxproj", "{65888A2C-D3E3-CA71-10A7-59063CA5A8B6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_i420_win10_arm", ".\webrtc\modules\webrtc_i420_win10_arm.vcxproj", "{65888A2C-D3E3-CA71-10A7-59063CA5A8B6}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "isac_fix_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\isac_fix_win10_arm.vcxproj", "{D49D919D-C058-80C2-36DC-04825379BE9A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "isac_fix_win10_arm", ".\webrtc\modules\isac_fix_win10_arm.vcxproj", "{D49D919D-C058-80C2-36DC-04825379BE9A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "neteq_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\neteq_win10_arm.vcxproj", "{B7314DAD-6E96-92DD-0912-4A8775DB936F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "neteq_win10_arm", ".\webrtc\modules\neteq_win10_arm.vcxproj", "{B7314DAD-6E96-92DD-0912-4A8775DB936F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtp_rtcp_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\rtp_rtcp_win10_arm.vcxproj", "{107A508B-F9DC-4418-8A4B-C1F54EF11F09}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtp_rtcp_win10_arm", ".\webrtc\modules\rtp_rtcp_win10_arm.vcxproj", "{107A508B-F9DC-4418-8A4B-C1F54EF11F09}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_capture_module_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\video_capture_module_win10_arm.vcxproj", "{D7C2C238-7FDD-B605-8828-B3393C401414}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_capture_module_win10_arm", ".\webrtc\modules\video_capture_module_win10_arm.vcxproj", "{D7C2C238-7FDD-B605-8828-B3393C401414}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_h264_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\webrtc_h264_win10_arm.vcxproj", "{030FCF3B-3CDC-1034-8ADC-F52CABDE3572}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_h264_win10_arm", ".\webrtc\modules\webrtc_h264_win10_arm.vcxproj", "{030FCF3B-3CDC-1034-8ADC-F52CABDE3572}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_video_coding_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\webrtc_video_coding_win10_arm.vcxproj", "{61237101-F161-EF8D-C8B6-861F5BAB5810}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_video_coding_win10_arm", ".\webrtc\modules\webrtc_video_coding_win10_arm.vcxproj", "{61237101-F161-EF8D-C8B6-861F5BAB5810}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "remote_bitrate_estimator_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\remote_bitrate_estimator_win10_arm.vcxproj", "{CDB55DB9-7AF3-83A7-7286-D83D53E3DE76}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "remote_bitrate_estimator_win10_arm", ".\webrtc\modules\remote_bitrate_estimator_win10_arm.vcxproj", "{CDB55DB9-7AF3-83A7-7286-D83D53E3DE76}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pcm16b_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\pcm16b_win10_arm.vcxproj", "{D71F751D-FBB8-E9CE-050C-C6B8541FAD86}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pcm16b_win10_arm", ".\webrtc\modules\pcm16b_win10_arm.vcxproj", "{D71F751D-FBB8-E9CE-050C-C6B8541FAD86}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "paced_sender_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\paced_sender_win10_arm.vcxproj", "{3362D67A-E48A-7E12-959B-24B900B77A6E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "paced_sender_win10_arm", ".\webrtc\modules\paced_sender_win10_arm.vcxproj", "{3362D67A-E48A-7E12-959B-24B900B77A6E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_processing_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\video_processing_win10_arm.vcxproj", "{8A96CC11-5EFF-0906-D817-E433C6E87AAC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_processing_win10_arm", ".\webrtc\modules\video_processing_win10_arm.vcxproj", "{8A96CC11-5EFF-0906-D817-E433C6E87AAC}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "media_file_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\media_file_win10_arm.vcxproj", "{594A7723-7307-4BC0-2806-307BDAA3D319}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "media_file_win10_arm", ".\webrtc\modules\media_file_win10_arm.vcxproj", "{594A7723-7307-4BC0-2806-307BDAA3D319}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cng_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\cng_win10_arm.vcxproj", "{EF6BC1C1-E0D3-3315-2D3E-18CFDC44CA09}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cng_win10_arm", ".\webrtc\modules\cng_win10_arm.vcxproj", "{EF6BC1C1-E0D3-3315-2D3E-18CFDC44CA09}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_processing_neon_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\audio_processing_neon_win10_arm.vcxproj", "{7FD06D8C-5A83-F282-CB08-E0C4A87E5D2A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_processing_neon_win10_arm", ".\webrtc\modules\audio_processing_neon_win10_arm.vcxproj", "{7FD06D8C-5A83-F282-CB08-E0C4A87E5D2A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "red_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\red_win10_arm.vcxproj", "{7A4D8E8B-2142-86B2-1B47-5698F1276902}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "red_win10_arm", ".\webrtc\modules\red_win10_arm.vcxproj", "{7A4D8E8B-2142-86B2-1B47-5698F1276902}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "isac_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\isac_win10_arm.vcxproj", "{F669BD40-6A6C-A6FD-8976-35D886CBA56F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "isac_win10_arm", ".\webrtc\modules\isac_win10_arm.vcxproj", "{F669BD40-6A6C-A6FD-8976-35D886CBA56F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "isac_common_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\isac_common_win10_arm.vcxproj", "{56B8EDDC-581B-637B-BE55-CC128E5DB28D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "isac_common_win10_arm", ".\webrtc\modules\isac_common_win10_arm.vcxproj", "{56B8EDDC-581B-637B-BE55-CC128E5DB28D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_render_module_internal_impl_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\video_render_module_internal_impl_win10_arm.vcxproj", "{1F17B175-34FF-62D5-255C-23499766F720}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_render_module_internal_impl_win10_arm", ".\webrtc\modules\video_render_module_internal_impl_win10_arm.vcxproj", "{1F17B175-34FF-62D5-255C-23499766F720}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bitrate_controller_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\bitrate_controller_win10_arm.vcxproj", "{17A00C4E-7843-7BC7-BD6F-1DBBA65794EC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bitrate_controller_win10_arm", ".\webrtc\modules\bitrate_controller_win10_arm.vcxproj", "{17A00C4E-7843-7BC7-BD6F-1DBBA65794EC}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_opus_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\webrtc_opus_win10_arm.vcxproj", "{83FBCDB3-39A1-E272-935F-5F9E10477BB1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_opus_win10_arm", ".\webrtc\modules\webrtc_opus_win10_arm.vcxproj", "{83FBCDB3-39A1-E272-935F-5F9E10477BB1}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_utility_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\webrtc_utility_win10_arm.vcxproj", "{C49CDD02-5786-5B54-5175-538E19259705}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_utility_win10_arm", ".\webrtc\modules\webrtc_utility_win10_arm.vcxproj", "{C49CDD02-5786-5B54-5175-538E19259705}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_render_module_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\video_render_module_win10_arm.vcxproj", "{EB292F6D-E184-2237-DA8D-A95519960BFD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_render_module_win10_arm", ".\webrtc\modules\video_render_module_win10_arm.vcxproj", "{EB292F6D-E184-2237-DA8D-A95519960BFD}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "g711_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\g711_win10_arm.vcxproj", "{85BC5C93-182B-B513-08C8-BC8313C0655A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "g711_win10_arm", ".\webrtc\modules\g711_win10_arm.vcxproj", "{85BC5C93-182B-B513-08C8-BC8313C0655A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "g722_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\g722_win10_arm.vcxproj", "{AE8E0A11-047C-5524-462C-C54D13925D0F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "g722_win10_arm", ".\webrtc\modules\g722_win10_arm.vcxproj", "{AE8E0A11-047C-5524-462C-C54D13925D0F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ilbc_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\ilbc_win10_arm.vcxproj", "{940FC9B3-5F4C-B8EC-77E3-E6A796DEA666}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ilbc_win10_arm", ".\webrtc\modules\ilbc_win10_arm.vcxproj", "{940FC9B3-5F4C-B8EC-77E3-E6A796DEA666}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rent_a_codec_win10", "..\..\..\..\libs\webrtc\webrtc\modules\rent_a_codec_win10.vcxproj", "{36C2A13F-74F6-2EB6-6C45-389F26E03977}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rent_a_codec_win10_x86", ".\webrtc\modules\rent_a_codec_win10_x86.vcxproj", "{36C2A13F-74F6-2EB6-6C45-389F26E03977}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_i420_win10", "..\..\..\..\libs\webrtc\webrtc\modules\webrtc_i420_win10.vcxproj", "{6B24EF8D-42D7-07C7-3BAD-C0128E72F013}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_i420_win10_x86", ".\webrtc\modules\webrtc_i420_win10_x86.vcxproj", "{6B24EF8D-42D7-07C7-3BAD-C0128E72F013}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "isac_fix_win10", "..\..\..\..\libs\webrtc\webrtc\modules\isac_fix_win10.vcxproj", "{C447F790-6103-DE0C-F912-DBF83C790678}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "isac_fix_win10_x86", ".\webrtc\modules\isac_fix_win10_x86.vcxproj", "{C447F790-6103-DE0C-F912-DBF83C790678}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "neteq_win10", "..\..\..\..\libs\webrtc\webrtc\modules\neteq_win10.vcxproj", "{8A7B19BF-9015-8874-D71B-5409451FFA47}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "neteq_win10_x86", ".\webrtc\modules\neteq_win10_x86.vcxproj", "{8A7B19BF-9015-8874-D71B-5409451FFA47}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtp_rtcp_win10", "..\..\..\..\libs\webrtc\webrtc\modules\rtp_rtcp_win10.vcxproj", "{9E05E198-ED17-0E0C-55B1-8A743A2D796E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtp_rtcp_win10_x86", ".\webrtc\modules\rtp_rtcp_win10_x86.vcxproj", "{9E05E198-ED17-0E0C-55B1-8A743A2D796E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_capture_module_internal_impl_win10", "..\..\..\..\libs\webrtc\webrtc\modules\video_capture_module_internal_impl_win10.vcxproj", "{601B7848-618B-DF10-DF3C-5FFAE4B05677}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_capture_module_internal_impl_win10_x86", ".\webrtc\modules\video_capture_module_internal_impl_win10_x86.vcxproj", "{601B7848-618B-DF10-DF3C-5FFAE4B05677}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_h264_win10", "..\..\..\..\libs\webrtc\webrtc\modules\webrtc_h264_win10.vcxproj", "{3F0E21B3-FB0C-683E-4397-0F06AC34697D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_h264_win10_x86", ".\webrtc\modules\webrtc_h264_win10_x86.vcxproj", "{3F0E21B3-FB0C-683E-4397-0F06AC34697D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_video_coding_win10", "..\..\..\..\libs\webrtc\webrtc\modules\webrtc_video_coding_win10.vcxproj", "{79D5555A-0D77-F3AB-DAEC-AB7C2873ADA7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_video_coding_win10_x86", ".\webrtc\modules\webrtc_video_coding_win10_x86.vcxproj", "{79D5555A-0D77-F3AB-DAEC-AB7C2873ADA7}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "remote_bitrate_estimator_win10", "..\..\..\..\libs\webrtc\webrtc\modules\remote_bitrate_estimator_win10.vcxproj", "{CB66B52B-7541-C14B-6E67-3C5ACA84A341}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "remote_bitrate_estimator_win10_x86", ".\webrtc\modules\remote_bitrate_estimator_win10_x86.vcxproj", "{CB66B52B-7541-C14B-6E67-3C5ACA84A341}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_conference_mixer_win10", "..\..\..\..\libs\webrtc\webrtc\modules\audio_conference_mixer_win10.vcxproj", "{3F0EE3CC-3BD9-DFFD-62C8-04CE2731F46F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_conference_mixer_win10_x86", ".\webrtc\modules\audio_conference_mixer_win10_x86.vcxproj", "{3F0EE3CC-3BD9-DFFD-62C8-04CE2731F46F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pcm16b_win10", "..\..\..\..\libs\webrtc\webrtc\modules\pcm16b_win10.vcxproj", "{43CD286B-5788-171E-156F-3F963100DF9F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pcm16b_win10_x86", ".\webrtc\modules\pcm16b_win10_x86.vcxproj", "{43CD286B-5788-171E-156F-3F963100DF9F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "paced_sender_win10", "..\..\..\..\libs\webrtc\webrtc\modules\paced_sender_win10.vcxproj", "{6CC2C7B6-AB85-500D-3C5C-F7A2E73ACA1A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "paced_sender_win10_x86", ".\webrtc\modules\paced_sender_win10_x86.vcxproj", "{6CC2C7B6-AB85-500D-3C5C-F7A2E73ACA1A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_capture_module_win10", "..\..\..\..\libs\webrtc\webrtc\modules\video_capture_module_win10.vcxproj", "{B1B4E822-8ACE-BF07-69D6-4AB235596461}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_capture_module_win10_x86", ".\webrtc\modules\video_capture_module_win10_x86.vcxproj", "{B1B4E822-8ACE-BF07-69D6-4AB235596461}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_processing_win10", "..\..\..\..\libs\webrtc\webrtc\modules\video_processing_win10.vcxproj", "{481A0538-A465-60B3-AE9B-42B935D8464C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_processing_win10_x86", ".\webrtc\modules\video_processing_win10_x86.vcxproj", "{481A0538-A465-60B3-AE9B-42B935D8464C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_coding_module_win10", "..\..\..\..\libs\webrtc\webrtc\modules\audio_coding_module_win10.vcxproj", "{920E1D89-A604-D015-6C3E-BE3BF8DBABC2}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_coding_module_win10_x86", ".\webrtc\modules\audio_coding_module_win10_x86.vcxproj", "{920E1D89-A604-D015-6C3E-BE3BF8DBABC2}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_processing_win10", "..\..\..\..\libs\webrtc\webrtc\modules\audio_processing_win10.vcxproj", "{FD758624-CAB3-E19D-4F4C-4A457FC7432B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_processing_win10_x86", ".\webrtc\modules\audio_processing_win10_x86.vcxproj", "{FD758624-CAB3-E19D-4F4C-4A457FC7432B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "media_file_win10", "..\..\..\..\libs\webrtc\webrtc\modules\media_file_win10.vcxproj", "{2D1EDFFA-7C21-8AF2-48FB-38162502E0C1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "media_file_win10_x86", ".\webrtc\modules\media_file_win10_x86.vcxproj", "{2D1EDFFA-7C21-8AF2-48FB-38162502E0C1}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cng_win10", "..\..\..\..\libs\webrtc\webrtc\modules\cng_win10.vcxproj", "{996A9506-C640-B1FD-7E8D-4D5B1F3AEC6F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cng_win10_x86", ".\webrtc\modules\cng_win10_x86.vcxproj", "{996A9506-C640-B1FD-7E8D-4D5B1F3AEC6F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_processing_sse2_win10", "..\..\..\..\libs\webrtc\webrtc\modules\audio_processing_sse2_win10.vcxproj", "{980E3394-D2F1-FA28-19DA-A76A6C688B26}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_processing_sse2_win10_x86", ".\webrtc\modules\audio_processing_sse2_win10_x86.vcxproj", "{980E3394-D2F1-FA28-19DA-A76A6C688B26}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_encoder_interface_win10", "..\..\..\..\libs\webrtc\webrtc\modules\audio_encoder_interface_win10.vcxproj", "{A21E0CAA-5BE9-0C2C-03C1-74FB298543DB}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_encoder_interface_win10_x86", ".\webrtc\modules\audio_encoder_interface_win10_x86.vcxproj", "{A21E0CAA-5BE9-0C2C-03C1-74FB298543DB}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "red_win10", "..\..\..\..\libs\webrtc\webrtc\modules\red_win10.vcxproj", "{4FB363C6-694F-D4FA-4D46-9FF094A9F51B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "red_win10_x86", ".\webrtc\modules\red_win10_x86.vcxproj", "{4FB363C6-694F-D4FA-4D46-9FF094A9F51B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "isac_win10", "..\..\..\..\libs\webrtc\webrtc\modules\isac_win10.vcxproj", "{B9ED3D2F-438D-5B70-7666-69AFEA83E9D5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "isac_win10_x86", ".\webrtc\modules\isac_win10_x86.vcxproj", "{B9ED3D2F-438D-5B70-7666-69AFEA83E9D5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "isac_common_win10", "..\..\..\..\libs\webrtc\webrtc\modules\isac_common_win10.vcxproj", "{8CB0C47A-BBE6-EC0E-681D-468917FAD328}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "isac_common_win10_x86", ".\webrtc\modules\isac_common_win10_x86.vcxproj", "{8CB0C47A-BBE6-EC0E-681D-468917FAD328}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_processing_sse2_win10", "..\..\..\..\libs\webrtc\webrtc\modules\video_processing_sse2_win10.vcxproj", "{70590BB1-E1A9-B6D7-7DD5-06E61DDD0C43}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_processing_sse2_win10_x86", ".\webrtc\modules\video_processing_sse2_win10_x86.vcxproj", "{70590BB1-E1A9-B6D7-7DD5-06E61DDD0C43}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audioproc_debug_proto_win10", "..\..\..\..\libs\webrtc\webrtc\modules\audioproc_debug_proto_win10.vcxproj", "{D559506C-9AF2-B1CA-74C1-DA3C69C78586}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audioproc_debug_proto_win10_x86", ".\webrtc\modules\audioproc_debug_proto_win10_x86.vcxproj", "{D559506C-9AF2-B1CA-74C1-DA3C69C78586}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_render_module_internal_impl_win10", "..\..\..\..\libs\webrtc\webrtc\modules\video_render_module_internal_impl_win10.vcxproj", "{C2D83656-CCA5-9FCF-DCAD-926EBAB00BB8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_render_module_internal_impl_win10_x86", ".\webrtc\modules\video_render_module_internal_impl_win10_x86.vcxproj", "{C2D83656-CCA5-9FCF-DCAD-926EBAB00BB8}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bitrate_controller_win10", "..\..\..\..\libs\webrtc\webrtc\modules\bitrate_controller_win10.vcxproj", "{239A32D2-0584-2681-2BFA-4272923EB3F9}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bitrate_controller_win10_x86", ".\webrtc\modules\bitrate_controller_win10_x86.vcxproj", "{239A32D2-0584-2681-2BFA-4272923EB3F9}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_opus_win10", "..\..\..\..\libs\webrtc\webrtc\modules\webrtc_opus_win10.vcxproj", "{12A7BE92-969C-7FC6-ECFE-C4B8A4A529C1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_opus_win10_x86", ".\webrtc\modules\webrtc_opus_win10_x86.vcxproj", "{12A7BE92-969C-7FC6-ECFE-C4B8A4A529C1}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_utility_win10", "..\..\..\..\libs\webrtc\webrtc\modules\webrtc_utility_win10.vcxproj", "{8235341C-BD72-C195-9891-257D045B2FF0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_utility_win10_x86", ".\webrtc\modules\webrtc_utility_win10_x86.vcxproj", "{8235341C-BD72-C195-9891-257D045B2FF0}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_device_win10", "..\..\..\..\libs\webrtc\webrtc\modules\audio_device_win10.vcxproj", "{77E69FB3-44CB-D4D8-CC05-612E86131A4A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_device_win10_x86", ".\webrtc\modules\audio_device_win10_x86.vcxproj", "{77E69FB3-44CB-D4D8-CC05-612E86131A4A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_decoder_interface_win10", "..\..\..\..\libs\webrtc\webrtc\modules\audio_decoder_interface_win10.vcxproj", "{E28A66D3-9602-C4AC-72E0-13619D1AB763}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_decoder_interface_win10_x86", ".\webrtc\modules\audio_decoder_interface_win10_x86.vcxproj", "{E28A66D3-9602-C4AC-72E0-13619D1AB763}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_render_module_win10", "..\..\..\..\libs\webrtc\webrtc\modules\video_render_module_win10.vcxproj", "{FE3FDCA5-DDF2-854F-F926-6B41BEA0D187}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_render_module_win10_x86", ".\webrtc\modules\video_render_module_win10_x86.vcxproj", "{FE3FDCA5-DDF2-854F-F926-6B41BEA0D187}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "g711_win10", "..\..\..\..\libs\webrtc\webrtc\modules\g711_win10.vcxproj", "{8F11640D-55BE-4F8D-9EA3-6E2A8E9947A7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "g711_win10_x86", ".\webrtc\modules\g711_win10_x86.vcxproj", "{8F11640D-55BE-4F8D-9EA3-6E2A8E9947A7}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "g722_win10", "..\..\..\..\libs\webrtc\webrtc\modules\g722_win10.vcxproj", "{295810B5-6229-89F9-FB1B-688A2FBD35D6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "g722_win10_x86", ".\webrtc\modules\g722_win10_x86.vcxproj", "{295810B5-6229-89F9-FB1B-688A2FBD35D6}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ilbc_win10", "..\..\..\..\libs\webrtc\webrtc\modules\ilbc_win10.vcxproj", "{AE9E1F9D-BDB1-78C2-2B6C-6BBA85D0788D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ilbc_win10_x86", ".\webrtc\modules\ilbc_win10_x86.vcxproj", "{AE9E1F9D-BDB1-78C2-2B6C-6BBA85D0788D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_avx2_win10", "..\..\..\..\libs\webrtc\third_party\libvpx_new\libvpx_intrinsics_avx2_win10.vcxproj", "{EAB2D57F-967B-327F-D9D8-B7CA68D9E2CC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_avx2_win10_x86", ".\third_party\libvpx_new\libvpx_intrinsics_avx2_win10_x86.vcxproj", "{EAB2D57F-967B-327F-D9D8-B7CA68D9E2CC}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_mmx_win10", "..\..\..\..\libs\webrtc\third_party\libvpx_new\libvpx_intrinsics_mmx_win10.vcxproj", "{0BAB2709-DECD-1148-615A-84F8E4DB837B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_mmx_win10_x86", ".\third_party\libvpx_new\libvpx_intrinsics_mmx_win10_x86.vcxproj", "{0BAB2709-DECD-1148-615A-84F8E4DB837B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_sse2_win10", "..\..\..\..\libs\webrtc\third_party\libvpx_new\libvpx_intrinsics_sse2_win10.vcxproj", "{1F2CA9EF-80FC-E5CE-90ED-035E7A935D1B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_sse2_win10_x86", ".\third_party\libvpx_new\libvpx_intrinsics_sse2_win10_x86.vcxproj", "{1F2CA9EF-80FC-E5CE-90ED-035E7A935D1B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_sse4_1_win10", "..\..\..\..\libs\webrtc\third_party\libvpx_new\libvpx_intrinsics_sse4_1_win10.vcxproj", "{5A7FBB00-443E-3176-901D-2C2DC9F9C3D6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_sse4_1_win10_x86", ".\third_party\libvpx_new\libvpx_intrinsics_sse4_1_win10_x86.vcxproj", "{5A7FBB00-443E-3176-901D-2C2DC9F9C3D6}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_ssse3_win10", "..\..\..\..\libs\webrtc\third_party\libvpx_new\libvpx_intrinsics_ssse3_win10.vcxproj", "{32ECEE72-8B0E-FA85-8A2D-B76380F65C82}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_ssse3_win10_x86", ".\third_party\libvpx_new\libvpx_intrinsics_ssse3_win10_x86.vcxproj", "{32ECEE72-8B0E-FA85-8A2D-B76380F65C82}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "isac_neon_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\isac_neon_win10_arm.vcxproj", "{7119B605-B44C-B50B-E1C6-595BBCCBFC5B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "isac_neon_win10_arm", ".\webrtc\modules\isac_neon_win10_arm.vcxproj", "{7119B605-B44C-B50B-E1C6-595BBCCBFC5B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "openmax_dl_armv7_win10_arm", "..\..\..\..\libs\webrtc\third_party\openmax_dl\dl\openmax_dl_armv7_win10_arm.vcxproj", "{BBB9C181-FCE8-3F56-2642-77964B61648A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "openmax_dl_armv7_win10_arm", ".\third_party\openmax_dl\dl\openmax_dl_armv7_win10_arm.vcxproj", "{BBB9C181-FCE8-3F56-2642-77964B61648A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "openmax_dl_neon_win10_arm", "..\..\..\..\libs\webrtc\third_party\openmax_dl\dl\openmax_dl_neon_win10_arm.vcxproj", "{D0776BF0-D0BD-7632-AB1C-F07CEAD04670}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "openmax_dl_neon_win10_arm", ".\third_party\openmax_dl\dl\openmax_dl_neon_win10_arm.vcxproj", "{D0776BF0-D0BD-7632-AB1C-F07CEAD04670}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_capture_module_internal_impl_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\video_capture_module_internal_impl_win10_arm.vcxproj", "{C5C6B1BD-28D3-8AD5-4F97-EE210CEDCC41}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video_capture_module_internal_impl_win10_arm", ".\webrtc\modules\video_capture_module_internal_impl_win10_arm.vcxproj", "{C5C6B1BD-28D3-8AD5-4F97-EE210CEDCC41}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "congestion_controller_win10_arm", "..\..\..\..\libs\webrtc\webrtc\modules\congestion_controller_win10_arm.vcxproj", "{52F55CA7-A54D-BB5C-FE87-E961C2B91CF3}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "congestion_controller_win10_arm", ".\webrtc\modules\congestion_controller_win10_arm.vcxproj", "{52F55CA7-A54D-BB5C-FE87-E961C2B91CF3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "h264_winrt", "h264_winrt", "{70B8A2BC-F958-475F-82E3-0A68ABB26C08}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "congestion_controller", "..\..\..\..\libs\webrtc\webrtc\modules\congestion_controller.vcxproj", "{05B6654A-4B89-72BF-AC3E-5FD0433DC061}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "congestion_controller_win10_x64", ".\webrtc\modules\congestion_controller_win10_x64.vcxproj", "{05B6654A-4B89-72BF-AC3E-5FD0433DC061}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_h264_winrt", "..\..\..\..\libs\webrtc\third_party\h264_winrt\webrtc_h264_winrt.vcxproj", "{38038A9E-31B1-34BA-9257-723CD2B4C50A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_h264_winrt_win10_x64", ".\third_party\h264_winrt\webrtc_h264_winrt_win10_x64.vcxproj", "{38038A9E-31B1-34BA-9257-723CD2B4C50A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "congestion_controller_win10", "..\..\..\..\libs\webrtc\webrtc\modules\congestion_controller_win10.vcxproj", "{FDB1A76E-7041-EFE4-A0BB-B93BCA876C48}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "congestion_controller_win10_x86", ".\webrtc\modules\congestion_controller_win10_x86.vcxproj", "{FDB1A76E-7041-EFE4-A0BB-B93BCA876C48}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "h264_winrt", "h264_winrt", "{9FAABAC1-A3F5-496B-86F6-1AAEDCDCEF3A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_avx", "..\..\..\..\libs\webrtc\third_party\libvpx_new\libvpx_intrinsics_avx.vcxproj", "{495B041A-C510-EB59-CA2B-A8AA4383741A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_avx_win10_x64", ".\third_party\libvpx_new\libvpx_intrinsics_avx_win10_x64.vcxproj", "{495B041A-C510-EB59-CA2B-A8AA4383741A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "h264_winrt", "h264_winrt", "{EA14CC6C-4738-456B-8761-EBA380280F08}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_avx_win10", "..\..\..\..\libs\webrtc\third_party\libvpx_new\libvpx_intrinsics_avx_win10.vcxproj", "{4C461A04-969F-CED6-7508-D50C840B24B0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_avx_win10_x86", ".\third_party\libvpx_new\libvpx_intrinsics_avx_win10_x86.vcxproj", "{4C461A04-969F-CED6-7508-D50C840B24B0}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_h264_winrt_win10_arm", "..\..\..\..\libs\webrtc\third_party\h264_winrt\webrtc_h264_winrt_win10_arm.vcxproj", "{E52ED252-EB46-A8D6-EB7D-9DC386ECE437}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_h264_winrt_win10_arm", ".\third_party\h264_winrt\webrtc_h264_winrt_win10_arm.vcxproj", "{E52ED252-EB46-A8D6-EB7D-9DC386ECE437}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_h264_winrt_win10", "..\..\..\..\libs\webrtc\third_party\h264_winrt\webrtc_h264_winrt_win10.vcxproj", "{008BFB2F-1D95-80F8-EBC4-F5525726E9F4}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_h264_winrt_win10_x86", ".\third_party\h264_winrt\webrtc_h264_winrt_win10_x86.vcxproj", "{008BFB2F-1D95-80F8-EBC4-F5525726E9F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -3575,3 +3575,4 @@ Global
 		{008BFB2F-1D95-80F8-EBC4-F5525726E9F4} = {9FAABAC1-A3F5-496B-86F6-1AAEDCDCEF3A}
 	EndGlobalSection
 EndGlobal
+ndGlobal
