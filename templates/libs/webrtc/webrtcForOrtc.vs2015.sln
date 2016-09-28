@@ -61,7 +61,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jsoncpp_win10_x64", ".\thir
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libjpeg_win10_x64", ".\third_party\libjpeg_turbo\libjpeg_win10_x64.vcxproj", "{7ADFBD3A-4972-6013-57FF-FC245E80E675}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libsrtp_win10_x64", ".\third_party\libsrtp\_win10_x64libsrtp.vcxproj", "{7F9A1B1F-D1D7-872F-CE15-A6CAB15CA0D5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libsrtp_win10_x64", ".\third_party\libsrtp\libsrtp_win10_x64.vcxproj", "{7F9A1B1F-D1D7-872F-CE15-A6CAB15CA0D5}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvpx_intrinsics_avx2_win10_x64", ".\third_party\libvpx_new\libvpx_intrinsics_avx2_win10_x64.vcxproj", "{63C8622D-5534-0C76-B3B1-F26C4EA6AF7A}"
 EndProject
