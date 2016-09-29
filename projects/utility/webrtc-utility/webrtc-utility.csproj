@@ -141,28 +141,28 @@
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>call "$(SolutionDir)..\bin\buildWebRTC.bat"  "$(SolutionDir)..\webrtc\xplatform\webrtc\all_win10_arm.sln" $(Configuration) $(Platform)</PreBuildEvent>
+    <PreBuildEvent>call "$(SolutionDir)..\bin\buildWebRTC.bat"  "$(SolutionDir)..\webrtc\xplatform\webrtc\webrtcForOrtc.vs2015.sln" $(Configuration) $(Platform)</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
   <Target Name="BeforeClean">
-	<Message Text="Cleaning webrtc libs" Importance="high" />
-	<RemoveDir Directories="$(SolutionDir)..\..\libs\webrtc\build_win10\Debug" Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'" />
-	<RemoveDir Directories="$(SolutionDir)..\..\libs\webrtc\build_win10\Release" Condition="'$(Configuration)|$(Platform)' == 'Release|x86'" />
-	<RemoveDir Directories="$(SolutionDir)..\..\libs\webrtc\WEBRTC_BUILD\Debug\X86" Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'" />
-	<RemoveDir Directories="$(SolutionDir)..\..\libs\webrtc\WEBRTC_BUILD\Release\X86" Condition="'$(Configuration)|$(Platform)' == 'Release|x86'" />
-	<RemoveDir Directories="$(SolutionDir)..\..\libs\webrtc\build\Debug" Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" />
-	<RemoveDir Directories="$(SolutionDir)..\..\libs\webrtc\build\Release" Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" />
-	<RemoveDir Directories="$(SolutionDir)..\..\libs\webrtc\WEBRTC_BUILD\Debug\X64" Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" />
-	<RemoveDir Directories="$(SolutionDir)..\..\libs\webrtc\WEBRTC_BUILD\Release\X64" Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" />
-	<RemoveDir Directories="$(SolutionDir)..\..\libs\webrtc\build_win10_arm\Debug" Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'" />
-	<RemoveDir Directories="$(SolutionDir)..\..\libs\webrtc\build_win10_arm\Release" Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'" />
-	<RemoveDir Directories="$(SolutionDir)..\..\libs\webrtc\WEBRTC_BUILD\Debug\ARM" Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'" />
-	<RemoveDir Directories="$(SolutionDir)..\..\libs\webrtc\WEBRTC_BUILD\Release\ARM" Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'" />
+    <Message Text="Cleaning webrtc libs" Importance="high" />
+    <RemoveDir Directories="$(SolutionDir)..\..\libs\webrtc\build_win10\Debug" Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'" />
+    <RemoveDir Directories="$(SolutionDir)..\..\libs\webrtc\build_win10\Release" Condition="'$(Configuration)|$(Platform)' == 'Release|x86'" />
+    <RemoveDir Directories="$(SolutionDir)..\..\libs\webrtc\WEBRTC_BUILD\Debug\X86" Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'" />
+    <RemoveDir Directories="$(SolutionDir)..\..\libs\webrtc\WEBRTC_BUILD\Release\X86" Condition="'$(Configuration)|$(Platform)' == 'Release|x86'" />
+    <RemoveDir Directories="$(SolutionDir)..\..\libs\webrtc\build\Debug" Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" />
+    <RemoveDir Directories="$(SolutionDir)..\..\libs\webrtc\build\Release" Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" />
+    <RemoveDir Directories="$(SolutionDir)..\..\libs\webrtc\WEBRTC_BUILD\Debug\X64" Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" />
+    <RemoveDir Directories="$(SolutionDir)..\..\libs\webrtc\WEBRTC_BUILD\Release\X64" Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" />
+    <RemoveDir Directories="$(SolutionDir)..\..\libs\webrtc\build_win10_arm\Debug" Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'" />
+    <RemoveDir Directories="$(SolutionDir)..\..\libs\webrtc\build_win10_arm\Release" Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'" />
+    <RemoveDir Directories="$(SolutionDir)..\..\libs\webrtc\WEBRTC_BUILD\Debug\ARM" Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'" />
+    <RemoveDir Directories="$(SolutionDir)..\..\libs\webrtc\WEBRTC_BUILD\Release\ARM" Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'" />
   </Target>
   <Target Name="BeforeBuild">
-	<Message Text="Building webrtc projects. This will take awhile." Importance="high" />
+    <Message Text="Building webrtc projects. This will take awhile." Importance="high" />
   </Target>
 </Project>
