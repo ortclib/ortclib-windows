@@ -1,21 +1,125 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+    <Filter Include="Resources">
+      <UniqueIdentifier>b95484df-aec9-43b1-b9f6-4cfc1359efb6</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="org">
-      <UniqueIdentifier>{42dfb07c-e37b-43cf-9ab7-6ec958c642ef}</UniqueIdentifier>
+      <UniqueIdentifier>{5b765238-437a-4add-a894-ccddc8bb4841}</UniqueIdentifier>
     </Filter>
     <Filter Include="org\ortc">
-      <UniqueIdentifier>{e1e09a13-e30f-4463-a00d-af960a25af05}</UniqueIdentifier>
+      <UniqueIdentifier>{4625f2f4-a529-4c33-9158-792bd8638487}</UniqueIdentifier>
     </Filter>
     <Filter Include="org\ortc\adapter">
-      <UniqueIdentifier>{cbd8c746-e033-469c-a83e-495af95afd25}</UniqueIdentifier>
+      <UniqueIdentifier>{86fb172d-3e6f-4d1f-b8cb-c66bfb264f95}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\org\ortc\Capabilities.cpp">
+      <Filter>org\ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\Constraints.cpp">
+      <Filter>org\ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\Error.cpp">
+      <Filter>org\ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\helpers.cpp">
+      <Filter>org\ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\Logger.cpp">
+      <Filter>org\ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\MediaDevices.cpp">
+      <Filter>org\ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\MediaSourceHelper.cc">
+      <Filter>org\ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\MediaStreamTrack.cpp">
+      <Filter>org\ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\Ortc.cpp">
+      <Filter>org\ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\RTCCertificate.cpp">
+      <Filter>org\ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\RTCDataChannel.cpp">
+      <Filter>org\ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\RTCDtlsTransport.cpp">
+      <Filter>org\ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\RTCDtmfSender.cpp">
+      <Filter>org\ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\RTCIceGatherer.cpp">
+      <Filter>org\ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\RTCIceTransport.cpp">
+      <Filter>org\ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\RTCIceTransportController.cpp">
+      <Filter>org\ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\RTCIceTypes.cpp">
+      <Filter>org\ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\RTCRtpListener.cpp">
+      <Filter>org\ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\RTCRtpReceiver.cpp">
+      <Filter>org\ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\RTCRtpSender.cpp">
+      <Filter>org\ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\RTCSctpTransport.cpp">
+      <Filter>org\ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\RTCSrtpSdesTransport.cpp">
+      <Filter>org\ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\RTCStatsProvider.cpp">
+      <Filter>org\ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\RTCStatsReport.cpp">
+      <Filter>org\ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\RTMediaStreamSource.cc">
+      <Filter>org\ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\RTPTypes.cpp">
+      <Filter>org\ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\Settings.cpp">
+      <Filter>org\ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\WebRtcMediaSource.cc">
+      <Filter>org\ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\WebRtcMediaStream.cc">
+      <Filter>org\ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\adapter\RTCPeerConnection.cpp">
+      <Filter>org\ortc\adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\adapter\RTCSessionDescription.cpp">
+      <Filter>org\ortc\adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\adapter\MediaStream.cpp">
+      <Filter>org\ortc\adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\pch.cpp">
+      <Filter>org\ortc</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\org\ortc\Capabilities.h">
+      <Filter>org\ortc</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\org\ortc\Constraints.h">
       <Filter>org\ortc</Filter>
     </ClInclude>
@@ -106,9 +210,6 @@
     <ClInclude Include="..\..\..\org\ortc\WebRtcMediaStream.h">
       <Filter>org\ortc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\org\ortc\Capabilities.h">
-      <Filter>org\ortc</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\org\ortc\adapter\RTCPeerConnection.h">
       <Filter>org\ortc\adapter</Filter>
     </ClInclude>
@@ -118,109 +219,5 @@
     <ClInclude Include="..\..\..\org\ortc\adapter\MediaStream.h">
       <Filter>org\ortc\adapter</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\..\org\ortc\dllmain.cpp">
-      <Filter>org\ortc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\org\ortc\Error.cpp">
-      <Filter>org\ortc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\org\ortc\helpers.cpp">
-      <Filter>org\ortc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\org\ortc\Logger.cpp">
-      <Filter>org\ortc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\org\ortc\MediaDevices.cpp">
-      <Filter>org\ortc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\org\ortc\MediaSourceHelper.cc">
-      <Filter>org\ortc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\org\ortc\MediaStreamTrack.cpp">
-      <Filter>org\ortc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\org\ortc\Ortc.cpp">
-      <Filter>org\ortc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\org\ortc\pch.cpp">
-      <Filter>org\ortc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\org\ortc\RTCCertificate.cpp">
-      <Filter>org\ortc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\org\ortc\RTCDataChannel.cpp">
-      <Filter>org\ortc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\org\ortc\RTCDtlsTransport.cpp">
-      <Filter>org\ortc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\org\ortc\RTCDtmfSender.cpp">
-      <Filter>org\ortc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\org\ortc\RTCIceGatherer.cpp">
-      <Filter>org\ortc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\org\ortc\RTCIceTransport.cpp">
-      <Filter>org\ortc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\org\ortc\RTCIceTransportController.cpp">
-      <Filter>org\ortc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\org\ortc\RTCIceTypes.cpp">
-      <Filter>org\ortc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\org\ortc\RTCRtpListener.cpp">
-      <Filter>org\ortc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\org\ortc\RTCRtpReceiver.cpp">
-      <Filter>org\ortc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\org\ortc\RTCRtpSender.cpp">
-      <Filter>org\ortc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\org\ortc\RTCSctpTransport.cpp">
-      <Filter>org\ortc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\org\ortc\RTCSrtpSdesTransport.cpp">
-      <Filter>org\ortc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\org\ortc\RTCStatsProvider.cpp">
-      <Filter>org\ortc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\org\ortc\RTCStatsReport.cpp">
-      <Filter>org\ortc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\org\ortc\RTMediaStreamSource.cc">
-      <Filter>org\ortc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\org\ortc\RTPTypes.cpp">
-      <Filter>org\ortc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\org\ortc\Settings.cpp">
-      <Filter>org\ortc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\org\ortc\WebRtcMediaSource.cc">
-      <Filter>org\ortc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\org\ortc\WebRtcMediaStream.cc">
-      <Filter>org\ortc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\org\ortc\Capabilities.cpp">
-      <Filter>org\ortc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\org\ortc\Constraints.cpp">
-      <Filter>org\ortc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\org\ortc\adapter\RTCSessionDescription.cpp">
-      <Filter>org\ortc\adapter</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\org\ortc\adapter\MediaStream.cpp">
-      <Filter>org\ortc\adapter</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\org\ortc\adapter\RTCPeerConnection.cpp">
-      <Filter>org\ortc\adapter</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

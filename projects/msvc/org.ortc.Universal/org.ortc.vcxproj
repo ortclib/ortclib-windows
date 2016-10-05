@@ -27,55 +27,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\org\ortc\adapter\MediaStream.h" />
-    <ClInclude Include="..\..\..\org\ortc\adapter\RTCPeerConnection.h" />
-    <ClInclude Include="..\..\..\org\ortc\adapter\RTCSessionDescription.h" />
-    <ClInclude Include="..\..\..\org\ortc\Capabilities.h" />
-    <ClInclude Include="..\..\..\org\ortc\Constraints.h" />
-    <ClInclude Include="..\..\..\org\ortc\Error.h" />
-    <ClInclude Include="..\..\..\org\ortc\helpers.h" />
-    <ClInclude Include="..\..\..\org\ortc\Logger.h" />
-    <ClInclude Include="..\..\..\org\ortc\MediaDevices.h" />
-    <ClInclude Include="..\..\..\org\ortc\MediaSourceHelper.h" />
-    <ClInclude Include="..\..\..\org\ortc\MediaStreamTrack.h" />
-    <ClInclude Include="..\..\..\org\ortc\Ortc.h" />
-    <ClInclude Include="..\..\..\org\ortc\pch.h" />
-    <ClInclude Include="..\..\..\org\ortc\RTCCertificate.h" />
-    <ClInclude Include="..\..\..\org\ortc\RTCDataChannel.h" />
-    <ClInclude Include="..\..\..\org\ortc\RTCDtlsTransport.h" />
-    <ClInclude Include="..\..\..\org\ortc\RTCDtmfSender.h" />
-    <ClInclude Include="..\..\..\org\ortc\RTCIceGatherer.h" />
-    <ClInclude Include="..\..\..\org\ortc\RTCIceTransport.h" />
-    <ClInclude Include="..\..\..\org\ortc\RTCIceTransportController.h" />
-    <ClInclude Include="..\..\..\org\ortc\RTCIceTypes.h" />
-    <ClInclude Include="..\..\..\org\ortc\RTCRtpListener.h" />
-    <ClInclude Include="..\..\..\org\ortc\RTCRtpReceiver.h" />
-    <ClInclude Include="..\..\..\org\ortc\RTCRtpSender.h" />
-    <ClInclude Include="..\..\..\org\ortc\RTCSctpTransport.h" />
-    <ClInclude Include="..\..\..\org\ortc\RTCSrtpSdesTransport.h" />
-    <ClInclude Include="..\..\..\org\ortc\RTCStatsProvider.h" />
-    <ClInclude Include="..\..\..\org\ortc\RTCStatsReport.h" />
-    <ClInclude Include="..\..\..\org\ortc\RTMediaStreamSource.h" />
-    <ClInclude Include="..\..\..\org\ortc\RTPTypes.h" />
-    <ClInclude Include="..\..\..\org\ortc\Settings.h" />
-    <ClInclude Include="..\..\..\org\ortc\targetver.h" />
-    <ClInclude Include="..\..\..\org\ortc\WebRtcMediaSource.h" />
-    <ClInclude Include="..\..\..\org\ortc\WebRtcMediaStream.h" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="..\..\..\org\ortc\adapter\MediaStream.cpp" />
-    <ClCompile Include="..\..\..\org\ortc\adapter\RTCPeerConnection.cpp">
-      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/bigobj %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">/bigobj %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">/bigobj %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">/bigobj %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/bigobj %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/bigobj %(AdditionalOptions)</AdditionalOptions>
-    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\adapter\RTCPeerConnection.cpp" />
     <ClCompile Include="..\..\..\org\ortc\adapter\RTCSessionDescription.cpp" />
     <ClCompile Include="..\..\..\org\ortc\Capabilities.cpp" />
     <ClCompile Include="..\..\..\org\ortc\Constraints.cpp" />
-    <ClCompile Include="..\..\..\org\ortc\dllmain.cpp" />
     <ClCompile Include="..\..\..\org\ortc\Error.cpp" />
     <ClCompile Include="..\..\..\org\ortc\helpers.cpp" />
     <ClCompile Include="..\..\..\org\ortc\Logger.cpp" />
@@ -113,6 +69,42 @@
     <ClCompile Include="..\..\..\org\ortc\WebRtcMediaStream.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\org\ortc\adapter\MediaStream.h" />
+    <ClInclude Include="..\..\..\org\ortc\adapter\RTCPeerConnection.h" />
+    <ClInclude Include="..\..\..\org\ortc\adapter\RTCSessionDescription.h" />
+    <ClInclude Include="..\..\..\org\ortc\Capabilities.h" />
+    <ClInclude Include="..\..\..\org\ortc\Constraints.h" />
+    <ClInclude Include="..\..\..\org\ortc\Error.h" />
+    <ClInclude Include="..\..\..\org\ortc\helpers.h" />
+    <ClInclude Include="..\..\..\org\ortc\Logger.h" />
+    <ClInclude Include="..\..\..\org\ortc\MediaDevices.h" />
+    <ClInclude Include="..\..\..\org\ortc\MediaSourceHelper.h" />
+    <ClInclude Include="..\..\..\org\ortc\MediaStreamTrack.h" />
+    <ClInclude Include="..\..\..\org\ortc\Ortc.h" />
+    <ClInclude Include="..\..\..\org\ortc\pch.h" />
+    <ClInclude Include="..\..\..\org\ortc\RTCCertificate.h" />
+    <ClInclude Include="..\..\..\org\ortc\RTCDataChannel.h" />
+    <ClInclude Include="..\..\..\org\ortc\RTCDtlsTransport.h" />
+    <ClInclude Include="..\..\..\org\ortc\RTCDtmfSender.h" />
+    <ClInclude Include="..\..\..\org\ortc\RTCIceGatherer.h" />
+    <ClInclude Include="..\..\..\org\ortc\RTCIceTransport.h" />
+    <ClInclude Include="..\..\..\org\ortc\RTCIceTransportController.h" />
+    <ClInclude Include="..\..\..\org\ortc\RTCIceTypes.h" />
+    <ClInclude Include="..\..\..\org\ortc\RTCRtpListener.h" />
+    <ClInclude Include="..\..\..\org\ortc\RTCRtpReceiver.h" />
+    <ClInclude Include="..\..\..\org\ortc\RTCRtpSender.h" />
+    <ClInclude Include="..\..\..\org\ortc\RTCSctpTransport.h" />
+    <ClInclude Include="..\..\..\org\ortc\RTCSrtpSdesTransport.h" />
+    <ClInclude Include="..\..\..\org\ortc\RTCStatsProvider.h" />
+    <ClInclude Include="..\..\..\org\ortc\RTCStatsReport.h" />
+    <ClInclude Include="..\..\..\org\ortc\RTMediaStreamSource.h" />
+    <ClInclude Include="..\..\..\org\ortc\RTPTypes.h" />
+    <ClInclude Include="..\..\..\org\ortc\Settings.h" />
+    <ClInclude Include="..\..\..\org\ortc\targetver.h" />
+    <ClInclude Include="..\..\..\org\ortc\WebRtcMediaSource.h" />
+    <ClInclude Include="..\..\..\org\ortc\WebRtcMediaStream.h" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\xplatform\cryptopp\projects\msvs\cryptopp.Universal\cryptopp.vcxproj">
       <Project>{cc14ffe5-0018-4d8d-bc2c-c93477ce081c}</Project>
     </ProjectReference>
@@ -133,8 +125,8 @@
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{5108429c-b2af-471d-bfba-37987dcbc1ee}</ProjectGuid>
-    <Keyword>DynamicLibrary</Keyword>
+    <ProjectGuid>{648daeee-b5c3-4fc9-b016-418e1db2bee5}</ProjectGuid>
+    <Keyword>WindowsRuntimeComponent</Keyword>
     <RootNamespace>org_ortc</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
@@ -205,110 +197,116 @@
   <PropertyGroup />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <GenerateManifest>false</GenerateManifest>
-    <IgnoreImportLibrary>false</IgnoreImportLibrary>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <GenerateManifest>false</GenerateManifest>
-    <IgnoreImportLibrary>false</IgnoreImportLibrary>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <GenerateManifest>false</GenerateManifest>
-    <IgnoreImportLibrary>false</IgnoreImportLibrary>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
     <GenerateManifest>false</GenerateManifest>
-    <IgnoreImportLibrary>false</IgnoreImportLibrary>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <GenerateManifest>false</GenerateManifest>
-    <IgnoreImportLibrary>false</IgnoreImportLibrary>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <GenerateManifest>false</GenerateManifest>
-    <IgnoreImportLibrary>false</IgnoreImportLibrary>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <CompileAsWinRT>true</CompileAsWinRT>
-      <PreprocessorDefinitions>WINRT;WEBRTC_WIN;NOMINMAX;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINRT_DLL;WEBRTC_WIN;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
+      <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>28204;4068;4290</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>$(ProjectDir)..\..\..;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-cpp;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-services-cpp;$(ProjectDir)..\..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\..\xplatform;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\libyuv\include;$(ProjectDir)..\..\..\org\ortc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <DisableSpecificWarnings>4068;4290</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <CompileAsWinRT>true</CompileAsWinRT>
-      <PreprocessorDefinitions>WINRT;WEBRTC_WIN;NOMINMAX;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINRT_DLL;WEBRTC_WIN;NOMINMAX;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
+      <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>28204;4068;4290</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>$(ProjectDir)..\..\..;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-cpp;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-services-cpp;$(ProjectDir)..\..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\..\xplatform;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\libyuv\include;$(ProjectDir)..\..\..\org\ortc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <DisableSpecificWarnings>4068;4290</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|arm'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <CompileAsWinRT>true</CompileAsWinRT>
-      <PreprocessorDefinitions>WINRT;WEBRTC_WIN;NOMINMAX;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINRT_DLL;WEBRTC_WIN;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
+      <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>28204;4068;4290</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>$(ProjectDir)..\..\..;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-cpp;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-services-cpp;$(ProjectDir)..\..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\..\xplatform;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\libyuv\include;$(ProjectDir)..\..\..\org\ortc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <DisableSpecificWarnings>4068;4290</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|arm'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <CompileAsWinRT>true</CompileAsWinRT>
-      <PreprocessorDefinitions>WINRT;WEBRTC_WIN;NOMINMAX;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINRT_DLL;WEBRTC_WIN;NOMINMAX;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
+      <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>28204;4068;4290</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>$(ProjectDir)..\..\..;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-cpp;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-services-cpp;$(ProjectDir)..\..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\..\xplatform;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\libyuv\include;$(ProjectDir)..\..\..\org\ortc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <DisableSpecificWarnings>4068;4290</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <CompileAsWinRT>true</CompileAsWinRT>
-      <PreprocessorDefinitions>WINRT;WEBRTC_WIN;NOMINMAX;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINRT_DLL;WEBRTC_WIN;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
+      <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>28204;4068;4290</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>$(ProjectDir)..\..\..;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-cpp;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-services-cpp;$(ProjectDir)..\..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\..\xplatform;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\libyuv\include;$(ProjectDir)..\..\..\org\ortc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <DisableSpecificWarnings>4068;4290</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <CompileAsWinRT>true</CompileAsWinRT>
-      <PreprocessorDefinitions>WINRT;WEBRTC_WIN;NOMINMAX;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINRT_DLL;WEBRTC_WIN;NOMINMAX;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
+      <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>28204;4068;4290</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>$(ProjectDir)..\..\..;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-cpp;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-services-cpp;$(ProjectDir)..\..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\..\xplatform;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\libyuv\include;$(ProjectDir)..\..\..\org\ortc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <DisableSpecificWarnings>4068;4290</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
