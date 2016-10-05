@@ -17,3 +17,5 @@ nuget/Output
 nuget/org.ortc.version
 NugetOutput/
 test/
+*.db
+ipch/

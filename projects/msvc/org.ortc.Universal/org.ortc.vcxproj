@@ -1,0 +1,317 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\org\ortc\adapter\MediaStream.h" />
+    <ClInclude Include="..\..\..\org\ortc\adapter\RTCPeerConnection.h" />
+    <ClInclude Include="..\..\..\org\ortc\adapter\RTCSessionDescription.h" />
+    <ClInclude Include="..\..\..\org\ortc\Capabilities.h" />
+    <ClInclude Include="..\..\..\org\ortc\Constraints.h" />
+    <ClInclude Include="..\..\..\org\ortc\Error.h" />
+    <ClInclude Include="..\..\..\org\ortc\helpers.h" />
+    <ClInclude Include="..\..\..\org\ortc\Logger.h" />
+    <ClInclude Include="..\..\..\org\ortc\MediaDevices.h" />
+    <ClInclude Include="..\..\..\org\ortc\MediaSourceHelper.h" />
+    <ClInclude Include="..\..\..\org\ortc\MediaStreamTrack.h" />
+    <ClInclude Include="..\..\..\org\ortc\Ortc.h" />
+    <ClInclude Include="..\..\..\org\ortc\pch.h" />
+    <ClInclude Include="..\..\..\org\ortc\RTCCertificate.h" />
+    <ClInclude Include="..\..\..\org\ortc\RTCDataChannel.h" />
+    <ClInclude Include="..\..\..\org\ortc\RTCDtlsTransport.h" />
+    <ClInclude Include="..\..\..\org\ortc\RTCDtmfSender.h" />
+    <ClInclude Include="..\..\..\org\ortc\RTCIceGatherer.h" />
+    <ClInclude Include="..\..\..\org\ortc\RTCIceTransport.h" />
+    <ClInclude Include="..\..\..\org\ortc\RTCIceTransportController.h" />
+    <ClInclude Include="..\..\..\org\ortc\RTCIceTypes.h" />
+    <ClInclude Include="..\..\..\org\ortc\RTCRtpListener.h" />
+    <ClInclude Include="..\..\..\org\ortc\RTCRtpReceiver.h" />
+    <ClInclude Include="..\..\..\org\ortc\RTCRtpSender.h" />
+    <ClInclude Include="..\..\..\org\ortc\RTCSctpTransport.h" />
+    <ClInclude Include="..\..\..\org\ortc\RTCSrtpSdesTransport.h" />
+    <ClInclude Include="..\..\..\org\ortc\RTCStatsProvider.h" />
+    <ClInclude Include="..\..\..\org\ortc\RTCStatsReport.h" />
+    <ClInclude Include="..\..\..\org\ortc\RTMediaStreamSource.h" />
+    <ClInclude Include="..\..\..\org\ortc\RTPTypes.h" />
+    <ClInclude Include="..\..\..\org\ortc\Settings.h" />
+    <ClInclude Include="..\..\..\org\ortc\targetver.h" />
+    <ClInclude Include="..\..\..\org\ortc\WebRtcMediaSource.h" />
+    <ClInclude Include="..\..\..\org\ortc\WebRtcMediaStream.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\org\ortc\adapter\MediaStream.cpp" />
+    <ClCompile Include="..\..\..\org\ortc\adapter\RTCPeerConnection.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/bigobj %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\adapter\RTCSessionDescription.cpp" />
+    <ClCompile Include="..\..\..\org\ortc\Capabilities.cpp" />
+    <ClCompile Include="..\..\..\org\ortc\Constraints.cpp" />
+    <ClCompile Include="..\..\..\org\ortc\dllmain.cpp" />
+    <ClCompile Include="..\..\..\org\ortc\Error.cpp" />
+    <ClCompile Include="..\..\..\org\ortc\helpers.cpp" />
+    <ClCompile Include="..\..\..\org\ortc\Logger.cpp" />
+    <ClCompile Include="..\..\..\org\ortc\MediaDevices.cpp" />
+    <ClCompile Include="..\..\..\org\ortc\MediaSourceHelper.cc" />
+    <ClCompile Include="..\..\..\org\ortc\MediaStreamTrack.cpp" />
+    <ClCompile Include="..\..\..\org\ortc\Ortc.cpp" />
+    <ClCompile Include="..\..\..\org\ortc\pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\..\org\ortc\RTCCertificate.cpp" />
+    <ClCompile Include="..\..\..\org\ortc\RTCDataChannel.cpp" />
+    <ClCompile Include="..\..\..\org\ortc\RTCDtlsTransport.cpp" />
+    <ClCompile Include="..\..\..\org\ortc\RTCDtmfSender.cpp" />
+    <ClCompile Include="..\..\..\org\ortc\RTCIceGatherer.cpp" />
+    <ClCompile Include="..\..\..\org\ortc\RTCIceTransport.cpp" />
+    <ClCompile Include="..\..\..\org\ortc\RTCIceTransportController.cpp" />
+    <ClCompile Include="..\..\..\org\ortc\RTCIceTypes.cpp" />
+    <ClCompile Include="..\..\..\org\ortc\RTCRtpListener.cpp" />
+    <ClCompile Include="..\..\..\org\ortc\RTCRtpReceiver.cpp" />
+    <ClCompile Include="..\..\..\org\ortc\RTCRtpSender.cpp" />
+    <ClCompile Include="..\..\..\org\ortc\RTCSctpTransport.cpp" />
+    <ClCompile Include="..\..\..\org\ortc\RTCSrtpSdesTransport.cpp" />
+    <ClCompile Include="..\..\..\org\ortc\RTCStatsProvider.cpp" />
+    <ClCompile Include="..\..\..\org\ortc\RTCStatsReport.cpp" />
+    <ClCompile Include="..\..\..\org\ortc\RTMediaStreamSource.cc" />
+    <ClCompile Include="..\..\..\org\ortc\RTPTypes.cpp" />
+    <ClCompile Include="..\..\..\org\ortc\Settings.cpp" />
+    <ClCompile Include="..\..\..\org\ortc\WebRtcMediaSource.cc" />
+    <ClCompile Include="..\..\..\org\ortc\WebRtcMediaStream.cc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\xplatform\cryptopp\projects\msvs\cryptopp.Universal\cryptopp.vcxproj">
+      <Project>{cc14ffe5-0018-4d8d-bc2c-c93477ce081c}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\xplatform\idnkit\projects\msvc\idnkit.Universal\idnkit.vcxproj">
+      <Project>{b236bf5a-561d-4720-babf-f6119adf5793}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\xplatform\ortclib-cpp\projects\msvs\ortclib.Universal\ortclib.vcxproj">
+      <Project>{83e6cc72-ebc5-4c0c-b6a6-2d67a3c1e8a9}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\xplatform\ortclib-services-cpp\projects\msvs\ortclib.services.Universal\ortclib.services.vcxproj">
+      <Project>{cc03fba3-9028-47ad-b931-13b12db368f8}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\xplatform\udns\projects\msvs\udns.Universal\udns.vcxproj">
+      <Project>{6c13dfe2-3aa7-40b9-919c-5e95e47fc321}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\xplatform\zsLib\projects\msvs\zsLib.Universal\zsLib.vcxproj">
+      <Project>{55555c53-504f-4237-abc0-b2f59558a0e9}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{5108429c-b2af-471d-bfba-37987dcbc1ee}</ProjectGuid>
+    <Keyword>DynamicLibrary</Keyword>
+    <RootNamespace>org_ortc</RootNamespace>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <AppContainerApplication>true</AppContainerApplication>
+    <ApplicationType>Windows Store</ApplicationType>
+    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformMinVersion>10.0.10586.0</WindowsTargetPlatformMinVersion>
+    <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <GenerateManifest>false</GenerateManifest>
+    <IgnoreImportLibrary>false</IgnoreImportLibrary>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <GenerateManifest>false</GenerateManifest>
+    <IgnoreImportLibrary>false</IgnoreImportLibrary>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <GenerateManifest>false</GenerateManifest>
+    <IgnoreImportLibrary>false</IgnoreImportLibrary>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <GenerateManifest>false</GenerateManifest>
+    <IgnoreImportLibrary>false</IgnoreImportLibrary>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <GenerateManifest>false</GenerateManifest>
+    <IgnoreImportLibrary>false</IgnoreImportLibrary>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <GenerateManifest>false</GenerateManifest>
+    <IgnoreImportLibrary>false</IgnoreImportLibrary>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <CompileAsWinRT>true</CompileAsWinRT>
+      <PreprocessorDefinitions>WINRT;WEBRTC_WIN;NOMINMAX;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-cpp;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-services-cpp;$(ProjectDir)..\..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\..\xplatform;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\libyuv\include;$(ProjectDir)..\..\..\org\ortc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4068;4290</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <CompileAsWinRT>true</CompileAsWinRT>
+      <PreprocessorDefinitions>WINRT;WEBRTC_WIN;NOMINMAX;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-cpp;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-services-cpp;$(ProjectDir)..\..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\..\xplatform;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\libyuv\include;$(ProjectDir)..\..\..\org\ortc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4068;4290</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|arm'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <CompileAsWinRT>true</CompileAsWinRT>
+      <PreprocessorDefinitions>WINRT;WEBRTC_WIN;NOMINMAX;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-cpp;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-services-cpp;$(ProjectDir)..\..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\..\xplatform;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\libyuv\include;$(ProjectDir)..\..\..\org\ortc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4068;4290</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|arm'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <CompileAsWinRT>true</CompileAsWinRT>
+      <PreprocessorDefinitions>WINRT;WEBRTC_WIN;NOMINMAX;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-cpp;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-services-cpp;$(ProjectDir)..\..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\..\xplatform;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\libyuv\include;$(ProjectDir)..\..\..\org\ortc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4068;4290</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <CompileAsWinRT>true</CompileAsWinRT>
+      <PreprocessorDefinitions>WINRT;WEBRTC_WIN;NOMINMAX;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-cpp;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-services-cpp;$(ProjectDir)..\..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\..\xplatform;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\libyuv\include;$(ProjectDir)..\..\..\org\ortc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4068;4290</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <CompileAsWinRT>true</CompileAsWinRT>
+      <PreprocessorDefinitions>WINRT;WEBRTC_WIN;NOMINMAX;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-cpp;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-services-cpp;$(ProjectDir)..\..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\..\xplatform;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\libyuv\include;$(ProjectDir)..\..\..\org\ortc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4068;4290</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
