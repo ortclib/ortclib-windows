@@ -79,19 +79,20 @@ namespace org.ortc.Test
                 constraints.Audio = new MediaTrackConstraints();
                 constraints.Video = new MediaTrackConstraints();
 
-                MediaDevices.GetUserMedia(constraints).AsTask().ContinueWith<IList<MediaStreamTrack>>((temp) =>
+                MediaDevices.GetUserMedia(constraints).AsTask().ContinueWith<IList<MediaStreamTrack>>((mediaListTask) =>
                 {
-                    if (temp.Result != null && temp.Result.Count() > 0)
+                    IList<MediaStreamTrack> mediaList = mediaListTask.Result;
+                    if (mediaList != null && mediaList.Count > 0)
                     {
-                        List<MediaStreamTrack> ret = new List<MediaStreamTrack>(temp.Result);
+                        //List<MediaStreamTrack> ret = new List<MediaStreamTrack>(temp.Result);
                         List<RTCRtpSender> senders = new List<RTCRtpSender>();
-                        foreach (MediaStreamTrack track in temp.Result)
+                        foreach (MediaStreamTrack track in mediaList)
                         {
                             RTCRtpSender rtpSender = new RTCRtpSender(track, _dtlsTransport);
                             senders.Add(rtpSender);
                         }
 
-                        return ret;
+                        return mediaList;
                     }
 
                     return null;
