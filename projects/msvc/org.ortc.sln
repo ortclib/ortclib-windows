@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zsLib", "..\..\..\..\xplatform\zsLib\projects\msvs\zsLib.Universal\zsLib.vcxproj", "{55555C53-504F-4237-ABC0-B2F59558A0E9}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zsLib", "..\..\..\xplatform\zsLib\projects\msvs\zsLib.Universal\zsLib.vcxproj", "{55555C53-504F-4237-ABC0-B2F59558A0E9}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "udns", "..\..\..\..\xplatform\udns\projects\msvs\udns.Universal\udns.vcxproj", "{6C13DFE2-3AA7-40B9-919C-5E95E47FC321}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "udns", "..\..\..\xplatform\udns\projects\msvs\udns.Universal\udns.vcxproj", "{6C13DFE2-3AA7-40B9-919C-5E95E47FC321}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "idnkit", "..\..\..\..\xplatform\idnkit\projects\msvc\idnkit.Universal\idnkit.vcxproj", "{B236BF5A-561D-4720-BABF-F6119ADF5793}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "idnkit", "..\..\..\xplatform\idnkit\projects\msvc\idnkit.Universal\idnkit.vcxproj", "{B236BF5A-561D-4720-BABF-F6119ADF5793}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cryptopp", "..\..\..\..\xplatform\cryptopp\projects\msvs\cryptopp.Universal\cryptopp.vcxproj", "{CC14FFE5-0018-4D8D-BC2C-C93477CE081C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cryptopp", "..\..\..\xplatform\cryptopp\projects\msvs\cryptopp.Universal\cryptopp.vcxproj", "{CC14FFE5-0018-4D8D-BC2C-C93477CE081C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclib.services", "..\..\..\..\xplatform\ortclib-services-cpp\projects\msvs\ortclib.services.Universal\ortclib.services.vcxproj", "{CC03FBA3-9028-47AD-B931-13B12DB368F8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclib.services", "..\..\..\xplatform\ortclib-services-cpp\projects\msvs\ortclib.services.Universal\ortclib.services.vcxproj", "{CC03FBA3-9028-47AD-B931-13B12DB368F8}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclib", "..\..\..\..\xplatform\ortclib-cpp\projects\msvs\ortclib.Universal\ortclib.vcxproj", "{83E6CC72-EBC5-4C0C-B6A6-2D67A3C1E8A9}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclib", "..\..\..\xplatform\ortclib-cpp\projects\msvs\ortclib.Universal\ortclib.vcxproj", "{83E6CC72-EBC5-4C0C-B6A6-2D67A3C1E8A9}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "org.ortc", "org.ortc.Universal\org.ortc.vcxproj", "{648DAEEE-B5C3-4FC9-B016-418E1DB2BEE5}"
 	ProjectSection(ProjectDependencies) = postProject

@@ -105,22 +105,22 @@
     <ClInclude Include="..\..\..\org\ortc\WebRtcMediaStream.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\xplatform\cryptopp\projects\msvs\cryptopp.Universal\cryptopp.vcxproj">
+    <ProjectReference Include="..\..\..\..\xplatform\cryptopp\projects\msvs\cryptopp.Universal\cryptopp.vcxproj">
       <Project>{cc14ffe5-0018-4d8d-bc2c-c93477ce081c}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\xplatform\idnkit\projects\msvc\idnkit.Universal\idnkit.vcxproj">
+    <ProjectReference Include="..\..\..\..\xplatform\idnkit\projects\msvc\idnkit.Universal\idnkit.vcxproj">
       <Project>{b236bf5a-561d-4720-babf-f6119adf5793}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\xplatform\ortclib-cpp\projects\msvs\ortclib.Universal\ortclib.vcxproj">
+    <ProjectReference Include="..\..\..\..\xplatform\ortclib-cpp\projects\msvs\ortclib.Universal\ortclib.vcxproj">
       <Project>{83e6cc72-ebc5-4c0c-b6a6-2d67a3c1e8a9}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\xplatform\ortclib-services-cpp\projects\msvs\ortclib.services.Universal\ortclib.services.vcxproj">
+    <ProjectReference Include="..\..\..\..\xplatform\ortclib-services-cpp\projects\msvs\ortclib.services.Universal\ortclib.services.vcxproj">
       <Project>{cc03fba3-9028-47ad-b931-13b12db368f8}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\xplatform\udns\projects\msvs\udns.Universal\udns.vcxproj">
+    <ProjectReference Include="..\..\..\..\xplatform\udns\projects\msvs\udns.Universal\udns.vcxproj">
       <Project>{6c13dfe2-3aa7-40b9-919c-5e95e47fc321}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\xplatform\zsLib\projects\msvs\zsLib.Universal\zsLib.vcxproj">
+    <ProjectReference Include="..\..\..\..\xplatform\zsLib\projects\msvs\zsLib.Universal\zsLib.vcxproj">
       <Project>{55555c53-504f-4237-abc0-b2f59558a0e9}</Project>
     </ProjectReference>
   </ItemGroup>
@@ -222,7 +222,7 @@
       <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>28204;4068;4290</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-cpp;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-services-cpp;$(ProjectDir)..\..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\..\xplatform;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\libyuv\include;$(ProjectDir)..\..\..\org\ortc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp;$(ProjectDir)..\..\..\..\xplatform\ortclib-services-cpp;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\libyuv\include;$(ProjectDir)..\..\..\org\ortc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -238,7 +238,7 @@
       <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>28204;4068;4290</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-cpp;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-services-cpp;$(ProjectDir)..\..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\..\xplatform;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\libyuv\include;$(ProjectDir)..\..\..\org\ortc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp;$(ProjectDir)..\..\..\..\xplatform\ortclib-services-cpp;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\libyuv\include;$(ProjectDir)..\..\..\org\ortc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -254,7 +254,7 @@
       <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>28204;4068;4290</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-cpp;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-services-cpp;$(ProjectDir)..\..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\..\xplatform;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\libyuv\include;$(ProjectDir)..\..\..\org\ortc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp;$(ProjectDir)..\..\..\..\xplatform\ortclib-services-cpp;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\libyuv\include;$(ProjectDir)..\..\..\org\ortc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -270,7 +270,7 @@
       <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>28204;4068;4290</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-cpp;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-services-cpp;$(ProjectDir)..\..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\..\xplatform;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\libyuv\include;$(ProjectDir)..\..\..\org\ortc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp;$(ProjectDir)..\..\..\..\xplatform\ortclib-services-cpp;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\libyuv\include;$(ProjectDir)..\..\..\org\ortc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -286,7 +286,7 @@
       <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>28204;4068;4290</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-cpp;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-services-cpp;$(ProjectDir)..\..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\..\xplatform;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\libyuv\include;$(ProjectDir)..\..\..\org\ortc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp;$(ProjectDir)..\..\..\..\xplatform\ortclib-services-cpp;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\libyuv\include;$(ProjectDir)..\..\..\org\ortc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -302,7 +302,7 @@
       <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>28204;4068;4290</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-cpp;$(ProjectDir)..\..\..\..\..\xplatform\ortclib-services-cpp;$(ProjectDir)..\..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\..\xplatform;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\..\webrtc\xplatform\libyuv\include;$(ProjectDir)..\..\..\org\ortc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp;$(ProjectDir)..\..\..\..\xplatform\ortclib-services-cpp;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\libyuv\include;$(ProjectDir)..\..\..\org\ortc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
