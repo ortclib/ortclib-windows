@@ -123,11 +123,14 @@
     <ProjectReference Include="..\..\..\..\xplatform\zsLib\projects\msvs\zsLib.Universal\zsLib.vcxproj">
       <Project>{55555c53-504f-4237-abc0-b2f59558a0e9}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\webrtc-utility\webrtc-utility.csproj">
+      <Project>{c0be91db-a313-4d82-a2b9-9f562ae69a10}</Project>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{648daeee-b5c3-4fc9-b016-418e1db2bee5}</ProjectGuid>
     <Keyword>WindowsRuntimeComponent</Keyword>
-    <RootNamespace>org_ortc</RootNamespace>
+    <RootNamespace>org.ortc</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
     <AppContainerApplication>true</AppContainerApplication>
@@ -227,6 +230,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\$(Configuration)\$(PlatformTarget)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);webrtc.lib;dxguid.lib;MinCore.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -243,6 +248,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\$(Configuration)\$(PlatformTarget)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);webrtc.lib;dxguid.lib;MinCore.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
@@ -259,6 +266,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\$(Configuration)\$(PlatformTarget)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);webrtc.lib;dxguid.lib;MinCore.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
@@ -275,6 +284,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\$(Configuration)\$(PlatformTarget)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);webrtc.lib;dxguid.lib;MinCore.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -291,6 +302,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\$(Configuration)\$(PlatformTarget)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);webrtc.lib;dxguid.lib;MinCore.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -307,6 +320,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\$(Configuration)\$(PlatformTarget)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);webrtc.lib;dxguid.lib;MinCore.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
