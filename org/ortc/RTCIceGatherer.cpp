@@ -57,7 +57,7 @@ namespace org
             result->Urls->Append(Helper::ToCx(value));
           }
         }
-        result->UserName = Helper::ToCx(input.mUserName);
+        result->Username = Helper::ToCx(input.mUserName);
         result->Credential = Helper::ToCx(input.mCredential);
         result->CredentialType = Helper::Convert(input.mCredentialType);
         return result;
@@ -80,7 +80,7 @@ namespace org
             result->mURLs.push_front(Helper::FromCx(value));
           }
         }
-        result->mUserName = Helper::FromCx(input->UserName);
+        result->mUserName = Helper::FromCx(input->Username);
         result->mCredential = Helper::FromCx(input->Credential);
         result->mCredentialType = Helper::Convert(input->CredentialType);
         return result;

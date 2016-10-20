@@ -242,7 +242,7 @@ namespace org
       /// Gets or sets the username to use with that TURN server, if this
       /// RTCIceServer object represents a TURN Server.
       /// </summary>
-      property Platform::String^                UserName;
+      property Platform::String^                Username;
       /// <summary>
       /// Gets or sets the TURN server credential, if this RTCIceServer object
       /// represents a TURN Server.

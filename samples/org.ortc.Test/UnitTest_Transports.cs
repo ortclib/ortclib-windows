@@ -34,7 +34,7 @@ namespace org.ortc.Test
             RTCIceGatherOptions options = new RTCIceGatherOptions();
             RTCIceServer server = new RTCIceServer();
 
-            server.UserName = "Bojan";
+            server.Username = "Bojan";
             server.Credential = "12345";
             server.Urls = new List<String>();
             server.Urls.Add("stun:stun.vline.com");
