@@ -1,4 +1,5 @@
 [Dd]ebug/
+[Oo]bj/
 *.opensdf
 *.opendb
 *.sdf
