@@ -29,42 +29,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "org.ortc", "org.ortc", "{61
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PeerCC", "PeerCC", "{5AC03EE7-BA0F-4E74-97BD-C8C2294237A6}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ChatterBox", "ChatterBox", "{EDDC2DFC-F315-4FBE-AB28-8A73391A8468}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BackgroundHost", "..\..\samples\ChatterBox\BackgroundHost\BackgroundHost.vcxproj", "{4497E847-8611-4545-BDBE-CE9744C7013C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatterBox.Client.Common", "..\..\samples\ChatterBox\ChatterBox.Client.Common\ChatterBox.Client.Common.csproj", "{9E96F63A-7E37-4F90-B9A2-93DA25E663A1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatterBox.Client.Console", "..\..\samples\ChatterBox\ChatterBox.Client.Console\ChatterBox.Client.Console.csproj", "{6FEB923E-1234-4711-A3C2-B976C3AAC70D}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ChatterBox.Client.Presentation.Shared", "..\..\samples\ChatterBox\ChatterBox.Client.Presentation.Shared\ChatterBox.Client.Presentation.Shared.shproj", "{AC970352-5290-4C78-8368-9A0C230F5688}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatterBox.Client.Universal", "..\..\samples\ChatterBox\ChatterBox.Client.Universal\ChatterBox.Client.Universal.csproj", "{5D50B044-36E9-4DA8-8A0B-033D7E575EEA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatterBox.Client.Universal.Background", "..\..\samples\ChatterBox\ChatterBox.Client.Universal.Background\ChatterBox.Client.Universal.Background.csproj", "{626BEE3A-EB2F-415F-9E30-9AAF6B9C430A}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ChatterBox.Client.Voip", "..\..\samples\ChatterBox\ChatterBox.Client.Voip\ChatterBox.Client.Voip.shproj", "{66496392-9237-4C6D-A9D2-F64F7CB46715}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ChatterBox.Client.WebRTCSwapChainPanel", "..\..\samples\ChatterBox\ChatterBox.Client.WebRTCSwapChainPanel\ChatterBox.Client.WebRTCSwapChainPanel.vcxproj", "{EE989715-F6B1-4BDC-8BFC-BA5CA5567ABB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatterBox.Common.Communication", "..\..\samples\ChatterBox\ChatterBox.Common.Communication\ChatterBox.Common.Communication.csproj", "{5EE2034E-0977-42B0-8F9D-5F65BDACCFF4}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ChatterBox.Common.Communication.Shared", "..\..\samples\ChatterBox\ChatterBox.Common.Communication.Shared\ChatterBox.Common.Communication.Shared.shproj", "{2093A3A2-0046-49EB-9E30-9E29D517606C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatterBox.Server", "..\..\samples\ChatterBox\ChatterBox.Server\ChatterBox.Server.csproj", "{6B237D83-603C-42AF-AABE-9A8013EF1805}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ChatterBoxClient.Universal.BackgroundRenderer", "..\..\samples\ChatterBox\ChatterBoxClient.Universal.BackgroundRenderer\ChatterBoxClient.Universal.BackgroundRenderer.vcxproj", "{974FCAB6-06ED-40D5-954B-11157513F077}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{9469006A-4F57-4E71-BEFB-491A434B2BCA}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Console", "Console", "{9058B069-D025-4963-8144-44D0784FA0EA}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Universal", "Universal", "{3D2F20A3-B8C1-4FC9-9AAD-193DFC9353D1}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{FE2899BB-E76F-4A06-9B6E-FB2B8D6B0C26}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{2BB5AE34-ADE0-4FBB-A0AF-068D85BB7963}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ortc-device-enumerator", "ortc-device-enumerator", "{3B84FF10-991A-43BE-B74D-775F3339CBB1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "utility", "utility", "{36206EE7-4B95-42B7-84BC-A654A3E46A96}"
@@ -108,19 +72,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "org.ortc.Test", "..\samples
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ortc-webrtc-utility", "..\projects\msvc\ortc-webrtc-utility\ortc-webrtc-utility.csproj", "{C0BE91DB-A313-4D82-A2B9-9F562AE69A10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeerConnectionClient.Ortc", "..\..\..\common\windows\samples\PeerCC\projects\PeerConnectionClientORTC\PeerConnectionClient.Ortc.csproj", "{99103751-25B2-420E-9297-17E0259538BC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeerConnectionClient.Ortc", "..\..\..\common\windows\samples\PeerCC\PeerCC.Client\PeerConnectionClient.Ortc.csproj", "{99103751-25B2-420E-9297-17E0259538BC}"
 EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		..\..\samples\ChatterBox\ChatterBox.Common.Communication.Shared\ChatterBox.Common.Communication.Shared.projitems*{2093a3a2-0046-49eb-9e30-9e29d517606c}*SharedItemsImports = 13
-		..\..\samples\ChatterBox\ChatterBox.Client.Presentation.Shared\ChatterBox.Client.Presentation.Shared.projitems*{5d50b044-36e9-4da8-8a0b-033d7e575eea}*SharedItemsImports = 4
-		..\..\samples\ChatterBox\ChatterBox.Common.Communication.Shared\ChatterBox.Common.Communication.Shared.projitems*{5ee2034e-0977-42b0-8f9d-5f65bdaccff4}*SharedItemsImports = 4
-		..\..\samples\ChatterBox\ChatterBox.Client.Voip\ChatterBox.Client.Voip.projitems*{626bee3a-eb2f-415f-9e30-9aaf6b9c430a}*SharedItemsImports = 4
-		..\..\samples\ChatterBox\ChatterBox.Client.Voip\ChatterBox.Client.Voip.projitems*{66496392-9237-4c6d-a9d2-f64f7cb46715}*SharedItemsImports = 13
-		..\..\samples\ChatterBox\ChatterBox.Common.Communication.Shared\ChatterBox.Common.Communication.Shared.projitems*{6b237d83-603c-42af-aabe-9a8013ef1805}*SharedItemsImports = 4
-		..\..\samples\ChatterBox\ChatterBox.Common.Communication.Shared\ChatterBox.Common.Communication.Shared.projitems*{6feb923e-1234-4711-a3c2-b976c3aac70d}*SharedItemsImports = 4
-		..\..\samples\ChatterBox\ChatterBox.Client.Presentation.Shared\ChatterBox.Client.Presentation.Shared.projitems*{ac970352-5290-4c78-8368-9a0c230f5688}*SharedItemsImports = 13
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
 		Debug|x64 = Debug|x64
@@ -130,122 +84,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4497E847-8611-4545-BDBE-CE9744C7013C}.Debug|ARM.ActiveCfg = Debug|ARM
-		{4497E847-8611-4545-BDBE-CE9744C7013C}.Debug|ARM.Build.0 = Debug|ARM
-		{4497E847-8611-4545-BDBE-CE9744C7013C}.Debug|x64.ActiveCfg = Debug|x64
-		{4497E847-8611-4545-BDBE-CE9744C7013C}.Debug|x64.Build.0 = Debug|x64
-		{4497E847-8611-4545-BDBE-CE9744C7013C}.Debug|x64.Deploy.0 = Debug|x64
-		{4497E847-8611-4545-BDBE-CE9744C7013C}.Debug|x86.ActiveCfg = Debug|Win32
-		{4497E847-8611-4545-BDBE-CE9744C7013C}.Debug|x86.Build.0 = Debug|Win32
-		{4497E847-8611-4545-BDBE-CE9744C7013C}.Debug|x86.Deploy.0 = Debug|Win32
-		{4497E847-8611-4545-BDBE-CE9744C7013C}.Release|ARM.ActiveCfg = Release|ARM
-		{4497E847-8611-4545-BDBE-CE9744C7013C}.Release|ARM.Build.0 = Release|ARM
-		{4497E847-8611-4545-BDBE-CE9744C7013C}.Release|x64.ActiveCfg = Release|x64
-		{4497E847-8611-4545-BDBE-CE9744C7013C}.Release|x64.Build.0 = Release|x64
-		{4497E847-8611-4545-BDBE-CE9744C7013C}.Release|x64.Deploy.0 = Release|x64
-		{4497E847-8611-4545-BDBE-CE9744C7013C}.Release|x86.ActiveCfg = Release|Win32
-		{4497E847-8611-4545-BDBE-CE9744C7013C}.Release|x86.Build.0 = Release|Win32
-		{4497E847-8611-4545-BDBE-CE9744C7013C}.Release|x86.Deploy.0 = Release|Win32
-		{9E96F63A-7E37-4F90-B9A2-93DA25E663A1}.Debug|ARM.ActiveCfg = Debug|arm
-		{9E96F63A-7E37-4F90-B9A2-93DA25E663A1}.Debug|ARM.Build.0 = Debug|arm
-		{9E96F63A-7E37-4F90-B9A2-93DA25E663A1}.Debug|x64.ActiveCfg = Debug|x64
-		{9E96F63A-7E37-4F90-B9A2-93DA25E663A1}.Debug|x64.Build.0 = Debug|x64
-		{9E96F63A-7E37-4F90-B9A2-93DA25E663A1}.Debug|x86.ActiveCfg = Debug|x86
-		{9E96F63A-7E37-4F90-B9A2-93DA25E663A1}.Debug|x86.Build.0 = Debug|x86
-		{9E96F63A-7E37-4F90-B9A2-93DA25E663A1}.Release|ARM.ActiveCfg = Release|arm
-		{9E96F63A-7E37-4F90-B9A2-93DA25E663A1}.Release|ARM.Build.0 = Release|arm
-		{9E96F63A-7E37-4F90-B9A2-93DA25E663A1}.Release|x64.ActiveCfg = Release|x64
-		{9E96F63A-7E37-4F90-B9A2-93DA25E663A1}.Release|x64.Build.0 = Release|x64
-		{9E96F63A-7E37-4F90-B9A2-93DA25E663A1}.Release|x86.ActiveCfg = Release|x86
-		{9E96F63A-7E37-4F90-B9A2-93DA25E663A1}.Release|x86.Build.0 = Release|x86
-		{6FEB923E-1234-4711-A3C2-B976C3AAC70D}.Debug|ARM.ActiveCfg = Debug|arm
-		{6FEB923E-1234-4711-A3C2-B976C3AAC70D}.Debug|ARM.Build.0 = Debug|arm
-		{6FEB923E-1234-4711-A3C2-B976C3AAC70D}.Debug|x64.ActiveCfg = Debug|x64
-		{6FEB923E-1234-4711-A3C2-B976C3AAC70D}.Debug|x64.Build.0 = Debug|x64
-		{6FEB923E-1234-4711-A3C2-B976C3AAC70D}.Debug|x86.ActiveCfg = Debug|x86
-		{6FEB923E-1234-4711-A3C2-B976C3AAC70D}.Debug|x86.Build.0 = Debug|x86
-		{6FEB923E-1234-4711-A3C2-B976C3AAC70D}.Release|ARM.ActiveCfg = Release|arm
-		{6FEB923E-1234-4711-A3C2-B976C3AAC70D}.Release|ARM.Build.0 = Release|arm
-		{6FEB923E-1234-4711-A3C2-B976C3AAC70D}.Release|x64.ActiveCfg = Release|x64
-		{6FEB923E-1234-4711-A3C2-B976C3AAC70D}.Release|x64.Build.0 = Release|x64
-		{6FEB923E-1234-4711-A3C2-B976C3AAC70D}.Release|x86.ActiveCfg = Release|x86
-		{6FEB923E-1234-4711-A3C2-B976C3AAC70D}.Release|x86.Build.0 = Release|x86
-		{5D50B044-36E9-4DA8-8A0B-033D7E575EEA}.Debug|ARM.ActiveCfg = Debug|ARM
-		{5D50B044-36E9-4DA8-8A0B-033D7E575EEA}.Debug|ARM.Build.0 = Debug|ARM
-		{5D50B044-36E9-4DA8-8A0B-033D7E575EEA}.Debug|ARM.Deploy.0 = Debug|ARM
-		{5D50B044-36E9-4DA8-8A0B-033D7E575EEA}.Debug|x64.ActiveCfg = Debug|x64
-		{5D50B044-36E9-4DA8-8A0B-033D7E575EEA}.Debug|x64.Build.0 = Debug|x64
-		{5D50B044-36E9-4DA8-8A0B-033D7E575EEA}.Debug|x64.Deploy.0 = Debug|x64
-		{5D50B044-36E9-4DA8-8A0B-033D7E575EEA}.Debug|x86.ActiveCfg = Debug|x86
-		{5D50B044-36E9-4DA8-8A0B-033D7E575EEA}.Debug|x86.Build.0 = Debug|x86
-		{5D50B044-36E9-4DA8-8A0B-033D7E575EEA}.Debug|x86.Deploy.0 = Debug|x86
-		{5D50B044-36E9-4DA8-8A0B-033D7E575EEA}.Release|ARM.ActiveCfg = Release|ARM
-		{5D50B044-36E9-4DA8-8A0B-033D7E575EEA}.Release|ARM.Build.0 = Release|ARM
-		{5D50B044-36E9-4DA8-8A0B-033D7E575EEA}.Release|ARM.Deploy.0 = Release|ARM
-		{5D50B044-36E9-4DA8-8A0B-033D7E575EEA}.Release|x64.ActiveCfg = Release|x64
-		{5D50B044-36E9-4DA8-8A0B-033D7E575EEA}.Release|x64.Build.0 = Release|x64
-		{5D50B044-36E9-4DA8-8A0B-033D7E575EEA}.Release|x64.Deploy.0 = Release|x64
-		{5D50B044-36E9-4DA8-8A0B-033D7E575EEA}.Release|x86.ActiveCfg = Release|x86
-		{5D50B044-36E9-4DA8-8A0B-033D7E575EEA}.Release|x86.Build.0 = Release|x86
-		{5D50B044-36E9-4DA8-8A0B-033D7E575EEA}.Release|x86.Deploy.0 = Release|x86
-		{626BEE3A-EB2F-415F-9E30-9AAF6B9C430A}.Debug|ARM.ActiveCfg = Debug|ARM
-		{626BEE3A-EB2F-415F-9E30-9AAF6B9C430A}.Debug|ARM.Build.0 = Debug|ARM
-		{626BEE3A-EB2F-415F-9E30-9AAF6B9C430A}.Debug|x64.ActiveCfg = Debug|x64
-		{626BEE3A-EB2F-415F-9E30-9AAF6B9C430A}.Debug|x64.Build.0 = Debug|x64
-		{626BEE3A-EB2F-415F-9E30-9AAF6B9C430A}.Debug|x86.ActiveCfg = Debug|x86
-		{626BEE3A-EB2F-415F-9E30-9AAF6B9C430A}.Debug|x86.Build.0 = Debug|x86
-		{626BEE3A-EB2F-415F-9E30-9AAF6B9C430A}.Release|ARM.ActiveCfg = Release|ARM
-		{626BEE3A-EB2F-415F-9E30-9AAF6B9C430A}.Release|ARM.Build.0 = Release|ARM
-		{626BEE3A-EB2F-415F-9E30-9AAF6B9C430A}.Release|x64.ActiveCfg = Release|x64
-		{626BEE3A-EB2F-415F-9E30-9AAF6B9C430A}.Release|x64.Build.0 = Release|x64
-		{626BEE3A-EB2F-415F-9E30-9AAF6B9C430A}.Release|x86.ActiveCfg = Release|x86
-		{626BEE3A-EB2F-415F-9E30-9AAF6B9C430A}.Release|x86.Build.0 = Release|x86
-		{EE989715-F6B1-4BDC-8BFC-BA5CA5567ABB}.Debug|ARM.ActiveCfg = Debug|ARM
-		{EE989715-F6B1-4BDC-8BFC-BA5CA5567ABB}.Debug|ARM.Build.0 = Debug|ARM
-		{EE989715-F6B1-4BDC-8BFC-BA5CA5567ABB}.Debug|x64.ActiveCfg = Debug|x64
-		{EE989715-F6B1-4BDC-8BFC-BA5CA5567ABB}.Debug|x64.Build.0 = Debug|x64
-		{EE989715-F6B1-4BDC-8BFC-BA5CA5567ABB}.Debug|x86.ActiveCfg = Debug|Win32
-		{EE989715-F6B1-4BDC-8BFC-BA5CA5567ABB}.Debug|x86.Build.0 = Debug|Win32
-		{EE989715-F6B1-4BDC-8BFC-BA5CA5567ABB}.Release|ARM.ActiveCfg = Release|ARM
-		{EE989715-F6B1-4BDC-8BFC-BA5CA5567ABB}.Release|ARM.Build.0 = Release|ARM
-		{EE989715-F6B1-4BDC-8BFC-BA5CA5567ABB}.Release|x64.ActiveCfg = Release|x64
-		{EE989715-F6B1-4BDC-8BFC-BA5CA5567ABB}.Release|x64.Build.0 = Release|x64
-		{EE989715-F6B1-4BDC-8BFC-BA5CA5567ABB}.Release|x86.ActiveCfg = Release|Win32
-		{EE989715-F6B1-4BDC-8BFC-BA5CA5567ABB}.Release|x86.Build.0 = Release|Win32
-		{5EE2034E-0977-42B0-8F9D-5F65BDACCFF4}.Debug|ARM.ActiveCfg = Debug|arm
-		{5EE2034E-0977-42B0-8F9D-5F65BDACCFF4}.Debug|ARM.Build.0 = Debug|arm
-		{5EE2034E-0977-42B0-8F9D-5F65BDACCFF4}.Debug|x64.ActiveCfg = Debug|x64
-		{5EE2034E-0977-42B0-8F9D-5F65BDACCFF4}.Debug|x64.Build.0 = Debug|x64
-		{5EE2034E-0977-42B0-8F9D-5F65BDACCFF4}.Debug|x86.ActiveCfg = Debug|x86
-		{5EE2034E-0977-42B0-8F9D-5F65BDACCFF4}.Debug|x86.Build.0 = Debug|x86
-		{5EE2034E-0977-42B0-8F9D-5F65BDACCFF4}.Release|ARM.ActiveCfg = Release|arm
-		{5EE2034E-0977-42B0-8F9D-5F65BDACCFF4}.Release|ARM.Build.0 = Release|arm
-		{5EE2034E-0977-42B0-8F9D-5F65BDACCFF4}.Release|x64.ActiveCfg = Release|x64
-		{5EE2034E-0977-42B0-8F9D-5F65BDACCFF4}.Release|x64.Build.0 = Release|x64
-		{5EE2034E-0977-42B0-8F9D-5F65BDACCFF4}.Release|x86.ActiveCfg = Release|x86
-		{5EE2034E-0977-42B0-8F9D-5F65BDACCFF4}.Release|x86.Build.0 = Release|x86
-		{6B237D83-603C-42AF-AABE-9A8013EF1805}.Debug|ARM.ActiveCfg = Debug|x86
-		{6B237D83-603C-42AF-AABE-9A8013EF1805}.Debug|x64.ActiveCfg = Debug|x64
-		{6B237D83-603C-42AF-AABE-9A8013EF1805}.Debug|x64.Build.0 = Debug|x64
-		{6B237D83-603C-42AF-AABE-9A8013EF1805}.Debug|x86.ActiveCfg = Debug|x86
-		{6B237D83-603C-42AF-AABE-9A8013EF1805}.Debug|x86.Build.0 = Debug|x86
-		{6B237D83-603C-42AF-AABE-9A8013EF1805}.Release|ARM.ActiveCfg = Release|x86
-		{6B237D83-603C-42AF-AABE-9A8013EF1805}.Release|x64.ActiveCfg = Release|x64
-		{6B237D83-603C-42AF-AABE-9A8013EF1805}.Release|x64.Build.0 = Release|x64
-		{6B237D83-603C-42AF-AABE-9A8013EF1805}.Release|x86.ActiveCfg = Release|x86
-		{6B237D83-603C-42AF-AABE-9A8013EF1805}.Release|x86.Build.0 = Release|x86
-		{974FCAB6-06ED-40D5-954B-11157513F077}.Debug|ARM.ActiveCfg = Debug|ARM
-		{974FCAB6-06ED-40D5-954B-11157513F077}.Debug|ARM.Build.0 = Debug|ARM
-		{974FCAB6-06ED-40D5-954B-11157513F077}.Debug|x64.ActiveCfg = Debug|x64
-		{974FCAB6-06ED-40D5-954B-11157513F077}.Debug|x64.Build.0 = Debug|x64
-		{974FCAB6-06ED-40D5-954B-11157513F077}.Debug|x86.ActiveCfg = Debug|Win32
-		{974FCAB6-06ED-40D5-954B-11157513F077}.Debug|x86.Build.0 = Debug|Win32
-		{974FCAB6-06ED-40D5-954B-11157513F077}.Release|ARM.ActiveCfg = Release|ARM
-		{974FCAB6-06ED-40D5-954B-11157513F077}.Release|ARM.Build.0 = Release|ARM
-		{974FCAB6-06ED-40D5-954B-11157513F077}.Release|x64.ActiveCfg = Release|x64
-		{974FCAB6-06ED-40D5-954B-11157513F077}.Release|x64.Build.0 = Release|x64
-		{974FCAB6-06ED-40D5-954B-11157513F077}.Release|x86.ActiveCfg = Release|Win32
-		{974FCAB6-06ED-40D5-954B-11157513F077}.Release|x86.Build.0 = Release|Win32
 		{CC14FFE5-0018-4D8D-BC2C-C93477CE081C}.Debug|ARM.ActiveCfg = Debug|ARM
 		{CC14FFE5-0018-4D8D-BC2C-C93477CE081C}.Debug|ARM.Build.0 = Debug|ARM
 		{CC14FFE5-0018-4D8D-BC2C-C93477CE081C}.Debug|x64.ActiveCfg = Debug|x64
@@ -460,24 +298,6 @@ Global
 		{E98794F9-0E77-4F00-B22D-933680F10A5F} = {44243A6D-994D-4F4D-8CB9-B6B3F96082A5}
 		{61920230-15AC-49CE-92FB-49C19476261B} = {0732A704-D869-4D52-9814-E36F8F2F8086}
 		{5AC03EE7-BA0F-4E74-97BD-C8C2294237A6} = {9E10CFE8-14EF-4F71-94F6-0D07EEF82F64}
-		{EDDC2DFC-F315-4FBE-AB28-8A73391A8468} = {9E10CFE8-14EF-4F71-94F6-0D07EEF82F64}
-		{4497E847-8611-4545-BDBE-CE9744C7013C} = {3D2F20A3-B8C1-4FC9-9AAD-193DFC9353D1}
-		{9E96F63A-7E37-4F90-B9A2-93DA25E663A1} = {9469006A-4F57-4E71-BEFB-491A434B2BCA}
-		{6FEB923E-1234-4711-A3C2-B976C3AAC70D} = {9058B069-D025-4963-8144-44D0784FA0EA}
-		{AC970352-5290-4C78-8368-9A0C230F5688} = {9469006A-4F57-4E71-BEFB-491A434B2BCA}
-		{5D50B044-36E9-4DA8-8A0B-033D7E575EEA} = {3D2F20A3-B8C1-4FC9-9AAD-193DFC9353D1}
-		{626BEE3A-EB2F-415F-9E30-9AAF6B9C430A} = {3D2F20A3-B8C1-4FC9-9AAD-193DFC9353D1}
-		{66496392-9237-4C6D-A9D2-F64F7CB46715} = {9469006A-4F57-4E71-BEFB-491A434B2BCA}
-		{EE989715-F6B1-4BDC-8BFC-BA5CA5567ABB} = {9469006A-4F57-4E71-BEFB-491A434B2BCA}
-		{5EE2034E-0977-42B0-8F9D-5F65BDACCFF4} = {FE2899BB-E76F-4A06-9B6E-FB2B8D6B0C26}
-		{2093A3A2-0046-49EB-9E30-9E29D517606C} = {FE2899BB-E76F-4A06-9B6E-FB2B8D6B0C26}
-		{6B237D83-603C-42AF-AABE-9A8013EF1805} = {2BB5AE34-ADE0-4FBB-A0AF-068D85BB7963}
-		{974FCAB6-06ED-40D5-954B-11157513F077} = {3D2F20A3-B8C1-4FC9-9AAD-193DFC9353D1}
-		{9469006A-4F57-4E71-BEFB-491A434B2BCA} = {EDDC2DFC-F315-4FBE-AB28-8A73391A8468}
-		{9058B069-D025-4963-8144-44D0784FA0EA} = {9469006A-4F57-4E71-BEFB-491A434B2BCA}
-		{3D2F20A3-B8C1-4FC9-9AAD-193DFC9353D1} = {9469006A-4F57-4E71-BEFB-491A434B2BCA}
-		{FE2899BB-E76F-4A06-9B6E-FB2B8D6B0C26} = {EDDC2DFC-F315-4FBE-AB28-8A73391A8468}
-		{2BB5AE34-ADE0-4FBB-A0AF-068D85BB7963} = {EDDC2DFC-F315-4FBE-AB28-8A73391A8468}
 		{3B84FF10-991A-43BE-B74D-775F3339CBB1} = {9E10CFE8-14EF-4F71-94F6-0D07EEF82F64}
 		{CC14FFE5-0018-4D8D-BC2C-C93477CE081C} = {A1B9C462-0078-4428-8537-DE7551D3EA6A}
 		{55555C53-504F-4237-ABC0-B2F59558A0E9} = {0C48D872-DC87-4821-89D5-FF0F3ADD0B2D}
