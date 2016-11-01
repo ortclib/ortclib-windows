@@ -72,7 +72,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "org.ortc.Test", "..\samples
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ortc-webrtc-utility", "..\projects\msvc\ortc-webrtc-utility\ortc-webrtc-utility.csproj", "{C0BE91DB-A313-4D82-A2B9-9F562AE69A10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeerConnectionClient.Ortc", "..\..\..\common\windows\samples\PeerCC\PeerCC.Client\PeerConnectionClient.Ortc.csproj", "{99103751-25B2-420E-9297-17E0259538BC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeerConnectionClient.Ortc", "..\..\..\common\windows\samples\PeerCC\Client\PeerConnectionClient.Ortc.csproj", "{99103751-25B2-420E-9297-17E0259538BC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{DBA338D9-480F-47E4-B94A-B52EE196AF41}"
 EndProject
