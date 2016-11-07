@@ -123,9 +123,6 @@
     <ProjectReference Include="..\..\..\..\xplatform\zsLib\projects\msvs\zsLib.Universal\zsLib.vcxproj">
       <Project>{55555c53-504f-4237-abc0-b2f59558a0e9}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\ortc-webrtc-utility\ortc-webrtc-utility.csproj">
-      <Project>{c0be91db-a313-4d82-a2b9-9f562ae69a10}</Project>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{648daeee-b5c3-4fc9-b016-418e1db2bee5}</ProjectGuid>
