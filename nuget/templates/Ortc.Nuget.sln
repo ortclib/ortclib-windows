@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ortclib.services", "ortclib
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ortclib", "ortclib", "{44243A6D-994D-4F4D-8CB9-B6B3F96082A5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "api", "api", "{0732A704-D869-4D52-9814-E36F8F2F8086}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{0732A704-D869-4D52-9814-E36F8F2F8086}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cryptopp", "..\..\xplatform\cryptopp\projects\msvs\cryptopp.Universal\cryptopp.vcxproj", "{CC14FFE5-0018-4D8D-BC2C-C93477CE081C}"
 EndProject
@@ -29,7 +29,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclib.services", "..\..\x
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclib", "..\..\xplatform\ortclib-cpp\projects\msvs\ortclib.Universal\ortclib.vcxproj", "{83E6CC72-EBC5-4C0C-B6A6-2D67A3C1E8A9}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "org.ortc", "..\projects\msvc\org.ortc.Universal\org.ortc.vcxproj", "{648DAEEE-B5C3-4FC9-B016-418E1DB2BEE5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "org.Ortc", "..\projects\msvc\org.ortc.Universal\org.ortc.vcxproj", "{648DAEEE-B5C3-4FC9-B016-418E1DB2BEE5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
