@@ -29,7 +29,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclib.services", "..\..\x
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclib", "..\..\xplatform\ortclib-cpp\projects\msvs\ortclib.Universal\ortclib.vcxproj", "{83E6CC72-EBC5-4C0C-B6A6-2D67A3C1E8A9}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "org.Ortc", "..\projects\msvc\org.ortc.Universal\org.ortc.vcxproj", "{648DAEEE-B5C3-4FC9-B016-418E1DB2BEE5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "org.ortc", "..\projects\msvc\org.ortc.Universal\org.ortc.vcxproj", "{648DAEEE-B5C3-4FC9-B016-418E1DB2BEE5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "org.Ortc", "org.Ortc", "{BF1F474E-035B-4F6B-9ADB-12A0C8CB2D20}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -152,5 +154,7 @@ Global
 		{B236BF5A-561D-4720-BABF-F6119ADF5793} = {C5BB26FB-9AFF-493F-B443-0C8F8F2134BF}
 		{CC03FBA3-9028-47AD-B931-13B12DB368F8} = {0DE58935-2033-4854-9735-809D2C1AEC1F}
 		{83E6CC72-EBC5-4C0C-B6A6-2D67A3C1E8A9} = {44243A6D-994D-4F4D-8CB9-B6B3F96082A5}
+		{648DAEEE-B5C3-4FC9-B016-418E1DB2BEE5} = {BF1F474E-035B-4F6B-9ADB-12A0C8CB2D20}
+		{BF1F474E-035B-4F6B-9ADB-12A0C8CB2D20} = {0732A704-D869-4D52-9814-E36F8F2F8086}
 	EndGlobalSection
 EndGlobal
