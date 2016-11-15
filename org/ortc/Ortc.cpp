@@ -6,9 +6,9 @@
 #include <ortc/IORTC.h>
 #include <zsLib/SafeInt.h>
 
-using namespace ortc;
+#include "webrtc/common_video/video_common_winrt.h"
 
-Windows::UI::Core::CoreDispatcher^ g_windowDispatcher;
+using namespace ortc;
 
 namespace org
 {
@@ -62,7 +62,9 @@ namespace org
     {
 #define TODO_THIS_FEELS_WRONG_USING_GLOBAL 1
 #define TODO_THIS_FEELS_WRONG_USING_GLOBAL 2
-      g_windowDispatcher = _dispatcher = dispatcher;
+      //g_windowDispatcher = _dispatcher = dispatcher;
+	  _dispatcher = dispatcher;
+	  webrtc::VideoCommonWinRT::SetCoreDispatcher(dispatcher);
       zsLib::setup(dispatcher);
       IORTC::setup(IMessageQueuePtr());
     }
