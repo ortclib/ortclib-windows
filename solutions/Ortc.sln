@@ -43,7 +43,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "udns", "..\..\xplatform\udn
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "idnkit", "..\..\xplatform\idnkit\projects\msvc\idnkit.Universal\idnkit.vcxproj", "{B236BF5A-561D-4720-BABF-F6119ADF5793}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "org.ortc", "..\projects\msvc\org.ortc.Universal\org.ortc.vcxproj", "{648DAEEE-B5C3-4FC9-B016-418E1DB2BEE5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Org.Ortc", "..\projects\msvc\Org.Ortc.Universal\Org.Ortc.vcxproj", "{648DAEEE-B5C3-4FC9-B016-418E1DB2BEE5}"
 	ProjectSection(ProjectDependencies) = postProject
 		{83E6CC72-EBC5-4C0C-B6A6-2D67A3C1E8A9} = {83E6CC72-EBC5-4C0C-B6A6-2D67A3C1E8A9}
 		{CC03FBA3-9028-47AD-B931-13B12DB368F8} = {CC03FBA3-9028-47AD-B931-13B12DB368F8}
@@ -65,7 +65,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ortc-device-enumerator.Wind
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{9B48DE0B-F2B3-410F-9E68-C3B9A3288CFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "org.ortc.Test", "..\samples\org.ortc.Test\org.ortc.Test.csproj", "{DE0AE033-8C44-495D-B5EB-5CACF6B33DED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Org.Ortc.Test", "..\samples\Org.Ortc.Test\Org.Ortc.Test.csproj", "{DE0AE033-8C44-495D-B5EB-5CACF6B33DED}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeerConnectionClient.Ortc", "..\..\..\common\windows\samples\PeerCC\Client\PeerConnectionClient.Ortc.csproj", "{99103751-25B2-420E-9297-17E0259538BC}"
 EndProject

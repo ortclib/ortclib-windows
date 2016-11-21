@@ -6,9 +6,9 @@
     <ORTC-Platform Condition="'$(Platform)' != 'Win32'">$(Platform)</ORTC-Platform>
   </PropertyGroup>
   <ItemGroup Condition="'$(TargetPlatformIdentifier)' == 'UAP'">
-      <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\uap10.0\org.ortc.winmd">
+      <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\uap10.0\Org.Ortc.winmd">
         <Implementation>ORTC</Implementation>
       </Reference>
-      <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-$(ORTC-Platform)\native\org.ortc.dll" />
+      <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-$(ORTC-Platform)\native\Org.Ortc.dll" />
   </ItemGroup>
 </Project>

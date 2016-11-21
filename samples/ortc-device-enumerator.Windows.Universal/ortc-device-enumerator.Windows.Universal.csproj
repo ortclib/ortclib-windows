@@ -142,9 +142,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\projects\msvc\org.ortc.Universal\org.ortc.vcxproj">
+    <ProjectReference Include="..\..\projects\msvc\Org.Ortc.Universal\Org.Ortc.vcxproj">
       <Project>{648daeee-b5c3-4fc9-b016-418e1db2bee5}</Project>
-      <Name>org.ortc</Name>
+      <Name>Org.Ortc</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

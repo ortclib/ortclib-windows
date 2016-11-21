@@ -15,7 +15,7 @@ projects/packages
 Build/
 nuget/package
 nuget/Output
-nuget/org.ortc.version
+nuget/Org.Ortc.version
 NugetOutput/
 test/
 *.db

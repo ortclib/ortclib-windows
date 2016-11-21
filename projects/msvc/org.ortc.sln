@@ -15,7 +15,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclib.services", "..\..\.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclib", "..\..\..\xplatform\ortclib-cpp\projects\msvs\ortclib.Universal\ortclib.vcxproj", "{83E6CC72-EBC5-4C0C-B6A6-2D67A3C1E8A9}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "org.ortc", "org.ortc.Universal\org.ortc.vcxproj", "{648DAEEE-B5C3-4FC9-B016-418E1DB2BEE5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Org.Ortc", "Org.Ortc.Universal\Org.Ortc.vcxproj", "{648DAEEE-B5C3-4FC9-B016-418E1DB2BEE5}"
 	ProjectSection(ProjectDependencies) = postProject
 		{55555C53-504F-4237-ABC0-B2F59558A0E9} = {55555C53-504F-4237-ABC0-B2F59558A0E9}
 		{B236BF5A-561D-4720-BABF-F6119ADF5793} = {B236BF5A-561D-4720-BABF-F6119ADF5793}
@@ -25,7 +25,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "org.ortc", "org.ortc.Univer
 		{CC14FFE5-0018-4D8D-BC2C-C93477CE081C} = {CC14FFE5-0018-4D8D-BC2C-C93477CE081C}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "org.ortc.Test", "..\..\samples\org.ortc.Test\org.ortc.Test.csproj", "{DE0AE033-8C44-495D-B5EB-5CACF6B33DED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Org.Ortc.Test", "..\..\samples\Org.Ortc.Test\Org.Ortc.Test.csproj", "{DE0AE033-8C44-495D-B5EB-5CACF6B33DED}"
 	ProjectSection(ProjectDependencies) = postProject
 		{648DAEEE-B5C3-4FC9-B016-418E1DB2BEE5} = {648DAEEE-B5C3-4FC9-B016-418E1DB2BEE5}
 	EndProjectSection
