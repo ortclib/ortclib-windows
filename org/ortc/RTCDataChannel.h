@@ -4,9 +4,9 @@
 
 #include <collection.h>
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IDataChannelTypes, IDataChannelTypes)
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IDataChannelDelegate, IDataChannelDelegate)
@@ -22,7 +22,7 @@ namespace org
 
     enum class RTCDataChannelState;
 
-    namespace internal
+    namespace Internal
     {
       ZS_DECLARE_CLASS_PTR(RTCDataChannelDelegate)
       ZS_DECLARE_CLASS_PTR(RTCSctpTransportDelegate)
@@ -32,11 +32,11 @@ namespace org
       IDataChannelTypes::ParametersPtr FromCx(RTCDataChannelParameters^ input);
     }
 
-    namespace adapter
+    namespace Adapter
     {
       ref class RTCPeerConnection;
 
-      namespace internal
+      namespace Internal
       {
         ZS_DECLARE_CLASS_PTR(RTCPeerConnectionDelegate);
         ZS_DECLARE_CLASS_PTR(RTCPeerConnectionPromiseWitDataChannelObserver);
@@ -144,7 +144,7 @@ namespace org
     /// </summary>
     public ref struct RTCMessageEventData sealed
     {
-      friend class internal::RTCDataChannelDelegate;
+      friend class Internal::RTCDataChannelDelegate;
 
       /// <summary>
       /// Gets the binary message being sent. Only set if the data was binary.
@@ -172,7 +172,7 @@ namespace org
     /// </summary>
     public ref struct RTCDataChannelStateChangeEvent sealed
     {
-      friend class internal::RTCDataChannelDelegate;
+      friend class Internal::RTCDataChannelDelegate;
 
       /// <summary>
       /// The RTCDataChannelState that cased the event to fire.
@@ -192,7 +192,7 @@ namespace org
     /// </summary>
     public ref struct RTCMessageEvent sealed
     {
-      friend class internal::RTCDataChannelDelegate;
+      friend class Internal::RTCDataChannelDelegate;
 
       /// <summary>
       /// Gets the binary message being sent.
@@ -218,12 +218,12 @@ namespace org
     /// </summary>
     public ref class RTCDataChannel sealed
     {
-      friend class internal::RTCDataChannelDelegate;
-      friend class internal::RTCSctpTransportDelegate;
-      friend ref class adapter::RTCPeerConnection;
+      friend class Internal::RTCDataChannelDelegate;
+      friend class Internal::RTCSctpTransportDelegate;
+      friend ref class Adapter::RTCPeerConnection;
       friend ref class RTCStatsProvider;
-      friend class adapter::internal::RTCPeerConnectionDelegate;
-      friend class adapter::internal::RTCPeerConnectionPromiseWitDataChannelObserver;
+      friend class Adapter::Internal::RTCPeerConnectionDelegate;
+      friend class Adapter::Internal::RTCPeerConnectionPromiseWitDataChannelObserver;
 
     private:
       RTCDataChannel(IDataChannelPtr nativePointer);
@@ -333,7 +333,7 @@ namespace org
 
     private:
       IDataChannelPtr _nativePointer;
-      internal::RTCDataChannelDelegatePtr _nativeDelegatePointer;
+      Internal::RTCDataChannelDelegatePtr _nativeDelegatePointer;
       IDataChannelSubscriptionPtr _nativeSubscriptionPointer;
     };
   }

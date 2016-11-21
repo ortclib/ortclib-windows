@@ -14,13 +14,13 @@
 
 using namespace ortc;
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
-    ZS_DECLARE_TYPEDEF_PTR(internal::Helper, UseHelper)
+    ZS_DECLARE_TYPEDEF_PTR(Internal::Helper, UseHelper)
 
-    namespace internal
+    namespace Internal
     {
 
 #pragma region RTCRtpSender delegates 
@@ -77,7 +77,7 @@ namespace org
 #pragma region RTCRtpSender 
 
     RTCRtpSender::RTCRtpSender(IRTPSenderPtr nativeSender) :
-      _nativeDelegatePointer(make_shared<internal::RTCRtpSenderDelegate>(this)),
+      _nativeDelegatePointer(make_shared<Internal::RTCRtpSenderDelegate>(this)),
       _nativePointer(nativeSender)
     {
       if (_nativePointer)
@@ -87,7 +87,7 @@ namespace org
     }
 
     RTCRtpSender::RTCRtpSender(MediaStreamTrack^ track, RTCDtlsTransport^ transport) :
-      _nativeDelegatePointer(make_shared<internal::RTCRtpSenderDelegate>(this))
+      _nativeDelegatePointer(make_shared<Internal::RTCRtpSenderDelegate>(this))
     {
       auto nativeTrack = MediaStreamTrack::Convert(track);
       auto nativeTransport = RTCDtlsTransport::Convert(transport);
@@ -107,7 +107,7 @@ namespace org
     }
 
     RTCRtpSender::RTCRtpSender(MediaStreamTrack^ track, RTCSrtpSdesTransport^ transport) :
-      _nativeDelegatePointer(make_shared<internal::RTCRtpSenderDelegate>(this))
+      _nativeDelegatePointer(make_shared<Internal::RTCRtpSenderDelegate>(this))
     {
       auto nativeTrack = MediaStreamTrack::Convert(track);
       auto nativeTransport = RTCSrtpSdesTransport::Convert(transport);
@@ -127,7 +127,7 @@ namespace org
     }
 
     RTCRtpSender::RTCRtpSender(MediaStreamTrack^ track, RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport) :
-      _nativeDelegatePointer(make_shared<internal::RTCRtpSenderDelegate>(this))
+      _nativeDelegatePointer(make_shared<Internal::RTCRtpSenderDelegate>(this))
     {
       auto nativeTrack = MediaStreamTrack::Convert(track);
       auto nativeTransport = RTCDtlsTransport::Convert(transport);
@@ -148,7 +148,7 @@ namespace org
     }
 
     RTCRtpSender::RTCRtpSender(MediaStreamTrack^ track, RTCSrtpSdesTransport^ transport, RTCIceTransport^ rtcpTransport) :
-      _nativeDelegatePointer(make_shared<internal::RTCRtpSenderDelegate>(this))
+      _nativeDelegatePointer(make_shared<Internal::RTCRtpSenderDelegate>(this))
     {
       auto nativeTrack = MediaStreamTrack::Convert(track);
       auto nativeTransport = RTCSrtpSdesTransport::Convert(transport);
@@ -263,7 +263,7 @@ namespace org
       {
         Concurrency::task_completion_event<void> tce;
 
-        auto observer = make_shared<internal::RTCRtpSenderPromiseObserver>(tce);
+        auto observer = make_shared<Internal::RTCRtpSenderPromiseObserver>(tce);
 
         promise->then(observer);
         promise->background();
@@ -282,9 +282,9 @@ namespace org
       String kindStr = UseHelper::FromCx(kind);
 
       if (0 == kindStr.compareNoCase(UseHelper::FromCx(MediaStreamTrackKind::Audio.ToString())))
-        return internal::ToCx(IRTPSender::getCapabilities(IMediaStreamTrackTypes::Kinds::Kind_Audio));
+        return Internal::ToCx(IRTPSender::getCapabilities(IMediaStreamTrackTypes::Kinds::Kind_Audio));
       if (0 == kindStr.compareNoCase(UseHelper::FromCx(MediaStreamTrackKind::Video.ToString())))
-        return internal::ToCx(IRTPSender::getCapabilities(IMediaStreamTrackTypes::Kinds::Kind_Video));
+        return Internal::ToCx(IRTPSender::getCapabilities(IMediaStreamTrackTypes::Kinds::Kind_Video));
 
       ORG_ORTC_THROW_INVALID_PARAMETERS()
     }
@@ -298,7 +298,7 @@ namespace org
 
       try
       {
-        promise = _nativePointer->send(*internal::FromCx(parameters));
+        promise = _nativePointer->send(*Internal::FromCx(parameters));
       }
       catch (const InvalidParameters &)
       {
@@ -313,7 +313,7 @@ namespace org
       {
         Concurrency::task_completion_event<void> tce;
 
-        auto observer = make_shared<internal::RTCRtpSenderPromiseObserver>(tce);
+        auto observer = make_shared<Internal::RTCRtpSenderPromiseObserver>(tce);
 
         promise->then(observer);
         promise->background();

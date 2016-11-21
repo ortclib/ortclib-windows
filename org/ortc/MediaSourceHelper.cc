@@ -15,9 +15,9 @@
 
 #include <MFapi.h>
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
 
     // Helper functions defined below.

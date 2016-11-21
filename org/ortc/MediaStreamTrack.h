@@ -4,9 +4,9 @@
 
 #include <zsLib/types.h>
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     using Windows::Media::Core::IMediaSource;
     using Windows::Foundation::IAsyncAction;
@@ -47,7 +47,7 @@ namespace org
 
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IMediaStreamTrackSubscription, IMediaStreamTrackSubscription)
 
-    namespace internal
+    namespace Internal
     {
       ZS_DECLARE_CLASS_PTR(MediaStreamTrackDelegate)
       ZS_DECLARE_CLASS_PTR(MediaStreamTrackPromiseObserver)
@@ -73,12 +73,12 @@ namespace org
       IMediaStreamTrackTypes::SettingsPtr FromCx(MediaTrackSettings^ input);
     }
 
-    namespace adapter
+    namespace Adapter
     {
       ref class MediaStream;
       ref class RTCPeerConnection;
 
-      namespace internal
+      namespace Internal
       {
         ZS_DECLARE_CLASS_PTR(RTCPeerConnectionDelegate);
         ZS_DECLARE_CLASS_PTR(MediaStreamDelegate)
@@ -378,9 +378,9 @@ namespace org
     public ref struct OverconstrainedError sealed
     {
     private:
-      friend class internal::MediaStreamTrackDelegate;
-      friend class internal::MediaDevicesPromiseObserver;
-      friend class internal::MediaStreamTrackConstraintsPromiseObserver;
+      friend class Internal::MediaStreamTrackDelegate;
+      friend class Internal::MediaDevicesPromiseObserver;
+      friend class Internal::MediaStreamTrackConstraintsPromiseObserver;
 
       static OverconstrainedError^ CreateIfOverconstrainedError(AnyPtr any);
 
@@ -416,7 +416,7 @@ namespace org
     public ref struct OverconstrainedErrorEvent sealed
     {
     private:
-      friend class internal::MediaStreamTrackDelegate;
+      friend class Internal::MediaStreamTrackDelegate;
 
       OverconstrainedErrorEvent(OverconstrainedError^ error)
       {
@@ -453,13 +453,13 @@ namespace org
     public ref class MediaStreamTrack sealed
     {
     private:
-      friend class internal::MediaStreamTrackDelegate;
-      friend class internal::MediaStreamTrackPromiseObserver;
-      friend class adapter::internal::RTCPeerConnectionDelegate;
-      friend class adapter::internal::MediaStreamDelegate;
+      friend class Internal::MediaStreamTrackDelegate;
+      friend class Internal::MediaStreamTrackPromiseObserver;
+      friend class Adapter::Internal::RTCPeerConnectionDelegate;
+      friend class Adapter::Internal::MediaStreamDelegate;
       friend class WebRtcMediaStream;
-      friend ref class adapter::MediaStream;
-      friend ref class adapter::RTCPeerConnection;
+      friend ref class Adapter::MediaStream;
+      friend ref class Adapter::RTCPeerConnection;
       friend ref class RTMediaStreamSource;
       friend ref class RTCRtpReceiver;
       friend ref class RTCRtpSender;
@@ -649,7 +649,7 @@ namespace org
 
     private:
       IMediaStreamTrackPtr _nativePointer;
-      internal::MediaStreamTrackDelegatePtr _nativeDelegatePointer;
+      Internal::MediaStreamTrackDelegatePtr _nativeDelegatePointer;
       IMediaStreamTrackSubscriptionPtr _nativeDelegateSubscription;
     };
 

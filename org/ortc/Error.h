@@ -12,14 +12,14 @@
 #define ORG_ORTC_THROW_INVALID_STATE(xStr) {throw ref new Platform::COMException(E_ILLEGAL_METHOD_CALL, xStr);}
 #define ORG_ORTC_THROW_UNEXPECTED_IF(xExpression) if (xExpression) {throw ref new Platform::COMException(E_UNEXPECTED, #xExpression);}
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     ZS_DECLARE_TYPEDEF_PTR(zsLib::Any, Any)
     ZS_DECLARE_TYPEDEF_PTR(::ortc::ErrorAny, ErrorAny)
 
-    namespace internal
+    namespace Internal
     {
       ZS_DECLARE_CLASS_PTR(MediaStreamTrackDelegate);
       ZS_DECLARE_CLASS_PTR(RTCDtlsTransportDelegate);
@@ -33,9 +33,9 @@ namespace org
       ZS_DECLARE_CLASS_PTR(RTCStateProviderObserver);
     } // namespace internal
 
-    namespace adapter
+    namespace Adapter
     {
-      namespace internal
+      namespace Internal
       {
         ZS_DECLARE_CLASS_PTR(RTCPeerConnectionPromiseWithDescriptionObserver);
         ZS_DECLARE_CLASS_PTR(RTCPeerConnectionPromiseWithSenderObserver);
@@ -50,19 +50,19 @@ namespace org
     public ref struct Error sealed
     {
     private:
-      friend class internal::RTCDtlsTransportDelegate;
-      friend class internal::MediaDevicesPromiseObserver;
-      friend class internal::RTCDataChannelDelegate;
-      friend class internal::RTCSrtpSdesTransportDelegate;
-      friend class internal::MediaStreamTrackConstraintsPromiseObserver;
-      friend class internal::RTCGenerateCertificatePromiseObserver;
-      friend class internal::RTCRtpSenderPromiseObserver;
-      friend class internal::RTCRtpReceiverPromiseObserver;
-      friend class internal::RTCStateProviderObserver;
-      friend class adapter::internal::RTCPeerConnectionPromiseWithDescriptionObserver;
-      friend class adapter::internal::RTCPeerConnectionPromiseWithSenderObserver;
-      friend class adapter::internal::RTCPeerConnectionPromiseWitDataChannelObserver;
-      friend class adapter::internal::RTCPeerConnectionPromiseObserver;
+      friend class Internal::RTCDtlsTransportDelegate;
+      friend class Internal::MediaDevicesPromiseObserver;
+      friend class Internal::RTCDataChannelDelegate;
+      friend class Internal::RTCSrtpSdesTransportDelegate;
+      friend class Internal::MediaStreamTrackConstraintsPromiseObserver;
+      friend class Internal::RTCGenerateCertificatePromiseObserver;
+      friend class Internal::RTCRtpSenderPromiseObserver;
+      friend class Internal::RTCRtpReceiverPromiseObserver;
+      friend class Internal::RTCStateProviderObserver;
+      friend class Adapter::Internal::RTCPeerConnectionPromiseWithDescriptionObserver;
+      friend class Adapter::Internal::RTCPeerConnectionPromiseWithSenderObserver;
+      friend class Adapter::Internal::RTCPeerConnectionPromiseWitDataChannelObserver;
+      friend class Adapter::Internal::RTCPeerConnectionPromiseObserver;
 
       static Error^ CreateIfGeneric(AnyPtr any);
       static Error^ CreateIfGeneric(ErrorAnyPtr error);
@@ -89,10 +89,10 @@ namespace org
     public ref struct ErrorEvent sealed
     {
     private:
-      friend class internal::MediaStreamTrackDelegate;
-      friend class internal::RTCDtlsTransportDelegate;
-      friend class internal::RTCDataChannelDelegate;
-      friend class internal::RTCSrtpSdesTransportDelegate;
+      friend class Internal::MediaStreamTrackDelegate;
+      friend class Internal::RTCDtlsTransportDelegate;
+      friend class Internal::RTCDataChannelDelegate;
+      friend class Internal::RTCSrtpSdesTransportDelegate;
 
       ErrorEvent(ref struct Error ^error)
       {

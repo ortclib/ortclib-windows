@@ -17,9 +17,9 @@
 
 #include <ortc/IMediaStreamTrack.h>
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     using Microsoft::WRL::ComPtr;
 

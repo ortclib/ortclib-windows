@@ -39,9 +39,9 @@ namespace webrtc
   }
 }
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
 #define MAX_FRAME_DELAY_MS 30
 #define RETURN_ON_FAIL(code) { HRESULT hr = code; if (FAILED(hr)) {OutputDebugString(L"[Failed]"); return hr;} }

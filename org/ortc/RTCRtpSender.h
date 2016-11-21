@@ -4,9 +4,9 @@
 
 #include <ppltasks.h>
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     using Windows::Foundation::IAsyncAction;
 
@@ -27,17 +27,17 @@ namespace org
     ref struct RTCRtpCapabilities;
     ref struct RTCRtpParameters;
 
-    namespace internal
+    namespace Internal
     {
       ZS_DECLARE_CLASS_PTR(RTCRtpSenderDelegate)
       ZS_DECLARE_CLASS_PTR(RTCRtpSenderPromiseObserver)
     } // namespace internal
 
-    namespace adapter
+    namespace Adapter
     {
       ref class RTCPeerConnection;
 
-      namespace internal
+      namespace Internal
       {
         ZS_DECLARE_CLASS_PTR(RTCPeerConnectionPromiseWithSenderObserver);
       }
@@ -50,7 +50,7 @@ namespace org
     /// </summary>
     public ref struct RTCSsrcConflictEvent sealed
     {
-      friend class internal::RTCRtpSenderDelegate;
+      friend class Internal::RTCRtpSenderDelegate;
 
       /// <summary>
       /// Gets the ssrc attribute represents the conflicting SSRC that caused
@@ -72,10 +72,10 @@ namespace org
     /// </summary>
     public ref class RTCRtpSender sealed
     {
-      friend class internal::RTCRtpSenderDelegate;
-      friend class adapter::internal::RTCPeerConnectionPromiseWithSenderObserver;
+      friend class Internal::RTCRtpSenderDelegate;
+      friend class Adapter::Internal::RTCPeerConnectionPromiseWithSenderObserver;
       friend ref class RTCDtmfSender;
-      friend ref class adapter::RTCPeerConnection;
+      friend ref class Adapter::RTCPeerConnection;
       friend ref class RTCStatsProvider;
 
     private:
@@ -246,7 +246,7 @@ namespace org
 
     private:
       IRTPSenderPtr _nativePointer;
-      internal::RTCRtpSenderDelegatePtr _nativeDelegatePointer;
+      Internal::RTCRtpSenderDelegatePtr _nativeDelegatePointer;
       IRTPSenderSubscriptionPtr _nativeSubscriptionPointer;
     };
 

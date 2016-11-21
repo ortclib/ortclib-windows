@@ -1,9 +1,9 @@
 
 #pragma once
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     using Windows::UI::Core::CoreDispatcher;
 

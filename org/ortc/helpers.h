@@ -17,9 +17,9 @@
 #include <zsLib/XML.h>
 #include <zsLib/types.h>
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     enum class MediaDeviceKind;
     enum class MediaStreamTrackState;
@@ -50,7 +50,7 @@ namespace org
     ref class RTCIceTransport;
     ref class RTCSctpTransport;
 
-    namespace adapter
+    namespace Adapter
     {
       enum class RTCSessionDescriptionMediaType;
       enum class RTCSessionDescriptionSignalingType;
@@ -64,7 +64,7 @@ namespace org
       enum class RTCSignalingState;
     }
 
-    namespace internal
+    namespace Internal
     {
       using zsLib::Optional;
 
@@ -202,36 +202,36 @@ namespace org
         static IStatsReportTypes::StatsICECandidatePairStates Convert(RTCStatsIceCandidatePairState state);
 
         // SessionDescription convertors
-        static ISessionDescriptionTypes::SignalingTypes Convert(adapter::RTCSessionDescriptionSignalingType type);
-        static adapter::RTCSessionDescriptionSignalingType Convert(ISessionDescriptionTypes::SignalingTypes type);
+        static ISessionDescriptionTypes::SignalingTypes Convert(Adapter::RTCSessionDescriptionSignalingType type);
+        static Adapter::RTCSessionDescriptionSignalingType Convert(ISessionDescriptionTypes::SignalingTypes type);
 
-        static ISessionDescriptionTypes::MediaTypes Convert(adapter::RTCSessionDescriptionMediaType type);
-        static adapter::RTCSessionDescriptionMediaType Convert(ISessionDescriptionTypes::MediaTypes type);
+        static ISessionDescriptionTypes::MediaTypes Convert(Adapter::RTCSessionDescriptionMediaType type);
+        static Adapter::RTCSessionDescriptionMediaType Convert(ISessionDescriptionTypes::MediaTypes type);
 
-        static ISessionDescriptionTypes::MediaDirections Convert(adapter::RTCSessionDescriptionMediaDirection type);
-        static adapter::RTCSessionDescriptionMediaDirection Convert(ISessionDescriptionTypes::MediaDirections type);
+        static ISessionDescriptionTypes::MediaDirections Convert(Adapter::RTCSessionDescriptionMediaDirection type);
+        static Adapter::RTCSessionDescriptionMediaDirection Convert(ISessionDescriptionTypes::MediaDirections type);
 
         // PeerSessionDescriptionManager convertors
-        static IPeerConnectionTypes::BundlePolicies Convert(adapter::RTCBundlePolicy policy);
-        static adapter::RTCBundlePolicy Convert(IPeerConnectionTypes::BundlePolicies policy);
+        static IPeerConnectionTypes::BundlePolicies Convert(Adapter::RTCBundlePolicy policy);
+        static Adapter::RTCBundlePolicy Convert(IPeerConnectionTypes::BundlePolicies policy);
 
-        static IPeerConnectionTypes::RTCPMuxPolicies Convert(adapter::RTCRtcpMuxPolicy policy);
-        static adapter::RTCRtcpMuxPolicy Convert(IPeerConnectionTypes::RTCPMuxPolicies policy);
+        static IPeerConnectionTypes::RTCPMuxPolicies Convert(Adapter::RTCRtcpMuxPolicy policy);
+        static Adapter::RTCRtcpMuxPolicy Convert(IPeerConnectionTypes::RTCPMuxPolicies policy);
 
-        static IPeerConnectionTypes::SignalingModes Convert(adapter::RTCPeerConnectionSignalingMode mode);
-        static adapter::RTCPeerConnectionSignalingMode Convert(IPeerConnectionTypes::SignalingModes mode);
+        static IPeerConnectionTypes::SignalingModes Convert(Adapter::RTCPeerConnectionSignalingMode mode);
+        static Adapter::RTCPeerConnectionSignalingMode Convert(IPeerConnectionTypes::SignalingModes mode);
 
-        static IPeerConnectionTypes::SignalingStates Convert(adapter::RTCSignalingState state);
-        static adapter::RTCSignalingState Convert(IPeerConnectionTypes::SignalingStates state);
+        static IPeerConnectionTypes::SignalingStates Convert(Adapter::RTCSignalingState state);
+        static Adapter::RTCSignalingState Convert(IPeerConnectionTypes::SignalingStates state);
 
-        static IPeerConnectionTypes::ICEGatheringStates Convert(adapter::RTCIceGatheringState state);
-        static adapter::RTCIceGatheringState ConvertToGatheringState(IPeerConnectionTypes::ICEGatheringStates state);
+        static IPeerConnectionTypes::ICEGatheringStates Convert(Adapter::RTCIceGatheringState state);
+        static Adapter::RTCIceGatheringState ConvertToGatheringState(IPeerConnectionTypes::ICEGatheringStates state);
 
-        static IPeerConnectionTypes::ICEConnectionStates Convert(adapter::RTCIceConnectionState state);
-        static adapter::RTCIceConnectionState ConvertToConnectionState(IPeerConnectionTypes::ICEConnectionStates state);
+        static IPeerConnectionTypes::ICEConnectionStates Convert(Adapter::RTCIceConnectionState state);
+        static Adapter::RTCIceConnectionState ConvertToConnectionState(IPeerConnectionTypes::ICEConnectionStates state);
 
-        static IPeerConnectionTypes::PeerConnectionStates Convert(adapter::RTCPeerConnectionState state);
-        static adapter::RTCPeerConnectionState Convert(IPeerConnectionTypes::PeerConnectionStates state);
+        static IPeerConnectionTypes::PeerConnectionStates Convert(Adapter::RTCPeerConnectionState state);
+        static Adapter::RTCPeerConnectionState Convert(IPeerConnectionTypes::PeerConnectionStates state);
       };
 
     } // namespace internal

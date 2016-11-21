@@ -4,9 +4,9 @@
 
 #include <ortc/IICETransport.h>
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     using Windows::Foundation::Collections::IVector;
 
@@ -28,7 +28,7 @@ namespace org
     enum class RTCIceComponent;
     enum class RTCIceRole;
 
-    namespace internal
+    namespace Internal
     {
       ZS_DECLARE_CLASS_PTR(RTCIceTransportDelegate)
       ZS_DECLARE_TYPEDEF_PTR(::ortc::IICETransportTypes, IICETransportTypes)
@@ -125,7 +125,7 @@ namespace org
     /// </summary>
     public ref struct RTCIceCandidatePair sealed
     {
-      friend class internal::RTCIceTransportDelegate;
+      friend class Internal::RTCIceTransportDelegate;
 
       /// <summary>
       /// Gets or sets the local ICE candidate.
@@ -143,7 +143,7 @@ namespace org
     /// </summary>
     public ref struct RTCIceTransportStateChangedEvent sealed
     {
-      friend class internal::RTCIceTransportDelegate;
+      friend class Internal::RTCIceTransportDelegate;
 
       /// <summary>
       /// Gets the RTCIceTransportState state at the time the event fired.
@@ -165,7 +165,7 @@ namespace org
     /// </summary>
     public ref struct RTCIceCandidatePairChangedEvent sealed
     {
-      friend class internal::RTCIceTransportDelegate;
+      friend class Internal::RTCIceTransportDelegate;
 
       /// <summary>
       /// Gets the selected RTCIceCandidatePair that caused the event.
@@ -195,7 +195,7 @@ namespace org
     {
     private:
       struct noop {};
-      friend class internal::RTCIceTransportDelegate;
+      friend class Internal::RTCIceTransportDelegate;
       friend ref class RTCDtlsTransport;
       friend ref class RTCIceTransportController;
       friend ref class RTCSrtpSdesTransport;
@@ -366,7 +366,7 @@ namespace org
 
     private:
       IICETransportPtr _nativePointer;
-      internal::RTCIceTransportDelegatePtr _nativeDelegatePointer;
+      Internal::RTCIceTransportDelegatePtr _nativeDelegatePointer;
       IICETransportSubscriptionPtr _nativeSubscriptionPointer;
     };
   }

@@ -9,15 +9,15 @@
 
 using Platform::Collections::Vector;
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     using std::make_shared;
 
-    ZS_DECLARE_TYPEDEF_PTR(internal::Helper, UseHelper)
+    ZS_DECLARE_TYPEDEF_PTR(Internal::Helper, UseHelper)
 
-    namespace internal
+    namespace Internal
     {
 
 #pragma region RTCStateReportHelper
@@ -395,97 +395,97 @@ namespace org
     RTCInboundRtpStreamStats^ RTCStats::ToInboundRtp()
     {
       if (!mOriginal) return nullptr;
-      return internal::ToCx(ZS_DYNAMIC_PTR_CAST(IStatsReportTypes::InboundRTPStreamStats, mOriginal));
+      return Internal::ToCx(ZS_DYNAMIC_PTR_CAST(IStatsReportTypes::InboundRTPStreamStats, mOriginal));
     }
 
     RTCOutboundRtpStreamStats^ RTCStats::ToOutboundRtp()
     {
       if (!mOriginal) return nullptr;
-      return internal::ToCx(ZS_DYNAMIC_PTR_CAST(IStatsReportTypes::OutboundRTPStreamStats, mOriginal));
+      return Internal::ToCx(ZS_DYNAMIC_PTR_CAST(IStatsReportTypes::OutboundRTPStreamStats, mOriginal));
     }
 
     RTCCodec^ RTCStats::ToCodec()
     {
       if (!mOriginal) return nullptr;
-      return internal::ToCx(ZS_DYNAMIC_PTR_CAST(IStatsReportTypes::Codec, mOriginal));
+      return Internal::ToCx(ZS_DYNAMIC_PTR_CAST(IStatsReportTypes::Codec, mOriginal));
     }
 
     RTCSctpTransportStats^ RTCStats::ToSctpTransport()
     {
       if (!mOriginal) return nullptr;
-      return internal::ToCx(ZS_DYNAMIC_PTR_CAST(IStatsReportTypes::SCTPTransportStats, mOriginal));
+      return Internal::ToCx(ZS_DYNAMIC_PTR_CAST(IStatsReportTypes::SCTPTransportStats, mOriginal));
     }
 
     RTCDataChannelStats^ RTCStats::ToDataChannel()
     {
       if (!mOriginal) return nullptr;
-      return internal::ToCx(ZS_DYNAMIC_PTR_CAST(IStatsReportTypes::DataChannelStats, mOriginal));
+      return Internal::ToCx(ZS_DYNAMIC_PTR_CAST(IStatsReportTypes::DataChannelStats, mOriginal));
     }
 
     RTCMediaStreamStats^ RTCStats::ToStream()
     {
       if (!mOriginal) return nullptr;
-      return internal::ToCx(ZS_DYNAMIC_PTR_CAST(IStatsReportTypes::MediaStreamStats, mOriginal));
+      return Internal::ToCx(ZS_DYNAMIC_PTR_CAST(IStatsReportTypes::MediaStreamStats, mOriginal));
     }
 
     RTCMediaStreamTrackStats^ RTCStats::ToTrack()
     {
       if (!mOriginal) return nullptr;
-      return internal::ToCx(ZS_DYNAMIC_PTR_CAST(IStatsReportTypes::MediaStreamTrackStats, mOriginal));
+      return Internal::ToCx(ZS_DYNAMIC_PTR_CAST(IStatsReportTypes::MediaStreamTrackStats, mOriginal));
     }
 
     RTCIceGathererStats^ RTCStats::ToIceGatherer()
     {
       if (!mOriginal) return nullptr;
-      return internal::ToCx(ZS_DYNAMIC_PTR_CAST(IStatsReportTypes::ICEGathererStats, mOriginal));
+      return Internal::ToCx(ZS_DYNAMIC_PTR_CAST(IStatsReportTypes::ICEGathererStats, mOriginal));
     }
 
     RTCIceTransportStats^ RTCStats::ToIceTransport()
     {
       if (!mOriginal) return nullptr;
-      return internal::ToCx(ZS_DYNAMIC_PTR_CAST(IStatsReportTypes::ICETransportStats, mOriginal));
+      return Internal::ToCx(ZS_DYNAMIC_PTR_CAST(IStatsReportTypes::ICETransportStats, mOriginal));
     }
 
     RTCDtlsTransportStats^ RTCStats::ToDtlsTransport()
     {
       if (!mOriginal) return nullptr;
-      return internal::ToCx(ZS_DYNAMIC_PTR_CAST(IStatsReportTypes::DTLSTransportStats, mOriginal));
+      return Internal::ToCx(ZS_DYNAMIC_PTR_CAST(IStatsReportTypes::DTLSTransportStats, mOriginal));
     }
 
     RTCSrtpTransportStats^ RTCStats::ToSrtpTransport()
     {
       if (!mOriginal) return nullptr;
-      return internal::ToCx(ZS_DYNAMIC_PTR_CAST(IStatsReportTypes::SRTPTransportStats, mOriginal));
+      return Internal::ToCx(ZS_DYNAMIC_PTR_CAST(IStatsReportTypes::SRTPTransportStats, mOriginal));
     }
 
     RTCCertificateStats^ RTCStats::ToCertificate()
     {
       if (!mOriginal) return nullptr;
-      return internal::ToCx(ZS_DYNAMIC_PTR_CAST(IStatsReportTypes::CertificateStats, mOriginal));
+      return Internal::ToCx(ZS_DYNAMIC_PTR_CAST(IStatsReportTypes::CertificateStats, mOriginal));
     }
 
     RTCIceCandidateAttributes^ RTCStats::ToCandidate()
     {
       if (!mOriginal) return nullptr;
-      return internal::ToCx(ZS_DYNAMIC_PTR_CAST(IStatsReportTypes::ICECandidateAttributes, mOriginal));
+      return Internal::ToCx(ZS_DYNAMIC_PTR_CAST(IStatsReportTypes::ICECandidateAttributes, mOriginal));
     }
 
     RTCIceCandidatePairStats^ RTCStats::ToCandidatePair()
     {
       if (!mOriginal) return nullptr;
-      return internal::ToCx(ZS_DYNAMIC_PTR_CAST(IStatsReportTypes::ICECandidatePairStats, mOriginal));
+      return Internal::ToCx(ZS_DYNAMIC_PTR_CAST(IStatsReportTypes::ICECandidatePairStats, mOriginal));
     }
 
     RTCIceCandidateAttributes^ RTCStats::ToLocalCandidate()
     {
       if (!mOriginal) return nullptr;
-      return internal::ToCx(ZS_DYNAMIC_PTR_CAST(IStatsReportTypes::ICECandidateAttributes, mOriginal));
+      return Internal::ToCx(ZS_DYNAMIC_PTR_CAST(IStatsReportTypes::ICECandidateAttributes, mOriginal));
     }
 
     RTCIceCandidateAttributes^ RTCStats::ToRemoteCandidate()
     {
       if (!mOriginal) return nullptr;
-      return internal::ToCx(ZS_DYNAMIC_PTR_CAST(IStatsReportTypes::ICECandidateAttributes, mOriginal));
+      return Internal::ToCx(ZS_DYNAMIC_PTR_CAST(IStatsReportTypes::ICECandidateAttributes, mOriginal));
     }
 
     RTCStatsReport::RTCStatsReport(IStatsReportPtr nativePointer) :
@@ -516,7 +516,7 @@ namespace org
     {
       if (!_nativePointer) return nullptr;
 
-      return internal::ToCx(_nativePointer->getStats(UseHelper::FromCx(statsId).c_str()));
+      return Internal::ToCx(_nativePointer->getStats(UseHelper::FromCx(statsId).c_str()));
     }
 
   } // namespace ortc

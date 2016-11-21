@@ -7,16 +7,16 @@
 
 #include <zsLib/SafeInt.h>
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     using std::make_shared;
 
-    ZS_DECLARE_TYPEDEF_PTR(internal::Helper, UseHelper);
+    ZS_DECLARE_TYPEDEF_PTR(Internal::Helper, UseHelper);
     ZS_DECLARE_TYPEDEF_PTR(::ortc::services::IHelper, UseServicesHelper);
 
-    namespace internal
+    namespace Internal
     {
 
 #pragma region ICE types conversions
@@ -126,14 +126,14 @@ namespace org
 
     Platform::String^ RTCIceParameters::ToJsonString()
     {
-      auto params = internal::FromCx(this);
+      auto params = Internal::FromCx(this);
       return UseHelper::ToCx(UseServicesHelper::toString(params->createElement("IceParameters")));
 
     }
 
     RTCIceParameters^ RTCIceParameters::FromJsonString(Platform::String^ jsonString)
     {
-      return internal::ToCx(make_shared<IICETypes::Parameters>(IICETypes::Parameters::Parameters(UseServicesHelper::toJSON(UseHelper::FromCx(jsonString).c_str()))));
+      return Internal::ToCx(make_shared<IICETypes::Parameters>(IICETypes::Parameters::Parameters(UseServicesHelper::toJSON(UseHelper::FromCx(jsonString).c_str()))));
     }
 
 #pragma endregion
@@ -142,13 +142,13 @@ namespace org
 
     Platform::String^ RTCIceCandidate::ToJsonString()
     {
-      auto candidate = internal::FromCx(this);
+      auto candidate = Internal::FromCx(this);
       return UseHelper::ToCx(UseServicesHelper::toString(candidate->createElement("IceCandidate")));
     }
 
     RTCIceCandidate^ RTCIceCandidate::FromJsonString(Platform::String^ jsonString)
     {
-      return internal::ToCx(make_shared<IICETypes::Candidate>(IICETypes::Candidate::Candidate(UseServicesHelper::toJSON(UseHelper::FromCx(jsonString).c_str()))));
+      return Internal::ToCx(make_shared<IICETypes::Candidate>(IICETypes::Candidate::Candidate(UseServicesHelper::toJSON(UseHelper::FromCx(jsonString).c_str()))));
     }
 
 #pragma endregion

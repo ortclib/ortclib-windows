@@ -3,9 +3,9 @@
 #include <ortc/ICertificate.h>
 #include <ortc/IDTLSTransport.h>
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     ZS_DECLARE_TYPEDEF_PTR(zsLib::Promise, Promise)
 
@@ -21,14 +21,14 @@ namespace org
 
     ref struct RTCDtlsFingerprint;
 
-    namespace internal
+    namespace Internal
     {
       ZS_DECLARE_CLASS_PTR(RTCGenerateCertificatePromiseObserver)
     } // namespace internal
 
-    namespace adapter
+    namespace Adapter
     {
-      namespace internal
+      namespace Internal
       {
         class RTCPeerConnectionHelper;
       } // namespace internal
@@ -41,8 +41,8 @@ namespace org
     public ref class RTCCertificate sealed
     {
     private:
-      friend class internal::RTCGenerateCertificatePromiseObserver;
-      friend class adapter::internal::RTCPeerConnectionHelper;
+      friend class Internal::RTCGenerateCertificatePromiseObserver;
+      friend class Adapter::Internal::RTCPeerConnectionHelper;
       friend ref class RTCDtlsTransport;
       friend ref class RTCStatsProvider;
 

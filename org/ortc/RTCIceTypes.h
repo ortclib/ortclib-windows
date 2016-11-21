@@ -10,9 +10,9 @@
 //using Windows::Foundation::Collections::IVector;
 
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IICETypes, IICETypes)
 
@@ -20,7 +20,7 @@ namespace org
     ref struct RTCIceCandidateComplete;
     ref struct RTCIceParameters;
 
-    namespace internal
+    namespace Internal
     {
       RTCIceCandidate^ ToCx(IICETypes::CandidatePtr candidate);
       RTCIceCandidate^ ToCx(const IICETypes::Candidate &candidate);

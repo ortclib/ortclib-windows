@@ -15,13 +15,13 @@ using Platform::Object;
 
 using namespace ortc;
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
-    ZS_DECLARE_TYPEDEF_PTR(internal::Helper, UseHelper)
+    ZS_DECLARE_TYPEDEF_PTR(Internal::Helper, UseHelper)
 
-    namespace internal
+    namespace Internal
     {
 
 #pragma region RTCSrtpSdesTransport conversions
@@ -189,7 +189,7 @@ namespace org
 #pragma region RTCSrtpSdesTransport
 
     RTCSrtpSdesTransport::RTCSrtpSdesTransport(ISRTPSDESTransportPtr transport) :
-      _nativeDelegatePointer(make_shared<internal::RTCSrtpSdesTransportDelegate>(this)),
+      _nativeDelegatePointer(make_shared<Internal::RTCSrtpSdesTransportDelegate>(this)),
       _nativePointer(transport)
     {
       if (_nativePointer) {
@@ -198,7 +198,7 @@ namespace org
     }
 
     RTCSrtpSdesTransport::RTCSrtpSdesTransport(RTCIceTransport^ transport, RTCSrtpSdesCryptoParameters^ encryptParameters, RTCSrtpSdesCryptoParameters^ decryptParameters) :
-      _nativeDelegatePointer(make_shared<internal::RTCSrtpSdesTransportDelegate>(this))
+      _nativeDelegatePointer(make_shared<Internal::RTCSrtpSdesTransportDelegate>(this))
     {
       ORG_ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == transport)
       ORG_ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == encryptParameters)
@@ -208,7 +208,7 @@ namespace org
 
       try
       {
-        _nativePointer = ISRTPSDESTransport::create(_nativeDelegatePointer, nativeTransport, *internal::FromCx(encryptParameters), *internal::FromCx(decryptParameters));
+        _nativePointer = ISRTPSDESTransport::create(_nativeDelegatePointer, nativeTransport, *Internal::FromCx(encryptParameters), *Internal::FromCx(decryptParameters));
       }
       catch (const InvalidParameters &)
       {
@@ -223,7 +223,7 @@ namespace org
     RTCSrtpSdesParameters^ RTCSrtpSdesTransport::GetLocalParameters()
     {
       auto params = ISRTPSDESTransport::getLocalParameters();
-      return internal::ToCx(params);
+      return Internal::ToCx(params);
     }
 
 #pragma endregion

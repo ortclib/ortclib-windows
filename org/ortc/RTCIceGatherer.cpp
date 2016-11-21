@@ -10,13 +10,13 @@ using namespace ortc;
 
 using Platform::Collections::Vector;
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
-    ZS_DECLARE_TYPEDEF_PTR(internal::Helper, UseHelper)
+    ZS_DECLARE_TYPEDEF_PTR(Internal::Helper, UseHelper)
 
-    namespace internal
+    namespace Internal
     {
 
 #pragma region RTCIceGatherer conversions
@@ -166,7 +166,7 @@ namespace org
           ) override
         {
           auto evt = ref new RTCIceGathererCandidateEvent();
-          evt->_candidate = internal::ToCx(candidate);
+          evt->_candidate = Internal::ToCx(candidate);
           _owner->OnLocalCandidate(evt);
         }
 
@@ -188,7 +188,7 @@ namespace org
           ) override
         {
           auto evt = ref new RTCIceGathererCandidateEvent();
-          evt->_candidate = internal::ToCx(candidate);
+          evt->_candidate = Internal::ToCx(candidate);
           _owner->OnLocalCandidateGone(evt);
         }
 
@@ -200,7 +200,7 @@ namespace org
           auto evt = ref new RTCIceGathererIceErrorEvent();
           if (errorEvent)
           {
-            evt->_hostCandidate = internal::ToCx(errorEvent->mHostCandidate);
+            evt->_hostCandidate = Internal::ToCx(errorEvent->mHostCandidate);
             evt->_url = UseHelper::ToCx(errorEvent->mURL);
             evt->_errorCode = SafeInt<decltype(evt->_errorCode)>(errorEvent->mErrorCode);
             evt->_errorText = UseHelper::ToCx(errorEvent->mErrorText);
@@ -217,27 +217,27 @@ namespace org
     } // namespace internal
 
     RTCIceGatherer::RTCIceGatherer(const noop &) :
-      _nativeDelegatePointer(make_shared<internal::RTCIceGathererDelegate>(this))
+      _nativeDelegatePointer(make_shared<Internal::RTCIceGathererDelegate>(this))
     {
     }
 
     RTCIceGatherer::RTCIceGatherer(IICEGathererPtr gatherer) :
-      _nativeDelegatePointer(make_shared<internal::RTCIceGathererDelegate>(this)),
+      _nativeDelegatePointer(make_shared<Internal::RTCIceGathererDelegate>(this)),
       _nativePointer(gatherer)
     {
     }
 
     RTCIceGatherer::RTCIceGatherer(RTCIceGatherOptions^ options) :
-      _nativeDelegatePointer(make_shared<internal::RTCIceGathererDelegate>(this))
+      _nativeDelegatePointer(make_shared<Internal::RTCIceGathererDelegate>(this))
     {
       ORG_ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == options)
-      _nativePointer = IICEGatherer::create(_nativeDelegatePointer, *internal::FromCx(options));
+      _nativePointer = IICEGatherer::create(_nativeDelegatePointer, *Internal::FromCx(options));
     }
 
     RTCIceParameters^ RTCIceGatherer::GetLocalParameters()
     {
       if (!_nativePointer) return nullptr;
-      return internal::ToCx(_nativePointer->getLocalParameters());
+      return Internal::ToCx(_nativePointer->getLocalParameters());
     }
 
     IVector<RTCIceCandidate^>^ RTCIceGatherer::GetLocalCandidates()
@@ -247,7 +247,7 @@ namespace org
 
       auto candidates = _nativePointer->getLocalCandidates();
       for (IICEGatherer::CandidateList::iterator it = candidates->begin(); it != candidates->end(); ++it) {
-        ret->Append(internal::ToCx(*it));
+        ret->Append(Internal::ToCx(*it));
       }
 
       return ret;
@@ -276,7 +276,7 @@ namespace org
       ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
       if (nullptr != options)
       {
-        _nativePointer->gather(*internal::FromCx(options));
+        _nativePointer->gather(*Internal::FromCx(options));
       }
       else
       {

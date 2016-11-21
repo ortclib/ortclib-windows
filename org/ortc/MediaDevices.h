@@ -7,9 +7,9 @@
 
 #include <collection.h>
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     using Windows::Foundation::Collections::IVector;
     using Windows::Foundation::IAsyncOperation;
@@ -23,7 +23,7 @@ namespace org
 
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IMediaDevicesSubscription, IMediaDevicesSubscription)
 
-    namespace internal
+    namespace Internal
     {
       ZS_DECLARE_CLASS_PTR(MediaDevicesDelegate)
       
@@ -147,7 +147,7 @@ namespace org
     public ref class MediaDevices sealed
     {
     private:
-      friend class internal::MediaDevicesDelegate;
+      friend class Internal::MediaDevicesDelegate;
 
       MediaDevices();
 
@@ -208,7 +208,7 @@ namespace org
     private:
       static MediaDevices^ _singleton;
 
-      internal::MediaDevicesDelegatePtr _nativeDelegatePointer;
+      Internal::MediaDevicesDelegatePtr _nativeDelegatePointer;
       IMediaDevicesSubscriptionPtr _nativeDelegateSubscription;
     };
 

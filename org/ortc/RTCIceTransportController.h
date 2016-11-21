@@ -7,9 +7,9 @@
 //using namespace ortc;
 //
 //
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     using Windows::Foundation::Collections::IVector;
 

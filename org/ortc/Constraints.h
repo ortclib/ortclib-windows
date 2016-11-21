@@ -2,9 +2,9 @@
 
 #include <ortc/IConstraints.h>
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     using Windows::Foundation::Collections::IVector;
 
@@ -18,7 +18,7 @@ namespace org
     ref struct ConstrainStringParameters;
     ref struct StringOrStringList;
 
-    namespace internal
+    namespace Internal
     {
       using zsLib::Optional;
 

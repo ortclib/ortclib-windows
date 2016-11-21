@@ -4,9 +4,9 @@
 
 #include <ortc/IICEGatherer.h>
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IICEGatherer, IICEGatherer)
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IICEGathererDelegate, IICEGathererDelegate)
@@ -25,7 +25,7 @@ namespace org
     ref struct RTCIceParameters;
     ref struct RTCIceServer;
 
-    namespace internal
+    namespace Internal
     {
       ZS_DECLARE_TYPEDEF_PTR(::ortc::IICEGathererTypes, IICEGathererTypes)
       ZS_DECLARE_CLASS_PTR(RTCIceGathererDelegate)
@@ -318,7 +318,7 @@ namespace org
     /// </summary>
     public ref struct RTCIceGathererIceErrorEvent sealed
     {
-      friend class internal::RTCIceGathererDelegate;
+      friend class Internal::RTCIceGathererDelegate;
 
       /// <summary>
       /// Gets the RTCIceCandidate used to communicate with the STUN or TURN
@@ -370,7 +370,7 @@ namespace org
     /// </summary>
     public ref struct RTCIceGathererStateChangedEvent sealed
     {
-      friend class internal::RTCIceGathererDelegate;
+      friend class Internal::RTCIceGathererDelegate;
 
       /// <summary>
       /// Gets the new RTCIceGathererState that caused the event.
@@ -390,7 +390,7 @@ namespace org
     /// </summary>
     public ref struct RTCIceGathererCandidateEvent sealed
     {
-      friend class internal::RTCIceGathererDelegate;
+      friend class Internal::RTCIceGathererDelegate;
 
       /// <summary>
       /// Gets the ICE candidate that caused the event.
@@ -418,7 +418,7 @@ namespace org
     /// </summary>
     public ref struct RTCIceGathererCandidateCompleteEvent sealed
     {
-      friend class internal::RTCIceGathererDelegate;
+      friend class Internal::RTCIceGathererDelegate;
 
       /// <summary>
       /// Gets the ICE candidate that caused the event.
@@ -452,7 +452,7 @@ namespace org
     /// </summary>
     public ref class RTCIceGatherer sealed
     {
-      friend class internal::RTCIceGathererDelegate;
+      friend class Internal::RTCIceGathererDelegate;
       friend ref class RTCIceTransport;
       friend ref class RTCStatsProvider;
 
@@ -563,7 +563,7 @@ namespace org
     private:
       zsLib::RecursiveLock _lock;
       IICEGathererPtr _nativePointer;
-      internal::RTCIceGathererDelegatePtr _nativeDelegatePointer;
+      Internal::RTCIceGathererDelegatePtr _nativeDelegatePointer;
       IICEGathererSubscriptionPtr _nativeSubscriptionPointer;
     };
 

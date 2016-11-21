@@ -10,13 +10,13 @@
 
 using namespace ortc;
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
-    ZS_DECLARE_TYPEDEF_PTR(internal::Helper, UseHelper)
+    ZS_DECLARE_TYPEDEF_PTR(Internal::Helper, UseHelper)
 
-    namespace internal
+    namespace Internal
     {
 #pragma region RTCDtmfSender delegates 
 
@@ -46,7 +46,7 @@ namespace org
 #pragma region RTCDtmfSender 
 
     RTCDtmfSender::RTCDtmfSender(RTCRtpSender^ sender) :
-      _nativeDelegatePointer(make_shared<internal::RTCDtmfSenderDelegate>(this))
+      _nativeDelegatePointer(make_shared<Internal::RTCDtmfSenderDelegate>(this))
     {
       auto nativeSender = RTCRtpSender::Convert(sender);
 

@@ -2,11 +2,11 @@
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using System.Threading.Tasks;
 
-using org.ortc;
-using Log = org.ortc.Log;
+using Org.Ortc;
+using Log = Org.Ortc.Log;
 using System.Collections.Generic;
 
-namespace org.ortc.Test
+namespace Org.Ortc.Test
 {
     [TestClass]
     public class UnitTest_Transports

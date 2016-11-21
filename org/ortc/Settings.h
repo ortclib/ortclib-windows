@@ -1,8 +1,8 @@
 #pragma once
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     /// <summary>
     /// Controls the detailed settings of how the ORTC engine operates.

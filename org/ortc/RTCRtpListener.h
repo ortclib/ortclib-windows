@@ -3,9 +3,9 @@
 
 #include <ortc/IRTPListener.h>
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IRTPListener, IRTPListener)
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IRTPListenerDelegate, IRTPListenerDelegate)
@@ -19,7 +19,7 @@ namespace org
 
     ref struct RTCRtpHeaderExtensionParameters;
 
-    namespace internal
+    namespace Internal
     {
       ZS_DECLARE_CLASS_PTR(RTCRtpListenerDelegate)
     }
@@ -31,7 +31,7 @@ namespace org
     /// </summary>
     public ref struct RTCRtpUnhandledEvent sealed
     {
-      friend class internal::RTCRtpListenerDelegate;
+      friend class Internal::RTCRtpListenerDelegate;
 
       /// <summary>
       /// The SSRC in the RTP stream triggering the OnUnhandledRtp event.
@@ -90,7 +90,7 @@ namespace org
     /// </summary>
     public ref class RTCRtpListener sealed
     {
-      friend class internal::RTCRtpListenerDelegate;
+      friend class Internal::RTCRtpListenerDelegate;
       friend ref class RTCStatsProvider;
 
       RTCRtpListener(IRTPListenerPtr nativePointer);
@@ -140,7 +140,7 @@ namespace org
 
     private:
       IRTPListenerPtr _nativePointer;
-      internal::RTCRtpListenerDelegatePtr _nativeDelegatePointer;
+      Internal::RTCRtpListenerDelegatePtr _nativeDelegatePointer;
     };
   }
 }

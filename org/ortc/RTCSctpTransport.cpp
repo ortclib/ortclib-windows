@@ -11,14 +11,14 @@
 
 using namespace ortc;
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
-    ZS_DECLARE_TYPEDEF_PTR(internal::Helper, UseHelper);
+    ZS_DECLARE_TYPEDEF_PTR(Internal::Helper, UseHelper);
     ZS_DECLARE_TYPEDEF_PTR(::ortc::services::IHelper, UseServicesHelper);
 
-    namespace internal
+    namespace Internal
     {
       RTCSctpCapabilities^ ToCx(const ISCTPTransportTypes::Capabilities &input)
       {
@@ -83,7 +83,7 @@ namespace org
     } //namespace internal
 
     RTCSctpTransport::RTCSctpTransport(ISCTPTransportPtr transport) :
-      _nativeDelegatePointer(make_shared<internal::RTCSctpTransportDelegate>(this)),
+      _nativeDelegatePointer(make_shared<Internal::RTCSctpTransportDelegate>(this)),
       _nativePointer(transport)
     {
       if (_nativePointer)
@@ -93,7 +93,7 @@ namespace org
     }
 
     RTCSctpTransport::RTCSctpTransport(RTCDtlsTransport^ transport) :
-      _nativeDelegatePointer(make_shared<internal::RTCSctpTransportDelegate>(this))
+      _nativeDelegatePointer(make_shared<Internal::RTCSctpTransportDelegate>(this))
     {
       auto nativeTransport = RTCDtlsTransport::Convert(transport);
 
@@ -112,7 +112,7 @@ namespace org
     }
 
     RTCSctpTransport::RTCSctpTransport(RTCDtlsTransport^ transport, uint16 port) :
-      _nativeDelegatePointer(make_shared<internal::RTCSctpTransportDelegate>(this))
+      _nativeDelegatePointer(make_shared<Internal::RTCSctpTransportDelegate>(this))
     {
       auto nativeTransport = RTCDtlsTransport::Convert(transport);
 
@@ -172,14 +172,14 @@ namespace org
 
     Platform::String^ RTCSctpCapabilities::ToJsonString()
     {
-      auto caps = internal::FromCx(this);
+      auto caps = Internal::FromCx(this);
       return UseHelper::ToCx(UseServicesHelper::toString(caps->createElement("SctpCapabilities")));
     }
 
     RTCSctpCapabilities^ RTCSctpCapabilities::FromJsonString(Platform::String^ jsonString)
     {
       auto caps = make_shared<ISCTPTransport::Capabilities>(ISCTPTransport::Capabilities::Capabilities(UseServicesHelper::toJSON(UseHelper::FromCx(jsonString).c_str())));
-      return internal::ToCx(caps);
+      return Internal::ToCx(caps);
     }
   } // namespace ortc
 } // namespace org

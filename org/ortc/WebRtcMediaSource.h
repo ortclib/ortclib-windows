@@ -17,9 +17,9 @@
 #include "webrtc/system_wrappers/include/critical_section_wrapper.h"
 #include "webrtc/base/scoped_ptr.h"
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     using Microsoft::WRL::ComPtr;
 

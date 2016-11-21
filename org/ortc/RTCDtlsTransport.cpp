@@ -16,15 +16,15 @@ using Platform::Object;
 
 using namespace ortc;
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
-    ZS_DECLARE_TYPEDEF_PTR(internal::Helper, UseHelper);
+    ZS_DECLARE_TYPEDEF_PTR(Internal::Helper, UseHelper);
     ZS_DECLARE_TYPEDEF_PTR(::ortc::services::IHelper, UseServicesHelper);
 
 
-    namespace internal
+    namespace Internal
     {
 
 #pragma region RTCDtlsTransport conversions
@@ -129,7 +129,7 @@ namespace org
 #pragma region RTCDtlsTransport
 
     RTCDtlsTransport::RTCDtlsTransport(IDTLSTransportPtr transport) :
-      _nativeDelegatePointer(make_shared<internal::RTCDtlsTransportDelegate>(this)),
+      _nativeDelegatePointer(make_shared<Internal::RTCDtlsTransportDelegate>(this)),
       _nativePointer(transport)
     {
       if (_nativePointer) {
@@ -138,7 +138,7 @@ namespace org
     }
 
     RTCDtlsTransport::RTCDtlsTransport(RTCIceTransport^ transport, IVector<RTCCertificate^>^ certificates) :
-      _nativeDelegatePointer(make_shared<internal::RTCDtlsTransportDelegate>(this))
+      _nativeDelegatePointer(make_shared<Internal::RTCDtlsTransportDelegate>(this))
     {
       ORG_ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == certificates)
 
@@ -169,13 +169,13 @@ namespace org
     RTCDtlsParameters^ RTCDtlsTransport::GetLocalParameters()
     {
       if (!_nativePointer) return nullptr;
-      return internal::ToCx(_nativePointer->getLocalParameters());
+      return Internal::ToCx(_nativePointer->getLocalParameters());
     }
 
     RTCDtlsParameters^ RTCDtlsTransport::GetRemoteParameters()
     {
       if (!_nativePointer) return nullptr;
-      return internal::ToCx(_nativePointer->getRemoteParameters());
+      return Internal::ToCx(_nativePointer->getRemoteParameters());
     }
 
     IVector<Object^>^ RTCDtlsTransport::GetRemoteCertificates()
@@ -204,7 +204,7 @@ namespace org
 
       try
       {
-        _nativePointer->start(*internal::FromCx(remoteParameters));
+        _nativePointer->start(*Internal::FromCx(remoteParameters));
       }
       catch (const InvalidParameters &)
       {
@@ -251,14 +251,14 @@ namespace org
 
     Platform::String^ RTCDtlsParameters::ToJsonString()
     {
-      auto params = internal::FromCx(this);
+      auto params = Internal::FromCx(this);
       return UseHelper::ToCx(UseServicesHelper::toString(params->createElement("DtlsParameters")));
     }
 
     RTCDtlsParameters^ RTCDtlsParameters::FromJsonString(Platform::String^ jsonString)
     {
       auto params = make_shared<IDTLSTransport::Parameters>(IDTLSTransport::Parameters::Parameters(UseServicesHelper::toJSON(UseHelper::FromCx(jsonString).c_str())));
-      return internal::ToCx(params);
+      return Internal::ToCx(params);
     }
 
 #pragma endregion

@@ -19,20 +19,20 @@
 using namespace ortc;
 using Platform::Collections::Vector;
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     ZS_DECLARE_TYPEDEF_PTR(::ortc::adapter::IPeerConnectionTypes, IPeerConnectionTypes);
 
-    namespace adapter
+    namespace Adapter
     {
-      ZS_DECLARE_TYPEDEF_PTR(org::ortc::internal::Helper, UseHelper);
+      ZS_DECLARE_TYPEDEF_PTR(Org::Ortc::Internal::Helper, UseHelper);
       ZS_DECLARE_TYPEDEF_PTR(::ortc::adapter::IPeerConnectionDelegate, IPeerConnectionDelegate);
 
       using std::make_shared;
 
-      namespace internal
+      namespace Internal
       {
         class RTCPeerConnectionHelper
         {
@@ -46,7 +46,7 @@ namespace org
         RTCConfiguration^ ToCx(const IPeerConnectionTypes::Configuration &input)
         {
           auto result = ref new RTCConfiguration;
-          result->GatherOptions = ortc::internal::ToCx(input.mGatherOptions);
+          result->GatherOptions = Ortc::Internal::ToCx(input.mGatherOptions);
           result->NegotiateSrtpSdes = input.mNegotiateSRTPSDES;
           result->SignalingMode = UseHelper::Convert(input.mSignalingMode);
           result->BundlePolicy = UseHelper::Convert(input.mBundlePolicy);
@@ -73,7 +73,7 @@ namespace org
         {
           if (nullptr == input) return IPeerConnectionTypes::ConfigurationPtr();
           auto result(make_shared<IPeerConnectionTypes::Configuration>());
-          result->mGatherOptions = ortc::internal::FromCx(input->GatherOptions);
+          result->mGatherOptions = Ortc::Internal::FromCx(input->GatherOptions);
           result->mNegotiateSRTPSDES = input->NegotiateSrtpSdes;
           result->mSignalingMode = UseHelper::Convert(input->SignalingMode);
           result->mBundlePolicy = UseHelper::Convert(input->BundlePolicy);
@@ -153,8 +153,8 @@ namespace org
         RTCMediaStreamTrackConfiguration^ ToCx(const IPeerConnectionTypes::MediaStreamTrackConfiguration &input)
         {
           auto result = ref new RTCMediaStreamTrackConfiguration;
-          result->Capabilities = ortc::internal::ToCx(input.mCapabilities);
-          result->Parameters = ortc::internal::ToCx(input.mParameters);
+          result->Capabilities = Ortc::Internal::ToCx(input.mCapabilities);
+          result->Parameters = Ortc::Internal::ToCx(input.mParameters);
           return result;
         }
         RTCMediaStreamTrackConfiguration^ ToCx(IPeerConnectionTypes::MediaStreamTrackConfigurationPtr input)
@@ -166,8 +166,8 @@ namespace org
         {
           if (nullptr == input) return IPeerConnectionTypes::MediaStreamTrackConfigurationPtr();
           auto result(make_shared<IPeerConnectionTypes::MediaStreamTrackConfiguration>());
-          result->mCapabilities = ortc::internal::FromCx(input->Capabilities);
-          result->mParameters = ortc::internal::FromCx(input->Parameters);
+          result->mCapabilities = Ortc::Internal::FromCx(input->Capabilities);
+          result->mParameters = Ortc::Internal::FromCx(input->Parameters);
           return result;
         }
 
@@ -448,7 +448,7 @@ namespace org
 
       RTCPeerConnection::RTCPeerConnection(IPeerConnectionPtr nativeSession) :
         _nativePointer(nativeSession),
-        _nativeDelegatePointer(make_shared<internal::RTCPeerConnectionDelegate>(this))
+        _nativeDelegatePointer(make_shared<Internal::RTCPeerConnectionDelegate>(this))
       {
         if (_nativePointer)
         {
@@ -457,16 +457,16 @@ namespace org
       }
 
       RTCPeerConnection::RTCPeerConnection() :
-        _nativeDelegatePointer(make_shared<internal::RTCPeerConnectionDelegate>(this))
+        _nativeDelegatePointer(make_shared<Internal::RTCPeerConnectionDelegate>(this))
       {
         _nativePointer = IPeerConnection::create(_nativeDelegatePointer);
       }
 
       RTCPeerConnection::RTCPeerConnection(RTCConfiguration^ configuration) :
-        _nativeDelegatePointer(make_shared<internal::RTCPeerConnectionDelegate>(this))
+        _nativeDelegatePointer(make_shared<Internal::RTCPeerConnectionDelegate>(this))
       {
         ORG_ORTC_THROW_INVALID_PARAMETERS_IF(!configuration);
-        auto nativeConfiguration = internal::FromCx(configuration);
+        auto nativeConfiguration = Internal::FromCx(configuration);
         _nativePointer = IPeerConnection::create(_nativeDelegatePointer, *nativeConfiguration);
       }
 
@@ -480,7 +480,7 @@ namespace org
         {
           Concurrency::task_completion_event<RTCSessionDescription^> tce;
 
-          auto pDelegate(make_shared<internal::RTCPeerConnectionPromiseWithDescriptionObserver>(tce));
+          auto pDelegate(make_shared<Internal::RTCPeerConnectionPromiseWithDescriptionObserver>(tce));
 
           promise->then(pDelegate);
           promise->background();
@@ -497,13 +497,13 @@ namespace org
         ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer);
         ORG_ORTC_THROW_INVALID_PARAMETERS_IF(!options);
 
-        auto promise = _nativePointer->createOffer(*internal::FromCx(options));
+        auto promise = _nativePointer->createOffer(*Internal::FromCx(options));
 
         IAsyncOperation<RTCSessionDescription^>^ ret = Concurrency::create_async([promise]() -> RTCSessionDescription^
         {
           Concurrency::task_completion_event<RTCSessionDescription^> tce;
 
-          auto pDelegate(make_shared<internal::RTCPeerConnectionPromiseWithDescriptionObserver>(tce));
+          auto pDelegate(make_shared<Internal::RTCPeerConnectionPromiseWithDescriptionObserver>(tce));
 
           promise->then(pDelegate);
           promise->background();
@@ -525,7 +525,7 @@ namespace org
         {
           Concurrency::task_completion_event<RTCSessionDescription^> tce;
 
-          auto pDelegate(make_shared<internal::RTCPeerConnectionPromiseWithDescriptionObserver>(tce));
+          auto pDelegate(make_shared<Internal::RTCPeerConnectionPromiseWithDescriptionObserver>(tce));
 
           promise->then(pDelegate);
           promise->background();
@@ -542,13 +542,13 @@ namespace org
         ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer);
         ORG_ORTC_THROW_INVALID_PARAMETERS_IF(!options);
 
-        auto promise = _nativePointer->createAnswer(*internal::FromCx(options));
+        auto promise = _nativePointer->createAnswer(*Internal::FromCx(options));
 
         IAsyncOperation<RTCSessionDescription^>^ ret = Concurrency::create_async([promise]() -> RTCSessionDescription^
         {
           Concurrency::task_completion_event<RTCSessionDescription^> tce;
 
-          auto pDelegate(make_shared<internal::RTCPeerConnectionPromiseWithDescriptionObserver>(tce));
+          auto pDelegate(make_shared<Internal::RTCPeerConnectionPromiseWithDescriptionObserver>(tce));
 
           promise->then(pDelegate);
           promise->background();
@@ -572,7 +572,7 @@ namespace org
         {
           Concurrency::task_completion_event<RTCSessionDescription^> tce;
 
-          auto pDelegate(make_shared<internal::RTCPeerConnectionPromiseWithDescriptionObserver>(tce));
+          auto pDelegate(make_shared<Internal::RTCPeerConnectionPromiseWithDescriptionObserver>(tce));
 
           promise->then(pDelegate);
           promise->background();
@@ -590,14 +590,14 @@ namespace org
         ORG_ORTC_THROW_INVALID_PARAMETERS_IF(!options);
 
         auto nativePointer = _nativePointer;
-        auto nativeOptions = internal::FromCx(options);
+        auto nativeOptions = Internal::FromCx(options);
 
         IAsyncOperation<RTCSessionDescription^>^ ret = Concurrency::create_async([nativePointer, nativeOptions]() -> RTCSessionDescription^
         {
           Concurrency::task_completion_event<RTCSessionDescription^> tce;
 
           IPeerConnectionTypes::PromiseWithDescriptionPtr promise = nativePointer->createCapabilities(*nativeOptions);
-          auto pDelegate(make_shared<internal::RTCPeerConnectionPromiseWithDescriptionObserver>(tce));
+          auto pDelegate(make_shared<Internal::RTCPeerConnectionPromiseWithDescriptionObserver>(tce));
 
           promise->then(pDelegate);
           promise->background();
@@ -620,7 +620,7 @@ namespace org
         {
           Concurrency::task_completion_event<void> tce;
 
-          auto pDelegate(make_shared<internal::RTCPeerConnectionPromiseObserver>(tce));
+          auto pDelegate(make_shared<Internal::RTCPeerConnectionPromiseObserver>(tce));
 
           promise->then(pDelegate);
           promise->background();
@@ -661,7 +661,7 @@ namespace org
         {
           Concurrency::task_completion_event<void> tce;
 
-          auto pDelegate(make_shared<internal::RTCPeerConnectionPromiseObserver>(tce));
+          auto pDelegate(make_shared<Internal::RTCPeerConnectionPromiseObserver>(tce));
 
           promise->then(pDelegate);
           promise->background();
@@ -701,14 +701,14 @@ namespace org
           return;
         }
 
-        _nativePointer->addICECandidate(*internal::FromCx(candidate));
+        _nativePointer->addICECandidate(*Internal::FromCx(candidate));
       }
 
       void RTCPeerConnection::AddIceCandidateComplete(RTCIceCandidateComplete^ candidate)
       {
         ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer);
 
-        _nativePointer->addICECandidate(*internal::FromCx(candidate));
+        _nativePointer->addICECandidate(*Internal::FromCx(candidate));
       }
 
       RTCSignalingState RTCPeerConnection::SignalingState::get()
@@ -750,7 +750,7 @@ namespace org
         for (auto iter = nativeResult->begin(); iter != nativeResult->end(); ++iter)
         {
           auto server = (*iter);
-          result->Append(ortc::internal::ToCx(server));
+          result->Append(Ortc::Internal::ToCx(server));
         }
 
         return result;
@@ -759,14 +759,14 @@ namespace org
       RTCConfiguration^ RTCPeerConnection::GetConfiguration()
       {
         if (!_nativePointer) return nullptr;
-        return internal::ToCx(_nativePointer->getConfiguration());
+        return Internal::ToCx(_nativePointer->getConfiguration());
       }
 
       void RTCPeerConnection::SetConfiguration(RTCConfiguration^ configuration)
       {
         ORG_ORTC_THROW_INVALID_PARAMETERS_IF(!configuration);
         ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer);
-        _nativePointer->setConfiguration(*internal::FromCx(configuration));
+        _nativePointer->setConfiguration(*Internal::FromCx(configuration));
       }
 
       void RTCPeerConnection::Close()
@@ -818,7 +818,7 @@ namespace org
         {
           Concurrency::task_completion_event<RTCRtpSender^> tce;
 
-          auto pDelegate(make_shared<internal::RTCPeerConnectionPromiseWithSenderObserver>(tce));
+          auto pDelegate(make_shared<Internal::RTCPeerConnectionPromiseWithSenderObserver>(tce));
 
           promise->then(pDelegate);
           promise->background();
@@ -853,7 +853,7 @@ namespace org
         {
           Concurrency::task_completion_event<RTCRtpSender^> tce;
 
-          auto pDelegate(make_shared<internal::RTCPeerConnectionPromiseWithSenderObserver>(tce));
+          auto pDelegate(make_shared<Internal::RTCPeerConnectionPromiseWithSenderObserver>(tce));
 
           promise->then(pDelegate);
           promise->background();
@@ -874,13 +874,13 @@ namespace org
         ORG_ORTC_THROW_INVALID_PARAMETERS_IF(!configuration);
         ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer);
 
-        auto promise = _nativePointer->addTrack(MediaStreamTrack::Convert(track), *internal::FromCx(configuration));
+        auto promise = _nativePointer->addTrack(MediaStreamTrack::Convert(track), *Internal::FromCx(configuration));
 
         IAsyncOperation<RTCRtpSender^>^ ret = Concurrency::create_async([promise]() -> RTCRtpSender^
         {
           Concurrency::task_completion_event<RTCRtpSender^> tce;
 
-          auto pDelegate(make_shared<internal::RTCPeerConnectionPromiseWithSenderObserver>(tce));
+          auto pDelegate(make_shared<Internal::RTCPeerConnectionPromiseWithSenderObserver>(tce));
 
           promise->then(pDelegate);
           promise->background();
@@ -910,13 +910,13 @@ namespace org
           nativeStreams.push_back(MediaStream::Convert(stream));
         }
 
-        auto promise = _nativePointer->addTrack(MediaStreamTrack::Convert(track), nativeStreams, *internal::FromCx(configuration));
+        auto promise = _nativePointer->addTrack(MediaStreamTrack::Convert(track), nativeStreams, *Internal::FromCx(configuration));
 
         IAsyncOperation<RTCRtpSender^>^ ret = Concurrency::create_async([promise]() -> RTCRtpSender^
         {
           Concurrency::task_completion_event<RTCRtpSender^> tce;
 
-          auto pDelegate(make_shared<internal::RTCPeerConnectionPromiseWithSenderObserver>(tce));
+          auto pDelegate(make_shared<Internal::RTCPeerConnectionPromiseWithSenderObserver>(tce));
 
           promise->then(pDelegate);
           promise->background();
@@ -940,13 +940,13 @@ namespace org
         ORG_ORTC_THROW_INVALID_PARAMETERS_IF(!parameters);
         ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer);
 
-        auto promise =_nativePointer->createDataChannel(*ortc::internal::FromCx(parameters));
+        auto promise =_nativePointer->createDataChannel(*Ortc::Internal::FromCx(parameters));
 
         IAsyncOperation<RTCDataChannel^>^ ret = Concurrency::create_async([promise]() -> RTCDataChannel^
         {
           Concurrency::task_completion_event<RTCDataChannel^> tce;
 
-          auto pDelegate(make_shared<internal::RTCPeerConnectionPromiseWitDataChannelObserver>(tce));
+          auto pDelegate(make_shared<Internal::RTCPeerConnectionPromiseWitDataChannelObserver>(tce));
 
           promise->then(pDelegate);
           promise->background();

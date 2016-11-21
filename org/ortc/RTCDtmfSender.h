@@ -2,9 +2,9 @@
 
 #include <ortc/IDTMFSender.h>
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IDTMFSender, IDTMFSender)
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IDTMFSenderDelegate, IDTMFSenderDelegate)
@@ -13,7 +13,7 @@ namespace org
     ref class RTCDtmfSender;
     ref class RTCRtpSender;
 
-    namespace internal
+    namespace Internal
     {
       ZS_DECLARE_CLASS_PTR(RTCDtmfSenderDelegate)
     } // namespace internal
@@ -23,7 +23,7 @@ namespace org
     /// </summary>
     public ref struct RTCDTMFToneChangeEvent sealed
     {
-      friend class internal::RTCDtmfSenderDelegate;
+      friend class Internal::RTCDtmfSenderDelegate;
 
       /// <summary>
       /// Gets the tone attribute contains the character for the tone that has
@@ -47,7 +47,7 @@ namespace org
     /// </summary>
     public ref class RTCDtmfSender sealed
     {
-      friend class internal::RTCDtmfSenderDelegate;
+      friend class Internal::RTCDtmfSenderDelegate;
 
     private:
 
@@ -141,7 +141,7 @@ namespace org
 
     private:
       IDTMFSenderPtr _nativePointer;
-      internal::RTCDtmfSenderDelegatePtr _nativeDelegatePointer;
+      Internal::RTCDtmfSenderDelegatePtr _nativeDelegatePointer;
       IDTMFSenderSubscriptionPtr _nativeSubscriptionPointer;
     };
 

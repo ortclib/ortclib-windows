@@ -5,9 +5,9 @@
 #include "MediaStream.h"
 #include "RTCSessionDescription.h"
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     ref class RTCCertificate;
     ref class RTCRtpSender;
@@ -22,7 +22,7 @@ namespace org
     ref struct RTCIceServer;
     ref struct RTCDataChannelParameters;
 
-    namespace adapter
+    namespace Adapter
     {
       using Windows::Foundation::Collections::IVector;
       using Windows::Foundation::IAsyncOperation;
@@ -50,7 +50,7 @@ namespace org
       ZS_DECLARE_TYPEDEF_PTR(::ortc::adapter::IPeerConnection, IPeerConnection);
       ZS_DECLARE_TYPEDEF_PTR(::ortc::adapter::IPeerConnectionSubscription, IPeerConnectionSubscription);
 
-      namespace internal
+      namespace Internal
       {
         ZS_DECLARE_CLASS_PTR(RTCPeerConnectionDelegate);
         ZS_DECLARE_TYPEDEF_PTR(::ortc::adapter::IPeerConnectionTypes, IPeerConnectionTypes);
@@ -469,7 +469,7 @@ namespace org
       /// </summary>
       public ref struct RTCPeerConnectionIceEvent sealed
       {
-        friend class internal::RTCPeerConnectionDelegate;
+        friend class Internal::RTCPeerConnectionDelegate;
 
         /// <summary>
         /// Gets the RTCIceCandidate object with the new ICE candidate that
@@ -501,7 +501,7 @@ namespace org
       /// </summary>
       public ref struct RTCPeerConnectionIceCompleteEvent sealed
       {
-        friend class internal::RTCPeerConnectionDelegate;
+        friend class Internal::RTCPeerConnectionDelegate;
 
         /// <summary>
         /// Gets the RTCIceCandidateComplete object with the final ICE
@@ -522,7 +522,7 @@ namespace org
       /// </summary>
       public ref struct RTCPeerConnectionIceErrorEvent sealed
       {
-        friend class internal::RTCPeerConnectionDelegate;
+        friend class Internal::RTCPeerConnectionDelegate;
 
         /// <summary>
         /// Gets the local candidate used to communicate with the STUN or TURN
@@ -573,7 +573,7 @@ namespace org
       /// </summary>
       public ref struct RTCTrackEvent sealed
       {
-        friend class internal::RTCPeerConnectionDelegate;
+        friend class Internal::RTCPeerConnectionDelegate;
 
         /// <summary>
         /// Gets the RTCRtpReceiver object associated with the event.
@@ -625,7 +625,7 @@ namespace org
       public ref class RTCPeerConnection sealed
       {
       private:
-        friend class internal::RTCPeerConnectionDelegate;
+        friend class Internal::RTCPeerConnectionDelegate;
         friend ref class RTCStatsProvider;
 
       private:
@@ -1008,7 +1008,7 @@ namespace org
 
       private:
         IPeerConnectionPtr _nativePointer;
-        internal::RTCPeerConnectionDelegatePtr _nativeDelegatePointer;
+        Internal::RTCPeerConnectionDelegatePtr _nativeDelegatePointer;
         IPeerConnectionSubscriptionPtr _nativeDelegateSubscription;
       };
 

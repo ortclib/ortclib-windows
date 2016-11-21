@@ -18,9 +18,9 @@ using Microsoft::WRL::MakeAndInitialize;
 
 #define RETURN_ON_FAIL(code) { HRESULT hr = code; if (FAILED(hr)) {OutputDebugString(L"Failed"); return hr;} }
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
 
     WebRtcMediaSource::WebRtcMediaSource() :

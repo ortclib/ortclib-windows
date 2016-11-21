@@ -11,9 +11,9 @@
 
 #include <org/ortc/Ortc.h>
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
 
     void FrameCounterHelper::FireEvent(

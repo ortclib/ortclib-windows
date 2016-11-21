@@ -10,13 +10,13 @@
 
 using std::make_shared;
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
-    ZS_DECLARE_TYPEDEF_PTR(internal::Helper, UseHelper)
+    ZS_DECLARE_TYPEDEF_PTR(Internal::Helper, UseHelper)
 
-    namespace internal
+    namespace Internal
     {
       class RTCRtpListenerDelegate : public IRTPListenerDelegate
       {
@@ -50,21 +50,21 @@ namespace org
     }
 
     RTCRtpListener::RTCRtpListener(RTCDtlsTransport^ transport) :
-      _nativeDelegatePointer(make_shared<internal::RTCRtpListenerDelegate>(this))
+      _nativeDelegatePointer(make_shared<Internal::RTCRtpListenerDelegate>(this))
     {
       auto nativeTransport = RTCDtlsTransport::Convert(transport);
       _nativePointer = IRTPListener::create(_nativeDelegatePointer, nativeTransport);
     }
 
     RTCRtpListener::RTCRtpListener(RTCSrtpSdesTransport^ transport) :
-      _nativeDelegatePointer(make_shared<internal::RTCRtpListenerDelegate>(this))
+      _nativeDelegatePointer(make_shared<Internal::RTCRtpListenerDelegate>(this))
     {
       auto nativeTransport = RTCSrtpSdesTransport::Convert(transport);
       _nativePointer = IRTPListener::create(_nativeDelegatePointer, nativeTransport);
     }
 
     RTCRtpListener::RTCRtpListener(RTCDtlsTransport^ transport, IVector<RTCRtpHeaderExtensionParameters^>^ headerExtensions) :
-      _nativeDelegatePointer(make_shared<internal::RTCRtpListenerDelegate>(this))
+      _nativeDelegatePointer(make_shared<Internal::RTCRtpListenerDelegate>(this))
     {
       IRTPListener::HeaderExtensionParametersList list;
 
@@ -73,7 +73,7 @@ namespace org
         for (RTCRtpHeaderExtensionParameters^ ext : headerExtensions)
         {
           if (nullptr == ext) continue;
-          list.push_back(*internal::FromCx(ext));
+          list.push_back(*Internal::FromCx(ext));
         }
       }
       auto nativeTransport = RTCDtlsTransport::Convert(transport);
@@ -81,7 +81,7 @@ namespace org
     }
 
     RTCRtpListener::RTCRtpListener(RTCSrtpSdesTransport^ transport, IVector<RTCRtpHeaderExtensionParameters^>^ headerExtensions) :
-      _nativeDelegatePointer(make_shared<internal::RTCRtpListenerDelegate>(this))
+      _nativeDelegatePointer(make_shared<Internal::RTCRtpListenerDelegate>(this))
     {
       IRTPListener::HeaderExtensionParametersList list;
 
@@ -90,7 +90,7 @@ namespace org
         for (RTCRtpHeaderExtensionParameters^ ext : headerExtensions)
         {
           if (nullptr == ext) continue;
-          list.push_back(*internal::FromCx(ext));
+          list.push_back(*Internal::FromCx(ext));
         }
       }
       auto nativeTransport = RTCSrtpSdesTransport::Convert(transport);

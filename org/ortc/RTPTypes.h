@@ -3,9 +3,9 @@
 
 #include <ortc\IRTPTypes.h>
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IRTPTypes, IRTPTypes)
       
@@ -37,7 +37,7 @@ namespace org
     ref struct RTCRtcpFeedback;
     ref struct RTCRtpHeaderExtension;
 
-    namespace internal
+    namespace Internal
     {
       RTCRtpCapabilities^ ToCx(const IRTPTypes::Capabilities &input);
       RTCRtpCapabilities^ ToCx(IRTPTypes::CapabilitiesPtr input);

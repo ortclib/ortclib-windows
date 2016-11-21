@@ -14,15 +14,15 @@ using namespace ortc;
 
 using Platform::Collections::Vector;
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     using Windows::Foundation::Collections::IVector;
 
-    ZS_DECLARE_TYPEDEF_PTR(internal::Helper, UseHelper)
+    ZS_DECLARE_TYPEDEF_PTR(Internal::Helper, UseHelper)
 
-    namespace internal
+    namespace Internal
     {
 #pragma region RTCRtpReceiver delegates
 
@@ -78,7 +78,7 @@ namespace org
 
     RTCRtpReceiver::RTCRtpReceiver(IRTPReceiverPtr receiver) :
       _nativePointer(receiver),
-      _nativeDelegatePointer(make_shared<internal::RTCRtpReceiverDelegate>(this))
+      _nativeDelegatePointer(make_shared<Internal::RTCRtpReceiverDelegate>(this))
     {
       if (_nativePointer)
       {
@@ -88,7 +88,7 @@ namespace org
     }
 
     RTCRtpReceiver::RTCRtpReceiver(MediaStreamTrackKind kind, RTCDtlsTransport^ transport) :
-      _nativeDelegatePointer(make_shared<internal::RTCRtpReceiverDelegate>(this))
+      _nativeDelegatePointer(make_shared<Internal::RTCRtpReceiverDelegate>(this))
     {
       auto nativeTransport = RTCDtlsTransport::Convert(transport);
 
@@ -107,7 +107,7 @@ namespace org
     }
 
     RTCRtpReceiver::RTCRtpReceiver(MediaStreamTrackKind kind, RTCSrtpSdesTransport^ transport) :
-      _nativeDelegatePointer(make_shared<internal::RTCRtpReceiverDelegate>(this))
+      _nativeDelegatePointer(make_shared<Internal::RTCRtpReceiverDelegate>(this))
     {
       auto nativeTransport = RTCSrtpSdesTransport::Convert(transport);
 
@@ -126,7 +126,7 @@ namespace org
     }
 
     RTCRtpReceiver::RTCRtpReceiver(MediaStreamTrackKind kind, RTCDtlsTransport ^ transport, RTCDtlsTransport^ rtcpTransport) :
-      _nativeDelegatePointer(make_shared<internal::RTCRtpReceiverDelegate>(this))
+      _nativeDelegatePointer(make_shared<Internal::RTCRtpReceiverDelegate>(this))
     {
       auto nativeTransport = RTCDtlsTransport::Convert(transport);
       auto nativeRtcpTransport = RTCDtlsTransport::Convert(rtcpTransport);
@@ -145,7 +145,7 @@ namespace org
     }
 
     RTCRtpReceiver::RTCRtpReceiver(MediaStreamTrackKind kind, RTCSrtpSdesTransport ^ transport, RTCIceTransport^ rtcpTransport) :
-      _nativeDelegatePointer(make_shared<internal::RTCRtpReceiverDelegate>(this))
+      _nativeDelegatePointer(make_shared<Internal::RTCRtpReceiverDelegate>(this))
     {
       auto nativeTransport = RTCSrtpSdesTransport::Convert(transport);
       auto nativeRtcpTransport = RTCIceTransport::Convert(rtcpTransport);
@@ -240,10 +240,10 @@ namespace org
       String kindStr = UseHelper::FromCx(kind);
 
       if (0 == kindStr.compareNoCase(UseHelper::FromCx(MediaStreamTrackKind::Audio.ToString())))
-        return internal::ToCx(IRTPReceiver::getCapabilities(IMediaStreamTrackTypes::Kinds::Kind_Audio));
+        return Internal::ToCx(IRTPReceiver::getCapabilities(IMediaStreamTrackTypes::Kinds::Kind_Audio));
 
       if (0 == kindStr.compareNoCase(UseHelper::FromCx(MediaStreamTrackKind::Video.ToString())))
-        return internal::ToCx(IRTPReceiver::getCapabilities(IMediaStreamTrackTypes::Kinds::Kind_Video));
+        return Internal::ToCx(IRTPReceiver::getCapabilities(IMediaStreamTrackTypes::Kinds::Kind_Video));
 
       ORG_ORTC_THROW_INVALID_PARAMETERS()
     }
@@ -257,7 +257,7 @@ namespace org
 
       try
       {
-        promise = _nativePointer->receive(*internal::FromCx(parameters));
+        promise = _nativePointer->receive(*Internal::FromCx(parameters));
       }
       catch (const InvalidParameters & )
       {
@@ -272,7 +272,7 @@ namespace org
       {
         Concurrency::task_completion_event<void> tce;
 
-        auto observer = make_shared<internal::RTCRtpReceiverPromiseObserver>(tce);
+        auto observer = make_shared<Internal::RTCRtpReceiverPromiseObserver>(tce);
 
         promise->then(observer);
         promise->background();
@@ -284,7 +284,7 @@ namespace org
       return ret;
     }
 
-    IVector<RTCRtpContributingSource^>^ org::ortc::RTCRtpReceiver::GetContributingSource()
+    IVector<RTCRtpContributingSource^>^ Org::Ortc::RTCRtpReceiver::GetContributingSource()
     {
       auto ret = ref new Vector<RTCRtpContributingSource^>();
 

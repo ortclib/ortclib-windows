@@ -3,13 +3,13 @@
 #include <ortc/adapter/IMediaStream.h>
 #include "../MediaStreamTrack.h"
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     ref class RTCStatsProvider;
 
-    namespace adapter
+    namespace Adapter
     {
       using Windows::Foundation::Collections::IVector;
 
@@ -18,7 +18,7 @@ namespace org
 
       ref class RTCPeerConnection;
 
-      namespace internal
+      namespace Internal
       {
         ZS_DECLARE_CLASS_PTR(MediaStreamDelegate);
         ZS_DECLARE_CLASS_PTR(RTCPeerConnectionDelegate);
@@ -38,8 +38,8 @@ namespace org
       public ref class MediaStream sealed
       {
       private:
-        friend class internal::MediaStreamDelegate;
-        friend class internal::RTCPeerConnectionDelegate;
+        friend class Internal::MediaStreamDelegate;
+        friend class Internal::RTCPeerConnectionDelegate;
         friend ref class RTCPeerConnection;
         friend ref class RTCStatsProvider;
 
@@ -145,7 +145,7 @@ namespace org
 
       private:
         IMediaStreamPtr _nativePointer;
-        internal::MediaStreamDelegatePtr _nativeDelegatePointer;
+        Internal::MediaStreamDelegatePtr _nativeDelegatePointer;
         IMediaStreamSubscriptionPtr _nativeSubscriptionPointer;
       };
 

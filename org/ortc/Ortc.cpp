@@ -10,9 +10,9 @@
 
 using namespace ortc;
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     CoreDispatcher ^OrtcWithDispatcher::_dispatcher = nullptr;
 
@@ -48,13 +48,13 @@ namespace org
 
     bool Ortc::SaveMediaTrace(Platform::String ^filename)
     {
-      std::string filenameValue = internal::Helper::FromCx(filename);
+      std::string filenameValue = Internal::Helper::FromCx(filename);
       return IORTC::saveMediaTrace(filenameValue);
     }
 
     bool Ortc::SaveMediaTrace(Platform::String ^host, int port)
     {
-      std::string hostValue = internal::Helper::FromCx(host);
+      std::string hostValue = Internal::Helper::FromCx(host);
       return IORTC::saveMediaTrace(hostValue, port);
     }
 

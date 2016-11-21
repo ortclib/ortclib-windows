@@ -4,9 +4,9 @@
 
 #include "RTCStatsReport.h"
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IStatsReportTypes, IStatsReportTypes);
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IStatsReport, IStatsReport);
@@ -33,7 +33,7 @@ namespace org
     ref class MediaStreamTrack;
     ref class RTCSctpTransport;
 
-    namespace internal
+    namespace Internal
     {
       ZS_DECLARE_CLASS_PTR(RTCStateProviderObserver);
 
@@ -41,7 +41,7 @@ namespace org
 
     } // namespace internal
 
-    namespace adapter
+    namespace Adapter
     {
       ref class RTCPeerConnection;
       ref class MediaStream;
@@ -83,7 +83,7 @@ namespace org
     /// </summary>
     public ref class RTCStatsProvider sealed
     {
-      friend class internal::RTCStateProviderObserver;
+      friend class Internal::RTCStateProviderObserver;
 
     private:
       RTCStatsProvider(IStatsProviderPtr nativePointer);
@@ -190,14 +190,14 @@ namespace org
       /// inspect an RTCPeerConnection object.
       /// </summary>
       [Windows::Foundation::Metadata::OverloadAttribute("CreateWithPeerConnection")]
-      RTCStatsProvider(adapter::RTCPeerConnection^ connection, RTCStatsProviderOptions^ options);
+      RTCStatsProvider(Adapter::RTCPeerConnection^ connection, RTCStatsProviderOptions^ options);
 
       /// <summary>
       /// Constructs an instance of an RTCStatsProvider object that will
       /// inspect an MediaStream object.
       /// </summary>
       [Windows::Foundation::Metadata::OverloadAttribute("CreateWithMediaStream")]
-      RTCStatsProvider(adapter::MediaStream^ stream, RTCStatsProviderOptions^ options);
+      RTCStatsProvider(Adapter::MediaStream^ stream, RTCStatsProviderOptions^ options);
 
       /// <summary>
       /// Gets an awaitable RTCStatsReport object that will contain a set of

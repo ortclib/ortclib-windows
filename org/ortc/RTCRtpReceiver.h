@@ -5,9 +5,9 @@
 
 #include <ortc/IRTPReceiver.h>
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IRTPReceiverDelegate, IRTPReceiverDelegate);
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IRTPReceiver, IRTPReceiver);
@@ -27,17 +27,17 @@ namespace org
 
     enum class MediaStreamTrackKind;
 
-    namespace internal
+    namespace Internal
     {
       ZS_DECLARE_CLASS_PTR(RTCRtpReceiverDelegate);
       ZS_DECLARE_CLASS_PTR(RTCRtpReceiverPromiseObserver);
     } // namespace internal
 
-    namespace adapter
+    namespace Adapter
     {
       ref class RTCPeerConnection;
 
-      namespace internal
+      namespace Internal
       {
         ZS_DECLARE_CLASS_PTR(RTCPeerConnectionDelegate);
       } // namespace internal
@@ -118,9 +118,9 @@ namespace org
     /// </summary>
     public ref class RTCRtpReceiver sealed
     {
-      friend class internal::RTCRtpReceiverDelegate;
-      friend class adapter::internal::RTCPeerConnectionDelegate;
-      friend ref class adapter::RTCPeerConnection;
+      friend class Internal::RTCRtpReceiverDelegate;
+      friend class Adapter::Internal::RTCPeerConnectionDelegate;
+      friend ref class Adapter::RTCPeerConnection;
       friend ref class RTCStatsProvider;
 
     private:
@@ -273,7 +273,7 @@ namespace org
       
     private:
       IRTPReceiverPtr _nativePointer;
-      internal::RTCRtpReceiverDelegatePtr _nativeDelegatePointer;
+      Internal::RTCRtpReceiverDelegatePtr _nativeDelegatePointer;
       IRTPReceiverSubscriptionPtr _nativeSubscriptionPointer;
     };
   }

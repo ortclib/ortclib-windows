@@ -4,9 +4,9 @@
 
 #include "../RTCIceTypes.h"
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     ref struct RTCIceParameters;
     ref struct RTCDtlsParameters;
@@ -19,7 +19,7 @@ namespace org
     ref struct RTCIceCandidate;
     ref struct RTCIceCandidateComplete;
 
-    namespace adapter
+    namespace Adapter
     {
       using Windows::Foundation::Collections::IVector;
 
@@ -44,7 +44,7 @@ namespace org
 
       ZS_DECLARE_TYPEDEF_PTR(::ortc::adapter::ISessionDescription, ISessionDescription)
 
-      namespace internal
+      namespace Internal
       {
         ZS_DECLARE_CLASS_PTR(RTCPeerConnectionPromiseWithDescriptionObserver);
 
@@ -95,13 +95,13 @@ namespace org
         RTCSessionDescriptionRtpSenderDetails^ ToCx(ISessionDescriptionTypes::RTPSender::DetailsPtr input);
         ISessionDescriptionTypes::RTPSender::DetailsPtr FromCx(RTCSessionDescriptionRtpSenderDetails^ input);
 
-        adapter::RTCIceCandidate^ ToIceCandidateCx(const ISessionDescriptionTypes::ICECandidate &input);
-        adapter::RTCIceCandidate^ ToIceCandidateCx(ISessionDescriptionTypes::ICECandidatePtr input);
-        ISessionDescriptionTypes::ICECandidatePtr FromCx(adapter::RTCIceCandidate^ input);
+        Adapter::RTCIceCandidate^ ToIceCandidateCx(const ISessionDescriptionTypes::ICECandidate &input);
+        Adapter::RTCIceCandidate^ ToIceCandidateCx(ISessionDescriptionTypes::ICECandidatePtr input);
+        ISessionDescriptionTypes::ICECandidatePtr FromCx(Adapter::RTCIceCandidate^ input);
 
-        adapter::RTCIceCandidateComplete^ ToIceCandidateCompleteCx(const ISessionDescriptionTypes::ICECandidate &input);
-        adapter::RTCIceCandidateComplete^ ToIceCandidateCompleteCx(ISessionDescriptionTypes::ICECandidatePtr input);
-        ISessionDescriptionTypes::ICECandidatePtr FromCx(adapter::RTCIceCandidateComplete^ input);
+        Adapter::RTCIceCandidateComplete^ ToIceCandidateCompleteCx(const ISessionDescriptionTypes::ICECandidate &input);
+        Adapter::RTCIceCandidateComplete^ ToIceCandidateCompleteCx(ISessionDescriptionTypes::ICECandidatePtr input);
+        ISessionDescriptionTypes::ICECandidatePtr FromCx(Adapter::RTCIceCandidateComplete^ input);
       }
 
       /// <summary>
@@ -568,7 +568,7 @@ namespace org
         /// <summary>
         /// Gets or sets the list of ICE candidates as described in [RFC5245].
         /// </summary>
-        property IVector<ortc::RTCIceCandidate^>^       IceCandidates;
+        property IVector<Ortc::RTCIceCandidate^>^       IceCandidates;
         /// <summary>
         /// Gets or sets if the end-of-candidates flag as described in
         /// [draft-ietf-ice-trickle] Section 10.
@@ -1150,7 +1150,7 @@ namespace org
       public ref class RTCSessionDescription sealed
       {
       private:
-        friend class internal::RTCPeerConnectionPromiseWithDescriptionObserver;
+        friend class Internal::RTCPeerConnectionPromiseWithDescriptionObserver;
         friend ref class RTCPeerConnection;
 
       private:

@@ -10,15 +10,15 @@ using namespace ortc;
 
 using Platform::Collections::Vector;
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     using std::make_shared;
 
-    ZS_DECLARE_TYPEDEF_PTR(internal::Helper, UseHelper)
+    ZS_DECLARE_TYPEDEF_PTR(Internal::Helper, UseHelper)
 
-    namespace internal
+    namespace Internal
     {
 #pragma region RTCIceTransport conversions
 
@@ -93,7 +93,7 @@ namespace org
           ) override
         {
           auto evt = ref new RTCIceCandidatePairChangedEvent();
-          evt->_candidatePair = internal::ToCx(candidatePair);
+          evt->_candidatePair = Internal::ToCx(candidatePair);
           _owner->OnCandidatePairAvailable(evt);
         }
 
@@ -103,7 +103,7 @@ namespace org
           )
         {
           auto evt = ref new RTCIceCandidatePairChangedEvent();
-          evt->_candidatePair = internal::ToCx(candidatePair);
+          evt->_candidatePair = Internal::ToCx(candidatePair);
           _owner->OnCandidatePairGone(evt);
         }
 
@@ -113,7 +113,7 @@ namespace org
           ) override
         {
           auto evt = ref new RTCIceCandidatePairChangedEvent();
-          evt->_candidatePair = internal::ToCx(candidatePair);
+          evt->_candidatePair = Internal::ToCx(candidatePair);
           _owner->OnCandidatePairChange(evt);
         }
 
@@ -128,13 +128,13 @@ namespace org
 #pragma region RTCIceTransport
 
     RTCIceTransport::RTCIceTransport(const noop &) :
-      _nativeDelegatePointer(make_shared<internal::RTCIceTransportDelegate>(this)),
+      _nativeDelegatePointer(make_shared<Internal::RTCIceTransportDelegate>(this)),
       _nativePointer(nullptr)
     {
     }
 
     RTCIceTransport::RTCIceTransport(IICETransportPtr transport) :
-      _nativeDelegatePointer(make_shared<internal::RTCIceTransportDelegate>(this)),
+      _nativeDelegatePointer(make_shared<Internal::RTCIceTransportDelegate>(this)),
       _nativePointer(transport)
     {
       if (_nativePointer) {
@@ -143,7 +143,7 @@ namespace org
     }
 
     RTCIceTransport::RTCIceTransport() :
-      _nativeDelegatePointer(make_shared<internal::RTCIceTransportDelegate>(this))
+      _nativeDelegatePointer(make_shared<Internal::RTCIceTransportDelegate>(this))
     {
       try
       {
@@ -156,7 +156,7 @@ namespace org
     }
 
     RTCIceTransport::RTCIceTransport(RTCIceGatherer^ gatherer) :
-      _nativeDelegatePointer(make_shared<internal::RTCIceTransportDelegate>(this))
+      _nativeDelegatePointer(make_shared<Internal::RTCIceTransportDelegate>(this))
     {
       auto nativeGatherer = RTCIceGatherer::Convert(gatherer);
       _nativePointer = IICETransport::create(_nativeDelegatePointer, nativeGatherer);
@@ -171,7 +171,7 @@ namespace org
         auto candidates = _nativePointer->getRemoteCandidates();
         for (IICETransport::CandidateList::iterator it = candidates->begin(); it != candidates->end(); ++it)
         {
-          ret->Append(internal::ToCx(*it));
+          ret->Append(Internal::ToCx(*it));
         }
       }
       return ret;
@@ -180,7 +180,7 @@ namespace org
     RTCIceCandidatePair^ RTCIceTransport::GetSelectedCandidatePair()
     {
       if (!_nativePointer) return nullptr;
-      return internal::ToCx(_nativePointer->getSelectedCandidatePair()); // should it be getSelectedCandidatePair???
+      return Internal::ToCx(_nativePointer->getSelectedCandidatePair()); // should it be getSelectedCandidatePair???
     }
 
     void RTCIceTransport::Start(RTCIceGatherer^ gatherer, RTCIceParameters^ remoteParameters)
@@ -189,7 +189,7 @@ namespace org
       ORG_ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == remoteParameters)
 
       auto nativeGatherer = RTCIceGatherer::Convert(gatherer);
-      _nativePointer->start(nativeGatherer, *internal::FromCx(remoteParameters));
+      _nativePointer->start(nativeGatherer, *Internal::FromCx(remoteParameters));
     }
 
     void RTCIceTransport::Start(RTCIceGatherer^ gatherer, RTCIceParameters^ remoteParameters, RTCIceRole role)
@@ -211,7 +211,7 @@ namespace org
 
       try
       {
-        _nativePointer->start(nativeGatherer, *internal::FromCx(remoteParameters), *internal::FromCx(options));
+        _nativePointer->start(nativeGatherer, *Internal::FromCx(remoteParameters), *Internal::FromCx(options));
       }
       catch (const InvalidParameters &)
       {
@@ -232,7 +232,7 @@ namespace org
     RTCIceParameters^ RTCIceTransport::GetRemoteParameters()
     {
       if (!_nativePointer) return nullptr;
-      return internal::ToCx(_nativePointer->getRemoteParameters());
+      return Internal::ToCx(_nativePointer->getRemoteParameters());
     }
 
     RTCIceTransport^ RTCIceTransport::CreateAssociatedTransport()
@@ -262,7 +262,7 @@ namespace org
 
       try
       {
-        _nativePointer->addRemoteCandidate(*internal::FromCx(remoteCandidate));
+        _nativePointer->addRemoteCandidate(*Internal::FromCx(remoteCandidate));
       }     
       catch (const InvalidParameters &)
       {
@@ -280,7 +280,7 @@ namespace org
       ORG_ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == remoteCandidate)
       try
       {
-        _nativePointer->addRemoteCandidate(*internal::FromCx(remoteCandidate));
+        _nativePointer->addRemoteCandidate(*Internal::FromCx(remoteCandidate));
       }
       catch (const InvalidParameters &)
       {
@@ -302,7 +302,7 @@ namespace org
       for (RTCIceCandidate^ candidate : remoteCandidates)
       {
         ORG_ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == candidate)
-        list.push_back(*internal::FromCx(candidate));
+        list.push_back(*Internal::FromCx(candidate));
       }
 
       try
@@ -323,14 +323,14 @@ namespace org
     {
       ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
       ORG_ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == candidatePair)
-      _nativePointer->keepWarm(*internal::FromCx(candidatePair));
+      _nativePointer->keepWarm(*Internal::FromCx(candidatePair));
     }
 
     void RTCIceTransport::KeepWarm(RTCIceCandidatePair^ candidatePair, Platform::Boolean keepWarm)
     {
       ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer)
       ORG_ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == candidatePair)
-      _nativePointer->keepWarm(*internal::FromCx(candidatePair), keepWarm);
+      _nativePointer->keepWarm(*Internal::FromCx(candidatePair), keepWarm);
     }
 
     RTCIceGatherer^ RTCIceTransport::IceGatherer::get()

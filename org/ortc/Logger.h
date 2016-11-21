@@ -1,8 +1,8 @@
 #pragma once
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     namespace Log
     {

@@ -14,17 +14,17 @@ using namespace ortc;
 using namespace Platform;
 using Platform::Collections::Vector;
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     using std::make_shared;
     using zsLib::Milliseconds;
 
-    ZS_DECLARE_TYPEDEF_PTR(internal::Helper, UseHelper);
+    ZS_DECLARE_TYPEDEF_PTR(Internal::Helper, UseHelper);
     ZS_DECLARE_TYPEDEF_PTR(::ortc::services::IHelper, UseServicesHelper);
 
-    namespace internal
+    namespace Internal
     {
 
       RTCRtcpFeedback^ ToCx(const IRTPTypes::RTCPFeedback &input)
@@ -1220,12 +1220,12 @@ namespace org
     //---------------------------------------------------------------------------
     RTCRtpCapabilities^ RTCRtpCapabilities::Clone()
     {
-      return internal::ToCx(internal::FromCx(this));
+      return Internal::ToCx(Internal::FromCx(this));
     }
 
     Platform::String^ RTCRtpCapabilities::ToJsonString()
     {
-      auto caps = internal::FromCx(this);
+      auto caps = Internal::FromCx(this);
       return UseHelper::ToCx(UseServicesHelper::toString(caps->createElement("RtpCapabilities")));
     }
 
@@ -1235,7 +1235,7 @@ namespace org
 
       auto capabilitiesPtr = make_shared<IRTPTypes::Capabilities>(IRTPTypes::Capabilities::Capabilities(UseServicesHelper::toJSON(UseHelper::FromCx(jsonString).c_str())));
 
-      return internal::ToCx(capabilitiesPtr);
+      return Internal::ToCx(capabilitiesPtr);
     }
 
     //---------------------------------------------------------------------------
@@ -1243,14 +1243,14 @@ namespace org
     //---------------------------------------------------------------------------
     Platform::String^ RTCRtpCodecCapability::ToJsonString()
     {
-      auto capability = internal::FromCx(this);
+      auto capability = Internal::FromCx(this);
       return UseHelper::ToCx(UseServicesHelper::toString(capability->createElement("CodecCapability")));
     }
 
     RTCRtpCodecCapability^ RTCRtpCodecCapability::FromJsonString(Platform::String^ jsonString)
     {
       auto capability = make_shared<IRTPTypes::CodecCapability>(IRTPTypes::CodecCapability::CodecCapability(UseServicesHelper::toJSON(UseHelper::FromCx(jsonString).c_str())));
-      return internal::ToCx(capability);
+      return Internal::ToCx(capability);
     }
 
     //---------------------------------------------------------------------------
@@ -1258,14 +1258,14 @@ namespace org
     //---------------------------------------------------------------------------
     Platform::String^ RTCRtcpFeedback::ToJsonString()
     {
-      IRTPTypes::RTCPFeedback feedback = internal::FromCx(this);
+      IRTPTypes::RTCPFeedback feedback = Internal::FromCx(this);
       return UseHelper::ToCx(UseServicesHelper::toString(feedback.createElement("RtcpFeedback")));
     }
 
     RTCRtcpFeedback^ RTCRtcpFeedback::FromJsonString(Platform::String^ jsonString)
     {
       auto ret = make_shared<IRTPTypes::RTCPFeedback>(IRTPTypes::RTCPFeedback::RTCPFeedback(UseServicesHelper::toJSON(UseHelper::FromCx(jsonString).c_str())));
-      return internal::ToCx(ret);
+      return Internal::ToCx(ret);
     }
 
     //---------------------------------------------------------------------------
@@ -1273,14 +1273,14 @@ namespace org
     //---------------------------------------------------------------------------
     Platform::String^ RTCRtpHeaderExtension::ToJsonString()
     {
-      auto ext = internal::FromCx(this);
+      auto ext = Internal::FromCx(this);
       return UseHelper::ToCx(UseServicesHelper::toString(ext->createElement("RtpHeaderExtension")));
     }
 
     RTCRtpHeaderExtension^ RTCRtpHeaderExtension::FromJsonString(Platform::String^ jsonString)
     {
       auto ret = make_shared<IRTPTypes::HeaderExtension>(IRTPTypes::HeaderExtension::HeaderExtension(UseServicesHelper::toJSON(UseHelper::FromCx(jsonString).c_str())));
-      return internal::ToCx(ret);
+      return Internal::ToCx(ret);
     }
 
     //---------------------------------------------------------------------------
@@ -1288,12 +1288,12 @@ namespace org
     //---------------------------------------------------------------------------
     RTCRtpParameters^ RTCRtpParameters::Clone()
     {
-      return internal::ToCx(internal::FromCx(this));
+      return Internal::ToCx(Internal::FromCx(this));
     }
 
     Platform::String^ RTCRtpParameters::ToJsonString()
     {
-      auto caps = internal::FromCx(this);
+      auto caps = Internal::FromCx(this);
       return UseHelper::ToCx(UseServicesHelper::toString(caps->createElement("RtpCapabilities")));
     }
 
@@ -1303,7 +1303,7 @@ namespace org
 
       auto capabilitiesPtr = make_shared<IRTPTypes::Parameters>(IRTPTypes::Parameters::Parameters(UseServicesHelper::toJSON(UseHelper::FromCx(jsonString).c_str())));
 
-      return internal::ToCx(capabilitiesPtr);
+      return Internal::ToCx(capabilitiesPtr);
     }
 
   } // namespace ortc

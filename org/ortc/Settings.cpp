@@ -9,11 +9,11 @@
 
 using namespace ortc;
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
-    ZS_DECLARE_TYPEDEF_PTR(internal::Helper, UseHelper);
+    ZS_DECLARE_TYPEDEF_PTR(Internal::Helper, UseHelper);
 
     void Settings::ApplyDefaults()
     {

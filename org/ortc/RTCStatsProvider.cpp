@@ -25,16 +25,16 @@
 
 using namespace ortc;
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     using std::make_shared;
     ZS_DECLARE_USING_PTR(zsLib, Promise);
 
-    ZS_DECLARE_TYPEDEF_PTR(internal::Helper, UseHelper)
+    ZS_DECLARE_TYPEDEF_PTR(Internal::Helper, UseHelper)
 
-    namespace internal
+    namespace Internal
     {
 
 #pragma region RTCStateProviderObserver
@@ -94,87 +94,87 @@ namespace org
     }
 
     RTCStatsProvider::RTCStatsProvider(MediaStreamTrack^ track, RTCStatsProviderOptions^ options) :
-      mStatsTypes(internal::FromCx(options))
+      mStatsTypes(Internal::FromCx(options))
     {
       _nativePointer = MediaStreamTrack::Convert(track);
     }
 
     RTCStatsProvider::RTCStatsProvider(RTCCertificate^ cert, RTCStatsProviderOptions^ options) :
-      mStatsTypes(internal::FromCx(options))
+      mStatsTypes(Internal::FromCx(options))
     {
       _nativePointer = RTCCertificate::Convert(cert);
     }
 
     RTCStatsProvider::RTCStatsProvider(RTCDataChannel^ channel, RTCStatsProviderOptions^ options) :
-      mStatsTypes(internal::FromCx(options))
+      mStatsTypes(Internal::FromCx(options))
     {
       _nativePointer = RTCDataChannel::Convert(channel);
     }
 
     RTCStatsProvider::RTCStatsProvider(RTCDtlsTransport^ transport, RTCStatsProviderOptions^ options) :
-      mStatsTypes(internal::FromCx(options))
+      mStatsTypes(Internal::FromCx(options))
     {
       _nativePointer = RTCDtlsTransport::Convert(transport);
     }
 
     RTCStatsProvider::RTCStatsProvider(RTCIceGatherer^ gatherer, RTCStatsProviderOptions^ options) :
-      mStatsTypes(internal::FromCx(options))
+      mStatsTypes(Internal::FromCx(options))
     {
       _nativePointer = RTCIceGatherer::Convert(gatherer);
     }
 
     RTCStatsProvider::RTCStatsProvider(RTCIceTransport^ transport, RTCStatsProviderOptions^ options) :
-      mStatsTypes(internal::FromCx(options))
+      mStatsTypes(Internal::FromCx(options))
     {
       _nativePointer = RTCIceTransport::Convert(transport);
     }
 
     RTCStatsProvider::RTCStatsProvider(RTCIceTransportController^ controller, RTCStatsProviderOptions^ options) :
-      mStatsTypes(internal::FromCx(options))
+      mStatsTypes(Internal::FromCx(options))
     {
       _nativePointer = RTCIceTransportController::Convert(controller);
     }
 
     RTCStatsProvider::RTCStatsProvider(RTCRtpListener^ listener, RTCStatsProviderOptions^ options) :
-      mStatsTypes(internal::FromCx(options))
+      mStatsTypes(Internal::FromCx(options))
     {
       _nativePointer = RTCRtpListener::Convert(listener);
     }
 
     RTCStatsProvider::RTCStatsProvider(RTCRtpReceiver^ receiver, RTCStatsProviderOptions^ options) :
-      mStatsTypes(internal::FromCx(options))
+      mStatsTypes(Internal::FromCx(options))
     {
       _nativePointer = RTCRtpReceiver::Convert(receiver);
     }
 
     RTCStatsProvider::RTCStatsProvider(RTCRtpSender^ sender, RTCStatsProviderOptions^ options) :
-      mStatsTypes(internal::FromCx(options))
+      mStatsTypes(Internal::FromCx(options))
     {
       _nativePointer = RTCRtpSender::Convert(sender);
     }
 
     RTCStatsProvider::RTCStatsProvider(RTCSctpTransport^ transport, RTCStatsProviderOptions^ options) :
-      mStatsTypes(internal::FromCx(options))
+      mStatsTypes(Internal::FromCx(options))
     {
       _nativePointer = RTCSctpTransport::Convert(transport);
     }
 
     RTCStatsProvider::RTCStatsProvider(RTCSrtpSdesTransport^ transport, RTCStatsProviderOptions^ options) :
-      mStatsTypes(internal::FromCx(options))
+      mStatsTypes(Internal::FromCx(options))
     {
       _nativePointer = RTCSrtpSdesTransport::Convert(transport);
     }
 
-    RTCStatsProvider::RTCStatsProvider(adapter::RTCPeerConnection^ connection, RTCStatsProviderOptions^ options) :
-      mStatsTypes(internal::FromCx(options))
+    RTCStatsProvider::RTCStatsProvider(Adapter::RTCPeerConnection^ connection, RTCStatsProviderOptions^ options) :
+      mStatsTypes(Internal::FromCx(options))
     {
-      _nativePointer = adapter::RTCPeerConnection::Convert(connection);
+      _nativePointer = Adapter::RTCPeerConnection::Convert(connection);
     }
 
-    RTCStatsProvider::RTCStatsProvider(adapter::MediaStream^ connection, RTCStatsProviderOptions^ options) :
-      mStatsTypes(internal::FromCx(options))
+    RTCStatsProvider::RTCStatsProvider(Adapter::MediaStream^ connection, RTCStatsProviderOptions^ options) :
+      mStatsTypes(Internal::FromCx(options))
     {
-      _nativePointer = adapter::MediaStream::Convert(connection);
+      _nativePointer = Adapter::MediaStream::Convert(connection);
     }
 
 
@@ -207,7 +207,7 @@ namespace org
       return Concurrency::create_async([promise]() -> RTCStatsReport^ {
         Concurrency::task_completion_event<RTCStatsReport^> tce;
 
-        auto pDelegate(make_shared<internal::RTCStateProviderObserver>(tce));
+        auto pDelegate(make_shared<Internal::RTCStateProviderObserver>(tce));
 
         promise->then(pDelegate);
         promise->background();

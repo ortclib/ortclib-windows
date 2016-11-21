@@ -13,16 +13,16 @@ using Platform::Array;
 
 using namespace ortc;
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     using zsLib::Milliseconds;
 
-    ZS_DECLARE_TYPEDEF_PTR(internal::Helper, UseHelper);
+    ZS_DECLARE_TYPEDEF_PTR(Internal::Helper, UseHelper);
     ZS_DECLARE_TYPEDEF_PTR(::ortc::services::IHelper, UseServicesHelper)
 
-    namespace internal
+    namespace Internal
     {
 
 #pragma region RTCDataChannel conversions
@@ -139,7 +139,7 @@ namespace org
 #pragma region RTCDataChannel
 
     RTCDataChannel::RTCDataChannel(IDataChannelPtr nativePointer) :
-      _nativeDelegatePointer(make_shared<internal::RTCDataChannelDelegate>(this)),
+      _nativeDelegatePointer(make_shared<Internal::RTCDataChannelDelegate>(this)),
       _nativePointer(nativePointer)
     {
       if (_nativePointer) {
@@ -148,7 +148,7 @@ namespace org
     }
 
     RTCDataChannel::RTCDataChannel(RTCSctpTransport^ transport, RTCDataChannelParameters^ params) :
-      _nativeDelegatePointer(make_shared<internal::RTCDataChannelDelegate>(this))
+      _nativeDelegatePointer(make_shared<Internal::RTCDataChannelDelegate>(this))
     {
       ORG_ORTC_THROW_INVALID_PARAMETERS_IF(nullptr == params)
 
@@ -156,7 +156,7 @@ namespace org
 
       try
       {
-        _nativePointer = IDataChannel::create(_nativeDelegatePointer, nativeTransport, *internal::FromCx(params));
+        _nativePointer = IDataChannel::create(_nativeDelegatePointer, nativeTransport, *Internal::FromCx(params));
       }
       catch (const InvalidParameters &)
       {
@@ -225,7 +225,7 @@ namespace org
     RTCDataChannelParameters^ RTCDataChannel::Parameters::get()
     {
       if (!_nativePointer) return nullptr;
-      return internal::ToCx(_nativePointer->parameters());
+      return Internal::ToCx(_nativePointer->parameters());
     }
 
     RTCDataChannelState RTCDataChannel::State::get()
@@ -265,14 +265,14 @@ namespace org
 
     Platform::String^ RTCDataChannelParameters::ToJsonString()
     {
-      auto params = internal::FromCx(this);
+      auto params = Internal::FromCx(this);
       return UseHelper::ToCx(params->createElement("DataChannelParameters"));
     }
 
     RTCDataChannelParameters^ RTCDataChannelParameters::FromJsonString(Platform::String^ jsonString)
     {
       auto params = make_shared<IDataChannel::Parameters>(IDataChannel::Parameters::Parameters(UseHelper::FromJsonCx(jsonString)));
-      return internal::ToCx(params);
+      return Internal::ToCx(params);
     }
 
 #pragma endregion

@@ -2,9 +2,9 @@
 
 #include <ortc/ICapabilities.h>
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     using Windows::Foundation::Collections::IVector;
 
@@ -13,7 +13,7 @@ namespace org
     ref struct CapabilityDouble;
     ref struct CapabilityString;
 
-    namespace internal
+    namespace Internal
     {
       using zsLib::Optional;
 

@@ -3,9 +3,9 @@
 //#include <ortc/ICertificate.h>
 #include <ortc/ISRTPSDESTransport.h>
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     ZS_DECLARE_TYPEDEF_PTR(::ortc::ISRTPSDESTransportDelegate, ISRTPSDESTransportDelegate)
     ZS_DECLARE_TYPEDEF_PTR(::ortc::ISRTPSDESTransport, ISRTPSDESTransport)
@@ -22,7 +22,7 @@ namespace org
     ref struct RTCSrtpSdesParameters;
     ref struct RTCSrtpKeyParam;
 
-    namespace internal
+    namespace Internal
     {
       ZS_DECLARE_CLASS_PTR(RTCSrtpSdesTransportDelegate)
 
@@ -135,7 +135,7 @@ namespace org
     /// </summary>
     public ref struct RTCSrtpSdesTransportLifetimeRemainingEvent sealed
     {
-      friend class internal::RTCSrtpSdesTransportDelegate;
+      friend class Internal::RTCSrtpSdesTransportDelegate;
 
       /// <summary>
       /// Gets the least percentage remaining of all the keys in the
@@ -170,7 +170,7 @@ namespace org
     /// </summary>
     public ref class RTCSrtpSdesTransport sealed
     {
-      friend class internal::RTCSrtpSdesTransportDelegate;
+      friend class Internal::RTCSrtpSdesTransportDelegate;
       friend ref class RTCRtpReceiver;
       friend ref class RTCRtpSender;
       friend ref class RTCRtpListener;
@@ -206,7 +206,7 @@ namespace org
 
     private:
       ISRTPSDESTransportPtr _nativePointer;
-      internal::RTCSrtpSdesTransportDelegatePtr _nativeDelegatePointer;
+      Internal::RTCSrtpSdesTransportDelegatePtr _nativeDelegatePointer;
       ISRTPSDESTransportSubscriptionPtr _nativeSubscriptionPointer;
     };
   }

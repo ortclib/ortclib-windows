@@ -7,15 +7,15 @@
 
 using namespace ortc;
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     using std::make_shared;
 
-    ZS_DECLARE_TYPEDEF_PTR(internal::Helper, UseHelper)
+    ZS_DECLARE_TYPEDEF_PTR(Internal::Helper, UseHelper)
 
-    namespace internal
+    namespace Internal
     {
       class RTCGenerateCertificatePromiseObserver : public zsLib::IPromiseResolutionDelegate
       {
@@ -61,7 +61,7 @@ namespace org
       return Concurrency::create_async([promise]() -> RTCCertificate^ {
         Concurrency::task_completion_event<RTCCertificate^> tce;
 
-        auto pDelegate(make_shared<internal::RTCGenerateCertificatePromiseObserver>(tce));
+        auto pDelegate(make_shared<Internal::RTCGenerateCertificatePromiseObserver>(tce));
 
         promise->then(pDelegate);
         promise->background();
@@ -78,7 +78,7 @@ namespace org
       return Concurrency::create_async([promise]() -> RTCCertificate^ {
         Concurrency::task_completion_event<RTCCertificate^> tce;
 
-        auto pDelegate(make_shared<internal::RTCGenerateCertificatePromiseObserver>(tce));
+        auto pDelegate(make_shared<Internal::RTCGenerateCertificatePromiseObserver>(tce));
 
         promise->then(pDelegate);
         promise->background();
@@ -99,7 +99,7 @@ namespace org
     RTCDtlsFingerprint^ RTCCertificate::Fingerprint::get()
     {
       if (!_nativePointer) return nullptr;
-      return internal::ToCx(_nativePointer->fingerprint());
+      return Internal::ToCx(_nativePointer->fingerprint());
     }
 
   } // namespace ortc

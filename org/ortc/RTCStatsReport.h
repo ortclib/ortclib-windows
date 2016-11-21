@@ -5,9 +5,9 @@
 #include "RTCDataChannel.h"
 #include "RTCIceTypes.h"
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IStatsReportTypes, IStatsReportTypes);
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IStatsReport, IStatsReport);
@@ -37,7 +37,7 @@ namespace org
     enum class RTCDataChannelState;
     enum class RTCIceCandidateType;
 
-    namespace internal
+    namespace Internal
     {
       ZS_DECLARE_CLASS_PTR(RTCStateReportHelper);
       ZS_DECLARE_CLASS_PTR(RTCStateProviderObserver);
@@ -224,7 +224,7 @@ namespace org
     /// </summary>
     public ref struct RTCStats sealed
     {
-      friend class internal::RTCStateReportHelper;
+      friend class Internal::RTCStateReportHelper;
 
       /// <summary>
       /// Gets or sets the timestamp when this statistic object was generated.
@@ -915,7 +915,7 @@ namespace org
     /// </summary>
     public ref class RTCStatsReport sealed
     {
-      friend class internal::RTCStateProviderObserver;
+      friend class Internal::RTCStateProviderObserver;
       friend ref class RTCStatsProvider;
 
     private:

@@ -4,9 +4,9 @@
 
 #include "RTCDtlsTransport.h"
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IDataChannel, IDataChannel)
     ZS_DECLARE_TYPEDEF_PTR(::ortc::ISCTPTransport, ISCTPTransport)
@@ -23,7 +23,7 @@ namespace org
 
     ref struct RTCSctpCapabilities;
 
-    namespace internal
+    namespace Internal
     {
       ZS_DECLARE_CLASS_PTR(RTCSctpTransportDelegate)
         
@@ -103,7 +103,7 @@ namespace org
     /// </summary>
     public ref struct RTCDataChannelEvent sealed
     {
-      friend class internal::RTCSctpTransportDelegate;
+      friend class Internal::RTCSctpTransportDelegate;
 
       /// <summary>
       /// Gets the RTCDataChannel that was constructed when upon receiving a
@@ -124,7 +124,7 @@ namespace org
     /// </summary>
     public ref struct RTCSctpTransportStateChangeEvent sealed
     {
-      friend class internal::RTCSctpTransportDelegate;
+      friend class Internal::RTCSctpTransportDelegate;
 
       /// <summary>
       /// The RTCSctpTransportState that cased the event to fire.
@@ -148,7 +148,7 @@ namespace org
     /// </summary>
     public ref class RTCSctpTransport sealed
     {
-      friend class internal::RTCSctpTransportDelegate;
+      friend class Internal::RTCSctpTransportDelegate;
       friend ref class RTCDataChannel;
       friend ref class RTCStatsProvider;
 
@@ -206,7 +206,7 @@ namespace org
 
     private:
       ISCTPTransportPtr _nativePointer;
-      internal::RTCSctpTransportDelegatePtr _nativeDelegatePointer;
+      Internal::RTCSctpTransportDelegatePtr _nativeDelegatePointer;
       ISCTPTransportSubscriptionPtr _nativeSubscriptionPointer;
     };
 

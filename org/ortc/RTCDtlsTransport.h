@@ -3,9 +3,9 @@
 #include <ortc/ICertificate.h>
 #include <ortc/IDTLSTransport.h>
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IDTLSTransportDelegate, IDTLSTransportDelegate)
     ZS_DECLARE_TYPEDEF_PTR(::ortc::IDTLSTransport, IDTLSTransport)
@@ -27,7 +27,7 @@ namespace org
 
     ref struct ErrorEvent;
 
-    namespace internal
+    namespace Internal
     {
       ZS_DECLARE_CLASS_PTR(RTCDtlsTransportDelegate)
 
@@ -173,7 +173,7 @@ namespace org
     /// </summary>
     public ref struct RTCDtlsTransportStateChangedEvent sealed
     {
-      friend class internal::RTCDtlsTransportDelegate;
+      friend class Internal::RTCDtlsTransportDelegate;
 
       /// <summary>
       /// Gets the new RTCDtlsTransportState that caused the event.
@@ -197,7 +197,7 @@ namespace org
     /// </summary>
     public ref class RTCDtlsTransport sealed
     {
-      friend class internal::RTCDtlsTransportDelegate;
+      friend class Internal::RTCDtlsTransportDelegate;
 
       friend ref class RTCRtpListener;
       friend ref class RTCRtpReceiver;
@@ -280,7 +280,7 @@ namespace org
 
     private:
       IDTLSTransportPtr _nativePointer;
-      internal::RTCDtlsTransportDelegatePtr _nativeDelegatePointer;
+      Internal::RTCDtlsTransportDelegatePtr _nativeDelegatePointer;
       IDTLSTransportSubscriptionPtr _nativeSubscriptionPointer;
     };
   }

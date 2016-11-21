@@ -12,15 +12,15 @@ using Platform::Collections::Vector;
 
 using namespace ortc;
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
-    ZS_DECLARE_TYPEDEF_PTR(internal::Helper, UseHelper)
+    ZS_DECLARE_TYPEDEF_PTR(Internal::Helper, UseHelper)
 
     using std::make_shared;
 
-    namespace internal
+    namespace Internal
     {
       ZS_DECLARE_CLASS_PTR(MediaStreamTrackConstraintsPromiseObserver)
 
@@ -254,7 +254,7 @@ namespace org
         {
           if (!_owner) return;
 
-          auto error = org::ortc::OverconstrainedError::CreateIfOverconstrainedError(inError);
+          auto error = Org::Ortc::OverconstrainedError::CreateIfOverconstrainedError(inError);
           OverconstrainedErrorEvent ^evt = ref new OverconstrainedErrorEvent(error);
 
           _owner->OnOverconstrained(evt);
@@ -323,7 +323,7 @@ namespace org
 
     MediaStreamTrack::MediaStreamTrack(IMediaStreamTrackPtr nativeTrack) :
       _nativePointer(nativeTrack),
-      _nativeDelegatePointer(make_shared<internal::MediaStreamTrackDelegate>(this))
+      _nativeDelegatePointer(make_shared<Internal::MediaStreamTrackDelegate>(this))
     {
       if (_nativePointer) {
         _nativeDelegateSubscription = _nativePointer->subscribe(_nativeDelegatePointer);
@@ -411,19 +411,19 @@ namespace org
     MediaTrackCapabilities^		MediaStreamTrack::GetCapabilities()
     {
       if (!_nativePointer) return nullptr;
-      return internal::ToCx(_nativePointer->getCapabilities());
+      return Internal::ToCx(_nativePointer->getCapabilities());
     }
 
     MediaTrackConstraints^		MediaStreamTrack::GetConstraints()
     {
       if (!_nativePointer) return nullptr;
-      return internal::ToCx(_nativePointer->getConstraints());
+      return Internal::ToCx(_nativePointer->getConstraints());
     }
 
     MediaTrackSettings^			MediaStreamTrack::GetSettings()
     {
       if (!_nativePointer) return nullptr;
-      return internal::ToCx(_nativePointer->getSettings());    
+      return Internal::ToCx(_nativePointer->getSettings());    
     }
 
     void MediaStreamTrack::SetH264Rendering(bool h264Rendering)
@@ -473,13 +473,13 @@ namespace org
       ORG_ORTC_THROW_INVALID_PARAMETERS_IF(!constraints);
       ORG_ORTC_THROW_INVALID_STATE_IF(!_nativePointer);
 
-      auto promise = _nativePointer->applyConstraints(*internal::FromCx(constraints));
+      auto promise = _nativePointer->applyConstraints(*Internal::FromCx(constraints));
 
       IAsyncAction^ ret = Concurrency::create_async([promise, constraints]()
       {
         Concurrency::task_completion_event<void> tce;
 
-        internal::MediaStreamTrackConstraintsPromiseObserverPtr pDelegate(make_shared<internal::MediaStreamTrackConstraintsPromiseObserver>(tce));
+        Internal::MediaStreamTrackConstraintsPromiseObserverPtr pDelegate(make_shared<Internal::MediaStreamTrackConstraintsPromiseObserver>(tce));
 
         promise->then(pDelegate);
         promise->background();

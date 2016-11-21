@@ -13,16 +13,16 @@ using Platform::Collections::Vector;
 
 using namespace ortc;
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
     using std::make_shared;
 
-    ZS_DECLARE_TYPEDEF_PTR(internal::Helper, UseHelper)
+    ZS_DECLARE_TYPEDEF_PTR(Internal::Helper, UseHelper)
     ZS_DECLARE_TYPEDEF_PTR(::ortc::services::IHelper, UseServicesHelper)
 
-    namespace internal
+    namespace Internal
     {
       ZS_DECLARE_CLASS_PTR(MediaDevicesPromiseObserver)
       ZS_DECLARE_CLASS_PTR(MediaStreamTrackPromiseObserver)
@@ -168,7 +168,7 @@ namespace org
           {
             for (IMediaDevicesTypes::DeviceList::iterator it = deviceList->begin(); it != deviceList->end(); ++it)
             {
-              MediaDeviceInfo^ med = internal::ToCx(*it);
+              MediaDeviceInfo^ med = Internal::ToCx(*it);
               ret->Append(med);
             }
           }
@@ -242,15 +242,15 @@ namespace org
 
     MediaStreamConstraints^ MediaStreamConstraints::create(MediaStreamConstraints^ value)
     {
-      auto temp = internal::FromCx(value);
-      return internal::ToCx(temp);
+      auto temp = Internal::FromCx(value);
+      return Internal::ToCx(temp);
     }
 
 
 #pragma region MediaDevices
 
     MediaDevices::MediaDevices() :
-      _nativeDelegatePointer(make_shared<internal::MediaDevicesDelegate>(this))
+      _nativeDelegatePointer(make_shared<Internal::MediaDevicesDelegate>(this))
     {
       _nativeDelegateSubscription = IMediaDevices::subscribe(_nativeDelegatePointer);
     }
@@ -268,7 +268,7 @@ namespace org
 
     MediaTrackSupportedConstraints^ MediaDevices::GetSupportedConstraints()
     {
-      return internal::ToCx(IMediaDevices::getSupportedConstraints());
+      return Internal::ToCx(IMediaDevices::getSupportedConstraints());
     }
 
     IAsyncOperation<IVector<MediaDeviceInfo^>^>^ MediaDevices::EnumerateDevices()
@@ -279,7 +279,7 @@ namespace org
       {
         Concurrency::task_completion_event<IVector<MediaDeviceInfo^>^> tce;
 
-        internal::MediaDevicesPromiseObserverPtr pDelegate(make_shared<internal::MediaDevicesPromiseObserver>(tce));
+        Internal::MediaDevicesPromiseObserverPtr pDelegate(make_shared<Internal::MediaDevicesPromiseObserver>(tce));
 
         promise->then(pDelegate);
         promise->background();
@@ -294,13 +294,13 @@ namespace org
     IAsyncOperation<IVector<MediaStreamTrack^>^>^ MediaDevices::GetUserMedia(MediaStreamConstraints^ constraints)
     {
       ORG_ORTC_THROW_INVALID_PARAMETERS_IF(!constraints)
-      auto promise = IMediaDevices::getUserMedia(*(internal::FromCx(constraints).get()));
+      auto promise = IMediaDevices::getUserMedia(*(Internal::FromCx(constraints).get()));
 
       IAsyncOperation<IVector<MediaStreamTrack^>^>^ ret = Concurrency::create_async([promise]() -> IVector<MediaStreamTrack^>^
       {
         Concurrency::task_completion_event<IVector<MediaStreamTrack^>^> tce;
 
-        internal::MediaStreamTrackPromiseObserverPtr pDelegate(make_shared<internal::MediaStreamTrackPromiseObserver>(tce));
+        Internal::MediaStreamTrackPromiseObserverPtr pDelegate(make_shared<Internal::MediaStreamTrackPromiseObserver>(tce));
 
         promise->then(pDelegate);
         promise->background();

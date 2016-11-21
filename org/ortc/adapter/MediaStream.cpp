@@ -18,20 +18,20 @@ using Platform::Collections::Vector;
 
 using namespace ortc;
 
-namespace org
+namespace Org
 {
-  namespace ortc
+  namespace Ortc
   {
-    namespace adapter
+    namespace Adapter
     {
-      ZS_DECLARE_TYPEDEF_PTR(org::ortc::internal::Helper, UseHelper);
+      ZS_DECLARE_TYPEDEF_PTR(Org::Ortc::Internal::Helper, UseHelper);
       ZS_DECLARE_TYPEDEF_PTR(::ortc::adapter::IMediaStreamTypes, IMediaStreamTypes);
       //ZS_DECLARE_TYPEDEF_PTR(::ortc::adapter::IHelper, UseAdapterHelper);
       ZS_DECLARE_TYPEDEF_PTR(::ortc::adapter::IMediaStreamDelegate, IMediaStreamDelegate);
 
       using std::make_shared;
 
-      namespace internal
+      namespace Internal
       {
 
 #pragma region MediaStreamDelegate
@@ -70,7 +70,7 @@ namespace org
 
       MediaStream::MediaStream(IMediaStreamPtr nativeStream) :
         _nativePointer(nativeStream),
-        _nativeDelegatePointer(make_shared<internal::MediaStreamDelegate>(this))
+        _nativeDelegatePointer(make_shared<Internal::MediaStreamDelegate>(this))
       {
         if (_nativePointer)
         {
@@ -79,7 +79,7 @@ namespace org
       }
 
       MediaStream::MediaStream() :
-        _nativeDelegatePointer(make_shared<internal::MediaStreamDelegate>(this))
+        _nativeDelegatePointer(make_shared<Internal::MediaStreamDelegate>(this))
       {
         _nativePointer = IMediaStream::create(_nativeDelegatePointer);
       }
