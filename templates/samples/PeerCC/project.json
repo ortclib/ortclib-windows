@@ -1,8 +1,8 @@
 ﻿{
   "dependencies": {
-    "HockeySDK.WINRT": "2.2.2",
-    "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
-    "ORTC": "ORTC.Version"
+    "HockeySDK.WINRT": "4.1.5",
+    "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
+    "ORTC": "Nuget.Version"
   },
   "frameworks": {
     "uap10.0": {}
