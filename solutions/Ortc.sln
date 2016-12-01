@@ -54,10 +54,16 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclib.services", "..\..\xplatform\ortclib-services-cpp\projects\msvs\ortclib.services.Universal\ortclib.services.vcxproj", "{CC03FBA3-9028-47AD-B931-13B12DB368F8}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclib.services.Test", "..\..\xplatform\ortclib-services-cpp\projects\msvs\ortclib.services.Test.Universal\ortclib.services.Test.vcxproj", "{CF628B8A-298A-4FCB-9538-DBFBF86770BF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A19B7D13-A6EE-43BB-A913-AEB34F91BF98} = {A19B7D13-A6EE-43BB-A913-AEB34F91BF98}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclib", "..\..\xplatform\ortclib-cpp\projects\msvs\ortclib.Universal\ortclib.vcxproj", "{83E6CC72-EBC5-4C0C-B6A6-2D67A3C1E8A9}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclib.Test", "..\..\xplatform\ortclib-cpp\projects\msvs\ortclib.Test.Universal\ortclib.Test.vcxproj", "{2E14BABA-6694-4D3E-A6BE-CE7D1F569F30}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A19B7D13-A6EE-43BB-A913-AEB34F91BF98} = {A19B7D13-A6EE-43BB-A913-AEB34F91BF98}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ortc-device-enumerator.Windows.Universal", "..\samples\ortc-device-enumerator.Windows.Universal\ortc-device-enumerator.Windows.Universal.csproj", "{5B7ABB55-9239-4746-A93B-B13347BB2AAB}"
 	ProjectSection(ProjectDependencies) = postProject
