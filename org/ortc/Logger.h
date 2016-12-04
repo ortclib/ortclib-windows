@@ -192,7 +192,7 @@ namespace Org
       /// </summary>
       static void InstallFileLogger(Platform::String^ fileName, Platform::Boolean colorizeOutput);
       /// <summary>
-      /// Listen for an incoming telnet connections and out the logging
+      /// Listen for an incoming telnet connections and output the logging
       /// information to the incoming telnet connection.
       /// </summary>
       static void InstallTelnetLogger(
@@ -248,6 +248,53 @@ namespace Org
       /// Uninstall the logger outputting to a connected debugger.
       /// </summary>
       static void UninstallDebuggerLogger();
+
+      /// <summary>
+      /// Set the default eventing level for all componenets.
+      /// </summary>
+      [Windows::Foundation::Metadata::OverloadAttribute("SetDefaultEventingLevel")]
+      static void SetEventingLevel(Log::Level level);
+      /// <summary>
+      /// Set the eventing level for a specific component.
+      /// </summary>
+      [Windows::Foundation::Metadata::DefaultOverloadAttribute]
+      static void SetEventingLevel(Log::Component component, Log::Level level);
+      /// <summary>
+      /// Sets the log eventing for a component by its component string name.
+      /// </summary>
+      [Windows::Foundation::Metadata::OverloadAttribute("SetEventingLevelByName")]
+      static void SetEventingLevel(Platform::String^ component, Log::Level level);
+
+      /// <summary>
+      /// Listen for an incoming eventing connection and output the eventing
+      /// information to the incoming eventing connection. Both the eventing
+      /// listener and connecting to an eventing server cannot be enabled
+      /// at the same time.
+      /// </summary>
+      static void InstallEventingListener(
+        Platform::String^ sharedSecret,
+        uint16 listenPort,
+        uint32 maxSecondsWaitForSocketToBeAvailable
+      );
+      /// <summary>
+      /// Create an outgoing eventing connection to an eventing server and
+      /// output the eventing information to the server. Both the eventing
+      /// listener and connecting to an eventing server cannot be enabled
+      /// at the same time.
+      /// </summary>
+      static void ConnectToEventingServer(
+        Platform::String^ sharedSecret,
+        Platform::String^ serverHostWithPort
+      );
+
+      /// <summary>
+      /// Uninstall the eventing listener.
+      /// </summary>
+      static void UninstallEventingListener();
+      /// <summary>
+      /// Uninstall the outgoing client telnet logger.
+      /// </summary>
+      static void DisconnectEventingServer();
     };
   }
 }

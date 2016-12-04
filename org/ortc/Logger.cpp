@@ -14,7 +14,7 @@ namespace Org
 {
   namespace Ortc
   {
-    ZS_DECLARE_TYPEDEF_PTR(Internal::Helper, UseHelper)
+    ZS_DECLARE_TYPEDEF_PTR(Internal::Helper, UseHelper);
 
     void Logger::SetLogLevel(Log::Level level)
     {
@@ -94,6 +94,48 @@ namespace Org
     void Logger::UninstallDebuggerLogger()
     {
       UseServicesLogger::uninstallDebuggerLogger();
+    }
+
+    void Logger::SetEventingLevel(Log::Level level)
+    {
+      IORTC::setDefaultEventingLevel(UseHelper::Convert(level));
+    }
+
+    void Logger::SetEventingLevel(Log::Component component, Log::Level level)
+    {
+      IORTC::setEventingLevel(UseHelper::ToComponent(component), UseHelper::Convert(level));
+    }
+
+    void Logger::SetEventingLevel(Platform::String^ component, Log::Level level)
+    {
+      IORTC::setEventingLevel(UseHelper::FromCx(component).c_str(), UseHelper::Convert(level));
+    }
+
+    void Logger::InstallEventingListener(
+      Platform::String^ sharedSecret,
+      uint16 listenPort,
+      uint32 maxSecondsWaitForSocketToBeAvailable
+    )
+    {
+      UseServicesLogger::installEventingListener(listenPort, UseHelper::FromCx(sharedSecret).c_str(), Seconds(maxSecondsWaitForSocketToBeAvailable));
+    }
+
+    void Logger::ConnectToEventingServer(
+      Platform::String^ sharedSecret,
+      Platform::String^ serverHostWithPort
+    )
+    {
+      UseServicesLogger::connectToEventingServer(UseHelper::FromCx(serverHostWithPort).c_str(), UseHelper::FromCx(sharedSecret).c_str());
+    }
+
+    void Logger::UninstallEventingListener()
+    {
+      UseServicesLogger::uninstallEventingListener();
+    }
+
+    void Logger::DisconnectEventingServer()
+    {
+      UseServicesLogger::disconnectEventingServer();
     }
 
   } // namespace ortc
