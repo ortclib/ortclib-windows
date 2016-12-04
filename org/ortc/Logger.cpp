@@ -43,7 +43,7 @@ namespace Org
 
     void Logger::InstallTelnetLogger(uint16 listenPort, uint32 maxSecondsWaitForSocketToBeAvailable, Platform::Boolean colorizeOutput)
     {
-      UseServicesLogger::installTelnetLogger(listenPort, maxSecondsWaitForSocketToBeAvailable, colorizeOutput);
+      UseServicesLogger::installTelnetLogger(listenPort, Seconds(maxSecondsWaitForSocketToBeAvailable), colorizeOutput);
     }
 
     void Logger::InstallOutgoingTelnetLogger(Platform::String ^ serverHostWithPort, Platform::Boolean colorizeOutput, Platform::String ^ sendStringUponConnection)
