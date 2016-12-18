@@ -9,7 +9,6 @@
 
 #pragma once
 
-#include "webrtc/modules/video_render/video_render.h"
 #include "webrtc/system_wrappers/include/critical_section_wrapper.h"
 
 #include <wrl.h>
@@ -72,7 +71,7 @@ namespace Org
       STDMETHOD(Shutdown)();
       STDMETHOD(SetD3DManager)(ComPtr<IMFDXGIDeviceManager> manager);
 
-      rtc::scoped_ptr<webrtc::CriticalSectionWrapper> _lock;
+      std::unique_ptr<webrtc::CriticalSectionWrapper> _lock;
 
     private:
       struct OuterReferenceHolder
@@ -85,8 +84,7 @@ namespace Org
         std::atomic<ULONG> _framesBeingQueued{};
       };
 
-      class RTCRenderer : public ::ortc::IMediaStreamTrackRenderCallback,
-                          public webrtc::VideoRenderCallback
+      class RTCRenderer : public ::ortc::IMediaStreamTrackRenderCallback
       {
       public:
         explicit RTCRenderer(OuterReferenceHolderPtr outer);
@@ -114,7 +112,7 @@ namespace Org
 
       HRESULT ReplyToSampleRequest();
 
-      rtc::scoped_ptr<MediaSourceHelper> _helper;
+      std::unique_ptr<MediaSourceHelper> _helper;
       RTCRendererPtr _rtcRenderer;
       OuterReferenceHolderPtr _selfReferenceHolder;
 

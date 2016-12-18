@@ -256,37 +256,21 @@ namespace Org
         &destRawData, &pitch, &bufferStart, &destMediaBufferSize));
       AutoFunction autoUnlockBuffer([buffer2d]() {buffer2d->Unlock2D(); });
 
-      //frame->MakeExclusive();
-      if (!frame->video_frame_buffer()->HasOneRef())
+      rtc::scoped_refptr<webrtc::VideoFrameBuffer> frame_buffer;
+      if (!dynamic_cast<rtc::RefCountedObject<webrtc::I420Buffer>*>(frame->video_frame_buffer().get())->HasOneRef())
       {
         // Not exclusive already, need to copy buffer.
-        rtc::scoped_refptr<webrtc::VideoFrameBuffer> new_buffer =
-          new rtc::RefCountedObject<webrtc::I420Buffer>(
-            frame->video_frame_buffer()->width(), frame->video_frame_buffer()->height(),
-            frame->video_frame_buffer()->stride(webrtc::PlaneType::kYPlane),
-            frame->video_frame_buffer()->stride(webrtc::PlaneType::kUPlane),
-            frame->video_frame_buffer()->stride(webrtc::PlaneType::kVPlane));
-
-        int32_t src_width = static_cast<int>(frame->video_frame_buffer()->width());
-        int32_t src_height = static_cast<int>(frame->video_frame_buffer()->height());
-        libyuv::I420Copy(
-          frame->video_frame_buffer()->data(webrtc::PlaneType::kYPlane), frame->video_frame_buffer()->stride(webrtc::PlaneType::kYPlane),
-          frame->video_frame_buffer()->data(webrtc::PlaneType::kUPlane), frame->video_frame_buffer()->stride(webrtc::PlaneType::kUPlane),
-          frame->video_frame_buffer()->data(webrtc::PlaneType::kVPlane), frame->video_frame_buffer()->stride(webrtc::PlaneType::kVPlane),
-          new_buffer->MutableData(webrtc::PlaneType::kYPlane), new_buffer->stride(webrtc::PlaneType::kYPlane),
-          new_buffer->MutableData(webrtc::PlaneType::kUPlane), new_buffer->stride(webrtc::PlaneType::kUPlane),
-          new_buffer->MutableData(webrtc::PlaneType::kVPlane), new_buffer->stride(webrtc::PlaneType::kVPlane),
-          src_width, src_height);
-
-        frame->video_frame_buffer() = new_buffer;
+        frame_buffer = webrtc::I420Buffer::Copy(frame->video_frame_buffer());
       }
-
+      else {
+        frame_buffer = frame->video_frame_buffer();
+      }
 
       // Convert to NV12
       uint8* uvDest = destRawData + (pitch * destHeight);
-      libyuv::I420ToNV12(frame->video_frame_buffer()->data(webrtc::PlaneType::kYPlane), frame->video_frame_buffer()->stride(webrtc::PlaneType::kYPlane),
-        frame->video_frame_buffer()->data(webrtc::PlaneType::kUPlane), frame->video_frame_buffer()->stride(webrtc::PlaneType::kUPlane),
-        frame->video_frame_buffer()->data(webrtc::PlaneType::kVPlane), frame->video_frame_buffer()->stride(webrtc::PlaneType::kVPlane),
+      libyuv::I420ToNV12(frame_buffer->DataY(), frame_buffer->StrideY(),
+        frame_buffer->DataU(), frame_buffer->StrideU(),
+        frame_buffer->DataV(), frame_buffer->StrideV(),
         reinterpret_cast<uint8*>(destRawData), pitch,
         uvDest, pitch,
         static_cast<int>(destWidth),

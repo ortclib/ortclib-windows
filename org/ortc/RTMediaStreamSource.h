@@ -63,8 +63,6 @@ namespace Org
 
 #ifdef USE_OLD_RENDERER
 
-#include "webrtc/modules/video_render/video_render.h"
-
 #include <Mfidl.h>
 
 namespace org
@@ -121,10 +119,10 @@ namespace org
       // Keep a weak reference here.
       // Its _mediaStreamSource that keeps a reference to this object.
       WeakReference _mediaStreamSource;
-      rtc::scoped_ptr<RTCRenderer> _rtcRenderer;
-      rtc::scoped_ptr<webrtc::CriticalSectionWrapper> _lock;
+      std::unique_ptr<RTCRenderer> _rtcRenderer;
+      std::unique_ptr<webrtc::CriticalSectionWrapper> _lock;
 
-      rtc::scoped_ptr<MediaSourceHelper> _helper;
+      std::unique_ptr<MediaSourceHelper> _helper;
 
       ThreadPoolTimer^ _progressTimer;
       void ProgressTimerElapsedExecute(ThreadPoolTimer^ source);

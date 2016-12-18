@@ -89,7 +89,7 @@ namespace org
 
       auto streamState = ref new RTMediaStreamSource(track, isH264);
       streamState->_id = id;
-      streamState->_rtcRenderer = rtc::scoped_ptr<RTCRenderer>(
+      streamState->_rtcRenderer = std::unique_ptr<RTCRenderer>(
         new RTCRenderer(streamState));
 
       if (track)

@@ -45,7 +45,7 @@ namespace Org
       , _isH264(isH264)
       , _frameCounter(0)
       , _startTime(0)
-      , _lastTimeFPSCalculated(webrtc::TickTime::Now())
+      , _lastTimeFPSCalculated(rtc::TimeMillis())
       , _lock(webrtc::CriticalSectionWrapper::CreateCriticalSection()) {
 
     }
@@ -53,7 +53,7 @@ namespace Org
       webrtc::CriticalSectionScoped csLock(_lock.get());
       // Clear the buffered frames.
       while (!_frames.empty()) {
-        rtc::scoped_ptr<webrtc::VideoFrame> frame(_frames.front());
+        std::unique_ptr<webrtc::VideoFrame> frame(_frames.front());
         _frames.pop_front();
       }
     }
@@ -62,27 +62,41 @@ namespace Org
       webrtc::CriticalSectionScoped csLock(_lock.get());
 
       if (_isH264) {
-        // For H264 we keep all frames since they are encoded.
-        _frames.push_back(frame);
+        // Check it is really a H.264 frame, the codec might have been switched within the call, in this case just ignore frames
+        if (frame->video_frame_buffer()->native_handle() != nullptr) {
+          // For H264 we keep all frames since they are encoded.
+          _frames.push_back(frame);
+        }
+        else {
+          // Delete the frame, it's not the expected codec
+          delete frame;
+        }
       }
       else {
-        // For I420 frame, keep only the latest.
-        for (auto oldFrame : _frames) {
-          delete oldFrame;
-        }
+        // Check it is not H.264 frame, the codec might have been switched within the call, in this case just ignore frames
+        if (frame->video_frame_buffer()->native_handle() == nullptr) {
+          // For I420 frame, keep only the latest.
+          for (auto oldFrame : _frames) {
+            delete oldFrame;
+          }
         _frames.clear();
         _frames.push_back(frame);
+        }
+        else {
+          // Delete the frame, it's not the expected codec
+          delete frame;
+        }
       }
     }
 
-    rtc::scoped_ptr<SampleData> MediaSourceHelper::DequeueFrame() {
+    std::unique_ptr<SampleData> MediaSourceHelper::DequeueFrame() {
       webrtc::CriticalSectionScoped csLock(_lock.get());
 
       if (_frames.size() == 0) {
         return nullptr;
       }
 
-      rtc::scoped_ptr<SampleData> data;
+      std::unique_ptr<SampleData> data;
       if (_isH264) {
         data = DequeueH264Frame();
       }
@@ -126,15 +140,15 @@ namespace Org
 
     // === Private functions below ===
 
-    rtc::scoped_ptr<SampleData> MediaSourceHelper::DequeueH264Frame() {
+    std::unique_ptr<SampleData> MediaSourceHelper::DequeueH264Frame() {
 
       if (_frames.size() > 15)
         DropFramesToIDR(_frames);
 
-      rtc::scoped_ptr<webrtc::VideoFrame> frame(_frames.front());
+      std::unique_ptr<webrtc::VideoFrame> frame(_frames.front());
       _frames.pop_front();
 
-      rtc::scoped_ptr<SampleData> data(new SampleData);
+      std::unique_ptr<SampleData> data(new SampleData);
 
       // Get the IMFSample in the frame.
       {
@@ -156,11 +170,11 @@ namespace Org
       return data;
     }
 
-    rtc::scoped_ptr<SampleData> MediaSourceHelper::DequeueI420Frame() {
-      rtc::scoped_ptr<webrtc::VideoFrame> frame(_frames.front());
+    std::unique_ptr<SampleData> MediaSourceHelper::DequeueI420Frame() {
+      std::unique_ptr<webrtc::VideoFrame> frame(_frames.front());
       _frames.pop_front();
 
-      rtc::scoped_ptr<SampleData> data(new SampleData);
+      std::unique_ptr<SampleData> data(new SampleData);
 
       if (FAILED(_mkSample(frame.get(), &data->sample))) {
         return nullptr;
@@ -251,12 +265,12 @@ namespace Org
 
     void MediaSourceHelper::SetStartTimeNow() {
       webrtc::CriticalSectionScoped csLock(_lock.get());
-      _startTickTime = webrtc::TickTime::Now();
+      _startTickTime = rtc::TimeMillis();
       if (_isH264) {
         if (!DropFramesToIDR(_frames)) {
           // Flush all frames then.
           while (!_frames.empty()) {
-            rtc::scoped_ptr<webrtc::VideoFrame> frame(_frames.front());
+            std::unique_ptr<webrtc::VideoFrame> frame(_frames.front());
             _frames.pop_front();
           }
         }
@@ -268,11 +282,11 @@ namespace Org
 
       if (_isH264) {
 #ifdef USE_WALL_CLOCK
-        if (_startTickTime.Ticks() == 0) {
-          _startTickTime = webrtc::TickTime::Now();
+        if (_startTickTime == 0) {
+          _startTickTime = rtc::TimeMillis();
           return 0;
         }
-        LONGLONG frameTime = ((webrtc::TickTime::Now() - _startTickTime).Milliseconds() + _futureOffsetMs) * 1000 * 10;
+        LONGLONG frameTime = ((rtc::TimeMillis() - _startTickTime) + _futureOffsetMs) * 1000 * 10;
 #else
         if (_startTime == 0) {
 
@@ -302,7 +316,7 @@ namespace Org
       }
 
       // Update rotation property
-      int currentRotation = frame->rotation();
+      int currentRotation = (int)frame->rotation();
 
       // If the rotation has changed
       if (_lastRotation == -1 || _lastRotation != currentRotation) {
@@ -318,8 +332,8 @@ namespace Org
       // Do FPS calculation and notification.
       _frameCounter++;
       // If we have about a second worth of frames
-      webrtc::TickTime now = webrtc::TickTime::Now();
-      if ((now - _lastTimeFPSCalculated).Milliseconds() > 1000) {
+      int64_t now = rtc::TimeMillis();
+      if ((now - _lastTimeFPSCalculated) > 1000) {
         _fpsCallback(_frameCounter);
         _frameCounter = 0;
         _lastTimeFPSCalculated = now;
