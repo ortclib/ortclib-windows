@@ -257,7 +257,7 @@ namespace Org
       AutoFunction autoUnlockBuffer([buffer2d]() {buffer2d->Unlock2D(); });
 
       rtc::scoped_refptr<webrtc::VideoFrameBuffer> frame_buffer;
-      if (!dynamic_cast<rtc::RefCountedObject<webrtc::I420Buffer>*>(frame->video_frame_buffer().get())->HasOneRef())
+      if (!reinterpret_cast<rtc::RefCountedObject<webrtc::I420Buffer>*>(frame->video_frame_buffer().get())->HasOneRef())
       {
         // Not exclusive already, need to copy buffer.
         frame_buffer = webrtc::I420Buffer::Copy(frame->video_frame_buffer());
