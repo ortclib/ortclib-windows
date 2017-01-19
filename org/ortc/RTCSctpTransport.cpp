@@ -34,7 +34,7 @@ namespace Org
       RTCSctpCapabilities^ ToCx(ISCTPTransportTypes::CapabilitiesPtr input)
       {
         if (!input) return nullptr;
-        return ToCx(input);
+        return ToCx(*input);
       }
 
       ISCTPTransportTypes::CapabilitiesPtr FromCx(RTCSctpCapabilities^ input)
