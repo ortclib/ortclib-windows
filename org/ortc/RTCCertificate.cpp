@@ -56,7 +56,12 @@ namespace Org
 
     IAsyncOperation<RTCCertificate^>^ RTCCertificate::GenerateCertificate() {
 
-      auto promise = ICertificate::generateCertificate();
+      ICertificateTypes::PromiseWithCertificatePtr promise;
+      try {
+        promise = ICertificate::generateCertificate();
+      } catch (const NotSupportedError &e) {
+        ORG_ORTC_THROW_NOT_SUPPORTED(UseHelper::ToCx(e.what()));
+      }
 
       return Concurrency::create_async([promise]() -> RTCCertificate^ {
         Concurrency::task_completion_event<RTCCertificate^> tce;
@@ -73,7 +78,12 @@ namespace Org
 
     IAsyncOperation<RTCCertificate^>^ RTCCertificate::GenerateCertificate(Platform::String^ algorithmIdentifier) {
 
-      auto promise = ICertificate::generateCertificate(UseHelper::FromCx(algorithmIdentifier).c_str());
+      ICertificateTypes::PromiseWithCertificatePtr promise;
+      try {
+        promise = ICertificate::generateCertificate(UseHelper::FromCx(algorithmIdentifier).c_str());
+      } catch(const NotSupportedError &e) {
+        ORG_ORTC_THROW_NOT_SUPPORTED(UseHelper::ToCx(e.what()));
+      }
 
       return Concurrency::create_async([promise]() -> RTCCertificate^ {
         Concurrency::task_completion_event<RTCCertificate^> tce;
