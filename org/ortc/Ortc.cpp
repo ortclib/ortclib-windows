@@ -60,11 +60,8 @@ namespace Org
 
     void OrtcWithDispatcher::Setup(Windows::UI::Core::CoreDispatcher ^dispatcher)
     {
-#define TODO_THIS_FEELS_WRONG_USING_GLOBAL 1
-#define TODO_THIS_FEELS_WRONG_USING_GLOBAL 2
-      //g_windowDispatcher = _dispatcher = dispatcher;
-	  _dispatcher = dispatcher;
-	  webrtc::VideoCommonWinRT::SetCoreDispatcher(dispatcher);
+      _dispatcher = dispatcher;
+	    webrtc::VideoCommonWinRT::SetCoreDispatcher(dispatcher);
       zsLib::setup(dispatcher);
       IORTC::setup(IMessageQueuePtr());
     }

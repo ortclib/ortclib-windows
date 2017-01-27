@@ -5,11 +5,13 @@
 #include <zsLib/types.h>
 #include <zsLib/internal/types.h>
 
-#define ORG_ORTC_THROW_INVALID_PARAMETERS_IF(xExpression) if (xExpression) {throw ref new Platform::InvalidArgumentException();}
 #define ORG_ORTC_THROW_INVALID_PARAMETERS() {throw ref new Platform::InvalidArgumentException();}
-#define ORG_ORTC_THROW_INVALID_STATE_IF(xExpression) if (xExpression) {throw ref new Platform::COMException(E_ILLEGAL_METHOD_CALL, #xExpression);}
-#define ORG_ORTC_THROW_INVALID_STATE_MESSAGE(xStr) {throw ref new Platform::COMException(E_ILLEGAL_METHOD_CALL, #xStr);}
-#define ORG_ORTC_THROW_INVALID_STATE(xStr) {throw ref new Platform::COMException(E_ILLEGAL_METHOD_CALL, xStr);}
+#define ORG_ORTC_THROW_INVALID_PARAMETERS_IF(xExpression) if (xExpression) {throw ref new Platform::InvalidArgumentException();}
+#define ORG_ORTC_THROW_INVALID_STATE_IF(xExpression) if (xExpression) {throw ref new Platform::COMException(E_NOT_VALID_STATE, #xExpression);}
+#define ORG_ORTC_THROW_INVALID_STATE(xStr) {throw ref new Platform::COMException(E_NOT_VALID_STATE, xStr);}
+#define ORG_ORTC_THROW_INVALID_STATE_MESSAGE(xStr) {throw ref new Platform::COMException(E_NOT_VALID_STATE, #xStr);}
+#define ORG_ORTC_THROW_NOT_SUPPORTED(xStr) {throw ref new Platform::COMException(CO_E_NOT_SUPPORTED, xStr);}
+#define ORG_ORTC_THROW_NOT_SUPPORTED_IF(xExpression) if (xExpression) {throw ref new Platform::COMException(CO_E_NOT_SUPPORTED, #xExpression);}
 #define ORG_ORTC_THROW_UNEXPECTED_IF(xExpression) if (xExpression) {throw ref new Platform::COMException(E_UNEXPECTED, #xExpression);}
 
 namespace Org

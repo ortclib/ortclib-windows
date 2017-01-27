@@ -122,11 +122,11 @@ namespace Org
       }
       catch (const InvalidParameters &)
       {
-        ORG_ORTC_THROW_INVALID_PARAMETERS()
+        ORG_ORTC_THROW_INVALID_PARAMETERS();
       }
       catch (const InvalidStateError &e)
       {
-        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
+        ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()));
       }
     }
 
@@ -146,7 +146,25 @@ namespace Org
       {
         ISCTPTransportTypes::Capabilities caps;
         caps.mMaxMessageSize = remoteCaps->MaxMessageSize;
-        _nativePointer->start(caps);
+        try {
+          _nativePointer->start(caps);
+        } catch (const InvalidStateError &e) {
+          ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()));
+        }
+      }
+    }
+
+    void RTCSctpTransport::Start(RTCSctpCapabilities^ remoteCaps, uint16 port)
+    {
+      if (_nativePointer)
+      {
+        ISCTPTransportTypes::Capabilities caps;
+        caps.mMaxMessageSize = remoteCaps->MaxMessageSize;
+        try {
+          _nativePointer->start(caps, static_cast<WORD>(SafeInt<WORD>(port)));
+        } catch (const InvalidStateError &e) {
+          ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()));
+        }
       }
     }
 
