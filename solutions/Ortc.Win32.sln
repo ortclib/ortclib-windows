@@ -35,6 +35,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclib", "..\..\xplatform\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Ortc.WebRtc.Win32.Builder", "..\projects\msvc\Ortc.WebRtc.Win32.Builder\Ortc.WebRtc.Win32.Builder.vcxproj", "{F4B7BE6C-0303-4307-AEBF-D710BCA45739}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zsLib.Eventing", "..\..\xplatform\zsLib-eventing\projects\msvc\zsLib.Eventing.Win32\zsLib.Eventing.vcxproj", "{FFF92483-103E-4C15-86C3-8865737273CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -125,6 +127,16 @@ Global
 		{F4B7BE6C-0303-4307-AEBF-D710BCA45739}.Release|Win32.Build.0 = Release|Win32
 		{F4B7BE6C-0303-4307-AEBF-D710BCA45739}.Release|x64.ActiveCfg = Release|x64
 		{F4B7BE6C-0303-4307-AEBF-D710BCA45739}.Release|x64.Build.0 = Release|x64
+		{FFF92483-103E-4C15-86C3-8865737273CF}.Debug|ARM.ActiveCfg = Debug|Win32
+		{FFF92483-103E-4C15-86C3-8865737273CF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FFF92483-103E-4C15-86C3-8865737273CF}.Debug|Win32.Build.0 = Debug|Win32
+		{FFF92483-103E-4C15-86C3-8865737273CF}.Debug|x64.ActiveCfg = Debug|x64
+		{FFF92483-103E-4C15-86C3-8865737273CF}.Debug|x64.Build.0 = Debug|x64
+		{FFF92483-103E-4C15-86C3-8865737273CF}.Release|ARM.ActiveCfg = Release|Win32
+		{FFF92483-103E-4C15-86C3-8865737273CF}.Release|Win32.ActiveCfg = Release|Win32
+		{FFF92483-103E-4C15-86C3-8865737273CF}.Release|Win32.Build.0 = Release|Win32
+		{FFF92483-103E-4C15-86C3-8865737273CF}.Release|x64.ActiveCfg = Release|x64
+		{FFF92483-103E-4C15-86C3-8865737273CF}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -139,5 +151,6 @@ Global
 		{83E1DF0D-525A-4BEE-8E22-09B77CFAAD27} = {C5BB26FB-9AFF-493F-B443-0C8F8F2134BF}
 		{0CAD64D3-2E39-49AF-961F-F57F6B1AE786} = {44243A6D-994D-4F4D-8CB9-B6B3F96082A5}
 		{F4B7BE6C-0303-4307-AEBF-D710BCA45739} = {36206EE7-4B95-42B7-84BC-A654A3E46A96}
+		{FFF92483-103E-4C15-86C3-8865737273CF} = {0C48D872-DC87-4821-89D5-FF0F3ADD0B2D}
 	EndGlobalSection
 EndGlobal
