@@ -106,15 +106,16 @@ namespace Org
       }
     }
 
-    RTCRtpSender::RTCRtpSender(MediaStreamTrack^ track, RTCSrtpSdesTransport^ transport) :
-      _nativeDelegatePointer(make_shared<Internal::RTCRtpSenderDelegate>(this))
+    RTCRtpSender^ RTCRtpSender::Create(MediaStreamTrack^ track, RTCSrtpSdesTransport^ transport)
     {
+      auto pThis = ref new RTCRtpSender(IRTPSenderPtr());
+
       auto nativeTrack = MediaStreamTrack::Convert(track);
       auto nativeTransport = RTCSrtpSdesTransport::Convert(transport);
 
       try
       {
-        _nativePointer = IRTPSender::create(_nativeDelegatePointer, nativeTrack, nativeTransport);
+        pThis->_nativePointer = IRTPSender::create(pThis->_nativeDelegatePointer, nativeTrack, nativeTransport);
       }
       catch (const InvalidParameters &)
       {
@@ -124,6 +125,7 @@ namespace Org
       {
         ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
       }
+      return pThis;
     }
 
     RTCRtpSender::RTCRtpSender(MediaStreamTrack^ track, RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport) :
@@ -147,16 +149,17 @@ namespace Org
       }
     }
 
-    RTCRtpSender::RTCRtpSender(MediaStreamTrack^ track, RTCSrtpSdesTransport^ transport, RTCIceTransport^ rtcpTransport) :
-      _nativeDelegatePointer(make_shared<Internal::RTCRtpSenderDelegate>(this))
+    RTCRtpSender^ RTCRtpSender::Create(MediaStreamTrack^ track, RTCSrtpSdesTransport^ transport, RTCIceTransport^ rtcpTransport)
     {
+      auto pThis = ref new RTCRtpSender(IRTPSenderPtr());
+
       auto nativeTrack = MediaStreamTrack::Convert(track);
       auto nativeTransport = RTCSrtpSdesTransport::Convert(transport);
       auto nativeRtcpTransport = RTCIceTransport::Convert(rtcpTransport);
 
       try
       {
-        _nativePointer = IRTPSender::create(_nativeDelegatePointer, nativeTrack, nativeTransport, nativeRtcpTransport);
+        pThis->_nativePointer = IRTPSender::create(pThis->_nativeDelegatePointer, nativeTrack, nativeTransport, nativeRtcpTransport);
       }
       catch (const InvalidParameters &)
       {
@@ -166,6 +169,7 @@ namespace Org
       {
         ORG_ORTC_THROW_INVALID_STATE(UseHelper::ToCx(e.what()))
       }
+      return pThis;
     }
 
     void RTCRtpSender::SetTransport(RTCDtlsTransport^ transport)

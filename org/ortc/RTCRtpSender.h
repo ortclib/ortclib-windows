@@ -100,8 +100,8 @@ namespace Org
       /// made to construct an RTCRtpSender object with track.readyState is
       /// "ended", throw an InvalidStateError exception.
       /// </summary>
-      [Windows::Foundation::Metadata::OverloadAttribute("CreateWithSrtpSdesTransport")]
-      RTCRtpSender(MediaStreamTrack^ track, RTCSrtpSdesTransport^ transport);
+      [Windows::Foundation::Metadata::DefaultOverloadAttribute]
+      static RTCRtpSender^ Create(MediaStreamTrack^ track, RTCSrtpSdesTransport^ transport);
       /// <summary>
       /// Constructs an instance of an RTCRtpSender from an MediaStreamTrack
       /// object and associated to an RTCDtlsTransport. If an attempt is made
@@ -119,7 +119,7 @@ namespace Org
       /// InvalidStateError exception.
       /// </summary>
       [Windows::Foundation::Metadata::OverloadAttribute("CreateWithSdesSrtpAndIceRtcpTransport")]
-      RTCRtpSender(MediaStreamTrack^ track, RTCSrtpSdesTransport^ transport, RTCIceTransport^ rtcpTransport);
+      static RTCRtpSender^ Create(MediaStreamTrack^ track, RTCSrtpSdesTransport^ transport, RTCIceTransport^ rtcpTransport);
 
       /// <summary>
       /// Obtain the sender capabilities, based on kind. Capabilities such as
