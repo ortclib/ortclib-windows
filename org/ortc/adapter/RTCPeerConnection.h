@@ -906,7 +906,7 @@ namespace Org
         /// Adds a new track to the RTCPeerConnection and specifies how the
         /// track must be encoded.
         /// </summary>
-        [Windows::Foundation::Metadata::OverloadAttribute("AddTrackWithConfiguration")]
+        [Windows::Foundation::Metadata::DefaultOverloadAttribute(), Windows::Foundation::Metadata::OverloadAttribute("AddTrackWithConfiguration")]
         IAsyncOperation<RTCRtpSender^>^                     AddTrack(
           MediaStreamTrack^ track,
           RTCMediaStreamTrackConfiguration^ configuration

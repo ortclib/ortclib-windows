@@ -100,8 +100,8 @@ namespace Org
       /// made to construct an RTCRtpSender object with track.readyState is
       /// "ended", throw an InvalidStateError exception.
       /// </summary>
-      [Windows::Foundation::Metadata::DefaultOverloadAttribute]
-      static RTCRtpSender^ Create(MediaStreamTrack^ track, RTCSrtpSdesTransport^ transport);
+      [Windows::Foundation::Metadata::OverloadAttribute("CreateWithSrtpSdesTransport")]
+      RTCRtpSender(MediaStreamTrack^ track, RTCSrtpSdesTransport^ transport);
       /// <summary>
       /// Constructs an instance of an RTCRtpSender from an MediaStreamTrack
       /// object and associated to an RTCDtlsTransport. If an attempt is made
@@ -109,7 +109,7 @@ namespace Org
       /// rtcpTransport.State "closed", or if track.readyState is "ended",
       /// throw an InvalidStateError exception.
       /// </summary>
-      [Windows::Foundation::Metadata::OverloadAttribute("CreateWithRtcpTransport")]
+      [Windows::Foundation::Metadata::DefaultOverloadAttribute]
       RTCRtpSender(MediaStreamTrack^ track, RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
       /// <summary>
       /// Constructs an instance of an RTCRtpSender from an MediaStreamTrack
@@ -119,7 +119,7 @@ namespace Org
       /// InvalidStateError exception.
       /// </summary>
       [Windows::Foundation::Metadata::OverloadAttribute("CreateWithSdesSrtpAndIceRtcpTransport")]
-      static RTCRtpSender^ Create(MediaStreamTrack^ track, RTCSrtpSdesTransport^ transport, RTCIceTransport^ rtcpTransport);
+      RTCRtpSender(MediaStreamTrack^ track, RTCSrtpSdesTransport^ transport, RTCIceTransport^ rtcpTransport);
 
       /// <summary>
       /// Obtain the sender capabilities, based on kind. Capabilities such as
@@ -151,7 +151,7 @@ namespace Org
       /// SetTransport() is called when transport.State or rtcpTransport.State
       /// is "closed", throw an InvalidStateError exception.
       /// </summary>
-      [Windows::Foundation::Metadata::OverloadAttribute("SetTransportWithRtcpTransport")]
+      [Windows::Foundation::Metadata::DefaultOverloadAttribute, Windows::Foundation::Metadata::OverloadAttribute("SetTransportWithRtcpTransport")]
       void                        SetTransport(RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
       /// <summary>
       /// Set the RTP RTCSrtpSdesTransport and RTCP RTCIceTransport. If

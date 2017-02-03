@@ -116,7 +116,7 @@ namespace Org
       /// object and the mapped header extensions to properly intepret
       /// RTP header extensions.
       /// </summary>
-      [Windows::Foundation::Metadata::OverloadAttribute("CreateWithHeaderExtensions")]
+      [Windows::Foundation::Metadata::DefaultOverloadAttribute(), Windows::Foundation::Metadata::OverloadAttribute("CreateWithHeaderExtensions")]
       RTCRtpListener(RTCDtlsTransport^ transport, IVector<RTCRtpHeaderExtensionParameters^>^ headerExtensions);
       /// <summary>
       /// Construct an instance of RTCRtpListener from an RTCDtlsTransport

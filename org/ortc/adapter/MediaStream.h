@@ -68,7 +68,7 @@ namespace Org
         /// Constructs an instance of an MediaStream containing a list of
         /// MediaStreamTracks supplied.
         /// </summary>
-        [Windows::Foundation::Metadata::OverloadAttribute("CreateWithTracks")]
+        [Windows::Foundation::Metadata::DefaultOverloadAttribute(), Windows::Foundation::Metadata::OverloadAttribute("CreateWithTracks")]
         MediaStream(IVector<MediaStreamTrack^>^ tracks);
 
         /// <summary>
