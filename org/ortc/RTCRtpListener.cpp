@@ -14,7 +14,7 @@ namespace Org
 {
   namespace Ortc
   {
-    ZS_DECLARE_TYPEDEF_PTR(Internal::Helper, UseHelper)
+    ZS_DECLARE_TYPEDEF_PTR(Internal::Helper, UseHelper);
 
     namespace Internal
     {
