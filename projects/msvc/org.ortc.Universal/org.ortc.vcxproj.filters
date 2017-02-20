@@ -472,12 +472,6 @@
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_StringOrStringList.cpp">
       <Filter>wrapper\generated\cx</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Zs_Json.cpp">
-      <Filter>wrapper\generated\cx</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Zs_MessageQueue.cpp">
-      <Filter>wrapper\generated\cx</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_Adapter_MediaStream.cpp">
       <Filter>wrapper\generated\cx</Filter>
     </ClCompile>
@@ -574,9 +568,6 @@
     <ClCompile Include="..\..\..\wrapper\cx\cx_custom_Org_Ortc_Dispatcher.cpp">
       <Filter>wrapper\cx</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\wrapper\cx\cx_custom_Zs_MessageQueue.cpp">
-      <Filter>wrapper\cx</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_Settings.cpp">
       <Filter>wrapper\generated\cx</Filter>
     </ClCompile>
@@ -602,6 +593,12 @@
       <Filter>wrapper\generated\cx</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_OrtcLib.cpp">
+      <Filter>wrapper\generated\cx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_Json.cpp">
+      <Filter>wrapper\generated\cx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_MessageQueue.cpp">
       <Filter>wrapper\generated\cx</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1056,12 +1053,6 @@
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\types.h">
       <Filter>wrapper\generated\cx</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Zs_Json.h">
-      <Filter>wrapper\generated\cx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Zs_MessageQueue.h">
-      <Filter>wrapper\generated\cx</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_Adapter_MediaStream.h">
       <Filter>wrapper\generated\cx</Filter>
     </ClInclude>
@@ -1164,12 +1155,6 @@
     <ClInclude Include="..\..\..\wrapper\cx\Org_Ortc_Dispatcher.h">
       <Filter>wrapper\cx</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\wrapper\cx\Zs_MessageQueue.h">
-      <Filter>wrapper\cx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\wrapper\cx\cx_custom_Zs_MessageQueue.h">
-      <Filter>wrapper\cx</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_Settings.h">
       <Filter>wrapper\generated\cx</Filter>
     </ClInclude>
@@ -1195,6 +1180,12 @@
       <Filter>wrapper\generated\cx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_OrtcLibWithDispatcher.h">
+      <Filter>wrapper\generated\cx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_Json.h">
+      <Filter>wrapper\generated\cx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_MessageQueue.h">
       <Filter>wrapper\generated\cx</Filter>
     </ClInclude>
   </ItemGroup>
