@@ -69,6 +69,7 @@
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_Json.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_Logger.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_LongRange.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_MediaControl.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_MediaDeviceInfo.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_MediaDevices.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_MediaSource.cpp" />
@@ -451,6 +452,7 @@
     </ClCompile>
     <ClCompile Include="..\..\..\wrapper\cx\cx_custom_MediaSourceHelper.cc" />
     <ClCompile Include="..\..\..\wrapper\cx\cx_custom_Org_Ortc_Dispatcher.cpp" />
+    <ClCompile Include="..\..\..\wrapper\cx\cx_custom_Org_Ortc_MediaControl.cpp" />
     <ClCompile Include="..\..\..\wrapper\cx\cx_custom_Org_Ortc_MediaSource.cpp" />
     <ClCompile Include="..\..\..\wrapper\cx\cx_custom_RTMediaStreamSource.cc" />
     <ClCompile Include="..\..\..\wrapper\cx\cx_custom_WebRtcMediaSource.cc" />
@@ -499,6 +501,7 @@
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_Json.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_Logger.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_LongRange.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_MediaControl.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_MediaDeviceInfo.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_MediaDevices.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_MediaSource.h" />
@@ -884,11 +887,13 @@
     </ClInclude>
     <ClInclude Include="..\..\..\wrapper\cx\cx_custom_MediaSourceHelper.h" />
     <ClInclude Include="..\..\..\wrapper\cx\cx_custom_Org_Ortc_Dispatcher.h" />
+    <ClInclude Include="..\..\..\wrapper\cx\cx_custom_Org_Ortc_MediaControl.h" />
     <ClInclude Include="..\..\..\wrapper\cx\cx_custom_Org_Ortc_MediaSource.h" />
     <ClInclude Include="..\..\..\wrapper\cx\cx_custom_RTMediaStreamSource.h" />
     <ClInclude Include="..\..\..\wrapper\cx\cx_custom_WebRtcMediaSource.h" />
     <ClInclude Include="..\..\..\wrapper\cx\cx_custom_WebRtcMediaStream.h" />
     <ClInclude Include="..\..\..\wrapper\cx\Org_Ortc_Dispatcher.h" />
+    <ClInclude Include="..\..\..\wrapper\cx\Org_Ortc_MediaControl.h" />
     <ClInclude Include="..\..\..\wrapper\cx\Org_Ortc_MediaSource.h" />
   </ItemGroup>
   <ItemGroup>

@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Resources">
-      <UniqueIdentifier>b95484df-aec9-43b1-b9f6-4cfc1359efb6</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="org_">
       <UniqueIdentifier>{5b765238-437a-4add-a894-ccddc8bb4841}</UniqueIdentifier>
     </Filter>
@@ -601,6 +597,12 @@
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_MessageQueue.cpp">
       <Filter>wrapper\generated\cx</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_MediaControl.cpp">
+      <Filter>wrapper\generated\cx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\wrapper\cx\cx_custom_Org_Ortc_MediaControl.cpp">
+      <Filter>wrapper\cx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\org\ortc\Capabilities.h">
@@ -1187,6 +1189,15 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_MessageQueue.h">
       <Filter>wrapper\generated\cx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_MediaControl.h">
+      <Filter>wrapper\generated\cx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wrapper\cx\cx_custom_Org_Ortc_MediaControl.h">
+      <Filter>wrapper\cx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\wrapper\cx\Org_Ortc_MediaControl.h">
+      <Filter>wrapper\cx</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
