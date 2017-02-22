@@ -13,7 +13,7 @@ namespace Org.Ortc.Test
     {
         UnitTest_Transports()
         {
-            Logger.SetLogLevel(Log.Level.Trace);
+            Logger.SetDefaultLogLevel(Log.Level.Trace);
             Logger.SetLogLevel(Log.Component.ZsLib, Log.Level.Trace);
             Logger.SetLogLevel(Log.Component.Services, Log.Level.Trace);
             Logger.SetLogLevel(Log.Component.ServicesHttp, Log.Level.Trace);
@@ -22,10 +22,10 @@ namespace Org.Ortc.Test
 
 
             //openpeer::services::ILogger::installDebuggerLogger();
-            Logger.InstallTelnetLogger(59999, 60, true);
+            Logger.InstallTelnetLogger(59999, TimeSpan.FromSeconds(60), true);
 
             Settings.ApplyDefaults();
-            Ortc.Setup();
+            OrtcLib.Setup();
         }
 
         [TestMethod]
@@ -88,7 +88,7 @@ namespace Org.Ortc.Test
                         List<RTCRtpSender> senders = new List<RTCRtpSender>();
                         foreach (MediaStreamTrack track in mediaList)
                         {
-                            RTCRtpSender rtpSender = new RTCRtpSender(track, _dtlsTransport);
+                            RTCRtpSender rtpSender = new RTCRtpSender(track, RTCRtpTransport.Cast(_dtlsTransport));
                             senders.Add(rtpSender);
                         }
 
@@ -123,11 +123,11 @@ namespace Org.Ortc.Test
         // ICE GATHERER EVENT HANDLERS
         //---------------------------------------------------------------------
 
-        private void RTCIceGatherer_onICEGathererStateChanged(RTCIceGathererStateChangedEvent evt)
+        private void RTCIceGatherer_onICEGathererStateChanged(RTCIceGathererStateChangeEvent evt)
         {
             if (evt.State == RTCIceGathererState.Complete)
             {
-                _iceTransport.Start(_iceGatherer, _iceGatherer2.GetLocalParameters(), RTCIceRole.Controlled);
+                _iceTransport.Start(_iceGatherer, _iceGatherer2.LocalParameters, RTCIceRole.Controlled);
             }
         }
 
@@ -156,11 +156,11 @@ namespace Org.Ortc.Test
 
         //***********************************************************************************************
 
-        private void RTCIceGatherer_onICEGathererStateChanged2(RTCIceGathererStateChangedEvent evt)
+        private void RTCIceGatherer_onICEGathererStateChanged2(RTCIceGathererStateChangeEvent evt)
         {
             if (evt.State == RTCIceGathererState.Complete)
             {
-                _iceTransport2.Start(_iceGatherer2, _iceGatherer.GetLocalParameters(), RTCIceRole.Controlling);
+                _iceTransport2.Start(_iceGatherer2, _iceGatherer.LocalParameters, RTCIceRole.Controlling);
             }
         }
         private void RTCIceGatherer_onICEGathererLocalCandidate2(RTCIceGathererCandidateEvent evt)
@@ -191,23 +191,23 @@ namespace Org.Ortc.Test
         // ICE TRANSPORT EVENT HANDLERS
         //----------------------------------------------------------------------------------
 
-        private void RTCIceTransport_onICETransportStateChanged(RTCIceTransportStateChangedEvent evt)
+        private void RTCIceTransport_onICETransportStateChanged(RTCIceTransportStateChangeEvent evt)
         {
             int i = 0;
             i++;
         }
 
-        private void RTCIceTransport_onICETransportCandidatePairAvailable(RTCIceCandidatePairChangedEvent evt)
+        private void RTCIceTransport_onICETransportCandidatePairAvailable(RTCIceCandidatePairChangeEvent evt)
         {
             int i = 0;
             i++;
         }
-        private void RTCIceTransport_onICETransportCandidatePairGone(RTCIceCandidatePairChangedEvent evt)
+        private void RTCIceTransport_onICETransportCandidatePairGone(RTCIceCandidatePairChangeEvent evt)
         {
             int i = 0;
             i++;
         }
-        private void RTCIceTransport_onICETransportCandidatePairChanged(RTCIceCandidatePairChangedEvent evt)
+        private void RTCIceTransport_onICETransportCandidatePairChanged(RTCIceCandidatePairChangeEvent evt)
         {
             int i = 0;
             i++;
@@ -215,23 +215,23 @@ namespace Org.Ortc.Test
 
         //****************************************************************************************************
 
-        private void RTCIceTransport_onICETransportStateChanged2(RTCIceTransportStateChangedEvent evt)
+        private void RTCIceTransport_onICETransportStateChanged2(RTCIceTransportStateChangeEvent evt)
         {
             int i = 0;
             i++;
         }
 
-        private void RTCIceTransport_onICETransportCandidatePairAvailable2(RTCIceCandidatePairChangedEvent evt)
+        private void RTCIceTransport_onICETransportCandidatePairAvailable2(RTCIceCandidatePairChangeEvent evt)
         {
             int i = 0;
             i++;
         }
-        private void RTCIceTransport_onICETransportCandidatePairGone2(RTCIceCandidatePairChangedEvent evt)
+        private void RTCIceTransport_onICETransportCandidatePairGone2(RTCIceCandidatePairChangeEvent evt)
         {
             int i = 0;
             i++;
         }
-        private void RTCIceTransport_onICETransportCandidatePairChanged2(RTCIceCandidatePairChangedEvent evt)
+        private void RTCIceTransport_onICETransportCandidatePairChanged2(RTCIceCandidatePairChangeEvent evt)
         {
             int i = 0;
             i++;
