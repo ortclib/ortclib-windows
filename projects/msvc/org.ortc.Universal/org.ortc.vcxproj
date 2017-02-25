@@ -37,7 +37,6 @@
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_Adapter_RTCOfferAnswerOptions.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_Adapter_RTCOfferOptions.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_Adapter_RTCPeerConnection.cpp" />
-    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_Adapter_RTCPeerConnectionIceCompleteEvent.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_Adapter_RTCPeerConnectionIceErrorEvent.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_Adapter_RTCPeerConnectionIceEvent.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_Adapter_RTCSessionDescription.cpp" />
@@ -474,7 +473,6 @@
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_Adapter_RTCOfferAnswerOptions.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_Adapter_RTCOfferOptions.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_Adapter_RTCPeerConnection.h" />
-    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_Adapter_RTCPeerConnectionIceCompleteEvent.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_Adapter_RTCPeerConnectionIceErrorEvent.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_Adapter_RTCPeerConnectionIceEvent.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_Adapter_RTCSessionDescription.h" />

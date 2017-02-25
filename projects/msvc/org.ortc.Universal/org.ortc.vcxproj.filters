@@ -495,9 +495,6 @@
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_Adapter_RTCPeerConnection.cpp">
       <Filter>wrapper\generated\cx</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_Adapter_RTCPeerConnectionIceCompleteEvent.cpp">
-      <Filter>wrapper\generated\cx</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_Adapter_RTCPeerConnectionIceErrorEvent.cpp">
       <Filter>wrapper\generated\cx</Filter>
     </ClCompile>
@@ -1095,9 +1092,6 @@
       <Filter>wrapper\generated\cx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_Adapter_RTCPeerConnection.h">
-      <Filter>wrapper\generated\cx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_Adapter_RTCPeerConnectionIceCompleteEvent.h">
       <Filter>wrapper\generated\cx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_Adapter_RTCPeerConnectionIceErrorEvent.h">
