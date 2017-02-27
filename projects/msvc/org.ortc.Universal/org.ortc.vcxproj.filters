@@ -324,9 +324,6 @@
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCMessageEvent.cpp">
       <Filter>wrapper\generated\cx</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCMessageEventData.cpp">
-      <Filter>wrapper\generated\cx</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCRtcpFeedback.cpp">
       <Filter>wrapper\generated\cx</Filter>
     </ClCompile>
@@ -921,9 +918,6 @@
       <Filter>wrapper\generated\cx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCMessageEvent.h">
-      <Filter>wrapper\generated\cx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCMessageEventData.h">
       <Filter>wrapper\generated\cx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCRtcpFeedback.h">
