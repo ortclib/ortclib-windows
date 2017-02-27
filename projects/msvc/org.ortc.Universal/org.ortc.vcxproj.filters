@@ -351,9 +351,6 @@
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCRtpContributingSource.cpp">
       <Filter>wrapper\generated\cx</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCRtpDtmfSender.cpp">
-      <Filter>wrapper\generated\cx</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCRtpEncodingParameters.cpp">
       <Filter>wrapper\generated\cx</Filter>
     </ClCompile>
@@ -613,6 +610,12 @@
       <Filter>wrapper\generated\cx</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCSctpTransportListenerEvent.cpp">
+      <Filter>wrapper\generated\cx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCDtmfSender.cpp">
+      <Filter>wrapper\generated\cx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCDtmfToneChangeEvent.cpp">
       <Filter>wrapper\generated\cx</Filter>
     </ClCompile>
   </ItemGroup>
@@ -947,9 +950,6 @@
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCRtpContributingSource.h">
       <Filter>wrapper\generated\cx</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCRtpDtmfSender.h">
-      <Filter>wrapper\generated\cx</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCRtpEncodingParameters.h">
       <Filter>wrapper\generated\cx</Filter>
     </ClInclude>
@@ -1221,6 +1221,12 @@
       <Filter>wrapper\generated\cx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCSctpTransportListenerEvent.h">
+      <Filter>wrapper\generated\cx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCDtmfSender.h">
+      <Filter>wrapper\generated\cx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCDtmfToneChangeEvent.h">
       <Filter>wrapper\generated\cx</Filter>
     </ClInclude>
   </ItemGroup>

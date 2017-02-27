@@ -99,6 +99,8 @@
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCDtlsTransport.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCDtlsTransportStateChangeEvent.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCDtlsTransportStats.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCDtmfSender.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCDtmfToneChangeEvent.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCIceCandidate.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCIceCandidateAttributes.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCIceCandidateComplete.cpp" />
@@ -140,7 +142,6 @@
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCRtpCodecParameters.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCRtpCodecParameterSettings.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCRtpContributingSource.cpp" />
-    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCRtpDtmfSender.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCRtpEncodingParameters.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCRtpFecParameters.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCRtpFlexFecCodecCapabilityParameters.cpp" />
@@ -535,6 +536,8 @@
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCDtlsTransport.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCDtlsTransportStateChangeEvent.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCDtlsTransportStats.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCDtmfSender.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCDtmfToneChangeEvent.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCIceCandidate.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCIceCandidateAttributes.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCIceCandidateComplete.h" />
@@ -576,7 +579,6 @@
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCRtpCodecParameters.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCRtpCodecParameterSettings.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCRtpContributingSource.h" />
-    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCRtpDtmfSender.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCRtpEncodingParameters.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCRtpFecParameters.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cx\Org_Ortc_RTCRtpFlexFecCodecCapabilityParameters.h" />
