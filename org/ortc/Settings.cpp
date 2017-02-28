@@ -3,7 +3,7 @@
 #include <org/ortc/Settings.h>
 #include <org/ortc/helpers.h>
 
-#include <ortc/ISettings.h>
+#include <zsLib/ISettings.h>
 
 #include <zsLib/SafeInt.h>
 
@@ -13,6 +13,8 @@ namespace Org
 {
   namespace Ortc
   {
+    ZS_DECLARE_USING_PTR(zsLib, ISettings);
+
     ZS_DECLARE_TYPEDEF_PTR(Internal::Helper, UseHelper);
 
     void Settings::ApplyDefaults()

@@ -385,7 +385,7 @@ namespace Org
     };
 
     /// <summary>
-    /// This object represents the event for when a new RTCIceGatherCandidate
+    /// This object represents the event for when a new RTCIceGathererCandidate
     /// is made available (or is gone).
     /// </summary>
     public ref struct RTCIceGathererCandidateEvent sealed
@@ -532,15 +532,15 @@ namespace Org
       /// </summary>
       event RTCIceGathererStateChangedDelegate^           OnStateChange;
       /// <summary>
-      /// A new RTCIceGatherCandidate is made available.
+      /// A new RTCIceGathererCandidate is made available.
       /// </summary>
       event RTCIceGathererLocalCandidateDelegate^         OnLocalCandidate;
       /// <summary>
-      /// A new RTCIceGatherCandidateComplete is made available.
+      /// A new RTCIceCandidateComplete is made available.
       /// </summary>
       event RTCIceGathererLocalCandidateCompleteDelegate^ OnLocalCandidateComplete;
       /// <summary>
-      /// A new RTCIceGatherCandidate is no longer available.
+      /// A new RTCIceGathererCandidate is no longer available.
       /// </summary>
       event RTCIceGathererLocalCandidateGoneDelegate^     OnLocalCandidateGone;
       /// <summary>

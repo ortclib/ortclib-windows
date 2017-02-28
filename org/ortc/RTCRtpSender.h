@@ -109,7 +109,7 @@ namespace Org
       /// rtcpTransport.State "closed", or if track.readyState is "ended",
       /// throw an InvalidStateError exception.
       /// </summary>
-      [Windows::Foundation::Metadata::OverloadAttribute("CreateWithRtcpTransport")]
+      [Windows::Foundation::Metadata::DefaultOverloadAttribute]
       RTCRtpSender(MediaStreamTrack^ track, RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
       /// <summary>
       /// Constructs an instance of an RTCRtpSender from an MediaStreamTrack
@@ -151,7 +151,7 @@ namespace Org
       /// SetTransport() is called when transport.State or rtcpTransport.State
       /// is "closed", throw an InvalidStateError exception.
       /// </summary>
-      [Windows::Foundation::Metadata::OverloadAttribute("SetTransportWithRtcpTransport")]
+      [Windows::Foundation::Metadata::DefaultOverloadAttribute, Windows::Foundation::Metadata::OverloadAttribute("SetTransportWithRtcpTransport")]
       void                        SetTransport(RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
       /// <summary>
       /// Set the RTP RTCSrtpSdesTransport and RTCP RTCIceTransport. If

@@ -105,7 +105,7 @@ namespace Org
       /// Constructs an instance of an RTCStatsProvider object that will
       /// inspect an MediaStreamTrack object.
       /// </summary>
-      [Windows::Foundation::Metadata::OverloadAttribute("CreateWithMediaStreamTrack")]
+      [Windows::Foundation::Metadata::DefaultOverloadAttribute(), Windows::Foundation::Metadata::OverloadAttribute("CreateWithMediaStreamTrack")]
       RTCStatsProvider(MediaStreamTrack^ track, RTCStatsProviderOptions^ options);
 
       /// <summary>

@@ -106,8 +106,7 @@ namespace Org
       }
     }
 
-    RTCRtpSender::RTCRtpSender(MediaStreamTrack^ track, RTCSrtpSdesTransport^ transport) :
-      _nativeDelegatePointer(make_shared<Internal::RTCRtpSenderDelegate>(this))
+    RTCRtpSender::RTCRtpSender(MediaStreamTrack^ track, RTCSrtpSdesTransport^ transport)
     {
       auto nativeTrack = MediaStreamTrack::Convert(track);
       auto nativeTransport = RTCSrtpSdesTransport::Convert(transport);
@@ -147,8 +146,7 @@ namespace Org
       }
     }
 
-    RTCRtpSender::RTCRtpSender(MediaStreamTrack^ track, RTCSrtpSdesTransport^ transport, RTCIceTransport^ rtcpTransport) :
-      _nativeDelegatePointer(make_shared<Internal::RTCRtpSenderDelegate>(this))
+    RTCRtpSender::RTCRtpSender(MediaStreamTrack^ track, RTCSrtpSdesTransport^ transport, RTCIceTransport^ rtcpTransport)
     {
       auto nativeTrack = MediaStreamTrack::Convert(track);
       auto nativeTransport = RTCSrtpSdesTransport::Convert(transport);

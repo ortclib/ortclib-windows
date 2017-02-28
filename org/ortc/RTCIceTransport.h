@@ -262,7 +262,7 @@ namespace Org
       /// SetRemoteCandidates() must be called to add the remote candidates
       /// back or replace them.
       /// </summary>
-      [Windows::Foundation::Metadata::OverloadAttribute("StartWithRole")]
+      [Windows::Foundation::Metadata::DefaultOverloadAttribute(), Windows::Foundation::Metadata::OverloadAttribute("StartWithRole")]
       void                       Start(RTCIceGatherer^ gatherer, RTCIceParameters^ remoteParameters, RTCIceRole role);
       /// <summary>
       /// The first time Start() is called, candidate connectivity checks are

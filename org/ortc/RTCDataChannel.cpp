@@ -52,7 +52,7 @@ namespace Org
       RTCDataChannelParameters^ ToCx(IDataChannelTypes::ParametersPtr input)
       {
         if (!input) return nullptr;
-        return ToCx(input);
+        return ToCx(*input);
       }
 
       IDataChannelTypes::ParametersPtr FromCx(RTCDataChannelParameters^ input)

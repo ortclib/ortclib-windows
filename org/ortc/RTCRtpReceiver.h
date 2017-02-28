@@ -156,7 +156,7 @@ namespace Org
       /// Track is set, and the value of track.Kind is determined based on
       /// the value of kind passed in the constructor.      
       /// </summary>
-      [Windows::Foundation::Metadata::OverloadAttribute("CreateWithRtcpTransport")]
+      [Windows::Foundation::Metadata::DefaultOverloadAttribute(), Windows::Foundation::Metadata::OverloadAttribute("CreateWithRtcpTransport")]
       RTCRtpReceiver(MediaStreamTrackKind kind, RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
       /// <summary>
       /// Constructs an instance of RTCRtpReceiver from a value of kind and an
@@ -198,7 +198,7 @@ namespace Org
       /// SetTransport() is called and transport.State or rtcpTransport.State
       /// is "closed", throw an InvalidParameters exception.
       /// </summary>
-      [Windows::Foundation::Metadata::OverloadAttribute("SetTransportWithRtcpTransport")]
+      [Windows::Foundation::Metadata::DefaultOverloadAttribute, Windows::Foundation::Metadata::OverloadAttribute("SetTransportWithRtcpTransport")]
       void                                SetTransport(RTCDtlsTransport^ transport, RTCDtlsTransport^ rtcpTransport);
       /// <summary>
       /// Set the RTP RTCSrtpSdesTransport and RTCP RTCIceTransport. If
