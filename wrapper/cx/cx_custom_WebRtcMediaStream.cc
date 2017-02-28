@@ -40,7 +40,7 @@ namespace webrtc
   }
 }
 
-typedef zsLib::AnyHolder< ortc::IMediaStreamTrackPtr > AnyTrackHolder;
+typedef zsLib::AnyHolder< ::ortc::IMediaStreamTrackPtr > AnyTrackHolder;
 
 static ortc::IMediaStreamTrackPtr getTrack(zsLib::AnyPtr holder)
 {
