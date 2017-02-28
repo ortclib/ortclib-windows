@@ -36,10 +36,12 @@ namespace Org.Ortc.Test
 
             server.Username = "Bojan";
             server.Credential = "12345";
-            server.Urls = new List<String>();
-            server.Urls.Add("stun:stun.vline.com");
-            options.IceServers = new List<RTCIceServer>();
-            options.IceServers.Add(server);
+            var tempUrls = new List<String>();
+            tempUrls.Add("stun:stun.vline.com");
+            server.Urls = tempUrls;
+            var tempServers = new List<RTCIceServer>();
+            tempServers.Add(server);
+            options.IceServers = tempServers;
 
             _iceGatherer = new RTCIceGatherer(options);
             _iceGatherer.OnStateChange += this.RTCIceGatherer_onICEGathererStateChanged;
@@ -79,9 +81,9 @@ namespace Org.Ortc.Test
                 constraints.Audio = new MediaTrackConstraints();
                 constraints.Video = new MediaTrackConstraints();
 
-                MediaDevices.GetUserMedia(constraints).AsTask().ContinueWith<IList<MediaStreamTrack>>((mediaListTask) =>
+                MediaDevices.GetUserMedia(constraints).AsTask().ContinueWith<IReadOnlyList<MediaStreamTrack>>((mediaListTask) =>
                 {
-                    IList<MediaStreamTrack> mediaList = mediaListTask.Result;
+                    IReadOnlyList<MediaStreamTrack> mediaList = mediaListTask.Result;
                     if (mediaList != null && mediaList.Count > 0)
                     {
                         //List<MediaStreamTrack> ret = new List<MediaStreamTrack>(temp.Result);
