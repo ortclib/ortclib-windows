@@ -89,6 +89,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zsLib.Eventing", "..\..\xpl
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclib.wrapper", "..\..\xplatform\ortclib-cpp\projects\msvs\ortclib.wrapper.Universal\ortclib.wrapper.vcxproj", "{F370FFCF-6D70-40A3-853D-A272C4DF2014}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclib-c", "..\..\xplatform\ortclib-cpp\projects\msvs\ortclib-c.Universal\ortclib-c.vcxproj", "{FF79354E-6381-405E-A16C-659B02E617E5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F370FFCF-6D70-40A3-853D-A272C4DF2014} = {F370FFCF-6D70-40A3-853D-A272C4DF2014}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -337,6 +342,18 @@ Global
 		{F370FFCF-6D70-40A3-853D-A272C4DF2014}.Release|x64.Build.0 = Release|x64
 		{F370FFCF-6D70-40A3-853D-A272C4DF2014}.Release|x86.ActiveCfg = Release|Win32
 		{F370FFCF-6D70-40A3-853D-A272C4DF2014}.Release|x86.Build.0 = Release|Win32
+		{FF79354E-6381-405E-A16C-659B02E617E5}.Debug|ARM.ActiveCfg = Debug|ARM
+		{FF79354E-6381-405E-A16C-659B02E617E5}.Debug|ARM.Build.0 = Debug|ARM
+		{FF79354E-6381-405E-A16C-659B02E617E5}.Debug|x64.ActiveCfg = Debug|x64
+		{FF79354E-6381-405E-A16C-659B02E617E5}.Debug|x64.Build.0 = Debug|x64
+		{FF79354E-6381-405E-A16C-659B02E617E5}.Debug|x86.ActiveCfg = Debug|Win32
+		{FF79354E-6381-405E-A16C-659B02E617E5}.Debug|x86.Build.0 = Debug|Win32
+		{FF79354E-6381-405E-A16C-659B02E617E5}.Release|ARM.ActiveCfg = Release|ARM
+		{FF79354E-6381-405E-A16C-659B02E617E5}.Release|ARM.Build.0 = Release|ARM
+		{FF79354E-6381-405E-A16C-659B02E617E5}.Release|x64.ActiveCfg = Release|x64
+		{FF79354E-6381-405E-A16C-659B02E617E5}.Release|x64.Build.0 = Release|x64
+		{FF79354E-6381-405E-A16C-659B02E617E5}.Release|x86.ActiveCfg = Release|Win32
+		{FF79354E-6381-405E-A16C-659B02E617E5}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -368,5 +385,6 @@ Global
 		{6F8340EC-CBA4-FDB2-F8B5-F2D217A3DFC3} = {61027D5A-09D6-4526-AC9E-F4A36BCB930D}
 		{A19B7D13-A6EE-43BB-A913-AEB34F91BF98} = {0C48D872-DC87-4821-89D5-FF0F3ADD0B2D}
 		{F370FFCF-6D70-40A3-853D-A272C4DF2014} = {44243A6D-994D-4F4D-8CB9-B6B3F96082A5}
+		{FF79354E-6381-405E-A16C-659B02E617E5} = {44243A6D-994D-4F4D-8CB9-B6B3F96082A5}
 	EndGlobalSection
 EndGlobal
