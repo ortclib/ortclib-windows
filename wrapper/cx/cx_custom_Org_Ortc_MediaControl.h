@@ -22,7 +22,6 @@ namespace Org {
       static wrapper::org::ortc::MediaControlPtr FromCx(MediaControl^ value);
 
     public:
-      MediaControl();
       /// <summary>
       /// Notify that media engine the application orientation has changed.
       /// </summary>

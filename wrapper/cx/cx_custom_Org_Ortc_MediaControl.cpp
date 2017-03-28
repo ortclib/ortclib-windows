@@ -20,13 +20,6 @@ wrapper::org::ortc::MediaControlPtr Org::Ortc::MediaControl::FromCx(::Org::Ortc:
 }
 
 //------------------------------------------------------------------------------
-Org::Ortc::MediaControl::MediaControl()
-  : native_(wrapper::org::ortc::MediaControl::wrapper_create())
-{
-  native_->wrapper_init_org_ortc_MediaControl();
-}
-
-//------------------------------------------------------------------------------
 Windows::Graphics::Display::DisplayOrientations Org::Ortc::MediaControl::DisplayOrientation::get()
 {
   return webrtc::videocapturemodule::AppStateDispatcher::Instance()->GetOrientation();
