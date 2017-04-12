@@ -14,6 +14,6 @@
         <file src="runtimes\win10-x86\native\Org.Ortc.dll" target="runtimes\win10-x86\native\Org.Ortc.dll" />
         <file src="runtimes\win10-x64\native\Org.Ortc.dll" target="runtimes\win10-x64\native\Org.Ortc.dll" />
         <file src="runtimes\win10-arm\native\Org.Ortc.dll" target="runtimes\win10-arm\native\Org.Ortc.dll" />
-        <file src="build\native\Org.Ortc.targets" target="build\native\Org.Ortc.targets" />
+        <file src="build\native\Ortc.targets" target="build\native\Ortc.targets" />
     </files>
 </package>
