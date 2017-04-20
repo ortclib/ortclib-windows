@@ -200,5 +200,8 @@
     <Compile Include="..\..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_StringOrStringList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="libOrtc.dylib" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.ObjCBinding.CSharp.targets" />
 </Project>

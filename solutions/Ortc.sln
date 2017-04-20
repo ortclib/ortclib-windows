@@ -98,6 +98,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xamarin", "xamarin", "{4520
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BindingOrtcLib", "..\projects\msvc\BindingOrtcLib\BindingOrtcLib\BindingOrtcLib.csproj", "{54C16ADA-D874-47CE-94A5-537CEF903099}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iOSOrtcSample", "..\samples\iOSOrtcSample\iOSOrtcSample.csproj", "{F9D140F0-C320-4495-AAB0-C8F2DA9C73DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
@@ -1036,6 +1038,38 @@ Global
 		{54C16ADA-D874-47CE-94A5-537CEF903099}.Release|x64.Build.0 = Release|Any CPU
 		{54C16ADA-D874-47CE-94A5-537CEF903099}.Release|x86.ActiveCfg = Release|Any CPU
 		{54C16ADA-D874-47CE-94A5-537CEF903099}.Release|x86.Build.0 = Release|Any CPU
+		{F9D140F0-C320-4495-AAB0-C8F2DA9C73DD}.Ad-Hoc|Any CPU.ActiveCfg = Ad-Hoc|iPhone
+		{F9D140F0-C320-4495-AAB0-C8F2DA9C73DD}.Ad-Hoc|ARM.ActiveCfg = Ad-Hoc|iPhone
+		{F9D140F0-C320-4495-AAB0-C8F2DA9C73DD}.Ad-Hoc|iPhone.ActiveCfg = Ad-Hoc|iPhone
+		{F9D140F0-C320-4495-AAB0-C8F2DA9C73DD}.Ad-Hoc|iPhone.Build.0 = Ad-Hoc|iPhone
+		{F9D140F0-C320-4495-AAB0-C8F2DA9C73DD}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Ad-Hoc|iPhoneSimulator
+		{F9D140F0-C320-4495-AAB0-C8F2DA9C73DD}.Ad-Hoc|iPhoneSimulator.Build.0 = Ad-Hoc|iPhoneSimulator
+		{F9D140F0-C320-4495-AAB0-C8F2DA9C73DD}.Ad-Hoc|x64.ActiveCfg = Ad-Hoc|iPhone
+		{F9D140F0-C320-4495-AAB0-C8F2DA9C73DD}.Ad-Hoc|x86.ActiveCfg = Ad-Hoc|iPhone
+		{F9D140F0-C320-4495-AAB0-C8F2DA9C73DD}.AppStore|Any CPU.ActiveCfg = AppStore|iPhone
+		{F9D140F0-C320-4495-AAB0-C8F2DA9C73DD}.AppStore|ARM.ActiveCfg = AppStore|iPhone
+		{F9D140F0-C320-4495-AAB0-C8F2DA9C73DD}.AppStore|iPhone.ActiveCfg = AppStore|iPhone
+		{F9D140F0-C320-4495-AAB0-C8F2DA9C73DD}.AppStore|iPhone.Build.0 = AppStore|iPhone
+		{F9D140F0-C320-4495-AAB0-C8F2DA9C73DD}.AppStore|iPhoneSimulator.ActiveCfg = AppStore|iPhoneSimulator
+		{F9D140F0-C320-4495-AAB0-C8F2DA9C73DD}.AppStore|iPhoneSimulator.Build.0 = AppStore|iPhoneSimulator
+		{F9D140F0-C320-4495-AAB0-C8F2DA9C73DD}.AppStore|x64.ActiveCfg = AppStore|iPhone
+		{F9D140F0-C320-4495-AAB0-C8F2DA9C73DD}.AppStore|x86.ActiveCfg = AppStore|iPhone
+		{F9D140F0-C320-4495-AAB0-C8F2DA9C73DD}.Debug|Any CPU.ActiveCfg = Debug|iPhone
+		{F9D140F0-C320-4495-AAB0-C8F2DA9C73DD}.Debug|ARM.ActiveCfg = Debug|iPhone
+		{F9D140F0-C320-4495-AAB0-C8F2DA9C73DD}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{F9D140F0-C320-4495-AAB0-C8F2DA9C73DD}.Debug|iPhone.Build.0 = Debug|iPhone
+		{F9D140F0-C320-4495-AAB0-C8F2DA9C73DD}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{F9D140F0-C320-4495-AAB0-C8F2DA9C73DD}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{F9D140F0-C320-4495-AAB0-C8F2DA9C73DD}.Debug|x64.ActiveCfg = Debug|iPhone
+		{F9D140F0-C320-4495-AAB0-C8F2DA9C73DD}.Debug|x86.ActiveCfg = Debug|iPhone
+		{F9D140F0-C320-4495-AAB0-C8F2DA9C73DD}.Release|Any CPU.ActiveCfg = Release|iPhone
+		{F9D140F0-C320-4495-AAB0-C8F2DA9C73DD}.Release|ARM.ActiveCfg = Release|iPhone
+		{F9D140F0-C320-4495-AAB0-C8F2DA9C73DD}.Release|iPhone.ActiveCfg = Release|iPhone
+		{F9D140F0-C320-4495-AAB0-C8F2DA9C73DD}.Release|iPhone.Build.0 = Release|iPhone
+		{F9D140F0-C320-4495-AAB0-C8F2DA9C73DD}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{F9D140F0-C320-4495-AAB0-C8F2DA9C73DD}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{F9D140F0-C320-4495-AAB0-C8F2DA9C73DD}.Release|x64.ActiveCfg = Release|iPhone
+		{F9D140F0-C320-4495-AAB0-C8F2DA9C73DD}.Release|x86.ActiveCfg = Release|iPhone
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1069,5 +1103,6 @@ Global
 		{F370FFCF-6D70-40A3-853D-A272C4DF2014} = {44243A6D-994D-4F4D-8CB9-B6B3F96082A5}
 		{FF79354E-6381-405E-A16C-659B02E617E5} = {44243A6D-994D-4F4D-8CB9-B6B3F96082A5}
 		{54C16ADA-D874-47CE-94A5-537CEF903099} = {4520AF0A-7614-4BB5-86C6-C4E0E3F5E201}
+		{F9D140F0-C320-4495-AAB0-C8F2DA9C73DD} = {4520AF0A-7614-4BB5-86C6-C4E0E3F5E201}
 	EndGlobalSection
 EndGlobal
