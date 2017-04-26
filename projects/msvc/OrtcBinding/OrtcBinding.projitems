@@ -1,0 +1,490 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>9b64e2a0-ca78-4a44-a318-1850318e8adc</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>OrtcBinding</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_enums.cs">
+	<Link>net_enums.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_internal_apis.cs">
+		<Link>net_internal_apis.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_adapter_MediaStream.cs">
+		<Link>net_org_ortc_adapter_MediaStream.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_adapter_RTCAnswerOptions.cs">
+		<Link>net_org_ortc_adapter_RTCAnswerOptions.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_adapter_RTCCapabilityOptions.cs">
+		<Link>net_org_ortc_adapter_RTCCapabilityOptions.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_adapter_RTCConfiguration.cs">
+		<Link>net_org_ortc_adapter_RTCConfiguration.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_adapter_RTCIceCandidate.cs">
+		<Link>net_org_ortc_adapter_RTCIceCandidate.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_adapter_RTCMediaStreamTrackConfiguration.cs">
+		<Link>net_org_ortc_adapter_RTCMediaStreamTrackConfiguration.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_adapter_RTCOfferAnswerOptions.cs">
+		<Link>net_org_ortc_adapter_RTCOfferAnswerOptions.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_adapter_RTCOfferOptions.cs">
+		<Link>net_org_ortc_adapter_RTCOfferOptions.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_adapter_RTCPeerConnection.cs">
+		<Link>net_org_ortc_adapter_RTCPeerConnection.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_adapter_RTCPeerConnectionIceErrorEvent.cs">
+		<Link>net_org_ortc_adapter_RTCPeerConnectionIceErrorEvent.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_adapter_RTCPeerConnectionIceEvent.cs">
+		<Link>net_org_ortc_adapter_RTCPeerConnectionIceEvent.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_adapter_RTCSessionDescription.cs">
+		<Link>net_org_ortc_adapter_RTCSessionDescription.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_adapter_RTCSessionDescriptionConnectionData.cs">
+		<Link>net_org_ortc_adapter_RTCSessionDescriptionConnectionData.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_adapter_RTCSessionDescriptionConnectionDataDetails.cs">
+		<Link>net_org_ortc_adapter_RTCSessionDescriptionConnectionDataDetails.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_adapter_RTCSessionDescriptionDescription.cs">
+		<Link>net_org_ortc_adapter_RTCSessionDescriptionDescription.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_adapter_RTCSessionDescriptionDescriptionDetails.cs">
+		<Link>net_org_ortc_adapter_RTCSessionDescriptionDescriptionDetails.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_adapter_RTCSessionDescriptionMediaLine.cs">
+		<Link>net_org_ortc_adapter_RTCSessionDescriptionMediaLine.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_adapter_RTCSessionDescriptionMediaLineDetails.cs">
+		<Link>net_org_ortc_adapter_RTCSessionDescriptionMediaLineDetails.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_adapter_RTCSessionDescriptionRtpMediaLine.cs">
+		<Link>net_org_ortc_adapter_RTCSessionDescriptionRtpMediaLine.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_adapter_RTCSessionDescriptionRtpSender.cs">
+		<Link>net_org_ortc_adapter_RTCSessionDescriptionRtpSender.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_adapter_RTCSessionDescriptionRtpSenderDetails.cs">
+		<Link>net_org_ortc_adapter_RTCSessionDescriptionRtpSenderDetails.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_adapter_RTCSessionDescriptionSctpMediaLine.cs">
+		<Link>net_org_ortc_adapter_RTCSessionDescriptionSctpMediaLine.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_adapter_RTCSessionDescriptionTransport.cs">
+		<Link>net_org_ortc_adapter_RTCSessionDescriptionTransport.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_adapter_RTCSessionDescriptionTransportParameters.cs">
+		<Link>net_org_ortc_adapter_RTCSessionDescriptionTransportParameters.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_adapter_RTCTrackEvent.cs">
+		<Link>net_org_ortc_adapter_RTCTrackEvent.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_ConstrainBoolean.cs">
+		<Link>net_org_ortc_ConstrainBoolean.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_ConstrainBooleanParameters.cs">
+		<Link>net_org_ortc_ConstrainBooleanParameters.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_ConstrainDouble.cs">
+		<Link>net_org_ortc_ConstrainDouble.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_ConstrainDoubleRange.cs">
+		<Link>net_org_ortc_ConstrainDoubleRange.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_ConstrainLong.cs">
+		<Link>net_org_ortc_ConstrainLong.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_ConstrainLongRange.cs">
+		<Link>net_org_ortc_ConstrainLongRange.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_ConstrainString.cs">
+		<Link>net_org_ortc_ConstrainString.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_ConstrainStringParameters.cs">
+		<Link>net_org_ortc_ConstrainStringParameters.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_Dispatcher.cs">
+		<Link>net_org_ortc_Dispatcher.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_DoubleRange.cs">
+		<Link>net_org_ortc_DoubleRange.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_Error.cs">
+		<Link>net_org_ortc_Error.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_ErrorEvent.cs">
+		<Link>net_org_ortc_ErrorEvent.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_Json.cs">
+		<Link>net_org_ortc_Json.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_Logger.cs">
+		<Link>net_org_ortc_Logger.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_LongRange.cs">
+		<Link>net_org_ortc_LongRange.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_MediaControl.cs">
+		<Link>net_org_ortc_MediaControl.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_MediaDeviceInfo.cs">
+		<Link>net_org_ortc_MediaDeviceInfo.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_MediaDevices.cs">
+		<Link>net_org_ortc_MediaDevices.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_MediaSource.cs">
+		<Link>net_org_ortc_MediaSource.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_MediaStreamConstraints.cs">
+		<Link>net_org_ortc_MediaStreamConstraints.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_MediaStreamTrack.cs">
+		<Link>net_org_ortc_MediaStreamTrack.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_MediaTrackCapabilities.cs">
+		<Link>net_org_ortc_MediaTrackCapabilities.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_MediaTrackConstraints.cs">
+		<Link>net_org_ortc_MediaTrackConstraints.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_MediaTrackConstraintSet.cs">
+		<Link>net_org_ortc_MediaTrackConstraintSet.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_MediaTrackSettings.cs">
+		<Link>net_org_ortc_MediaTrackSettings.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_MediaTrackSupportedConstraints.cs">
+		<Link>net_org_ortc_MediaTrackSupportedConstraints.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_MessageQueue.cs">
+		<Link>net_org_ortc_MessageQueue.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_OrtcLib.cs">
+		<Link>net_org_ortc_OrtcLib.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_OrtcLibWithDispatcher.cs">
+		<Link>net_org_ortc_OrtcLibWithDispatcher.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_OverconstrainedError.cs">
+		<Link>net_org_ortc_OverconstrainedError.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_OverconstrainedErrorEvent.cs">
+		<Link>net_org_ortc_OverconstrainedErrorEvent.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCCertificate.cs">
+		<Link>net_org_ortc_RTCCertificate.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCCertificateStats.cs">
+		<Link>net_org_ortc_RTCCertificateStats.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCCodec.cs">
+		<Link>net_org_ortc_RTCCodec.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCDataChannel.cs">
+		<Link>net_org_ortc_RTCDataChannel.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCDataChannelEvent.cs">
+		<Link>net_org_ortc_RTCDataChannelEvent.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCDataChannelParameters.cs">
+		<Link>net_org_ortc_RTCDataChannelParameters.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCDataChannelStateChangeEvent.cs">
+		<Link>net_org_ortc_RTCDataChannelStateChangeEvent.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCDataChannelStats.cs">
+		<Link>net_org_ortc_RTCDataChannelStats.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCDataTransport.cs">
+		<Link>net_org_ortc_RTCDataTransport.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCDtlsCertificateBinary.cs">
+		<Link>net_org_ortc_RTCDtlsCertificateBinary.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCDtlsFingerprint.cs">
+		<Link>net_org_ortc_RTCDtlsFingerprint.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCDtlsParameters.cs">
+		<Link>net_org_ortc_RTCDtlsParameters.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCDtlsTransport.cs">
+		<Link>net_org_ortc_RTCDtlsTransport.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCDtlsTransportStateChangeEvent.cs">
+		<Link>net_org_ortc_RTCDtlsTransportStateChangeEvent.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCDtlsTransportStats.cs">
+		<Link>net_org_ortc_RTCDtlsTransportStats.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCDtmfSender.cs">
+		<Link>net_org_ortc_RTCDtmfSender.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCDtmfToneChangeEvent.cs">
+		<Link>net_org_ortc_RTCDtmfToneChangeEvent.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCIceCandidate.cs">
+		<Link>net_org_ortc_RTCIceCandidate.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCIceCandidateAttributes.cs">
+		<Link>net_org_ortc_RTCIceCandidateAttributes.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCIceCandidateComplete.cs">
+		<Link>net_org_ortc_RTCIceCandidateComplete.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCIceCandidatePair.cs">
+		<Link>net_org_ortc_RTCIceCandidatePair.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCIceCandidatePairChangeEvent.cs">
+		<Link>net_org_ortc_RTCIceCandidatePairChangeEvent.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCIceCandidatePairStats.cs">
+		<Link>net_org_ortc_RTCIceCandidatePairStats.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCIceGatherer.cs">
+		<Link>net_org_ortc_RTCIceGatherer.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCIceGathererCandidate.cs">
+		<Link>net_org_ortc_RTCIceGathererCandidate.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCIceGathererCandidateCompleteEvent.cs">
+		<Link>net_org_ortc_RTCIceGathererCandidateCompleteEvent.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCIceGathererCandidateEvent.cs">
+		<Link>net_org_ortc_RTCIceGathererCandidateEvent.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCIceGathererIceErrorEvent.cs">
+		<Link>net_org_ortc_RTCIceGathererIceErrorEvent.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCIceGathererStateChangeEvent.cs">
+		<Link>net_org_ortc_RTCIceGathererStateChangeEvent.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCIceGathererStats.cs">
+		<Link>net_org_ortc_RTCIceGathererStats.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCIceGatherInterfacePolicy.cs">
+		<Link>net_org_ortc_RTCIceGatherInterfacePolicy.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCIceGatherOptions.cs">
+		<Link>net_org_ortc_RTCIceGatherOptions.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCIceParameters.cs">
+		<Link>net_org_ortc_RTCIceParameters.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCIceServer.cs">
+		<Link>net_org_ortc_RTCIceServer.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCIceTransport.cs">
+		<Link>net_org_ortc_RTCIceTransport.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCIceTransportController.cs">
+		<Link>net_org_ortc_RTCIceTransportController.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCIceTransportOptions.cs">
+		<Link>net_org_ortc_RTCIceTransportOptions.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCIceTransportStateChangeEvent.cs">
+		<Link>net_org_ortc_RTCIceTransportStateChangeEvent.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCIceTransportStats.cs">
+		<Link>net_org_ortc_RTCIceTransportStats.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCIdentity.cs">
+		<Link>net_org_ortc_RTCIdentity.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCIdentityAssertion.cs">
+		<Link>net_org_ortc_RTCIdentityAssertion.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCIdentityError.cs">
+		<Link>net_org_ortc_RTCIdentityError.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCIdentityResult.cs">
+		<Link>net_org_ortc_RTCIdentityResult.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCInboundRtpStreamStats.cs">
+		<Link>net_org_ortc_RTCInboundRtpStreamStats.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCMediaStreamStats.cs">
+		<Link>net_org_ortc_RTCMediaStreamStats.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCMediaStreamTrackStats.cs">
+		<Link>net_org_ortc_RTCMediaStreamTrackStats.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCMessageEvent.cs">
+		<Link>net_org_ortc_RTCMessageEvent.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCOutboundRtpStreamStats.cs">
+		<Link>net_org_ortc_RTCOutboundRtpStreamStats.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCRtcpFeedback.cs">
+		<Link>net_org_ortc_RTCRtcpFeedback.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCRtcpParameters.cs">
+		<Link>net_org_ortc_RTCRtcpParameters.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCRtcpTransport.cs">
+		<Link>net_org_ortc_RTCRtcpTransport.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCRtpCapabilities.cs">
+		<Link>net_org_ortc_RTCRtpCapabilities.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCRtpCodecCapability.cs">
+		<Link>net_org_ortc_RTCRtpCodecCapability.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCRtpCodecCapabilityOptions.cs">
+		<Link>net_org_ortc_RTCRtpCodecCapabilityOptions.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCRtpCodecCapabilityParameters.cs">
+		<Link>net_org_ortc_RTCRtpCodecCapabilityParameters.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCRtpCodecParameters.cs">
+		<Link>net_org_ortc_RTCRtpCodecParameters.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCRtpCodecParameterSettings.cs">
+		<Link>net_org_ortc_RTCRtpCodecParameterSettings.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCRtpContributingSource.cs">
+		<Link>net_org_ortc_RTCRtpContributingSource.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCRtpEncodingParameters.cs">
+		<Link>net_org_ortc_RTCRtpEncodingParameters.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCRtpFecParameters.cs">
+		<Link>net_org_ortc_RTCRtpFecParameters.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCRtpFlexFecCodecCapabilityParameters.cs">
+		<Link>net_org_ortc_RTCRtpFlexFecCodecCapabilityParameters.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCRtpFlexFecCodecParameterSettings.cs">
+		<Link>net_org_ortc_RTCRtpFlexFecCodecParameterSettings.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCRtpH264CodecCapabilityParameters.cs">
+		<Link>net_org_ortc_RTCRtpH264CodecCapabilityParameters.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCRtpH264CodecParameterSettings.cs">
+		<Link>net_org_ortc_RTCRtpH264CodecParameterSettings.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCRtpHeaderExtension.cs">
+		<Link>net_org_ortc_RTCRtpHeaderExtension.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCRtpHeaderExtensionParameters.cs">
+		<Link>net_org_ortc_RTCRtpHeaderExtensionParameters.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCRtpListener.cs">
+		<Link>net_org_ortc_RTCRtpListener.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCRtpOpusCodecCapabilityOptions.cs">
+		<Link>net_org_ortc_RTCRtpOpusCodecCapabilityOptions.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCRtpOpusCodecCapabilityParameters.cs">
+		<Link>net_org_ortc_RTCRtpOpusCodecCapabilityParameters.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCRtpOpusCodecParameterSettings.cs">
+		<Link>net_org_ortc_RTCRtpOpusCodecParameterSettings.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCRtpParameters.cs">
+		<Link>net_org_ortc_RTCRtpParameters.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCRtpReceiver.cs">
+		<Link>net_org_ortc_RTCRtpReceiver.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCRtpRedCodecParameterSettings.cs">
+		<Link>net_org_ortc_RTCRtpRedCodecParameterSettings.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCRtpRtxCodecCapabilityParameters.cs">
+		<Link>net_org_ortc_RTCRtpRtxCodecCapabilityParameters.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCRtpRtxCodecParameterSettings.cs">
+		<Link>net_org_ortc_RTCRtpRtxCodecParameterSettings.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCRtpRtxParameters.cs">
+		<Link>net_org_ortc_RTCRtpRtxParameters.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCRtpSender.cs">
+		<Link>net_org_ortc_RTCRtpSender.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCRtpStreamStats.cs">
+		<Link>net_org_ortc_RTCRtpStreamStats.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCRtpTransport.cs">
+		<Link>net_org_ortc_RTCRtpTransport.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCRtpUnhandledEvent.cs">
+		<Link>net_org_ortc_RTCRtpUnhandledEvent.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCRtpVp8CodecCapabilityParameters.cs">
+		<Link>net_org_ortc_RTCRtpVp8CodecCapabilityParameters.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCRtpVp8CodecParameterSettings.cs">
+		<Link>net_org_ortc_RTCRtpVp8CodecParameterSettings.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCSctpCapabilities.cs">
+		<Link>net_org_ortc_RTCSctpCapabilities.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCSctpTransport.cs">
+		<Link>net_org_ortc_RTCSctpTransport.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCSctpTransportListener.cs">
+		<Link>net_org_ortc_RTCSctpTransportListener.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCSctpTransportListenerEvent.cs">
+		<Link>net_org_ortc_RTCSctpTransportListenerEvent.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCSctpTransportStateChangeEvent.cs">
+		<Link>net_org_ortc_RTCSctpTransportStateChangeEvent.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCSctpTransportStats.cs">
+		<Link>net_org_ortc_RTCSctpTransportStats.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCSrtpSdesCryptoParameters.cs">
+		<Link>net_org_ortc_RTCSrtpSdesCryptoParameters.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCSrtpSdesKeyParameters.cs">
+		<Link>net_org_ortc_RTCSrtpSdesKeyParameters.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCSrtpSdesParameters.cs">
+		<Link>net_org_ortc_RTCSrtpSdesParameters.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCSrtpSdesTransport.cs">
+		<Link>net_org_ortc_RTCSrtpSdesTransport.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCSrtpSdesTransportLifetimeRemainingEvent.cs">
+		<Link>net_org_ortc_RTCSrtpSdesTransportLifetimeRemainingEvent.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCSrtpTransportStats.cs">
+		<Link>net_org_ortc_RTCSrtpTransportStats.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCSsrcConflictEvent.cs">
+		<Link>net_org_ortc_RTCSsrcConflictEvent.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCStats.cs">
+		<Link>net_org_ortc_RTCStats.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCStatsProvider.cs">
+		<Link>net_org_ortc_RTCStatsProvider.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCStatsReport.cs">
+		<Link>net_org_ortc_RTCStatsReport.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_RTCStatsTypeSet.cs">
+		<Link>net_org_ortc_RTCStatsTypeSet.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_Settings.cs">
+		<Link>net_org_ortc_Settings.cs</Link>
+	</Compile>
+	<Compile Include="$(MSBuildThisFileDirectory)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\dotnet\net_org_ortc_StringOrStringList.cs">
+		<Link>net_org_ortc_StringOrStringList.cs</Link>
+	</Compile>
+  </ItemGroup>
+</Project>
