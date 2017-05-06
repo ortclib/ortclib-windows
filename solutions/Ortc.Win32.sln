@@ -42,6 +42,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclib.wrapper", "..\..\xplatform\ortclib-cpp\projects\msvs\ortclib.wrapper\ortclib.wrapper.vcxproj", "{A7614AFA-6E2A-4037-96CA-B9F043333CA9}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclib-c", "..\..\xplatform\ortclib-cpp\projects\msvs\ortclib-c\ortclib-c.vcxproj", "{2ACCF81D-4C88-4677-834A-CBE8488A66E7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F4B7BE6C-0303-4307-AEBF-D710BCA45739} = {F4B7BE6C-0303-4307-AEBF-D710BCA45739}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{7869DE0F-7EEF-449D-8E76-B519B1147B75}"
 EndProject
