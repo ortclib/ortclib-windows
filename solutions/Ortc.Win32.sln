@@ -44,11 +44,15 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ortclib-c", "..\..\xplatform\ortclib-cpp\projects\msvs\ortclib-c\ortclib-c.vcxproj", "{2ACCF81D-4C88-4677-834A-CBE8488A66E7}"
 	ProjectSection(ProjectDependencies) = postProject
 		{F4B7BE6C-0303-4307-AEBF-D710BCA45739} = {F4B7BE6C-0303-4307-AEBF-D710BCA45739}
+		{A7614AFA-6E2A-4037-96CA-B9F043333CA9} = {A7614AFA-6E2A-4037-96CA-B9F043333CA9}
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{7869DE0F-7EEF-449D-8E76-B519B1147B75}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrtcSample.Net", "..\samples\OrtcSample.Net\OrtcSample.Net.csproj", "{63D6EEAC-E5E5-4322-A881-ACE892D864A8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2ACCF81D-4C88-4677-834A-CBE8488A66E7} = {2ACCF81D-4C88-4677-834A-CBE8488A66E7}
+	EndProjectSection
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "OrtcBinding", "..\projects\msvc\OrtcBinding\OrtcBinding.shproj", "{761C3464-358D-4F82-8858-EDD67FB21634}"
 EndProject
