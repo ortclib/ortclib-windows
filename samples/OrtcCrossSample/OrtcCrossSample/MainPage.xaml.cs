@@ -15,5 +15,13 @@ namespace OrtcCrossSample
 		{
 			InitializeComponent();
 		}
-	}
+
+        private void Button_Click_EnumerateDevices(object sender, EventArgs e)
+        {
+
+        }
+    }
+
+    
+
 }

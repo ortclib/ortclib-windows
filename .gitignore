@@ -24,3 +24,4 @@ ipch/
 *.vcxproj.user
 .vs/
 eventing/
+packages/
