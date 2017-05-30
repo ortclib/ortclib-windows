@@ -96,8 +96,8 @@
     <ITunesArtwork Include="iTunesArtwork" />
     <ITunesArtwork Include="iTunesArtwork@2x" />
     <BundleResource Include="..\..\..\..\apple\libs\libOrtc.dylib">
-			<Link>libOrtc.dylib</Link>
-		</BundleResource>
+      <Link>libOrtc.dylib</Link>
+    </BundleResource>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -3,12 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:OrtcCrossSample"
              x:Class="OrtcCrossSample.MainPage">
-  
-  <StackLayout Spacing="20" Padding="40" HorizontalOptions="Center" VerticalOptions="Start">
-    <Button Background="Blue" Foreground="Red" HorizontalOptions="Center" VerticalOptions="Start" Content="Enumerate devices" Click="Button_Click_EnumerateDevices"/>
-  </StackLayout>
-	<Label Text="Welcome to Xamarin Forms!" 
-           VerticalOptions="Center" 
-           HorizontalOptions="Center" />
-
+    <ContentPage.Content>
+        <StackLayout Spacing="20" Padding="40" HorizontalOptions="Center" VerticalOptions="Start">
+            <Button HorizontalOptions="Center" VerticalOptions="Start" Text="Enumerate devices" Clicked="Button_Click_EnumerateDevices"/>
+            <ListView x:Name="ListViewDevices" ItemsSource="{x:Static local:MainPage.Devices}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" Padding="2,15">
+                                <Label Text="{Binding Label}" HorizontalOptions="CenterAndExpand" FontSize="18" FontFamily="" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>
