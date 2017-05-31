@@ -138,6 +138,20 @@
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\..\..\solutions\Build\Output\x64\Debug\ortclib-c\libOrtc.dll">
+      <Link>libOrtc.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\ortc\$(Configuration)\win32_x64\boringssl.dll">
+      <Link>boringssl.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\ortc\$(Configuration)\win32_x64\protobuf_lite.dll">
+      <Link>protobuf_lite.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -30,11 +30,15 @@ namespace OrtcCrossSample
 	                try
 	                {
 	                    var devices = op.Result;
-	                    foreach (var deviceInfo in devices)
+	                    Device.BeginInvokeOnMainThread(() =>
 	                    {
-	                        Devices.Add(deviceInfo);
-                        }
-	                }
+                            foreach (var deviceInfo in devices)
+	                        {
+	                        
+	                                Devices.Add(deviceInfo);
+	                        }
+	                    });
+                    }
 	                catch (Exception e)
 	                {
 	                    //string str = "Obtaining results of the enumeration has failed.";
@@ -52,7 +56,6 @@ namespace OrtcCrossSample
 
         private void Button_Click_EnumerateDevices(object sender, EventArgs e)
         {
-            DisplayAlert("Alert", "Enumeration started!", "OK");
             Devices.Clear();
             this.EnumerateDevices();
         }

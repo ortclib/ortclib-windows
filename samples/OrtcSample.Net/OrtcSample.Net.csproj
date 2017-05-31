@@ -14,7 +14,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -80,15 +80,15 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\solutions\Build\Output\x86\Debug\ortclib-c\libOrtc.dll">
+    <Content Include="..\..\solutions\Build\Output\x64\Debug\ortclib-c\libOrtc.dll">
       <Link>libOrtc.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-	<Content Include="..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\ortc\$(Configuration)\win32\boringssl.dll">
+    <Content Include="..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\ortc\$(Configuration)\win32_x64\boringssl.dll">
       <Link>boringssl.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-	<Content Include="..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\ortc\$(Configuration)\win32\protobuf_lite.dll">
+    <Content Include="..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\ortc\$(Configuration)\win32_x64\protobuf_lite.dll">
       <Link>protobuf_lite.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

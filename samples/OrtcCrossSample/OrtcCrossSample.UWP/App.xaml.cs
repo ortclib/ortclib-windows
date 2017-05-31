@@ -28,6 +28,7 @@ namespace OrtcCrossSample.UWP
         /// </summary>
         public App()
         {
+            
             this.InitializeComponent();
             this.Suspending += OnSuspending;
         }
