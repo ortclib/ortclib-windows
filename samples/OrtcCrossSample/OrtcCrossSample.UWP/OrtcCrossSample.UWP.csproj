@@ -21,7 +21,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\ARM\Debug\</OutputPath>
+		<OutputPath>$(SolutionDir)Build\Output\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)Build\Intermediate\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</IntermediateOutputPath>
     <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
@@ -31,7 +32,8 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
-    <OutputPath>bin\ARM\Release\</OutputPath>
+		<OutputPath>$(SolutionDir)Build\Output\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)Build\Intermediate\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</IntermediateOutputPath>
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
@@ -44,7 +46,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x64\Debug\</OutputPath>
+		<OutputPath>$(SolutionDir)Build\Output\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)Build\Intermediate\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</IntermediateOutputPath>
     <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
@@ -54,7 +57,8 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <OutputPath>bin\x64\Release\</OutputPath>
+		<OutputPath>$(SolutionDir)Build\Output\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)Build\Intermediate\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</IntermediateOutputPath>
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
@@ -67,7 +71,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug\</OutputPath>
+		<OutputPath>$(SolutionDir)Build\Output\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)Build\Intermediate\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</IntermediateOutputPath>
     <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
@@ -77,7 +82,8 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>bin\x86\Release\</OutputPath>
+		<OutputPath>$(SolutionDir)Build\Output\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)Build\Intermediate\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</IntermediateOutputPath>
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
@@ -138,15 +144,27 @@
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\..\solutions\Build\Output\x64\Debug\ortclib-c\libOrtc.dll">
+    <Content Include="..\..\..\solutions\Build\Output\$(Platform)\$(Configuration)\ortclib-c\libOrtc.dll">
       <Link>libOrtc.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup Condition="'$(Platform)' == 'x64'">
     <Content Include="..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\ortc\$(Configuration)\win32_x64\boringssl.dll">
       <Link>boringssl.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\ortc\$(Configuration)\win32_x64\protobuf_lite.dll">
+      <Link>protobuf_lite.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup Condition="'$(Platform)' == 'x86'">
+    <Content Include="..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\ortc\$(Configuration)\win32\boringssl.dll">
+      <Link>boringssl.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\ortc\$(Configuration)\win32\protobuf_lite.dll">
       <Link>protobuf_lite.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -161,11 +179,16 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\projects\msvc\Org.Ortc.Xamarin\Org.Ortc.Xamarin.csproj">
+      <Project>{f7200777-09f2-434d-a64d-a2883a61874c}</Project>
+      <Name>Org.Ortc.Xamarin</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
   <Import Project="..\OrtcCrossSample\OrtcCrossSample.projitems" Label="Shared" Condition="Exists('..\OrtcCrossSample\OrtcCrossSample.projitems')" />
-  <Import Project="..\..\..\projects\msvc\OrtcBinding\OrtcBinding.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

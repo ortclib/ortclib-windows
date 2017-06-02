@@ -18,7 +18,8 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+		<OutputPath>$(SolutionDir)Build\Output\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)Build\Intermediate\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</IntermediateOutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -27,7 +28,8 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+		<OutputPath>$(SolutionDir)Build\Output\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)Build\Intermediate\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</IntermediateOutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -79,8 +81,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\..\solutions\Build\Output\x64\Debug\ortclib-c\libOrtc.dll">
+  <ItemGroup Condition="'$(Platform)' == 'x64'">
+	  <Content Include="..\..\solutions\Build\Output\$(Platform)\$(Configuration)\ortclib-c\libOrtc.dll">
       <Link>libOrtc.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -89,6 +91,20 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\ortc\$(Configuration)\win32_x64\protobuf_lite.dll">
+      <Link>protobuf_lite.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup Condition="'$(Platform)' == 'x86'">
+		<Content Include="..\..\solutions\Build\Output\$(Platform)\$(Configuration)\ortclib-c\libOrtc.dll">
+      <Link>libOrtc.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\ortc\$(Configuration)\win32\boringssl.dll">
+      <Link>boringssl.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\ortc\$(Configuration)\win32\protobuf_lite.dll">
       <Link>protobuf_lite.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
