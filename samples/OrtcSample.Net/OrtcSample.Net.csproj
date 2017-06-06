@@ -34,7 +34,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x64\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
@@ -42,7 +42,7 @@
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
-	<UseVSHostingProcess>false</UseVSHostingProcess>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -92,7 +92,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup Condition="'$(Platform)' == 'x64'">
-	<Content Include="..\..\solutions\Build\Output\x64\$(Configuration)\ortclib-c\libOrtc.dll">
+    <Content Include="..\..\solutions\Build\Output\x64\$(Configuration)\ortclib-c\libOrtc.dll">
       <Link>libOrtc.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -140,9 +140,9 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\projects\msvc\Org.Ortc.NET\Org.Ortc.NET.csproj">
-      <Project>{234f6870-d1dd-4e9c-8429-5031cac37057}</Project>
-      <Name>Org.Ortc.NET</Name>
+    <ProjectReference Include="..\..\projects\msvc\Org.Ortc.Xamarin\Org.Ortc.Xamarin.csproj">
+      <Project>{f7200777-09f2-434d-a64d-a2883a61874c}</Project>
+      <Name>Org.Ortc.Xamarin</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
