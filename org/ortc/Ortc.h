@@ -51,6 +51,10 @@ namespace Org
       /// Sends all traced data to TCP listener specified by host name and port.
       /// </summary>
       static bool SaveMediaTrace(Platform::String ^host, int port);
+      /// <summary>
+      /// Checks whether Media Resource Pack is installed on the system.
+      /// </summary>
+      static bool IsMRPInstalled();
     };
 
     [Windows::Foundation::Metadata::WebHostHiddenAttribute]

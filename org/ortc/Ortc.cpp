@@ -58,6 +58,11 @@ namespace Org
       return IORTC::saveMediaTrace(hostValue, port);
     }
 
+    bool Ortc::IsMRPInstalled()
+    {
+      return IORTC::isMRPInstalled();
+    }
+
     void OrtcWithDispatcher::Setup(Windows::UI::Core::CoreDispatcher ^dispatcher)
     {
       _dispatcher = dispatcher;
