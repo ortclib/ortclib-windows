@@ -34,6 +34,16 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+	<UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -82,7 +92,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup Condition="'$(Platform)' == 'x64'">
-	<Content Include="..\..\solutions\Build\Output\$(Platform)\$(Configuration)\ortclib-c\libOrtc.dll">
+	<Content Include="..\..\solutions\Build\Output\x64\$(Configuration)\ortclib-c\libOrtc.dll">
       <Link>libOrtc.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -96,7 +106,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup Condition="'$(Platform)' == 'x86'">
-    <Content Include="..\..\solutions\Build\Output\$(Platform)\$(Configuration)\ortclib-c\libOrtc.dll">
+    <Content Include="..\..\solutions\Build\Output\x86\$(Configuration)\ortclib-c\libOrtc.dll">
       <Link>libOrtc.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

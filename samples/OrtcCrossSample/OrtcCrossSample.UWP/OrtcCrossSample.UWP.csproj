@@ -179,6 +179,12 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\projects\msvc\Org.Ortc.Xamarin\Org.Ortc.Xamarin.csproj">
+      <Project>{f7200777-09f2-434d-a64d-a2883a61874c}</Project>
+      <Name>Org.Ortc.Xamarin</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
