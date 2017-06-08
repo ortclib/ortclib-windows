@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/01/nuspec.xsd">
+    <metadata minClientVersion="2.5">
+        <id>ORTC Xamarin</id>
+        <version></version>
+		<title>ORTC Xamarin Library</title>
+        <authors>Optical Tone</authors>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>ORTC Lib Preview for Xamarin implementing the ORTC API (https://ortc.org/) for Xamarin C# for UWP and iOS.</description>
+		<summary>Built as a productionn ready reference to the Object RTC specification (originally designed in the W3C ORTC Community Group), ORTC Lib is a secure, fast and highly performant developer toolkit enabling real-time voice calling, video chat and data functionality (file transfer etc.) for mobile, desktop and web. If you are integrating real-time voice, video or data into your mobile or web app and want ORTC and WebRTC compatibility, ORTC Lib is the solution for you.</summary>
+    </metadata>
+    <files>
+		<file src="lib\netstandard1.1\Org.Ortc.dll" target="lib\netstandard1.1\Org.Ortc.dll" />
+        <file src="lib\xamarinios\Org.Ortc.dll" target="lib\xamarinios\Org.Ortc.dll" />
+        <file src="runtimes\win10-x86\native\libOrtc.dll" target="runtimes\win10-x86\native\libOrtc.dll" />
+		<file src="runtimes\win10-x86\native\boringssl.dll" target="runtimes\win10-x86\native\boringssl.dll" />
+		<file src="runtimes\win10-x86\native\protobuf_lite.dll" target="runtimes\win10-x86\native\protobuf_lite.dll" />
+        <file src="runtimes\win10-x64\native\libOrtc.dll" target="runtimes\win10-x64\native\libOrtc.dll" />
+		<file src="runtimes\win10-x64\native\boringssl.dll" target="runtimes\win10-x64\native\boringssl.dll" />
+		<file src="runtimes\win10-x64\native\protobuf_lite.dll" target="runtimes\win10-x64\native\protobuf_lite.dll" />
+		<file src="runtimes\iOS\native\libOrtc.dylib" target="runtimes\iOS\native\libOrtc.dylib" />
+        <file src="build\native\Org.Ortc.targets" target="build\native\Org.Ortc.targets" />
+    </files>
+</package>
