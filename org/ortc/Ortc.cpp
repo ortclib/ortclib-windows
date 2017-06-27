@@ -6,7 +6,7 @@
 #include <ortc/IORTC.h>
 #include <zsLib/SafeInt.h>
 
-#include "webrtc/common_video/video_common_winrt.h"
+#include "webrtc/common_video/video_common_winuwp.h"
 
 using namespace ortc;
 
@@ -61,7 +61,7 @@ namespace Org
     void OrtcWithDispatcher::Setup(Windows::UI::Core::CoreDispatcher ^dispatcher)
     {
       _dispatcher = dispatcher;
-      webrtc::VideoCommonWinRT::SetCoreDispatcher(dispatcher);
+      webrtc::VideoCommonWinUWP::SetCoreDispatcher(dispatcher);
       IORTC::setup(dispatcher);
     }
 

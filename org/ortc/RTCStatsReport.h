@@ -472,12 +472,14 @@ namespace Org
       /// Calculated as defined in [RFC3550] section 6.4.1 and Appendix A.3.
       /// </summary>
       property float64                        FractionLost;
+#ifdef WEBRTC_FEATURE_END_TO_END_DELAY
       /// <summary>
       /// Gets or sets the end to end media delay in milliseconds. This value
       /// represents the total duration between the time the media sampling was
       /// captured to the time the media sampling was rendered.
       /// </summary>
       property uint64                         EndToEndDelay;
+#endif /* WEBRTC_FEATURE_END_TO_END_DELAY */
     };
 
 

@@ -5,7 +5,7 @@
 #include <org/ortc/helpers.h>
 #include <org/ortc/Error.h>
 
-#include <webrtc/modules/video_capture/windows/video_capture_winrt.h>
+#include <webrtc/modules/video_capture/windows/video_capture_winuwp.h>
 
 #include <ortc/services/IHelper.h>
 
@@ -314,7 +314,7 @@ namespace Org
 
     void MediaDevices::OnAppSuspending() {
       // not implemented in current webrtc version - uncomment after webrtc is updated
-      //webrtc::videocapturemodule::MediaCaptureDevicesWinRT::Instance()->ClearCaptureDevicesCache();
+      //webrtc::videocapturemodule::MediaCaptureDevicesWinUWP::Instance()->ClearCaptureDevicesCache();
     }
 
     void MediaDevices::SetDisplayOrientation(
