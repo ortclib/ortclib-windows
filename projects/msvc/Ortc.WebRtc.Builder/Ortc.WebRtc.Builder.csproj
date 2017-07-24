@@ -108,7 +108,7 @@
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>call "$(ProjectDir)..\..\..\..\..\bin\buildWebRTC.bat"  "$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\webrtcForOrtc.vs2015.sln" $(Configuration) $(Platform) ortc</PreBuildEvent>
+    <PreBuildEvent>pushd "$(ProjectDir)..\..\..\..\..\" &amp;&amp; call bin\prepare.bat -platform win32_rx64 &amp;&amp; popd &amp;&amp; call "$(ProjectDir)..\..\..\..\..\bin\buildWebRTC.bat"  "$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\webrtcForOrtc.vs2015.sln" $(Configuration) $(Platform) ortc</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
