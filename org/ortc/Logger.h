@@ -112,6 +112,10 @@ namespace Org
         /// </summary>
         OrtcLibMediaDevices,
         /// <summary>
+        /// The C++ ORTC rtp listener object.
+        /// </summary>
+        OrtcLibMediaEngine,
+        /// <summary>
         /// The C++ ORTC media stream track object.
         /// </summary>
         OrtcLibMediaStreamTrack,
@@ -123,10 +127,6 @@ namespace Org
         /// The C++ ORTC rtp listener object.
         /// </summary>
         OrtcLibRtpListener,
-        /// <summary>
-        /// The C++ ORTC rtp listener object.
-        /// </summary>
-        OrtcLibRtpMediaEngine,
         /// <summary>
         /// The C++ ORTC rtp receiver object.
         /// </summary>

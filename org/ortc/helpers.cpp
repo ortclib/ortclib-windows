@@ -673,10 +673,10 @@ namespace Org
         case Log::Component::OrtcLibIceTransport:           return "ortclib_icetransport";
         case Log::Component::OrtcLibIceTransportController: return "ortclib_icetransport_controller";
         case Log::Component::OrtcLibMediaDevices:           return "ortclib_mediadevices";
+        case Log::Component::OrtcLibRtpMediaEngine:         return "ortclib_mediaengine";
         case Log::Component::OrtcLibMediaStreamTrack:       return "ortclib_mediastreamtrack";
         case Log::Component::OrtcLibRtpRtcpPacket:          return "ortclib_rtp_rtcp_packet";
         case Log::Component::OrtcLibRtpListener:            return "ortclib_rtplistener";
-        case Log::Component::OrtcLibRtpMediaEngine:         return "ortclib_rtpmediaengine";
         case Log::Component::OrtcLibRtpReceiver:            return "ortclib_rtpreceiver";
         case Log::Component::OrtcLibRtpSender:              return "ortclib_rtpsender";
         case Log::Component::OrtcLibRtpTypes:               return "ortclib_rtptypes";
