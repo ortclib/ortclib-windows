@@ -10,8 +10,8 @@
 
 #include "cx_custom_MediaSourceHelper.h"
 
-#include <webrtc/base/timing.h>
-#include <webrtc/base/timeutils.h>
+#include <webrtc/rtc_base/timing.h>
+#include <webrtc/rtc_base/timeutils.h>
 
 #include <MFapi.h>
 

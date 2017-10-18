@@ -15,7 +15,7 @@
 #include <Mfidl.h>
 
 #include "webrtc/system_wrappers/include/critical_section_wrapper.h"
-#include "webrtc/base/scoped_ptr.h"
+#include "webrtc/rtc_base/scoped_ptr.h"
 
 #include <zsLib/types.h>
 
