@@ -23,20 +23,5 @@ wrapper::org::ortc::MediaSourcePtr Org::Ortc::MediaSource::FromCx(::Org::Ortc::M
 //------------------------------------------------------------------------------
 Windows::Media::Core::IMediaSource^ Org::Ortc::MediaSource::Source::get()
 {
-  if (!native_) {throw ref new Platform::NullReferenceException();}
-
-  zsLib::AutoLock lock(lock_);
-
-  auto any = native_->get_source();
-  auto data = std::dynamic_pointer_cast<Data>(any);
-  if (!data) {
-    data = make_shared<Data>();
-    Platform::String^ id = "stream";
-    ComPtr<ABI::Windows::Media::Core::IMediaSource> comSource;
-
-    WebRtcMediaSource::CreateMediaSource(&comSource, native_->get_track(), id);
-    data->source_ = reinterpret_cast<Windows::Media::Core::IMediaSource^>(comSource.Get());
-    native_->set_source(data);
-  }
-  return data->source_;
+  return nullptr;
 }

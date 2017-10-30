@@ -12,7 +12,7 @@
 #include "cx_custom_RTMediaStreamSource.h"
 #include "cx_custom_MediaSourceHelper.h"
 
-#include <webrtc/system_wrappers/include/critical_section_wrapper.h>
+//#include <webrtc/system_wrappers/include/critical_section_wrapper.h>
 #include <libyuv/convert.h>
 
 #include <ppltasks.h>

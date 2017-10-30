@@ -9,8 +9,8 @@
 
 #pragma once
 
-#include "webrtc/modules/video_render/video_render.h"
-#include "webrtc/system_wrappers/include/critical_section_wrapper.h"
+//#include "webrtc/modules/video_render/video_render.h"
+//#include "webrtc/system_wrappers/include/critical_section_wrapper.h"
 
 #include <wrl.h>
 #include <Mfidl.h>
