@@ -22,11 +22,12 @@ wrapper::org::ortc::MediaControlPtr Org::Ortc::MediaControl::FromCx(::Org::Ortc:
 //------------------------------------------------------------------------------
 Windows::Graphics::Display::DisplayOrientations Org::Ortc::MediaControl::DisplayOrientation::get()
 {
-  return webrtc::videocapturemodule::AppStateDispatcher::Instance()->GetOrientation();
+  //return webrtc::videocapturemodule::AppStateDispatcher::Instance()->GetOrientation();
+  return Windows::Graphics::Display::DisplayOrientations::Landscape;
 }
 
 //------------------------------------------------------------------------------
 void Org::Ortc::MediaControl::DisplayOrientation::set(Windows::Graphics::Display::DisplayOrientations value)
 {
-  webrtc::videocapturemodule::AppStateDispatcher::Instance()->DisplayOrientationChanged(value);
+  //webrtc::videocapturemodule::AppStateDispatcher::Instance()->DisplayOrientationChanged(value);
 }
