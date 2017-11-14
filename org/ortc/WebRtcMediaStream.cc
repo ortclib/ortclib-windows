@@ -276,6 +276,7 @@ namespace Org
         static_cast<int>(destWidth),
         static_cast<int>(destHeight));
 
+	  buffer->SetCurrentLength(destMediaBufferSize);
       *sample = spSample.Detach();
       return S_OK;
     }
