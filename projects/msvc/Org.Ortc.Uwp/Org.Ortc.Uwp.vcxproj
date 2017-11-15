@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{287f164d-1822-4af6-a08f-27cd0af2697d}</ProjectGuid>
+    <Keyword>WindowsRuntimeComponent</Keyword>
+    <RootNamespace>Org_Ortc_Uwp</RootNamespace>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <AppContainerApplication>true</AppContainerApplication>
+    <ApplicationType>Windows Store</ApplicationType>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformMinVersion>10.0.16299.0</WindowsTargetPlatformMinVersion>
+    <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PreprocessorDefinitions>_WINRT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
+      <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>28204</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PreprocessorDefinitions>_WINRT_DLL;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
+      <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>28204</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PreprocessorDefinitions>_WINRT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
+      <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>28204</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PreprocessorDefinitions>_WINRT_DLL;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
+      <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>28204</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PreprocessorDefinitions>_WINRT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
+      <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>28204</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);webrtc.lib;dxguid.lib;MinCore.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib;zslib\zslib.lib;cryptopp\cryptopp.lib;udns\udns.lib;zsLib-eventing\zslib-eventing.lib;idnkit\idnkit.lib;ortclib-services\ortclib-services.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\ortc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\webrtc</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PreprocessorDefinitions>_WINRT_DLL;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
+      <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>28204</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\cx_custom_Org_Ortc_Dispatcher.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\cx_custom_Org_Ortc_MediaControl.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\cx_custom_Org_Ortc_MediaSource.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\cx_Helpers.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_Adapter_MediaStream.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_Adapter_RTCAnswerOptions.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_Adapter_RTCCapabilityOptions.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_Adapter_RTCConfiguration.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_Adapter_RTCIceCandidate.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_Adapter_RTCMediaStreamTrackConfiguration.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_Adapter_RTCOfferAnswerOptions.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_Adapter_RTCOfferOptions.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_Adapter_RTCPeerConnection.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_Adapter_RTCPeerConnectionIceErrorEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_Adapter_RTCPeerConnectionIceEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_Adapter_RTCSessionDescription.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_Adapter_RTCSessionDescriptionConnectionData.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_Adapter_RTCSessionDescriptionConnectionDataDetails.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_Adapter_RTCSessionDescriptionDescription.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_Adapter_RTCSessionDescriptionDescriptionDetails.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_Adapter_RTCSessionDescriptionMediaLine.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_Adapter_RTCSessionDescriptionMediaLineDetails.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_Adapter_RTCSessionDescriptionRtpMediaLine.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_Adapter_RTCSessionDescriptionRtpSender.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_Adapter_RTCSessionDescriptionRtpSenderDetails.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_Adapter_RTCSessionDescriptionSctpMediaLine.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_Adapter_RTCSessionDescriptionTransport.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_Adapter_RTCSessionDescriptionTransportParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_Adapter_RTCTrackEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_ConstrainBoolean.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_ConstrainBooleanParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_ConstrainDouble.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_ConstrainDoubleRange.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_ConstrainLong.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_ConstrainLongRange.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_ConstrainString.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_ConstrainStringParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_Dispatcher.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_DoubleRange.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_Error.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_ErrorEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_Json.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_Logger.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_LongRange.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_MediaControl.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_MediaDeviceInfo.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_MediaDevices.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_MediaSource.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_MediaStreamConstraints.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_MediaStreamTrack.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_MediaTrackCapabilities.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_MediaTrackConstraints.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_MediaTrackConstraintSet.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_MediaTrackSettings.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_MediaTrackSupportedConstraints.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_MessageQueue.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_OrtcLib.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_OrtcLibWithDispatcher.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_OverconstrainedError.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_OverconstrainedErrorEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCCertificate.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCCertificateStats.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCCodec.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCDataChannel.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCDataChannelEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCDataChannelParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCDataChannelStateChangeEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCDataChannelStats.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCDataTransport.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCDtlsCertificateBinary.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCDtlsFingerprint.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCDtlsParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCDtlsTransport.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCDtlsTransportStateChangeEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCDtlsTransportStats.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCDtmfSender.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCDtmfToneChangeEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCIceCandidate.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCIceCandidateAttributes.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCIceCandidateComplete.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCIceCandidatePair.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCIceCandidatePairChangeEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCIceCandidatePairStats.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCIceGatherer.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCIceGathererCandidate.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCIceGathererCandidateCompleteEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCIceGathererCandidateEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCIceGathererIceErrorEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCIceGathererStateChangeEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCIceGathererStats.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCIceGatherInterfacePolicy.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCIceGatherOptions.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCIceParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCIceServer.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCIceTransport.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCIceTransportController.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCIceTransportOptions.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCIceTransportStateChangeEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCIceTransportStats.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCIdentity.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCIdentityAssertion.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCIdentityError.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCIdentityResult.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCInboundRtpStreamStats.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCMediaStreamStats.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCMediaStreamTrackStats.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCMessageEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCOutboundRtpStreamStats.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCRtcpFeedback.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCRtcpParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCRtcpTransport.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCRtpCapabilities.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCRtpCodecCapability.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCRtpCodecCapabilityOptions.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCRtpCodecCapabilityParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCRtpCodecParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCRtpCodecParameterSettings.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCRtpContributingSource.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCRtpEncodingParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCRtpFecParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCRtpFlexFecCodecCapabilityParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCRtpFlexFecCodecParameterSettings.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCRtpH264CodecCapabilityParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCRtpH264CodecParameterSettings.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCRtpHeaderExtension.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCRtpHeaderExtensionParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCRtpListener.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCRtpOpusCodecCapabilityOptions.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCRtpOpusCodecCapabilityParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCRtpOpusCodecParameterSettings.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCRtpParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCRtpReceiver.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCRtpRedCodecParameterSettings.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCRtpRtxCodecCapabilityParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCRtpRtxCodecParameterSettings.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCRtpRtxParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCRtpSender.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCRtpStreamStats.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCRtpTransport.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCRtpUnhandledEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCRtpVp8CodecCapabilityParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCRtpVp8CodecParameterSettings.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCSctpCapabilities.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCSctpTransport.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCSctpTransportListener.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCSctpTransportListenerEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCSctpTransportStateChangeEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCSctpTransportStats.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCSrtpSdesCryptoParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCSrtpSdesKeyParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCSrtpSdesParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCSrtpSdesTransport.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCSrtpSdesTransportLifetimeRemainingEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCSrtpTransportStats.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCSsrcConflictEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCStats.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCStatsProvider.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCStatsReport.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_RTCStatsTypeSet.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_Settings.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib\Org_Ortc_StringOrStringList.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_adapter_MediaStream.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_adapter_RTCAnswerOptions.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_adapter_RTCCapabilityOptions.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_adapter_RTCConfiguration.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_adapter_RTCIceCandidate.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_adapter_RTCMediaStreamTrackConfiguration.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_adapter_RTCOfferAnswerOptions.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_adapter_RTCOfferOptions.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_adapter_RTCPeerConnection.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_adapter_RTCPeerConnectionIceErrorEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_adapter_RTCPeerConnectionIceEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_adapter_RTCSessionDescription.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_adapter_RTCSessionDescriptionConnectionData.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_adapter_RTCSessionDescriptionConnectionDataDetails.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_adapter_RTCSessionDescriptionDescription.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_adapter_RTCSessionDescriptionDescriptionDetails.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_adapter_RTCSessionDescriptionMediaLine.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_adapter_RTCSessionDescriptionMediaLineDetails.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_adapter_RTCSessionDescriptionRtpMediaLine.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_adapter_RTCSessionDescriptionRtpSender.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_adapter_RTCSessionDescriptionRtpSenderDetails.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_adapter_RTCSessionDescriptionSctpMediaLine.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_adapter_RTCSessionDescriptionTransport.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_adapter_RTCSessionDescriptionTransportParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_adapter_RTCTrackEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_ConstrainBoolean.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_ConstrainBooleanParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_ConstrainDouble.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_ConstrainDoubleRange.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_ConstrainLong.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_ConstrainLongRange.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_ConstrainString.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_ConstrainStringParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_Dispatcher.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_DoubleRange.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_Error.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_ErrorEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_Helper.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_Json.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_Logger.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_LongRange.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_MediaControl.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_MediaDeviceInfo.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_MediaDevices.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_MediaSource.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_MediaStreamConstraints.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_MediaStreamTrack.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_MediaTrackCapabilities.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_MediaTrackConstraints.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_MediaTrackConstraintSet.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_MediaTrackSettings.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_MediaTrackSupportedConstraints.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_MessageQueue.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_OrtcLib.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_OrtcLibWithDispatcher.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_OverconstrainedError.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_OverconstrainedErrorEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCCertificate.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCCertificateStats.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCCodec.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCDataChannel.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCDataChannelEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCDataChannelParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCDataChannelStateChangeEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCDataChannelStats.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCDataTransport.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCDtlsCertificateBinary.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCDtlsFingerprint.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCDtlsParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCDtlsTransport.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCDtlsTransportStateChangeEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCDtlsTransportStats.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCDtmfSender.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCDtmfToneChangeEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCIceCandidate.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCIceCandidateAttributes.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCIceCandidateComplete.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCIceCandidatePair.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCIceCandidatePairChangeEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCIceCandidatePairStats.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCIceGatherer.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCIceGathererCandidate.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCIceGathererCandidateCompleteEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCIceGathererCandidateEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCIceGathererIceErrorEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCIceGathererStateChangeEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCIceGathererStats.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCIceGatherInterfacePolicy.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCIceGatherOptions.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCIceParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCIceServer.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCIceTransport.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCIceTransportController.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCIceTransportOptions.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCIceTransportStateChangeEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCIceTransportStats.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCIdentity.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCIdentityAssertion.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCIdentityError.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCIdentityResult.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCInboundRtpStreamStats.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCMediaStreamStats.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCMediaStreamTrackStats.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCMessageEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCOutboundRtpStreamStats.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCRtcpFeedback.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCRtcpParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCRtcpTransport.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCRtpCapabilities.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCRtpCodecCapability.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCRtpCodecCapabilityOptions.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCRtpCodecCapabilityParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCRtpCodecParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCRtpCodecParameterSettings.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCRtpContributingSource.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCRtpEncodingParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCRtpFecParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCRtpFlexFecCodecCapabilityParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCRtpFlexFecCodecParameterSettings.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCRtpH264CodecCapabilityParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCRtpH264CodecParameterSettings.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCRtpHeaderExtension.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCRtpHeaderExtensionParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCRtpListener.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCRtpOpusCodecCapabilityOptions.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCRtpOpusCodecCapabilityParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCRtpOpusCodecParameterSettings.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCRtpParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCRtpReceiver.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCRtpRedCodecParameterSettings.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCRtpRtxCodecCapabilityParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCRtpRtxCodecParameterSettings.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCRtpRtxParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCRtpSender.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCRtpStreamStats.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCRtpTransport.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCRtpUnhandledEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCRtpVp8CodecCapabilityParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCRtpVp8CodecParameterSettings.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCSctpCapabilities.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCSctpTransport.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCSctpTransportListener.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCSctpTransportListenerEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCSctpTransportStateChangeEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCSctpTransportStats.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCSrtpSdesCryptoParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCSrtpSdesKeyParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCSrtpSdesParameters.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCSrtpSdesTransport.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCSrtpSdesTransportLifetimeRemainingEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCSrtpTransportStats.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCSsrcConflictEvent.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCStats.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCStatsProvider.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCStatsReport.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_RTCStatsTypeSet.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_Settings.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_StringOrStringList.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ifaddrs-android.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_adapter_adapter.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_adapter_Helper.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_adapter_MediaStream.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_adapter_PeerConnection.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_adapter_SDPParser.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_adapter_SDPParser_DescriptionToSDP.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_adapter_SDPParser_GenerateSDP.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_adapter_SDPParser_ParseSDP.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_adapter_SDPParser_SDPToDescription.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_adapter_SessionDescription.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_Capabilities.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_Certificate.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_Constraints.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_DataChannel.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_DTLSTransport.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_DTMFSender.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_Helper.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_ICEGatherer.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_ICEGathererRouter.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_ICETransport.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_ICETransportController.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_ICETypes.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_Identity.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_ISecureTransport.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_MediaChannelTraceHelper.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_MediaDevice.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_MediaDeviceCapture.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_MediaDeviceCaptureAudio.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_MediaDeviceCaptureVideo.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_MediaDeviceRenderAudio.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_MediaDevices.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_MediaEngine.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_MediaStreamTrack.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_ORTC.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_RTCPPacket.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_RTP.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_RTPDecoderAudio.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_RTPDecoderVideo.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_RTPEncoderAudio.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_RTPEncoderVideo.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_RTPListener.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_RTPPacket.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_RTPReceiver.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_RTPReceiverChannel.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_RTPSender.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_RTPSenderChannel.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_RTPTypes.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_RTPUtils.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_SCTPTransport.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_SCTPTransportListener.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_SRTPSDESTransport.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_SRTPTransport.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_StatsReport.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_x64_debug\obj\ortc\ortclib\ortclib_static\ortc_webrtc.obj" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
