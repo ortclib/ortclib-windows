@@ -34,6 +34,9 @@ EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "OrtcBinding", "..\projects\msvc\OrtcBinding\OrtcBinding.shproj", "{761C3464-358D-4F82-8858-EDD67FB21634}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Org.Ortc.Uwp", "..\projects\msvc\Org.Ortc.Uwp\Org.Ortc.Uwp.vcxproj", "{287F164D-1822-4AF6-A08F-27CD0AF2697D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{147E84F0-5746-4E0C-9E2D-ACF8D0F88490} = {147E84F0-5746-4E0C-9E2D-ACF8D0F88490}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
