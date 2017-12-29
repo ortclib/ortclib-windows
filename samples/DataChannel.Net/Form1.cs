@@ -16,7 +16,7 @@ namespace DataChannel.Net
         RTCIceTransport _ice;   // Ice transport for the currently selected peer.
         RTCDtlsTransport _dtls;
         RTCSctpTransport _sctp;
-        RTCDataChannel _dataChannel;    // Data channel for the currently selected peer.
+        public RTCDataChannel _dataChannel;    // Data channel for the currently selected peer.
         bool _isInitiator = false;      // True for the client that started the connection.
 
         RTCDataChannelParameters _dataChannelParams = new RTCDataChannelParameters
@@ -62,7 +62,20 @@ namespace DataChannel.Net
             }
         }
 
-        private void SelectedPeerChanged(Peer oldValue, Peer value)
+        private string _message = string.Empty;
+        public string Message
+        {
+            get { return _message; }
+            set
+            {
+                if (_message == value)
+                    return;
+
+                _message = value;
+            }
+        }
+
+        private async void SelectedPeerChanged(Peer oldValue, Peer value)
         {
             if (_dataChannel != null)
             {
@@ -72,7 +85,9 @@ namespace DataChannel.Net
                 _ice.Stop();
             }
 
-            var task = InitializeORTC();
+            Message = string.Empty;
+
+            await InitializeORTC();
         }
 
         private async Task InitializeORTC()
@@ -100,11 +115,11 @@ namespace DataChannel.Net
                 await _httpSignaler.SendToPeer(RemotePeer.Id, candidate.Candidate.ToString());
             };
 
-            _gatherer.OnLocalCandidateComplete += async (candidate) =>
-            {
-                Debug.WriteLine("OnLocalCandidateComplete");
-                await _httpSignaler.SendToPeer(RemotePeer.Id, candidate.ToString());
-            };
+            //_gatherer.OnLocalCandidateComplete += async (candidate) =>
+            //{
+            //    Debug.WriteLine("OnLocalCandidateComplete");
+            //    await _httpSignaler.SendToPeer(RemotePeer.Id, candidate.ToString());
+            //};
 
             var cert = await RTCCertificate.GenerateCertificate();
 
@@ -135,6 +150,10 @@ namespace DataChannel.Net
         public Form1()
         {
             InitializeComponent();
+
+            OrtcLib.Setup();
+            Settings.ApplyDefaults();
+
             lstPeers.SelectedIndex = -1;
 
             var name = GetLocalPeerName();
@@ -178,6 +197,7 @@ namespace DataChannel.Net
         private void Signaler_PeerDisconnected(object sender, Peer peer)
         {
             Debug.WriteLine($"Peer disconnected {peer.Name} / {peer.Id}");
+
             HttpSignaler._peers.Remove(peer);
 
             for (int n = lstPeers.Items.Count - 1; n >= 0; --n)
@@ -190,7 +210,7 @@ namespace DataChannel.Net
             }
         }
 
-        private void Signaler_MessageFromPeer(object sender, Peer peer)
+        private async void Signaler_MessageFromPeer(object sender, Peer peer)
         {
             var message = peer.Message;
 
@@ -202,7 +222,11 @@ namespace DataChannel.Net
                 // Begin gathering ice candidates.
                 _isInitiator = false;
                 RemotePeer = peer;
-                var task = OpenDataChannel(peer);
+                await OpenDataChannel(peer);
+
+                Form2 f2 = new Form2(RemotePeer);
+                f2.ShowDialog();
+
                 return;
             }
 
@@ -258,7 +282,7 @@ namespace DataChannel.Net
 
                     RTCSctpCapabilities caps = RTCSctpTransport.GetCapabilities();
 
-                    var task = _httpSignaler.SendToPeer(RemotePeer.Id, caps.ToString());
+                    await _httpSignaler.SendToPeer(RemotePeer.Id, caps.ToString());
                 }
                 else
                 {
@@ -304,6 +328,7 @@ namespace DataChannel.Net
         private void Sctp_OnDataChannel(RTCDataChannelEvent evt)
         {
             Debug.WriteLine("Sctp OnDataChannel");
+
             _dataChannel = evt.DataChannel;
             _dataChannel.OnMessage += DataChannel_OnMessage;
             _dataChannel.OnError += DataChannel_OnError;
@@ -335,14 +360,17 @@ namespace DataChannel.Net
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
-            HttpSignaler.Connect();
             Debug.WriteLine("Connects to server!");
+
+            HttpSignaler.Connect();
         }
 
-        private void btnDisconnect_Click(object sender, EventArgs e)
+        private async void btnDisconnect_Click(object sender, EventArgs e)
         {
-            var task = _httpSignaler.SignOut();
             Debug.WriteLine("Disconnects from server!");
+
+            await _httpSignaler.SignOut();
+            lstPeers.Items.Clear();
         }
 
         private string GetLocalPeerName()
@@ -355,7 +383,7 @@ namespace DataChannel.Net
         {
             if (lstPeers.SelectedIndex != -1)
             {
-                var task = InitializeORTC();
+                await InitializeORTC();
                 
                 var text = lstPeers.GetItemText(lstPeers.SelectedItem);
 
@@ -365,14 +393,14 @@ namespace DataChannel.Net
                 SelectedPeer.Id = Convert.ToInt32(words[0]);
                 SelectedPeer.Name = words[1];
 
-                var task1 = OpenDataChannel(SelectedPeer);
-
                 RemotePeer = SelectedPeer;
 
                 await _httpSignaler.SendToPeer(RemotePeer.Id, "OpenDataChannel");
 
                 Form2 f2 = new Form2(RemotePeer);
                 f2.ShowDialog();
+
+                await OpenDataChannel(SelectedPeer);
             }
             else
             {

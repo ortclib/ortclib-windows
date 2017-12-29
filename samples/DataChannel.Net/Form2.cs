@@ -18,8 +18,13 @@ namespace DataChannel.Net
         private void btnSend_Click(object sender, EventArgs e)
         {
             Debug.WriteLine("Remote peer id:  " + p.Id + ", Remote peer name:  " + p.Name);
+
             lstMessages.Items.Add(new Message(DateTime.Now.ToString("h:mm"), GetLocalPeerName() + ":  " + txtMessage.Text));
-            txtMessage.Text = "";
+
+            //var f1 = new Form1();
+            //f1._dataChannel.Send(txtMessage.Text);
+
+            txtMessage.Text = string.Empty;
         }
 
         private string GetLocalPeerName()
