@@ -16,19 +16,19 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-	<OutputPath>$(SolutionDir)Build\Output\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
-    <IntermediateOutputPath>$(SolutionDir)Build\Intermediate\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</IntermediateOutputPath>
+    <OutputPath>$(SolutionDir)Build\Output\$(MSBuildProjectName)\$(Configuration)\$(Platform)\</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)Build\Intermediate\$(MSBuildProjectName)\$(Configuration)\$(Platform)\</IntermediateOutputPath>
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <DocumentationFile>bin\Debug\Org.Ortc.XML</DocumentationFile>
+    <DocumentationFile>$(SolutionDir)Build\Output\$(MSBuildProjectName)\$(Configuration)\$(Platform)\Org.Ortc.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
     <Optimize>true</Optimize>
-	<OutputPath>$(SolutionDir)Build\Output\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
-    <IntermediateOutputPath>$(SolutionDir)Build\Intermediate\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</IntermediateOutputPath>
+    <OutputPath>$(SolutionDir)Build\Output\$(MSBuildProjectName)\$(Configuration)\$(Platform)\</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)Build\Intermediate\$(MSBuildProjectName)\$(Configuration)\$(Platform)\</IntermediateOutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -38,10 +38,6 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.iOS" />
-    <BundleResource Include="..\..\..\..\apple\libs\libOrtc.dylib">
-      <Link>libOrtc.dylib</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </BundleResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
