@@ -358,11 +358,11 @@ namespace DataChannel.Net
             await _httpSignaler.SendToPeer(peer.Id, dtlsParams.ToString());
         }
 
-        private void btnConnect_Click(object sender, EventArgs e)
+        private async void btnConnect_Click(object sender, EventArgs e)
         {
             Debug.WriteLine("Connects to server!");
 
-            HttpSignaler.Connect();
+            await HttpSignaler.Connect();
         }
 
         private async void btnDisconnect_Click(object sender, EventArgs e)

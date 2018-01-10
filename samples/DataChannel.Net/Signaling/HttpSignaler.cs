@@ -47,14 +47,14 @@ namespace DataChannel.Net.Signaling
         /// <summary>
         /// Connects to the server.
         /// </summary>
-        public async void Connect()
+        public async Task<bool> Connect()
         {
             try
             {
                 if (_state != State.NotConnected)
                 {
                     OnServerConnectionFailure();
-                    return;
+                    return true;
                 }
                 _state = State.SigningIn;
                 await SendSignInRequestAsync();
@@ -62,16 +62,19 @@ namespace DataChannel.Net.Signaling
                 {
                     // Start the long polling loop without await
                     var task = SendWaitRequestAsync();
+                    return true;
                 }
                 else
                 {
                     _state = State.NotConnected;
                     OnServerConnectionFailure();
+                    return false;
                 }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("[Error] Signaling: Failed to connect to server: " + ex.Message);
+                return false;
             }
         }
 
@@ -81,50 +84,59 @@ namespace DataChannel.Net.Signaling
         /// <returns>False if there is a failure, otherwise returns true.</returns>
         private async Task<bool> SendSignInRequestAsync()
         {
-            string request = string.Format("sign_in?" + _clientName);
-
-            // Send the request, await response
-            HttpResponseMessage response = await _httpClient.GetAsync(_baseHttpAddress + request);
-            HttpStatusCode status_code = response.StatusCode;
-
-            string result = await response.Content.ReadAsStringAsync();
-            if (result == null)
-                return false;
-            int content_length = result.Length;
-
-            string peer_name;
-            int peer_id, peer_connected;
-            if (!ParseServerResponse(result, status_code,
-                out peer_name, out peer_id, out peer_connected))
-                return false;
-
-            if (_myId == -1)
+            try
             {
-                Debug.Assert(_state == State.SigningIn);
-                _myId = peer_id;
-                Debug.Assert(_myId != -1);
+                string request = string.Format("sign_in?" + _clientName);
 
-                if (content_length > 0)
+                // Send the request, await response
+                HttpResponseMessage response = await _httpClient.GetAsync(_baseHttpAddress + request);
+                HttpStatusCode status_code = response.StatusCode;
+
+                string result = await response.Content.ReadAsStringAsync();
+                if (result == null)
+                    return false;
+                int content_length = result.Length;
+
+                string peer_name;
+                int peer_id, peer_connected;
+                if (!ParseServerResponse(result, status_code,
+                    out peer_name, out peer_id, out peer_connected))
+                    return false;
+
+                if (_myId == -1)
                 {
-                    if (!ParseServerResponseAddPeersToList(result, status_code))
-                        return false;
-                    OnSignedIn();
+                    Debug.Assert(_state == State.SigningIn);
+                    _myId = peer_id;
+                    Debug.Assert(_myId != -1);
+
+                    if (content_length > 0)
+                    {
+                        if (!ParseServerResponseAddPeersToList(result, status_code))
+                            return false;
+                        OnSignedIn();
+                    }
                 }
+                else if (_state == State.SigningOut)
+                {
+                    Close();
+                    OnDisconnected();
+                }
+                else if (_state == State.SigningOutWaiting)
+                {
+                    await SignOut();
+                }
+                if (_state == State.SigningIn)
+                {
+                    _state = State.Connected;
+                }
+                return true;
             }
-            else if (_state == State.SigningOut)
+            catch (Exception ex)
             {
-                Close();
-                OnDisconnected();
-            }
-            else if (_state == State.SigningOutWaiting)
-            {
+                Debug.WriteLine("[Error] Signaling SendSignInRequestAsync: Failed to connect to server: " + ex.Message);
                 await SignOut();
+                return false;
             }
-            if (_state == State.SigningIn)
-            {
-                _state = State.Connected;
-            }
-            return true;
         }
 
         ///// <summary>
@@ -354,7 +366,7 @@ namespace DataChannel.Net.Signaling
             return true;
         }
 
-        private void Close()
+        public void Close()
         {
             _peers.Clear();
             _state = State.NotConnected;
