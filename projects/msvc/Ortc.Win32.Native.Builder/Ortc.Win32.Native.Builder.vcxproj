@@ -99,7 +99,7 @@
       <SubSystem>Windows</SubSystem>
     </Link>
     <PreBuildEvent>
-      <Command>pushd "$(ProjectDir)..\..\..\..\..\" &amp;&amp; call "bin\prepare.bat" -platform $(Platform) -logLevel 4 &amp;&amp; popd &amp;&amp; pushd "$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\win_$(PlatformTarget)_$(Configuration)" &amp;&amp;  echo Building Ortc &amp;&amp; call "..\..\..\depot_tools\ninja" ortc &amp;&amp; popd</Command>
+      <Command>pushd "$(ProjectDir)..\..\..\..\..\" &amp;&amp; call "bin\prepare.bat" -platform win32 -logLevel 4 &amp;&amp; call "bin\buildWebRTC.bat" $(Configuration) win32 ortc &amp;&amp; popd</Command>
       <Message>Building native Ortc lib</Message>
     </PreBuildEvent>
   </ItemDefinitionGroup>
@@ -116,7 +116,7 @@
       <SubSystem>Windows</SubSystem>
     </Link>
     <PreBuildEvent>
-      <Command>pushd "$(ProjectDir)..\..\..\..\..\" &amp;&amp; call "bin\prepare.bat" -platform win32_x64 -logLevel 4 &amp;&amp;  popd &amp;&amp; pushd "$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\win_$(PlatformTarget)_$(Configuration)" &amp;&amp;  echo Building Ortc &amp;&amp; call "..\..\..\depot_tools\ninja" ortc &amp;&amp; popd</Command>
+      <Command>pushd "$(ProjectDir)..\..\..\..\..\" &amp;&amp; call "bin\prepare.bat" -platform win32_x64 -logLevel 4 &amp;&amp; call "bin\buildWebRTC.bat" $(Configuration) win32_x64 ortc &amp;&amp; popd</Command>
       <Message>Building native Ortc lib</Message>
     </PreBuildEvent>
   </ItemDefinitionGroup>
@@ -137,7 +137,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PreBuildEvent>
-      <Command>pushd "$(ProjectDir)..\..\..\..\..\" &amp;&amp; call "bin\prepare.bat" -platform $(Platform) -logLevel 4 &amp;&amp; popd &amp;&amp; pushd "$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\win_$(PlatformTarget)_$(Configuration)" &amp;&amp;  echo Building Ortc &amp;&amp; call "..\..\..\depot_tools\ninja" ortc &amp;&amp; popd</Command>
+      <Command>pushd "$(ProjectDir)..\..\..\..\..\" &amp;&amp; call "bin\prepare.bat" -platform win32 -logLevel 4 &amp;&amp; call "bin\buildWebRTC.bat" $(Configuration) win32 ortc &amp;&amp; popd</Command>
       <Message>Building native Ortc lib</Message>
     </PreBuildEvent>
   </ItemDefinitionGroup>
@@ -158,7 +158,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PreBuildEvent>
-      <Command>pushd "$(ProjectDir)..\..\..\..\..\" &amp;&amp; call "bin\prepare.bat" -platform win32_x64 -logLevel 4 &amp;&amp;  popd &amp;&amp; pushd "$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\win_$(PlatformTarget)_$(Configuration)" &amp;&amp;  echo Building Ortc &amp;&amp; call "..\..\..\depot_tools\ninja" ortc &amp;&amp; popd</Command>
+      <Command>pushd "$(ProjectDir)..\..\..\..\..\" &amp;&amp; call "bin\prepare.bat" -platform win32_x64 -logLevel 4 &amp;&amp; call "bin\buildWebRTC.bat" $(Configuration) win32_x64 ortc &amp;&amp; popd</Command>
       <Message>Building native Ortc lib</Message>
     </PreBuildEvent>
   </ItemDefinitionGroup>

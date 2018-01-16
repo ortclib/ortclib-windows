@@ -29,7 +29,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{287f164d-1822-4af6-a08f-27cd0af2697d}</ProjectGuid>
     <Keyword>WindowsRuntimeComponent</Keyword>
-    <RootNamespace>Org_Ortc_Uwp</RootNamespace>
+    <RootNamespace>Org.Ortc</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
     <AppContainerApplication>true</AppContainerApplication>
@@ -99,31 +99,37 @@
   <PropertyGroup />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <GenerateManifest>false</GenerateManifest>
+    <IntDir>$(SolutionDir)Build\Intermediate\$(MSBuildProjectName)\$(Configuration)\$(PlatformTarget)\</IntDir>
     <OutDir>$(SolutionDir)Build\Output\$(MSBuildProjectName)\$(Configuration)\$(PlatformTarget)\</OutDir>
     <TargetName>Org.Ortc</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <GenerateManifest>false</GenerateManifest>
+    <IntDir>$(SolutionDir)Build\Intermediate\$(MSBuildProjectName)\$(Configuration)\$(PlatformTarget)\</IntDir>
     <OutDir>$(SolutionDir)Build\Output\$(MSBuildProjectName)\$(Configuration)\$(PlatformTarget)\</OutDir>
     <TargetName>Org.Ortc</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <GenerateManifest>false</GenerateManifest>
+    <IntDir>$(SolutionDir)Build\Intermediate\$(MSBuildProjectName)\$(Configuration)\$(PlatformTarget)\</IntDir>
     <OutDir>$(SolutionDir)Build\Output\$(MSBuildProjectName)\$(Configuration)\$(PlatformTarget)\</OutDir>
     <TargetName>Org.Ortc</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
     <GenerateManifest>false</GenerateManifest>
+    <IntDir>$(SolutionDir)Build\Intermediate\$(MSBuildProjectName)\$(Configuration)\$(PlatformTarget)\</IntDir>
     <OutDir>$(SolutionDir)Build\Output\$(MSBuildProjectName)\$(Configuration)\$(PlatformTarget)\</OutDir>
     <TargetName>Org.Ortc</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <GenerateManifest>false</GenerateManifest>
+    <IntDir>$(SolutionDir)Build\Intermediate\$(MSBuildProjectName)\$(Configuration)\$(PlatformTarget)\</IntDir>
     <OutDir>$(SolutionDir)Build\Output\$(MSBuildProjectName)\$(Configuration)\$(PlatformTarget)\</OutDir>
     <TargetName>Org.Ortc</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <GenerateManifest>false</GenerateManifest>
+    <IntDir>$(SolutionDir)Build\Intermediate\$(MSBuildProjectName)\$(Configuration)\$(PlatformTarget)\</IntDir>
     <OutDir>$(SolutionDir)Build\Output\$(MSBuildProjectName)\$(Configuration)\$(PlatformTarget)\</OutDir>
     <TargetName>Org.Ortc</TargetName>
   </PropertyGroup>
@@ -140,8 +146,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\ortc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\webrtc</AdditionalLibraryDirectories>
-      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);webrtc.lib;dxguid.lib;MinCore.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib;zslib\zslib.lib;cryptopp\cryptopp.lib;udns\udns.lib;zsLib-eventing\zslib-eventing.lib;idnkit\idnkit.lib;ortclib-services\ortclib-services.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\ortc\$(Configuration)\$(PlatformTarget)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);webrtc.lib;dxguid.lib;MinCore.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -157,8 +163,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\ortc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\webrtc</AdditionalLibraryDirectories>
-      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);webrtc.lib;dxguid.lib;MinCore.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib;zslib\zslib.lib;cryptopp\cryptopp.lib;udns\udns.lib;zsLib-eventing\zslib-eventing.lib;idnkit\idnkit.lib;ortclib-services\ortclib-services.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\ortc\$(Configuration)\$(PlatformTarget)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);webrtc.lib;dxguid.lib;MinCore.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
@@ -174,8 +180,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\ortc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\webrtc</AdditionalLibraryDirectories>
-      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);webrtc.lib;dxguid.lib;MinCore.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib;zslib\zslib.lib;cryptopp\cryptopp.lib;udns\udns.lib;zsLib-eventing\zslib-eventing.lib;idnkit\idnkit.lib;ortclib-services\ortclib-services.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\ortc\$(Configuration)\$(PlatformTarget)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);webrtc.lib;dxguid.lib;MinCore.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
@@ -191,8 +197,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\ortc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\webrtc</AdditionalLibraryDirectories>
-      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);webrtc.lib;dxguid.lib;MinCore.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib;zslib\zslib.lib;cryptopp\cryptopp.lib;udns\udns.lib;zsLib-eventing\zslib-eventing.lib;idnkit\idnkit.lib;ortclib-services\ortclib-services.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\ortc\$(Configuration)\$(PlatformTarget)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);webrtc.lib;dxguid.lib;MinCore.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -208,8 +214,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);webrtc.lib;dxguid.lib;MinCore.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib;zslib\zslib.lib;cryptopp\cryptopp.lib;udns\udns.lib;zsLib-eventing\zslib-eventing.lib;idnkit\idnkit.lib;ortclib-services\ortclib-services.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\ortc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\webrtc</AdditionalLibraryDirectories>
+      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);webrtc.lib;dxguid.lib;MinCore.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\ortc\$(Configuration)\$(PlatformTarget)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -225,8 +231,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\ortc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\webrtc</AdditionalLibraryDirectories>
-      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);webrtc.lib;dxguid.lib;MinCore.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib;zslib\zslib.lib;cryptopp\cryptopp.lib;udns\udns.lib;zsLib-eventing\zslib-eventing.lib;idnkit\idnkit.lib;ortclib-services\ortclib-services.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\ortc\$(Configuration)\$(PlatformTarget)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);webrtc.lib;dxguid.lib;MinCore.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
