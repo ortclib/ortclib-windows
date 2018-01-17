@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace DataChannel.Net
 {
-    public partial class Form1 : Form
+    public partial class PeersListForm : Form
     {
         RTCIceGatherer _gatherer;
         RTCIceTransport _ice;   // Ice transport for the currently selected peer.
@@ -75,7 +75,7 @@ namespace DataChannel.Net
             }
         }
 
-        private async void SelectedPeerChanged(Peer oldValue, Peer value)
+        private void SelectedPeerChanged(Peer oldValue, Peer value)
         {
             if (_dataChannel != null)
             {
@@ -86,15 +86,10 @@ namespace DataChannel.Net
             }
 
             Message = string.Empty;
-
-            await InitializeORTC();
         }
 
         private async Task InitializeORTC()
         {
-            OrtcLib.Setup();
-            Settings.ApplyDefaults();
-
             var gatherOptions = new RTCIceGatherOptions()
             {
                 IceServers = new List<RTCIceServer>()
@@ -114,12 +109,6 @@ namespace DataChannel.Net
             {
                 await _httpSignaler.SendToPeer(RemotePeer.Id, candidate.Candidate.ToString());
             };
-
-            //_gatherer.OnLocalCandidateComplete += async (candidate) =>
-            //{
-            //    Debug.WriteLine("OnLocalCandidateComplete");
-            //    await _httpSignaler.SendToPeer(RemotePeer.Id, candidate.ToString());
-            //};
 
             var cert = await RTCCertificate.GenerateCertificate();
 
@@ -147,12 +136,15 @@ namespace DataChannel.Net
             Debug.WriteLine("Dtls State Change: " + evt.State);
         }
 
-        public Form1()
+        static PeersListForm()
         {
-            InitializeComponent();
-
             OrtcLib.Setup();
             Settings.ApplyDefaults();
+        }
+
+        public PeersListForm()
+        {
+            InitializeComponent();
 
             lstPeers.SelectedIndex = -1;
 
@@ -160,7 +152,7 @@ namespace DataChannel.Net
             Debug.WriteLine($"Connecting to server from local peer: {name}");
 
             _httpSignaler =
-                new HttpSignaler("40.83.179.150", 8888, name);
+                new HttpSignaler("peercc-server.ortclib.org", 8888, name);
 
             _httpSignaler.SignedIn += Signaler_SignedIn;
             _httpSignaler.ServerConnectionFailed += Signaler_ServerConnectionFailed;
@@ -217,6 +209,9 @@ namespace DataChannel.Net
             if (message.Contains("OpenDataChannel"))
             {
                 Debug.WriteLine("contains OpenDataChannel");
+
+                await InitializeORTC();
+
                 // A peer has let us know that they have begun initiating a data channel. 
                 // In this scenario, we are the "remote" peer so make sure _isInitiator is false. 
                 // Begin gathering ice candidates.
@@ -224,8 +219,8 @@ namespace DataChannel.Net
                 RemotePeer = peer;
                 await OpenDataChannel(peer);
 
-                Form2 f2 = new Form2(RemotePeer);
-                f2.ShowDialog();
+                ChatForm chatForm = new ChatForm(RemotePeer);
+                chatForm.ShowDialog();
 
                 return;
             }
@@ -363,6 +358,9 @@ namespace DataChannel.Net
             Debug.WriteLine("Connects to server!");
 
             await HttpSignaler.Connect();
+
+            btnConnect.Enabled = false;
+            btnDisconnect.Enabled = true;
         }
 
         private async void btnDisconnect_Click(object sender, EventArgs e)
@@ -371,6 +369,9 @@ namespace DataChannel.Net
 
             await _httpSignaler.SignOut();
             lstPeers.Items.Clear();
+
+            btnDisconnect.Enabled = false;
+            btnConnect.Enabled = true;
         }
 
         private string GetLocalPeerName()
@@ -397,8 +398,8 @@ namespace DataChannel.Net
 
                 await _httpSignaler.SendToPeer(RemotePeer.Id, "OpenDataChannel");
 
-                Form2 f2 = new Form2(RemotePeer);
-                f2.ShowDialog();
+                ChatForm chatForm = new ChatForm(RemotePeer);
+                chatForm.ShowDialog();
 
                 await OpenDataChannel(SelectedPeer);
             }

@@ -1,6 +1,6 @@
 ﻿namespace DataChannel.Net
 {
-    partial class Form2
+    partial class ChatForm
     {
         /// <summary>
         /// Required designer variable.
@@ -59,7 +59,7 @@
             this.btnSend.UseVisualStyleBackColor = true;
             this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
             // 
-            // Form2
+            // ChatForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -67,9 +67,9 @@
             this.Controls.Add(this.btnSend);
             this.Controls.Add(this.txtMessage);
             this.Controls.Add(this.lstMessages);
-            this.Name = "Form2";
+            this.Name = "ChatForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Chat";
+            this.Text = "ChatForm";
             this.ResumeLayout(false);
             this.PerformLayout();
 

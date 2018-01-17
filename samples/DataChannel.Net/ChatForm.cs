@@ -6,10 +6,10 @@ using System.Windows.Forms;
 
 namespace DataChannel.Net
 {
-    public partial class Form2 : Form
+    public partial class ChatForm : Form
     {
         public Peer p;
-        public Form2(Peer peer)
+        public ChatForm(Peer peer)
         {
             p = peer;
             InitializeComponent();
@@ -21,8 +21,8 @@ namespace DataChannel.Net
 
             lstMessages.Items.Add(new Message(DateTime.Now.ToString("h:mm"), GetLocalPeerName() + ":  " + txtMessage.Text));
 
-            //var f1 = new Form1();
-            //f1._dataChannel.Send(txtMessage.Text);
+            //var peersListForm = new PeersListForm();
+            //peersListForm._dataChannel.Send(txtMessage.Text);
 
             txtMessage.Text = string.Empty;
         }

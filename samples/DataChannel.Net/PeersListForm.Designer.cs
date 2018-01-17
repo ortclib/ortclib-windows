@@ -1,6 +1,6 @@
 ﻿namespace DataChannel.Net
 {
-    partial class Form1
+    partial class PeersListForm
     {
         /// <summary>
         /// Required designer variable.
@@ -72,7 +72,7 @@
             this.lstPeers.Size = new System.Drawing.Size(446, 238);
             this.lstPeers.TabIndex = 3;
             // 
-            // Form1
+            // PeersListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -81,9 +81,9 @@
             this.Controls.Add(this.btnChat);
             this.Controls.Add(this.btnDisconnect);
             this.Controls.Add(this.btnConnect);
-            this.Name = "Form1";
+            this.Name = "PeersListForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "DataChannelOrtc";
+            this.Text = "PeersListForm";
             this.ResumeLayout(false);
 
         }
