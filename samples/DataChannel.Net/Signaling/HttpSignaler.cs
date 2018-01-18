@@ -203,7 +203,7 @@ namespace DataChannel.Net.Signaling
                 {
                     Debug.WriteLine("[Error] Signaling SendWaitRequestAsync, Message: " + ex.Message);
                 }
-                await Task.Delay(20000);
+                await Task.Yield();
             }
         }
 
