@@ -26,9 +26,9 @@ namespace DataChannel.Net
             Ordered = true,
             Protocol = "ship"
         };
-
-        private readonly HttpSignaler _httpSignaler;
-        public HttpSignaler HttpSignaler => _httpSignaler;
+        public HttpSignaler _httpSignaler;
+        //private readonly HttpSignaler _httpSignaler;
+        //public HttpSignaler HttpSignaler => _httpSignaler;
 
         private Peer _remotePeer;
         public Peer RemotePeer
@@ -88,7 +88,7 @@ namespace DataChannel.Net
             Message = string.Empty;
         }
 
-        private async Task InitializeORTC()
+        public async Task InitializeORTC()
         {
             var gatherOptions = new RTCIceGatherOptions()
             {
@@ -119,6 +119,8 @@ namespace DataChannel.Net
             _dtls.OnStateChange += Dtls_OnStateChange;
 
             _sctp = new RTCSctpTransport(_dtls);
+
+            _gatherer.Gather(null);
         }
 
         private void IceGatherer_OnStateChange(RTCIceGathererStateChangeEvent evt)
@@ -333,12 +335,9 @@ namespace DataChannel.Net
         /// <summary>
         /// Establishes a DataChannel with the parameter peer.
         /// </summary>
-        private async Task OpenDataChannel(Peer peer)
+        public async Task OpenDataChannel(Peer peer)
         {
             Debug.WriteLine($"Opening data channel to peer id: {peer.Id}");
-
-            Debug.WriteLine("Ice: Gathering candidates.");
-            _gatherer.Gather(null);
 
             var iceParams = _gatherer.LocalParameters;
             await _httpSignaler.SendToPeer(peer.Id, iceParams.ToString());
@@ -357,7 +356,7 @@ namespace DataChannel.Net
         {
             Debug.WriteLine("Connects to server!");
 
-            await HttpSignaler.Connect();
+            await _httpSignaler.Connect();
 
             btnConnect.Enabled = false;
             btnDisconnect.Enabled = true;
@@ -380,12 +379,10 @@ namespace DataChannel.Net
             return (hostname != null ? hostname : "<unknown host>") + "-dual";
         }
 
-        private async void btnChat_Click(object sender, EventArgs e)
+        private void btnChat_Click(object sender, EventArgs e)
         {
             if (lstPeers.SelectedIndex != -1)
             {
-                await InitializeORTC();
-                
                 var text = lstPeers.GetItemText(lstPeers.SelectedItem);
 
                 string[] separaingChars = { ":" };
@@ -396,12 +393,8 @@ namespace DataChannel.Net
 
                 RemotePeer = SelectedPeer;
 
-                await _httpSignaler.SendToPeer(RemotePeer.Id, "OpenDataChannel");
-
                 ChatForm chatForm = new ChatForm(RemotePeer);
                 chatForm.ShowDialog();
-
-                await OpenDataChannel(SelectedPeer);
             }
             else
             {

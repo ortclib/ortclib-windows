@@ -13,6 +13,14 @@ namespace DataChannel.Net
         {
             p = peer;
             InitializeComponent();
+            Shown += ChatForm_Shown;
+        }
+        private async void ChatForm_Shown(object sender, EventArgs e)
+        {
+            var peersListForm = new PeersListForm();
+            await peersListForm.InitializeORTC();
+            await peersListForm._httpSignaler.SendToPeer(p.Id, "OpenDataChannel");
+            await peersListForm.OpenDataChannel(p);
         }
 
         private void btnSend_Click(object sender, EventArgs e)
@@ -32,5 +40,7 @@ namespace DataChannel.Net
             string hostname = IPGlobalProperties.GetIPGlobalProperties().HostName;
             return (hostname != null ? hostname : "<unknown host>") + "-dual";
         }
+
+        
     }
 }
