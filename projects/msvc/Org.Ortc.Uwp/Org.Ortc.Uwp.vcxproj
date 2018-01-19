@@ -128,7 +128,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\ortc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\webrtc</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\ortc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\third_party;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\webrtc</AdditionalLibraryDirectories>
       <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);webrtc.lib;dxguid.lib;MinCore.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib;zslib\zslib.lib;cryptopp\cryptopp.lib;udns\udns.lib;zsLib-eventing\zslib-eventing.lib;idnkit\idnkit.lib;ortclib-services\ortclib-services.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -145,7 +145,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\ortc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\webrtc</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\ortc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\third_party;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\webrtc</AdditionalLibraryDirectories>
       <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);webrtc.lib;dxguid.lib;MinCore.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib;zslib\zslib.lib;cryptopp\cryptopp.lib;udns\udns.lib;zsLib-eventing\zslib-eventing.lib;idnkit\idnkit.lib;ortclib-services\ortclib-services.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -162,7 +162,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\ortc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\webrtc</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\ortc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\third_party;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\webrtc</AdditionalLibraryDirectories>
       <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);webrtc.lib;dxguid.lib;MinCore.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib;zslib\zslib.lib;cryptopp\cryptopp.lib;udns\udns.lib;zsLib-eventing\zslib-eventing.lib;idnkit\idnkit.lib;ortclib-services\ortclib-services.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -179,7 +179,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\ortc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\webrtc</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\ortc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\third_party;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\webrtc</AdditionalLibraryDirectories>
       <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);webrtc.lib;dxguid.lib;MinCore.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib;zslib\zslib.lib;cryptopp\cryptopp.lib;udns\udns.lib;zsLib-eventing\zslib-eventing.lib;idnkit\idnkit.lib;ortclib-services\ortclib-services.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -197,7 +197,7 @@
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);webrtc.lib;dxguid.lib;MinCore.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib;zslib\zslib.lib;cryptopp\cryptopp.lib;udns\udns.lib;zsLib-eventing\zslib-eventing.lib;idnkit\idnkit.lib;ortclib-services\ortclib-services.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\ortc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\webrtc</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\ortc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\third_party;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\webrtc</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -213,7 +213,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\ortc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\webrtc</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\ortc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\third_party;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_10_$(PlatformTarget)_$(Configuration)\obj\webrtc</AdditionalLibraryDirectories>
       <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);webrtc.lib;dxguid.lib;MinCore.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib;zslib\zslib.lib;cryptopp\cryptopp.lib;udns\udns.lib;zsLib-eventing\zslib-eventing.lib;idnkit\idnkit.lib;ortclib-services\ortclib-services.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
