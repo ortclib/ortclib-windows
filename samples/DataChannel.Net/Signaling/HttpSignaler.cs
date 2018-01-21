@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DataChannel.Net.Signaling
@@ -61,21 +62,24 @@ namespace DataChannel.Net.Signaling
                 if (_state == State.Connected)
                 {
                     // Start the long polling loop without await
-                    var task = SendWaitRequestAsync();
+                    Thread thread = new Thread(() =>
+                    {
+                        SendWaitRequestAsync().Wait();
+                    });
+
+                    thread.Start();
                     return true;
                 }
-                else
-                {
-                    _state = State.NotConnected;
-                    OnServerConnectionFailure();
-                    return false;
-                }
+
+                _state = State.NotConnected;
+                OnServerConnectionFailure();
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("[Error] Signaling: Failed to connect to server: " + ex.Message);
                 return false;
             }
+            return false;
         }
 
         /// <summary>

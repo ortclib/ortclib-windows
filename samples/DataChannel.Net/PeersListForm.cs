@@ -163,15 +163,39 @@ namespace DataChannel.Net
 
         private void Signaler_SignedIn(object sender, EventArgs e)
         {
+            this.BeginInvoke((Action)(() =>
+            {
+                Signaler_HandleSignedIn(sender, e);
+            }));
+        }
+
+        private void Signaler_HandleSignedIn(object sender, EventArgs e)
+        {
             Debug.WriteLine("Peer signed in to server.");
         }
 
         private void Signaler_ServerConnectionFailed(object sender, EventArgs e)
         {
+            this.BeginInvoke((Action)(() =>
+            {
+                Signaler_HandleServerConnectionFailed(sender, e);
+            }));
+        }
+
+        private void Signaler_HandleServerConnectionFailed(object sender, EventArgs e)
+        {
             Debug.WriteLine("Server connection failure.");
         }
 
         private void Signaler_PeerConnected(object sender, Peer peer)
+        {
+            this.BeginInvoke((Action)(() =>
+            {
+                Signaler_HandlePeerConnected(sender, peer);
+            }));
+        }
+
+        private void Signaler_HandlePeerConnected(object sender, Peer peer)
         {
             Debug.WriteLine($"Peer connected {peer.Name} / {peer.Id}");
 
@@ -188,6 +212,14 @@ namespace DataChannel.Net
 
         private void Signaler_PeerDisconnected(object sender, Peer peer)
         {
+            this.BeginInvoke((Action)(() =>
+            {
+                Signaler_HandlePeerDisconnected(sender, peer);
+            }));
+        }
+
+        private void Signaler_HandlePeerDisconnected(object sender, Peer peer)
+        {
             Debug.WriteLine($"Peer disconnected {peer.Name} / {peer.Id}");
 
             HttpSignaler._peers.Remove(peer);
@@ -202,7 +234,16 @@ namespace DataChannel.Net
             }
         }
 
-        private async void Signaler_MessageFromPeer(object sender, Peer peer)
+        private void Signaler_MessageFromPeer(object sender, Peer peer)
+        {
+            this.BeginInvoke((Action)(() =>
+            {
+                Signaler_HandleMessageFromPeer(sender, peer).Wait();
+
+            }));
+        }
+
+        private async Task Signaler_HandleMessageFromPeer(object sender, Peer peer)
         {
             var message = peer.Message;
 
@@ -398,10 +439,10 @@ namespace DataChannel.Net
 
                 await _httpSignaler.SendToPeer(RemotePeer.Id, "OpenDataChannel");
 
+                await OpenDataChannel(SelectedPeer);
+
                 ChatForm chatForm = new ChatForm(RemotePeer);
                 chatForm.ShowDialog();
-
-                await OpenDataChannel(SelectedPeer);
             }
             else
             {
