@@ -439,6 +439,9 @@ namespace DataChannel.Net
                 await _httpSignaler.SendToPeer(RemotePeer.Id, "OpenDataChannel");
 
                 await OpenDataChannel(SelectedPeer);
+
+                ChatForm chatForm = new ChatForm(RemotePeer);
+                chatForm.ShowDialog();
             }
             else
             {
