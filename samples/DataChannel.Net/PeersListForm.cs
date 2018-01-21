@@ -238,10 +238,12 @@ namespace DataChannel.Net
 
         private void Signaler_MessageFromPeer(object sender, Peer peer)
         {
-            this.BeginInvoke((Action)(() =>
+            this.BeginInvoke((Action) (() =>
             {
-                Signaler_HandleMessageFromPeer(sender, peer).Wait();
-
+                Signaler_HandleMessageFromPeer(sender, peer).ContinueWith((antecedent) =>
+                {
+                    Debug.WriteLine("Message from peer handled: " + peer.Message);
+                });
             }));
         }
 
