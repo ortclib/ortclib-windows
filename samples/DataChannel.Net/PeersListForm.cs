@@ -119,6 +119,8 @@ namespace DataChannel.Net
             _dtls.OnStateChange += Dtls_OnStateChange;
 
             _sctp = new RTCSctpTransport(_dtls);
+
+            _gatherer.Gather(null);
         }
 
         private void IceGatherer_OnStateChange(RTCIceGathererStateChangeEvent evt)
@@ -378,9 +380,6 @@ namespace DataChannel.Net
         {
             Debug.WriteLine($"Opening data channel to peer id: {peer.Id}");
 
-            Debug.WriteLine("Ice: Gathering candidates.");
-            _gatherer.Gather(null);
-
             var iceParams = _gatherer.LocalParameters;
             await _httpSignaler.SendToPeer(peer.Id, iceParams.ToString());
 
@@ -426,7 +425,7 @@ namespace DataChannel.Net
             if (lstPeers.SelectedIndex != -1)
             {
                 await InitializeORTC();
-                
+
                 var text = lstPeers.GetItemText(lstPeers.SelectedItem);
 
                 string[] separaingChars = { ":" };
@@ -440,9 +439,6 @@ namespace DataChannel.Net
                 await _httpSignaler.SendToPeer(RemotePeer.Id, "OpenDataChannel");
 
                 await OpenDataChannel(SelectedPeer);
-
-                ChatForm chatForm = new ChatForm(RemotePeer);
-                chatForm.ShowDialog();
             }
             else
             {

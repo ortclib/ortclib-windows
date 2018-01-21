@@ -170,7 +170,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\ortc\$(Configuration)\win32_x86\libOrtc.dll">
+    <Content Include="..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\ortc\$(Configuration)\win32_$(Platform)\libOrtc.dll">
       <Link>libOrtc.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
