@@ -15,7 +15,7 @@ namespace DataChannel.Net.Signaling
         public event EventHandler<Peer> PeerHangup;
         public event EventHandler<Peer> MessageFromPeer;
 
-        public abstract Task<bool> SendToPeer(int id, string message);
+        public abstract void SendToPeer(int id, string message);
 
         protected void OnSignedIn()
         {

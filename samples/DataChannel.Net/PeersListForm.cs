@@ -17,7 +17,7 @@ namespace DataChannel.Net
         RTCDtlsTransport _dtls;
         RTCSctpTransport _sctp;
         public RTCDataChannel _dataChannel;    // Data channel for the currently selected peer.
-        bool _isInitiator = false;      // True for the client that started the connection.
+        bool _isInitiator = true;      // True for the client that started the connection.
 
         RTCDataChannelParameters _dataChannelParams = new RTCDataChannelParameters
         {
@@ -107,7 +107,7 @@ namespace DataChannel.Net
 
             _gatherer.OnLocalCandidate += async (candidate) =>
             {
-                await _httpSignaler.SendToPeer(RemotePeer.Id, candidate.Candidate.ToJson().ToString());
+                _httpSignaler.SendToPeer(RemotePeer.Id, candidate.Candidate.ToJson().ToString());
             };
 
             var cert = await RTCCertificate.GenerateCertificate();
@@ -251,7 +251,7 @@ namespace DataChannel.Net
         {
             var message = peer.Message;
 
-            if (message.Contains("OpenDataChannel"))
+            if (message.StartsWith("OpenDataChannel"))
             {
                 Debug.WriteLine("contains OpenDataChannel");
 
@@ -270,7 +270,7 @@ namespace DataChannel.Net
                 return;
             }
 
-            if (message.Contains("IceCandidate"))
+            if (message.StartsWith("{\"candidate\":"))
             {
                 Debug.WriteLine("contains IceCandidate");
 
@@ -279,7 +279,7 @@ namespace DataChannel.Net
                 _ice.AddRemoteCandidate(remoteCandidate);
                 return;
             }
-            if (message.Contains("IceParameters"))
+            if (message.StartsWith("{\"RTCIceParameters\":"))
             {
                 Debug.WriteLine("contains IceParameters");
 
@@ -291,7 +291,7 @@ namespace DataChannel.Net
                 _ice.Start(_gatherer, iceParameters, role);
                 return;
             }
-            if (message.Contains("DtlsParameters"))
+            if (message.StartsWith("{\"RTCDtlsParameters\":"))
             {
                 Debug.WriteLine("contains DtlsParameters");
 
@@ -303,7 +303,7 @@ namespace DataChannel.Net
                 return;
             }
             // this order guarantees:
-            if (message.Contains("SctpCapabilities"))
+            if (message.StartsWith("{\"RTCSctpCapabilities\":"))
             {
                 Debug.WriteLine("contains SctpCapabilities");
                 Json jsonMessage = new Json(message);
@@ -322,7 +322,7 @@ namespace DataChannel.Net
 
                     RTCSctpCapabilities caps = RTCSctpTransport.GetCapabilities();
 
-                    await _httpSignaler.SendToPeer(RemotePeer.Id, caps.ToJson().ToString());
+                    _httpSignaler.SendToPeer(RemotePeer.Id, caps.ToJson().ToString());
                 }
                 else
                 {
@@ -383,16 +383,16 @@ namespace DataChannel.Net
             Debug.WriteLine($"Opening data channel to peer id: {peer.Id}");
 
             var iceParams = _gatherer.LocalParameters;
-            await _httpSignaler.SendToPeer(peer.Id, iceParams.ToJson().ToString());
+            _httpSignaler.SendToPeer(peer.Id, iceParams.ToJson().ToString());
 
             // this order guarantees: alice -> bob; bob.start(); bob -> alice; alice.start(); alice -> datachannel -> bob
             if (_isInitiator)
             {
                 var sctpCaps = RTCSctpTransport.GetCapabilities();
-                await _httpSignaler.SendToPeer(peer.Id, sctpCaps.ToJson().ToString());
+                _httpSignaler.SendToPeer(peer.Id, sctpCaps.ToJson().ToString());
             }
             var dtlsParams = _dtls.LocalParameters;
-            await _httpSignaler.SendToPeer(peer.Id, dtlsParams.ToJson().ToString());
+            _httpSignaler.SendToPeer(peer.Id, dtlsParams.ToJson().ToString());
         }
 
         private async void btnConnect_Click(object sender, EventArgs e)
@@ -438,7 +438,7 @@ namespace DataChannel.Net
 
                 RemotePeer = SelectedPeer;
 
-                await _httpSignaler.SendToPeer(RemotePeer.Id, "OpenDataChannel");
+                _httpSignaler.SendToPeer(RemotePeer.Id, "OpenDataChannel");
 
                 await OpenDataChannel(SelectedPeer);
 

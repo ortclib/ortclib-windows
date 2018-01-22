@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -21,6 +22,9 @@ namespace DataChannel.Net.Signaling
         private int _myId;
         private string _clientName;
         public static ObservableCollection<Peer> _peers = new ObservableCollection<Peer>();
+        private ManualResetEvent _sendEvent = new ManualResetEvent(false);
+        private ConcurrentQueue< Tuple<int, string> > _sendMessageQueue = new ConcurrentQueue<Tuple<int, string> >();
+        private Thread _sendThread;
 
         /// <summary>
         /// Creates an instance of a HttpSignaler.
@@ -61,6 +65,27 @@ namespace DataChannel.Net.Signaling
                 await SendSignInRequestAsync();
                 if (_state == State.Connected)
                 {
+                    if (_sendThread == null)
+                    {
+                        _sendThread = new Thread(() =>
+                        {
+                            while (true)
+                            {
+                                _sendEvent.WaitOne();
+                                _sendEvent.Reset();
+                                Tuple<int, string> peerMessageTuple;
+                                while (_sendMessageQueue.TryDequeue(out peerMessageTuple))
+                                {
+                                    if (-1 == peerMessageTuple.Item1) break;    // quit thread
+                                    SendToPeerAsync(peerMessageTuple.Item1, peerMessageTuple.Item2).Wait();
+                                }
+                                Thread.Yield();
+                            }
+                        });
+
+                        _sendThread.Start();
+                    }
+
                     // Start the long polling loop without await
                     Thread thread = new Thread(() =>
                     {
@@ -302,7 +327,13 @@ namespace DataChannel.Net.Signaling
             }
         }
 
-        public override async Task<bool> SendToPeer(int peer_id, string message)
+        public override void SendToPeer(int peer_id, string message)
+        {
+            _sendMessageQueue.Enqueue(new Tuple<int, string>(peer_id, message));
+            _sendEvent.Set();
+        }
+
+        private async Task<bool> SendToPeerAsync(int peer_id, string message)
         {
             try
             {
@@ -323,10 +354,7 @@ namespace DataChannel.Net.Signaling
                         "{3}",
                         _myId, peer_id, message.Length, message);
 
-                var content = new FormUrlEncodedContent(new[]
-                {
-                        new KeyValuePair<string, string>("message", message)
-                });
+                var content = new StringContent(message, System.Text.Encoding.UTF8, "application/json");
 
                 // Send request, await response
                 HttpResponseMessage response = await _httpClient.PostAsync(
@@ -367,6 +395,11 @@ namespace DataChannel.Net.Signaling
             _peers.Clear();
             _myId = -1;
             _state = State.NotConnected;
+
+            // queue a quit event
+            _sendMessageQueue.Enqueue(new Tuple<int, string>(-1, null));
+            _sendEvent.Set();
+            _sendThread = null;
             return true;
         }
 
