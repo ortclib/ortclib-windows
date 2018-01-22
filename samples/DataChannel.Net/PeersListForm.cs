@@ -107,7 +107,7 @@ namespace DataChannel.Net
 
             _gatherer.OnLocalCandidate += async (candidate) =>
             {
-                await _httpSignaler.SendToPeer(RemotePeer.Id, candidate.Candidate.ToString());
+                await _httpSignaler.SendToPeer(RemotePeer.Id, candidate.Candidate.ToJson().ToString());
             };
 
             var cert = await RTCCertificate.GenerateCertificate();
@@ -322,7 +322,7 @@ namespace DataChannel.Net
 
                     RTCSctpCapabilities caps = RTCSctpTransport.GetCapabilities();
 
-                    await _httpSignaler.SendToPeer(RemotePeer.Id, caps.ToString());
+                    await _httpSignaler.SendToPeer(RemotePeer.Id, caps.ToJson().ToString());
                 }
                 else
                 {
@@ -383,16 +383,16 @@ namespace DataChannel.Net
             Debug.WriteLine($"Opening data channel to peer id: {peer.Id}");
 
             var iceParams = _gatherer.LocalParameters;
-            await _httpSignaler.SendToPeer(peer.Id, iceParams.ToString());
+            await _httpSignaler.SendToPeer(peer.Id, iceParams.ToJson().ToString());
 
             // this order guarantees: alice -> bob; bob.start(); bob -> alice; alice.start(); alice -> datachannel -> bob
             if (_isInitiator)
             {
                 var sctpCaps = RTCSctpTransport.GetCapabilities();
-                await _httpSignaler.SendToPeer(peer.Id, sctpCaps.ToString());
+                await _httpSignaler.SendToPeer(peer.Id, sctpCaps.ToJson().ToString());
             }
             var dtlsParams = _dtls.LocalParameters;
-            await _httpSignaler.SendToPeer(peer.Id, dtlsParams.ToString());
+            await _httpSignaler.SendToPeer(peer.Id, dtlsParams.ToJson().ToString());
         }
 
         private async void btnConnect_Click(object sender, EventArgs e)
