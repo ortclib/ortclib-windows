@@ -10,6 +10,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Org.Ortc.Xamarin.iOS", "..\projects\msvc\Org.Ortc.Xamarin.iOS\Org.Ortc.Xamarin.iOS.csproj", "{618853DE-C924-467A-B605-6DDA47AA05EC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Org.Ortc.Net.Standard", "..\projects\msvc\Org.Ortc.Net.Standard\Org.Ortc.Net.Standard.csproj", "{79C82FCD-0053-4B5E-8969-885B6A6135DE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F4B7BE6C-0303-4307-AEBF-D710BCA45739} = {F4B7BE6C-0303-4307-AEBF-D710BCA45739}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{E0849ECC-AB37-4D9C-9846-01AD5768F0C8}"
 EndProject
