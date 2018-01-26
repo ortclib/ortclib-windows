@@ -347,14 +347,12 @@ namespace DataChannel.Net.Signaling
 
                 string request =
                     string.Format(
-                        "message?peer_id={0}&to={1} HTTP/1.0\r\n" +
-                        "Content-Length: {2}\r\n" +
-                        "Content-Type: text/plain\r\n" +
-                        "\r\n" +
-                        "{3}",
-                        _myId, peer_id, message.Length, message);
+                        "message?peer_id={0}&to={1} HTTP/1.0",
+                        _myId, peer_id);
 
                 var content = new StringContent(message, System.Text.Encoding.UTF8, "application/json");
+
+                Debug.WriteLine("Sending to remote peer: " + request + " " + message);
 
                 // Send request, await response
                 HttpResponseMessage response = await _httpClient.PostAsync(

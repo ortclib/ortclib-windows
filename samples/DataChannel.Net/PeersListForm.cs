@@ -1,5 +1,6 @@
 ﻿using DataChannel.Net.Signaling;
 using Org.Ortc;
+using Org.Ortc.Log;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -105,9 +106,13 @@ namespace DataChannel.Net
 
             _gatherer.OnStateChange += IceGatherer_OnStateChange;
 
-            _gatherer.OnLocalCandidate += async (candidate) =>
+            _gatherer.OnLocalCandidate += (@event) =>
             {
-                _httpSignaler.SendToPeer(RemotePeer.Id, candidate.Candidate.ToJson().ToString());
+                _httpSignaler.SendToPeer(RemotePeer.Id, @event.Candidate.ToJson().ToString());
+            };
+            _gatherer.OnLocalCandidateComplete += (@event) =>
+            {
+                _httpSignaler.SendToPeer(RemotePeer.Id, @event.Candidate.ToJson().ToString());
             };
 
             var cert = await RTCCertificate.GenerateCertificate();
@@ -142,6 +147,13 @@ namespace DataChannel.Net
         {
             OrtcLib.Setup();
             Settings.ApplyDefaults();
+#if ENABLE_ORTCLIB_LOGGING
+            Logger.InstallEventingListener("secret", 58888, TimeSpan.FromSeconds(60));
+            Logger.SetLogLevel(Org.Ortc.Log.Component.All, Org.Ortc.Log.Level.Trace);
+            Logger.SetLogLevel(Org.Ortc.Log.Component.Eventing, Org.Ortc.Log.Level.Basic);
+            Logger.InstallDebuggerLogger();
+#endif
+
         }
 
         public PeersListForm()
@@ -238,13 +250,16 @@ namespace DataChannel.Net
 
         private void Signaler_MessageFromPeer(object sender, Peer peer)
         {
-            this.BeginInvoke((Action) (() =>
+            var asyncResult = this.BeginInvoke((Action)(() =>
             {
                 Signaler_HandleMessageFromPeer(sender, peer).ContinueWith((antecedent) =>
                 {
                     Debug.WriteLine("Message from peer handled: " + peer.Message);
                 });
             }));
+
+            // wait for the message to be processed on the main thread before continuing
+            asyncResult.AsyncWaitHandle.WaitOne();
         }
 
         private async Task Signaler_HandleMessageFromPeer(object sender, Peer peer)
@@ -262,17 +277,20 @@ namespace DataChannel.Net
                 // Begin gathering ice candidates.
                 _isInitiator = false;
                 RemotePeer = peer;
-                await OpenDataChannel(peer);
+                OpenDataChannel(peer);
 
-                ChatForm chatForm = new ChatForm(RemotePeer);
-                chatForm.ShowDialog();
-
+                this.BeginInvoke((Action)(() =>
+                {
+                    // invoke this on the main thread without blocking the current thread from continuing
+                    ChatForm chatForm = new ChatForm(peer);
+                    chatForm.ShowDialog();
+                }));
                 return;
             }
 
-            if (message.StartsWith("{\"candidate\":"))
+            if (message.StartsWith("{\"candidate"))
             {
-                Debug.WriteLine("contains IceCandidate");
+                Debug.WriteLine("contains IceCandidate (or IceCandidateComplete)");
 
                 Json jsonMessage = new Json(message);
                 RTCIceGathererCandidate remoteCandidate = RTCIceGathererCandidate.Create(jsonMessage);
@@ -378,7 +396,7 @@ namespace DataChannel.Net
         /// <summary>
         /// Establishes a DataChannel with the parameter peer.
         /// </summary>
-        private async Task OpenDataChannel(Peer peer)
+        private void OpenDataChannel(Peer peer)
         {
             Debug.WriteLine($"Opening data channel to peer id: {peer.Id}");
 
@@ -440,10 +458,14 @@ namespace DataChannel.Net
 
                 _httpSignaler.SendToPeer(RemotePeer.Id, "OpenDataChannel");
 
-                await OpenDataChannel(SelectedPeer);
+                OpenDataChannel(SelectedPeer);
 
-                ChatForm chatForm = new ChatForm(RemotePeer);
-                chatForm.ShowDialog();
+                this.BeginInvoke((Action)(() =>
+                {
+                    // invoke this on the main thread without blocking the current thread from continuing
+                    ChatForm chatForm = new ChatForm(SelectedPeer);
+                    chatForm.ShowDialog();
+                }));
             }
             else
             {
