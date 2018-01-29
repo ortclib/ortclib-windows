@@ -19,6 +19,13 @@ namespace DataChannel.Net
         RTCSctpTransport _sctp;
         public RTCDataChannel _dataChannel;    // Data channel for the currently selected peer.
         bool _isInitiator = true;      // True for the client that started the connection.
+        private static readonly string _localPeerRandom = new Func<string>(() =>
+        {
+            Random random = new Random();   // WARNING: NOT cryptographically strong!
+            const string chars = "abcdefghijklmnopqrstuvxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            const int length = 5;
+            return new string(Enumerable.Repeat(chars, length).Select(s => s[random.Next(s.Length)]).ToArray());
+        })();
 
         RTCDataChannelParameters _dataChannelParams = new RTCDataChannelParameters
         {
@@ -60,6 +67,25 @@ namespace DataChannel.Net
                 var oldValue = _selectedPeer;
                 _selectedPeer = value;
                 SelectedPeerChanged(oldValue, value);
+            }
+        }
+
+        public Peer LocalPeer
+        {
+            get
+            {
+                string hostname = IPGlobalProperties.GetIPGlobalProperties().HostName;
+
+                // A random string is added to the peer name to easily filter
+                // our local peer by name when the server re-announces the
+                // local peer to itself. Thus two peers with the same hostname
+                // will never be the same and running the application again
+                // causes a slightly different peer name on the peer list to
+                // distinguish a new peer from an old zombie peer still not
+                // yet purged from the server.
+                string peerName = (hostname != null ? hostname : "<unknown host>") + "-" + _localPeerRandom + "-data";
+
+                return new Peer(-1, peerName);
             }
         }
 
@@ -162,7 +188,7 @@ namespace DataChannel.Net
 
             lstPeers.SelectedIndex = -1;
 
-            var name = GetLocalPeerName();
+            var name = LocalPeer.Name;
             Debug.WriteLine($"Connecting to server from local peer: {name}");
 
             _httpSignaler =
@@ -177,92 +203,118 @@ namespace DataChannel.Net
 
         private void Signaler_SignedIn(object sender, EventArgs e)
         {
-            this.BeginInvoke((Action)(() =>
-            {
-                Signaler_HandleSignedIn(sender, e);
-            }));
+            // The signaller will notify all events from the signaller
+            // task thread. To prevent concurrency issues, ensure all
+            // notifications from this thread are asynchronously
+            // forwarded back to the GUI thread for further processing.
+            this.BeginInvoke((Action)(() => { HandleSignedIn(sender, e); }));
         }
 
-        private void Signaler_HandleSignedIn(object sender, EventArgs e)
+        private void HandleSignedIn(object sender, EventArgs e)
         {
             Debug.WriteLine("Peer signed in to server.");
         }
 
         private void Signaler_ServerConnectionFailed(object sender, EventArgs e)
         {
-            this.BeginInvoke((Action)(() =>
-            {
-                Signaler_HandleServerConnectionFailed(sender, e);
-            }));
+            // See method Signaler_SignedIn for concurrency comments.
+            this.BeginInvoke((Action)(() => { HandleServerConnectionFailed(sender, e); }));
         }
 
-        private void Signaler_HandleServerConnectionFailed(object sender, EventArgs e)
+        private void HandleServerConnectionFailed(object sender, EventArgs e)
         {
             Debug.WriteLine("Server connection failure.");
         }
 
         private void Signaler_PeerConnected(object sender, Peer peer)
         {
-            this.BeginInvoke((Action)(() =>
-            {
-                Signaler_HandlePeerConnected(sender, peer);
-            }));
+            // See method Signaler_SignedIn for concurrency comments.
+            this.BeginInvoke((Action)(() => { HandlePeerConnected(sender, peer); }));
         }
 
-        private void Signaler_HandlePeerConnected(object sender, Peer peer)
+        private void HandlePeerConnected(object sender, Peer peer)
         {
             Debug.WriteLine($"Peer connected {peer.Name} / {peer.Id}");
 
-            HttpSignaler._peers.Add(peer);
+            var found = lstPeers.FindString(peer.ToString());
+            if (found > 0)
+            {
+                Debug.WriteLine("Peer already found in list: " + peer.ToString());
+                return;
+            }
 
-            if (SelectedPeer == null)
-                SelectedPeer = peer;
+            if (LocalPeer.Name == peer.Name) {
+                Debug.WriteLine("Peer is our local peer: " + peer.ToString());
+                return;
+            }
 
-            var listPeers = HttpSignaler._peers.ToList();
-            var x = listPeers.Count;
-            if (x > 0 && peer.Name != GetLocalPeerName())
-                lstPeers.Items.Add(peer.ToString());
+            lstPeers.Items.Add(peer.ToString());
         }
 
         private void Signaler_PeerDisconnected(object sender, Peer peer)
         {
-            this.BeginInvoke((Action)(() =>
-            {
-                Signaler_HandlePeerDisconnected(sender, peer);
-            }));
+            // See method Signaler_SignedIn for concurrency comments.
+            this.BeginInvoke((Action)(() => { HandlePeerDisconnected(sender, peer); }));
         }
 
-        private void Signaler_HandlePeerDisconnected(object sender, Peer peer)
+        private void HandlePeerDisconnected(object sender, Peer peer)
         {
             Debug.WriteLine($"Peer disconnected {peer.Name} / {peer.Id}");
 
-            HttpSignaler._peers.Remove(peer);
-
-            for (int n = lstPeers.Items.Count - 1; n >= 0; --n)
-            {
-                string removePeer = peer.ToString();
-                if (lstPeers.Items[n].ToString().Contains(removePeer))
-                {
-                    lstPeers.Items.RemoveAt(n);
-                }
+            var found = lstPeers.FindString(peer.ToString());
+            if (found < 0) {
+                Debug.WriteLine("Peer not found in list: " + peer.ToString());
+                return;
             }
+
+            lstPeers.Items.RemoveAt(found);
         }
 
         private void Signaler_MessageFromPeer(object sender, Peer peer)
         {
+            // Exactly like the case of Signaler_SignedIn, this event is fired
+            // from the signaller task thread and like the other events,
+            // the message must be processed on the GUI thread for concurrency
+            // reasons. Unlike the connect / disconnect notifications these
+            // events must be processed exactly one at a time and the next
+            // message from the server should be held back until the current
+            // message is fully processed.
             var asyncResult = this.BeginInvoke((Action)(() =>
             {
-                Signaler_HandleMessageFromPeer(sender, peer).ContinueWith((antecedent) =>
+                // Do not invoke a .Wait() on the task result of
+                // HandleMessageFromPeer! While this might seem as a
+                // reasonable solution to processing the entire event from the
+                // GUI thread before processing the next message in the GUI
+                // thread queue, a .Wait() would also block any and all
+                // events targeted toward the GUI thread.
+                //
+                // This would actually create a deadlock in some cases. All
+                // events from ORTC are fired at the GUI thread queue and the
+                // creation of a RTCCertificate requires an event notification
+                // to indicate when the RTCCertificate awaited task is
+                // complete. Because .Wait() would block the GUI thread the
+                // notification that the RTCCertificate is completed would 
+                // never fire and the RTCCertificate generation task result
+                // would never complete which the .Wait() is waiting upon
+                // to complete.
+                //
+                // Buttom line, don't block the GUI thread using a .Wait()
+                // on a task from the GUI thread - ever!
+                HandleMessageFromPeer(sender, peer).ContinueWith((antecedent) =>
                 {
                     Debug.WriteLine("Message from peer handled: " + peer.Message);
                 });
             }));
 
-            // wait for the message to be processed on the main thread before continuing
+            // By waiting on the async result the signaller's task is blocked
+            // from processing the next signaller message until the current
+            // message is fully processed. The signaller thread is allowed to
+            // be blocked because events are never fired on the signaller's
+            // tasks dispatchers.
             asyncResult.AsyncWaitHandle.WaitOne();
         }
 
-        private async Task Signaler_HandleMessageFromPeer(object sender, Peer peer)
+        private async Task HandleMessageFromPeer(object sender, Peer peer)
         {
             var message = peer.Message;
 
@@ -279,6 +331,23 @@ namespace DataChannel.Net
                 RemotePeer = peer;
                 OpenDataChannel(peer);
 
+                // Invoking .ShowDialog() would block the signaller's task
+                // being waited upon. ShowDialog() block the current task from
+                // continuing until the dialog is dismissed but does not block
+                // other events from processing on the GUI thread. Not
+                // blocking events is insufficient though. The task is waited
+                // by the signaller to complete before the next signaller
+                // message from the server is allowed to be processed so a
+                // dialog cannot be spawned from within the processing of a
+                // peer's message task.
+                //
+                // The solution though to the blocking of the signaller's task
+                // when bringing up a dialog is rather simple: invoke
+                // the .ShowDialog() method asynchronously on the GUI thread
+                // and not from within the current signaller message task.
+                // This allows the GUI to be displayed and events are
+                // processed as normal including other signaller messages
+                // from peers.
                 this.BeginInvoke((Action)(() =>
                 {
                     // invoke this on the main thread without blocking the current thread from continuing
@@ -434,42 +503,30 @@ namespace DataChannel.Net
             btnConnect.Enabled = true;
         }
 
-        private string GetLocalPeerName()
-        {
-            string hostname = IPGlobalProperties.GetIPGlobalProperties().HostName;
-            return (hostname != null ? hostname : "<unknown host>") + "-dual";
-        }
-
         private async void btnChat_Click(object sender, EventArgs e)
         {
             if (lstPeers.SelectedIndex != -1)
             {
+                string text = lstPeers.GetItemText(lstPeers.SelectedItem);
+
                 await InitializeORTC();
 
-                var text = lstPeers.GetItemText(lstPeers.SelectedItem);
-
-                string[] separaingChars = { ":" };
-                string[] words = text.Split(separaingChars, StringSplitOptions.RemoveEmptyEntries);
-
-                SelectedPeer.Id = Convert.ToInt32(words[0]);
-                SelectedPeer.Name = words[1];
-
-                RemotePeer = SelectedPeer;
+                RemotePeer = SelectedPeer = Peer.CreateFromString(text);
 
                 _httpSignaler.SendToPeer(RemotePeer.Id, "OpenDataChannel");
 
                 OpenDataChannel(SelectedPeer);
 
+                // see HandleMessageFromPeer comments regarding invoking .ShowDialog()
                 this.BeginInvoke((Action)(() =>
                 {
-                    // invoke this on the main thread without blocking the current thread from continuing
                     ChatForm chatForm = new ChatForm(SelectedPeer);
                     chatForm.ShowDialog();
                 }));
             }
             else
             {
-                MessageBox.Show("Select peer!");
+                MessageBox.Show("Please select a peer!");
             }
         }
     }

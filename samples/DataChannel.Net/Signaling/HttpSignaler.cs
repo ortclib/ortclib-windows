@@ -86,7 +86,12 @@ namespace DataChannel.Net.Signaling
                         _sendThread.Start();
                     }
 
-                    // Start the long polling loop without await
+                    // The connect routine is called from the GUI thread. The
+                    // SendWaitRequestAsync() loops indefinitely performing
+                    // HTTP requests to fetch data from the signalling server.
+                    // Spawn a separate thread to prevent this forever loop
+                    // from blocking the GUI thread from processing other
+                    // events.
                     Thread thread = new Thread(() =>
                     {
                         SendWaitRequestAsync().Wait();

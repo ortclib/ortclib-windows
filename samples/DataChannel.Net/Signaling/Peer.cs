@@ -11,13 +11,13 @@
         public Peer(int id, string name)
         {
             Id = id;
-            Name = name;
+            Name = name.Replace(":",";");
         }
 
         public Peer(int id, string name, string message)
         {
             Id = id;
-            Name = name;
+            Name = name.Replace(":", ";");
             Message = message;
         }
 
@@ -25,5 +25,14 @@
         {
             return Id + ":" + Name;
         }
+
+        public static Peer CreateFromString(string peerAsString)
+        {
+            string[] separaingChars = { ":" };
+            string[] words = peerAsString.Split(separaingChars, System.StringSplitOptions.RemoveEmptyEntries);
+
+            return new Peer(System.Convert.ToInt32(words[0]), words[1]);
+        }
+
     }
 }
