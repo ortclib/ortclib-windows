@@ -203,7 +203,7 @@ namespace DataChannel.Net
 
         private void Signaler_SignedIn(object sender, EventArgs e)
         {
-            // The signaller will notify all events from the signaller
+            // The signaler will notify all events from the signaler
             // task thread. To prevent concurrency issues, ensure all
             // notifications from this thread are asynchronously
             // forwarded back to the GUI thread for further processing.
@@ -273,7 +273,7 @@ namespace DataChannel.Net
         private void Signaler_MessageFromPeer(object sender, Peer peer)
         {
             // Exactly like the case of Signaler_SignedIn, this event is fired
-            // from the signaller task thread and like the other events,
+            // from the signaler task thread and like the other events,
             // the message must be processed on the GUI thread for concurrency
             // reasons. Unlike the connect / disconnect notifications these
             // events must be processed exactly one at a time and the next
@@ -298,7 +298,7 @@ namespace DataChannel.Net
                 // would never complete which the .Wait() is waiting upon
                 // to complete.
                 //
-                // Buttom line, don't block the GUI thread using a .Wait()
+                // Bottom line, don't block the GUI thread using a .Wait()
                 // on a task from the GUI thread - ever!
                 HandleMessageFromPeer(sender, peer).ContinueWith((antecedent) =>
                 {
@@ -306,11 +306,21 @@ namespace DataChannel.Net
                 });
             }));
 
-            // By waiting on the async result the signaller's task is blocked
-            // from processing the next signaller message until the current
-            // message is fully processed. The signaller thread is allowed to
-            // be blocked because events are never fired on the signaller's
+            // By waiting on the async result the signaler's task is blocked
+            // from processing the next signaler message until the current
+            // message is fully processed. The signaler thread is allowed to
+            // be blocked because events are never fired on the signaler's
             // tasks dispatchers.
+            //
+            // While .BeginInvoke() does ensure that each message is processed
+            // by the GUI thread in the order the message is sent to the GUI
+            // thread, it does not ensure the message is entirely processed
+            // before the next message directed to the GUI thread is processed.
+            // The moment an async/awaitable task happens on the GUI thread
+            // the next message in the GUI queue is allowed to be processed.
+            // Tasks and related methods cause the GUI thread to become
+            // re-entrant to processing more messages whenever an async
+            // related routine is called.
             asyncResult.AsyncWaitHandle.WaitOne();
         }
 
@@ -324,29 +334,32 @@ namespace DataChannel.Net
 
                 await InitializeORTC();
 
-                // A peer has let us know that they have begun initiating a data channel. 
-                // In this scenario, we are the "remote" peer so make sure _isInitiator is false. 
-                // Begin gathering ice candidates.
+                // A peer has let us know that they have begun initiating a
+                // data channel.  In this scenario, we are the "remote" peer
+                // so make sure _isInitiator is false. 
                 _isInitiator = false;
+
                 RemotePeer = peer;
+
+                // Begin gathering ice candidates.
                 OpenDataChannel(peer);
 
-                // Invoking .ShowDialog() would block the signaller's task
+                // Invoking .ShowDialog() would block the signaler's task
                 // being waited upon. ShowDialog() block the current task from
                 // continuing until the dialog is dismissed but does not block
                 // other events from processing on the GUI thread. Not
                 // blocking events is insufficient though. The task is waited
-                // by the signaller to complete before the next signaller
+                // by the signaler to complete before the next signaler
                 // message from the server is allowed to be processed so a
                 // dialog cannot be spawned from within the processing of a
                 // peer's message task.
                 //
-                // The solution though to the blocking of the signaller's task
+                // The solution though to the blocking of the signaler's task
                 // when bringing up a dialog is rather simple: invoke
                 // the .ShowDialog() method asynchronously on the GUI thread
-                // and not from within the current signaller message task.
+                // and not from within the current signaler message task.
                 // This allows the GUI to be displayed and events are
-                // processed as normal including other signaller messages
+                // processed as normal including other signaler messages
                 // from peers.
                 this.BeginInvoke((Action)(() =>
                 {

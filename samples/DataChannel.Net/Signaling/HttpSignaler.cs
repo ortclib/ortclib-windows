@@ -67,6 +67,15 @@ namespace DataChannel.Net.Signaling
                 {
                     if (_sendThread == null)
                     {
+                        // Upon connection succeeding and no sender thread
+                        // being present, spawn a thread dedicated to
+                        // delivering messages in order the messages were
+                        // created. The thread waits for a message to be
+                        // queued, and uses a thread safe queue to process
+                        // any and all outstanding messages to be sent to
+                        // a server until the queue is exhausted where the
+                        // thread goes back to sleep waiting for the next
+                        // message to be queued.
                         _sendThread = new Thread(() =>
                         {
                             while (true)
@@ -88,12 +97,17 @@ namespace DataChannel.Net.Signaling
 
                     // The connect routine is called from the GUI thread. The
                     // SendWaitRequestAsync() loops indefinitely performing
-                    // HTTP requests to fetch data from the signalling server.
+                    // HTTP requests to fetch data from the signaling server.
                     // Spawn a separate thread to prevent this forever loop
                     // from blocking the GUI thread from processing other
                     // events.
                     Thread thread = new Thread(() =>
                     {
+                        // The .SendWaitRequestAsync() is performed in a loop
+                        // indefinitely until the connection is closed. The
+                        // thread is now allowed to complete by virtue of the
+                        // .Wait() causing the send routine to quit before
+                        // the end of the thread scope completes.
                         SendWaitRequestAsync().Wait();
                     });
 
@@ -237,6 +251,12 @@ namespace DataChannel.Net.Signaling
                 {
                     Debug.WriteLine("[Error] Signaling SendWaitRequestAsync, Message: " + ex.Message);
                 }
+
+                // If the client or server HTTP is in a messed up state and
+                // returns bogus information or exceptions immediately,
+                // prevent the CPU from becoming pinned by yielding the CPU
+                // to other tasks. This will not solve the issue but this
+                // will prevent CPU spiking to 100%.
                 await Task.Yield();
             }
         }
@@ -334,6 +354,11 @@ namespace DataChannel.Net.Signaling
 
         public override void SendToPeer(int peer_id, string message)
         {
+            // A message is queued to deliver to the server in order the
+            // messages are created. This prevents the server from
+            // accidentally receiving a message sent later because an
+            // earlier HTTP request was delayed before the next HTTP
+            // request was able to succeed.
             _sendMessageQueue.Enqueue(new Tuple<int, string>(peer_id, message));
             _sendEvent.Set();
         }
@@ -399,10 +424,14 @@ namespace DataChannel.Net.Signaling
             _myId = -1;
             _state = State.NotConnected;
 
-            // queue a quit event
+            // By putting an invalid peer ID and null message into the queue,
+            // the send message thread is signaled to quit.
             _sendMessageQueue.Enqueue(new Tuple<int, string>(-1, null));
             _sendEvent.Set();
+
+            // The spawned sender thread is no longer usable as it will quit.
             _sendThread = null;
+
             return true;
         }
 
