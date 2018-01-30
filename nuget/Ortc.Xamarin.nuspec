@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/01/nuspec.xsd">
+  <metadata minClientVersion="2.5">
+    <id>ORTC.Xamarin</id>
+    <version></version>
+    <title>ORTC Xamarin Library</title>
+    <authors>Optical Tone</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>ORTC Lib Preview for Xamarin implementing the ORTC API (https://ortc.org/) for Xamarin C# for UWP and iOS.</description>
+    <summary>Built as a productionn ready reference to the Object RTC specification (originally designed in the W3C ORTC Community Group), ORTC Lib is a secure, fast and highly performant developer toolkit enabling real-time voice calling, video chat and data functionality (file transfer etc.) for mobile, desktop and web. If you are integrating real-time voice, video or data into your mobile or web app and want ORTC and WebRTC compatibility, ORTC Lib is the solution for you.</summary>
+  </metadata>
+  <files>
+    <file src="build\**" target="build" />
+    <file src="lib\**" target="lib" />
+    <file src="runtimes\**" target="runtimes" />
+   </files>
+</package>
