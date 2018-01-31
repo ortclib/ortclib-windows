@@ -17,8 +17,10 @@ namespace DataChannel.Net
         RTCIceTransport _ice;   // Ice transport for the currently selected peer.
         RTCDtlsTransport _dtls;
         RTCSctpTransport _sctp;
-        public RTCDataChannel _dataChannel;    // Data channel for the currently selected peer.
+        public static RTCDataChannel _dataChannel;    // Data channel for the currently selected peer.
         bool _isInitiator = true;      // True for the client that started the connection.
+        public static bool _IsSendEnabled = false;
+
         private static readonly string _localPeerRandom = new Func<string>(() =>
         {
             Random random = new Random();   // WARNING: NOT cryptographically strong!
@@ -37,6 +39,8 @@ namespace DataChannel.Net
 
         private readonly HttpSignaler _httpSignaler;
         public HttpSignaler HttpSignaler => _httpSignaler;
+
+        Dictionary<Peer, ChatForm> chatSession = new Dictionary<Peer, ChatForm>();
 
         private Peer _remotePeer;
         public Peer RemotePeer
@@ -162,6 +166,10 @@ namespace DataChannel.Net
         private void IceTransport_OnStateChange(RTCIceTransportStateChangeEvent evt)
         {
             Debug.WriteLine("IceTransport State Change: " + evt.State);
+
+            if (evt.State.ToString() == "Completed")
+                _IsSendEnabled = true;
+
         }
 
         private void Dtls_OnStateChange(RTCDtlsTransportStateChangeEvent evt)
@@ -327,6 +335,7 @@ namespace DataChannel.Net
         private async Task HandleMessageFromPeer(object sender, Peer peer)
         {
             var message = peer.Message;
+            peer.Id = HttpSignaler._peerId;
 
             if (message.StartsWith("OpenDataChannel"))
             {
@@ -363,9 +372,13 @@ namespace DataChannel.Net
                 // from peers.
                 this.BeginInvoke((Action)(() =>
                 {
-                    // invoke this on the main thread without blocking the current thread from continuing
-                    ChatForm chatForm = new ChatForm(peer);
-                    chatForm.ShowDialog();
+                    if (!chatSession.ContainsKey(RemotePeer))
+                    {
+                        // invoke this on the main thread without blocking the current thread from continuing
+                        ChatForm chatForm = new ChatForm(RemotePeer);
+                        chatSession.Add(RemotePeer, chatForm);
+                        chatForm.ShowDialog();
+                    }
                 }));
                 return;
             }
@@ -440,14 +453,8 @@ namespace DataChannel.Net
                     _dataChannel = new RTCDataChannel(data, _dataChannelParams);
                     _dataChannel.OnMessage += DataChannel_OnMessage;
                     _dataChannel.OnError += DataChannel_OnError;
-                    _dataChannel.OnStateChange += DataChannel_OnStateChange;
                 }
             }
-        }
-
-        private void DataChannel_OnStateChange(RTCDataChannelStateChangeEvent evt)
-        {
-            throw new NotImplementedException();
         }
 
         private void DataChannel_OnError(ErrorEvent evt)
@@ -458,6 +465,13 @@ namespace DataChannel.Net
         private void DataChannel_OnMessage(RTCMessageEvent evt)
         {
             Debug.WriteLine("Datachannel message: " + evt.Text);
+
+            this.BeginInvoke((Action) (() => 
+            {
+                _IsSendEnabled = true;
+                chatSession[RemotePeer].OnMessageAdded(
+                    new Message(DateTime.Now.ToString("h:mm"),"Remote Peer Id " + RemotePeer.Id + ":  " + evt.Text));
+            }));
         }
 
         private void Sctp_OnStateChange(RTCSctpTransportStateChangeEvent evt)
@@ -472,7 +486,6 @@ namespace DataChannel.Net
             _dataChannel = evt.DataChannel;
             _dataChannel.OnMessage += DataChannel_OnMessage;
             _dataChannel.OnError += DataChannel_OnError;
-            _dataChannel.OnStateChange += DataChannel_OnStateChange;
         }
 
         /// <summary>

@@ -21,6 +21,7 @@ namespace DataChannel.Net.Signaling
         private Uri _baseHttpAddress;
         private int _myId;
         private string _clientName;
+        public static int _peerId;
         public static ObservableCollection<Peer> _peers = new ObservableCollection<Peer>();
         private ManualResetEvent _sendEvent = new ManualResetEvent(false);
         private ConcurrentQueue< Tuple<int, string> > _sendMessageQueue = new ConcurrentQueue<Tuple<int, string> >();
@@ -241,6 +242,7 @@ namespace DataChannel.Net.Signaling
                                 OnPeerHangup(new Peer(pragma, string.Empty));
                             else
                             {
+                                _peerId = pragma;
                                 Debug.WriteLine("OnMessageFromPeer! peer_id: " + pragma + " , result: " + result);
                                 OnMessageFromPeer(new Peer(pragma, string.Empty, result));
                             }
