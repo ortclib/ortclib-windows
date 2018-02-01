@@ -188,9 +188,9 @@ namespace DataChannel.Net.Signaling
             }
         }
 
-        ///// <summary>
-        ///// Long lasting loop to get notified about connected/disconnected peers.
-        ///// </summary>
+        /// <summary>
+        /// Long lasting loop to get notified about connected/disconnected peers.
+        /// </summary>
         private async Task SendWaitRequestAsync()
         {
             while (_state != State.NotConnected)

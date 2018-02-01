@@ -353,33 +353,35 @@ namespace DataChannel.Net
                 // Begin gathering ice candidates.
                 OpenDataChannel(peer);
 
-                // Invoking .ShowDialog() would block the signaler's task
-                // being waited upon. ShowDialog() block the current task from
-                // continuing until the dialog is dismissed but does not block
-                // other events from processing on the GUI thread. Not
-                // blocking events is insufficient though. The task is waited
-                // by the signaler to complete before the next signaler
-                // message from the server is allowed to be processed so a
-                // dialog cannot be spawned from within the processing of a
-                // peer's message task.
-                //
-                // The solution though to the blocking of the signaler's task
-                // when bringing up a dialog is rather simple: invoke
-                // the .ShowDialog() method asynchronously on the GUI thread
-                // and not from within the current signaler message task.
-                // This allows the GUI to be displayed and events are
-                // processed as normal including other signaler messages
-                // from peers.
-                this.BeginInvoke((Action)(() =>
+                if (!chatSession.ContainsKey(RemotePeer))
                 {
-                    if (!chatSession.ContainsKey(RemotePeer))
+                    // Invoking .ShowDialog() would block the signaler's task
+                    // being waited upon. ShowDialog() block the current task from
+                    // continuing until the dialog is dismissed but does not block
+                    // other events from processing on the GUI thread. Not
+                    // blocking events is insufficient though. The task is waited
+                    // by the signaler to complete before the next signaler
+                    // message from the server is allowed to be processed so a
+                    // dialog cannot be spawned from within the processing of a
+                    // peer's message task.
+                    //
+                    // The solution though to the blocking of the signaler's task
+                    // when bringing up a dialog is rather simple: invoke
+                    // the .ShowDialog() method asynchronously on the GUI thread
+                    // and not from within the current signaler message task.
+                    // This allows the GUI to be displayed and events are
+                    // processed as normal including other signaler messages
+                    // from peers.
+                    this.BeginInvoke((Action)(() =>
                     {
-                        // invoke this on the main thread without blocking the current thread from continuing
-                        ChatForm chatForm = new ChatForm(RemotePeer);
-                        chatSession.Add(RemotePeer, chatForm);
-                        chatForm.ShowDialog();
-                    }
-                }));
+                    
+                            // invoke this on the main thread without blocking the current thread from continuing
+                            ChatForm chatForm = new ChatForm(RemotePeer);
+                            chatSession.Add(RemotePeer, chatForm);
+                            chatForm.ShowDialog();
+                    
+                    }));
+                }
                 return;
             }
 
@@ -543,12 +545,16 @@ namespace DataChannel.Net
 
                 OpenDataChannel(SelectedPeer);
 
-                // see HandleMessageFromPeer comments regarding invoking .ShowDialog()
-                this.BeginInvoke((Action)(() =>
+                if (!chatSession.ContainsKey(SelectedPeer))
                 {
-                    ChatForm chatForm = new ChatForm(SelectedPeer);
-                    chatForm.ShowDialog();
-                }));
+                    // see HandleMessageFromPeer comments regarding invoking .ShowDialog()
+                    this.BeginInvoke((Action)(() =>
+                    {
+                        ChatForm chatForm = new ChatForm(SelectedPeer);
+                        chatSession.Add(SelectedPeer, chatForm);
+                        chatForm.ShowDialog();
+                    }));
+                }
             }
             else
             {
