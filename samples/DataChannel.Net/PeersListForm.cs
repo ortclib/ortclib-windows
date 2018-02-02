@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -280,6 +281,8 @@ namespace DataChannel.Net
 
         private void Signaler_MessageFromPeer(object sender, Peer peer)
         {
+            var complete = new ManualResetEvent(false);
+            
             // Exactly like the case of Signaler_SignedIn, this event is fired
             // from the signaler task thread and like the other events,
             // the message must be processed on the GUI thread for concurrency
@@ -311,6 +314,7 @@ namespace DataChannel.Net
                 HandleMessageFromPeer(sender, peer).ContinueWith((antecedent) =>
                 {
                     Debug.WriteLine("Message from peer handled: " + peer.Message);
+                    complete.Set();
                 });
             }));
 
@@ -329,7 +333,7 @@ namespace DataChannel.Net
             // Tasks and related methods cause the GUI thread to become
             // re-entrant to processing more messages whenever an async
             // related routine is called.
-            asyncResult.AsyncWaitHandle.WaitOne();
+            complete.WaitOne();
         }
 
         private async Task HandleMessageFromPeer(object sender, Peer peer)
