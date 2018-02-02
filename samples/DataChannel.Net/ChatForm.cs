@@ -8,50 +8,90 @@ namespace DataChannel.Net
 {
     public partial class ChatForm : Form
     {
-        public event EventHandler<Message> MessageAdded;
+        public event EventHandler RemotePeerConnected;
+        public event EventHandler RemotePeerDisconnected;
+        public event EventHandler<Message> SendMessageToRemotePeer;
 
-        public void OnMessageAdded(Message message)
+        private event EventHandler<Message> MessageFromRemotePeer;
+
+        public void HandleRemotePeerConnected()
         {
-            if (MessageAdded != null)
-                MessageAdded(this, (message));
+            RemotePeerConnected?.Invoke(this, null);
         }
 
-        public Peer p;
-        public ChatForm(Peer peer)
+        public void HandleRemotePeerDisonnected()
         {
-            p = peer;
+            RemotePeerDisconnected?.Invoke(this, null);
+        }
+
+        public void HandleMessageFromPeer(string message)
+        {
+            MessageFromRemotePeer?.Invoke(this, new Message(RemotePeer, LocalPeer, DateTime.Now, message));
+        }
+
+        private bool _isSendReady = false;
+        public bool IsSendReady
+        {
+            get { return _isSendReady; }
+            set { _isSendReady = value; }
+        }
+
+        public Peer LocalPeer { get; set; }
+        public Peer RemotePeer { get; set; }
+
+        public ChatForm(Peer localPeer, Peer remotePeer)
+        {
+            LocalPeer = localPeer;
+            RemotePeer = remotePeer;
 
             InitializeComponent();
 
-            this.MessageAdded += Chat_MessageAdded;
+            btnSend.Enabled = false;
+
+            this.RemotePeerConnected += Signaler_RemoteConnected;
+            this.RemotePeerDisconnected += Signaler_RemoteDisconnected;
+            this.MessageFromRemotePeer += Signaler_MessageFromRemotePeer;
         }
 
-        private void Chat_MessageAdded(object sender, Message message)
+        private void Signaler_RemoteConnected(object sender, EventArgs e)
+        {
+            IsSendReady = true;
+            btnSend.Enabled = true;
+        }
+
+        private void Signaler_RemoteDisconnected(object sender, EventArgs e)
+        {
+            IsSendReady = false;
+            btnSend.Enabled = false;
+        }
+
+        private void Signaler_MessageFromRemotePeer(object sender, Message message)
         {
             lstMessages.Items.Add(message);
         }
 
         private void btnSend_Click(object sender, EventArgs e)
         {
-            if (PeersListForm._IsSendEnabled != false)
-            {
-                if (txtMessage.Text != string.Empty)
-                {
-                    lstMessages.Items.Add(new Message(DateTime.Now.ToString("h:mm"), GetLocalPeerName() + ":  " + txtMessage.Text));
-                    PeersListForm._dataChannel.Send(txtMessage.Text);
-                }
-                txtMessage.Text = string.Empty;
-            }
-            else
+            if (!IsSendReady)
             {
                 MessageBox.Show("Please wait, connecting...");
+                return;
             }
+
+            if (txtMessage.Text != string.Empty)
+            {
+                var message = new Message(LocalPeer, RemotePeer, DateTime.Now, txtMessage.Text);
+                lstMessages.Items.Add(message);
+                OnSendMessageToRemotePeer(message);
+            }
+
+            txtMessage.Text = string.Empty;
         }
 
-        private string GetLocalPeerName()
+        private void OnSendMessageToRemotePeer(Message message)
         {
-            string hostname = IPGlobalProperties.GetIPGlobalProperties().HostName;
-            return (hostname != null ? hostname : "<unknown host>") + "-dual";
+            SendMessageToRemotePeer?.Invoke(this, message);
         }
+
     }
 }

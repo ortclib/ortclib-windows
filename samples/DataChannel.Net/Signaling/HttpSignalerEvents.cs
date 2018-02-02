@@ -3,7 +3,19 @@ using System.Threading.Tasks;
 
 namespace DataChannel.Net.Signaling
 {
-    public abstract class Signaler
+    public class HttpSignalerMessageEvent
+    {
+        public Peer Peer { get; set; }
+        public string Message { get; set; }
+
+        public HttpSignalerMessageEvent(Peer peer, string message)
+        {
+            Peer = peer;
+            Message = message;
+        }
+    }
+
+    public abstract class HttpSignalerEvents
     {
         // Connection events
         public event EventHandler SignedIn;
@@ -13,44 +25,37 @@ namespace DataChannel.Net.Signaling
         public event EventHandler<Peer> PeerConnected;
         public event EventHandler<Peer> PeerDisconnected;
         public event EventHandler<Peer> PeerHangup;
-        public event EventHandler<Peer> MessageFromPeer;
+        public event EventHandler<HttpSignalerMessageEvent> MessageFromPeer;
 
         public abstract void SendToPeer(int id, string message);
 
         protected void OnSignedIn()
         {
-            if (SignedIn != null)
-                SignedIn(this, null);
+            SignedIn?.Invoke(this, null);
         }
         protected void OnDisconnected()
         {
-            if (Disconnected != null)
-                Disconnected(this, null);
+            Disconnected?.Invoke(this, null);
         }
         protected void OnPeerConnected(Peer peer)
         {
-            if (PeerConnected != null)
-                PeerConnected(this, (peer));
+            PeerConnected?.Invoke(this, (peer));
         }
         protected void OnPeerDisconnected(Peer peer)
         {
-            if (PeerDisconnected != null)
-                PeerDisconnected(this, peer);
+            PeerDisconnected?.Invoke(this, peer);
         }
         protected void OnPeerHangup(Peer peer)
         {
-            if (PeerHangup != null)
-                PeerHangup(this, peer);
+            PeerHangup?.Invoke(this, peer);
         }
-        protected void OnMessageFromPeer(Peer peer)
+        protected void OnMessageFromPeer(Peer peer, string message)
         {
-            if (MessageFromPeer != null)
-                MessageFromPeer(this, peer);
+            MessageFromPeer?.Invoke(this, new HttpSignalerMessageEvent(peer, message));
         }
         protected void OnServerConnectionFailure()
         {
-            if (ServerConnectionFailed != null)
-                ServerConnectionFailed(this, null);
+            ServerConnectionFailed?.Invoke(this, null);
         }
     }
 }

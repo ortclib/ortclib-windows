@@ -119,8 +119,10 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Signaling\HttpSignaler.cs" />
+    <Compile Include="Signaling\OrtcSignaler.cs" />
+    <Compile Include="Signaling\OrtcSignalerEvents.cs" />
     <Compile Include="Signaling\Peer.cs" />
-    <Compile Include="Signaling\Signaler.cs" />
+    <Compile Include="Signaling\HttpSignalerEvents.cs" />
     <Compile Include="Signaling\Util.cs" />
     <EmbeddedResource Include="PeersListForm.resx">
       <DependentUpon>PeersListForm.cs</DependentUpon>
