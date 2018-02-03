@@ -91,7 +91,7 @@ namespace DataChannel.Net
             Debug.WriteLine($"Peer connected {peer.Name} / {peer.Id}");
 
             var found = lstPeers.FindString(peer.ToString());
-            if (found > 0)
+            if (ListBox.NoMatches != found)
             {
                 Debug.WriteLine("Peer already found in list: " + peer.ToString());
                 return;
@@ -116,7 +116,7 @@ namespace DataChannel.Net
             Debug.WriteLine($"Peer disconnected {peer.Name} / {peer.Id}");
 
             var found = lstPeers.FindString(peer.ToString());
-            if (found < 0) {
+            if (ListBox.NoMatches != found) {
                 Debug.WriteLine("Peer not found in list: " + peer.ToString());
                 return;
             }
@@ -204,6 +204,12 @@ namespace DataChannel.Net
 
         private async Task SetupPeer(Peer remotePeer, bool isInitiator)
         {
+            var found = lstPeers.FindString(remotePeer.ToString());
+            if (ListBox.NoMatches != found)
+            {
+                remotePeer = Peer.CreateFromString(lstPeers.GetItemText(lstPeers.Items[found]));
+            }
+
             Tuple<OrtcSignaler, ChatForm> tuple;
             if (_chatSessions.TryGetValue(remotePeer.Id, out tuple))
             {
