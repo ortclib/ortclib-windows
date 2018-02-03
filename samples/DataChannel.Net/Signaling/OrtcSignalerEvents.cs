@@ -10,7 +10,7 @@ namespace DataChannel.Net.Signaling
     {
         public event EventHandler DataChannelConnected;
         public event EventHandler DataChannelDisonnected;
-        public event EventHandler<string> SendMessageToPeer;
+        public event EventHandler<string> SignalMessageToPeer;
         public event EventHandler<string> DataChannelMessage;
 
         protected void OnDataChannelConnected()
@@ -23,9 +23,9 @@ namespace DataChannel.Net.Signaling
             DataChannelDisonnected?.Invoke(this, null);
         }
 
-        protected void OnSendMessageToPeer(string message)
+        protected void OnSignalMessageToPeer(string message)
         {
-            SendMessageToPeer?.Invoke(this, message);
+            SignalMessageToPeer?.Invoke(this, message);
         }
 
         protected void OnDataChannelMessage(string message)

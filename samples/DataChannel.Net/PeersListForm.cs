@@ -273,7 +273,7 @@ namespace DataChannel.Net
 
             tuple.Item1.DataChannelConnected += OrtcSignaler_OnDataChannelConnected;
             tuple.Item1.DataChannelDisonnected += OrtcSignaler_OnDataChannelDisconnected;
-            tuple.Item1.SendMessageToPeer += OrtcSignaler_OnSendMessageToPeer;
+            tuple.Item1.SignalMessageToPeer += OrtcSignaler_OnSendMessageToPeer;
             tuple.Item1.DataChannelMessage += OrtcSignaler_OnDataChannelMessage;
 
             await tuple.Item1.SetupAsync();

@@ -238,7 +238,7 @@ namespace DataChannel.Net.Signaling
 
                     RTCSctpCapabilities caps = RTCSctpTransport.GetCapabilities();
 
-                    OnSendMessageToPeer(caps.ToJson().ToString());
+                    OnSignalMessageToPeer(caps.ToJson().ToString());
                 }
                 else
                 {
@@ -281,11 +281,11 @@ namespace DataChannel.Net.Signaling
 
             _gatherer.OnLocalCandidate += (@event) =>
             {
-                OnSendMessageToPeer(@event.Candidate.ToJson().ToString());
+                OnSignalMessageToPeer(@event.Candidate.ToJson().ToString());
             };
             _gatherer.OnLocalCandidateComplete += (@event) =>
             {
-                OnSendMessageToPeer(@event.Candidate.ToJson().ToString());
+                OnSignalMessageToPeer(@event.Candidate.ToJson().ToString());
             };
 
             var cert = await RTCCertificate.GenerateCertificate();
@@ -309,16 +309,16 @@ namespace DataChannel.Net.Signaling
             Debug.WriteLine($"Opening data channel to peer id: {RemotePeer.Id}");
 
             var iceParams = _gatherer.LocalParameters;
-            OnSendMessageToPeer(iceParams.ToJson().ToString());
+            OnSignalMessageToPeer(iceParams.ToJson().ToString());
 
             // this order guarantees: alice -> bob; bob.start(); bob -> alice; alice.start(); alice -> datachannel -> bob
             if (_isInitiator)
             {
                 var sctpCaps = RTCSctpTransport.GetCapabilities();
-                OnSendMessageToPeer(sctpCaps.ToJson().ToString());
+                OnSignalMessageToPeer(sctpCaps.ToJson().ToString());
             }
             var dtlsParams = _dtls.LocalParameters;
-            OnSendMessageToPeer(dtlsParams.ToJson().ToString());
+            OnSignalMessageToPeer(dtlsParams.ToJson().ToString());
         }
 
 
