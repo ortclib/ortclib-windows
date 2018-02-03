@@ -214,6 +214,8 @@ namespace DataChannel.Net
             if (_chatSessions.TryGetValue(remotePeer.Id, out tuple))
             {
                 // already have a form created
+                tuple.Item2.HandleRemotePeerDisonnected();
+                tuple.Item2.BringToFront();
                 tuple.Item1.Dispose();
                 _chatSessions.Remove(remotePeer.Id);
             }

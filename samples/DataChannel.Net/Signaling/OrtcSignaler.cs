@@ -321,7 +321,6 @@ namespace DataChannel.Net.Signaling
             OnSignalMessageToPeer(dtlsParams.ToJson().ToString());
         }
 
-
         private void IceGatherer_OnStateChange(RTCIceGathererStateChangeEvent evt)
         {
             Debug.WriteLine("IceGatherer State Change: " + evt.State);
