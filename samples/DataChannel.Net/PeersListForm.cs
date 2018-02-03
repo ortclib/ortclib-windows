@@ -273,7 +273,7 @@ namespace DataChannel.Net
 
             tuple.Item1.DataChannelConnected += OrtcSignaler_OnDataChannelConnected;
             tuple.Item1.DataChannelDisonnected += OrtcSignaler_OnDataChannelDisconnected;
-            tuple.Item1.SignalMessageToPeer += OrtcSignaler_OnSendMessageToPeer;
+            tuple.Item1.SignalMessageToPeer += OrtcSignaler_OnSignalMessageToPeer;
             tuple.Item1.DataChannelMessage += OrtcSignaler_OnDataChannelMessage;
 
             await tuple.Item1.SetupAsync();
@@ -303,7 +303,7 @@ namespace DataChannel.Net
             }
         }
 
-        private void OrtcSignaler_OnSendMessageToPeer(object sender, string message)
+        private void OrtcSignaler_OnSignalMessageToPeer(object sender, string message)
         {
             OrtcSignaler signeler = (OrtcSignaler)sender;
             Debug.WriteLine("Send message to remote peer: {signeler.RemotePeer.Id}" + message);
