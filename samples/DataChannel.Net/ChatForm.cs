@@ -46,8 +46,6 @@ namespace DataChannel.Net
 
             InitializeComponent();
 
-            btnSend.Enabled = false;
-
             this.RemotePeerConnected += Signaler_RemoteConnected;
             this.RemotePeerDisconnected += Signaler_RemoteDisconnected;
             this.MessageFromRemotePeer += Signaler_MessageFromRemotePeer;

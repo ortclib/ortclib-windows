@@ -36,24 +36,29 @@
             // lstMessages
             // 
             this.lstMessages.FormattingEnabled = true;
-            this.lstMessages.Location = new System.Drawing.Point(51, 27);
+            this.lstMessages.ItemHeight = 25;
+            this.lstMessages.Location = new System.Drawing.Point(102, 52);
+            this.lstMessages.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.lstMessages.Name = "lstMessages";
-            this.lstMessages.Size = new System.Drawing.Size(475, 277);
+            this.lstMessages.Size = new System.Drawing.Size(946, 529);
             this.lstMessages.TabIndex = 0;
             // 
             // txtMessage
             // 
-            this.txtMessage.Location = new System.Drawing.Point(51, 315);
+            this.txtMessage.Location = new System.Drawing.Point(102, 606);
+            this.txtMessage.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.txtMessage.Multiline = true;
             this.txtMessage.Name = "txtMessage";
-            this.txtMessage.Size = new System.Drawing.Size(406, 32);
+            this.txtMessage.Size = new System.Drawing.Size(808, 58);
             this.txtMessage.TabIndex = 1;
             // 
             // btnSend
             // 
-            this.btnSend.Location = new System.Drawing.Point(464, 315);
+            this.btnSend.Enabled = false;
+            this.btnSend.Location = new System.Drawing.Point(928, 606);
+            this.btnSend.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(62, 32);
+            this.btnSend.Size = new System.Drawing.Size(124, 62);
             this.btnSend.TabIndex = 2;
             this.btnSend.Text = "Send";
             this.btnSend.UseVisualStyleBackColor = true;
@@ -61,12 +66,13 @@
             // 
             // ChatForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 361);
+            this.ClientSize = new System.Drawing.Size(1168, 694);
             this.Controls.Add(this.btnSend);
             this.Controls.Add(this.txtMessage);
             this.Controls.Add(this.lstMessages);
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "ChatForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ChatForm";

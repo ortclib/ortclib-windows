@@ -16,6 +16,8 @@ namespace DataChannel.Net
 
         public Message(Peer author, Peer recipient, DateTime date, string text)
         {
+            Author = author;
+            Recipient = recipient;
             Time = date;
             Text = text;
         }

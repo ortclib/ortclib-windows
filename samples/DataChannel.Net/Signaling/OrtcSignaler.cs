@@ -256,6 +256,8 @@ namespace DataChannel.Net.Signaling
                     _dataChannel = new RTCDataChannel(data, _dataChannelParams);
                     _dataChannel.OnMessage += DataChannel_OnMessage;
                     _dataChannel.OnError += DataChannel_OnError;
+                    _dataChannel.OnOpen += DataChannel_OnOpen;
+                    _dataChannel.OnClose += DataChannel_OnClose;
                 }
             }
         }
@@ -358,17 +360,27 @@ namespace DataChannel.Net.Signaling
         {
             Debug.WriteLine("Sctp OnDataChannel");
 
-            NotifyDataChannelConnected(true);
-
             _dataChannel = evt.DataChannel;
             _dataChannel.OnMessage += DataChannel_OnMessage;
             _dataChannel.OnError += DataChannel_OnError;
+            _dataChannel.OnClose += DataChannel_OnClose;
+
+            NotifyDataChannelConnected(true);
+        }
+
+        private void DataChannel_OnOpen()
+        {
+            NotifyDataChannelConnected(true);
+        }
+
+        private void DataChannel_OnClose()
+        {
+            NotifyDataChannelConnected(false);
         }
 
         private void DataChannel_OnError(ErrorEvent evt)
         {
             Debug.WriteLine("DataChannel error: " + evt.Error);
-            NotifyDataChannelConnected(false);
         }
 
         private void DataChannel_OnMessage(RTCMessageEvent evt)
