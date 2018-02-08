@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataChannel.Net.Signaling
 {
-    public abstract class OrtcSignalerEvents
+    public abstract class OrtcControllerEvents
     {
         public event EventHandler DataChannelConnected;
         public event EventHandler DataChannelDisonnected;

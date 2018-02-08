@@ -15,7 +15,7 @@ namespace DataChannel.Net
         private readonly HttpSignaler _httpSignaler;
         public HttpSignaler HttpSignaler => _httpSignaler;
 
-        Dictionary<int, Tuple<OrtcSignaler, ChatForm> > _chatSessions = new Dictionary<int, Tuple<OrtcSignaler, ChatForm> >();
+        Dictionary<int, Tuple<OrtcController, ChatForm> > _chatSessions = new Dictionary<int, Tuple<OrtcController, ChatForm> >();
 
         static PeersListForm()
         {
@@ -27,7 +27,7 @@ namespace DataChannel.Net
 
             lstPeers.SelectedIndex = -1;
 
-            var name = OrtcSignaler.LocalPeer.Name;
+            var name = OrtcController.LocalPeer.Name;
             Debug.WriteLine($"Connecting to server from local peer: {name}");
 
             _httpSignaler =
@@ -97,7 +97,7 @@ namespace DataChannel.Net
                 return;
             }
 
-            if (OrtcSignaler.LocalPeer.Name == peer.Name) {
+            if (OrtcController.LocalPeer.Name == peer.Name) {
                 Debug.WriteLine("Peer is our local peer: " + peer.ToString());
                 return;
             }
@@ -192,10 +192,10 @@ namespace DataChannel.Net
                 SetupPeer(peer, false);
             }
 
-            Tuple<OrtcSignaler, ChatForm> tuple;
+            Tuple<OrtcController, ChatForm> tuple;
             if (!_chatSessions.TryGetValue(peer.Id, out tuple))
             {
-                Debug.WriteLine("[WARNING] No peer found to direct remote message: {peer.Id} / " + message);
+                Debug.WriteLine($"[WARNING] No peer found to direct remote message: {peer.Id} / " + message);
                 return;
             }
 
@@ -210,7 +210,7 @@ namespace DataChannel.Net
                 remotePeer = Peer.CreateFromString(lstPeers.GetItemText(lstPeers.Items[found]));
             }
 
-            Tuple<OrtcSignaler, ChatForm> tuple;
+            Tuple<OrtcController, ChatForm> tuple;
             if (_chatSessions.TryGetValue(remotePeer.Id, out tuple))
             {
                 // already have a form created
@@ -232,7 +232,7 @@ namespace DataChannel.Net
                 }
 
                 // no chat form created, spawn a new one
-                tuple = new Tuple<OrtcSignaler, ChatForm>(null, new ChatForm(OrtcSignaler.LocalPeer, remotePeer));
+                tuple = new Tuple<OrtcController, ChatForm>(null, new ChatForm(OrtcController.LocalPeer, remotePeer));
 
                 tuple.Item2.SendMessageToRemotePeer += ChatForm_SendMessageToRemotePeer;
 
@@ -270,7 +270,7 @@ namespace DataChannel.Net
             }
 
             // create a new tuple and carry forward the chat form from the previous tuple
-            tuple = new Tuple<OrtcSignaler, ChatForm>(new OrtcSignaler(remotePeer, isInitiator), tuple.Item2);
+            tuple = new Tuple<OrtcController, ChatForm>(new OrtcController(remotePeer, isInitiator), tuple.Item2);
             _chatSessions.Add(remotePeer.Id, tuple);
 
             tuple.Item1.DataChannelConnected += OrtcSignaler_OnDataChannelConnected;
@@ -283,11 +283,11 @@ namespace DataChannel.Net
 
         private void OrtcSignaler_OnDataChannelConnected(object sender, EventArgs e)
         {
-            OrtcSignaler signeler = (OrtcSignaler)sender;
-            Debug.WriteLine("Remote peer connected: {signeler.RemotePeer.Id}");
+            OrtcController signaler = (OrtcController)sender;
+            Debug.WriteLine($"Remote peer connected: {signaler.RemotePeer.Id}");
 
-            Tuple<OrtcSignaler, ChatForm> tuple;
-            if (_chatSessions.TryGetValue(signeler.RemotePeer.Id, out tuple))
+            Tuple<OrtcController, ChatForm> tuple;
+            if (_chatSessions.TryGetValue(signaler.RemotePeer.Id, out tuple))
             {
                 tuple.Item2.HandleRemotePeerConnected();
             }
@@ -295,11 +295,11 @@ namespace DataChannel.Net
 
         private void OrtcSignaler_OnDataChannelDisconnected(object sender, EventArgs e)
         {
-            OrtcSignaler signeler = (OrtcSignaler)sender;
-            Debug.WriteLine("Remote peer disconnected: {signeler.RemotePeer.Id}");
+            OrtcController signaler = (OrtcController)sender;
+            Debug.WriteLine($"Remote peer disconnected: {signaler.RemotePeer.Id}");
 
-            Tuple<OrtcSignaler, ChatForm> tuple;
-            if (_chatSessions.TryGetValue(signeler.RemotePeer.Id, out tuple))
+            Tuple<OrtcController, ChatForm> tuple;
+            if (_chatSessions.TryGetValue(signaler.RemotePeer.Id, out tuple))
             {
                 tuple.Item2.HandleRemotePeerDisonnected();
             }
@@ -307,19 +307,20 @@ namespace DataChannel.Net
 
         private void OrtcSignaler_OnSignalMessageToPeer(object sender, string message)
         {
-            OrtcSignaler signeler = (OrtcSignaler)sender;
-            Debug.WriteLine("Send message to remote peer: {signeler.RemotePeer.Id}" + message);
-            _httpSignaler.SendToPeer(signeler.RemotePeer.Id, message);
+            OrtcController signaler = (OrtcController)sender;
+            Debug.WriteLine($"Send message to remote peer {signaler.RemotePeer.Id}: " + message);
+            _httpSignaler.SendToPeer(signaler.RemotePeer.Id, message);
         }
 
         private void OrtcSignaler_OnDataChannelMessage(object sender, string message)
         {
-            OrtcSignaler signeler = (OrtcSignaler)sender;
-            Debug.WriteLine("Message from remote peer: {signeler.RemotePeer.Id}" + message);
-            _httpSignaler.SendToPeer(signeler.RemotePeer.Id, message);
+            OrtcController signaler = (OrtcController)sender;
+            Debug.WriteLine($"Message from remote peer {signaler.RemotePeer.Id}: " + message);
 
-            Tuple<OrtcSignaler, ChatForm> tuple;
-            if (_chatSessions.TryGetValue(signeler.RemotePeer.Id, out tuple))
+            _httpSignaler.SendToPeer(signaler.RemotePeer.Id, message);
+
+            Tuple<OrtcController, ChatForm> tuple;
+            if (_chatSessions.TryGetValue(signaler.RemotePeer.Id, out tuple))
             {
                 tuple.Item2.HandleMessageFromPeer(message);
             }
@@ -328,9 +329,9 @@ namespace DataChannel.Net
         private void ChatForm_SendMessageToRemotePeer(object sender, Message message)
         {
             ChatForm form = (ChatForm)sender;
-            Debug.WriteLine("Message from remote peer: {message.Recipient.Id}" + message.Text);
+            Debug.WriteLine($"Send message to remote peer {message.Recipient.Id}: " + message.Text);
 
-            Tuple<OrtcSignaler, ChatForm> tuple;
+            Tuple<OrtcController, ChatForm> tuple;
             if (_chatSessions.TryGetValue(message.Recipient.Id, out tuple))
             {
                 tuple.Item1.HandleSendMessageViaDataChannel(message.Text);
