@@ -11,8 +11,8 @@ using System.Diagnostics;
 
 namespace DataChannel.Net.Signaling
 {
-    public class OrtcSignaler :
-        OrtcSignalerEvents,
+    public class OrtcController :
+        OrtcControllerEvents,
         IDisposable
     {
         RTCIceGatherer _gatherer;
@@ -103,7 +103,7 @@ namespace DataChannel.Net.Signaling
             NotifyConnectionState();
         }
 
-        static OrtcSignaler()
+        static OrtcController()
         {
             OrtcLib.Setup();
             Settings.ApplyDefaults();
@@ -115,14 +115,14 @@ namespace DataChannel.Net.Signaling
 #endif
         }
 
-        public OrtcSignaler(Peer remotePeer, bool isInitiator)
+        public OrtcController(Peer remotePeer, bool isInitiator)
         {
             // make a clone of the remote peer contents in cause original values get modified
             _remotePeer = new Peer(remotePeer);
             _isInitiator = isInitiator;
         }
 
-        ~OrtcSignaler()
+        ~OrtcController()
         {
             Dispose(false);
         }
