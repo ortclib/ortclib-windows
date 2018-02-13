@@ -5,16 +5,26 @@
     <ORTC-Platform Condition="'$(Platform)' == 'Win32'">x86</ORTC-Platform>
     <ORTC-Platform Condition="'$(Platform)' != 'Win32'">$(Platform)</ORTC-Platform>
   </PropertyGroup>
-  <ItemGroup Condition="'$(TargetPlatformIdentifier)' != 'xamarinios'">
-      <Content Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-$(ORTC-Platform)\native\libOrtc.dll">
+  <ItemGroup Condition=" '$(ORTC-Platform)' != 'iPhone' and '$(ORTC-Platform)' != 'AnyCPU' ">
+      <Content Include="$(MSBuildThisFileDirectory)..\runtimes\win10-$(ORTC-Platform)\native\libOrtc.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>libOrtc.dll</Link>
     </Content>
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetPlatformIdentifier)' == 'xamarinios'">
-      <Content Include="$(MSBuildThisFileDirectory)..\..\runtimes\iOS\native\libOrtc.dylib">
+  <ItemGroup Condition="'$(ORTC-Platform)' == 'AnyCPU'">
+    <Content Include="$(MSBuildThisFileDirectory)..\runtimes\win10-x64\native\libOrtc.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Link>libOrtc.dll</Link>
+      <Link>x64\libOrtc.dll</Link>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)..\runtimes\win10-x86\native\libOrtc.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>x86\libOrtc.dll</Link>
+    </Content>
+  </ItemGroup>
+  <ItemGroup Condition="'$(ORTC-Platform)' == 'iPhone'">
+      <Content Include="$(MSBuildThisFileDirectory)..\runtimes\iOS\native\libOrtc.dylib">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>libOrtc.dylib</Link>
     </Content>
   </ItemGroup>
 </Project>
