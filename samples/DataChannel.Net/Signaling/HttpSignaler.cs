@@ -14,7 +14,7 @@ namespace DataChannel.Net.Signaling
     /// <summary>
     /// HttpSignaler instance is used to fire connection events.
     /// </summary>
-    public class HttpSignaler : Signaler
+    public class HttpSignaler : HttpSignalerEvents
     {
         private readonly HttpClient _httpClient = new HttpClient();
         private State _state;
@@ -187,9 +187,9 @@ namespace DataChannel.Net.Signaling
             }
         }
 
-        ///// <summary>
-        ///// Long lasting loop to get notified about connected/disconnected peers.
-        ///// </summary>
+        /// <summary>
+        /// Long lasting loop to get notified about connected/disconnected peers.
+        /// </summary>
         private async Task SendWaitRequestAsync()
         {
             while (_state != State.NotConnected)
@@ -210,13 +210,13 @@ namespace DataChannel.Net.Signaling
                         return;
                     }
 
-                    int pragma = ParseHeaderGetPragma(header);
+                    int peerId = ParseHeaderGetPragma(header);
 
                     string result;
                     if (response.IsSuccessStatusCode)
                     {
                         result = await response.Content.ReadAsStringAsync();
-                        if (_myId == pragma)
+                        if (_myId == peerId)
                         {
                             string peer_name;
                             int peer_id, peer_connected;
@@ -238,11 +238,11 @@ namespace DataChannel.Net.Signaling
                         else
                         {
                             if (response.ToString().Contains("BYE"))
-                                OnPeerHangup(new Peer(pragma, string.Empty));
+                                OnPeerHangup(new Peer(peerId, string.Empty));
                             else
                             {
-                                Debug.WriteLine("OnMessageFromPeer! peer_id: " + pragma + " , result: " + result);
-                                OnMessageFromPeer(new Peer(pragma, string.Empty, result));
+                                Debug.WriteLine("OnMessageFromPeer! peer_id: " + peerId + " , result: " + result);
+                                OnMessageFromPeer(new Peer(peerId, string.Empty), result);
                             }
                         }
                     }

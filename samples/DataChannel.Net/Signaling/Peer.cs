@@ -4,9 +4,14 @@
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Message { get; set; }
 
         public Peer() { }
+
+        public Peer(Peer peer)
+        {
+            Id = peer.Id;
+            Name = peer.Name;
+        }
 
         public Peer(int id, string name)
         {
@@ -18,7 +23,6 @@
         {
             Id = id;
             Name = name.Replace(":", ";");
-            Message = message;
         }
 
         public override string ToString()

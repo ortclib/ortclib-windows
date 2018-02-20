@@ -1,185 +1,24 @@
 ﻿using DataChannel.Net.Signaling;
-using Org.Ortc;
-using Org.Ortc.Log;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DataChannel.Net
 {
-    public partial class PeersListForm : Form
+    public partial class PeersListForm : Form, IDisposable
     {
-        RTCIceGatherer _gatherer;
-        RTCIceTransport _ice;   // Ice transport for the currently selected peer.
-        RTCDtlsTransport _dtls;
-        RTCSctpTransport _sctp;
-        public RTCDataChannel _dataChannel;    // Data channel for the currently selected peer.
-        bool _isInitiator = true;      // True for the client that started the connection.
-        private static readonly string _localPeerRandom = new Func<string>(() =>
-        {
-            Random random = new Random();   // WARNING: NOT cryptographically strong!
-            const string chars = "abcdefghijklmnopqrstuvxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            const int length = 5;
-            return new string(Enumerable.Repeat(chars, length).Select(s => s[random.Next(s.Length)]).ToArray());
-        })();
-
-        RTCDataChannelParameters _dataChannelParams = new RTCDataChannelParameters
-        {
-            Label = "channel1",
-            Negotiated = false,
-            Ordered = true,
-            Protocol = "ship"
-        };
-
         private readonly HttpSignaler _httpSignaler;
         public HttpSignaler HttpSignaler => _httpSignaler;
 
-        private Peer _remotePeer;
-        public Peer RemotePeer
-        {
-            get
-            {
-                if (_remotePeer == null)
-                    _remotePeer = SelectedPeer;
-                return _remotePeer;
-            }
-            set
-            {
-                if (_remotePeer == value)
-                    return;
-                _remotePeer = value;
-            }
-        }
-
-        private Peer _selectedPeer;
-        public Peer SelectedPeer
-        {
-            get { return _selectedPeer; }
-            set
-            {
-                if (_selectedPeer == value)
-                    return;
-
-                var oldValue = _selectedPeer;
-                _selectedPeer = value;
-                SelectedPeerChanged(oldValue, value);
-            }
-        }
-
-        public Peer LocalPeer
-        {
-            get
-            {
-                string hostname = IPGlobalProperties.GetIPGlobalProperties().HostName;
-
-                // A random string is added to the peer name to easily filter
-                // our local peer by name when the server re-announces the
-                // local peer to itself. Thus two peers with the same hostname
-                // will never be the same and running the application again
-                // causes a slightly different peer name on the peer list to
-                // distinguish a new peer from an old zombie peer still not
-                // yet purged from the server.
-                string peerName = (hostname != null ? hostname : "<unknown host>") + "-" + _localPeerRandom + "-data";
-
-                return new Peer(-1, peerName);
-            }
-        }
-
-        private string _message = string.Empty;
-        public string Message
-        {
-            get { return _message; }
-            set
-            {
-                if (_message == value)
-                    return;
-
-                _message = value;
-            }
-        }
-
-        private void SelectedPeerChanged(Peer oldValue, Peer value)
-        {
-            if (_dataChannel != null)
-            {
-                _dataChannel.Close();
-                _sctp.Stop();
-                _dtls.Stop();
-                _ice.Stop();
-            }
-
-            Message = string.Empty;
-        }
-
-        private async Task InitializeORTC()
-        {
-            var gatherOptions = new RTCIceGatherOptions()
-            {
-                IceServers = new List<RTCIceServer>()
-                {
-                    new RTCIceServer { Urls = new string[] { "stun.l.google.com:19302" } },
-                    new RTCIceServer { Username = "redmond", Credential = "redmond123",
-                    CredentialType = RTCIceCredentialType.Password,
-                    Urls = new string[] { "turn:turn-testdrive.cloudapp.net:3478?transport=udp" } }
-                }
-            };
-
-            _gatherer = new RTCIceGatherer(gatherOptions);
-
-            _gatherer.OnStateChange += IceGatherer_OnStateChange;
-
-            _gatherer.OnLocalCandidate += (@event) =>
-            {
-                _httpSignaler.SendToPeer(RemotePeer.Id, @event.Candidate.ToJson().ToString());
-            };
-            _gatherer.OnLocalCandidateComplete += (@event) =>
-            {
-                _httpSignaler.SendToPeer(RemotePeer.Id, @event.Candidate.ToJson().ToString());
-            };
-
-            var cert = await RTCCertificate.GenerateCertificate();
-
-            _ice = new RTCIceTransport(_gatherer);
-            _ice.OnStateChange += IceTransport_OnStateChange;
-
-            _dtls = new RTCDtlsTransport(_ice, new RTCCertificate[] { cert });
-            _dtls.OnStateChange += Dtls_OnStateChange;
-
-            _sctp = new RTCSctpTransport(_dtls);
-
-            _gatherer.Gather(null);
-        }
-
-        private void IceGatherer_OnStateChange(RTCIceGathererStateChangeEvent evt)
-        {
-            Debug.WriteLine("IceGatherer State Change: " + evt.State);
-        }
-
-        private void IceTransport_OnStateChange(RTCIceTransportStateChangeEvent evt)
-        {
-            Debug.WriteLine("IceTransport State Change: " + evt.State);
-        }
-
-        private void Dtls_OnStateChange(RTCDtlsTransportStateChangeEvent evt)
-        {
-            Debug.WriteLine("Dtls State Change: " + evt.State);
-        }
+        Dictionary<int, Tuple<OrtcController, ChatForm> > _chatSessions = new Dictionary<int, Tuple<OrtcController, ChatForm> >();
 
         static PeersListForm()
         {
-            OrtcLib.Setup();
-            Settings.ApplyDefaults();
-#if ENABLE_ORTCLIB_LOGGING
-            Logger.InstallEventingListener("secret", 58888, TimeSpan.FromSeconds(60));
-            Logger.SetLogLevel(Org.Ortc.Log.Component.All, Org.Ortc.Log.Level.Trace);
-            Logger.SetLogLevel(Org.Ortc.Log.Component.Eventing, Org.Ortc.Log.Level.Basic);
-            Logger.InstallDebuggerLogger();
-#endif
-
         }
 
         public PeersListForm()
@@ -188,7 +27,7 @@ namespace DataChannel.Net
 
             lstPeers.SelectedIndex = -1;
 
-            var name = LocalPeer.Name;
+            var name = OrtcController.LocalPeer.Name;
             Debug.WriteLine($"Connecting to server from local peer: {name}");
 
             _httpSignaler =
@@ -199,6 +38,21 @@ namespace DataChannel.Net
             _httpSignaler.PeerConnected += Signaler_PeerConnected;
             _httpSignaler.PeerDisconnected += Signaler_PeerDisconnected;
             _httpSignaler.MessageFromPeer += Signaler_MessageFromPeer;
+        }
+
+        private void DisposeChatForms()
+        {
+            bool multiConnections = (Properties.Settings.Default.MultipleConnections);
+            foreach (var item in _chatSessions)
+            {
+                if (multiConnections)
+                    item.Value.Item2.Hide();
+                else
+                    item.Value.Item2.DialogResult = DialogResult.Cancel;
+                item.Value.Item1.Dispose();
+                item.Value.Item2.Dispose();
+            }
+            _chatSessions.Clear();
         }
 
         private void Signaler_SignedIn(object sender, EventArgs e)
@@ -237,13 +91,13 @@ namespace DataChannel.Net
             Debug.WriteLine($"Peer connected {peer.Name} / {peer.Id}");
 
             var found = lstPeers.FindString(peer.ToString());
-            if (found > 0)
+            if (ListBox.NoMatches != found)
             {
                 Debug.WriteLine("Peer already found in list: " + peer.ToString());
                 return;
             }
 
-            if (LocalPeer.Name == peer.Name) {
+            if (OrtcController.LocalPeer.Name == peer.Name) {
                 Debug.WriteLine("Peer is our local peer: " + peer.ToString());
                 return;
             }
@@ -262,7 +116,7 @@ namespace DataChannel.Net
             Debug.WriteLine($"Peer disconnected {peer.Name} / {peer.Id}");
 
             var found = lstPeers.FindString(peer.ToString());
-            if (found < 0) {
+            if (ListBox.NoMatches != found) {
                 Debug.WriteLine("Peer not found in list: " + peer.ToString());
                 return;
             }
@@ -270,8 +124,10 @@ namespace DataChannel.Net
             lstPeers.Items.RemoveAt(found);
         }
 
-        private void Signaler_MessageFromPeer(object sender, Peer peer)
+        private void Signaler_MessageFromPeer(object sender, HttpSignalerMessageEvent @event)
         {
+            var complete = new ManualResetEvent(false);
+            
             // Exactly like the case of Signaler_SignedIn, this event is fired
             // from the signaler task thread and like the other events,
             // the message must be processed on the GUI thread for concurrency
@@ -300,9 +156,10 @@ namespace DataChannel.Net
                 //
                 // Bottom line, don't block the GUI thread using a .Wait()
                 // on a task from the GUI thread - ever!
-                HandleMessageFromPeer(sender, peer).ContinueWith((antecedent) =>
+                HandleMessageFromPeer(sender, @event).ContinueWith((antecedent) =>
                 {
-                    Debug.WriteLine("Message from peer handled: " + peer.Message);
+                    Debug.WriteLine("Message from peer handled: " + @event.Message);
+                    complete.Set();
                 });
             }));
 
@@ -321,178 +178,164 @@ namespace DataChannel.Net
             // Tasks and related methods cause the GUI thread to become
             // re-entrant to processing more messages whenever an async
             // related routine is called.
-            asyncResult.AsyncWaitHandle.WaitOne();
+            complete.WaitOne();
         }
 
-        private async Task HandleMessageFromPeer(object sender, Peer peer)
+        private async Task HandleMessageFromPeer(object sender, HttpSignalerMessageEvent @event)
         {
-            var message = peer.Message;
+            var message = @event.Message;
+            var peer = @event.Peer;
 
             if (message.StartsWith("OpenDataChannel"))
             {
                 Debug.WriteLine("contains OpenDataChannel");
+                SetupPeer(peer, false);
+            }
 
-                await InitializeORTC();
+            Tuple<OrtcController, ChatForm> tuple;
+            if (!_chatSessions.TryGetValue(peer.Id, out tuple))
+            {
+                Debug.WriteLine($"[WARNING] No peer found to direct remote message: {peer.Id} / " + message);
+                return;
+            }
 
-                // A peer has let us know that they have begun initiating a
-                // data channel.  In this scenario, we are the "remote" peer
-                // so make sure _isInitiator is false. 
-                _isInitiator = false;
+            await tuple.Item1.HandleMessageFromPeer(message);
+        }
 
-                RemotePeer = peer;
+        private async Task SetupPeer(Peer remotePeer, bool isInitiator)
+        {
+            var found = lstPeers.FindString(remotePeer.ToString());
+            if (ListBox.NoMatches != found)
+            {
+                remotePeer = Peer.CreateFromString(lstPeers.GetItemText(lstPeers.Items[found]));
+            }
 
-                // Begin gathering ice candidates.
-                OpenDataChannel(peer);
+            Tuple<OrtcController, ChatForm> tuple;
+            if (_chatSessions.TryGetValue(remotePeer.Id, out tuple))
+            {
+                // already have a form created
+                tuple.Item2.HandleRemotePeerDisonnected();
+                tuple.Item2.BringToFront();
+                tuple.Item1.Dispose();
+                _chatSessions.Remove(remotePeer.Id);
+            }
+            else
+            {
+                if (!Properties.Settings.Default.MultipleConnections)
+                {
+                    if (_chatSessions.Count > 0)
+                    {
+                        // Clear out existing chat forms as only one chat form
+                        // is allowed.
+                        DisposeChatForms();
+                    }
+                }
+
+                // no chat form created, spawn a new one
+                tuple = new Tuple<OrtcController, ChatForm>(null, new ChatForm(OrtcController.LocalPeer, remotePeer));
+
+                tuple.Item2.SendMessageToRemotePeer += ChatForm_SendMessageToRemotePeer;
 
                 // Invoking .ShowDialog() would block the signaler's task
-                // being waited upon. ShowDialog() block the current task from
-                // continuing until the dialog is dismissed but does not block
-                // other events from processing on the GUI thread. Not
-                // blocking events is insufficient though. The task is waited
-                // by the signaler to complete before the next signaler
-                // message from the server is allowed to be processed so a
-                // dialog cannot be spawned from within the processing of a
-                // peer's message task.
+                // being waited upon. Show() block the current task
+                // from continuing until the dialog is dismissed but does
+                // not block other events from processing on the GUI
+                // thread. Not blocking events is insufficient though. The
+                // task is waited by the signaler to complete before the
+                // next signaler message from the server is allowed to be
+                // processed so a dialog cannot be spawned from within the
+                // processing of a peer's message task.
                 //
-                // The solution though to the blocking of the signaler's task
-                // when bringing up a dialog is rather simple: invoke
-                // the .ShowDialog() method asynchronously on the GUI thread
-                // and not from within the current signaler message task.
-                // This allows the GUI to be displayed and events are
+                // The solution though to the blocking of the signaler's
+                // task when bringing up a dialog is rather simple: invoke
+                // the .ShowDialog() method asynchronously on the GUI
+                // thread and not from within the current signaler message
+                // task. This allows the GUI to be displayed and events are
                 // processed as normal including other signaler messages
                 // from peers.
                 this.BeginInvoke((Action)(() =>
                 {
-                    // invoke this on the main thread without blocking the current thread from continuing
-                    ChatForm chatForm = new ChatForm(peer);
-                    chatForm.ShowDialog();
+                    if (Properties.Settings.Default.MultipleConnections)
+                    {
+                        // show the form non model
+                        tuple.Item2.Show();
+                    }
+                    else
+                    {
+                        // invoke this on the main thread without blocking the
+                        // current thread from continuing
+                        tuple.Item2.ShowDialog();
+                    }
                 }));
-                return;
             }
 
-            if (message.StartsWith("{\"candidate"))
+            // create a new tuple and carry forward the chat form from the previous tuple
+            tuple = new Tuple<OrtcController, ChatForm>(new OrtcController(remotePeer, isInitiator), tuple.Item2);
+            _chatSessions.Add(remotePeer.Id, tuple);
+
+            tuple.Item1.DataChannelConnected += OrtcSignaler_OnDataChannelConnected;
+            tuple.Item1.DataChannelDisonnected += OrtcSignaler_OnDataChannelDisconnected;
+            tuple.Item1.SignalMessageToPeer += OrtcSignaler_OnSignalMessageToPeer;
+            tuple.Item1.DataChannelMessage += OrtcSignaler_OnDataChannelMessage;
+
+            await tuple.Item1.SetupAsync();
+        }
+
+        private void OrtcSignaler_OnDataChannelConnected(object sender, EventArgs e)
+        {
+            OrtcController signaler = (OrtcController)sender;
+            Debug.WriteLine($"Remote peer connected: {signaler.RemotePeer.Id}");
+
+            Tuple<OrtcController, ChatForm> tuple;
+            if (_chatSessions.TryGetValue(signaler.RemotePeer.Id, out tuple))
             {
-                Debug.WriteLine("contains IceCandidate (or IceCandidateComplete)");
-
-                Json jsonMessage = new Json(message);
-                RTCIceGathererCandidate remoteCandidate = RTCIceGathererCandidate.Create(jsonMessage);
-                _ice.AddRemoteCandidate(remoteCandidate);
-                return;
+                tuple.Item2.HandleRemotePeerConnected();
             }
-            if (message.StartsWith("{\"RTCIceParameters\":"))
+        }
+
+        private void OrtcSignaler_OnDataChannelDisconnected(object sender, EventArgs e)
+        {
+            OrtcController signaler = (OrtcController)sender;
+            Debug.WriteLine($"Remote peer disconnected: {signaler.RemotePeer.Id}");
+
+            Tuple<OrtcController, ChatForm> tuple;
+            if (_chatSessions.TryGetValue(signaler.RemotePeer.Id, out tuple))
             {
-                Debug.WriteLine("contains IceParameters");
-
-                Json jsonMessage = new Json(message);
-                RTCIceParameters iceParameters = new RTCIceParameters(jsonMessage);
-
-                // Start the ice transport with the appropriate role based on whether this is the initiator of the call.
-                var role = _isInitiator ? RTCIceRole.Controlling : RTCIceRole.Controlled;
-                _ice.Start(_gatherer, iceParameters, role);
-                return;
+                tuple.Item2.HandleRemotePeerDisonnected();
             }
-            if (message.StartsWith("{\"RTCDtlsParameters\":"))
+        }
+
+        private void OrtcSignaler_OnSignalMessageToPeer(object sender, string message)
+        {
+            OrtcController signaler = (OrtcController)sender;
+            Debug.WriteLine($"Send message to remote peer {signaler.RemotePeer.Id}: " + message);
+            _httpSignaler.SendToPeer(signaler.RemotePeer.Id, message);
+        }
+
+        private void OrtcSignaler_OnDataChannelMessage(object sender, string message)
+        {
+            OrtcController signaler = (OrtcController)sender;
+            Debug.WriteLine($"Message from remote peer {signaler.RemotePeer.Id}: " + message);
+
+            _httpSignaler.SendToPeer(signaler.RemotePeer.Id, message);
+
+            Tuple<OrtcController, ChatForm> tuple;
+            if (_chatSessions.TryGetValue(signaler.RemotePeer.Id, out tuple))
             {
-                Debug.WriteLine("contains DtlsParameters");
-
-                Json jsonMessage = new Json(message);
-                RTCDtlsParameters dtlsParameters = new RTCDtlsParameters(jsonMessage);
-
-                _dtls.Start(dtlsParameters);
-                Debug.WriteLine("Dtls start called.");
-                return;
+                tuple.Item2.HandleMessageFromPeer(message);
             }
-            // this order guarantees:
-            if (message.StartsWith("{\"RTCSctpCapabilities\":"))
+        }
+
+        private void ChatForm_SendMessageToRemotePeer(object sender, Message message)
+        {
+            ChatForm form = (ChatForm)sender;
+            Debug.WriteLine($"Send message to remote peer {message.Recipient.Id}: " + message.Text);
+
+            Tuple<OrtcController, ChatForm> tuple;
+            if (_chatSessions.TryGetValue(message.Recipient.Id, out tuple))
             {
-                Debug.WriteLine("contains SctpCapabilities");
-                Json jsonMessage = new Json(message);
-                // Message ordering: alice -> bob; bob.start(); bob -> alice; alice.start(); alice -> datachannel -> bob
-                RTCSctpCapabilities sctpCaps = new RTCSctpCapabilities(jsonMessage);
-
-                if (!_isInitiator)
-                {
-                    Debug.WriteLine("Receiver: Waiting for OnDataChannel event and starting sctp.");
-
-                    // The remote side will receive notification when the data channel is opened.
-                    _sctp.OnDataChannel += Sctp_OnDataChannel;
-                    _sctp.OnStateChange += Sctp_OnStateChange;
-
-                    _sctp.Start(sctpCaps);
-
-                    RTCSctpCapabilities caps = RTCSctpTransport.GetCapabilities();
-
-                    _httpSignaler.SendToPeer(RemotePeer.Id, caps.ToJson().ToString());
-                }
-                else
-                {
-                    // The initiator has received sctp caps back from the remote peer, 
-                    // which means the remote peer has already called sctp.start(). 
-                    // It's now safe to open a data channel, which will fire the 
-                    // Sctp_OnDataChannel event on the remote side.
-                    Debug.WriteLine("Initiator: Creating the data channel and starting sctp.");
-
-                    _sctp.OnStateChange += Sctp_OnStateChange;
-                    _sctp.Start(sctpCaps);
-
-                    RTCDataTransport data = RTCDataTransport.Cast(_sctp);
-
-                    _dataChannel = new RTCDataChannel(data, _dataChannelParams);
-                    _dataChannel.OnMessage += DataChannel_OnMessage;
-                    _dataChannel.OnError += DataChannel_OnError;
-                    _dataChannel.OnStateChange += DataChannel_OnStateChange;
-                }
+                tuple.Item1.HandleSendMessageViaDataChannel(message.Text);
             }
-        }
-
-        private void DataChannel_OnStateChange(RTCDataChannelStateChangeEvent evt)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void DataChannel_OnError(ErrorEvent evt)
-        {
-            Debug.WriteLine("DataChannel error: " + evt.Error);
-        }
-
-        private void DataChannel_OnMessage(RTCMessageEvent evt)
-        {
-            Debug.WriteLine("Datachannel message: " + evt.Text);
-        }
-
-        private void Sctp_OnStateChange(RTCSctpTransportStateChangeEvent evt)
-        {
-            Debug.WriteLine("Sctp State Change: " + evt.State);
-        }
-
-        private void Sctp_OnDataChannel(RTCDataChannelEvent evt)
-        {
-            Debug.WriteLine("Sctp OnDataChannel");
-
-            _dataChannel = evt.DataChannel;
-            _dataChannel.OnMessage += DataChannel_OnMessage;
-            _dataChannel.OnError += DataChannel_OnError;
-            _dataChannel.OnStateChange += DataChannel_OnStateChange;
-        }
-
-        /// <summary>
-        /// Establishes a DataChannel with the parameter peer.
-        /// </summary>
-        private void OpenDataChannel(Peer peer)
-        {
-            Debug.WriteLine($"Opening data channel to peer id: {peer.Id}");
-
-            var iceParams = _gatherer.LocalParameters;
-            _httpSignaler.SendToPeer(peer.Id, iceParams.ToJson().ToString());
-
-            // this order guarantees: alice -> bob; bob.start(); bob -> alice; alice.start(); alice -> datachannel -> bob
-            if (_isInitiator)
-            {
-                var sctpCaps = RTCSctpTransport.GetCapabilities();
-                _httpSignaler.SendToPeer(peer.Id, sctpCaps.ToJson().ToString());
-            }
-            var dtlsParams = _dtls.LocalParameters;
-            _httpSignaler.SendToPeer(peer.Id, dtlsParams.ToJson().ToString());
         }
 
         private async void btnConnect_Click(object sender, EventArgs e)
@@ -518,29 +361,19 @@ namespace DataChannel.Net
 
         private async void btnChat_Click(object sender, EventArgs e)
         {
-            if (lstPeers.SelectedIndex != -1)
-            {
-                string text = lstPeers.GetItemText(lstPeers.SelectedItem);
-
-                await InitializeORTC();
-
-                RemotePeer = SelectedPeer = Peer.CreateFromString(text);
-
-                _httpSignaler.SendToPeer(RemotePeer.Id, "OpenDataChannel");
-
-                OpenDataChannel(SelectedPeer);
-
-                // see HandleMessageFromPeer comments regarding invoking .ShowDialog()
-                this.BeginInvoke((Action)(() =>
-                {
-                    ChatForm chatForm = new ChatForm(SelectedPeer);
-                    chatForm.ShowDialog();
-                }));
-            }
-            else
+            if (lstPeers.SelectedIndex == -1)
             {
                 MessageBox.Show("Please select a peer!");
+                return;
+
             }
+
+            string text = lstPeers.GetItemText(lstPeers.SelectedItem);
+
+            Peer remotePeer = Peer.CreateFromString(text);
+
+            _httpSignaler.SendToPeer(remotePeer.Id, "OpenDataChannel");
+            await SetupPeer(remotePeer, true);
         }
     }
 }
