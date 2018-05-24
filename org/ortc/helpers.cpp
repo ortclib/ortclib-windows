@@ -13,7 +13,7 @@
 #include <org/ortc/adapter/RTCSessionDescription.h>
 #include <org/ortc/adapter/RTCPeerConnection.h>
 
-#include <webrtc/base/win32.h>
+#include <rtc_base/win32.h>
 
 #include <ortc/services/IHelper.h>
 

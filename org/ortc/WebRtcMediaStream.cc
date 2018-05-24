@@ -1,4 +1,3 @@
-
 // Copyright (c) 2015 The WebRTC project authors. All Rights Reserved.
 //
 // Use of this source code is governed by a BSD-style license
@@ -16,7 +15,7 @@
 #include <org/ortc/MediaStreamTrack.h>
 #include <org/ortc/RTMediaStreamSource.h>
 
-#include <webrtc/system_wrappers/include/critical_section_wrapper.h>
+#include <system_wrappers/include/critical_section_wrapper.h>
 #include <libyuv/convert.h>
 
 #include <MFapi.h>

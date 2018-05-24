@@ -6,7 +6,7 @@
 #include <ortc/IORTC.h>
 #include <zsLib/SafeInt.h>
 
-#include "webrtc/common_video/video_common_winuwp.h"
+#include "common_video/video_common_winuwp.h"
 
 using namespace ortc;
 

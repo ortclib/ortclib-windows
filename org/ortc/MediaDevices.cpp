@@ -5,7 +5,7 @@
 #include <org/ortc/helpers.h>
 #include <org/ortc/Error.h>
 
-#include <webrtc/modules/video_capture/windows/video_capture_winuwp.h>
+#include <modules/video_capture/windows/video_capture_winuwp.h>
 
 #include <ortc/services/IHelper.h>
 

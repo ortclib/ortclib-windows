@@ -62,7 +62,7 @@ namespace Org
 #include "MediaStreamTrack.h"
 #include "RTMediaStreamSource.h"
 
-#include "webrtc/system_wrappers/include/critical_section_wrapper.h"
+#include "system_wrappers/include/critical_section_wrapper.h"
 #include "libyuv/convert.h"
 
 #include <Mfapi.h>

@@ -9,7 +9,7 @@
 
 #pragma once
 
-#include <webrtc/system_wrappers/include/critical_section_wrapper.h>
+#include <system_wrappers/include/critical_section_wrapper.h>
 #include <webrtc/video_frame.h>
 
 #include <MFidl.h>
