@@ -25,3 +25,4 @@ ipch/
 .vs/
 eventing/
 packages/
+projects/msvc/Org.Ortc.CppWinrt/Generated Files/

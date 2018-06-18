@@ -1,0 +1,8 @@
+namespace Org_Ortc_CppWinrt
+{
+    runtimeclass Class
+    {
+        Class();
+        Int32 Dummy;
+    }
+}
