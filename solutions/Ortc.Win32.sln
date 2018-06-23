@@ -70,6 +70,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Org.Ortc.NET", "..\projects
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Org.Ortc.Xamarin", "..\projects\msvc\Org.Ortc.Xamarin\Org.Ortc.Xamarin.csproj", "{F7200777-09F2-434D-A64D-A2883A61874C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PeerConnectionServer.Utility", "..\..\..\webrtc\windows\projects\msvc\PeerConnectionServer.Utility.Win32\PeerConnectionServer.Utility.vcxproj", "{E81C4040-A104-418F-BC53-8BDDE573E464}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		..\samples\OrtcCrossSample\OrtcCrossSample\OrtcCrossSample.projitems*{077a0af5-7d8a-4c4f-800e-1485281d5aa7}*SharedItemsImports = 13
@@ -867,6 +869,46 @@ Global
 		{F7200777-09F2-434D-A64D-A2883A61874C}.Release|x64.Build.0 = Release|Any CPU
 		{F7200777-09F2-434D-A64D-A2883A61874C}.Release|x86.ActiveCfg = Release|Any CPU
 		{F7200777-09F2-434D-A64D-A2883A61874C}.Release|x86.Build.0 = Release|Any CPU
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.Ad-Hoc|Any CPU.ActiveCfg = Release|x64
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.Ad-Hoc|Any CPU.Build.0 = Release|x64
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.Ad-Hoc|ARM.ActiveCfg = Release|x64
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.Ad-Hoc|ARM.Build.0 = Release|x64
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.Ad-Hoc|iPhone.ActiveCfg = Release|x64
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.Ad-Hoc|iPhone.Build.0 = Release|x64
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Release|x64
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.Ad-Hoc|iPhoneSimulator.Build.0 = Release|x64
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.Ad-Hoc|x64.ActiveCfg = Release|x64
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.Ad-Hoc|x64.Build.0 = Release|x64
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.Ad-Hoc|x86.ActiveCfg = Release|Win32
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.Ad-Hoc|x86.Build.0 = Release|Win32
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.AppStore|Any CPU.ActiveCfg = Release|x64
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.AppStore|Any CPU.Build.0 = Release|x64
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.AppStore|ARM.ActiveCfg = Release|x64
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.AppStore|ARM.Build.0 = Release|x64
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.AppStore|iPhone.ActiveCfg = Release|x64
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.AppStore|iPhone.Build.0 = Release|x64
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.AppStore|iPhoneSimulator.ActiveCfg = Release|x64
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.AppStore|iPhoneSimulator.Build.0 = Release|x64
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.AppStore|x64.ActiveCfg = Release|x64
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.AppStore|x64.Build.0 = Release|x64
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.AppStore|x86.ActiveCfg = Release|Win32
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.AppStore|x86.Build.0 = Release|Win32
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.Debug|ARM.ActiveCfg = Debug|Win32
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.Debug|iPhone.ActiveCfg = Debug|Win32
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.Debug|iPhoneSimulator.ActiveCfg = Debug|Win32
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.Debug|x64.ActiveCfg = Debug|x64
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.Debug|x64.Build.0 = Debug|x64
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.Debug|x86.ActiveCfg = Debug|Win32
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.Debug|x86.Build.0 = Debug|Win32
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.Release|Any CPU.ActiveCfg = Release|Win32
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.Release|ARM.ActiveCfg = Release|Win32
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.Release|iPhone.ActiveCfg = Release|Win32
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.Release|iPhoneSimulator.ActiveCfg = Release|Win32
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.Release|x64.ActiveCfg = Release|x64
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.Release|x64.Build.0 = Release|x64
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.Release|x86.ActiveCfg = Release|Win32
+		{E81C4040-A104-418F-BC53-8BDDE573E464}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -893,6 +935,7 @@ Global
 		{73CB9C01-3CD2-40DD-AA6D-850D1680C314} = {7869DE0F-7EEF-449D-8E76-B519B1147B75}
 		{234F6870-D1DD-4E9C-8429-5031CAC37057} = {DDDA47D4-F7A1-420C-AF5F-4668B34DB675}
 		{F7200777-09F2-434D-A64D-A2883A61874C} = {DDDA47D4-F7A1-420C-AF5F-4668B34DB675}
+		{E81C4040-A104-418F-BC53-8BDDE573E464} = {36206EE7-4B95-42B7-84BC-A654A3E46A96}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B607748E-360C-46D3-9890-EB33DBD63B09}

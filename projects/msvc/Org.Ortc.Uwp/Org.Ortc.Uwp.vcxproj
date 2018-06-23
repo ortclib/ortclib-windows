@@ -274,6 +274,7 @@
     <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_$(PlatformTarget)_$(Configuration)\obj\ortc\ortclib\libOrtc\Org_Ortc_Error.obj" />
     <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_$(PlatformTarget)_$(Configuration)\obj\ortc\ortclib\libOrtc\Org_Ortc_ErrorEvent.obj" />
     <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_$(PlatformTarget)_$(Configuration)\obj\ortc\ortclib\libOrtc\Org_Ortc_EventQueue.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_$(PlatformTarget)_$(Configuration)\obj\ortc\ortclib\libOrtc\Org_Ortc_EventQueueMaker.obj" />
     <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_$(PlatformTarget)_$(Configuration)\obj\ortc\ortclib\libOrtc\Org_Ortc_Json.obj" />
     <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_$(PlatformTarget)_$(Configuration)\obj\ortc\ortclib\libOrtc\Org_Ortc_Logger.obj" />
     <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_$(PlatformTarget)_$(Configuration)\obj\ortc\ortclib\libOrtc\Org_Ortc_LongRange.obj" />
@@ -430,6 +431,7 @@
     <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_$(PlatformTarget)_$(Configuration)\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_Error.obj" />
     <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_$(PlatformTarget)_$(Configuration)\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_ErrorEvent.obj" />
     <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_$(PlatformTarget)_$(Configuration)\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_EventQueue.obj" />
+    <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_$(PlatformTarget)_$(Configuration)\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_EventQueueMaker.obj" />
     <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_$(PlatformTarget)_$(Configuration)\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_Helper.obj" />
     <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_$(PlatformTarget)_$(Configuration)\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_Json.obj" />
     <Object Include="..\..\..\..\..\webrtc\xplatform\webrtc\out\winuwp_$(PlatformTarget)_$(Configuration)\obj\ortc\ortclib\ortclib_generated_static\impl_org_ortc_Logger.obj" />
