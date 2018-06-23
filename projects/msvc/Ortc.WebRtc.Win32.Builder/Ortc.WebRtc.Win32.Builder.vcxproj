@@ -99,8 +99,7 @@
       <SubSystem>Windows</SubSystem>
     </Link>
     <PreBuildEvent>
-      <Command>pushd "$(ProjectDir)..\..\..\..\..\" &amp;&amp; call bin\prepare.bat -platform win32 &amp;&amp; popd &amp;&amp; call "$(ProjectDir)..\..\..\..\..\bin\buildWebRTC.bat"  "$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\webrtcForOrtc.Win32.vs2015.sln" $(Configuration) win32 ortc
-</Command>
+      <Command>pushd "$(ProjectDir)..\..\..\..\..\" &amp;&amp; call bin\prepare.bat -platform win32 -cpu $(PlatformTarget) -target ortc &amp;&amp; call bin\buildWebRTC.bat $(Configuration) win32 $(PlatformTarget) ortc &amp;&amp; popd</Command>
       <Message>Building webrtc lib</Message>
     </PreBuildEvent>
   </ItemDefinitionGroup>
@@ -117,8 +116,7 @@
       <SubSystem>Windows</SubSystem>
     </Link>
     <PreBuildEvent>
-      <Command>pushd "$(ProjectDir)..\..\..\..\..\" &amp;&amp; call bin\prepare.bat -platform win32_x64 &amp;&amp; popd &amp;&amp; call "$(ProjectDir)..\..\..\..\..\bin\buildWebRTC.bat"  "$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\webrtcForOrtc.Win32.vs2015.sln" $(Configuration) win32_x64 ortc
-</Command>
+      <Command>pushd "$(ProjectDir)..\..\..\..\..\" &amp;&amp; call bin\prepare.bat -platform win32 -cpu $(PlatformTarget) -target ortc &amp;&amp; call bin\buildWebRTC.bat $(Configuration) win32 $(PlatformTarget) ortc &amp;&amp; popd</Command>
       <Message>Building webrtc lib</Message>
     </PreBuildEvent>
   </ItemDefinitionGroup>
@@ -139,8 +137,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PreBuildEvent>
-      <Command>pushd "$(ProjectDir)..\..\..\..\..\" &amp;&amp; call bin\prepare.bat -platform win32 &amp;&amp; popd &amp;&amp; call "$(ProjectDir)..\..\..\..\..\bin\buildWebRTC.bat"  "$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\webrtcForOrtc.Win32.vs2015.sln" $(Configuration) win32 ortc
-</Command>
+      <Command>pushd "$(ProjectDir)..\..\..\..\..\" &amp;&amp; call bin\prepare.bat -platform win32 -cpu $(PlatformTarget) -target ortc &amp;&amp; call bin\buildWebRTC.bat $(Configuration) win32 $(PlatformTarget) ortc &amp;&amp; popd</Command>
       <Message>Building webrtc lib</Message>
     </PreBuildEvent>
   </ItemDefinitionGroup>
@@ -161,8 +158,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PreBuildEvent>
-      <Command>pushd "$(ProjectDir)..\..\..\..\..\" &amp;&amp; call bin\prepare.bat -platform win32_x64 &amp;&amp; popd &amp;&amp; call "$(ProjectDir)..\..\..\..\..\bin\buildWebRTC.bat"  "$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\webrtcForOrtc.Win32.vs2015.sln" $(Configuration) win32_x64 ortc
-</Command>
+      <Command>pushd "$(ProjectDir)..\..\..\..\..\" &amp;&amp; call bin\prepare.bat -platform win32 -cpu $(PlatformTarget) -target ortc &amp;&amp; call bin\buildWebRTC.bat $(Configuration) win32 $(PlatformTarget) ortc &amp;&amp; popd</Command>
       <Message>Building webrtc lib</Message>
     </PreBuildEvent>
   </ItemDefinitionGroup>
