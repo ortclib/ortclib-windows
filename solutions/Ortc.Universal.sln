@@ -28,6 +28,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Ortc.UWP.Native.Builder", "
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PeerConnectionServer.Utility", "..\..\..\webrtc\windows\projects\msvc\PeerConnectionServer.Utility.Universal\PeerConnectionServer.Utility.vcxproj", "{569B4976-FD18-45CC-9A6A-CDBE71FBF4EE}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Ortc", "..\projects\msvc\Ortc.Universal\Ortc.vcxproj", "{70F3A6A9-90BD-43C5-BEBF-0BE986B5CB5E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{08C8FB57-A433-44AD-AE99-4AF554F02BED} = {08C8FB57-A433-44AD-AE99-4AF554F02BED}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -90,6 +95,18 @@ Global
 		{569B4976-FD18-45CC-9A6A-CDBE71FBF4EE}.Release|x64.Build.0 = Release|x64
 		{569B4976-FD18-45CC-9A6A-CDBE71FBF4EE}.Release|x86.ActiveCfg = Release|Win32
 		{569B4976-FD18-45CC-9A6A-CDBE71FBF4EE}.Release|x86.Build.0 = Release|Win32
+		{70F3A6A9-90BD-43C5-BEBF-0BE986B5CB5E}.Debug|ARM.ActiveCfg = Debug|ARM
+		{70F3A6A9-90BD-43C5-BEBF-0BE986B5CB5E}.Debug|ARM.Build.0 = Debug|ARM
+		{70F3A6A9-90BD-43C5-BEBF-0BE986B5CB5E}.Debug|x64.ActiveCfg = Debug|x64
+		{70F3A6A9-90BD-43C5-BEBF-0BE986B5CB5E}.Debug|x64.Build.0 = Debug|x64
+		{70F3A6A9-90BD-43C5-BEBF-0BE986B5CB5E}.Debug|x86.ActiveCfg = Debug|Win32
+		{70F3A6A9-90BD-43C5-BEBF-0BE986B5CB5E}.Debug|x86.Build.0 = Debug|Win32
+		{70F3A6A9-90BD-43C5-BEBF-0BE986B5CB5E}.Release|ARM.ActiveCfg = Release|ARM
+		{70F3A6A9-90BD-43C5-BEBF-0BE986B5CB5E}.Release|ARM.Build.0 = Release|ARM
+		{70F3A6A9-90BD-43C5-BEBF-0BE986B5CB5E}.Release|x64.ActiveCfg = Release|x64
+		{70F3A6A9-90BD-43C5-BEBF-0BE986B5CB5E}.Release|x64.Build.0 = Release|x64
+		{70F3A6A9-90BD-43C5-BEBF-0BE986B5CB5E}.Release|x86.ActiveCfg = Release|Win32
+		{70F3A6A9-90BD-43C5-BEBF-0BE986B5CB5E}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -103,6 +120,7 @@ Global
 		{287F164D-1822-4AF6-A08F-27CD0AF2697D} = {61920230-15AC-49CE-92FB-49C19476261B}
 		{08C8FB57-A433-44AD-AE99-4AF554F02BED} = {36206EE7-4B95-42B7-84BC-A654A3E46A96}
 		{569B4976-FD18-45CC-9A6A-CDBE71FBF4EE} = {61027D5A-09D6-4526-AC9E-F4A36BCB930D}
+		{70F3A6A9-90BD-43C5-BEBF-0BE986B5CB5E} = {61920230-15AC-49CE-92FB-49C19476261B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3F9C6309-AD6A-472C-A9A3-47659D3A1733}

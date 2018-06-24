@@ -8,7 +8,6 @@
 project.lock.json
 [Rr]elease/
 projects/ipch
-projects/samples/ortc-standup/**/Generated Files
 projects/ortc-lib-sdk-win.vs2015.VC.opendb
 projects/ortc-lib-sdk-win.vs2015.VC.db
 projects/packages
@@ -26,3 +25,4 @@ ipch/
 eventing/
 packages/
 projects/msvc/Org.Ortc.CppWinrt/Generated Files/
+projects/**/Generated Files
