@@ -146,7 +146,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\libOrtc\$(Configuration)\$(PlatformTarget)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\ortc\$(Configuration)\winuwp_$(PlatformTarget)</AdditionalLibraryDirectories>
       <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);webrtc.lib;dxguid.lib;MinCore.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -163,7 +163,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\libOrtc\$(Configuration)\$(PlatformTarget)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\ortc\$(Configuration)\winuwp_$(PlatformTarget)</AdditionalLibraryDirectories>
       <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);webrtc.lib;dxguid.lib;MinCore.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -180,7 +180,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\libOrtc\$(Configuration)\$(PlatformTarget)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\ortc\$(Configuration)\winuwp_$(PlatformTarget)</AdditionalLibraryDirectories>
       <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);webrtc.lib;dxguid.lib;MinCore.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -197,7 +197,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\libOrtc\$(Configuration)\$(PlatformTarget)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\ortc\$(Configuration)\winuwp_$(PlatformTarget)</AdditionalLibraryDirectories>
       <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);webrtc.lib;dxguid.lib;MinCore.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -215,7 +215,7 @@
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);webrtc.lib;dxguid.lib;MinCore.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\libOrtc\$(Configuration)\$(PlatformTarget)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\ortc\$(Configuration)\winuwp_$(PlatformTarget)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -231,14 +231,11 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\libOrtc\$(Configuration)\$(PlatformTarget)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\ortc\$(Configuration)\winuwp_$(PlatformTarget)</AdditionalLibraryDirectories>
       <AdditionalDependencies>WindowsApp.lib;%(AdditionalDependencies);webrtc.lib;dxguid.lib;MinCore.lib;Mmdevapi.lib;MFuuid.lib;MFReadWrite.lib;Mfplat.lib;uuid.lib;ole32.lib;avrt.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\libOrtc\cx_custom_Org_Ortc_Dispatcher.obj" />
-    <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\libOrtc\cx_custom_Org_Ortc_MediaControl.obj" />
-    <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\libOrtc\cx_custom_Org_Ortc_MediaSource.obj" />
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\libOrtc\cx_Helpers.obj" />
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\libOrtc\Org_Ortc_Adapter_MediaStream.obj" />
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\libOrtc\Org_Ortc_Adapter_RTCAnswerOptions.obj" />
@@ -273,10 +270,11 @@
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\libOrtc\Org_Ortc_ConstrainLongRange.obj" />
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\libOrtc\Org_Ortc_ConstrainString.obj" />
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\libOrtc\Org_Ortc_ConstrainStringParameters.obj" />
-    <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\libOrtc\Org_Ortc_Dispatcher.obj" />
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\libOrtc\Org_Ortc_DoubleRange.obj" />
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\libOrtc\Org_Ortc_Error.obj" />
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\libOrtc\Org_Ortc_ErrorEvent.obj" />
+    <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\libOrtc\Org_Ortc_EventQueue.obj" />
+    <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\libOrtc\Org_Ortc_EventQueueMaker.obj" />
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\libOrtc\Org_Ortc_Json.obj" />
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\libOrtc\Org_Ortc_Logger.obj" />
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\libOrtc\Org_Ortc_LongRange.obj" />
@@ -291,9 +289,7 @@
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\libOrtc\Org_Ortc_MediaTrackConstraintSet.obj" />
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\libOrtc\Org_Ortc_MediaTrackSettings.obj" />
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\libOrtc\Org_Ortc_MediaTrackSupportedConstraints.obj" />
-    <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\libOrtc\Org_Ortc_MessageQueue.obj" />
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\libOrtc\Org_Ortc_OrtcLib.obj" />
-    <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\libOrtc\Org_Ortc_OrtcLibWithDispatcher.obj" />
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\libOrtc\Org_Ortc_OverconstrainedError.obj" />
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\libOrtc\Org_Ortc_OverconstrainedErrorEvent.obj" />
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\libOrtc\Org_Ortc_RTCCertificate.obj" />
@@ -431,10 +427,11 @@
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\ortclib_generated_static\impl_org_ortc_ConstrainLongRange.obj" />
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\ortclib_generated_static\impl_org_ortc_ConstrainString.obj" />
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\ortclib_generated_static\impl_org_ortc_ConstrainStringParameters.obj" />
-    <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\ortclib_generated_static\impl_org_ortc_Dispatcher.obj" />
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\ortclib_generated_static\impl_org_ortc_DoubleRange.obj" />
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\ortclib_generated_static\impl_org_ortc_Error.obj" />
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\ortclib_generated_static\impl_org_ortc_ErrorEvent.obj" />
+    <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\ortclib_generated_static\impl_org_ortc_EventQueue.obj" />
+    <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\ortclib_generated_static\impl_org_ortc_EventQueueMaker.obj" />
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\ortclib_generated_static\impl_org_ortc_Helper.obj" />
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\ortclib_generated_static\impl_org_ortc_Json.obj" />
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\ortclib_generated_static\impl_org_ortc_Logger.obj" />
@@ -450,9 +447,7 @@
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\ortclib_generated_static\impl_org_ortc_MediaTrackConstraintSet.obj" />
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\ortclib_generated_static\impl_org_ortc_MediaTrackSettings.obj" />
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\ortclib_generated_static\impl_org_ortc_MediaTrackSupportedConstraints.obj" />
-    <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\ortclib_generated_static\impl_org_ortc_MessageQueue.obj" />
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\ortclib_generated_static\impl_org_ortc_OrtcLib.obj" />
-    <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\ortclib_generated_static\impl_org_ortc_OrtcLibWithDispatcher.obj" />
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\ortclib_generated_static\impl_org_ortc_OverconstrainedError.obj" />
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\ortclib_generated_static\impl_org_ortc_OverconstrainedErrorEvent.obj" />
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\ortclib_generated_static\impl_org_ortc_RTCCertificate.obj" />

@@ -1,0 +1,974 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="Class.cpp" />
+    <ClCompile Include="Generated Files\module.g.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.MediaStream.cpp">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCAnswerOptions.cpp">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCCapabilityOptions.cpp">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCConfiguration.cpp">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCIceCandidate.cpp">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCMediaStreamTrackConfiguration.cpp">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCOfferAnswerOptions.cpp">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCOfferOptions.cpp">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCPeerConnection.cpp">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCPeerConnectionIceErrorEvent.cpp">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCPeerConnectionIceEvent.cpp">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCSessionDescription.cpp">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCSessionDescriptionConnectionData.cpp">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCSessionDescriptionConnectionDataDetails.cpp">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCSessionDescriptionDescription.cpp">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCSessionDescriptionDescriptionDetails.cpp">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCSessionDescriptionMediaLine.cpp">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCSessionDescriptionMediaLineDetails.cpp">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCSessionDescriptionRtpMediaLine.cpp">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCSessionDescriptionRtpSender.cpp">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCSessionDescriptionRtpSenderDetails.cpp">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCSessionDescriptionSctpMediaLine.cpp">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCSessionDescriptionTransport.cpp">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCSessionDescriptionTransportParameters.cpp">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCTrackEvent.cpp">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\cppwinrt_Helpers.cpp">
+      <Filter>Generated</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.ConstrainBoolean.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.ConstrainBooleanParameters.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.ConstrainDouble.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.ConstrainDoubleRange.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.ConstrainLong.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.ConstrainLongRange.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.ConstrainString.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.ConstrainStringParameters.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.DoubleRange.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Error.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.ErrorEvent.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Json.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Logger.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.LongRange.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.MediaControl.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.MediaDeviceInfo.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.MediaDevices.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.MediaSource.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.MediaStreamConstraints.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.MediaStreamTrack.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.MediaTrackCapabilities.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.MediaTrackConstraints.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.MediaTrackConstraintSet.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.MediaTrackSettings.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.MediaTrackSupportedConstraints.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.MessageQueue.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.OrtcLib.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.OverconstrainedError.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.OverconstrainedErrorEvent.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCCertificate.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCCertificateStats.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCCodec.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCDataChannel.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCDataChannelEvent.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCDataChannelParameters.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCDataChannelStateChangeEvent.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCDataChannelStats.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCDataTransport.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCDtlsCertificateBinary.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCDtlsFingerprint.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCDtlsParameters.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCDtlsTransport.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCDtlsTransportStateChangeEvent.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCDtlsTransportStats.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCDtmfSender.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCDtmfToneChangeEvent.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceCandidate.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceCandidateAttributes.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceCandidateComplete.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceCandidatePair.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceCandidatePairChangeEvent.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceCandidatePairStats.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceGatherer.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceGathererCandidate.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceGathererCandidateCompleteEvent.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceGathererCandidateEvent.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceGathererIceErrorEvent.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceGathererStateChangeEvent.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceGathererStats.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceGatherInterfacePolicy.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceGatherOptions.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceParameters.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceServer.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceTransport.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceTransportController.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceTransportOptions.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceTransportStateChangeEvent.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceTransportStats.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIdentity.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIdentityAssertion.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIdentityError.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIdentityResult.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCInboundRtpStreamStats.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCMediaStreamStats.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCMediaStreamTrackStats.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCMessageEvent.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCOutboundRtpStreamStats.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtcpFeedback.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtcpParameters.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtcpTransport.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpCapabilities.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpCodecCapability.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpCodecCapabilityOptions.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpCodecCapabilityParameters.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpCodecParameters.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpCodecParameterSettings.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpContributingSource.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpEncodingParameters.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpFecParameters.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpFlexFecCodecCapabilityParameters.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpFlexFecCodecParameterSettings.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpH264CodecCapabilityParameters.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpH264CodecParameterSettings.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpHeaderExtension.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpHeaderExtensionParameters.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpListener.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpOpusCodecCapabilityOptions.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpOpusCodecCapabilityParameters.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpOpusCodecParameterSettings.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpParameters.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpReceiver.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpRedCodecParameterSettings.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpRtxCodecCapabilityParameters.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpRtxCodecParameterSettings.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpRtxParameters.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpSender.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpStreamStats.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpTransport.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpUnhandledEvent.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpVp8CodecCapabilityParameters.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpVp8CodecParameterSettings.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCSctpCapabilities.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCSctpTransport.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCSctpTransportListener.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCSctpTransportListenerEvent.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCSctpTransportStateChangeEvent.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCSctpTransportStats.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCSrtpSdesCryptoParameters.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCSrtpSdesKeyParameters.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCSrtpSdesParameters.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCSrtpSdesTransport.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCSrtpSdesTransportLifetimeRemainingEvent.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCSrtpTransportStats.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCSsrcConflictEvent.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCStats.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCStatsProvider.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCStatsReport.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCStatsTypeSet.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Settings.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.StringOrStringList.cpp">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="Class.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.MediaStream.h">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCAnswerOptions.h">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCCapabilityOptions.h">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCConfiguration.h">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCIceCandidate.h">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCMediaStreamTrackConfiguration.h">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCOfferAnswerOptions.h">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCOfferOptions.h">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCPeerConnection.h">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCPeerConnectionIceErrorEvent.h">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCPeerConnectionIceEvent.h">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCSessionDescription.h">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCSessionDescriptionConnectionData.h">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCSessionDescriptionConnectionDataDetails.h">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCSessionDescriptionDescription.h">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCSessionDescriptionDescriptionDetails.h">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCSessionDescriptionMediaLine.h">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCSessionDescriptionMediaLineDetails.h">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCSessionDescriptionRtpMediaLine.h">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCSessionDescriptionRtpSender.h">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCSessionDescriptionRtpSenderDetails.h">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCSessionDescriptionSctpMediaLine.h">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCSessionDescriptionTransport.h">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCSessionDescriptionTransportParameters.h">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Adapter.RTCTrackEvent.h">
+      <Filter>Generated\Org\Ortc\Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\cppwinrt_Helpers.h">
+      <Filter>Generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.ConstrainBoolean.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.ConstrainBooleanParameters.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.ConstrainDouble.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.ConstrainDoubleRange.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.ConstrainLong.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.ConstrainLongRange.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.ConstrainString.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.ConstrainStringParameters.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.DoubleRange.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Error.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.ErrorEvent.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Json.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Logger.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.LongRange.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.MediaControl.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.MediaDeviceInfo.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.MediaDevices.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.MediaSource.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.MediaStreamConstraints.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.MediaStreamTrack.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.MediaTrackCapabilities.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.MediaTrackConstraints.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.MediaTrackConstraintSet.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.MediaTrackSettings.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.MediaTrackSupportedConstraints.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.MessageQueue.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.OrtcLib.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.OverconstrainedError.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.OverconstrainedErrorEvent.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCCertificate.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCCertificateStats.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCCodec.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCDataChannel.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCDataChannelEvent.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCDataChannelParameters.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCDataChannelStateChangeEvent.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCDataChannelStats.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCDataTransport.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCDtlsCertificateBinary.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCDtlsFingerprint.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCDtlsParameters.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCDtlsTransport.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCDtlsTransportStateChangeEvent.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCDtlsTransportStats.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCDtmfSender.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCDtmfToneChangeEvent.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceCandidate.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceCandidateAttributes.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceCandidateComplete.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceCandidatePair.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceCandidatePairChangeEvent.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceCandidatePairStats.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceGatherer.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceGathererCandidate.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceGathererCandidateCompleteEvent.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceGathererCandidateEvent.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceGathererIceErrorEvent.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceGathererStateChangeEvent.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceGathererStats.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceGatherInterfacePolicy.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceGatherOptions.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceParameters.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceServer.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceTransport.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceTransportController.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceTransportOptions.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceTransportStateChangeEvent.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIceTransportStats.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIdentity.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIdentityAssertion.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIdentityError.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCIdentityResult.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCInboundRtpStreamStats.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCMediaStreamStats.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCMediaStreamTrackStats.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCMessageEvent.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCOutboundRtpStreamStats.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtcpFeedback.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtcpParameters.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtcpTransport.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpCapabilities.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpCodecCapability.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpCodecCapabilityOptions.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpCodecCapabilityParameters.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpCodecParameters.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpCodecParameterSettings.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpContributingSource.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpEncodingParameters.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpFecParameters.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpFlexFecCodecCapabilityParameters.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpFlexFecCodecParameterSettings.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpH264CodecCapabilityParameters.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpH264CodecParameterSettings.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpHeaderExtension.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpHeaderExtensionParameters.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpListener.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpOpusCodecCapabilityOptions.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpOpusCodecCapabilityParameters.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpOpusCodecParameterSettings.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpParameters.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpReceiver.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpRedCodecParameterSettings.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpRtxCodecCapabilityParameters.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpRtxCodecParameterSettings.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpRtxParameters.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpSender.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpStreamStats.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpTransport.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpUnhandledEvent.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCRtpVp8CodecCapabilityParameters.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\org.ortc.rtcrtpvp8codecparametersettings.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCSctpCapabilities.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCSctpTransport.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCSctpTransportListener.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCSctpTransportListenerEvent.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCSctpTransportStateChangeEvent.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCSctpTransportStats.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCSrtpSdesCryptoParameters.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCSrtpSdesKeyParameters.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCSrtpSdesParameters.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCSrtpSdesTransport.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCSrtpSdesTransportLifetimeRemainingEvent.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCSrtpTransportStats.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCSsrcConflictEvent.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCStats.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCStatsProvider.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCStatsReport.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.RTCStatsTypeSet.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.Settings.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.StringOrStringList.h">
+      <Filter>Generated\Org\Ortc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\types.h">
+      <Filter>Generated</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="Class.idl" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Org_Ortc_CppWinrt.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Generated">
+      <UniqueIdentifier>{be48eb4c-d5ab-491d-aa29-d8831b215cbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated\Org">
+      <UniqueIdentifier>{50d5d202-1362-49ba-a99b-95ab657f68b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated\Org\Ortc">
+      <UniqueIdentifier>{dd4b4956-52c7-43b4-9998-3587f5c9c067}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated\Org\Ortc\Adapter">
+      <UniqueIdentifier>{8b19aaae-c442-4a10-99d0-caecc3eb0413}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
