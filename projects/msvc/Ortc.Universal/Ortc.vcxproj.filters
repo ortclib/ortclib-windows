@@ -32,7 +32,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="Class.cpp" />
     <ClCompile Include="Generated Files\module.g.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
@@ -522,7 +521,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Class.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\override\cppwinrt\Org.Ortc.EventQueue.h">
       <Filter>wrapper\override\cppwinrt</Filter>
     </ClInclude>
