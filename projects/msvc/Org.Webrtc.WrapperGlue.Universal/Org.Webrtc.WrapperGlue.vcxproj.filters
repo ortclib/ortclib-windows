@@ -1,0 +1,675 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="wrapper">
+      <UniqueIdentifier>{424c349f-2f91-45fa-81b9-edc08c44da5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wrapper\generated">
+      <UniqueIdentifier>{0799a83d-6bf9-4590-97a3-18120da9bfd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wrapper\override">
+      <UniqueIdentifier>{e9e1dafc-3753-4f8c-af15-dddbcc4ffbe8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_Constraint.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_EventQueue.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_EventQueueMaker.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_MediaConstraints.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_MediaElement.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_MediaSource.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_MediaStreamTrack.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_MessageEvent.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_MillisecondIntervalRange.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCAnswerOptions.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCBitrateParameters.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCCertificate.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCCertificateStats.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCCodec.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCConfiguration.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCDataChannel.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCDataChannelEvent.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCDataChannelInit.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCDataChannelStats.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCDtlsFingerprint.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCDtlsTransportStats.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCDTMFSender.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCDtmfToneChangeEvent.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCError.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCIceCandidate.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCIceCandidateAttributes.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCIceCandidateInit.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCIceCandidatePairStats.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCIceGathererStats.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCIceServer.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCIceTransportStats.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCInboundRtpStreamStats.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCKeyParams.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCMediaStreamStats.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCMediaStreamTrackStats.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCOAuthCredential.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCOfferAnswerOptions.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCOfferOptions.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCOutboundRtpStreamStats.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCPeerConnection.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCPeerConnectionIceErrorEvent.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCPeerConnectionIceEvent.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCRSAParams.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCRtcpParameters.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCRtpCodecCapability.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCRtpCodecParameters.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCRtpCodingParameters.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCRtpContributingSource.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCRtpDecodingParameters.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCRtpEncodingParameters.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCRtpFecParameters.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCRtpHeaderExtensionParameters.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCRtpParameters.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCRtpReceiveParameters.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCRtpReceiver.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCRtpRtxParameters.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCRtpSender.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCRtpSendParameters.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCRtpStreamStats.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCRtpSynchronizationSource.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCRtpTransceiver.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCSctpTransportStats.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCSessionDescription.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCSessionDescriptionInit.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCSrtpTransportStats.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCStats.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCStatsProvider.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCStatsReport.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCStatsTypeSet.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_RTCTrackEvent.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_WebRtcLib.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\types.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_Constraint.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_EventQueue.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_EventQueueMaker.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_MediaConstraints.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_MediaElement.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_MediaSource.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_MediaStreamTrack.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_MessageEvent.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_MillisecondIntervalRange.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCAnswerOptions.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCBitrateParameters.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCCertificate.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCCertificateStats.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCCodec.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCConfiguration.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCDataChannel.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCDataChannelEvent.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCDataChannelInit.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCDataChannelStats.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCDtlsFingerprint.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCDtlsTransportStats.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCDTMFSender.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCDtmfToneChangeEvent.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCError.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCIceCandidate.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCIceCandidateAttributes.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCIceCandidateInit.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCIceCandidatePairStats.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCIceGathererStats.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCIceServer.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCIceTransportStats.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCInboundRtpStreamStats.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCKeyParams.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCMediaStreamStats.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCMediaStreamTrackStats.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCOAuthCredential.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCOfferAnswerOptions.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCOfferOptions.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCOutboundRtpStreamStats.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCPeerConnection.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCPeerConnectionIceErrorEvent.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCPeerConnectionIceEvent.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRSAParams.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtcpParameters.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtpCodecCapability.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtpCodecParameters.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtpCodingParameters.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtpContributingSource.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtpDecodingParameters.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtpEncodingParameters.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtpFecParameters.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtpHeaderExtensionParameters.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtpParameters.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtpReceiveParameters.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtpReceiver.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtpRtxParameters.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtpSender.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtpSendParameters.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtpStreamStats.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtpSynchronizationSource.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtpTransceiver.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCSctpTransportStats.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCSessionDescription.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCSessionDescriptionInit.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCSrtpTransportStats.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCStats.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCStatsProvider.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCStatsReport.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCStatsTypeSet.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCTrackEvent.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_WebRtcLib.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\types.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\org_webrtc_EventQueue.h">
+      <Filter>wrapper\override</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\org_webrtc_EventQueueMaker.h">
+      <Filter>wrapper\override</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\org_webrtc_MediaElement.h">
+      <Filter>wrapper\override</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\org_webrtc_MediaSource.h">
+      <Filter>wrapper\override</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_Constraint.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_EventQueue.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_EventQueueMaker.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_MediaConstraints.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_MediaElement.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_MediaSource.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_MediaStreamTrack.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_MessageEvent.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_MillisecondIntervalRange.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCAnswerOptions.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCBitrateParameters.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCCertificate.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCCertificateStats.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCCodec.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCConfiguration.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCDataChannel.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCDataChannelEvent.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCDataChannelInit.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCDataChannelStats.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCDtlsFingerprint.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCDtlsTransportStats.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCDTMFSender.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCDtmfToneChangeEvent.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCError.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCIceCandidate.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCIceCandidateAttributes.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCIceCandidateInit.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCIceCandidatePairStats.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCIceGathererStats.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCIceServer.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCIceTransportStats.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCInboundRtpStreamStats.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCKeyParams.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCMediaStreamStats.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCMediaStreamTrackStats.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCOAuthCredential.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCOfferAnswerOptions.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCOfferOptions.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCOutboundRtpStreamStats.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCPeerConnection.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCPeerConnectionIceErrorEvent.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCPeerConnectionIceEvent.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRSAParams.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtcpParameters.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtpCodecCapability.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtpCodecParameters.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtpCodingParameters.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtpContributingSource.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtpDecodingParameters.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtpEncodingParameters.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtpFecParameters.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtpHeaderExtensionParameters.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtpParameters.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtpReceiveParameters.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtpReceiver.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtpRtxParameters.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtpSender.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtpSendParameters.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtpStreamStats.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtpSynchronizationSource.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCRtpTransceiver.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCSctpTransportStats.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCSessionDescription.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCSessionDescriptionInit.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCSrtpTransportStats.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCStats.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCStatsProvider.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCStatsReport.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCStatsTypeSet.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCTrackEvent.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_WebRtcLib.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

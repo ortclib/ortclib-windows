@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <CppWinRTEnabled>true</CppWinRTEnabled>
+    <RequiredBundles>$(RequiredBundles);Microsoft.Windows.CppWinRT</RequiredBundles>
+    <MinimalCoreWin>true</MinimalCoreWin>
+    <ProjectGuid>{6799ece8-f824-48ee-867e-865eead0e9b0}</ProjectGuid>
+    <ProjectName>Webrtc</ProjectName>
+    <RootNamespace>Webrtc</RootNamespace>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <AppContainerApplication>true</AppContainerApplication>
+    <ApplicationType>Windows Store</ApplicationType>
+    <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
+    <WindowsTargetPlatformVersion Condition=" '$(WindowsTargetPlatformVersion)' == '' ">10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformMinVersion>10.0.17134.0</WindowsTargetPlatformMinVersion>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'" Label="Configuration">
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'" Label="Configuration">
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <AdditionalOptions>%(AdditionalOptions) /permissive- /bigobj /Zc:__cplusplus</AdditionalOptions>
+      <DisableSpecificWarnings>28204</DisableSpecificWarnings>
+      <PreprocessorDefinitions>WINUWP;NOMINMAX;_WINRT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform\zsLib-eventing;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\cppwinrt;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform\zsLib-eventing;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\cppwinrt;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform\zsLib-eventing;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\cppwinrt;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateWindowsMetadata>true</GenerateWindowsMetadata>
+      <ModuleDefinitionFile>Webrtc.def</ModuleDefinitionFile>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">webrtc.lib;WindowsApp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">webrtc.lib;WindowsApp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Release|x64'">webrtc.lib;WindowsApp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\ortc\$(Configuration)\winuwp_$(PlatformTarget);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\ortc\$(Configuration)\winuwp_$(PlatformTarget);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\ortc\$(Configuration)\winuwp_$(PlatformTarget);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">/defaultlib:vccorlib /defaultlib:msvcrt %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">/defaultlib:vccorlib /defaultlib:msvcrt %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/defaultlib:vccorlib /defaultlib:msvcrt %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <Midl>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\msidl;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\msidl</AdditionalIncludeDirectories>
+    </Midl>
+    <Midl>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\msidl;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\msidl</AdditionalIncludeDirectories>
+    </Midl>
+    <Midl>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\msidl;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\msidl</AdditionalIncludeDirectories>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
+    <ClCompile>
+      <PreprocessorDefinitions>WINUWP;NOMINMAX;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform\zsLib-eventing;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\cppwinrt;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform\zsLib-eventing;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\cppwinrt;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform\zsLib-eventing;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\cppwinrt;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">webrtc.lib;WindowsApp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\ortc\$(Configuration)\winuwp_$(PlatformTarget);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">/defaultlib:vccorlibd /defaultlib:msvcrtd %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <Link>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">webrtc.lib;WindowsApp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\ortc\$(Configuration)\winuwp_$(PlatformTarget);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/defaultlib:vccorlibd /defaultlib:msvcrtd %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <Link>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">webrtc.lib;WindowsApp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\WEBRTC_BUILD\ortc\$(Configuration)\winuwp_$(PlatformTarget);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/defaultlib:vccorlibd /defaultlib:msvcrtd %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <Midl>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\msidl;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\msidl</AdditionalIncludeDirectories>
+    </Midl>
+    <Midl>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\msidl;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\msidl</AdditionalIncludeDirectories>
+    </Midl>
+    <Midl>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\msidl;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\msidl</AdditionalIncludeDirectories>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\cppwinrt_Helpers.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.Constraint.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.EventQueue.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.EventQueueMaker.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.MediaConstraints.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.MediaElement.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.MediaSource.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.MediaStreamTrack.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.MessageEvent.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.MillisecondIntervalRange.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCAnswerOptions.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCBitrateParameters.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCCertificate.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCCertificateStats.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCCodec.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCConfiguration.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCDataChannel.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCDataChannelEvent.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCDataChannelInit.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCDataChannelStats.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCDtlsFingerprint.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCDtlsTransportStats.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCDTMFSender.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCDtmfToneChangeEvent.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCError.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCIceCandidate.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCIceCandidateAttributes.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCIceCandidateInit.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCIceCandidatePairStats.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCIceGathererStats.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCIceServer.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCIceTransportStats.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCInboundRtpStreamStats.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCKeyParams.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCMediaStreamStats.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCMediaStreamTrackStats.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCOAuthCredential.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCOfferAnswerOptions.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCOfferOptions.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCOutboundRtpStreamStats.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCPeerConnection.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCPeerConnectionIceErrorEvent.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCPeerConnectionIceEvent.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRSAParams.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtcpParameters.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtpCodecCapability.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtpCodecParameters.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtpCodingParameters.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtpContributingSource.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtpDecodingParameters.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtpEncodingParameters.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtpFecParameters.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtpHeaderExtensionParameters.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtpParameters.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtpReceiveParameters.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtpReceiver.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtpRtxParameters.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtpSender.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtpSendParameters.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtpStreamStats.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtpSynchronizationSource.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtpTransceiver.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCSctpTransportStats.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCSessionDescription.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCSessionDescriptionInit.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCSrtpTransportStats.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCStats.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCStatsProvider.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCStatsReport.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCStatsTypeSet.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCTrackEvent.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.WebRtcLib.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\types.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\cppwinrt\Org.Webrtc.EventQueue.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\cppwinrt\Org.Webrtc.EventQueueMaker.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\cppwinrt\Org.Webrtc.MediaElement.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\cppwinrt\Org.Webrtc.MediaSource.h" />
+    <ClInclude Include="pch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\cppwinrt_Helpers.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.Constraint.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.EventQueue.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.EventQueueMaker.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.MediaConstraints.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.MediaElement.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.MediaSource.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.MediaStreamTrack.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.MessageEvent.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.MillisecondIntervalRange.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCAnswerOptions.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCBitrateParameters.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCCertificate.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCCertificateStats.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCCodec.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCConfiguration.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCDataChannel.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCDataChannelEvent.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCDataChannelInit.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCDataChannelStats.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCDtlsFingerprint.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCDtlsTransportStats.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCDTMFSender.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCDtmfToneChangeEvent.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCError.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCIceCandidate.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCIceCandidateAttributes.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCIceCandidateInit.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCIceCandidatePairStats.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCIceGathererStats.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCIceServer.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCIceTransportStats.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCInboundRtpStreamStats.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCKeyParams.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCMediaStreamStats.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCMediaStreamTrackStats.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCOAuthCredential.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCOfferAnswerOptions.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCOfferOptions.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCOutboundRtpStreamStats.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCPeerConnection.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCPeerConnectionIceErrorEvent.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCPeerConnectionIceEvent.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRSAParams.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtcpParameters.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtpCodecCapability.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtpCodecParameters.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtpCodingParameters.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtpContributingSource.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtpDecodingParameters.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtpEncodingParameters.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtpFecParameters.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtpHeaderExtensionParameters.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtpParameters.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtpReceiveParameters.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtpReceiver.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtpRtxParameters.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtpSender.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtpSendParameters.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtpStreamStats.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtpSynchronizationSource.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCRtpTransceiver.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCSctpTransportStats.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCSessionDescription.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCSessionDescriptionInit.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCSrtpTransportStats.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCStats.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCStatsProvider.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCStatsReport.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCStatsTypeSet.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.RTCTrackEvent.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.WebRtcLib.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\cppwinrt\Org.Webrtc.EventQueue.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\cppwinrt\Org.Webrtc.EventQueueMaker.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\cppwinrt\Org.Webrtc.MediaElement.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\cppwinrt\Org.Webrtc.MediaSource.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Generated Files\module.g.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\msidl\output.idl" />
+    <Midl Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\msidl\Org.Webrtc.EventQueue.idl" />
+    <Midl Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\msidl\Org.Webrtc.EventQueueMaker.idl" />
+    <Midl Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\msidl\Org.Webrtc.MediaElement.idl" />
+    <Midl Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\msidl\Org.Webrtc.MediaSource.idl" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\msidl\Org.Webrtc.EventQueue.idl.template">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\msidl\Org.Webrtc.EventQueueMaker.idl.template">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\msidl\Org.Webrtc.MediaElement.idl.template">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\msidl\Org.Webrtc.MediaSource.idl.template">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="Webrtc.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="readme.txt">
+      <DeploymentContent>false</DeploymentContent>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Org.Webrtc.WrapperGlue.Universal\Org.Webrtc.WrapperGlue.vcxproj">
+      <Project>{984485cb-1094-436c-a71b-7ae94654c6be}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
