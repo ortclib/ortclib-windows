@@ -300,6 +300,8 @@
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_MediaStreamTrack.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_MessageEvent.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_MillisecondIntervalRange.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_post_include.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_pre_include.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCAnswerOptions.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCBitrateParameters.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_RTCCertificate.h" />
