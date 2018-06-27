@@ -468,6 +468,30 @@
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_enums.h">
       <Filter>wrapper</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_AudioOptions.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_VideoCapturer.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_VideoCapturerInputSize.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_VideoFormat.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_AudioOptions.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_VideoCapturer.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_VideoCapturerInputSize.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_VideoFormat.h">
+      <Filter>wrapper\generated</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_Constraint.cpp">
@@ -687,6 +711,18 @@
       <Filter>wrapper</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_enums.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_AudioOptions.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_VideoCapturer.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_VideoCapturerInputSize.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_VideoFormat.cpp">
       <Filter>wrapper</Filter>
     </ClCompile>
   </ItemGroup>

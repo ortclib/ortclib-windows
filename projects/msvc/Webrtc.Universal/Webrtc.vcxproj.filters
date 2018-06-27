@@ -259,6 +259,18 @@
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\cppwinrt\Org.Webrtc.MediaElement.cpp">
       <Filter>wrapper\override\cppwinrt</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.AudioOptions.cpp">
+      <Filter>wrapper\generated\cppwinrt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.VideoCapturer.cpp">
+      <Filter>wrapper\generated\cppwinrt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.VideoCapturerInputSize.cpp">
+      <Filter>wrapper\generated\cppwinrt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.VideoFormat.cpp">
+      <Filter>wrapper\generated\cppwinrt</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -492,6 +504,18 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\cppwinrt\Org.Webrtc.MediaElement.h">
       <Filter>wrapper\override\cppwinrt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.AudioOptions.h">
+      <Filter>wrapper\generated\cppwinrt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.VideoCapturer.h">
+      <Filter>wrapper\generated\cppwinrt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.VideoCapturerInputSize.h">
+      <Filter>wrapper\generated\cppwinrt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.Webrtc.VideoFormat.h">
+      <Filter>wrapper\generated\cppwinrt</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
