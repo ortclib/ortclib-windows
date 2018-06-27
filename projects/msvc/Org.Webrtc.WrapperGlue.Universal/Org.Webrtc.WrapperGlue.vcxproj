@@ -310,6 +310,7 @@
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\org_webrtc_WebRtcLib.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\types.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_Constraint.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_enums.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_EventQueue.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_EventQueueMaker.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_helpers.h" />
@@ -391,6 +392,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_Constraint.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_enums.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_EventQueue.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_EventQueueMaker.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_helpers.cpp" />
