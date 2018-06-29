@@ -125,7 +125,7 @@
       <PreprocessorDefinitions>WEBRTC_WIN;WINUWP;NOMINMAX;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalOptions>/bigobj /Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform\zsLib-eventing;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\third_party\libyuv\include;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform\zsLib-eventing;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -145,7 +145,7 @@
       <PreprocessorDefinitions>WEBRTC_WIN;WINUWP;NOMINMAX;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalOptions>/bigobj /Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform\zsLib-eventing;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\third_party\libyuv\include;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform\zsLib-eventing;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -165,7 +165,7 @@
       <PreprocessorDefinitions>WEBRTC_WIN;WINUWP;NOMINMAX;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalOptions>/bigobj /Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform\zsLib-eventing;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\third_party\libyuv\include;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform\zsLib-eventing;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -185,7 +185,7 @@
       <PreprocessorDefinitions>WEBRTC_WIN;WINUWP;NOMINMAX;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalOptions>/bigobj /Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform\zsLib-eventing;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\third_party\libyuv\include;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform\zsLib-eventing;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -205,7 +205,7 @@
       <PreprocessorDefinitions>WEBRTC_WIN;WINUWP;NOMINMAX;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalOptions>/bigobj /Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform\zsLib-eventing;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\third_party\libyuv\include;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform\zsLib-eventing;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -225,7 +225,7 @@
       <PreprocessorDefinitions>WEBRTC_WIN;WINUWP;NOMINMAX;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalOptions>/bigobj /Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform\zsLib-eventing;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\third_party\libyuv\include;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform\zsLib-eventing;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -406,6 +406,8 @@
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_VideoTrackSource.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_VideoTrackSourceStats.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_WebRtcLib.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\cppwinrt\MediaSourceHelper.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\cppwinrt\RTMediaStreamSource.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\org_webrtc_EventQueue.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\org_webrtc_EventQueueMaker.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\org_webrtc_MediaElement.h" />
@@ -497,6 +499,8 @@
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_VideoTrackSource.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_VideoTrackSourceStats.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webrtc_WebRtcLib.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\cppwinrt\MediaSourceHelper.cc" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\cppwinrt\RTMediaStreamSource.cc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
