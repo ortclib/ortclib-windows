@@ -33,14 +33,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Ortc", "..\projects\msvc\Or
 		{08C8FB57-A433-44AD-AE99-4AF554F02BED} = {08C8FB57-A433-44AD-AE99-4AF554F02BED}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Org.Webrtc", "Org.Webrtc", "{0AD35DAA-D494-4057-98C8-6464FCA24C67}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Org.WebRtc", "Org.WebRtc", "{0AD35DAA-D494-4057-98C8-6464FCA24C67}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Org.Webrtc.WrapperGlue", "..\projects\msvc\Org.Webrtc.WrapperGlue.Universal\Org.Webrtc.WrapperGlue.vcxproj", "{984485CB-1094-436C-A71B-7AE94654C6BE}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Org.WebRtc.WrapperGlue", "..\projects\msvc\Org.Webrtc.WrapperGlue.Universal\Org.Webrtc.WrapperGlue.vcxproj", "{984485CB-1094-436C-A71B-7AE94654C6BE}"
 	ProjectSection(ProjectDependencies) = postProject
 		{08C8FB57-A433-44AD-AE99-4AF554F02BED} = {08C8FB57-A433-44AD-AE99-4AF554F02BED}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Webrtc", "..\projects\msvc\Webrtc.Universal\Webrtc.vcxproj", "{6799ECE8-F824-48EE-867E-865EEAD0E9B0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WebRtc", "..\projects\msvc\Webrtc.Universal\Webrtc.vcxproj", "{6799ECE8-F824-48EE-867E-865EEAD0E9B0}"
 	ProjectSection(ProjectDependencies) = postProject
 		{08C8FB57-A433-44AD-AE99-4AF554F02BED} = {08C8FB57-A433-44AD-AE99-4AF554F02BED}
 		{984485CB-1094-436C-A71B-7AE94654C6BE} = {984485CB-1094-436C-A71B-7AE94654C6BE}
