@@ -322,6 +322,7 @@
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.WebRtc.WebRtcLib.cpp">
       <Filter>wrapper\generated\cppwinrt</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.WebRtc.RTCRtpTransceiverInit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -619,6 +620,7 @@
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\types.h">
       <Filter>wrapper\generated\cppwinrt</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.WebRtc.RTCRtpTransceiverInit.h" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\msidl\output.idl">
