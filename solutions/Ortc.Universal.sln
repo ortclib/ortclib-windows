@@ -47,6 +47,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WebRtc", "..\projects\msvc\
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeerConnectionClient.WebRtc", "..\..\..\common\windows\samples\PeerCC\Client\PeerConnectionClient.WebRtc.csproj", "{A2EA7350-EE59-42C5-9323-C942B058B217}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6799ECE8-F824-48EE-867E-865EEAD0E9B0} = {6799ECE8-F824-48EE-867E-865EEAD0E9B0}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
