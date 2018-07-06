@@ -127,6 +127,7 @@
       <AdditionalOptions>/bigobj /Zc:__cplusplus /await %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\third_party\libyuv\include;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform\zsLib-eventing;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAsWinRT>true</CompileAsWinRT>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -147,6 +148,7 @@
       <AdditionalOptions>/bigobj /Zc:__cplusplus /await %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\third_party\libyuv\include;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform\zsLib-eventing;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAsWinRT>true</CompileAsWinRT>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -167,6 +169,7 @@
       <AdditionalOptions>/bigobj /Zc:__cplusplus /await %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\third_party\libyuv\include;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform\zsLib-eventing;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAsWinRT>true</CompileAsWinRT>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -187,6 +190,7 @@
       <AdditionalOptions>/bigobj /Zc:__cplusplus /await %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\third_party\libyuv\include;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform\zsLib-eventing;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAsWinRT>true</CompileAsWinRT>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -207,6 +211,7 @@
       <AdditionalOptions>/bigobj /Zc:__cplusplus /await %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\third_party\libyuv\include;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform\zsLib-eventing;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAsWinRT>true</CompileAsWinRT>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -227,6 +232,7 @@
       <AdditionalOptions>/bigobj /Zc:__cplusplus /await %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\third_party\libyuv\include;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform\zsLib-eventing;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAsWinRT>true</CompileAsWinRT>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
