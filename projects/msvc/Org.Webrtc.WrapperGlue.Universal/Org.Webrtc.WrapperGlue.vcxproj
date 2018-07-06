@@ -119,14 +119,14 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <CompileAsWinRT>true</CompileAsWinRT>
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <PreprocessorDefinitions>WEBRTC_WIN;WINUWP;NOMINMAX;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalOptions>/bigobj /Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/bigobj /Zc:__cplusplus /await %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\third_party\libyuv\include;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform\zsLib-eventing;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CompileAsWinRT>true</CompileAsWinRT>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,14 +139,14 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <CompileAsWinRT>true</CompileAsWinRT>
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <PreprocessorDefinitions>WEBRTC_WIN;WINUWP;NOMINMAX;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalOptions>/bigobj /Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/bigobj /Zc:__cplusplus /await %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\third_party\libyuv\include;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform\zsLib-eventing;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CompileAsWinRT>true</CompileAsWinRT>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -159,14 +159,14 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|arm'">
     <ClCompile>
-      <CompileAsWinRT>true</CompileAsWinRT>
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <PreprocessorDefinitions>WEBRTC_WIN;WINUWP;NOMINMAX;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalOptions>/bigobj /Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/bigobj /Zc:__cplusplus /await %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\third_party\libyuv\include;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform\zsLib-eventing;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CompileAsWinRT>true</CompileAsWinRT>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -179,14 +179,14 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|arm'">
     <ClCompile>
-      <CompileAsWinRT>true</CompileAsWinRT>
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <PreprocessorDefinitions>WEBRTC_WIN;WINUWP;NOMINMAX;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalOptions>/bigobj /Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/bigobj /Zc:__cplusplus /await %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\third_party\libyuv\include;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform\zsLib-eventing;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CompileAsWinRT>true</CompileAsWinRT>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -199,14 +199,14 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <CompileAsWinRT>true</CompileAsWinRT>
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <PreprocessorDefinitions>WEBRTC_WIN;WINUWP;NOMINMAX;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalOptions>/bigobj /Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/bigobj /Zc:__cplusplus /await %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\third_party\libyuv\include;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform\zsLib-eventing;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CompileAsWinRT>true</CompileAsWinRT>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -219,14 +219,14 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <CompileAsWinRT>true</CompileAsWinRT>
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <PreprocessorDefinitions>WEBRTC_WIN;WINUWP;NOMINMAX;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalOptions>/bigobj /Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/bigobj /Zc:__cplusplus /await %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc;$(ProjectDir)..\..\..\..\..\webrtc\xplatform\webrtc\third_party\libyuv\include;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\webrtc\idl;$(ProjectDir)..\..\..\..\xplatform\zsLib;$(ProjectDir)..\..\..\..\xplatform\zsLib-eventing;$(ProjectDir)..\..\..\..\xplatform;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CompileAsWinRT>true</CompileAsWinRT>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
