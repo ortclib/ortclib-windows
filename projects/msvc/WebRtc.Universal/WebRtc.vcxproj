@@ -171,6 +171,7 @@
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.WebRtc.EventQueueMaker.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.WebRtc.MediaConstraints.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.WebRtc.MediaElement.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.WebRtc.MediaElementMaker.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.WebRtc.MediaSource.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.WebRtc.MediaStreamTrack.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.WebRtc.MediaTrackSource.h" />
@@ -262,6 +263,7 @@
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\cppwinrt\Org.WebRtc.EventQueue.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\cppwinrt\Org.WebRtc.EventQueueMaker.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\cppwinrt\Org.WebRtc.MediaElement.h" />
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\cppwinrt\Org.WebRtc.MediaElementMaker.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\cppwinrt\Org.WebRtc.MediaSource.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\cppwinrt\Org.WebRtc.VideoDeviceInfo.h" />
     <ClInclude Include="pch.h" />
@@ -275,6 +277,7 @@
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.WebRtc.EventQueueMaker.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.WebRtc.MediaConstraints.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.WebRtc.MediaElement.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.WebRtc.MediaElementMaker.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.WebRtc.MediaSource.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.WebRtc.MediaStreamTrack.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.WebRtc.MediaTrackSource.cpp" />
@@ -386,6 +389,14 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\cppwinrt\Org.WebRtc.MediaElementMaker.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\cppwinrt\Org.WebRtc.MediaSource.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -412,6 +423,7 @@
     <Midl Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\msidl\Org.WebRtc.EventQueue.idl" />
     <Midl Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\msidl\Org.WebRtc.EventQueueMaker.idl" />
     <Midl Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\msidl\Org.WebRtc.MediaElement.idl" />
+    <Midl Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\msidl\Org.WebRtc.MediaElementMaker.idl" />
     <Midl Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\msidl\Org.WebRtc.MediaSource.idl" />
     <Midl Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\msidl\Org.WebRtc.VideoDeviceInfo.idl" />
   </ItemGroup>
@@ -440,7 +452,23 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </None>
+    <None Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\msidl\Org.WebRtc.MediaElementMaker.idl.template">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
     <None Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\msidl\Org.WebRtc.MediaSource.idl.template">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\msidl\Org.WebRtc.VideoDeviceInfo.idl.template">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</ExcludedFromBuild>

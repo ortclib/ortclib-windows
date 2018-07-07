@@ -612,6 +612,12 @@
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webRtc_VideoDeviceInfo.h">
       <Filter>wrapper</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\org_webRtc_MediaElementMaker.h">
+      <Filter>wrapper\override</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webRtc_MediaElementMaker.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webRtc_AudioOptions.cpp">
@@ -906,6 +912,9 @@
       <Filter>wrapper</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webRtc_VideoDeviceInfo.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\impl_org_webRtc_MediaElementMaker.cpp">
       <Filter>wrapper</Filter>
     </ClCompile>
   </ItemGroup>

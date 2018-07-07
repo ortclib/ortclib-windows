@@ -329,6 +329,12 @@
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.WebRtc.VideoDeviceInfo.cpp">
       <Filter>wrapper\generated\cppwinrt</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\cppwinrt\Org.WebRtc.MediaElementMaker.cpp">
+      <Filter>wrapper\override\cppwinrt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.WebRtc.MediaElementMaker.cpp">
+      <Filter>wrapper\generated\cppwinrt</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -633,6 +639,12 @@
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.WebRtc.VideoDeviceInfo.h">
       <Filter>wrapper\generated\cppwinrt</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\cppwinrt\Org.WebRtc.MediaElementMaker.h">
+      <Filter>wrapper\override\cppwinrt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.WebRtc.MediaElementMaker.h">
+      <Filter>wrapper\generated\cppwinrt</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\msidl\output.idl">
@@ -653,6 +665,9 @@
     <Midl Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\msidl\Org.WebRtc.VideoDeviceInfo.idl">
       <Filter>wrapper\override\msidl</Filter>
     </Midl>
+    <Midl Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\msidl\Org.WebRtc.MediaElementMaker.idl">
+      <Filter>wrapper\override\msidl</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <None Include="WebRtc.def" />
@@ -666,6 +681,12 @@
       <Filter>wrapper\generated\msidl</Filter>
     </None>
     <None Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\msidl\Org.WebRtc.MediaSource.idl.template">
+      <Filter>wrapper\generated\msidl</Filter>
+    </None>
+    <None Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\msidl\Org.WebRtc.MediaElementMaker.idl.template">
+      <Filter>wrapper\generated\msidl</Filter>
+    </None>
+    <None Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\msidl\Org.WebRtc.VideoDeviceInfo.idl.template">
       <Filter>wrapper\generated\msidl</Filter>
     </None>
   </ItemGroup>
