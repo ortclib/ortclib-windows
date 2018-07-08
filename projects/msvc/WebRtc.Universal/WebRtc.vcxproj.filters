@@ -322,7 +322,6 @@
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.WebRtc.WebRtcLib.cpp">
       <Filter>wrapper\generated\cppwinrt</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.WebRtc.RTCRtpTransceiverInit.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\cppwinrt\Org.WebRtc.VideoDeviceInfo.cpp">
       <Filter>wrapper\override\cppwinrt</Filter>
     </ClCompile>
@@ -334,6 +333,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.WebRtc.MediaElementMaker.cpp">
       <Filter>wrapper\generated\cppwinrt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.WebRtc.RTCRtpTransceiverInit.cpp">
+      <Filter>wrapper\generated\cppwinrt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\cppwinrt\cppwinrt_Helpers_Throwers.cpp">
+      <Filter>wrapper\override\cppwinrt</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -632,7 +637,6 @@
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\types.h">
       <Filter>wrapper\generated\cppwinrt</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.WebRtc.RTCRtpTransceiverInit.h" />
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\override\cppwinrt\Org.WebRtc.VideoDeviceInfo.h">
       <Filter>wrapper\override\cppwinrt</Filter>
     </ClInclude>
@@ -643,6 +647,9 @@
       <Filter>wrapper\override\cppwinrt</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.WebRtc.MediaElementMaker.h">
+      <Filter>wrapper\generated\cppwinrt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\xplatform\ortclib-cpp\webrtc\idl\wrapper\generated\cppwinrt\Org.WebRtc.RTCRtpTransceiverInit.h">
       <Filter>wrapper\generated\cppwinrt</Filter>
     </ClInclude>
   </ItemGroup>

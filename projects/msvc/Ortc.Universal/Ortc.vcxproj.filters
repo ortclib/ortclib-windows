@@ -514,6 +514,9 @@
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Org.Ortc.StringOrStringList.cpp">
       <Filter>wrapper\generated\cppwinrt</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\override\cppwinrt\cppwinrt_Helpers_Throwers.cpp">
+      <Filter>wrapper\override\cppwinrt</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
