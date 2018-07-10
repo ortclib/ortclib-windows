@@ -235,6 +235,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\libOrtc\cx_Helpers.obj" />
+    <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\libOrtc\cx_Helpers_Throwers.obj" />
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\libOrtc\Org_Ortc_Adapter_MediaStream.obj" />
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\libOrtc\Org_Ortc_Adapter_RTCAnswerOptions.obj" />
     <Object Include="obj\winuwp_$(PlatformTarget)_$(Configuration)\libOrtc\Org_Ortc_Adapter_RTCCapabilityOptions.obj" />
