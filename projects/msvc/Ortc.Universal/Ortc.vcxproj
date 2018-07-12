@@ -365,6 +365,14 @@
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\ConstrainString.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\ConstrainStringParameters.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\cppwinrt_Helpers.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\cppwinrt_Helpers2.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\cppwinrt_Helpers3.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\cppwinrt_Helpers4.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\cppwinrt_Helpers5.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\cppwinrt_Helpers6.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\cppwinrt_Helpers7.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\cppwinrt_Helpers8.cpp" />
+    <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\cppwinrt_Helpers9.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\DoubleRange.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\Error.cpp" />
     <ClCompile Include="..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\cppwinrt\ErrorEvent.cpp" />
