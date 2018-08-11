@@ -1,5 +1,5 @@
 ========================================================================
-    C++/WinRT Org.Ortc.CppWinrt Project Overview
+    C++/WinRT Org.Ortc Project Overview
 ========================================================================
 
 This project demonstrates how to get started authoring Windows Runtime 

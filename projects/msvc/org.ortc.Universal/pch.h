@@ -5,4 +5,8 @@
 
 #pragma once
 
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif //ndef NOMINMAX
+
 #include "winrt/Windows.Foundation.h"
