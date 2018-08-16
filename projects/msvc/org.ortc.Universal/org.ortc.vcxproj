@@ -108,13 +108,13 @@
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\msidl;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\override\msidl;</AdditionalIncludeDirectories>
     </Midl>
     <PostBuildEvent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">copy $(TargetDir)Merged\$(AssemblyName).winmd $(TargetDir)$(AssemblyName).winmd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">copy $(TargetDir)Merged\*.winmd $(TargetDir)</Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy $(TargetDir)Merged\$(AssemblyName).winmd $(TargetDir)$(AssemblyName).winmd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy $(TargetDir)Merged\*.winmd $(TargetDir)</Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">copy $(TargetDir)Merged\$(AssemblyName).winmd $(TargetDir)$(AssemblyName).winmd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">copy $(TargetDir)Merged\*.winmd $(TargetDir)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
@@ -152,13 +152,13 @@
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\generated\msidl;$(ProjectDir)..\..\..\..\xplatform\ortclib-cpp\ortc\idl\wrapper\override\msidl;</AdditionalIncludeDirectories>
     </Midl>
     <PostBuildEvent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">copy $(TargetDir)Merged\$(AssemblyName).winmd $(TargetDir)$(AssemblyName).winmd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">copy $(TargetDir)Merged\*.winmd $(TargetDir)</Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy $(TargetDir)Merged\$(AssemblyName).winmd $(TargetDir)$(AssemblyName).winmd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy $(TargetDir)Merged\*.winmd $(TargetDir)</Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">copy $(TargetDir)Merged\$(AssemblyName).winmd $(TargetDir)$(AssemblyName).winmd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">copy $(TargetDir)Merged\*.winmd $(TargetDir)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
