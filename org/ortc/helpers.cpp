@@ -202,7 +202,7 @@ namespace Org
       Windows::Foundation::DateTime Helper::ToCx(const zsLib::Time &value)
       {
         Windows::Foundation::DateTime result {};
-        auto t = day_point(jan / 1 / 1601);
+        auto t = sys_days(jan / 1 / 1601);
 
         auto diff = value - t;
         auto nano = zsLib::toNanoseconds(diff);
@@ -213,7 +213,7 @@ namespace Org
 
       zsLib::Time Helper::FromCx(Windows::Foundation::DateTime value)
       {
-        zsLib::Time t = day_point(jan / 1 / 1601);
+        zsLib::Time t = sys_days(jan / 1 / 1601);
 
         auto nano = zsLib::toMilliseconds(zsLib::Nanoseconds(static_cast<zsLib::Nanoseconds::rep>(value.UniversalTime) * static_cast<zsLib::Nanoseconds::rep>(100)));
 
