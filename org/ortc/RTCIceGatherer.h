@@ -135,7 +135,7 @@ namespace Org
       /// <summary>
       /// Filter all but relay candidates.
       /// </summary>
-      RelayOnly = (NoIPv4Host | NoSrflx | NoPrflx),
+      RelayOnly = (NoHost | NoPrivate | NoSrflx | NoPrflx),
       /// <summary>
       /// Filter all candidates.
       /// </summary>
